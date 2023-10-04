@@ -1,0 +1,31 @@
+Servicio: Validar Comprobante
+Clave Acceso: 1708202303171368380100110020010000000010000000114
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => 1708202303171368380100110020010000000010000000114
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 35
+                                    [mensaje] => ARCHIVO NO CUMPLE ESTRUCTURA XML
+                                    [informacionAdicional] => Se encontró el siguiente error en la estructura del comprobante: cvc-pattern-valid: Value '03' is not facet-valid with respect to pattern '[0][4-8]' for type 'tipoIdentificacionProveedor'..
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

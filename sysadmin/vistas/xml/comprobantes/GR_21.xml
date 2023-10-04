@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <guiaRemision id="comprobante" version="1.0.0">
+        <infoTributaria>
+            <ambiente>1</ambiente>
+            <tipoEmision>1</tipoEmision>
+            <razonSocial>DISTRIBUIDORA Y COMERCIALIZADORA</razonSocial>
+            <nombreComercial>BEAUTY BUSINESS</nombreComercial>
+            <ruc>1713683801001</ruc>
+            <claveAcceso>1908202306171368380100110020010000000210000002114</claveAcceso>
+            <codDoc>06</codDoc>
+            <estab>002</estab>
+            <ptoEmi>001</ptoEmi>
+            <secuencial>000000021</secuencial>
+            <dirMatriz>BRACAMORO 100</dirMatriz>
+        </infoTributaria>
+        <infoGuiaRemision>
+            <dirEstablecimiento>BRACAMORO 100</dirEstablecimiento>    
+            <dirPartida>sdfsdfsdfsdfsdfsdf</dirPartida>  
+            <razonSocialTransportista>dfsdf</razonSocialTransportista>  
+            <tipoIdentificacionTransportista>06</tipoIdentificacionTransportista>  
+            <rucTransportista>2342345343434</rucTransportista>  
+            <obligadoContabilidad>NO</obligadoContabilidad>
+            <fechaIniTransporte>19/08/2023</fechaIniTransporte>  
+            <fechaFinTransporte>19/08/2023</fechaFinTransporte>  
+            <placa>ASD34234</placa>  
+        </infoGuiaRemision><destinatarios>
+                <destinatario>
+                    <identificacionDestinatario>0707061214</identificacionDestinatario>
+                    <razonSocialDestinatario>FERNANDEZ RODRIGUEZ DIANA CAROLINA </razonSocialDestinatario>
+                    <dirDestinatario>ELOY ALFARO Y SUIZA ESQUINA </dirDestinatario>
+                    <motivoTraslado>sdfsdfsdf</motivoTraslado><detalles><detalle>
+                                <codigoInterno>Ccv</codigoInterno>
+                                <descripcion>DESCRIP</descripcion>
+                                <cantidad>1</cantidad>
+                        </detalle></detalles></destinatario>
+        </destinatarios>
+        <infoAdicional>
+            <campoAdicional nombre="Direccion">direccion</campoAdicional>
+            <campoAdicional nombre="Telefono">telefono</campoAdicional>		
+            <campoAdicional nombre="Email">email</campoAdicional>
+        </infoAdicional>
+    </guiaRemision>

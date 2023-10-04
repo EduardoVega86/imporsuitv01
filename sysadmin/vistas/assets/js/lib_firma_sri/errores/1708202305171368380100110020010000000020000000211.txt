@@ -1,0 +1,30 @@
+Servicio: Validar Comprobante
+Clave Acceso: 1708202305171368380100110020010000000020000000211
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => 1708202305171368380100110020010000000020000000211
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 43
+                                    [mensaje] => CLAVE ACCESO REGISTRADA
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

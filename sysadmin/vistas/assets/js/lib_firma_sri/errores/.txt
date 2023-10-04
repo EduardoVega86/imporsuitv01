@@ -1,0 +1,31 @@
+Servicio: Validar Comprobante
+Clave Acceso: 
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => N/A
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 35
+                                    [mensaje] => ARCHIVO NO CUMPLE ESTRUCTURA XML
+                                    [informacionAdicional] => Se encontró el siguiente error en la estructura del comprobante: No se ha encontrado información en el tag claveAcceso.
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

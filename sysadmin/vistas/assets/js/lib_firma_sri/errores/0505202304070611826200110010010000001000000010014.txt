@@ -1,0 +1,31 @@
+Servicio: Validar Comprobante
+Clave Acceso: 0505202304070611826200110010010000001000000010014
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => 0505202304070611826200110010010000001000000010014
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 35
+                                    [mensaje] => ARCHIVO NO CUMPLE ESTRUCTURA XML
+                                    [informacionAdicional] => Se encontró el siguiente error en la estructura del comprobante: cvc-complex-type.2.4.a: Invalid content was found starting with element 'tarifa'. One of '{valor}' is expected..
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

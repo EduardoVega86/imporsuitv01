@@ -1,0 +1,31 @@
+Servicio: Validar Comprobante
+Clave Acceso: 1205202304070611826200110010010000000180000001710
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => 1205202304070611826200110010010000000180000001710
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 35
+                                    [mensaje] => ARCHIVO NO CUMPLE ESTRUCTURA XML
+                                    [informacionAdicional] => Se encontró el siguiente error en la estructura del comprobante: cvc-complex-type.2.4.b: The content of element 'detalles' is not complete. One of '{detalle}' is expected..
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

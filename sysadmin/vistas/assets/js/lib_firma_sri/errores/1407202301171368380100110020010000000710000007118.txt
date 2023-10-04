@@ -1,0 +1,31 @@
+Servicio: Validar Comprobante
+Clave Acceso: 1407202301171368380100110020010000000710000007118
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => 1407202301171368380100110020010000000710000007118
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 90
+                                    [mensaje] => LIMITE DE INTENTOS NO AUTORIZADOS POR DIA
+                                    [informacionAdicional] => La clave de acceso 1407202301171368380100110020010000000710000007118 ha superado el limite diario permitido para un comprobante no autorizado (3 intentos), para la fecha: Fri Jul 14 09:29:29 GMT-05:00 2023. Corrija los errores e intente nuevamente al dia siguiente.
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

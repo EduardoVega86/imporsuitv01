@@ -1,0 +1,31 @@
+Servicio: Validar Comprobante
+Clave Acceso: 0706202307070611826200110010010000000520000005211
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => N/A
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 35
+                                    [mensaje] => ARCHIVO NO CUMPLE ESTRUCTURA XML
+                                    [informacionAdicional] => Se encontró el siguiente error en la estructura del comprobante: No se ha encontrado un esquema para el tipo de comprobante TipoComprobante(=codigo: 6, codigoTipoDocumentoAdm: 7, nombre: Comprobante de Retención, estado: ACT) en la version 1.1.0.
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

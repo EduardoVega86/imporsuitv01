@@ -1,0 +1,31 @@
+Servicio: Validar Comprobante
+Clave Acceso: 1808202306171368380100110020011000112100000000814
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => 1808202306171368380100110020011000112100000000814
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 58
+                                    [mensaje] => ERROR EN LA ESTRUCTURA DE LA CLAVE DE ACCESO
+                                    [informacionAdicional] => La fecha de emisión Tue Aug 01 00:00:00 GMT-05:00 2023 no consta como parte de la clave de acceso 1808202306171368380100110020011000112100000000814
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

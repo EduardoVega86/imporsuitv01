@@ -1,0 +1,30 @@
+Servicio: Validar Comprobante
+Clave Acceso: 0906202301070611826200110010010000001750000017511
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => 0906202301070611826200110010010000001750000017511
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 45
+                                    [mensaje] => ERROR SECUENCIAL REGISTRADO
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

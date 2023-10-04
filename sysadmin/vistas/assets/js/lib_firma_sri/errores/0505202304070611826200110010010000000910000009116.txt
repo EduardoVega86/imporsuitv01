@@ -1,0 +1,31 @@
+Servicio: Validar Comprobante
+Clave Acceso: 0505202304070611826200110010010000000910000009116
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => 0505202304070611826200110010010000000910000009116
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 35
+                                    [mensaje] => ARCHIVO NO CUMPLE ESTRUCTURA XML
+                                    [informacionAdicional] => Se encontró el siguiente error en la estructura del comprobante: cvc-pattern-valid: Value '001-001-0000000001' is not facet-valid with respect to pattern '[0-9]{3}-[0-9]{3}-[0-9]{9}' for type 'numDocModificado'..
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

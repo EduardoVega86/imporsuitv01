@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <notaDebito id="comprobante" version="1.0.0">
+        <infoTributaria>
+            <ambiente>1</ambiente>
+            <tipoEmision>1</tipoEmision>
+            <razonSocial>DISTRIBUIDORA Y COMERCIALIZADORA</razonSocial>
+            <nombreComercial>BEAUTY BUSINESS</nombreComercial>
+            <ruc>1713683801001</ruc>
+            <claveAcceso>0209202305171368380100110020010000000310000003111</claveAcceso>
+            <codDoc>05</codDoc>
+            <estab>002</estab>
+            <ptoEmi>001</ptoEmi>
+            <secuencial>000000031</secuencial>
+            <dirMatriz>BRACAMORO 100</dirMatriz>
+        </infoTributaria>
+        <infoNotaDebito>
+            <fechaEmision>02/09/2023</fechaEmision>
+            <dirEstablecimiento>BRACAMORO 100</dirEstablecimiento>
+            <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+            <razonSocialComprador>Alexandra</razonSocialComprador>
+            <identificacionComprador>0490041877001</identificacionComprador>
+            <obligadoContabilidad>NO</obligadoContabilidad>      
+            <codDocModificado>01</codDocModificado>
+            <numDocModificado>123-123-123456789</numDocModificado>
+            <fechaEmisionDocSustento>02/09/2023</fechaEmisionDocSustento><totalSinImpuestos>12.00</totalSinImpuestos>
+            <impuestos><impuesto>
+                            <codigo>2</codigo>
+                            <codigoPorcentaje>2</codigoPorcentaje>
+                            <tarifa>12</tarifa>
+                            <baseImponible>12</baseImponible>
+                            <valor>1.44</valor>
+                        </impuesto></impuestos>
+            <valorTotal>13.44</valorTotal>
+            <pagos><pago>
+                        <formaPago>01</formaPago>
+                        <total>13.44</total>
+                        <plazo>12</plazo>
+                        <unidadTiempo>Dias</unidadTiempo>
+                    </pago></pagos>
+        </infoNotaDebito>
+        <motivos><motivo>
+                            <razon>prueba</razon>
+                            <valor>12</valor>
+                        </motivo></motivos>
+        <infoAdicional>
+            <campoAdicional nombre="Direccion">PRUEBAS </campoAdicional>
+            <campoAdicional nombre="Telefono">pruebas@hotmail.com</campoAdicional>		
+            <campoAdicional nombre="Email">022070995</campoAdicional>
+        </infoAdicional>
+    </notaDebito>

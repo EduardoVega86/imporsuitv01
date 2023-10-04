@@ -1,0 +1,6 @@
+Servicio: Validar Comprobante
+Clave Acceso: 1205202301070611826200110010010000000180000003412
+Respuesta: HTTP Error: cURL ERROR: 6: Could not resolve host: celcer.sri.gob.ec<br>url: https://celcer.sri.gob.ec:443/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl<br>content_type: <br>http_code: 0<br>header_size: 0<br>request_size: 0<br>filetime: -1<br>ssl_verify_result: 0<br>redirect_count: 0<br>total_time: 10.965694<br>namelookup_time: 0<br>connect_time: 0<br>pretransfer_time: 0<br>size_upload: 0<br>size_download: 0<br>speed_download: 0<br>speed_upload: 0<br>download_content_length: -1<br>upload_content_length: -1<br>starttransfer_time: 0<br>redirect_time: 0<br>redirect_url: <br>primary_ip: <br>certinfo: Array<br>primary_port: 0<br>local_ip: <br>local_port: 0<br>http_version: 0<br>protocol: 0<br>ssl_verifyresult: 0<br>scheme: <br>appconnect_time_us: 0<br>connect_time_us: 0<br>namelookup_time_us: 0<br>pretransfer_time_us: 0<br>redirect_time_us: 0<br>starttransfer_time_us: 0<br>total_time_us: 10965694<br>
+
+__________________________________________________________________
+

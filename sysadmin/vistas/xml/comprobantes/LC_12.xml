@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <liquidacionCompra id="comprobante" version="1.0.0">
+            <infoTributaria>
+                <ambiente>1</ambiente>
+                <tipoEmision>1</tipoEmision>
+                <razonSocial>DISTRIBUIDORA Y COMERCIALIZADORA</razonSocial>
+                <nombreComercial>BEAUTY BUSINESS</nombreComercial>
+                <ruc>1713683801001</ruc>
+                <claveAcceso>1808202303171368380100110020010000000120000001212</claveAcceso>
+                <codDoc>03</codDoc>
+                <estab>002</estab>
+                <ptoEmi>001</ptoEmi>
+                <secuencial>000000012</secuencial>
+                <dirMatriz>BRACAMORO 100</dirMatriz>
+            </infoTributaria>
+            <infoLiquidacionCompra>
+                <fechaEmision>18/08/2023</fechaEmision>
+                <dirEstablecimiento>BRACAMORO 100</dirEstablecimiento>
+                <obligadoContabilidad>NO</obligadoContabilidad>
+                <tipoIdentificacionProveedor>04</tipoIdentificacionProveedor>
+                <razonSocialProveedor>Alexandra</razonSocialProveedor>
+                <identificacionProveedor>0490041877001</identificacionProveedor>
+                <direccionProveedor>Call123</direccionProveedor><totalSinImpuestos>20.00</totalSinImpuestos>
+                <totalDescuento>0.00</totalDescuento><totalConImpuestos>
+                    <totalImpuesto>
+                        <codigo>2</codigo>
+                        <codigoPorcentaje>0</codigoPorcentaje>
+                        <baseImponible>20.00</baseImponible>
+                        <valor>0.00</valor>
+                    </totalImpuesto></totalConImpuestos>
+                <importeTotal>20.00</importeTotal>
+                <moneda>DOLAR</moneda>
+                <pagos>
+                    <pago>
+                        <formaPago>01</formaPago>
+                        <total>20.00</total>
+                    </pago>
+                </pagos>
+            </infoLiquidacionCompra><detalles><detalle>
+        <codigoPrincipal>10001</codigoPrincipal>
+        <codigoAuxiliar>10001</codigoAuxiliar>
+        <descripcion>DESCRIP</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>20.00</precioUnitario>            
+        <descuento>0.00</descuento>
+        <precioTotalSinImpuesto>20.00</precioTotalSinImpuesto><impuestos>
+                  <impuesto>
+                      <codigo>2</codigo>
+                      <codigoPorcentaje>0</codigoPorcentaje>
+                      <tarifa>0</tarifa>
+                      <baseImponible>20.00</baseImponible>
+                      <valor>0</valor>
+                  </impuesto></impuestos></detalle>
+              </detalles>
+            <infoAdicional>
+                <campoAdicional nombre="Direccion">direccion</campoAdicional>
+                <campoAdicional nombre="Telefono">telefono</campoAdicional>		
+                <campoAdicional nombre="Email">email</campoAdicional>
+            </infoAdicional>
+        </liquidacionCompra>
