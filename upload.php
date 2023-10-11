@@ -17,7 +17,7 @@ if ($_FILES['file']['name']) {
             $imageURL = '/' . $destination; // URL de la imagen cargada
             echo $imageURL; // Devuelve la URL de la imagen cargada
         } else {
-            echo 'Error al mover el archivo...';
+            echo 'Error al mover el archivo....';
         }
     } else {
         echo $message = 'Ocurrió un error: ' . $_FILES['file']['error'];
