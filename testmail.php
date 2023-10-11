@@ -1,4 +1,3 @@
-
 <?php
 $para = 'desarrollo@imporsuit.com';
 $asunto = 'Prueba de correo electrónico';
