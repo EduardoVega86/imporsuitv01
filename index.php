@@ -6,7 +6,7 @@
        require_once "sysadmin/vistas/php_conexion.php";
        require_once "sysadmin/vistas/funciones.php";
       // echo 'sysadmin/vistas/ajax/banner/'.get_row('perfil', 'banner', 'id_perfil', 1);
-         $id_producto='';  
+         $id_producto=0;  
        $pagina='INICIO';   
        include './auditoria.php';
        include './includes/style.php';
