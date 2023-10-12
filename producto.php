@@ -14,7 +14,7 @@ require_once "sysadmin/vistas/db.php";
     
     $id_producto=$_GET['id'];
     
-    $pagina='productos';   
+    $pagina='PRODUCTO';   
     include './auditoria.php';
      include './includes/style.php';
 
