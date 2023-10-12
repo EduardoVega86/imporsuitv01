@@ -12,7 +12,7 @@
 </style>
 <div class="modal fade" style="font-size:15px; padding: 10px" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-      <form method="post" action="ajax/guardar_cotizacion.php">
+      <form method="post" action="gracias.php">
     <div id="gracias" class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">ENVÍO GRATIS 🚨</h5>
