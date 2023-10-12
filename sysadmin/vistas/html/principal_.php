@@ -54,7 +54,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 
             <div class="col-lg-6 col-xl-3">
              <a href="cxp.php">
-              <div class="widget-bg-color-icon card-box" style="background: #E3CEF6">
+              <div class="widget-bg-color-icon card-box">
                 <div class="bg-icon bg-icon-success pull-left">
                   <i class="ti-calendar text-success"></i>
                 </div>
@@ -70,7 +70,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 
             <div class="col-lg-6 col-xl-3">
             <a href="bitacora_compras.php">
-              <div class="widget-bg-color-icon card-box" style="background: #A9BCF5">
+              <div class="widget-bg-color-icon card-box">
                 <div class="bg-icon bg-icon-danger pull-left">
                   <i class="ti-export text-pink"></i>
                 </div>
@@ -85,7 +85,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 
             <div class="col-lg-6 col-xl-3">
              <a href="cxc.php">
-              <div class="widget-bg-color-icon card-box" style="background: #CEF6F5">
+              <div class="widget-bg-color-icon card-box">
                 <div class="bg-icon bg-icon-purple pull-left">
                   <i class="ti-dashboard text-purple"></i>
                 </div>
@@ -100,7 +100,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 
             <div class="col-lg-6 col-xl-3">
              <a href="bitacora_ventas.php">
-              <div class="widget-bg-color-icon card-box fadeInDown animated" style="background: #F6CED8">
+              <div class="widget-bg-color-icon card-box fadeInDown animated">
                 <div class="bg-icon bg-icon-primary pull-left">
                   <i class=" ti-money text-info"></i>
                 </div>
@@ -227,8 +227,7 @@ latest_order();
 <!-- END wrapper -->
 
 
-<?php require 'includes/footer_start.php'
-?>
+<?php require 'includes/footer_start.php';?>
 <!-- ============================================================== -->
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
