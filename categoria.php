@@ -15,7 +15,7 @@
        require_once "sysadmin/vistas/php_conexion.php";
        require_once "sysadmin/vistas/funciones.php";
        
-         $id_producto='';  
+         $id_producto=0;  
        $pagina='CATALOGO';   
        include './auditoria.php';
        include './includes/style.php';
