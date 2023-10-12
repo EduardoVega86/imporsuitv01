@@ -16,7 +16,7 @@
        require_once "sysadmin/vistas/funciones.php";
        
          $id_producto='';  
-       $pagina='categorias';   
+       $pagina='CATALOGO';   
        include './auditoria.php';
        include './includes/style.php';
        if (isset($_GET['id_cat'])){
