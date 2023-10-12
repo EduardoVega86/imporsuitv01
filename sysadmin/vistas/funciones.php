@@ -105,6 +105,40 @@ function total_cxp()
 
     echo '' . $id_moneda . '' . number_format($total_abono, 2) . '';
 }
+
+
+function total_visitas()
+{
+     $id_moneda    = get_row('perfil', 'moneda', 'id_perfil', 1);
+    $fecha_actual = date('Y-m-d');
+    global $conexion;
+    //---------------------------------------------------------------------------------------
+    $abonoSql    = "SELECT count(id) as total FROM registros_visitas where date(fecha_hora) = '$fecha_actual'";
+    //echo $abonoSql; 
+    $abonoQuery  = $conexion->query($abonoSql);
+    $total_abono = 0;
+    while ($abonoResult = $abonoQuery->fetch_assoc()) {
+        $total_abono += $abonoResult['total'];
+    }
+
+    echo '' . '' . $total_abono . '';
+}
+
+function total_pedidos()
+{
+     $id_moneda    = get_row('perfil', 'moneda', 'id_perfil', 1);
+    $fecha_actual = date('Y-m-d');
+    global $conexion;
+    //---------------------------------------------------------------------------------------
+    $abonoSql    = "SELECT * FROM facturas_cot where date(fecha_factura) = '$fecha_actual'";
+    $abonoQuery  = $conexion->query($abonoSql);
+    $total_abono = 0;
+    while ($abonoResult = $abonoQuery->fetch_assoc()) {
+        $total_abono += $abonoResult['monto_factura'];
+    }
+
+    echo '' . $id_moneda . '' . number_format($total_abono, 2) . '';
+}
 /*--------------------------------------------------------------*/
 /* Funcion para obtener el total de Abonos a proveedores
 /*--------------------------------------------------------------*/
@@ -177,6 +211,70 @@ function latest_order()
     $id_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
     $sql = mysqli_query($conexion, "select * from facturas_ventas where id_cliente >0 order by  id_factura desc limit 0,5");
+    while ($rw = mysqli_fetch_array($sql)) {
+        $id_factura     = $rw['id_factura'];
+        $numero_factura = $rw['numero_factura'];
+
+        $supplier_id       = $rw['id_cliente'];
+        $sql_s             = mysqli_query($conexion, "select nombre_cliente from clientes where id_cliente='" . $supplier_id . "'");
+        $rw_s              = mysqli_fetch_array($sql_s);
+        $supplier_name     = $rw_s['nombre_cliente'];
+        $date_added        = $rw['fecha_factura'];
+        list($date, $hora) = explode(" ", $date_added);
+        list($Y, $m, $d)   = explode("-", $date);
+        $fecha             = $d . "-" . $m . "-" . $Y;
+        $total             = number_format($rw['monto_factura'], 2);
+        ?>
+        <tr>
+            <td><a href="editar_venta.php?id_factura=<?php echo $id_factura; ?>" data-toggle="tooltip" title="Ver Factura"><label class='badge badge-primary'><?php echo $numero_factura; ?></label></a></td>
+            <td><?php echo $fecha; ?></td>
+            <td class='text-left'><b><?php echo $id_moneda . '' . $total; ?></b></td>
+        </tr>
+        <?php
+
+    }
+}
+
+function visitas()
+{
+    global $conexion;
+    $id_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
+
+    $sql="select count(id) valor, pagina, fecha_hora from registros_visitas where pagina <> 'PRODUCTO' group by pagina UNION
+select count(id) valor, productos.nombre_producto, fecha_hora from registros_visitas, productos where registros_visitas.id_producto=productos.id_producto and registros_visitas.id_producto <> 0 group by registros_visitas.ID_PRODUCTO
+order by valor desc"; 
+    //echo $sql;
+    $sql = mysqli_query($conexion, "$sql");
+    while ($rw = mysqli_fetch_array($sql)) {
+        //$id_factura     = $rw['id'];
+      //  $numero_factura = $rw['numero_factura'];
+
+       // $supplier_id       = $rw['id_cliente'];
+     //   $sql_s             = mysqli_query($conexion, "select nombre_cliente from clientes where id_cliente='" . $supplier_id . "'");
+     //   $rw_s              = mysqli_fetch_array($sql_s);
+        $pagina     = $rw['pagina'];
+        $date_added        = $rw['fecha_hora'];
+        list($date, $hora) = explode(" ", $date_added);
+        list($Y, $m, $d)   = explode("-", $date);
+        $fecha             = $d . "-" . $m . "-" . $Y;
+        $total             = $rw['valor'];
+        ?>
+        <tr>
+            <td><a href="#" data-toggle="tooltip" title=""><label class='badge badge-primary'><?php echo strtoupper($pagina); ?></label></a></td>
+           
+            <td class='text-right'><b><?php echo $total; ?></b></td>
+        </tr>
+        <?php
+
+    }
+}
+
+function ultimos_pedidos()
+{
+    global $conexion;
+    $id_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
+
+    $sql = mysqli_query($conexion, "select * from facturas_cot where id_cliente >0 order by  id_factura desc limit 0,5");
     while ($rw = mysqli_fetch_array($sql)) {
         $id_factura     = $rw['id_factura'];
         $numero_factura = $rw['numero_factura'];
