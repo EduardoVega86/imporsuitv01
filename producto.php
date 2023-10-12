@@ -335,20 +335,7 @@ include './includes/horizontal_items.php';
   </symbol>
 </svg>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/froala_editor.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/froala_style.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/code_view.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/colors.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/emoticons.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/image_manager.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/image.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/line_breaker.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/table.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/char_counter.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/video.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/fullscreen.css">
-  <link rel="stylesheet" href="sysadmin/vistas/hipertexto/css/plugins/file.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+    
 <?php
 $producto_activa="";
 $producto_activa="menu_activo texto_boton";
@@ -371,15 +358,9 @@ $producto_activa="menu_activo texto_boton";
               
   <link href="ccs/section-main-product.css?v=134235731387245433901693673628" rel="stylesheet" type="text/css" media="all" />
  
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-price.css?v=183165605081763449011693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-slider.css?v=17305047213098365241693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-rating.css?v=24573085263941240431693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-loading-overlay.css?v=167310470843593579841693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-deferred-media.css?v=54092797763792720131693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-quantity-breaks.css?v=84076415199349079771693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-sticky-atc.css?v=131038318804800685901693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-list-payment.css?v=69253961410771838501693673627" rel="stylesheet" type="text/css" media="all" />
+  
+ 
+  
 <style data-shopify>.section-template--20805847023897__main-padding {
       padding-top: 18px;
       padding-bottom: 0px;
@@ -390,8 +371,8 @@ $producto_activa="menu_activo texto_boton";
         padding-top: 24px;
         padding-bottom: 0px;
       }
-    }</style><script src="//tiendamiaecu.com/cdn/shop/t/3/assets/product-info.js?v=174806172978439001541693673628" defer="defer"></script>
-  <script src="//tiendamiaecu.com/cdn/shop/t/3/assets/product-form.js?v=70749256710412210451693673628" defer="defer"></script>
+    }</style><script src="js/product-info.js?v=174806172978439001541693673628" defer="defer"></script>
+
   
 
 
@@ -700,12 +681,13 @@ include './includes/horizontal_items.php';
 
 
 <section id="shopify-section-template--20805846597913__c65117da-b894-43a0-8d4d-7bd214ab10a9" class="shopify-section section">
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/section-multicolumn.css?v=6265525776963667451693673628" rel="stylesheet" type="text/css" media="all" />
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/section-testimonials.css?v=8614899098275451131693673629" rel="stylesheet" type="text/css" media="all" />
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
-            <link rel="stylesheet" href="//tiendamiaec.com/cdn/shop/t/3/assets/component-slider.css?v=17305047213098365241693673627" media="print" onload="this.media='all'">
+    <link href="ccs/section-multicolumn.css" rel="stylesheet" type="text/css"/>
+            <link href="ccs/section-multicolumn.css?v=6265525776963667451693673628" rel="stylesheet" type="text/css" media="all" />
+            <link href="ccs/section-testimonials.css?v=8614899098275451131693673629" rel="stylesheet" type="text/css" media="all" />
+            <link href="ccs/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
+            <link rel="stylesheet" href="ccs/component-slider.css?v=17305047213098365241693673627" media="print" onload="this.media='all'">
             <noscript>
-               <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-slider.css?v=17305047213098365241693673627" rel="stylesheet" type="text/css" media="all" />
+               <link href="ccs/component-slider.css?v=17305047213098365241693673627" rel="stylesheet" type="text/css" media="all" />
             </noscript>
             <style data-shopify>.section-template--20805846597913__c65117da-b894-43a0-8d4d-7bd214ab10a9-padding {
                padding-top: 27px;
@@ -755,7 +737,7 @@ include './includes/horizontal_items.php';
                                  <p class="testimonial-card__stars">★★★★★</p>
                                  <div class="testimonial-card__quotes testimonial-card__quotes--image-blank">
                                     <img
-                                       src="//tiendamiaec.com/cdn/shop/t/3/assets/quotes.png?v=117522929067270552721693673628"
+                                       src="ccs/quotes.png?v=117522929067270552721693673628"
                                        alt="''"
                                        >
                                  </div>
@@ -811,7 +793,8 @@ include './includes/horizontal_items.php';
             </div>
          </section>
 <!-- comment -->
-<div id="shopify-section-template--20805847023897__03c08e95-f0ce-4379-bc05-787da4136202" class="shopify-section"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-tickers.css?v=30346802988262109031693673627" rel="stylesheet" type="text/css" media="all" />
+<div id="shopify-section-template--20805847023897__03c08e95-f0ce-4379-bc05-787da4136202" class="shopify-section">
+    
 <style data-shopify>.section-template--20805847023897__03c08e95-f0ce-4379-bc05-787da4136202-padding {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -837,8 +820,9 @@ include './includes/horizontal_items.php';
 
 
 
-</div><div id="shopify-section-template--20805847023897__6b7afe89-5595-4016-a10d-f260d82ca9cc" class="shopify-section"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/section-comparison-table.css?v=155681902682432648871693673628" rel="stylesheet" type="text/css" media="all" />
-<link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
+</div><div id="shopify-section-template--20805847023897__6b7afe89-5595-4016-a10d-f260d82ca9cc" class="shopify-section">
+    <link href="ccs/section-comparison-table.css?v=155681902682432648871693673628" rel="stylesheet" type="text/css" media="all" />
+<link href="ccs/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
 <style data-shopify>.section-template--20805847023897__6b7afe89-5595-4016-a10d-f260d82ca9cc-padding {
     padding-top: 27px;
     padding-bottom: 27px;
@@ -916,11 +900,12 @@ include './includes/horizontal_items.php';
 </div>
 
 
-</div><section id="shopify-section-template--20805847023897__e21ff573-e051-4bf7-867b-94765a3b8f11" class="shopify-section section"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/section-multicolumn.css?v=6265525776963667451693673628" rel="stylesheet" type="text/css" media="all" />
-<link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
+</div>
+<section id="shopify-section-template--20805847023897__e21ff573-e051-4bf7-867b-94765a3b8f11" class="shopify-section section">
+    
 
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-slider.css?v=17305047213098365241693673627" media="print" onload="this.media='all'">
-<noscript><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-slider.css?v=17305047213098365241693673627" rel="stylesheet" type="text/css" media="all" /></noscript><style data-shopify>.section-template--20805847023897__e21ff573-e051-4bf7-867b-94765a3b8f11-padding {
+<link rel="stylesheet" href="ccs/component-slider.css?v=17305047213098365241693673627" media="print" onload="this.media='all'">
+<noscript><link href="ccs/component-slider.css?v=17305047213098365241693673627" rel="stylesheet" type="text/css" media="all" /></noscript><style data-shopify>.section-template--20805847023897__e21ff573-e051-4bf7-867b-94765a3b8f11-padding {
     padding-top: 27px;
     padding-bottom: 27px;
   }
@@ -1025,7 +1010,7 @@ include './includes/horizontal_items.php';
 
 </section>
 <div id="shopify-section-template--20805847023897__64c96926-2c31-48fe-bd21-30941bc87822" class="shopify-section"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/section-results.css?v=159216015314721216231693673629" rel="stylesheet" type="text/css" media="all" />
-<link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
+<link href="ccs/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
 <style data-shopify>.section-template--20805847023897__64c96926-2c31-48fe-bd21-30941bc87822-padding {
     padding-top: 27px;
     padding-bottom: 27px;
@@ -1076,9 +1061,9 @@ include './includes/horizontal_items.php';
     </main>
 
     <div id="shopify-section-promo-popup" class="shopify-section"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/section-promo-popup.css?v=175993886525155844911693673629" rel="stylesheet" type="text/css" media="all" />
-<link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-newsletter.css?v=180884587654672216131693673627" rel="stylesheet" type="text/css" media="all" />
-<link href="//tiendamiaecu.com/cdn/shop/t/3/assets/newsletter-section.css?v=62410470717655853621693673628" rel="stylesheet" type="text/css" media="all" />
-<link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
+<link href="ccs/component-newsletter.css?v=180884587654672216131693673627" rel="stylesheet" type="text/css" media="all" />
+<link href="ccs/newsletter-section.css?v=62410470717655853621693673628" rel="stylesheet" type="text/css" media="all" />
+<link href="cs/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
 
 </div>
     <div id="shopify-section-scroll-to-top-btn" class="shopify-section"><style data-shopify>
@@ -1112,13 +1097,13 @@ include './includes/horizontal_items.php';
 
 <div id="shopify-section-sections--20805847089433__footer" class="shopify-section shopify-section-group-footer-group">
 <link href="ccs/section-footer.css?v=46383091618275559031693673628" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-newsletter.css?v=180884587654672216131693673627" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-list-menu.css?v=151968516119678728991693673627" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-list-payment.css?v=69253961410771838501693673627" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-list-social.css?v=52211663153726659061693673627" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/disclosure.css?v=646595190999601341693673628" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-card.css?v=171622893807557687511693673627" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/component-newsletter.css?v=180884587654672216131693673627" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/component-list-menu.css?v=151968516119678728991693673627" media="print" onload="this.media='all'">
+
+<link rel="stylesheet" href="ccs/component-list-social.css?v=52211663153726659061693673627" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/component-rte.css?v=73443491922477598101693673627" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/disclosure.css?v=646595190999601341693673628" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/component-card.css?v=171622893807557687511693673627" media="print" onload="this.media='all'">
 
 
 
