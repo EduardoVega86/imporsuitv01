@@ -59,8 +59,8 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                   <i class="ti-calendar text-success"></i>
                 </div>
                 <div class="text-right">
-                  <h5 class="text-dark text-center"><b class="counter text-success"><?php total_cxp();?></b></h5>
-                  <p class="text-muted mb-0">Total Pagos</p>
+                  <h5 class="text-dark text-center"><b class="counter text-success"><?php total_pedidos();?></b></h5>
+                  <p class="text-muted mb-0">Total Pedidos</p>
                 </div>
                 <div class="clearfix"></div>
               </div>
@@ -75,28 +75,15 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                   <i class="ti-export text-pink"></i>
                 </div>
                 <div class="text-right">
-                  <h5 class="text-dark text-center"><b class="counter text-pink"><?php total_egresos();?></b></h5>
-                  <p class="text-muted mb-0">Total Compras</p>
+                  <h5 class="text-dark text-center"><b class="counter text-pink"><?php total_visitas();?></b></h5>
+                  <p class="text-muted mb-0">Total Visitas</p>
                 </div>
                 <div class="clearfix"></div>
               </div>
               </a>
             </div>
 
-            <div class="col-lg-6 col-xl-3">
-             <a href="cxc.php">
-              <div class="widget-bg-color-icon card-box">
-                <div class="bg-icon bg-icon-purple pull-left">
-                  <i class="ti-dashboard text-purple"></i>
-                </div>
-                <div class="text-right">
-                  <h5 class="text-dark text-center"><b class="counter text-purple"><?php total_cxc();?></b></h5>
-                  <p class="text-muted mb-0">Total Cobros</p>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              </a>
-            </div>
+            
 
             <div class="col-lg-6 col-xl-3">
              <a href="bitacora_ventas.php">
@@ -112,14 +99,52 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
               </div>
               </a>
             </div>
+              
+              <div class="col-lg-6 col-xl-3">
+             <a href="cxc.php">
+              <div class="widget-bg-color-icon card-box">
+                <div class="bg-icon bg-icon-purple pull-left">
+                  <i class="ti-dashboard text-purple"></i>
+                </div>
+                <div class="text-right">
+                  <h5 class="text-dark text-center"><b class="counter text-purple"><?php total_cxc();?></b></h5>
+                  <p class="text-muted mb-0">Total Cobros</p>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              </a>
+            </div>
 
           </div>
           <!-- end row -->
 
+          
           <div class="row">
 
 
-            <div class="col-lg-8">
+            <div class="col-lg-6">
+              <div class="card-box">
+                <h5 class="text-dark  header-title m-t-0 m-b-30">Estadisticas</h5>
+
+                <div class="widget-chart text-center">
+                  <div class='row'>
+                    <div class='col-md-4'>
+                      <select class="form-control" id="periodo" onchange="drawVisualization2();">
+                        <?php
+for ($anio = (date("Y")); 2016 <= $anio; $anio--) {
+        echo "<option value=" . $anio . ">Período:" . $anio . "</option>";
+    }
+    ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div id="chart_div2" style="height: 300px;"></div>
+
+                </div>
+              </div>
+
+            </div>
+              <div class="col-lg-6">
               <div class="card-box">
                 <h5 class="text-dark  header-title m-t-0 m-b-30">Estadisticas</h5>
 
@@ -141,6 +166,63 @@ for ($anio = (date("Y")); 2016 <= $anio; $anio--) {
               </div>
 
             </div>
+            
+
+          </div>
+          
+          <div class="row">
+
+<div class="col-lg-4">
+              <div class="portlet">
+                <div class="portlet-heading bg-purple">
+                  <h3 class="portlet-title">
+                    Ultimos Pedidos
+                  </h3>
+                  <div class="portlet-widgets">
+                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                    <span class="divider"></span>
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#bg-primary"><i class="ion-minus-round"></i></a>
+                    <span class="divider"></span>
+                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div id="bg-primary" class="panel-collapse collapse show">
+                  <div class="portlet-body">
+                    <div class="table-responsive">
+                      <table class="table table-sm no-margin table-striped">
+                        <thead>
+                          <tr>
+                            <th>No. Pedido</th>
+                            <th>Fecha</th>
+                            <th class="text-center">Monto</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+ultimos_pedidos();
+    ?>
+                        </tbody>
+                      </table>
+                    </div><!-- /.table-responsive -->
+                    <div class="box-footer clearfix">
+                      <a href="bitacora_cotizacion.php" class="btn btn-sm btn-danger btn-flat pull-right">Ver todas las Ventas</a>
+                    </div><!-- /.box-footer -->
+                  </div>
+                </div>
+              </div>
+              <div class="card-box widget-user">
+                <div>
+                  <img src="../../assets/images/users/avatar-1.jpg" class="rounded-circle" alt="user">
+                  <div class="wid-u-info">
+                    <h5 class="mt-0 m-b-5 font-16">Mis Ventas del día</h5>
+                    <p class="text-muted m-b-5 font-16"><?php venta_users();?></p>
+                    <small class="text-warning"><b><?php echo $nombre_users . ' ' . $apellido_users ?></b></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             <div class="col-lg-4">
               <div class="portlet">
                 <div class="portlet-heading bg-purple">
@@ -175,21 +257,52 @@ latest_order();
                       </table>
                     </div><!-- /.table-responsive -->
                     <div class="box-footer clearfix">
-                      <a href="bitacora_ventas.php" class="btn btn-sm btn-danger btn-flat pull-right">Ver todas las Ventas</a>
+                      <a href="bitacora_ventas.php" class="btn btn-sm btn-danger btn-flat pull-right">Ver todas los Pedidos</a>
                     </div><!-- /.box-footer -->
                   </div>
                 </div>
               </div>
-              <div class="card-box widget-user">
-                <div>
-                  <img src="../../assets/images/users/avatar-1.jpg" class="rounded-circle" alt="user">
-                  <div class="wid-u-info">
-                    <h5 class="mt-0 m-b-5 font-16">Mis Ventas del día</h5>
-                    <p class="text-muted m-b-5 font-16"><?php venta_users();?></p>
-                    <small class="text-warning"><b><?php echo $nombre_users . ' ' . $apellido_users ?></b></small>
+        
+            </div>
+              
+              <div class="col-lg-4">
+              <div class="portlet">
+                <div class="portlet-heading bg-purple">
+                  <h3 class="portlet-title">
+                    Visitas 
+                  </h3>
+                  <div class="portlet-widgets">
+                    <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+                    <span class="divider"></span>
+                    <a data-toggle="collapse" data-parent="#accordion1" href="#bg-primary"><i class="ion-minus-round"></i></a>
+                    <span class="divider"></span>
+                    <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div id="bg-primary" class="panel-collapse collapse show">
+                  <div class="portlet-body">
+                    <div class="table-responsive">
+                      <table class="table table-sm no-margin table-striped">
+                        <thead>
+                          <tr>
+                            <th>Pagina</th>
+                           
+                            <th class="text-center">Visitas</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+visitas();
+    ?>
+                        </tbody>
+                      </table>
+                    </div><!-- /.table-responsive -->
+                   
                   </div>
                 </div>
               </div>
+              
             </div>
 
           </div>
@@ -233,7 +346,8 @@ latest_order();
 <!-- ============================================================== -->
 <script>
   google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawVisualization);
+  //google.charts.setOnLoadCallback(drawVisualization);
+  //google.charts.setOnLoadCallback(drawVisualization2);
 
   function errorHandler(errorMessage) {
             //curisosity, check out the error in the console
@@ -270,10 +384,39 @@ latest_order();
     chart.draw(data, options);
   }
 
+
+      function drawVisualization2() {
+        // Some raw data (not necessarily accurate)
+    var periodo=$("#periodo").val();//Datos que enviaremos para generar una consulta en la base de datos
+    var jsonData= $.ajax({
+      url: 'comparativa2.php',
+      data: {'periodo':periodo,'action':'ajax'},
+      dataType: 'json',
+      async: false
+    }).responseText;
+
+    var obj = jQuery.parseJSON(jsonData);
+    var data = google.visualization.arrayToDataTable(obj);
+
+
+
+    var options = {
+      title : 'PEDIDOS VS VENTAS'+periodo,
+      vAxis: {title: 'Monto'},
+      hAxis: {title: 'Meses'},
+      seriesType: 'bars',
+      series: {5: {type: 'line'}}
+    };
+
+    var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
+    google.visualization.events.addListener(chart, 'error', errorHandler);
+    chart.draw(data, options);
+  }
   // Haciendo los graficos responsivos
   jQuery(document).ready(function(){
     jQuery(window).resize(function(){
-     drawVisualization();
+     drawVisualization2();
+      drawVisualization();
    });
   });
 
