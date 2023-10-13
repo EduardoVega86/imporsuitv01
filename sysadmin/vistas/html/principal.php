@@ -346,8 +346,8 @@ visitas();
 <!-- ============================================================== -->
 <script>
   google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawVisualization);
-  google.charts.setOnLoadCallback(drawVisualization2);
+  //google.charts.setOnLoadCallback(drawVisualization);
+  //google.charts.setOnLoadCallback(drawVisualization2);
 
   function errorHandler(errorMessage) {
             //curisosity, check out the error in the console
