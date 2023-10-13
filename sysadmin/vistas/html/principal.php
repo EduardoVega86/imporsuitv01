@@ -59,8 +59,8 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                   <i class="ti-calendar text-success"></i>
                 </div>
                 <div class="text-right">
-                  <h5 class="text-dark text-center"><b class="counter text-success"><?php total_cxp();?></b></h5>
-                  <p class="text-muted mb-0">Total Pagos</p>
+                  <h5 class="text-dark text-center"><b class="counter text-success"><?php total_pedidos();?></b></h5>
+                  <p class="text-muted mb-0">Total Pedidos</p>
                 </div>
                 <div class="clearfix"></div>
               </div>
@@ -75,28 +75,15 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                   <i class="ti-export text-pink"></i>
                 </div>
                 <div class="text-right">
-                  <h5 class="text-dark text-center"><b class="counter text-pink"><?php total_egresos();?></b></h5>
-                  <p class="text-muted mb-0">Total Compras</p>
+                  <h5 class="text-dark text-center"><b class="counter text-pink"><?php total_visitas();?></b></h5>
+                  <p class="text-muted mb-0">Total Visitas</p>
                 </div>
                 <div class="clearfix"></div>
               </div>
               </a>
             </div>
 
-            <div class="col-lg-6 col-xl-3">
-             <a href="cxc.php">
-              <div class="widget-bg-color-icon card-box">
-                <div class="bg-icon bg-icon-purple pull-left">
-                  <i class="ti-dashboard text-purple"></i>
-                </div>
-                <div class="text-right">
-                  <h5 class="text-dark text-center"><b class="counter text-purple"><?php total_cxc();?></b></h5>
-                  <p class="text-muted mb-0">Total Cobros</p>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              </a>
-            </div>
+            
 
             <div class="col-lg-6 col-xl-3">
              <a href="bitacora_ventas.php">
@@ -107,6 +94,21 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                 <div class="text-right">
                   <h5 class="text-dark"><b class="counter text-info"><?php total_ingresos();?></b></h5>
                   <p class="text-muted mb-0">Total Ventas</p>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              </a>
+            </div>
+              
+              <div class="col-lg-6 col-xl-3">
+             <a href="cxc.php">
+              <div class="widget-bg-color-icon card-box">
+                <div class="bg-icon bg-icon-purple pull-left">
+                  <i class="ti-dashboard text-purple"></i>
+                </div>
+                <div class="text-right">
+                  <h5 class="text-dark text-center"><b class="counter text-purple"><?php total_cxc();?></b></h5>
+                  <p class="text-muted mb-0">Total Cobros</p>
                 </div>
                 <div class="clearfix"></div>
               </div>
