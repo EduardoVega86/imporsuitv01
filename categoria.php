@@ -415,7 +415,7 @@ $categoria_activa="menu_activo texto_boton";
      //$precio_especial;
      echo "<span class='nowrap'>";
      echo "AHORRA UN&nbsp";
-     echo number_format(100-($precio_especial*100/$precio_normal),2);
+     echo number_format(100-($precio_especial*100/$precio_normal));
      echo "%";
      echo "</span>";
  }
