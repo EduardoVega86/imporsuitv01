@@ -1,8 +1,6 @@
 <?php
 /*-------------------------
-Autor: Delmar Lopez
-Web: softwys.com
-Mail: softwysop@gmail.com
+Autor: Eduardo Vega
 ---------------------------*/
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
@@ -59,7 +57,7 @@ $row           = mysqli_fetch_array($query_empresa);
 						<div id="bg-primary" class="panel-collapse collapse show">
 							<div class="portlet-body">
 
-							<form class="form-horizontal" role="form" id="perfil">
+							<form class="form-horizontal" role="form" id="perfil" enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-md-3">
 										<div align="center">
@@ -222,7 +220,7 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
 												<div class="form-group row">
 													<label for="firma" class="col-sm-3 col-form-label">Firma:</label>
 													<div class="col-sm-9">
-														<input type="file" class="form-control UpperCase" name="firma" value="" autocomplete="off">
+														<input type="file" class="form-control UpperCase" name="firma" value="<?php echo $row["firma"]; ?>" autocomplete="off">
 													</div>
 												</div>
 												<div class="form-group row">
@@ -447,12 +445,27 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
 <script>
   $( "#perfil" ).submit(function( event ) {
     $('.guardar_datos').attr("disabled", true);
+	
+	var data = new FormData();
+	var form_data = $(this).serializeArray();
+	var file_data = $('input[name="firma"]')[0].files;
+	for (var i = 0; i < file_data.length; i++) {
+    	form_data.push({name: 'firma', value: file_data[i]});
+	}
 
-    var parametros = $(this).serialize();
+	$.each(form_data, function (key, input) {
+    	data.append(input.name, input.value);
+	});
+
+    var parametros = data;
+	//alert(parametros)
+	//console.log(parametros);
     $.ajax({
       type: "POST",
       url: "../ajax/editar_perfil.php",
       data: parametros,
+      contentType: false, 
+      processData: false,
       beforeSend: function(objeto){
         $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
       },
