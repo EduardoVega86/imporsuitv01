@@ -118,7 +118,6 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
           </div>
           <!-- end row -->
 
-          
           <div class="row">
 
 
@@ -129,7 +128,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                 <div class="widget-chart text-center">
                   <div class='row'>
                     <div class='col-md-4'>
-                      <select class="form-control" id="periodo" onchange="drawVisualization2();">
+                      <select class="form-control" id="periodo2" onchange="drawVisualization2();">
                         <?php
 for ($anio = (date("Y")); 2016 <= $anio; $anio--) {
         echo "<option value=" . $anio . ">Período:" . $anio . "</option>";
@@ -346,8 +345,8 @@ visitas();
 <!-- ============================================================== -->
 <script>
   google.charts.load('current', {'packages':['corechart']});
-  //google.charts.setOnLoadCallback(drawVisualization);
-  //google.charts.setOnLoadCallback(drawVisualization2);
+  google.charts.setOnLoadCallback(drawVisualization2);
+  google.charts.setOnLoadCallback(drawVisualization);
 
   function errorHandler(errorMessage) {
             //curisosity, check out the error in the console
@@ -384,10 +383,16 @@ visitas();
     chart.draw(data, options);
   }
 
+  // Haciendo los graficos responsivos
+  jQuery(document).ready(function(){
+    jQuery(window).resize(function(){
+     drawVisualization();
+   });
+  });
 
-      function drawVisualization2() {
+ function drawVisualization2() {
         // Some raw data (not necessarily accurate)
-    var periodo=$("#periodo").val();//Datos que enviaremos para generar una consulta en la base de datos
+    var periodo=$("#periodo2").val();//Datos que enviaremos para generar una consulta en la base de datos
     var jsonData= $.ajax({
       url: 'comparativa2.php',
       data: {'periodo':periodo,'action':'ajax'},
@@ -412,14 +417,6 @@ visitas();
     google.visualization.events.addListener(chart, 'error', errorHandler);
     chart.draw(data, options);
   }
-  // Haciendo los graficos responsivos
-  jQuery(document).ready(function(){
-    jQuery(window).resize(function(){
-     drawVisualization2();
-      drawVisualization();
-   });
-  });
-
 </script>
 
 <?php require 'includes/footer_end.php'
