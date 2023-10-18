@@ -1,8 +1,6 @@
 <?php
 /*-------------------------
-Autor: Delmar Lopez
-Web: www.softwys.com
-Mail: softwysop@gmail.com
+Autor: Eduardo Vega
 ---------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
@@ -43,6 +41,7 @@ if ($action == 'ajax') {
             LEFT JOIN comprobantes_sri ON facturas_ventas.id_factura = comprobantes_sri.id_factura
             
             ORDER BY facturas_ventas.id_factura DESC";
+            
     $count_query = mysqli_query($conexion, $sql2);
     
     $row         = mysqli_fetch_array($count_query);
