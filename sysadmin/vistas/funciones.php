@@ -238,7 +238,7 @@ function latest_order()
 
 function visitas()
 {
-    /*global $conexion;
+    global $conexion;
     $id_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
     $sql="select count(id) valor, pagina, fecha_hora from registros_visitas where pagina <> 'PRODUCTO' group by pagina UNION
@@ -267,7 +267,7 @@ order by valor desc";
         </tr>
         <?php
 
-    }*/
+    }
 }
 
 function ultimos_pedidos()
