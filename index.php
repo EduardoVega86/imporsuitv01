@@ -8,7 +8,7 @@
       // echo 'sysadmin/vistas/ajax/banner/'.get_row('perfil', 'banner', 'id_perfil', 1);
          $id_producto=0;  
        $pagina='INICIO';   
-       include './auditoria.php';
+      
        include './includes/style.php';
    
        ?>
@@ -188,6 +188,7 @@
                   </div>
                      <ul  id="product-grid" data-id="template--20805846040857__main-collection-product-grid"  class="grid product-grid grid--2-col-tablet-down  grid--4-col-desktop">
                         <?php
+                         include './auditoria.php';
                            $sql="select * from lineas where tipo='1' and online=1";
                            $query = mysqli_query($conexion, $sql);
                            while ($row = mysqli_fetch_array($query)) {
