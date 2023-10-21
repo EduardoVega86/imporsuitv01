@@ -491,7 +491,8 @@ function generax($id){
     $dataperfil = mysqli_fetch_assoc($query);
     //datos del cliente
     $id_tipo_ambiente= $dataperfil['ambiente'];
-    $id_tipo_emision = $dataperfil['tipoEmision'];
+    //$id_tipo_emision = $dataperfil['tipoEmision'];
+    $id_tipo_emision = 1;
     $razon_social_empresa = $dataperfil['giro_empresa'];
     $nombre_comercial_empresa = $dataperfil['nombre_empresa'];
     $nro_documento_empresa = $dataperfil['ruc'];
