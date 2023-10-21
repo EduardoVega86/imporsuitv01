@@ -45,6 +45,7 @@ if (empty($_POST['nombre_empresa'])) {
         
         if (move_uploaded_file($temp, $_SERVER['DOCUMENT_ROOT'].'/imporsuitv01/sysadmin/vistas/xml/firmas/'.$archivo)) {
             chmod($_SERVER['DOCUMENT_ROOT'].'/imporsuitv01/sysadmin/vistas/xml/firmas/'.$archivo, 0777);
+            
             //echo '<div><b>Se ha subido correctamente la imagen.</b></div>';
         }else{
             //echo '<div><b>Ocurrió algún error al subir el fichero. No pudo guardarse.</b></div>';
@@ -71,8 +72,41 @@ if (empty($_POST['nombre_empresa'])) {
     $secuencialguia  = mysqli_real_escape_string($conexion, (strip_tags($_POST["secuencialguia"], ENT_QUOTES)));
     $secuencialretencion  = mysqli_real_escape_string($conexion, (strip_tags($_POST["secuencialretencion"], ENT_QUOTES)));
     $secuencialliquidacion  = mysqli_real_escape_string($conexion, (strip_tags($_POST["secuencialliquidacion"], ENT_QUOTES)));
+    if($firma == ""){
+        $sql = "UPDATE perfil SET nombre_empresa='" . $nombre_empresa . "',
+                                            giro_empresa='" . $giro . "',
+                                            fiscal_empresa='" . $fiscal . "',
+                                            telefono='" . $telefono . "',
+                                            email='" . $email . "',
+                                            impuesto='" . $impuesto . "',
+                                            nom_impuesto='" . $nom_impuesto . "',
+                                            moneda='" . $moneda . "',
+                                            direccion='" . $direccion . "',
+                                            ciudad='" . $ciudad . "',
+                                            estado='" . $estado . "',
+                                            codigo_postal='$codigo_postal',
 
-    $sql = "UPDATE perfil SET nombre_empresa='" . $nombre_empresa . "',
+                                            ambiente='" . $ambiente . "',
+                                            tipoEmision='" . $tipoEmision . "',
+                                            codigo_establecimiento='" . $codigo_establecimiento . "',
+                                            codigo_punto_emision='" . $codigo_punto_emision . "',
+                                            ruc='" . $ruc . "',
+                                            passFirma='" . $passFirna . "',
+                                            secuencialfactura='" . $secuencialfactura . "',
+                                            secuencialliquidacion='" . $secuencialliquidacion . "',
+                                            secuencialcredito='" . $secuencialcredito . "',
+                                            secuencialdebito='" . $secuencialdebito . "',
+                                            secuencialguia='" . $secuencialguia . "',
+                                            secuencialretencion='" . $secuencialretencion . "',
+                                            autofactura='" . $autofactura . "',
+                                            autoliquidacion='" . $autoliquidacion . "',
+                                            autocredito='" . $autocredito . "',
+                                            autodebito='" . $autodebito . "',
+                                            autoguia='" . $autoguia . "',
+                                            autoretencion='" . $autoretencion . "'
+                                            WHERE id_perfil='1'";
+    }else{
+        $sql = "UPDATE perfil SET nombre_empresa='" . $nombre_empresa . "',
                                             giro_empresa='" . $giro . "',
                                             fiscal_empresa='" . $fiscal . "',
                                             telefono='" . $telefono . "',
@@ -105,6 +139,8 @@ if (empty($_POST['nombre_empresa'])) {
                                             autoguia='" . $autoguia . "',
                                             autoretencion='" . $autoretencion . "'
                                             WHERE id_perfil='1'";
+    }
+    
                                             
     $query_update = mysqli_query($conexion, $sql);
 
