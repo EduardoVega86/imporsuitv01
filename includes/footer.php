@@ -77,7 +77,7 @@
                             ?>
                     <?php  if(get_row('perfil', 'tiktok', 'id_perfil', '1')) {
                             ?>
-            <li><a href="href="<?php if(get_row('perfil', 'tiktok', 'id_perfil', '1')){ echo get_row('perfil', 'tiktok', 'id_perfil', '1'); }?>""><i class="fab fa-tiktok"></i></a></li>
+            <li><a href="<?php if(get_row('perfil', 'tiktok', 'id_perfil', '1')){ echo get_row('perfil', 'tiktok', 'id_perfil', '1'); }?>""><i class="fab fa-tiktok"></i></a></li>
                     
                      <?php  }
                             ?>
