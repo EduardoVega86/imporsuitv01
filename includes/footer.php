@@ -65,19 +65,19 @@
         <ul class="social-icons">
               <?php  if(get_row('perfil', 'facebook', 'id_perfil', '1')) {
                             ?>
-            <li><a href="<?php if(get_row('perfil', 'facebook', 'id_perfil', '1')){ echo get_row('perfil', 'facebook', 'id_perfil', '1'); }?>"><i class="fab fa-facebook"></i></a></li>
+            <li><a target="_blank" href="<?php if(get_row('perfil', 'facebook', 'id_perfil', '1')){ echo get_row('perfil', 'facebook', 'id_perfil', '1'); }?>"><i class="fab fa-facebook"></i></a></li>
                     
                     <?php  }
                             ?>
                       <?php  if(get_row('perfil', 'instagram', 'id_perfil', '1')) {
                             ?>
-            <li><a href="<?php if(get_row('perfil', 'instagram', 'id_perfil', '1')){ echo get_row('perfil', 'instagram', 'id_perfil', '1'); }?>"><i class="fab fa-instagram"></i></a></li>
+            <li><a target="_blank" target="_blank" href="<?php if(get_row('perfil', 'instagram', 'id_perfil', '1')){ echo get_row('perfil', 'instagram', 'id_perfil', '1'); }?>"><i class="fab fa-instagram"></i></a></li>
                     
                     <?php  }
                             ?>
                     <?php  if(get_row('perfil', 'tiktok', 'id_perfil', '1')) {
                             ?>
-            <li><a href="<?php if(get_row('perfil', 'tiktok', 'id_perfil', '1')){ echo get_row('perfil', 'tiktok', 'id_perfil', '1'); }?>""><i class="fab fa-tiktok"></i></a></li>
+            <li><a target="_blank" href="<?php if(get_row('perfil', 'tiktok', 'id_perfil', '1')){ echo get_row('perfil', 'tiktok', 'id_perfil', '1'); }?>""><i class="fab fa-tiktok"></i></a></li>
                     
                      <?php  }
                             ?>
