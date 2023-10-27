@@ -206,7 +206,7 @@ echo 'actualizar productos';
     }
     echo "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$formaPago','$secuencialfactura','$plazodias')";
     $insert = mysqli_query($conexion, "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$formaPago','$secuencialfactura','$plazodias')");
-    generax($id_factura);
+    //generax($id_factura);
     echo 'generax';
     //Actualizar secuencial factura
     $perfil        = mysqli_query($conexion, "select * from perfil");
