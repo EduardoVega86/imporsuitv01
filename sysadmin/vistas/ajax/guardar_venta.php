@@ -207,19 +207,22 @@ echo 'actualizar productos';
     echo "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$formaPago','$secuencialfactura','$plazodias')";
     $insert = mysqli_query($conexion, "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$formaPago','$secuencialfactura','$plazodias')");
     generax($id_factura);
+    echo 'generax';
     //Actualizar secuencial factura
     $perfil        = mysqli_query($conexion, "select * from perfil");
     $rwperfil         = mysqli_fetch_array($perfil);
     $secuencial_factura = '';
+    echo "select * from perfil";
     if(isset($rwperfil["secuencialfactura"]) != null){
         $secuencial_factura = $rwperfil['secuencialfactura'] + 1;
     }
-
+echo "UPDATE perfil SET secuencialfactura='" . $secuencial_factura . "' WHERE id_perfil='1'";
     $updateperfilsecuencialfatura  = mysqli_query($conexion, "UPDATE perfil SET secuencialfactura='" . $secuencial_factura . "' WHERE id_perfil='1'"); //Actualizo la nueva cantidad en el inventario
     $ruta_firma = $rwperfil['firma'];
     $pass_firma = $rwperfil['passFirma'];
     echo 'pasaperfil secuencial';
     //fin 
+    echo 
     $delete = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     // SI TODO ESTA CORRECTO
     if ($condiciones == 4) {
