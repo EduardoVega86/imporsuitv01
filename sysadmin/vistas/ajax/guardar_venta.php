@@ -315,7 +315,8 @@ foreach ($messages as $message) {
                     $ruta_certificado =  $ruta;
                     $pass = $pass_firma;
                     $ruta_respuesta='';
-                    echo ' <script>obtenerComprobanteFirmado_sri("' . $ruta_certificado . '","' . $pass . '","' .$ruta_respuesta. '","' .$ruta_factura.'","' .$id_factura.'","FACTURA","1")</script>';
+                    $ambiente = $rwperfil['ambiente'];
+                    echo ' <script>obtenerComprobanteFirmado_sri("' . $ruta_certificado . '","' . $pass . '","' .$ruta_respuesta. '","' .$ruta_factura.'","' .$id_factura.'","FACTURA","1","' .$ambiente.'")</script>';
                 }
                 
             ?>

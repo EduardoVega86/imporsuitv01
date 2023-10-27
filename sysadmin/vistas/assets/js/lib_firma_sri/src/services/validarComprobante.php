@@ -18,6 +18,7 @@ $claveAcceso = $_POST['claveAcceso'];
 $service = $_POST['service'];
 $id = $_POST['id'];
 $comprobante = $_POST['comprobante'];
+$ambiente = $_POST['ambiente'];
 //factura
 if($comprobante == 'FACTURA'){
     $busquedafactura        = mysqli_query($conexion, "select * from comprobantes_sri WHERE id_factura = '$id'");
@@ -83,10 +84,14 @@ if($comprobante == 'RETENCION'){
                 or die('error: ' . mysqli_error($conexion));
     }
 }
+if($ambiente == 2){
+    //EndPoint
+    $servicio = "https://cel.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl"; //url del servicio
+}else{
+    //EndPoint
+    $servicio = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl"; //url del servicio
+}
 
-   
-//EndPoint
-$servicio = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl"; //url del servicio
 $parametros = array(); //parametros de la llamada
 
 $parametros['xml'] = $mensaje;

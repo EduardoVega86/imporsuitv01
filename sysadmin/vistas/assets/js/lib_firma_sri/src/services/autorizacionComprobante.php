@@ -17,8 +17,17 @@ $claveAcceso = $_POST['claveAcceso'];
 $service = $_POST['service'];
 $id = $_POST['id'];
 $comprobantesri = $_POST['comprobante'];
+$ambiente = $_POST['ambiente'];
+
+if($ambiente == 2){
+    //EndPoint
+    $servicio = "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl"; //url del servicio
+}else{
+    //EndPoint
+    $servicio = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl"; //url del servicio
+}
 //EndPoint
-$servicio = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl"; //url del servicio
+//$servicio = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl"; //url del servicio
 $parametros = array(); //parametros de la llamada
 $parametros['claveAccesoComprobante'] = $claveAcceso;
 

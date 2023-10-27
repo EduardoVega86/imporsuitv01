@@ -164,6 +164,8 @@ or die('error: ' . mysqli_error($conexion));
 $dataperfil = mysqli_fetch_assoc($query);
 
 //datos del cliente
+// 1 = pruebas
+// 2 = produccion
 $id_tipo_ambiente= $dataperfil['ambiente'];
 $id_tipo_emision = $dataperfil['tipoEmision'];
 $razon_social_empresa = $dataperfil['giro_empresa'];
@@ -287,8 +289,8 @@ $ruta =  $protocol.$_SERVER['HTTP_HOST'].'/sysadmin/vistas/xml/firmas/'.$ruta_fi
 $ruta_certificado =  $ruta;
 $pass = $pass_firma;
 $ruta_respuesta='';
-//var_dump($ruta_factura);die;
-echo ' <script>obtenerComprobanteFirmado_sri("' . $ruta_certificado . '","' . $pass . '","' .$ruta_respuesta. '","' .$ruta_factura.'","' .$id_factura.'","FACTURA")</script>';
+//var_dump($ruta_respuesta);die;
+echo ' <script>obtenerComprobanteFirmado_sri("' . $ruta_certificado . '","' . $pass . '","' .$ruta_respuesta. '","' .$ruta_factura.'","' .$id_factura.'","FACTURA",null,"' .$id_tipo_ambiente.'")</script>';
 ?>
     <script>
             /*$(window).on('load', function () {

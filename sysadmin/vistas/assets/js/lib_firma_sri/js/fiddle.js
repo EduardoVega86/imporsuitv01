@@ -1,4 +1,4 @@
-function obtenerComprobanteFirmado_sri(ruta_certificado, pwd_p12, ruta_respuesta, ruta_factura,id,comprobante,dir = null) {
+function obtenerComprobanteFirmado_sri(ruta_certificado, pwd_p12, ruta_respuesta, ruta_factura,id,comprobante,dir = null, ambiente) {
     //alert("enviando al SRI" + id +', compro' + comprobante,dir)
     $('.cargandospinnercontainer').show();
     $('.cargandospinnercontainercredito').show();
@@ -61,7 +61,7 @@ function obtenerComprobanteFirmado_sri(ruta_certificado, pwd_p12, ruta_respuesta
                     type: 'POST',
                     url: rutavalidarComprobante,
                     data: {
-                        'service': service, 'claveAcceso': $claveAcceso.text(), 'id': id , 'comprobante': comprobante
+                        'service': service, 'claveAcceso': $claveAcceso.text(), 'id': id , 'comprobante': comprobante, 'ambiente': ambiente
                     },
                     context: document.body
                 }).done(function (respuestaValidarComprobante) {
@@ -80,7 +80,7 @@ function obtenerComprobanteFirmado_sri(ruta_certificado, pwd_p12, ruta_respuesta
                             type: 'POST',
                             url: rutaautorizacionCompro,
                             data: {
-                                'service': service, 'claveAcceso': $claveAcceso.text(), 'id': id , 'comprobante': comprobante
+                                'service': service, 'claveAcceso': $claveAcceso.text(), 'id': id , 'comprobante': comprobante, 'ambiente': ambiente
                             },
                             context: document.body
                         }).done(function (respuestaAutorizacionComprobante) {
