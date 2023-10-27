@@ -218,6 +218,7 @@ echo 'actualizar productos';
     $updateperfilsecuencialfatura  = mysqli_query($conexion, "UPDATE perfil SET secuencialfactura='" . $secuencial_factura . "' WHERE id_perfil='1'"); //Actualizo la nueva cantidad en el inventario
     $ruta_firma = $rwperfil['firma'];
     $pass_firma = $rwperfil['passFirma'];
+    echo 'pasaperfil secuencial';
     //fin 
     $delete = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     // SI TODO ESTA CORRECTO
