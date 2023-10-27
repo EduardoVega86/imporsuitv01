@@ -542,7 +542,7 @@ function generax($id){
         <factura id="comprobante" version="1.1.0">
             <infoTributaria>
                 <ambiente>' . $id_tipo_ambiente . '</ambiente>
-                <tipoEmision>' . $id_tipo_emision . '</tipoEmision>
+                <tipoEmision>1</tipoEmision>
                 <razonSocial>' . $razon_social_empresa . '</razonSocial>
                 <nombreComercial>' . $nombre_comercial_empresa . '</nombreComercial>
                 <ruc>' . $nro_documento_empresa . '</ruc>
