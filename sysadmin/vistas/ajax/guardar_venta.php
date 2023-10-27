@@ -170,6 +170,7 @@ if (empty($_POST['id_cliente'])) {
         //GURDAMOS LAS EN EL KARDEX
         $saldo_total = $cantidad * $costo_producto;
         $sql_kardex  = mysqli_query($conexion, "select * from kardex where producto_kardex='" . $id_producto . "' order by id_kardex DESC LIMIT 1");
+        echo 'pasa kardex';
         $rww         = mysqli_fetch_array($sql_kardex);
         $id_producto = $rww['producto_kardex'];
         $costo_saldo = $rww['costo_saldo'];
@@ -179,6 +180,7 @@ if (empty($_POST['id_cliente'])) {
         $tipo        = 2;
 
         guardar_salidas($date_added, $id_producto, $cantidad, $costo_producto, $saldo_total, $cant_saldo, $costo_saldo, $nuevo_saldo, $date_added, $users, $tipo);
+        echo 'giardar salida';
         // FIN
         // ACTUALIZA EN EL STOCK
         $sql2    = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
@@ -186,7 +188,7 @@ if (empty($_POST['id_cliente'])) {
         $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
         $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
         $update  = mysqli_query($conexion, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
-
+echo 'actualizar productos';
         $nums++;
     }
     // Fin de la consulta Principal
