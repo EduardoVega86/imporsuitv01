@@ -43,8 +43,8 @@ if (empty($_POST['nombre_empresa'])) {
         $archivo  = $_FILES['firma']['name'];
         $temp = $_FILES['firma']['tmp_name'];
         
-        if (move_uploaded_file($temp, $_SERVER['DOCUMENT_ROOT'].'/imporsuitv01/sysadmin/vistas/xml/firmas/'.$archivo)) {
-            chmod($_SERVER['DOCUMENT_ROOT'].'/imporsuitv01/sysadmin/vistas/xml/firmas/'.$archivo, 0777);
+        if (move_uploaded_file($temp, $_SERVER['DOCUMENT_ROOT'].'/sysadmin/vistas/xml/firmas/'.$archivo)) {
+            chmod($_SERVER['DOCUMENT_ROOT'].'/sysadmin/vistas/xml/firmas/'.$archivo, 0777);
             
             //echo '<div><b>Se ha subido correctamente la imagen.</b></div>';
         }else{
