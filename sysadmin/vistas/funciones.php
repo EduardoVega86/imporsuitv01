@@ -433,8 +433,7 @@ function validar_clave2($clave) {
     return $digito;
 }
 function generax($id){
-    echo 'generax';
-    echo $id;
+    
     global $conexion;
     $id_factura = intval($id);
     $sql_count  = mysqli_query($conexion, "select * from facturas_ventas where id_factura='" . $id_factura . "'");
@@ -444,7 +443,8 @@ function generax($id){
         echo "<script>window.close();</script>";
         exit;
     }
-    
+    echo 'generax';
+    echo $id;
     $sql_factura    = mysqli_query($conexion, "select * from facturas_ventas where id_factura='" . $id_factura . "'");
     $rw_factura     = mysqli_fetch_array($sql_factura);
     $xml_detalles = '<detalles>';
@@ -456,6 +456,8 @@ function generax($id){
     $contadorProductos = 0;
     $detallesProductos = array();
     $totalSinImpuestos = 0;
+    echo 'pasa query';
+    echo $id;
     while ($data_productos = $query->fetch_assoc()) {
         
         if($data_productos["descripcion"] == ''){
@@ -594,7 +596,7 @@ function generax($id){
         </factura>';
     
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/imporsuitv01/sysadmin/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
     fwrite($file, $xml.$xml_detalles);
 }
 
