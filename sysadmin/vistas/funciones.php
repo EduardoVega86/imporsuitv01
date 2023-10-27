@@ -736,7 +736,7 @@ function generaxmlliquidacion($id){
         </liquidacionCompra>';
     
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/imporsuitv01/sysadmin/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
     fwrite($file, $xml.$xml_detalles);
 }
 
@@ -880,7 +880,7 @@ function generaxmlcredito($id){
     
     
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/NC_" . $id_credito . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/imporsuitv01/sysamin/vistas/xml/comprobantes/NC_" . $id_credito . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysamin/vistas/xml/comprobantes/NC_" . $id_credito . ".xml", "w+");
     fwrite($file, $xml.$xml_detalles);
 }
 
@@ -1021,7 +1021,7 @@ function generaxmldebito($id){
         
         
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/ND_" . $id_debito . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/imporsuitv01/sysadmin/vistas/xml/comprobantes/ND_" . $id_debito . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/ND_" . $id_debito . ".xml", "w+");
     fwrite($file, $xml);
 }
 
@@ -1176,7 +1176,7 @@ function generaxmlguia($id){
     </guiaRemision>';
     
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/imporsuitv01/sysadmin/vistas/xml/comprobantes/GR_" . $id_guia . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/GR_" . $id_guia . ".xml", "w+");
     fwrite($file, $xml.$xml_detalles);
 }
 function generaxmlretencion($id){
@@ -1301,7 +1301,7 @@ function generaxmlretencion($id){
             </infoAdicional>
         </comprobanteRetencion>';
         
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/imporsuitv01/sysadmin/vistas/xml/comprobantes/RC_" . $id_retencion . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/RC_" . $id_retencion . ".xml", "w+");
     fwrite($file, $xml);
     
 }
