@@ -42,7 +42,7 @@
 <script src="../assets/js/lib_firma_sri/js/moment.min.js"></script>
 <script src="../assets/js/lib_firma_sri/js/buffer.js"></script>
 <?php
-include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
+//include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /*Inicia validacion del lado del servidor*/
 if (empty($_POST['id_cliente'])) {
     $errors[] = "ID VACIO";
