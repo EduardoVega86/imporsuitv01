@@ -443,8 +443,8 @@ function generax($id){
         echo "<script>window.close();</script>";
         exit;
     }
-    echo 'generax';
-    echo $id;
+   // echo 'generax';
+   // echo $id;
     $sql_factura    = mysqli_query($conexion, "select * from facturas_ventas where id_factura='" . $id_factura . "'");
     $rw_factura     = mysqli_fetch_array($sql_factura);
     $xml_detalles = '<detalles>';
