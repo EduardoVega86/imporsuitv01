@@ -216,7 +216,7 @@ if (empty($_POST['id_cliente'])) {
     if(isset($rwperfil["secuencialfactura"]) != null){
         $secuencial_factura = $rwperfil['secuencialfactura'] + 1;
     }
-echo "UPDATE perfil SET secuencialfactura='" . $secuencial_factura . "' WHERE id_perfil='1'";
+//echo "UPDATE perfil SET secuencialfactura='" . $secuencial_factura . "' WHERE id_perfil='1'";
     $updateperfilsecuencialfatura  = mysqli_query($conexion, "UPDATE perfil SET secuencialfactura='" . $secuencial_factura . "' WHERE id_perfil='1'"); //Actualizo la nueva cantidad en el inventario
     $ruta_firma = $rwperfil['firma'];
     $pass_firma = $rwperfil['passFirma'];
