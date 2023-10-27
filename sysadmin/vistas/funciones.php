@@ -456,8 +456,8 @@ function generax($id){
     $contadorProductos = 0;
     $detallesProductos = array();
     $totalSinImpuestos = 0;
-    echo 'pasa query';
-    echo $id;
+   // echo 'pasa query';
+   // echo $id;
     while ($data_productos = $query->fetch_assoc()) {
         
         if($data_productos["descripcion"] == ''){
