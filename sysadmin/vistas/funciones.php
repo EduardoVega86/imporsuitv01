@@ -433,6 +433,8 @@ function validar_clave2($clave) {
     return $digito;
 }
 function generax($id){
+    echo 'generax';
+    echo $id;
     global $conexion;
     $id_factura = intval($id);
     $sql_count  = mysqli_query($conexion, "select * from facturas_ventas where id_factura='" . $id_factura . "'");
