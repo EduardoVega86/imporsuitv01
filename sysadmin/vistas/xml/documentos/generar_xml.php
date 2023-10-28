@@ -54,9 +54,7 @@
 <script src="../../assets/js/lib_firma_sri/js/buffer.js"></script>
 <?php
 /*-------------------------
-Autor: Obed Alvarado
-Web: obedalvarado.pw
-Mail: info@obedalvarado.pw
+Autor:Eduardo Vega
 ---------------------------*/
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
     header("location: ../../../login.php");
@@ -167,7 +165,7 @@ $dataperfil = mysqli_fetch_assoc($query);
 // 1 = pruebas
 // 2 = produccion
 $id_tipo_ambiente= $dataperfil['ambiente'];
-$id_tipo_emision = $dataperfil['tipoEmision'];
+$id_tipo_emision = 1;
 $razon_social_empresa = $dataperfil['giro_empresa'];
 $nombre_comercial_empresa = $dataperfil['nombre_empresa'];
 $nro_documento_empresa = $dataperfil['ruc'];
