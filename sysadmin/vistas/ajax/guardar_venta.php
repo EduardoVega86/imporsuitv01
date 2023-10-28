@@ -321,6 +321,12 @@ foreach ($messages as $message) {
                 
             ?>
         </div>
+        <script>
+            document.addEventListener('click', function() {
+                // Recargar la página
+                location.reload();
+            });
+        </script>
     </div>
 </div>
 
