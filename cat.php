@@ -4,7 +4,7 @@
   if (!isset($_SESSION["comprar"])){
          $session_id = 'user_' . mt_rand();
          $_SESSION["comprar"]=$session_id;
-     }else{
+     }else{ 
        $session_id= $_SESSION["comprar"];  
      }
    $id_categoria=$_GET['id_cat'];
