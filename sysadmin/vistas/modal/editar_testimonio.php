@@ -30,6 +30,28 @@ if (isset($conexion)) {
 								</div>
 							</div>
 						</div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-12">
+								<div class="form-group">
+                                                                    <label for="descripcion" class="control-label">Página:</label>
+                                                <select class='form-control' name='mod_id_producto' id='mod_id_producto' required>
+												<option value="">-- Selecciona --</option>
+                                                                                                <option style="background-color: #D9EDF7" value="-1">PÁGINA DE INICIO</option>
+                                                                                                
+												<?php
+
+    $query_proveedor = mysqli_query($conexion, "select * from productos where pagina_web=1 and estado_producto=1 order by nombre_producto ");
+    while ($rw = mysqli_fetch_array($query_proveedor)) {
+        ?>
+													<option value="<?php echo $rw['id_producto']; ?>"><?php echo $rw['nombre_producto']; ?></option>
+													<?php
+}
+    ?>
+											</select>
+                                                	</div>
+							</div>
+						</div>
 
                                                 
                                                  
