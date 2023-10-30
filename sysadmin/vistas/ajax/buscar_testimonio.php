@@ -73,6 +73,7 @@ while ($row = mysqli_fetch_array($query)) {
             $testimonio  = $row['testimonio'];
              $imagen  = $row['imagen'];
             $estado = $row['status'];
+            $id_producto = $row['id_productp'];
          
             $date_added   = date('d/m/Y', strtotime($row['date_added']));
             if ($estado == 1) {
@@ -87,6 +88,7 @@ while ($row = mysqli_fetch_array($query)) {
     <input type="hidden" value="<?php echo $nombre; ?>" id="nombre<?php echo $id_testimonio; ?>">
     <input type="hidden" value="<?php echo $testimonio; ?>" id="descripcion<?php echo $id_testimonio; ?>">
     <input type="hidden" value="<?php echo $estado; ?>" id="estado<?php echo $id_testimonio; ?>">
+    <input type="hidden" value="<?php echo $id_producto; ?>" id="producto<?php echo $id_testimonio; ?>">
     <input type="hidden" value="<?php echo $imagen; ?>" id="imagen<?php echo $id_testimonio; ?>">
 
 
