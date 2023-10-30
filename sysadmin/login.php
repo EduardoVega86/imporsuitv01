@@ -1,4 +1,6 @@
 <?php
+//Verificar actualizaciones
+include './vistas/verificar_actualizacion.php';
 // checking for minimum PHP version
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
@@ -72,6 +74,18 @@ if ($login->isUserLoggedIn() == true) {
                 //echo $resultado;
                // $nombre_empresa= get_row('perfil','nombre_empresa', 'id_perfil', 1);
                // echo $url;
+            ?>
+            <?php
+            //echo $actualzacion_sistema;
+            if ($actualzacion_sistema==1){
+                include './vistas/verificar_actualizacion_base.php';
+            
+            ?>
+             <div class="alert alert-success" role="alert">
+                 <h4>¡Éxito! Tu sistema ha sido actualizado.</h4>
+             </div>
+            <?php
+            }
             ?>
             <div align="center">
                 <img src="<?php echo $resultado; ?>" class="img-responsive" alt="profile-image"  height="100px">
