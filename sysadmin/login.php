@@ -1,6 +1,6 @@
 <?php
 //Verificar actualizaciones
-include './vistas/verificar_actualizacion.php';
+//include './vistas/verificar_actualizacion.php';
 // checking for minimum PHP version
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
