@@ -8,10 +8,12 @@ require_once "vistas/db.php";
     
 //29-10-2023 aumentar campo id_articulo en testimonios
 $query = "SELECT id_producto FROM testimonios LIMIT 1";
-$result = mysqli_fetch_array($query);
+@$result = mysqli_fetch_array($query);
 if (!$result) {
-    $sql_actualizacion = "ALTER TABLE `testimonios` ADD `id_producto` INT NOT NULL AFTER `date_added`;";
-    $result = mysqli_fetch_array($sql_actualizacion);
+    //echo 'pasa';
+    
+    $query = mysqli_query($conexion, "ALTER TABLE `testimonios` ADD `id_producto` INT NOT NULL AFTER `date_added`;");
+   
 } 
 
     
