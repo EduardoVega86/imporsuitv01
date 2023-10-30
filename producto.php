@@ -1,5 +1,5 @@
 <!doctype html>
-<?php
+<?php 
 session_start();
  if (!isset($_SESSION["comprar"])){
          $session_id = 'user_' . mt_rand();
