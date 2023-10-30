@@ -13,11 +13,13 @@ if (empty($_POST['mod_id'])) {
     $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_nombre"], ENT_QUOTES)));
     $descripcion = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_descripcion"], ENT_QUOTES)));
     $estado      = intval($_POST['mod_estado']);
+    $id_producto      = intval($_POST['mod_id_producto']);
     $id_tes    = intval($_POST['mod_id']);
 
     $sql = "UPDATE testimonios SET  nombre='" . $nombre . "',
                                 status='" . $estado . "',                                 
-                                testimonio='" . $descripcion . "'
+                                testimonio='" . $descripcion . "',
+                                id_producto='" . $id_producto . "'
                                 WHERE id_testimonio='" . $id_tes . "'";
     $query_update = mysqli_query($conexion, $sql);
     if ($query_update) {
