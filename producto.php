@@ -712,7 +712,7 @@ include './includes/horizontal_items.php';
                         id="Slider-template--20805846597913__c65117da-b894-43a0-8d4d-7bd214ab10a9"
                         role="list" >
                         <?php
-                           $sql2="select * from testimonios ";
+                           $sql2="select * from testimonios where id_producto=$id_producto";
                            $query2 = mysqli_query($conexion, $sql2);
                            $contador_testimonio=1;
                            $bandera_testimonio='active';
