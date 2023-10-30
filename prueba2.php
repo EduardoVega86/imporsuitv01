@@ -1,4 +1,4 @@
 <?php
-echo 'asd;
+echo 'asd';
 echo 'sipasa';
   ?>
