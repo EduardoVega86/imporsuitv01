@@ -73,7 +73,7 @@ while ($row = mysqli_fetch_array($query)) {
             $testimonio  = $row['testimonio'];
              $imagen  = $row['imagen'];
             $estado = $row['status'];
-            $id_producto = $row['id_productp'];
+            $id_producto = $row['id_producto'];
          
             $date_added   = date('d/m/Y', strtotime($row['date_added']));
             if ($estado == 1) {
