@@ -77,8 +77,9 @@ if ($login->isUserLoggedIn() == true) {
             ?>
             <?php
             //echo $actualzacion_sistema;
+           
             if ($actualzacion_sistema==1){
-                include './vistas/verificar_actualizacion_base.php';
+                 include './vistas/verificar_actualizacion_base.php';
             
             ?>
              <div class="alert alert-success" role="alert">
