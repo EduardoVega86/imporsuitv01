@@ -617,7 +617,7 @@ $producto_activa="menu_activo texto_boton";
 
     </div>
 <style> body {
-      //text-align: center;
+     
       }</style>
 <div style="">
     <?php
