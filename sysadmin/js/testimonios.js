@@ -106,12 +106,14 @@
 		    var nombre = $("#nombre" + id).val();
 		    var descripcion = $("#descripcion" + id).val();
 		    var estado = $("#estado" + id).val();
+                    var producto = $("#producto" + id).val();
                   
                   //  alert(nombre)
                     
 		    $("#mod_nombre").val(nombre);
 		    $("#mod_descripcion").val(descripcion);
 		    $("#mod_estado").val(estado);
+                     $("#mod_id_producto").val(producto);
 		    $("#mod_id").val(id);
                    
                     
