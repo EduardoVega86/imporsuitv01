@@ -13,17 +13,14 @@ if (empty($_POST['nombre'])) {
     $estado      = intval($_POST['estado']);
     $date_added  = date("Y-m-d H:i:s");
     $users       = intval($_SESSION['id_users']);
+    $id_producto       = intval($_POST['id_producto']);
     // check if user or email address already exists
-    $sql                   = "SELECT * FROM lineas WHERE nombre_linea ='" . $nombre . "';";
-    $query_check_user_name = mysqli_query($conexion, $sql);
-    $query_check_user      = mysqli_num_rows($query_check_user_name);
-    if ($query_check_user == true) {
-        $errors[] = "Nombre de Linea ya está en uso.";
-    } else {
+   
+ 
         // write new user's data into database
 
-       $sql = "INSERT INTO `testimonios` ( `nombre`, `testimonio`, `status`, `date_added`) VALUES"
-               . "('$nombre','$testimonio','$estado','$date_added')";
+       $sql = "INSERT INTO `testimonios` ( `nombre`, `testimonio`, `status`, `date_added`,`id_producto` ) VALUES"
+               . "('$nombre','$testimonio','$estado','$date_added', '$id_producto')";
         $query_new_insert = mysqli_query($conexion, $sql);
 
         if ($query_new_insert) {
@@ -31,7 +28,7 @@ if (empty($_POST['nombre'])) {
         } else {
             $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion);
         }
-    }
+    
 } else {
     $errors[] = "Error desconocido.";
 }
