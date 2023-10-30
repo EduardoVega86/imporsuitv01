@@ -20,7 +20,7 @@
 		    })
 		}
 		$("#guardar_testimonio").submit(function(event) {
-                    alert();
+                   // alert();
 		    $('#guardar_datos').attr("disabled", true);
 		    var parametros = $(this).serialize();
 		    $.ajax({
@@ -107,7 +107,7 @@
 		    var descripcion = $("#descripcion" + id).val();
 		    var estado = $("#estado" + id).val();
                   
-                    alert(nombre)
+                  //  alert(nombre)
                     
 		    $("#mod_nombre").val(nombre);
 		    $("#mod_descripcion").val(descripcion);
