@@ -7,7 +7,7 @@
      }else{ 
        $session_id= $_SESSION["comprar"];  
      }   
-
+zd
    $id_categoria=$_GET['id_cat'];
    require_once "sysadmin/vistas/db.php";
        require_once "sysadmin/vistas/php_conexion.php";
