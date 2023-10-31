@@ -251,8 +251,6 @@ function obtenerComprobanteFirmado_sri(ruta_certificado, pwd_p12, ruta_respuesta
                             })
                             $('.cargandospinnercontainercredito').hide();
                         }
-                    }else{
-                        window.close();
                     }
 
                     //window.close();
