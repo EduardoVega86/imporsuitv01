@@ -291,11 +291,11 @@ $ruta_respuesta='';
 echo ' <script>obtenerComprobanteFirmado_sri("' . $ruta_certificado . '","' . $pass . '","' .$ruta_respuesta. '","' .$ruta_factura.'","' .$id_factura.'","FACTURA",null,"' .$id_tipo_ambiente.'")</script>';
 ?>
     <script>
-            /*$(window).on('load', function () {
+            $(window).on('load', function () {
                 setTimeout(function () {
                     $(".loader-page").css({visibility:"hidden",opacity:"0"})
                 }, 20000);
                 
-            });*/
+            });
         </script>
 <?php
