@@ -294,7 +294,7 @@ echo ' <script>obtenerComprobanteFirmado_sri("' . $ruta_certificado . '","' . $p
             $(window).on('load', function () {
                 setTimeout(function () {
                     $(".loader-page").css({visibility:"hidden",opacity:"0"})
-                }, 1000000);
+                }, 500000);
                 
             });
         </script>
