@@ -20,7 +20,6 @@ if (empty($_POST['nombre_empresa'])) {
     !empty($_POST['impuesto']) &&
     !empty($_POST['moneda']) 
 ) {
-    
     /* Connect To Database*/
     require_once "../db.php";
     require_once "../php_conexion.php";
@@ -177,6 +176,7 @@ if (isset($messages)) {
 foreach ($messages as $message) {
         echo $message;
     }
+        
     ?>
                 </div>
                 <?php

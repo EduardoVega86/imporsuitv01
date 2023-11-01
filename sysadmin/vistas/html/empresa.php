@@ -478,7 +478,10 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
                   $(this).remove();
                 });
               }); // /.alert
-
+		
+        setTimeout(function(){
+			location.reload();
+		}, 2000);
       }
     });
     event.preventDefault();
@@ -500,7 +503,7 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
       data.append('imagefile',file);
 
 
-      $.ajax({
+      	$.ajax({
             url: "../ajax/imagen_ajax.php",        // Url to which the request is send
             type: "POST",             // Type of request to be send, called as method
             data: data,         // Data sent to server, a set of key/value pairs (i.e. form fields and values)
@@ -510,9 +513,9 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
             success: function(data)   // A function to be called if request succeeds
             {
               $("#load_img").html(data);
-
+                    
             }
-          });
+        });
     }
 
 
