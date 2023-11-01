@@ -449,17 +449,36 @@ function generax($id){
     $rw_factura     = mysqli_fetch_array($sql_factura);
     $xml_detalles = '<detalles>';
     $query = mysqli_query($conexion, "SELECT  productos.id_producto, productos.codigo_producto as 'codigo', productos.descripcion_producto as 'descripcion',
-                                    detalle_fact_ventas.cantidad as 'cantidad', detalle_fact_ventas.precio_venta as 'precioUnitario' 
+                                    detalle_fact_ventas.cantidad as 'cantidad', detalle_fact_ventas.precio_venta as 'precioUnitario' , productos.iva_producto as 'iva'
                                     FROM detalle_fact_ventas
         INNER JOIN facturas_ventas  ON detalle_fact_ventas.id_factura = facturas_ventas.id_factura
         left JOIN productos ON productos.id_producto = detalle_fact_ventas.id_producto WHERE detalle_fact_ventas.id_factura = '" . $id_factura . "'");
     $contadorProductos = 0;
     $detallesProductos = array();
     $totalSinImpuestos = 0;
-   // echo 'pasa query';
-   // echo $id;
+    $totaliva = 0;
+    $codigoporcentaje = 0;
+    $tarifa = 0;
+    $baseimponible = 0;
+    $iva = 0;
+    $totalesconimpuestos = 0;
+    $totalessinimpuestos = 0;
     while ($data_productos = $query->fetch_assoc()) {
-        
+        if($data_productos["iva"] == 1){
+            $totaliva += (number_format($data_productos['precioUnitario'], 2) * 12) / 100;
+            $iva = (number_format($data_productos['precioUnitario'], 2) * 12) / 100;
+            $codigoporcentaje = 2;
+            $tarifa = 12;
+            $baseimponible = number_format($data_productos['precioUnitario'], 2) - $iva;
+            $totalesconimpuestos += $baseimponible;
+        }else{
+            $iva = 0.00;
+            $codigoporcentaje = 0;
+            $tarifa = 0;
+            $baseimponible =  number_format($data_productos['precioUnitario'], 2);
+            $valor =  number_format($data_productos['precioUnitario'], 2);
+            $totalessinimpuestos += $baseimponible;
+        }
         if($data_productos["descripcion"] == ''){
             $descripcion = 'sin descripcion';
         }else{
@@ -470,25 +489,55 @@ function generax($id){
         <codigoAuxiliar>' .$data_productos["codigo"]. '</codigoAuxiliar>
         <descripcion>' .$descripcion . '</descripcion>
         <cantidad>' . $data_productos['cantidad'] . '</cantidad>
-        <precioUnitario>' .number_format( $data_productos['precioUnitario'], 2) . '</precioUnitario>            
+        <precioUnitario>' .number_format( $baseimponible, 2) . '</precioUnitario>            
         <descuento>0</descuento>
-        <precioTotalSinImpuesto>' . number_format($data_productos['precioUnitario'], 2)  . '</precioTotalSinImpuesto>';
+        <precioTotalSinImpuesto>' . number_format($baseimponible, 2)  . '</precioTotalSinImpuesto>';
         $xml_detalles .= '<impuestos>';
                 
-                    $xml_detalles .= '
-                <impuesto>
-                    <codigo>2</codigo>
-                    <codigoPorcentaje>0</codigoPorcentaje>
-                    <tarifa>0</tarifa>
-                    <baseImponible>' .number_format( $data_productos['precioUnitario'], 2)  . '</baseImponible>
-                    <valor>0</valor>
-                </impuesto></impuestos></detalle>
-            ';
-        $totalSinImpuestos +=  $data_productos['precioUnitario'];
+            $xml_detalles .= '
+            <impuesto>
+                <codigo>2</codigo>
+                <codigoPorcentaje>' . $codigoporcentaje . '</codigoPorcentaje>
+                <tarifa>' . $tarifa . '</tarifa>
+                <baseImponible>' . $baseimponible . '</baseImponible>
+                <valor>' . $iva . '</valor>
+            </impuesto></impuestos></detalle>
+        ';
+        //$totalSinImpuestos +=  $data_productos['precioUnitario'];
+        $totalSinImpuestos +=  number_format($baseimponible,2);
         //$totalSinImpuestostotal +=  $dataCitas['valortotal'];
     }
-    $xml_detalles .= '</detalles>';
+    //$xml_detalles .= '</detalles>';
 
+    $xml_totalconimpuestos = '';
+    if($totaliva > 0 && $totalessinimpuestos > 0 ){
+        $xml_totalconimpuestos = '<totalImpuesto>
+                                    <codigo>2</codigo>
+                                    <codigoPorcentaje>2</codigoPorcentaje>
+                                    <baseImponible>' . number_format($totalesconimpuestos, 2) . '</baseImponible>
+                                    <valor>' . $totaliva . '</valor>
+                                 </totalImpuesto>
+                                 <totalImpuesto>
+                                    <codigo>2</codigo>
+                                    <codigoPorcentaje>0</codigoPorcentaje>
+                                    <baseImponible>' . number_format($totalessinimpuestos, 2) . '</baseImponible>
+                                    <valor>0.00</valor>
+                                 </totalImpuesto>';
+    }elseif($totaliva > 0){
+        $xml_totalconimpuestos = '<totalImpuesto>
+                                    <codigo>2</codigo>
+                                    <codigoPorcentaje>2</codigoPorcentaje>
+                                    <baseImponible>' . number_format($totalesconimpuestos, 2) . '</baseImponible>
+                                    <valor>' . $totaliva . '</valor>
+                                 </totalImpuesto>';
+    }else{
+        $xml_totalconimpuestos = '<totalImpuesto>
+                                    <codigo>2</codigo>
+                                    <codigoPorcentaje>0</codigoPorcentaje>
+                                    <baseImponible>' . number_format($totalessinimpuestos, 2) . '</baseImponible>
+                                    <valor>0.00</valor>
+                                </totalImpuesto>';
+    }
     // Datos para el Encabezado del XML
     $query = mysqli_query($conexion, "SELECT * from perfil ORDER BY id_perfil DESC")
     or die('error: ' . mysqli_error($conexion));
@@ -521,9 +570,12 @@ function generax($id){
 
     $ruta_firma = $dataperfil['firma'];
     $pass_firma = $dataperfil['passFirma'];
-    $valortotal = $rw_factura['monto_factura'];
+    //$valortotal = $rw_factura['monto_factura'];
+    $valortotal = $totalSinImpuestos;
     $formaPago = $rw_factura['formaPago'];
+    $plazoDias = $rw_factura['plazodias'];
 
+    $importetotal = $totalesconimpuestos + $totalessinimpuestos + $totaliva;
     //Cliente
     $id_cliente = $rw_factura['id_cliente'];
     $querycliente = mysqli_query($conexion, "SELECT * from clientes where id_cliente='" . $id_cliente . "'")
@@ -564,22 +616,17 @@ function generax($id){
                 $xml.='<totalSinImpuestos>' . number_format($valortotal, 2) . '</totalSinImpuestos>';
                 $xml .= '<totalDescuento>0</totalDescuento>';
 
-                $xml .=   '<totalConImpuestos>
-                    <totalImpuesto>
-                        <codigo>2</codigo>
-                        <codigoPorcentaje>0</codigoPorcentaje>
-                        <baseImponible>' . number_format($totalSinImpuestos, 2) . '</baseImponible>
-                        <tarifa>0</tarifa>                
-                        <valor>0.00</valor>
-                    </totalImpuesto>';
+                $xml .= '<totalConImpuestos> ';
+                $xml .= $xml_totalconimpuestos;
+
                 $xml .='</totalConImpuestos>        
                 <propina>0.00</propina>        
-                <importeTotal>' . number_format($totalSinImpuestos, 2) . '</importeTotal>
+                <importeTotal>' . number_format($importetotal, 2) . '</importeTotal>
                 <moneda>DOLAR</moneda>
                 <pagos>
                     <pago>
                         <formaPago>'.$formaPago.'</formaPago>
-                        <total>' . number_format($totalSinImpuestos, 2) . '</total>
+                        <total>' . number_format($importetotal, 2) . '</total>
                         <plazo>1</plazo>
                         <unidadTiempo>Dias</unidadTiempo>
                     </pago>            

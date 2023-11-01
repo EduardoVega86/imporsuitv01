@@ -88,12 +88,7 @@ function obtenerComprobanteFirmado_sri(ruta_certificado, pwd_p12, ruta_respuesta
                             var autorizacion_comprobante = respuestaAutorizacionComprobante;
                             response[0] = validar_comprobante;
                             response[1] = autorizacion_comprobante;
-                            $.ajax({
-                                type: 'POST',
-                                url: ruta_respuesta,
-                                data: {'respuestaFirmarFactura': response},
-                                context: document.body
-                            }).done(function (respuesta) {
+                           
                                 //Respuesta enviada
                                 if(dir){
                                     if(comprobante == 'FACTURA'){
@@ -139,9 +134,9 @@ function obtenerComprobanteFirmado_sri(ruta_certificado, pwd_p12, ruta_respuesta
                                             confirmButtonText: 'ok'
                                         })
                                     }
+                                }else{
+                                    window.close();
                                 }
-                            });
-
                         });
                     } else {
                         response[0] = validar_comprobante;
@@ -201,7 +196,7 @@ function obtenerComprobanteFirmado_sri(ruta_certificado, pwd_p12, ruta_respuesta
                         });
                     }
 
-                    if(dir){
+                    /*if(dir){
                         if(comprobante == 'FACTURA'){
                             swal({
                                 title: 'Envio Automatico al SRI FACTURA',
@@ -251,7 +246,11 @@ function obtenerComprobanteFirmado_sri(ruta_certificado, pwd_p12, ruta_respuesta
                             })
                             $('.cargandospinnercontainercredito').hide();
                         }
-                    }
+                    }else{
+                        setTimeout(function () {
+                            window.close();
+                        }, 2000);
+                    }*/
 
                     //window.close();
                     /*if(comprobante == 'FACTURA'){
