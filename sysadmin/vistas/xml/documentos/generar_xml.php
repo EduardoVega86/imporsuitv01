@@ -330,8 +330,8 @@ if (isset($_SERVER['HTTPS']) &&
 else {
   $protocol = 'http://';
 }
-$ruta_factura =  $protocol.$_SERVER['HTTP_HOST'].'/imporsuitv01/sysadmin/vistas/xml/comprobantes/factura_' . $id_factura . ".xml";
-$ruta =  $protocol.$_SERVER['HTTP_HOST'].'/imporsuitv01/sysadmin/vistas/xml/firmas/'.$ruta_firma;
+$ruta_factura =  $protocol.$_SERVER['HTTP_HOST'].'/sysadmin/vistas/xml/comprobantes/factura_' . $id_factura . ".xml";
+$ruta =  $protocol.$_SERVER['HTTP_HOST'].'/sysadmin/vistas/xml/firmas/'.$ruta_firma;
 $ruta_certificado =  $ruta;
 $pass = $pass_firma;
 $ruta_respuesta='';
