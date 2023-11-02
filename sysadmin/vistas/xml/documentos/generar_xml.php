@@ -169,7 +169,7 @@ while ($data_productos = $query->fetch_assoc()) {
                   <codigoPorcentaje>' . $codigoporcentaje . '</codigoPorcentaje>
                   <tarifa>' . $tarifa . '</tarifa>
                   <baseImponible>' . $baseimponible . '</baseImponible>
-                  <valor>' . $iva . '</valor>
+                  <valor>' . number_format($iva,2) . '</valor>
               </impuesto></impuestos></detalle>
           ';
     $totalSinImpuestos +=  number_format($baseimponible,2);
@@ -183,7 +183,7 @@ if($totaliva > 0 && $totalessinimpuestos > 0 ){
                                 <codigo>2</codigo>
                                 <codigoPorcentaje>2</codigoPorcentaje>
                                 <baseImponible>' . number_format($totalesconimpuestos, 2) . '</baseImponible>
-                                <valor>' . $totaliva . '</valor>
+                                <valor>' . number_format($totaliva,2) . '</valor>
                              </totalImpuesto>
                              <totalImpuesto>
                                 <codigo>2</codigo>
@@ -196,7 +196,7 @@ if($totaliva > 0 && $totalessinimpuestos > 0 ){
                                 <codigo>2</codigo>
                                 <codigoPorcentaje>2</codigoPorcentaje>
                                 <baseImponible>' . number_format($totalesconimpuestos, 2) . '</baseImponible>
-                                <valor>' . $totaliva . '</valor>
+                                <valor>' . number_format($totaliva,2) . '</valor>
                              </totalImpuesto>';
 }else{
     $xml_totalconimpuestos = '<totalImpuesto>
