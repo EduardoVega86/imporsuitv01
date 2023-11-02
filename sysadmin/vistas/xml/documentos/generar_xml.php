@@ -168,7 +168,7 @@ while ($data_productos = $query->fetch_assoc()) {
                   <codigo>2</codigo>
                   <codigoPorcentaje>' . $codigoporcentaje . '</codigoPorcentaje>
                   <tarifa>' . $tarifa . '</tarifa>
-                  <baseImponible>' . $baseimponible . '</baseImponible>
+                  <baseImponible>' . number_format($baseimponible, 2) . '</baseImponible>
                   <valor>' . number_format($iva,2) . '</valor>
               </impuesto></impuestos></detalle>
           ';
