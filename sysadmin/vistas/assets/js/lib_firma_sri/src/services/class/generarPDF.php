@@ -23,7 +23,7 @@ require_once('sendEmail.php');
 class generarPDF
 {
 
-    public function facturaPDF($document, $claveAcceso)
+    public function facturaPDF($document, $claveAcceso,$logo)
     {
         $pdf = new PDF_Code();
         $pdf->AddPage();
@@ -39,9 +39,15 @@ class generarPDF
         //$pdf->image('http://localhost:8080/Facturacion/sistema/img/Logo.jpg', null, null, 70, 25);//ubicacion de la img,null,null,ancho,alto
         //$pdf->image('img/Logo.jpg' , null,null, 70, 25);//ubicacion de la img,null,null,ancho,alto
 
-        $file='assets/images/Logo.jpg';
+        //$file='assets/images/Logo.jpg';
+        $file='../../../../' . $logo;
+        
 		$exists = is_file($file);
-        $pdf->image('uploads/Logo.jpg', null, null, 80, 20);
+        if($exists){
+            $pdf->image($file, null, null, 80, 20);
+        }else{
+            $pdf->image('uploads/Logo.jpg', null, null, 80, 20);
+        }
         
         if ($document->infoFactura->obligadoContabilidad == 'SI') {
             $contabilidad = "SI";

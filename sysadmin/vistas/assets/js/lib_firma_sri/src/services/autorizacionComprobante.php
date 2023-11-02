@@ -18,6 +18,7 @@ $service = $_POST['service'];
 $id = $_POST['id'];
 $comprobantesri = $_POST['comprobante'];
 $ambiente = $_POST['ambiente'];
+$logo = $_POST['logo'];
 
 if($ambiente == 2){
     //EndPoint
@@ -183,7 +184,7 @@ if ($client->fault) {
                 if ($dataComprobante->infoFactura) {
 
                     $facturaPDF = new generarPDF();
-                    $facturaPDF->facturaPDF($dataComprobante, $claveAcceso);
+                    $facturaPDF->facturaPDF($dataComprobante, $claveAcceso,$logo);
                 }
                 if ($dataComprobante->infoNotaCredito) {
                     //     var_dump($dataComprobante->infoFactura);

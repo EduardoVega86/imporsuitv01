@@ -236,6 +236,7 @@ $direccion_empresa = $dataperfil['direccion'];
 $fecha_emision = date('m/d/Y h:i:s a', time());
 
 $direccion_sucursal = $dataperfil['direccion'];
+$logo = $dataperfil['logo_url'];
 //$id_tipo_documento = '05';
 $id_tipo_documento = '04';
 
@@ -255,6 +256,8 @@ $datacliente = mysqli_fetch_assoc($querycliente);
 
 $nombre_cliente = $datacliente['nombre_cliente'];
 $direccion_cliente = $datacliente['direccion_cliente'];
+$telefono_cliente = $datacliente['telefono_cliente'];
+$email_cliente = $datacliente['email_cliente'];
 
 $clave = "" . date('dmY', strtotime($fecha_emision)) . "" . '01' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_factura, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision . "";
 $digito_verificador_clave = validar_clave($clave);
@@ -307,12 +310,13 @@ $xml = '<?xml version="1.0" encoding="UTF-8"?>
         </infoFactura>';
         $xml_detalles .= '</detalles>
         <infoAdicional>
-            <campoAdicional nombre="Direccion">direccion</campoAdicional>
-            <campoAdicional nombre="Telefono">telefono</campoAdicional>		
-            <campoAdicional nombre="Email">email</campoAdicional>
+            <campoAdicional nombre="Direccion">'.$direccion_cliente.'</campoAdicional>
+            <campoAdicional nombre="Telefono">'.$telefono_cliente.'</campoAdicional>		
+            <campoAdicional nombre="Email">'.$email_cliente.'</campoAdicional>
         </infoAdicional>
     </factura>';
     
+
     
 //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
 $file = fopen("../comprobantes/factura_" . $id_factura . ".xml", "w+");
@@ -336,7 +340,7 @@ $ruta_certificado =  $ruta;
 $pass = $pass_firma;
 $ruta_respuesta='';
 //var_dump($ruta_respuesta);die;
-echo ' <script>obtenerComprobanteFirmado_sri("' . $ruta_certificado . '","' . $pass . '","' .$ruta_respuesta. '","' .$ruta_factura.'","' .$id_factura.'","FACTURA",null,"' .$id_tipo_ambiente.'")</script>';
+echo ' <script>obtenerComprobanteFirmado_sri("' . $ruta_certificado . '","' . $pass . '","' .$ruta_respuesta. '","' .$ruta_factura.'","' .$id_factura.'","FACTURA",null,"' .$id_tipo_ambiente.'","' .$logo.'")</script>';
 ?>
     <script>
             $(window).on('load', function () {
