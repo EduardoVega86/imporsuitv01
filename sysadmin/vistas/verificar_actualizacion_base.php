@@ -16,6 +16,16 @@ if (!$result) {
    
 } 
 
+$query = "SELECT habilitar_proveedor FROM perfil LIMIT 1";
+@$result = mysqli_fetch_array($query);
+if (!$result) {
+    //echo 'pasa';
+    
+    $query = mysqli_query($conexion, "ALTER TABLE `perfil` ADD `habilitar_proveedor` INT NOT NULL AFTER `flotante`;");
+   
+} 
+
+     
     
 ?>
 
