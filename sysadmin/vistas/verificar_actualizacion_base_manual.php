@@ -8,7 +8,7 @@ require_once "db.php";
     
 //29-10-2023 aumentar campo id_articulo en testimonios
 $query = "SELECT id_producto FROM testimonios LIMIT 1";
-@$result = mysqli_fetch_array($query);
+$result = mysqli_fetch_array($query);
 if (!$result) {
     
     
