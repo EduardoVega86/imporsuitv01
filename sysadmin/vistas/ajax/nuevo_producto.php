@@ -88,7 +88,7 @@ if (empty($_POST['codigo'])) {
         $query_update = mysqli_query($conexion, $sql);
     } else {
         $sql              = "INSERT INTO productos (codigo_producto, nombre_producto, descripcion_producto, id_linea_producto, id_proveedor, inv_producto, iva_producto, estado_producto, costo_producto, utilidad_producto, valor1_producto,valor2_producto,valor3_producto, stock_producto,stock_min_producto, date_added,id_imp_producto, pagina_web, formato) VALUES ('$codigo','$nombre','$descripcion','$linea','$proveedor','$inv','$impuesto','$estado','$costo','$utilidad','$precio_venta','$precio_mayoreo','$precio_especial','$stock','$stock_minimo','$date_added','0','$online','$formato')";
-       //echo $sql;
+       echo $sql;
         $query_new_insert = mysqli_query($conexion, $sql);
         
         
@@ -119,7 +119,7 @@ if (empty($_POST['codigo'])) {
     @$costo_promedio = ($rww['total_saldo'] + $saldo_total) / $cant_saldo;
     @$tipo           = 5;
 
-    //guardar_entradas($date_added, $id_producto, $stock, $costo, $saldo_total, $cant_saldo, $costo_promedio, $saldo_full, $date_added, $users, $tipo);
+    guardar_entradas($date_added, $id_producto, $stock, $costo, $saldo_total, $cant_saldo, $costo_promedio, $saldo_full, $date_added, $users, $tipo);
 
     if ($query_new_insert or $query_update) {
         $messages[] = "Producto ha sido ingresado satisfactoriamente.";
