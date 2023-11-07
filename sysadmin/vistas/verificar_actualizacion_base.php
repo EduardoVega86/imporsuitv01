@@ -16,6 +16,8 @@ if (!$result) {
    
 } 
 
+//29-10-2023 aumentar campo id_articulo en testimonios
+
 $query = "SELECT habilitar_proveedor FROM perfil LIMIT 1";
 @$result = mysqli_fetch_array($query);
 if (!$result) {
@@ -25,8 +27,25 @@ if (!$result) {
    
 } 
 
-     
+
+$query = "SELECT habilitar_proveedor FROM perfil LIMIT 1";
+@$result = mysqli_fetch_array($query);
+if (!$result) {
+    //echo 'pasa';
     
+    $query = mysqli_query($conexion, "ALTER TABLE `productos` ADD `tienda` VARCHAR(500) NOT NULL AFTER `valor4_producto`;");
+   
+} 
+
+$query = "SELECT habilitar_proveedor FROM perfil LIMIT 1";
+@$result = mysqli_fetch_array($query);
+if (!$result) {
+    //echo 'pasa';
+    
+    $query = mysqli_query($conexion, "ALTER TABLE `productos` ADD `drogshipin` INT NOT NULL DEFAULT '0' AFTER `tienda`;");
+   
+} 
+
 ?>
 
 
