@@ -76,6 +76,10 @@ $row           = mysqli_fetch_array($query_empresa);
 
 									<div class="col-md-9">
 										<div class="card-box">
+                                                                                    <div class="">
+                                                                            <input class="" type="checkbox" role="switch" id="flotar" <?php if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1)==1){ ?> checked<?php }?>>
+  <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar productos proveedor</label>
+                                                                        </div><br>
 												<div class="form-group row">
 													<label for="inputPassword3" class="col-sm-3  col-form-label">Razón Social:</label>
 													<div class="col-sm-9">
@@ -311,7 +315,30 @@ $row           = mysqli_fetch_array($query_empresa);
   })
 
 
-
+   $(document).on('change','input[type="checkbox"]' ,function(e) {
+    if(this.id=="flotar") {
+        if(this.checked){
+             id=1;
+        }
+           
+        else {
+           id=0; 
+        }
+           $.ajax({
+        type: "GET",
+        url: "../ajax/habilitaproveedor.php",
+        data: "id=" + id,
+        beforeSend: function(objeto) {
+            $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+        },
+        success: function(datos) {
+            $("#resultados").html(datos);
+        }
+    });
+    
+    }
+  
+});
 </script>
 
 <script>
