@@ -621,7 +621,20 @@ $producto_activa="menu_activo texto_boton";
       }</style>
 <div style="">
     <?php
-    echo get_row('landing', 'contenido', 'id_producto', $id_producto)
+    
+            
+            $rutaArchivo = 'sysadmin/vistas/ajax/'.get_row('landing', 'contenido', 'id_producto', $id_producto); // Reemplaza con la ruta correcta
+
+        // Verifica si el archivo existe
+        if (file_exists($rutaArchivo)) {
+            // Carga y muestra el contenido del archivo HTML
+             $rutaArchivo = file_get_contents($rutaArchivo);
+           echo $rutaArchivo;
+        } else {
+            
+            //echo $rutaArchivo;
+            echo get_row('landing', 'contenido', 'id_producto', $id_producto);
+        }
     ?>
     
 </div>
@@ -1138,7 +1151,7 @@ include 'includes/footer.php'
    
 
     
-    <script src="//tiendamiaecu.com/cdn/shop/t/3/assets/predictive-search.js?v=16985596534672189881693673628" defer="defer"></script>
+    
       
     
   
