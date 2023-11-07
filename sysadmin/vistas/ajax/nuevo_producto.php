@@ -119,7 +119,7 @@ if (empty($_POST['codigo'])) {
     @$costo_promedio = ($rww['total_saldo'] + $saldo_total) / $cant_saldo;
     @$tipo           = 5;
 
-    guardar_entradas($date_added, $id_producto, $stock, $costo, $saldo_total, $cant_saldo, $costo_promedio, $saldo_full, $date_added, $users, $tipo);
+    //guardar_entradas($date_added, $id_producto, $stock, $costo, $saldo_total, $cant_saldo, $costo_promedio, $saldo_full, $date_added, $users, $tipo);
 
     if ($query_new_insert or $query_update) {
         $messages[] = "Producto ha sido ingresado satisfactoriamente.";
