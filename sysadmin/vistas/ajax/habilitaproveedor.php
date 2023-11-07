@@ -5,7 +5,7 @@ require_once "../db.php";
 require_once "../php_conexion.php";
 $id = intval($_GET['id']);
  $sql          = "UPDATE perfil SET habilitar_proveedor=$id";
- echo $sql;
+ //echo $sql;
             $query_update = mysqli_query($conexion, $sql);
             
             ?>
