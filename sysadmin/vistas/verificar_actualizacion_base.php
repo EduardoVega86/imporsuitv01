@@ -10,7 +10,7 @@ require_once "vistas/db.php";
 $query = "SELECT id_producto FROM testimonios LIMIT 1";
 @$result = mysqli_fetch_array($query);
 if (!$result) {
-    //echo 'pasa';
+    
     
     $query = mysqli_query($conexion, "ALTER TABLE `testimonios` ADD `id_producto` INT NOT NULL AFTER `date_added`;");
    
@@ -31,8 +31,8 @@ if (!$result) {
 $query = "SELECT habilitar_proveedor FROM perfil LIMIT 1";
 @$result = mysqli_fetch_array($query);
 if (!$result) {
-    //echo 'pasa';
-    
+    echo 'pasa';
+    echo "ALTER TABLE `productos` ADD `tienda` VARCHAR(500) NOT NULL AFTER `valor4_producto`;";
     $query = mysqli_query($conexion, "ALTER TABLE `productos` ADD `tienda` VARCHAR(500) NOT NULL AFTER `valor4_producto`;");
    
 } 
