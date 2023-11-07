@@ -18,6 +18,40 @@ if (!$result) {
 } 
 
 
+//29-10-2023 aumentar campo id_articulo en testimonios
+$query = "SELECT habilitar_proveedor FROM perfil LIMIT 1";
+$result = mysqli_query($conexion, $query);
+ $result      = mysqli_num_rows($result);
+if (!$result) {
+    
+    
+     $query = mysqli_query($conexion, "ALTER TABLE `perfil` ADD `habilitar_proveedor` INT NOT NULL AFTER `flotante`;");
+   
+} 
+
+//29-10-2023 aumentar campo id_articulo en testimonios
+$query = "SELECT habilitar_proveedor FROM perfil LIMIT 1";
+$result = mysqli_query($conexion, $query);
+ $result      = mysqli_num_rows($result);
+if (!$result) {
+    
+    
+    $query = mysqli_query($conexion, "ALTER TABLE `productos` ADD `tienda` VARCHAR(500) NOT NULL AFTER `valor4_producto`;");
+   
+} 
+
+//29-10-2023 aumentar campo id_articulo en testimonios
+$query = "SELECT habilitar_proveedor FROM perfil LIMIT 1";
+$result = mysqli_query($conexion, $query);
+ $result      = mysqli_num_rows($result);
+if (!$result) {
+    
+    
+    $query = mysqli_query($conexion, "ALTER TABLE `productos` ADD `drogshipin` INT NOT NULL DEFAULT '0' AFTER `tienda`;");
+   
+} 
+
+
 ?>
 
 
