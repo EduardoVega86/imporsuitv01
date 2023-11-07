@@ -82,11 +82,24 @@ permisos($modulo, $cadena_permisos);
 						</div>
 						<div id="bg-primary" class="panel-collapse collapse show">
 							<div class="portlet-body">
-                                                            <form id="miFormulario" action="../ajax/ajax_procesar.php" method="post">
+                                                            <form id="miFormulario" action="../ajax/ajax_procesar_txt.php" method="post">
                                                                 <input type="hidden" value="<?php echo $id_producto; ?>"  name="id_producto">             
                                                                 
                                                                 <textarea id="summernote" name="contenido">
-                                                                 <?php echo $contenido; ?>   
+                                                                 <?php //echo $contenido; 
+                                                                 $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta
+
+        // Verifica si el archivo existe
+        if (file_exists($rutaArchivo)) {
+            // Carga y muestra el contenido del archivo HTML
+             $rutaArchivo = file_get_contents($rutaArchivo);
+           echo $rutaArchivo;
+        } else {
+            
+            //echo $rutaArchivo;
+            echo $contenido;
+        }
+                                                                 ?>   
 
                                                                 </textarea>
                                                                 <input type="submit" class="btn btn-success" value="GUARDAR">
