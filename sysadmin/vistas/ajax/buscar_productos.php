@@ -77,6 +77,11 @@ if ($action == 'ajax') {
                 <th class='text-left'>P. Normal Online</th>
                 <th>Landing</th>
                 <th>Imagenes</th>
+                <?php
+                if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1)==1){
+                echo '<th>Enviar a Market Place</th>';    
+                }
+                ?>
                 <th>Estado</th>
                 
                 <th>Agregado</th>
@@ -188,11 +193,23 @@ if ($image_path == null) {
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_mayoreo, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_especial, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_normal, 2); ?></span></td>
+                    
                     <td>
                         <!--a class="" href="#" data-toggle="modal" data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a-->
                         <a class="" href="landin.php?id=<?php echo $id_producto; ?>"  data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a>
                     </td>
                     <td><a class="" href="#" data-toggle="modal" data-target="#editarProducto2" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');"> <img style="width: 40px" src="../../img/3342177.png" alt=""/></a></td>
+                    
+                     <?php
+                if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1)==1){?>
+                    <td>
+                        <!--a class="" href="#" data-toggle="modal" data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a-->
+                        <a class="" href="subir_market.php?id=<?php echo $id_producto; ?>"  > <img style="width: 30px" src="../../img/subir_producto.png" alt=""/></a>
+                    </td>
+                    <?php
+                    
+                        
+                    }?>
                     <td><?php echo $estado; ?></td>
                
                     <td><?php echo $date_added; ?></td>
