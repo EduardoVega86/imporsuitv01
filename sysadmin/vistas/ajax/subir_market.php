@@ -116,12 +116,22 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
                 . "'$url_a2', '$url_a3', '$url_a4', "
                 . "'$url_a5', $valor4_producto, '0', '1');";
         
-        echo $insert_query;
+        //echo $insert_query;
         
          if (!$destino->query($insert_query)) {
             echo "Error al insertar datos: " . $destino->error;
         }else{
         
+            
+// Consulta SQL para actualizar el campo "tienda"
+$sql = "UPDATE productos SET tienda = 'enviado' WHERE id_producto = $id";
+
+if ($conexion->query($sql) === TRUE) {
+    header("Location: ../html/productos.php", TRUE, 301);
+} else {
+    echo "Error en la actualización: " . $conexion->error;
+}
+
         }
     }
     
