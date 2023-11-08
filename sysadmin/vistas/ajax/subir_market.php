@@ -65,6 +65,7 @@ $query_check_user_name = mysqli_query($conexion, $sql);
        $url_a5 = $fila['url_a5'];
        
        $valor4_producto = $fila['valor4_producto'];
+       echo $valor4_producto;
        $tienda = $fila['tienda'];
        $drogshipin = $fila['drogshipin'];
         
