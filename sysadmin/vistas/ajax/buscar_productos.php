@@ -204,7 +204,7 @@ if ($image_path == null) {
                 if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1)==1){?>
                     <td>
                         <!--a class="" href="#" data-toggle="modal" data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a-->
-                        <a class="" href="subir_market.php?id=<?php echo $id_producto; ?>"  > <img style="width: 30px" src="../../img/subir_producto.png" alt=""/></a>
+                        <a class="" href="../ajax/subir_market.php?id=<?php echo $id_producto; ?>"  > <img style="width: 30px" src="../../img/subir_producto.png" alt=""/></a>
                     </td>
                     <?php
                     
