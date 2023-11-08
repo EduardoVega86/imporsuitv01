@@ -17,7 +17,7 @@ if (empty($_GET['id'])) {
 $tabla = 'productos';
 
 // Configuración de la base de datos de destino
-$destino = new mysqli('localhost', 'root', '', 'master');
+$destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 if ($destino->connect_error) {
     die('Error en la conexión a la base de datos de destino: ' . $destino->connect_error);
 }
