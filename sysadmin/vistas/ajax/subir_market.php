@@ -94,7 +94,7 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
                 . "`url_a2`, `url_a3`, `url_a4`, "
                 . "`url_a5`, `valor4_producto`, `tienda`, "
                 . "`drogshipin`) VALUES (NULL, '$codigo_producto', '$nombre_producto', "
-                . "'$descripcion_producto', '$id_linea_producto', '$id_med_producto', "
+                . "'$descripcion_producto', '$id_linea_producto', 0, "
                 . "'$id_proveedor', '$inv_producto', '$iva_producto', "
                 . "'$estado_producto', '$costo_producto', '$utilidad_producto', "
                 . "'$moneda_producto', '$valor1_producto', '$valor2_producto', "
