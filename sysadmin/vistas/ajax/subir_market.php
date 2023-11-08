@@ -102,7 +102,7 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
                 . "'$date_added', '$image_path', '$id_imp_producto', "
                 . "'$pagina_web', '$formato', '$url_a1', "
                 . "'$url_a2', '$url_a3', '$url_a4', "
-                . "'$url_a5', '$valor4_producto', '0', '1');";
+                . "'$url_a5', $valor4_producto, '0', '1');";
         
         echo $insert_query;
         
