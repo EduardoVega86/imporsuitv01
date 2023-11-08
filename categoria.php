@@ -361,7 +361,7 @@ if (strpos(strtolower($texto), strtolower($subcadena)) === 0) {
     <?php
 } else {
     ?>
-    sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
+    ddsysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
     <?php
 }
 ?>
