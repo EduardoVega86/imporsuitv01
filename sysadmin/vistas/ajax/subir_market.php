@@ -17,7 +17,12 @@ if (empty($_GET['id'])) {
 $tabla = 'productos';
 
 // Configuración de la base de datos de destino
-$destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+if ($_SERVER['HTTP_HOST']=='localhost'){
+    $destino = new mysqli('localhost', 'root', '', 'master');
+}else{
+ $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');   
+}
+
 if ($destino->connect_error) {
     die('Error en la conexión a la base de datos de destino: ' . $destino->connect_error);
 }
@@ -65,9 +70,12 @@ $query_check_user_name = mysqli_query($conexion, $sql);
        $url_a5 = $fila['url_a5'];
        
        $valor4_producto = $fila['valor4_producto'];
-       if($valor4_producto=""){
-         $valor4_producto=0;  
-       }
+      if(isset($valor4_producto)){
+          
+      }else{
+       $valor4_producto=0;   
+      }
+       //echo 'valor4'.$valor4_producto.'-';
        
        $tienda = $fila['tienda'];
        $drogshipin = $fila['drogshipin'];
