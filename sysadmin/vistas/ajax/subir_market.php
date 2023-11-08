@@ -104,6 +104,8 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
                 . "'$url_a2', '$url_a3', '$url_a4', "
                 . "'$url_a5', '$valor4_producto', '0', '1');";
         
+        echo $insert_query;
+        
          if (!$destino->query($insert_query)) {
             echo "Error al insertar datos: " . $destino->error;
         }else{
