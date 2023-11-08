@@ -352,8 +352,33 @@ $categoria_activa="menu_activo texto_boton";
             <div class="media media--transparent media--hover-effect">
               
               <img
-                srcset=" sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
-                src=" sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
+                srcset=" <?php
+                $subcadena = "http";
+
+if (strpos(strtolower($texto), strtolower($subcadena)) === 0) {
+    ?>
+    <?php echo  $image_path;?>
+    <?php
+} else {
+    ?>
+    sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
+    <?php
+}
+?>
+                
+                src="<?php
+                $subcadena = "http";
+
+if (strpos(strtolower($texto), strtolower($subcadena)) === 0) {
+    ?>
+    <?php echo  $image_path;?>
+    <?php
+} else {
+    ?>
+    sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
+    <?php
+}
+?>
                 sizes="(min-width: 1400px) 317px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                 alt=""
                 class="motion-reduce"
