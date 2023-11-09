@@ -120,6 +120,7 @@ while ($row = mysqli_fetch_array($query)) {
             $url_a5          = $row['url_a5'];
             $id_imp_producto      = $row['id_imp_producto'];
             $formato      = $row['formato'];
+            $tienda      = $row['tienda'];
             
           //  $texto_boton1      = $row['texto_boton'];
            // $texto_boton2      = $row['texto_boton2'];
@@ -203,8 +204,14 @@ if ($image_path == null) {
                      <?php
                 if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1)==1){?>
                     <td>
+                        <?php
+                if ($tienda==""){?>
                         <!--a class="" href="#" data-toggle="modal" data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a-->
                         <a class="" href="../ajax/subir_market.php?id=<?php echo $id_producto; ?>"  > <img style="width: 30px" src="../../img/subir_producto.png" alt=""/></a>
+                   <?php
+                    
+                        
+                    }?>
                     </td>
                     <?php
                     
