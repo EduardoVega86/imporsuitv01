@@ -369,7 +369,7 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
                 src="<?php
                 $subcadena = "http";
 
-if (strpos(strtolower($texto), strtolower($subcadena)) === 0) {
+if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
     ?>
     <?php echo  $image_path;?>
     <?php
