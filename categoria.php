@@ -357,7 +357,7 @@ $categoria_activa="menu_activo texto_boton";
 
 if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
     ?>
-    <?php echo  $image_path;?>
+    <?php echo  $image_path.'"';?>
     <?php
 } else {
     ?>
@@ -371,7 +371,7 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
 
 if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
     ?>
-    <?php echo  $image_path;?>
+    <?php echo  $image_path.'"';?>
     <?php
 } else {
     ?>
