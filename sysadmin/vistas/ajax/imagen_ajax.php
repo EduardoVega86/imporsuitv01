@@ -4,8 +4,8 @@
 require_once "../db.php";
 require_once "../php_conexion.php";
 if (isset($_FILES["imagefile"])) {
-    //$target_dir    = "../../img/";
-    $target_dir    = "../../img/perfil/";
+    $target_dir    = "../../img/";
+    //$target_dir    = "../../img/perfil/";
     $image_name    = time() . "_" . basename($_FILES["imagefile"]["name"]);
     $target_file   = $target_dir . $image_name;
     $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
