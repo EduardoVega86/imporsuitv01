@@ -68,6 +68,10 @@ require_once "../funciones.php";
 					<a href="principal.php" class="waves-effect waves-primary"><i
 						class="ti-home"></i><span> Inicio </span></a>
 					</li>
+                                        <li>
+					<a href="marketplace.php" class="waves-effect waves-primary"><i
+						class="ti-import"></i><span> Marketplace </span></a>
+					</li>
 					<li>
 						<a href="../html/clientes.php" class="waves-effect waves-primary"><i
 							class="ti-user"></i><span> Clientes </span></a>
