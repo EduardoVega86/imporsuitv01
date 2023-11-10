@@ -134,13 +134,15 @@ $image_path=$server_url.$carpeta.'/'.$image_path;
           
         }else{
             $ultimo_id = $destino->insert_id;
-            //echo "SELECT * FROM landing where id_producto=$id";
+            echo "SELECT * FROM landing where id_producto=$id";
             $sql_landing = "SELECT * FROM landing where id_producto=$id";
 $query_landing = mysqli_query($conexion, $sql_landing);
     $query_landing_existe      = mysqli_num_rows($query_landing);
     
     if ($query_landing_existe == true) {
         //update
+  
+       
         while ($fila_landing = $query_landing->fetch_assoc()) {
         $contenido = $fila_landing['contenido'];
         $contenido=$server_url.$carpeta.'/sysadmin/vistas/ajax/'.$contenido;
@@ -155,7 +157,7 @@ $query_landing = mysqli_query($conexion, $sql_landing);
 $sql = "UPDATE productos SET tienda = 'enviado' WHERE id_producto = $id";
 
 if ($conexion->query($sql) === TRUE) {
-   header("Location: ../html/productos.php", TRUE, 301);
+ //  header("Location: ../html/productos.php", TRUE, 301);
 } else {
     echo "Error en la actualización: " . $conexion->error;
 }
@@ -167,7 +169,7 @@ if ($conexion->query($sql) === TRUE) {
  $sql = "UPDATE productos SET tienda = 'enviado' WHERE id_producto = $id";
 
 if ($conexion->query($sql) === TRUE) {
-   header("Location: ../html/productos.php", TRUE, 301);
+  // header("Location: ../html/productos.php", TRUE, 301);
 } else {
     echo "Error en la actualización: " . $conexion->error;
 }
