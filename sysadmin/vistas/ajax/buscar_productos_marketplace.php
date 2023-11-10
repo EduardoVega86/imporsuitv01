@@ -84,16 +84,12 @@ if ($action == 'ajax') {
                 <th class='text-left'>P. Online</th>
                 <th class='text-left'>P. Normal Online</th>
                 <th>Landing</th>
-                <th>Imagenes</th>
-                <?php
-                if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1)==1){
-                echo '<th>Enviar a Market Place</th>';    
-                }
-                ?>
-                <th>Estado</th>
-                
-                <th>Agregado</th>
-                <th class='text-right'>Acciones</th>
+                 <th>Importar</th>
+                 <th>Disponible</th>
+                 
+              
+             
+               
 
             </tr>
             <?php
@@ -207,44 +203,19 @@ if ($image_path == null) {
                         <!--a class="" href="#" data-toggle="modal" data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a-->
                         <a class="" href="landin_marketplace.php?id=<?php echo $id_producto; ?>"  data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a>
                     </td>
-                    <td><a class="" href="#" data-toggle="modal" data-target="#editarProducto2" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');"> <img style="width: 40px" src="../../img/3342177.png" alt=""/></a></td>
                     
-                     <?php
-                if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1)==1){?>
                     <td>
-                        <?php
-                if ($tienda==""){?>
                         <!--a class="" href="#" data-toggle="modal" data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a-->
-                        <a class="" href="../ajax/subir_market.php?id=<?php echo $id_producto; ?>"  > <img style="width: 30px" src="../../img/subir_producto.png" alt=""/></a>
-                   <?php
-                    
-                        
-                    }?>
+                        <a class="" href="importar.php?id=<?php echo $id_producto; ?>"  data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/importar.png" alt=""/></a>
                     </td>
-                    <?php
+                     
                     
-                        
-                    }?>
-                    <td><?php echo $estado; ?></td>
+                   
                
-                    <td><?php echo $date_added; ?></td>
+                    <td><?php echo $stock_producto; ?></td>
                     <td >
 
-                      <div class="btn-group dropdown pull-right">
-                        <button type="button" class="btn btn-warning btn-rounded waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                           <?php if ($permisos_ver == 1) {?>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');"><i class='fa fa-edit'></i> Editar</a>
-                           <?php }
-            if ($permisos_editar == 1) {?>
-                           <!--<a class="dropdown-item" href="historial.php?id=<?php echo $id_producto; ?>"><i class='fa fa-calendar'></i> Historial</a>-->
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_producto; ?>"><i class='fa fa-trash'></i> Borrar</a>
-                           <?php }
-            ?>
-
-
-                       </div>
-                   </div>
+                      
 
                </td>
            </tr>
