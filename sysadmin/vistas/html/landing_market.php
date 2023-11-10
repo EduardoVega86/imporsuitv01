@@ -89,22 +89,7 @@ permisos($modulo, $cadena_permisos);
 						</div>
 						<div id="bg-primary" class="panel-collapse collapse show">
 							<div class="portlet-body">
-                                                            <form id="miFormulario" action="../ajax/ajax_procesar_txt.php" method="post">
-                                                                <input type="hidden" value="<?php echo $id_producto; ?>"  name="id_producto">             
-                                                                
-                                                                <textarea id="summernote" name="contenido">
-                                                                 <?php //echo $contenido; 
- include "$contenido"; // Reemplaza con la ruta correcta
-
-                                                           ?>   
-
-                                                                </textarea>
-                                                                <input type="submit" class="btn btn-success" value="GUARDAR">
-                                                              
-                                                                <a style="float: right; color: white" href="productos.php" class="btn btn-danger">
-                                                                   VOLVER A PRODUCTOS
-                                                                    </a>
-</form>
+                                                           <iframe src="<?php echo $contenido;?>" width="600" height="400" title="Contenido externo"></iframe>
 								</div>
 							</div>
 						</div>
