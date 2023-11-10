@@ -94,7 +94,7 @@ permisos($modulo, $cadena_permisos);
                                                                 
                                                                 <textarea id="summernote" name="contenido">
                                                                  <?php //echo $contenido; 
-                                                                 $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta
+                                                                 $rutaArchivo = $contenido; // Reemplaza con la ruta correcta
 
         // Verifica si el archivo existe
         if (file_exists($rutaArchivo)) {
