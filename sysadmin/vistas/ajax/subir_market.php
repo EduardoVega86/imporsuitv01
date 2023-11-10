@@ -138,7 +138,7 @@ $image_path=$server_url.$carpeta.'/'.$image_path;
             $sql_landing = "SELECT * FROM landing where id_producto=$id";
 $query_landing = mysqli_query($conexion, $sql_landing);
     $query_landing_existe      = mysqli_num_rows($query_landing);
-    
+    echo $query_landing_existe;
     if ($query_landing_existe == true) {
         //update
   
@@ -147,7 +147,8 @@ $query_landing = mysqli_query($conexion, $sql_landing);
         $contenido = $fila_landing['contenido'];
         $contenido=$server_url.$carpeta.'/sysadmin/vistas/ajax/'.$contenido;
           $insert_query_landing = "INSERT INTO `landing`(`id_producto`,`contenido`) values ($ultimo_id, '$contenido')";
-            if (!$destino->query($insert_query_landing)) {
+          echo $insert_query_landing; 
+          if (!$destino->query($insert_query_landing)) {
             echo "Error al insertar landing: " . $destino->error;
             
           
