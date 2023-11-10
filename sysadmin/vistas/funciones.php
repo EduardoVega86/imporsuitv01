@@ -470,12 +470,14 @@ function generax($id){
             $codigoporcentaje = 2;
             $tarifa = 12;
             $baseimponible = number_format($data_productos['precioUnitario'], 2) - $iva;
+            $baseimponible =  str_replace(',','', $baseimponible);
             $totalesconimpuestos += $baseimponible;
         }else{
             $iva = 0.00;
             $codigoporcentaje = 0;
             $tarifa = 0;
             $baseimponible =  number_format($data_productos['precioUnitario'], 2);
+            $baseimponible =  str_replace(',','', $baseimponible);
             $valor =  number_format($data_productos['precioUnitario'], 2);
             $totalessinimpuestos += $baseimponible;
         }
@@ -484,23 +486,25 @@ function generax($id){
         }else{
             $descripcion = $data_productos["descripcion"];
         }
+        $baseimponible =  number_format($baseimponible, 2);
+        $baseimponible =  str_replace(',','', $baseimponible);
+
         $xml_detalles .= '<detalle>
         <codigoPrincipal>' . $data_productos["codigo"] . '</codigoPrincipal>
         <codigoAuxiliar>' .$data_productos["codigo"]. '</codigoAuxiliar>
         <descripcion>' .$descripcion . '</descripcion>
         <cantidad>' . $data_productos['cantidad'] . '</cantidad>
-        <precioUnitario>' .number_format( $baseimponible, 2) . '</precioUnitario>            
+        <precioUnitario>' . $baseimponible . '</precioUnitario>            
         <descuento>0</descuento>
-        <precioTotalSinImpuesto>' . number_format($baseimponible, 2)  . '</precioTotalSinImpuesto>';
+        <precioTotalSinImpuesto>' . $baseimponible . '</precioTotalSinImpuesto>';
         $xml_detalles .= '<impuestos>';
-                
             $xml_detalles .= '
             <impuesto>
                 <codigo>2</codigo>
                 <codigoPorcentaje>' . $codigoporcentaje . '</codigoPorcentaje>
                 <tarifa>' . $tarifa . '</tarifa>
                 <baseImponible>' . $baseimponible . '</baseImponible>
-                <valor>' . $iva . '</valor>
+                <valor>' . number_format($iva,2) . '</valor>
             </impuesto></impuestos></detalle>
         ';
         //$totalSinImpuestos +=  $data_productos['precioUnitario'];
@@ -510,31 +514,38 @@ function generax($id){
     //$xml_detalles .= '</detalles>';
 
     $xml_totalconimpuestos = '';
+    
+    $totalesconimpuestos =  number_format($totalesconimpuestos, 2);
+    $totalesconimpuestos =  str_replace(',','', $totalesconimpuestos);
+
+    $totalessinimpuestos =  number_format($totalessinimpuestos, 2);
+    $totalessinimpuestos =  str_replace(',','', $totalessinimpuestos);
+
     if($totaliva > 0 && $totalessinimpuestos > 0 ){
         $xml_totalconimpuestos = '<totalImpuesto>
                                     <codigo>2</codigo>
                                     <codigoPorcentaje>2</codigoPorcentaje>
-                                    <baseImponible>' . number_format($totalesconimpuestos, 2) . '</baseImponible>
+                                    <baseImponible>' . $totalesconimpuestos . '</baseImponible>
                                     <valor>' . $totaliva . '</valor>
                                  </totalImpuesto>
                                  <totalImpuesto>
                                     <codigo>2</codigo>
                                     <codigoPorcentaje>0</codigoPorcentaje>
-                                    <baseImponible>' . number_format($totalessinimpuestos, 2) . '</baseImponible>
+                                    <baseImponible>' . $totalessinimpuestos . '</baseImponible>
                                     <valor>0.00</valor>
                                  </totalImpuesto>';
     }elseif($totaliva > 0){
         $xml_totalconimpuestos = '<totalImpuesto>
                                     <codigo>2</codigo>
                                     <codigoPorcentaje>2</codigoPorcentaje>
-                                    <baseImponible>' . number_format($totalesconimpuestos, 2) . '</baseImponible>
+                                    <baseImponible>' . $totalesconimpuestos . '</baseImponible>
                                     <valor>' . $totaliva . '</valor>
                                  </totalImpuesto>';
     }else{
         $xml_totalconimpuestos = '<totalImpuesto>
                                     <codigo>2</codigo>
                                     <codigoPorcentaje>0</codigoPorcentaje>
-                                    <baseImponible>' . number_format($totalessinimpuestos, 2) . '</baseImponible>
+                                    <baseImponible>' . $totalessinimpuestos . '</baseImponible>
                                     <valor>0.00</valor>
                                 </totalImpuesto>';
     }
@@ -576,6 +587,9 @@ function generax($id){
     $plazoDias = $rw_factura['plazodias'];
 
     $importetotal = $totalesconimpuestos + $totalessinimpuestos + $totaliva;
+    $importetotal =  number_format($importetotal, 2);
+    $importetotal =  str_replace(',','', $importetotal);
+
     //Cliente
     $id_cliente = $rw_factura['id_cliente'];
     $querycliente = mysqli_query($conexion, "SELECT * from clientes where id_cliente='" . $id_cliente . "'")
@@ -623,12 +637,12 @@ function generax($id){
 
                 $xml .='</totalConImpuestos>        
                 <propina>0.00</propina>        
-                <importeTotal>' . number_format($importetotal, 2) . '</importeTotal>
+                <importeTotal>' . $importetotal . '</importeTotal>
                 <moneda>DOLAR</moneda>
                 <pagos>
                     <pago>
                         <formaPago>'.$formaPago.'</formaPago>
-                        <total>' . number_format($importetotal, 2) . '</total>
+                        <total>' . $importetotal . '</total>
                         <plazo>1</plazo>
                         <unidadTiempo>Dias</unidadTiempo>
                     </pago>            

@@ -40,7 +40,7 @@ class generarPDF
         //$pdf->image('img/Logo.jpg' , null,null, 70, 25);//ubicacion de la img,null,null,ancho,alto
 
         //$file='assets/images/Logo.jpg';
-        $file='../../../../' . $logo;
+        $file='../../../../../' . $logo;
         
 		$exists = is_file($file);
         if($exists){
