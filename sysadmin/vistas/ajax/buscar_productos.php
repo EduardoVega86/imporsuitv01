@@ -55,7 +55,7 @@ if ($action == 'ajax') {
     $reload      = '../html/productos.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-    //echo $sql;
+    echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
