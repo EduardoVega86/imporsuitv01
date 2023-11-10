@@ -89,7 +89,7 @@ permisos($modulo, $cadena_permisos);
 						</div>
 						<div id="bg-primary" class="panel-collapse collapse show">
 							<div class="portlet-body">
-                                                           <iframe src="<?php echo $contenido;?>" width="600" height="400" title="Contenido externo"></iframe>
+                                                           <iframe  src="<?php echo $contenido;?>" width="100%" height="900" title="Contenido externo"></iframe>
 								</div>
 							</div>
 						</div>
