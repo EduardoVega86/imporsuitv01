@@ -93,6 +93,9 @@ permisos($modulo, $cadena_permisos);
 								</div>
 							</div>
 						</div>
+                                    <a style="float: right; color: white" href="marketplace.php" class="btn btn-danger">
+                                                                   VOLVER A PRODUCTOS
+                                                                    </a>
 					</div>
                             
                         
