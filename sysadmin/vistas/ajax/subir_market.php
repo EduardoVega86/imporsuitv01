@@ -147,7 +147,7 @@ $query_landing = mysqli_query($conexion, $sql_landing);
         $contenido = $fila_landing['contenido'];
         $contenido=$server_url.$carpeta.'/sysadmin/vistas/ajax/'.$contenido;
           $insert_query_landing = "INSERT INTO `landing`(`id_producto`,`contenido`) values ($ultimo_id, '$contenido')";
-          echo $insert_query_landing; 
+         // echo $insert_query_landing; 
           if (!$destino->query($insert_query_landing)) {
             echo "Error al insertar landing: " . $destino->error;
             
@@ -158,7 +158,7 @@ $query_landing = mysqli_query($conexion, $sql_landing);
 $sql = "UPDATE productos SET tienda = 'enviado' WHERE id_producto = $id";
 
 if ($conexion->query($sql) === TRUE) {
- //  header("Location: ../html/productos.php", TRUE, 301);
+   header("Location: ../html/productos.php", TRUE, 301);
 } else {
     echo "Error en la actualización: " . $conexion->error;
 }
