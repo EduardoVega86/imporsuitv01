@@ -66,10 +66,10 @@ $id_producto=$_GET['id'];
                                                                  
 <?php echo $contenido; ?>   
                                                                 </textarea>
-                                                                <input type="submit" class="btn btn-success" value="GUARDAR">
                                                               
-                                                                <a style="float: right; color: white" href="sysadmin/vistas/html/productos.php" class="btn btn-danger">
-                                                                   VOLVER A PRODUCTOS
+                                                              
+                                                                <a style="float: right; color: white" href="sysadmin/vistas/html/marketplace.php" class="btn btn-danger">
+                                                                   VOLVER A MARKETPLACE
                                                                     </a>
 </form>
 								</div>
