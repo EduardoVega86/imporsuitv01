@@ -92,8 +92,15 @@ else {
 $image_path = str_replace('../..', 'sysadmin', $image_path);
 
         $server_url = $protocol . $_SERVER['HTTP_HOST'];
-        $image_path=$server_url.'/'.$image_path;
-      //echo $campos;
+        
+        if ($_SERVER['HTTP_HOST']=='localhost'){
+    $carpeta = '/imporsuitv01';
+}else{
+ $carpeta = ''; 
+}
+
+        $image_path=$server_url.$carpeta.'/'.$image_path;
+      //echo $image_path;
         
         $insert_query = "INSERT INTO `productos` (`id_producto`, `codigo_producto`, `nombre_producto`, "
                 . "`descripcion_producto`, `id_linea_producto`, `id_med_producto`, "
@@ -105,7 +112,7 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
                 . "`pagina_web`, `formato`, `url_a1`, "
                 . "`url_a2`, `url_a3`, `url_a4`, "
                 . "`url_a5`, `valor4_producto`, `tienda`, "
-                . "`drogshipin`) VALUES (NULL, '$codigo_producto', '$nombre_producto', "
+                . "`drogshipin`, `id_producto_origen`) VALUES (NULL, '$codigo_producto', '$nombre_producto', "
                 . "'$descripcion_producto', '$id_linea_producto', 0, "
                 . "'$id_proveedor', '$inv_producto', '$iva_producto', "
                 . "'$estado_producto', '$costo_producto', '$utilidad_producto', "
@@ -114,7 +121,7 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
                 . "'$date_added', '$image_path', '$id_imp_producto', "
                 . "'$pagina_web', '$formato', '$url_a1', "
                 . "'$url_a2', '$url_a3', '$url_a4', "
-                . "'$url_a5', $valor4_producto, '0', '1');";
+                . "'$url_a5', $valor4_producto, '0', '1',$id );";
         
         //echo $insert_query;
         
