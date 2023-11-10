@@ -94,19 +94,9 @@ permisos($modulo, $cadena_permisos);
                                                                 
                                                                 <textarea id="summernote" name="contenido">
                                                                  <?php //echo $contenido; 
-                                                                 $rutaArchivo = $contenido; // Reemplaza con la ruta correcta
+ include "$contenido"; // Reemplaza con la ruta correcta
 
-        // Verifica si el archivo existe
-        if (file_exists($rutaArchivo)) {
-            // Carga y muestra el contenido del archivo HTML
-             $rutaArchivo = file_get_contents($rutaArchivo);
-           echo $rutaArchivo;
-        } else {
-            
-            //echo $rutaArchivo;
-            echo $contenido;
-        }
-                                                                 ?>   
+                                                           ?>   
 
                                                                 </textarea>
                                                                 <input type="submit" class="btn btn-success" value="GUARDAR">
