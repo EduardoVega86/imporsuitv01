@@ -99,7 +99,10 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
  $carpeta = ''; 
 }
 
-        $image_path=$server_url.$carpeta.'/'.$image_path;
+        
+
+
+$image_path=$server_url.$carpeta.'/'.$image_path;
       //echo $image_path;
         
         $insert_query = "INSERT INTO `productos` (`id_producto`, `codigo_producto`, `nombre_producto`, "
@@ -127,17 +130,49 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
         
          if (!$destino->query($insert_query)) {
             echo "Error al insertar datos: " . $destino->error;
-        }else{
-        
             
-// Consulta SQL para actualizar el campo "tienda"
+          
+        }else{
+            $ultimo_id = $destino->insert_id;
+            //echo "SELECT * FROM landing where id_producto=$id";
+            $sql_landing = "SELECT * FROM landing where id_producto=$id";
+$query_landing = mysqli_query($conexion, $sql_landing);
+    $query_landing_existe      = mysqli_num_rows($query_landing);
+    
+    if ($query_landing_existe == true) {
+        //update
+        while ($fila_landing = $query_landing->fetch_assoc()) {
+        $contenido = $fila_landing['contenido'];
+        $contenido=$server_url.$carpeta.'/sysadmin/vistas/ajax/'.$contenido;
+          $insert_query_landing = "INSERT INTO `landing`(`id_producto`,`contenido`) values ($ultimo_id, '$contenido')";
+            if (!$destino->query($insert_query_landing)) {
+            echo "Error al insertar landing: " . $destino->error;
+            
+          
+        }else{
+            
+            // Consulta SQL para actualizar el campo "tienda"
 $sql = "UPDATE productos SET tienda = 'enviado' WHERE id_producto = $id";
 
 if ($conexion->query($sql) === TRUE) {
-    header("Location: ../html/productos.php", TRUE, 301);
+   header("Location: ../html/productos.php", TRUE, 301);
 } else {
     echo "Error en la actualización: " . $conexion->error;
 }
+
+        }  
+        }
+    }  
+      
+ $sql = "UPDATE productos SET tienda = 'enviado' WHERE id_producto = $id";
+
+if ($conexion->query($sql) === TRUE) {
+   header("Location: ../html/productos.php", TRUE, 301);
+} else {
+    echo "Error en la actualización: " . $conexion->error;
+}
+
+header("Location: ../html/productos.php", TRUE, 301);
 
         }
     }
