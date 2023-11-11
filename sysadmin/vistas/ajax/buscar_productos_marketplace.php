@@ -26,15 +26,28 @@ permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
+    
+         if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+  $protocol = 'https://';
+}
+else {
+  $protocol = 'http://';
+}
+//$image_path = str_replace('../..', 'sysadmin', $image_path);
+
+        $server_url = $protocol . $_SERVER['HTTP_HOST'];
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q            = mysqli_real_escape_string($destino, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $id_categoria = intval($_REQUEST['categoria']);
     $aColumns     = array('codigo_producto', 'nombre_producto'); //Columnas de busqueda
     $sTable       = "productos";
-    $sWhere       = "";
+    $sWhere       = "where tienda <>'$server_url'";
     
     if ($id_categoria > 0) {
-        $sWhere .= " where id_linea_producto = '" . $id_categoria . "' ";
+        $sWhere .= " and id_linea_producto = '" . $id_categoria . "' ";
     }
     if ($_GET['q'] != "") {
         $sWhere = "and (";
