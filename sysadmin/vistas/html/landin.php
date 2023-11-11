@@ -87,8 +87,16 @@ permisos($modulo, $cadena_permisos);
                                                                 
                                                                 <textarea id="summernote" name="contenido">
                                                                  <?php //echo $contenido; 
-                                                                 $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta
-
+                                                                 
+                                                                 $drog=get_row('productos', 'drogshipin', 'id_producto', $id_producto);
+                                                                 
+                                                                 if ($drog=1){
+                                                                     $rutaArchivo=$contenido;
+                                                                 }else{
+                                                                   $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta   
+                                                                 }
+                                                                
+                                                                
         // Verifica si el archivo existe
         if (file_exists($rutaArchivo)) {
             // Carga y muestra el contenido del archivo HTML
