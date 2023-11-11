@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
     header("location: ../../../login.php");
@@ -104,12 +103,10 @@ $client->soap_defencoding = 'utf-8';
 
 
 $result = $client->call("validarComprobante", $parametros, "http://ec.gob.sri.ws.recepcion");
-
 $response = array();
 $file = fopen("../../log.txt", "a+");
 fwrite($file, "Servicio: " . $service . PHP_EOL);
 fwrite($file, "Clave Acceso: " . $claveAcceso . PHP_EOL);
-
 $estado = '';
 $_SESSION['validarComprobante']=$result;
 if ($client->fault) {  
@@ -170,7 +167,6 @@ if ($client->fault) {
 } else {
     $error = $client->getError();
     if ($error) {
-        var_dump('aca 4');die;
         $estado = 'ERROR';
         fwrite($file, "Respuesta: " . print_r($error,true) . PHP_EOL);
         $file_error = fopen('../../errores/'.$claveAcceso.".txt", "w");
@@ -230,10 +226,10 @@ if ($client->fault) {
             
     } else {
         if ($result['estado']=='RECIBIDA'){
-            $estado = 'ERROR';          
+            $estado = 'RECIBIDA';          
             fwrite($file, "Respuesta: " . print_r($result,true) . PHP_EOL);
             //$estado = $result['autorizaciones']['autorizacion']['estado'];
-            /*if($comprobante == 'FACTURA'){
+            if($comprobante == 'FACTURA'){
                 $query2 = mysqli_query($conexion, "UPDATE comprobantes_sri 
                                                 SET Estado = '$estado'
                                                 WHERE id_factura = '$id'")
@@ -265,51 +261,8 @@ if ($client->fault) {
                                                 SET Estado = '$estado'
                                                 WHERE id_guia = '$id'")
                     or die('error: ' . mysqli_error($conexion));
-            }*/
-            if($comprobante == 'FACTURA'){
-                $mensaje = utf8_encode($result['autorizaciones']['autorizacion']['mensajes']['mensaje']['mensaje'] . $result['autorizaciones']['autorizacion']['mensajes']['mensaje']['informacionAdicional']);
-                $estado = $result['autorizaciones']['autorizacion']['estado'];
-                $query2 = mysqli_query($conexion, "UPDATE comprobantes_sri 
-                                                    SET Estado = '$estado',  Mensaje = '$mensaje'
-                                                    WHERE id_factura = '$id'")
-                        or die('error: ' . mysqli_error($conexion));
-            }else if($comprobante == 'NOTA CREDITO'){
-                $mensaje = utf8_encode($result['autorizaciones']['autorizacion']['mensajes']['mensaje']['mensaje'] . $result['autorizaciones']['autorizacion']['mensajes']['mensaje']['informacionAdicional']);
-                $estado = $result['autorizaciones']['autorizacion']['estado'];
-                $query2 = mysqli_query($conexion, "UPDATE comprobantes_sri 
-                                                    SET Estado = '$estado',  Mensaje = '$mensaje'
-                                                    WHERE id_credito = '$id'")
-                        or die('error: ' . mysqli_error($conexion));
-            }else if($comprobante == 'NOTA DEBITO'){
-                $mensaje = utf8_encode($result['autorizaciones']['autorizacion']['mensajes']['mensaje']['mensaje'] . $result['autorizaciones']['autorizacion']['mensajes']['mensaje']['informacionAdicional']);
-                //var_dump($mensaje);die;
-                $estado = $result['autorizaciones']['autorizacion']['estado'];
-                $query2 = mysqli_query($conexion, "UPDATE comprobantes_sri 
-                                                    SET Estado = '$estado',  Mensaje = '$mensaje'
-                                                    WHERE id_debito = '$id'")
-                        or die('error: ' . mysqli_error($conexion));
-            }else if($comprobante == 'RETENCION'){
-                $mensaje = utf8_encode($result['autorizaciones']['autorizacion']['mensajes']['mensaje']['mensaje'] . $result['autorizaciones']['autorizacion']['mensajes']['mensaje']['informacionAdicional']);
-                $estado = $result['autorizaciones']['autorizacion']['estado'];
-                $query2 = mysqli_query($conexion, "UPDATE comprobantes_sri 
-                                                    SET Estado = '$estado',  Mensaje = '$mensaje'
-                                                    WHERE id_retencion = '$id'")
-                        or die('error: ' . mysqli_error($conexion));
-            }else if($comprobante == 'LIQUIDACION COMPRA'){
-                $mensaje = utf8_encode($result['autorizaciones']['autorizacion']['mensajes']['mensaje']['mensaje'] . $result['autorizaciones']['autorizacion']['mensajes']['mensaje']['informacionAdicional']);
-                $estado = $result['autorizaciones']['autorizacion']['estado'];
-                $query2 = mysqli_query($conexion, "UPDATE comprobantes_sri 
-                                                    SET Estado = '$estado',  Mensaje = '$mensaje'
-                                                    WHERE id_liquidacion = '$id'")
-                        or die('error: ' . mysqli_error($conexion));
-            }else if($comprobante == 'GUIA'){
-                $mensaje = utf8_encode($result['autorizaciones']['autorizacion']['mensajes']['mensaje']['mensaje'] . $result['autorizaciones']['autorizacion']['mensajes']['mensaje']['informacionAdicional']);
-                $estado = $result['autorizaciones']['autorizacion']['estado'];
-                $query2 = mysqli_query($conexion, "UPDATE comprobantes_sri 
-                                                    SET Estado = '$estado',  Mensaje = '$mensaje'
-                                                    WHERE id_guia = '$id'")
-                        or die('error: ' . mysqli_error($conexion));
             }
+            
         }else {
             $estado = 'ERROR';
             fwrite($file, "Respuesta: " . print_r($result,true) . PHP_EOL);
@@ -390,7 +343,6 @@ if ($client->fault) {
                                                     SET Estado = '$estado',  Mensaje = '$mensaje'
                                                     WHERE id_retencion = '$id'")
                         or die('error: ' . mysqli_error($conexion));
-                var_dump($result,'aca');die;
             }elseif($comprobante == 'LIQUIDACION COMPRA'){
                 $estado = $result['estado'];
                 $mensaje = utf8_encode($result['comprobantes']['comprobante']['mensajes']['mensaje']['mensaje'] );

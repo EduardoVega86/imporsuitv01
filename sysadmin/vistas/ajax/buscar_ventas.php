@@ -90,7 +90,7 @@ while ($row = mysqli_fetch_array($query)) {
             $claveAcceso = strval($row['claveAcceso']);
             $mensajesri       = $row['Mensaje'];
             $tituloswilf = 'Hubo un error en la autorizacion del comprobante';
-            $textowilf   = $mensajesri;
+            $textowilf   = utf8_decode($mensajesri);
             $Nrocomprobante = $numero_factura;
             $mostrarmensajes = '';
             
@@ -114,6 +114,13 @@ while ($row = mysqli_fetch_array($query)) {
                 $xml = '';
                 $reenviaremail ='';
                 $mostrarmensajes = 'onclick="visualizarmensajesSRI(\'' . $tituloswilf . '\',\''.$textowilf.'\',\''.$Nrocomprobante.'\')" style="cursor: pointer"';
+            }elseif ($estado_sri == 'NO AUTORIZADO') {
+                $estado_sri = 'NO AUTORIZADO';
+                $label_classsri = 'badge-danger';
+                $pdf = '';
+                $xml = '';
+                $reenviaremail ='';
+                $mostrarmensajes = 'onclick="visualizarmensajesSRI(\'' . $tituloswilf . '\',`'.$textowilf.'`,\''.$Nrocomprobante.'\')" style="cursor: pointer"';
             }else{
                 $estado_sri = 'Sin Envio';
                 $label_classsri = 'badge-warning';

@@ -465,19 +465,27 @@ function generax($id){
     $totalessinimpuestos = 0;
     while ($data_productos = $query->fetch_assoc()) {
         if($data_productos["iva"] == 1){
-            $totaliva += (number_format($data_productos['precioUnitario'], 2) * 12) / 100;
-            $iva = (number_format($data_productos['precioUnitario'], 2) * 12) / 100;
+            $totalFactura = $data_productos['precioUnitario'] * $data_productos['cantidad'];
+            $totaliva += (($totalFactura / 1.12) * 12 ) / 100;
+            $iva = (($totalFactura / 1.12) * 12 ) / 100;
+            
             $codigoporcentaje = 2;
-            $tarifa = 12;
-            $baseimponible = number_format($data_productos['precioUnitario'], 2) - $iva;
-            $baseimponible =  str_replace(',','', $baseimponible);
+            $tarifa = 12.00;
+            $baseimponible = $totalFactura - $iva;
+            $baseimponible = number_format($baseimponible,2);
+            $baseimponible = str_replace(',', '', $baseimponible);
             $totalesconimpuestos += $baseimponible;
+            $preciounitario = $data_productos['precioUnitario'] - (($data_productos['precioUnitario'] / 1.12) * 12 ) / 100;
+            $preciounitario = number_format($preciounitario,4);
+            $preciounitario = str_replace(',', '', $preciounitario);
         }else{
             $iva = 0.00;
             $codigoporcentaje = 0;
             $tarifa = 0;
-            $baseimponible =  number_format($data_productos['precioUnitario'], 2);
-            $baseimponible =  str_replace(',','', $baseimponible);
+            $totalFactura = $data_productos['precioUnitario'] * $data_productos['cantidad'];
+            $baseimponible = number_format($totalFactura, 2);
+            $baseimponible = str_replace(',', '', $baseimponible);
+            $preciounitario = $data_productos['precioUnitario'];
             $valor =  number_format($data_productos['precioUnitario'], 2);
             $totalessinimpuestos += $baseimponible;
         }
@@ -486,40 +494,42 @@ function generax($id){
         }else{
             $descripcion = $data_productos["descripcion"];
         }
-        $baseimponible =  number_format($baseimponible, 2);
-        $baseimponible =  str_replace(',','', $baseimponible);
 
+        $iva = number_format($iva,2);
+        $iva = str_replace(',', '', $iva);
         $xml_detalles .= '<detalle>
         <codigoPrincipal>' . $data_productos["codigo"] . '</codigoPrincipal>
         <codigoAuxiliar>' .$data_productos["codigo"]. '</codigoAuxiliar>
         <descripcion>' .$descripcion . '</descripcion>
         <cantidad>' . $data_productos['cantidad'] . '</cantidad>
-        <precioUnitario>' . $baseimponible . '</precioUnitario>            
+        <precioUnitario>' . $preciounitario . '</precioUnitario>            
         <descuento>0</descuento>
-        <precioTotalSinImpuesto>' . $baseimponible . '</precioTotalSinImpuesto>';
+        <precioTotalSinImpuesto>' . $baseimponible  . '</precioTotalSinImpuesto>';
         $xml_detalles .= '<impuestos>';
-            $xml_detalles .= '
-            <impuesto>
-                <codigo>2</codigo>
-                <codigoPorcentaje>' . $codigoporcentaje . '</codigoPorcentaje>
-                <tarifa>' . $tarifa . '</tarifa>
-                <baseImponible>' . $baseimponible . '</baseImponible>
-                <valor>' . number_format($iva,2) . '</valor>
-            </impuesto></impuestos></detalle>
-        ';
-        //$totalSinImpuestos +=  $data_productos['precioUnitario'];
-        $totalSinImpuestos +=  number_format($baseimponible,2);
-        //$totalSinImpuestostotal +=  $dataCitas['valortotal'];
+                
+                    $xml_detalles .= '
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>' . $codigoporcentaje . '</codigoPorcentaje>
+                    <tarifa>' . $tarifa . '</tarifa>
+                    <baseImponible>' . $baseimponible . '</baseImponible>
+                    <valor>' . $iva . '</valor>
+                </impuesto></impuestos></detalle>
+            ';
+        $totalSinImpuestos +=  $baseimponible;
     }
     //$xml_detalles .= '</detalles>';
 
     $xml_totalconimpuestos = '';
-    
-    $totalesconimpuestos =  number_format($totalesconimpuestos, 2);
-    $totalesconimpuestos =  str_replace(',','', $totalesconimpuestos);
 
-    $totalessinimpuestos =  number_format($totalessinimpuestos, 2);
-    $totalessinimpuestos =  str_replace(',','', $totalessinimpuestos);
+    $totalesconimpuestos = number_format($totalesconimpuestos, 2);
+    $totalesconimpuestos = str_replace(',', '', $totalesconimpuestos);
+
+    $totalessinimpuestos = number_format($totalessinimpuestos, 2);
+    $totalessinimpuestos = str_replace(',', '', $totalessinimpuestos);
+
+    $totaliva = number_format($totaliva, 2);
+    $totaliva = str_replace(',', '', $totaliva);
 
     if($totaliva > 0 && $totalessinimpuestos > 0 ){
         $xml_totalconimpuestos = '<totalImpuesto>
@@ -539,7 +549,7 @@ function generax($id){
                                     <codigo>2</codigo>
                                     <codigoPorcentaje>2</codigoPorcentaje>
                                     <baseImponible>' . $totalesconimpuestos . '</baseImponible>
-                                    <valor>' . $totaliva . '</valor>
+                                    <valor>' . $totaliva. '</valor>
                                  </totalImpuesto>';
     }else{
         $xml_totalconimpuestos = '<totalImpuesto>
@@ -583,12 +593,15 @@ function generax($id){
     $pass_firma = $dataperfil['passFirma'];
     //$valortotal = $rw_factura['monto_factura'];
     $valortotal = $totalSinImpuestos;
+    $valortotal = number_format($valortotal, 2);
+    $valortotal = str_replace(',', '', $valortotal);
+
     $formaPago = $rw_factura['formaPago'];
     $plazoDias = $rw_factura['plazodias'];
 
     $importetotal = $totalesconimpuestos + $totalessinimpuestos + $totaliva;
-    $importetotal =  number_format($importetotal, 2);
-    $importetotal =  str_replace(',','', $importetotal);
+    $importetotal = number_format($importetotal, 2);
+    $importetotal = str_replace(',', '', $importetotal);
 
     //Cliente
     $id_cliente = $rw_factura['id_cliente'];
@@ -607,56 +620,56 @@ function generax($id){
     
 
     $xml = '<?xml version="1.0" encoding="UTF-8"?>
-        <factura id="comprobante" version="1.1.0">
-            <infoTributaria>
-                <ambiente>' . $id_tipo_ambiente . '</ambiente>
-                <tipoEmision>1</tipoEmision>
-                <razonSocial>' . $razon_social_empresa . '</razonSocial>
-                <nombreComercial>' . $nombre_comercial_empresa . '</nombreComercial>
-                <ruc>' . $nro_documento_empresa . '</ruc>
-                <claveAcceso>' . $clave_acceso . '</claveAcceso>
-                <codDoc>01</codDoc>
-                <estab>' . $codigo_establecimiento . '</estab>
-                <ptoEmi>' . $codigo_punto_emision . '</ptoEmi>
-                <secuencial>' . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . '</secuencial>
-                <dirMatriz>' . $direccion_empresa . '</dirMatriz>
-            </infoTributaria>
-            <infoFactura>
-                <fechaEmision>' . date("d/m/Y", strtotime($fecha_emision)) . '</fechaEmision>
-                <dirEstablecimiento>' . $direccion_sucursal . '</dirEstablecimiento>
-                <obligadoContabilidad>NO</obligadoContabilidad>       
-                <tipoIdentificacionComprador>' . $id_tipo_documento . '</tipoIdentificacionComprador>
-                <razonSocialComprador>'.$nombre_cliente.'</razonSocialComprador>
-                <identificacionComprador>0490041877001</identificacionComprador>
-                <direccionComprador>'.$direccion_cliente.'</direccionComprador>';
-                $xml.='<totalSinImpuestos>' . number_format($valortotal, 2) . '</totalSinImpuestos>';
-                $xml .= '<totalDescuento>0</totalDescuento>';
+    <factura id="comprobante" version="1.1.0">
+        <infoTributaria>
+            <ambiente>' . $id_tipo_ambiente . '</ambiente>
+            <tipoEmision>1</tipoEmision>
+            <razonSocial>' . $razon_social_empresa . '</razonSocial>
+            <nombreComercial>' . $nombre_comercial_empresa . '</nombreComercial>
+            <ruc>' . $nro_documento_empresa . '</ruc>
+            <claveAcceso>' . $clave_acceso . '</claveAcceso>
+            <codDoc>01</codDoc>
+            <estab>' . $codigo_establecimiento . '</estab>
+            <ptoEmi>' . $codigo_punto_emision . '</ptoEmi>
+            <secuencial>' . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . '</secuencial>
+            <dirMatriz>' . $direccion_empresa . '</dirMatriz>
+        </infoTributaria>
+        <infoFactura>
+            <fechaEmision>' . date("d/m/Y", strtotime($fecha_emision)) . '</fechaEmision>
+            <dirEstablecimiento>' . $direccion_sucursal . '</dirEstablecimiento>
+            <obligadoContabilidad>NO</obligadoContabilidad>       
+            <tipoIdentificacionComprador>' . $id_tipo_documento . '</tipoIdentificacionComprador>
+            <razonSocialComprador>'.$nombre_cliente.'</razonSocialComprador>
+            <identificacionComprador>0490041877001</identificacionComprador>
+            <direccionComprador>'.$direccion_cliente.'</direccionComprador>';
+            $xml.='<totalSinImpuestos>' . $valortotal . '</totalSinImpuestos>';
+            $xml .= '<totalDescuento>0</totalDescuento>';
+            
+            $xml .= '<totalConImpuestos> ';
+            $xml .= $xml_totalconimpuestos;
 
-                $xml .= '<totalConImpuestos> ';
-                $xml .= $xml_totalconimpuestos;
-
-                $xml .='</totalConImpuestos>        
-                <propina>0.00</propina>        
-                <importeTotal>' . $importetotal . '</importeTotal>
-                <moneda>DOLAR</moneda>
-                <pagos>
-                    <pago>
-                        <formaPago>'.$formaPago.'</formaPago>
-                        <total>' . $importetotal . '</total>
-                        <plazo>1</plazo>
-                        <unidadTiempo>Dias</unidadTiempo>
-                    </pago>            
-                </pagos>
-                <valorRetIva>0.00</valorRetIva>
-                <valorRetRenta>0.00</valorRetRenta>
-            </infoFactura>';
-            $xml_detalles .= '
-            <infoAdicional>
-                <campoAdicional nombre="Direccion">'.$direccion_cliente.'</campoAdicional>
-                <campoAdicional nombre="Telefono">'.$telefono_cliente.'</campoAdicional>		
-                <campoAdicional nombre="Email">'.$email_cliente.'</campoAdicional>
-            </infoAdicional>
-        </factura>';
+            $xml .='</totalConImpuestos>        
+            <propina>0.00</propina>        
+            <importeTotal>' . $importetotal . '</importeTotal>
+            <moneda>DOLAR</moneda>
+            <pagos>
+                <pago>
+                    <formaPago>'.$formaPago.'</formaPago>
+                    <total>' . $importetotal . '</total>
+                    <plazo>' . $plazoDias . '</plazo>
+                    <unidadTiempo>Dias</unidadTiempo>
+                </pago>            
+            </pagos>
+            <valorRetIva>0.00</valorRetIva>
+            <valorRetRenta>0.00</valorRetRenta>
+        </infoFactura>';
+        $xml_detalles .= '</detalles>
+        <infoAdicional>
+            <campoAdicional nombre="Direccion">'.$direccion_cliente.'</campoAdicional>
+            <campoAdicional nombre="Telefono">'.$telefono_cliente.'</campoAdicional>		
+            <campoAdicional nombre="Email">'.$email_cliente.'</campoAdicional>
+        </infoAdicional>
+    </factura>';
     
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
     $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");

@@ -47,7 +47,6 @@ $file = fopen("../../log.txt", "a+");
 fwrite($file, "Servicio: " . $service . PHP_EOL);
 fwrite($file, "Clave Acceso: " . $claveAcceso . PHP_EOL);
 
-
 $estado = '';
 
 if ($client->fault) {
@@ -61,10 +60,8 @@ if ($client->fault) {
     fclose($file_error);
     echo serialize($result);
 } else {
-    
     $error = $client->getError();
     if ($error) {
-
         fwrite($file, "Respuesta: " . print_r($error, true) . PHP_EOL);
 
         $file_error = fopen('../../errores/' . $claveAcceso . ".txt", "w");
@@ -75,7 +72,6 @@ if ($client->fault) {
         fclose($file_error);
         echo serialize($error);
     } else {
-        
         echo serialize($result);
         fwrite($file, "Respuesta: " . print_r($result, true) . PHP_EOL);
         

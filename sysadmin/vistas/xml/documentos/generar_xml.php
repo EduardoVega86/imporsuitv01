@@ -113,6 +113,7 @@ if ($count == 0) {
     echo "<script>window.close();</script>";
     exit;
 }
+
 $sql_factura    = mysqli_query($conexion, "select * from facturas_ventas where id_factura='" . $id_factura . "'");
 $rw_factura     = mysqli_fetch_array($sql_factura);
 $xml_detalles = '<detalles>';
@@ -130,67 +131,83 @@ $tarifa = 0;
 $baseimponible = 0;
 $iva = 0;
 $totalesconimpuestos = 0;
-$totalessinimpuestos = 0;
+$totalessinimpuestos = 0.00;
+$totalFactura = 0.00;
 while ($data_productos = $query->fetch_assoc()) {
-    if($data_productos["iva"] == 1){
-        $totaliva += (number_format($data_productos['precioUnitario'], 2) * 12) / 100;
-        $iva = (number_format($data_productos['precioUnitario'], 2) * 12) / 100;
-        $codigoporcentaje = 2;
-        $tarifa = 12;
-        $baseimponible = number_format($data_productos['precioUnitario'], 2) - $iva;
-        $baseimponible =  str_replace(',','', $baseimponible);
-        $totalesconimpuestos += $baseimponible;
-    }else{
-        $iva = 0.00;
-        $codigoporcentaje = 0;
-        $tarifa = 0;
-        $baseimponible =  number_format($data_productos['precioUnitario'], 2);
-        $baseimponible =  str_replace(',','', $baseimponible);
-        $valor =  number_format($data_productos['precioUnitario'], 2);
-        $totalessinimpuestos += $baseimponible;
-    }
-    if($data_productos["descripcion"] == ''){
-        $descripcion = 'sin descripcion';
-    }else{
-        $descripcion = $data_productos["descripcion"];
-    }
-    $baseimponible =  number_format($baseimponible, 2);
-    $baseimponible =  str_replace(',','', $baseimponible);
     
-    $xml_detalles .= '<detalle>
-    <codigoPrincipal>' . $data_productos["codigo"] . '</codigoPrincipal>
-    <codigoAuxiliar>' .$data_productos["codigo"]. '</codigoAuxiliar>
-    <descripcion>' .$descripcion . '</descripcion>
-    <cantidad>' . $data_productos['cantidad'] . '</cantidad>
-    <precioUnitario>' . $baseimponible . '</precioUnitario>
-    <descuento>0</descuento>
-    <precioTotalSinImpuesto>' . $baseimponible  . '</precioTotalSinImpuesto>';
-    $xml_detalles .= '<impuestos>';
-                  $xml_detalles .= '
-              <impuesto>
-                  <codigo>2</codigo>
-                  <codigoPorcentaje>' . $codigoporcentaje . '</codigoPorcentaje>
-                  <tarifa>' . $tarifa . '</tarifa>
-                  <baseImponible>' . $baseimponible . '</baseImponible>
-                  <valor>' . number_format($iva,2) . '</valor>
-              </impuesto></impuestos></detalle>';
-    $totalSinImpuestos +=  number_format($baseimponible,2);
-    //$totalSinImpuestostotal +=  $dataCitas['valortotal'];
+        if($data_productos["iva"] == 1){
+            $totalFactura = $data_productos['precioUnitario'] * $data_productos['cantidad'];
+            $totaliva += (($totalFactura / 1.12) * 12 ) / 100;
+            $iva = (($totalFactura / 1.12) * 12 ) / 100;
+            
+            $codigoporcentaje = 2;
+            $tarifa = 12.00;
+            $baseimponible = $totalFactura - $iva;
+            $baseimponible = number_format($baseimponible,2);
+            $baseimponible = str_replace(',', '', $baseimponible);
+            $totalesconimpuestos += $baseimponible;
+            $preciounitario = $data_productos['precioUnitario'] - (($data_productos['precioUnitario'] / 1.12) * 12 ) / 100;
+            $preciounitario = number_format($preciounitario,4);
+            $preciounitario = str_replace(',', '', $preciounitario);
+        }else{
+            $iva = 0.00;
+            $codigoporcentaje = 0;
+            $tarifa = 0;
+            $totalFactura = $data_productos['precioUnitario'] * $data_productos['cantidad'];
+            $baseimponible = number_format($totalFactura, 2);
+            $baseimponible = str_replace(',', '', $baseimponible);
+            $preciounitario = $data_productos['precioUnitario'];
+            $valor =  number_format($data_productos['precioUnitario'], 2);
+            $totalessinimpuestos += $baseimponible;
+        }
+        if($data_productos["descripcion"] == ''){
+            $descripcion = 'sin descripcion';
+        }else{
+            $descripcion = $data_productos["descripcion"];
+        }
+
+        $iva = number_format($iva,2);
+        $iva = str_replace(',', '', $iva);
+        $xml_detalles .= '<detalle>
+        <codigoPrincipal>' . $data_productos["codigo"] . '</codigoPrincipal>
+        <codigoAuxiliar>' .$data_productos["codigo"]. '</codigoAuxiliar>
+        <descripcion>' .$descripcion . '</descripcion>
+        <cantidad>' . $data_productos['cantidad'] . '</cantidad>
+        <precioUnitario>' . $preciounitario . '</precioUnitario>            
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>' . $baseimponible  . '</precioTotalSinImpuesto>';
+        $xml_detalles .= '<impuestos>';
+                
+                    $xml_detalles .= '
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>' . $codigoporcentaje . '</codigoPorcentaje>
+                    <tarifa>' . $tarifa . '</tarifa>
+                    <baseImponible>' . $baseimponible . '</baseImponible>
+                    <valor>' . $iva . '</valor>
+                </impuesto></impuestos></detalle>
+            ';
+        $totalSinImpuestos +=  $baseimponible;
+        //$totalSinImpuestostotal +=  $dataCitas['valortotal'];
+    
 }
 $xml_totalconimpuestos = '';
 
-$totalesconimpuestos =  number_format($totalesconimpuestos, 2);
-$totalesconimpuestos =  str_replace(',','', $totalesconimpuestos);
+$totalesconimpuestos = number_format($totalesconimpuestos, 2);
+$totalesconimpuestos = str_replace(',', '', $totalesconimpuestos);
 
-$totalessinimpuestos =  number_format($totalessinimpuestos, 2);
-$totalessinimpuestos =  str_replace(',','', $totalessinimpuestos);
+$totalessinimpuestos = number_format($totalessinimpuestos, 2);
+$totalessinimpuestos = str_replace(',', '', $totalessinimpuestos);
+
+$totaliva = number_format($totaliva, 2);
+$totaliva = str_replace(',', '', $totaliva);
 
 if($totaliva > 0 && $totalessinimpuestos > 0 ){
     $xml_totalconimpuestos = '<totalImpuesto>
                                 <codigo>2</codigo>
                                 <codigoPorcentaje>2</codigoPorcentaje>
                                 <baseImponible>' . $totalesconimpuestos . '</baseImponible>
-                                <valor>' . number_format($totaliva,2) . '</valor>
+                                <valor>' . $totaliva . '</valor>
                              </totalImpuesto>
                              <totalImpuesto>
                                 <codigo>2</codigo>
@@ -203,7 +220,7 @@ if($totaliva > 0 && $totalessinimpuestos > 0 ){
                                 <codigo>2</codigo>
                                 <codigoPorcentaje>2</codigoPorcentaje>
                                 <baseImponible>' . $totalesconimpuestos . '</baseImponible>
-                                <valor>' . number_format($totaliva,2) . '</valor>
+                                <valor>' . $totaliva. '</valor>
                              </totalImpuesto>';
 }else{
     $xml_totalconimpuestos = '<totalImpuesto>
@@ -251,12 +268,16 @@ $ruta_firma = $dataperfil['firma'];
 $pass_firma = $dataperfil['passFirma'];
 //$valortotal = $rw_factura['monto_factura'];
 $valortotal = $totalSinImpuestos;
+$valortotal = number_format($valortotal, 2);
+$valortotal = str_replace(',', '', $valortotal);
+
 $formaPago = $rw_factura['formaPago'];
 $plazoDias = $rw_factura['plazodias'];
 
 $importetotal = $totalesconimpuestos + $totalessinimpuestos + $totaliva;
-$importetotal =  number_format($importetotal, 2);
-$importetotal =  str_replace(',','', $importetotal);
+$importetotal = number_format($importetotal, 2);
+$importetotal = str_replace(',', '', $importetotal);
+
 
 //Cliente
 $id_cliente = $rw_factura['id_cliente'];
@@ -273,6 +294,7 @@ $clave = "" . date('dmY', strtotime($fecha_emision)) . "" . '01' . "" . $nro_doc
 $digito_verificador_clave = validar_clave($clave);
 $clave_acceso = "" . date('dmY', strtotime($fecha_emision)) . "" . '01' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_factura, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision  . "" . $digito_verificador_clave . "";
    
+
 $xml = '<?xml version="1.0" encoding="UTF-8"?>
     <factura id="comprobante" version="1.1.0">
         <infoTributaria>
@@ -296,7 +318,7 @@ $xml = '<?xml version="1.0" encoding="UTF-8"?>
             <razonSocialComprador>'.$nombre_cliente.'</razonSocialComprador>
             <identificacionComprador>0490041877001</identificacionComprador>
             <direccionComprador>'.$direccion_cliente.'</direccionComprador>';
-            $xml.='<totalSinImpuestos>' . number_format($valortotal, 2) . '</totalSinImpuestos>';
+            $xml.='<totalSinImpuestos>' . $valortotal . '</totalSinImpuestos>';
             $xml .= '<totalDescuento>0</totalDescuento>';
             
             $xml .= '<totalConImpuestos> ';
