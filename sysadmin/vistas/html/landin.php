@@ -90,14 +90,14 @@ permisos($modulo, $cadena_permisos);
                                                                  
                                                                  $drog=get_row('productos', 'drogshipin', 'id_producto', $id_producto);
                                                                  
-                                                                 if ($drog=1){
+                                                                 if ($drog==1){
+                                                                     //echo 'si';
                                                                      $rutaArchivo=$contenido;
+                                                                     $rutaArchivo = file_get_contents($rutaArchivo);
+           echo $rutaArchivo;
                                                                  }else{
                                                                    $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta   
-                                                                 }
-                                                                
-                                                                
-        // Verifica si el archivo existe
+                                                                   // Verifica si el archivo existe
         if (file_exists($rutaArchivo)) {
             // Carga y muestra el contenido del archivo HTML
              $rutaArchivo = file_get_contents($rutaArchivo);
@@ -107,6 +107,10 @@ permisos($modulo, $cadena_permisos);
             //echo $rutaArchivo;
             echo $contenido;
         }
+                                                                 }
+                                                                
+                                                                
+        
                                                                  ?>   
 
                                                                 </textarea>
