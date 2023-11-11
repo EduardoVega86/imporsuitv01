@@ -124,7 +124,7 @@ $image_path=$server_url.$carpeta.'/'.$image_path;
                 . "'$date_added', '$image_path', '$id_imp_producto', "
                 . "'$pagina_web', '$formato', '$url_a1', "
                 . "'$url_a2', '$url_a3', '$url_a4', "
-                . "'$url_a5', $valor4_producto, '0', '1',$id );";
+                . "'$url_a5', $valor4_producto, '$server_url', '1',$id );";
         
         //echo $insert_query;
         
