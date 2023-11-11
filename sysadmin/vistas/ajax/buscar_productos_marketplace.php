@@ -206,7 +206,7 @@ if ($image_path == null) {
                     
                     <td>
                         <!--a class="" href="#" data-toggle="modal" data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a-->
-                        <a class="" href="importar.php?id=<?php echo $id_producto; ?>"  data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/importar.png" alt=""/></a>
+                        <a class="" href="../ajax/importar.php?id=<?php echo $id_producto; ?>"  data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/importar.png" alt=""/></a>
                     </td>
                      
                     
