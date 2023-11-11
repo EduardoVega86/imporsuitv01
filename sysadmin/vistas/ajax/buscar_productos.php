@@ -27,9 +27,19 @@ if ($action == 'ajax') {
     
     if ($id_categoria > 0) {
         $sWhere .= " where id_linea_producto = '" . $id_categoria . "' ";
+        if ($_GET['q'] != "") {
+        $sWhere = "and (";
+        for ($i = 0; $i < count($aColumns); $i++) {
+            $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
+        }
+        $sWhere = substr_replace($sWhere, "", -3);
+        $sWhere .= ')';
+
+    }
+
     }
     if ($_GET['q'] != "") {
-        $sWhere = "and (";
+        $sWhere = "where (";
         for ($i = 0; $i < count($aColumns); $i++) {
             $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
         }
