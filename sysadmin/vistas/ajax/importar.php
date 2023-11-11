@@ -105,7 +105,7 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
         
 
 
-$image_path=$server_url.$carpeta.'/'.$image_path;
+$image_path=$image_path;
       //echo $image_path;
         
         $insert_query = "INSERT INTO `productos` (`id_producto`, `codigo_producto`, `nombre_producto`, "
@@ -148,7 +148,7 @@ $query_landing = mysqli_query($destino, $sql_landing);
        
         while ($fila_landing = $query_landing->fetch_assoc()) {
         $contenido = $fila_landing['contenido'];
-        $contenido=$server_url.$carpeta.'/sysadmin/vistas/ajax/'.$contenido;
+        $contenido=$contenido;
           $insert_query_landing = "INSERT INTO `landing`(`id_producto`,`contenido`) values ($ultimo_id, '$contenido')";
          // echo $insert_query_landing; 
           if (!$conexion->query($insert_query_landing)) {
