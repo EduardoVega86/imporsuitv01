@@ -23,7 +23,7 @@ if (isset($_FILES["imagefile"])) {
         /* Fin Validacion*/
         if ($imageFileZise > 0) {
             move_uploaded_file($_FILES["imagefile"]["tmp_name"], $target_file);
-            $logo_update = "logo_url='../../img/perfil/$image_name' ";
+            $logo_update = "logo_url='../../img/$image_name' ";
 
         } else { $logo_update = "";}
         $sql              = "UPDATE perfil SET $logo_update WHERE id_perfil='1';";
