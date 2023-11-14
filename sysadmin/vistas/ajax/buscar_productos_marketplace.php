@@ -206,7 +206,7 @@ if ($image_path == null) {
                     <td ><?php echo $nombre_producto; ?></td>
                     <td><?php echo $estado_online; ?></td>
                     <td class='text-center'><?php echo stock($stock_producto); ?></td>
-                    <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($costo_producto, 2); ?></span></td>
+                    
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_producto, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_mayoreo, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_especial, 2); ?></span></td>
