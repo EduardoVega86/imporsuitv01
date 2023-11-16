@@ -170,7 +170,19 @@ require_once "sysadmin/vistas/db.php";
                               <a href="producto.php?id=<?php echo $id_producto;?>" class="cart-item__link" tabindex="-1" aria-hidden="true"> </a>
                               <img
                                 class="cart-item__image"
-                                src='sysadmin/<?php  echo str_replace ( "../.." , "" , $image_path  )?>'?v=1691115268&width=300"
+                                src=" <?php
+                $subcadena = "http";
+
+if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+    ?>
+    <?php echo  $image_path.'"';?>
+    <?php
+} else {
+    ?>
+    sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
+    <?php
+}
+?>
                                 alt=""
                                 loading="lazy"
                                 width="150"
