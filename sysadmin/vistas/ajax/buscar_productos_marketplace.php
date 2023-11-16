@@ -91,7 +91,7 @@ else {
                 <th>Producto</th>
                 <th>Online</th>
                 <th class='text-center'>Existencia</th>
-                <th class='text-left'>Costo</th>
+               
                 <th class='text-left'>P. Venta</th>
                 <th class='text-left'>P. Mayoreo</th>
                 <th class='text-left'>P. Online</th>
