@@ -212,7 +212,7 @@ if ($image_path == null) {
                     <td><a class="" href="#" data-toggle="modal" data-target="#editarProducto2" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');"> <img style="width: 40px" src="../../img/3342177.png" alt=""/></a></td>
                     
                      <?php
-                if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1)==1){?>
+                if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1)==1 ){?>
                     <td>
                         <?php
                 if ($tienda==""){?>
