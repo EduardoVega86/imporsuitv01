@@ -95,7 +95,7 @@ permisos($modulo, $cadena_permisos);
                                                                  $drog=get_row('productos', 'drogshipin', 'id_producto', $id_producto);
                                                                  
                                                                  if ($drog==1){
-                                                                     //echo 'si';
+                                                                     echo 'si';
                                                                      $rutaArchivo=$contenido;
                                                                      $rutaArchivo = file_get_contents($rutaArchivo);
            echo $rutaArchivo;
