@@ -101,6 +101,7 @@ permisos($modulo, $cadena_permisos);
            echo $rutaArchivo;
            echo 'drog';
                                                                  }else{
+                                                                     echo 'no';
                                                                    $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta   
                                                                    // Verifica si el archivo existe
         if (file_exists($rutaArchivo)) {
