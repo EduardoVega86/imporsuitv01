@@ -100,10 +100,10 @@ permisos($modulo, $cadena_permisos);
 $query = mysqli_query($destino, "select drogshipin from productos where id_producto='$id_producto'");
     $rw    = mysqli_fetch_array($query);
     $drog = $rw['drogshipin'];
-    echo $drog.'12';
+
     
                                                                  if ($drog==1){
-                                                                     echo 'si';
+                                                                     echo $contenido;
                                                                      $rutaArchivo=$contenido;
                                                                      $rutaArchivo = file_get_contents($rutaArchivo);
            echo $rutaArchivo;
