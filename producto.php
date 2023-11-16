@@ -589,7 +589,7 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
                   
 </form></div>
               <div <?php if ($formato==2){echo 'style= display:none';} ?> class="emoji-benefits-container">
-                <p>🔒 Pago seguro al Recibir</p><p>📦 Envío  24-48  horas</p><p>🤝 Garantía 60 días</p>
+                <p>🔒 Pago seguro al Recibir</p><p>📦 Envío  24-48  horas</p>
               </div>
             
 
@@ -669,7 +669,25 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
         } else {
             
             //echo $rutaArchivo;
-            echo get_row('landing', 'contenido', 'id_producto', $id_producto);
+            $contenido= get_row('landing', 'contenido', 'id_producto', $id_producto);
+            if (strpos($contenido, 'http') !== false) {
+                                                                     //echo 'si';
+                                                                     $rutaArchivo=$contenido;
+                                                                     $rutaArchivo = file_get_contents($rutaArchivo);
+           echo $rutaArchivo;
+                                                                 }else{
+                                                                   $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta   
+                                                                   // Verifica si el archivo existe
+        if (file_exists($rutaArchivo)) {
+            // Carga y muestra el contenido del archivo HTML
+             $rutaArchivo = file_get_contents($rutaArchivo);
+           echo $rutaArchivo;
+        } else {
+            
+            //echo $rutaArchivo;
+            echo $contenido;
+        }
+                                                                 }
         }
     ?>
     
