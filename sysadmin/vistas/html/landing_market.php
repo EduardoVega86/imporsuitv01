@@ -99,13 +99,14 @@ permisos($modulo, $cadena_permisos);
                                                                      $rutaArchivo=$contenido;
                                                                      $rutaArchivo = file_get_contents($rutaArchivo);
            echo $rutaArchivo;
+           echo 'drog';
                                                                  }else{
                                                                    $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta   
                                                                    // Verifica si el archivo existe
         if (file_exists($rutaArchivo)) {
             // Carga y muestra el contenido del archivo HTML
              $rutaArchivo = file_get_contents($rutaArchivo);
-           echo $rutaArchivo;
+           echo 'drog2';
         } else {
             
             echo $rutaArchivo;
