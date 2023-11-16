@@ -108,7 +108,7 @@ permisos($modulo, $cadena_permisos);
            echo $rutaArchivo;
         } else {
             
-            //echo $rutaArchivo;
+            echo $rutaArchivo;
             echo $contenido;
         }
                                                                  }
