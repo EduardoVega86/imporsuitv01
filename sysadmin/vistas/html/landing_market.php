@@ -99,7 +99,7 @@ permisos($modulo, $cadena_permisos);
                                                                //  $drog=get_row('productos', 'drogshipin', 'id_producto', $id_producto);
 $query = mysqli_query($destino, "select drogshipin from productos where id_producto='$id_producto'");
     $rw    = mysqli_fetch_array($query);
-    $drog = $rw[$row];
+    $drog = $rw['drogshipin'];
     echo $drog.'12';
     
                                                                  if ($drog==1){
