@@ -89,7 +89,35 @@ permisos($modulo, $cadena_permisos);
 						</div>
 						<div id="bg-primary" class="panel-collapse collapse show">
 							<div class="portlet-body">
-                                                           <iframe  src="<?php echo $contenido;?>" width="100%" height="900" title="Contenido externo"></iframe>
+                                                           <textarea id="summernote" name="contenido">
+                                                                 <?php //echo $contenido; 
+                                                                 
+                                                                 $drog=get_row('productos', 'drogshipin', 'id_producto', $id_producto);
+                                                                 
+                                                                 if ($drog==1){
+                                                                     //echo 'si';
+                                                                     $rutaArchivo=$contenido;
+                                                                     $rutaArchivo = file_get_contents($rutaArchivo);
+           echo $rutaArchivo;
+                                                                 }else{
+                                                                   $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta   
+                                                                   // Verifica si el archivo existe
+        if (file_exists($rutaArchivo)) {
+            // Carga y muestra el contenido del archivo HTML
+             $rutaArchivo = file_get_contents($rutaArchivo);
+           echo $rutaArchivo;
+        } else {
+            
+            //echo $rutaArchivo;
+            echo $contenido;
+        }
+                                                                 }
+                                                                
+                                                                
+        
+                                                                 ?>   
+
+                                                                </textarea>
 								</div>
 							</div>
 						</div>
