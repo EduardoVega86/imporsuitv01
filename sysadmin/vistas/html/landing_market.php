@@ -91,9 +91,16 @@ permisos($modulo, $cadena_permisos);
 							<div class="portlet-body">
                                                            <textarea id="summernote" name="contenido">
                                                                  <?php //echo $contenido; 
-                                                                 
-                                                                 $drog=get_row('productos', 'drogshipin', 'id_producto', $id_producto);
-                                                                 
+                                                                 if ($_SERVER['HTTP_HOST']=='localhost'){
+    $destino = new mysqli('localhost', 'root', '', 'master');
+}else{
+ $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');   
+}
+                                                               //  $drog=get_row('productos', 'drogshipin', 'id_producto', $id_producto);
+$query = mysqli_query($destino, "select $row from $table where $id='$equal'");
+    $rw    = mysqli_fetch_array($query);
+    $drog = $rw[$row];
+    
                                                                  if ($drog==1){
                                                                      echo 'si';
                                                                      $rutaArchivo=$contenido;
