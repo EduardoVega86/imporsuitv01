@@ -103,13 +103,13 @@ $query = mysqli_query($destino, "select drogshipin from productos where id_produ
 
     
                                                                  if ($drog==1){
-                                                                     echo $contenido;
+                                                                    // echo $contenido;
                                                                      $rutaArchivo=$contenido;
                                                                      $rutaArchivo = file_get_contents($rutaArchivo);
            echo $rutaArchivo;
-           echo 'drog';
+           //echo 'drog';
                                                                  }else{
-                                                                     echo 'no';
+                                                                    // echo 'no';
                                                                    $rutaArchivo = '../ajax/'.$contenido; // Reemplaza con la ruta correcta   
                                                                    // Verifica si el archivo existe
         if (file_exists($rutaArchivo)) {
