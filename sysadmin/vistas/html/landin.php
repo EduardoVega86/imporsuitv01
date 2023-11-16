@@ -90,7 +90,7 @@ permisos($modulo, $cadena_permisos);
                                                                  
                                                                  $drog=get_row('productos', 'drogshipin', 'id_producto', $id_producto);
                                                                  
-                                                                if (strpos($texto, 'http') !== false) {
+                                                                if (strpos($contenido, 'http') !== false) {
                                                                      //echo 'si';
                                                                      $rutaArchivo=$contenido;
                                                                      $rutaArchivo = file_get_contents($rutaArchivo);
