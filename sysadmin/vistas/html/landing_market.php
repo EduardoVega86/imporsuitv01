@@ -102,7 +102,7 @@ $query = mysqli_query($destino, "select drogshipin from productos where id_produ
     $drog = $rw['drogshipin'];
 
     
-                                                                 if (strpos($texto, 'http') !== false) {
+                                                                 if (strpos($contenido, 'http') !== false) {
                                                                     // echo $contenido;
                                                                      $rutaArchivo=$contenido;
                                                                      $rutaArchivo = file_get_contents($rutaArchivo);
