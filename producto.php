@@ -446,7 +446,19 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
     sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
     <?php
 }
-?> alt="" srcset="sysadmin/<?php  echo str_replace ( "../.." , "" , $image_path  )?>" width="1946" height="1946" class="image-magnify-none" sizes="(min-width: 1400px) 715px, (min-width: 990px) calc(55.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)">
+?> alt="" srcset=" <?php
+                $subcadena = "http";
+
+if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+    ?>
+    <?php echo  $image_path.'"';?>
+    <?php
+} else {
+    ?>
+    sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
+    <?php
+}
+?> width="1946" height="1946" class="image-magnify-none" sizes="(min-width: 1400px) 715px, (min-width: 990px) calc(55.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)">
     </div>
     <button class="product__media-toggle quick-add-hidden product__media-zoom-none" type="button" aria-haspopup="dialog" data-media-id="34523778416921">
       <span class="visually-hidden">
@@ -779,7 +791,19 @@ include './includes/horizontal_items.php';
                                        >
                                  </div>
                                  <a href="#">
-                                 <img style="border-radius: 75%; height: 100px; width: 100px " class="" src="sysadmin/<?php  echo str_replace ( "../.." , "" , $image_path  )?>" alt="Brand Logo"></a>
+                                 <img style="border-radius: 75%; height: 100px; width: 100px " class="" src=" <?php
+                $subcadena = "http";
+
+if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+    ?>
+    <?php echo  $image_path.'"';?>
+    <?php
+} else {
+    ?>
+    sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
+    <?php
+}
+?> alt="Brand Logo"></a>
                                  <div class="rte">
                                     <p><?php echo $testimonio; ?></p>
                                  </div>
