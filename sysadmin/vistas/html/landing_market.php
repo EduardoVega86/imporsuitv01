@@ -97,7 +97,7 @@ permisos($modulo, $cadena_permisos);
  $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');   
 }
                                                                //  $drog=get_row('productos', 'drogshipin', 'id_producto', $id_producto);
-$query = mysqli_query($destino, "select $row from $table where $id='$equal'");
+$query = mysqli_query($destino, "select drogshipin from productos where id_producto='$id_producto'");
     $rw    = mysqli_fetch_array($query);
     $drog = $rw[$row];
     
