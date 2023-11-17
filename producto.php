@@ -301,37 +301,41 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
   });
 </script>
 <!-- BEGIN sections: header-group -->
-<div id="shopify-section-sections--20805847122201__2c2ec774-3430-481f-b927-e9c035b9d24e" class="shopify-section shopify-section-group-header-group"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-tickers.css?v=30346802988262109031693673627" rel="stylesheet" type="text/css" media="all" />
-
+<div id="shopify-section-sections--20805847122201__2c2ec774-3430-481f-b927-e9c035b9d24e" class="shopify-section shopify-section-group-header-group">
+    <link href="ccs/component-tickers.css?v=30346802988262109031693673627" rel="stylesheet" type="text/css" media="all" />
+    
 <?php include './includes/flotante.php' ?>
 <?php 
 include './includes/horizontal_items.php';
 ?>
 
-
+   
 </div>
-<div id="shopify-section-sections--20805847122201__header" class="shopify-section shopify-section-group-header-group section-header"><link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-list-menu.css?v=151968516119678728991693673627" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-search.css?v=184225813856820874251693673627" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-menu-drawer.css?v=183501262910778191901693673627" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-cart-notification.css?v=137625604348931474661693673627" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-cart-items.css?v=68325217056990975251693673627" media="print" onload="this.media='all'"><link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-price.css?v=183165605081763449011693673627" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-loading-overlay.css?v=167310470843593579841693673627" media="print" onload="this.media='all'"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-cart-drawer.css?v=103351759924144934211693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-cart.css?v=183883492810467818381693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-totals.css?v=54425048278126878361693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-price.css?v=183165605081763449011693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-discounts.css?v=152760482443307489271693673627" rel="stylesheet" type="text/css" media="all" />
-  <link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-loading-overlay.css?v=167310470843593579841693673627" rel="stylesheet" type="text/css" media="all" />
-<noscript><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-list-menu.css?v=151968516119678728991693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
-<noscript><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-search.css?v=184225813856820874251693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
-<noscript><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-menu-drawer.css?v=183501262910778191901693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
-<noscript><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-cart-notification.css?v=137625604348931474661693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
-<noscript><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-cart-items.css?v=68325217056990975251693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
+<div id="shopify-section-sections--20805847122201__header" class="shopify-section shopify-section-group-header-group section-header">
+    <link rel="stylesheet" href="ccs/component-list-menu.css?v=151968516119678728991693673627" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/component-search.css?v=184225813856820874251693673627" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/component-menu-drawer.css?v=183501262910778191901693673627" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/component-cart-notification.css?v=137625604348931474661693673627" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/component-cart-items.css?v=68325217056990975251693673627" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="ccs/component-price.css?v=183165605081763449011693673627" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="ccs/component-loading-overlay.css?v=167310470843593579841693673627" media="print" onload="this.media='all'"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-cart-drawer.css?v=103351759924144934211693673627" rel="stylesheet" type="text/css" media="all" />
+  <link href="ccs/component-cart.css?v=183883492810467818381693673627" rel="stylesheet" type="text/css" media="all" />
+  <link href="ccs/component-totals.css?v=54425048278126878361693673627" rel="stylesheet" type="text/css" media="all" />
+  <link href="ccs/component-price.css?v=183165605081763449011693673627" rel="stylesheet" type="text/css" media="all" />
+  <link href="ccs/component-discounts.css?v=152760482443307489271693673627" rel="stylesheet" type="text/css" media="all" />
+  <link href="ccs/component-loading-overlay.css?v=167310470843593579841693673627" rel="stylesheet" type="text/css" media="all" />
+<noscript><link href="ccs/component-list-menu.css?v=151968516119678728991693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
+<noscript><link href="ccs/component-search.css?v=184225813856820874251693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
+<noscript><link href="ccs/component-menu-drawer.css?v=183501262910778191901693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
+<noscript><link href="ccs/component-cart-notification.css?v=137625604348931474661693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
+<noscript><link href="ccs/component-cart-items.css?v=68325217056990975251693673627" rel="stylesheet" type="text/css" media="all" /></noscript>
 
 <link href="ccs/style_ini.css" rel="stylesheet" type="text/css"/>
-<script src="//tiendamiaecu.com/cdn/shop/t/3/assets/details-disclosure.js?v=153497636716254413831693673628" defer="defer"></script>
-<script src="//tiendamiaecu.com/cdn/shop/t/3/assets/details-modal.js?v=4511761896672669691693673628" defer="defer"></script>
-<script src="//tiendamiaecu.com/cdn/shop/t/3/assets/cart-notification.js?v=160453272920806432391693673626" defer="defer"></script>
-<script src="//tiendamiaecu.com/cdn/shop/t/3/assets/search-form.js?v=113639710312857635801693673628" defer="defer"></script><script src="//tiendamiaecu.com/cdn/shop/t/3/assets/cart-drawer.js?v=44260131999403604181693673626" defer="defer"></script><svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+<script src="js/details-disclosure.js?v=153497636716254413831693673628" defer="defer"></script>
+<script src="js/details-modal.js?v=4511761896672669691693673628" defer="defer"></script>
+<script src="js/cart-notification.js?v=160453272920806432391693673626" defer="defer"></script>
+<script src="js/search-form.js?v=113639710312857635801693673628" defer="defer"></script>
+<script src="js/cart-drawer.js?v=44260131999403604181693673626" defer="defer"></script><svg xmlns="http://www.w3.org/2000/svg" class="hidden">
   <symbol id="icon-search" viewbox="0 0 18 19" fill="none">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z" fill="currentColor"/>
   </symbol>
@@ -575,7 +579,7 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
   <path fill-rule="evenodd" clip-rule="evenodd" d="M7 0h3a2 2 0 012 2v3a1 1 0 01-.3.7l-6 6a1 1 0 01-1.4 0l-4-4a1 1 0 010-1.4l6-6A1 1 0 017 0zm2 2a1 1 0 102 0 1 1 0 00-2 0z" fill="currentColor">
 </svg>
  <span class='nowrap'><?php  echo "AHORRA UN&nbsp";
-     echo  100-($precio_especial*100/$precio_normal);
+     echo number_format(100-($precio_especial*100/$precio_normal));
      echo "%";?></span>
     </span>
  <?php 
@@ -1088,7 +1092,8 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
 
 
 </section>
-<div id="shopify-section-template--20805847023897__64c96926-2c31-48fe-bd21-30941bc87822" class="shopify-section"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/section-results.css?v=159216015314721216231693673629" rel="stylesheet" type="text/css" media="all" />
+<div id="shopify-section-template--20805847023897__64c96926-2c31-48fe-bd21-30941bc87822" class="shopify-section">
+    
 <link href="ccs/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
 <style data-shopify>.section-template--20805847023897__64c96926-2c31-48fe-bd21-30941bc87822-padding {
     padding-top: 27px;
@@ -1139,7 +1144,8 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
 </div-->
     </main>
 
-    <div id="shopify-section-promo-popup" class="shopify-section"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/section-promo-popup.css?v=175993886525155844911693673629" rel="stylesheet" type="text/css" media="all" />
+    <div id="shopify-section-promo-popup" class="shopify-section">
+        
 <link href="ccs/component-newsletter.css?v=180884587654672216131693673627" rel="stylesheet" type="text/css" media="all" />
 <link href="ccs/newsletter-section.css?v=62410470717655853621693673628" rel="stylesheet" type="text/css" media="all" />
 <link href="cs/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
