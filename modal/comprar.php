@@ -97,7 +97,7 @@
     </div>
         
          <div id="datos" class="col-12 modal-body">
-            <div class="input-group mb-3" id="ciudad">
+            <div class="input-group mb-3" id="div_ciudad">
                 <div class="input-group-prepend">
                 <span style="height: 45px" class="icon_datos input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
@@ -164,7 +164,7 @@
 					success: function(data)   // A function to be called if request succeeds
 					{
 						//alert(data);
-                                                $('#ciudad').html(data);
+                                                $('#div_ciudad').html(data);
 
 					}
 				});
