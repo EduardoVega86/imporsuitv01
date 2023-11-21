@@ -161,7 +161,7 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
 ?>
 <tr>
     <td class='text-right' colspan=5>SUBTOTAL</td>
-    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal, 2); ?></b></td>
+    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format(@$subtotal, 2); ?></b></td>
     <td></td>
 </tr>
 <tr>
