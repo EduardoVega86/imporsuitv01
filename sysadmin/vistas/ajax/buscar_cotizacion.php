@@ -1,8 +1,6 @@
 <?php
 /*-------------------------
-Autor: Delmar Lopez
-Web: www.softwys.com
-Mail: softwysop@gmail.com
+Autor: Eduardo Vega
 ---------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
@@ -72,11 +70,16 @@ while ($row = mysqli_fetch_array($query)) {
             $fecha            = date("d/m/Y", strtotime($row['fecha_factura']));
             $nombre_cliente   = $row['nombre_cliente'];
             $nombre   = $row['nombre'];
+            
             $telefono   = $row['telefono'];
             $id_prvo=$row['provincia'];
-            $provincia   = get_row('provincia_laar', 'provincia', 'id_prov', $id_prvo);
+            //echo  $id_prvo;
+            $provincia   = get_row('provincia_laar', 'provincia', 'codigo_provincia', $id_prvo);
+            //echo $provincia;
             $ciudad_cot   = $row['ciudad_cot'];
-          //  echo $ciudad_cot;
+            //echo $ciudad_cot;
+             $ciudad_cot   = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad_cot);
+            
             $observacion   = $row['observacion'];
             $direccion   = $row['c_principal'].' y '.$row['c_secundaria'].'-'.$row['referencia'];
             $telefono_cliente = $row['telefono_cliente'];
