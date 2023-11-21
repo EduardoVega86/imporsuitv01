@@ -46,7 +46,7 @@ $query_check_user_name = mysqli_query($conexion, $sql);
       $inv_producto = $fila['inv_producto'];
       $iva_producto = $fila['iva_producto'];
       $estado_producto = $fila['estado_producto'];
-      $costo_producto = $fila['costo_producto'];
+      $costo_producto = $fila['valor2_producto'];
       $utilidad_producto = $fila['utilidad_producto'];
         
        $moneda_producto = $fila['moneda_producto'];
