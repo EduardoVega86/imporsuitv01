@@ -26,7 +26,7 @@ if (empty($_POST['contenido'])) {
     $valorLanding = $fila['contenido'];
     unlink($valorLanding);
     
-    $nombre_archivo = 'landing_producto/landing_' . time() . '.html';
+    $nombre_archivo = $valorLanding;
     
     // Guardar el contenido en un archivo
     file_put_contents($nombre_archivo, $contenido);
