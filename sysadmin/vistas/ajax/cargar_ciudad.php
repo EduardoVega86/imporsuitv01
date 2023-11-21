@@ -44,7 +44,7 @@ require_once "../funciones.php";
  <div class="input-group-prepend">
                 <span style="height: 45px" class="icon_datos input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
-                <select  class="datos form-control" id="ciudad_laar" name="ciudad_laar" required>
+                <select  class="datos form-control" id="ciudad" name="ciudad" required>
                   <option value="">Ciudad *</option>
                   <?php
                            $sql2="select * from ciudad_laar where codigoProvincia= '$id_provincia'";
