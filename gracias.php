@@ -127,7 +127,7 @@ if (empty($_POST['session'])) {
     $total_factura = $subtotal + $total_iva;
     $contenido .=' %3a%0A '.'*Total Pedido: * $'.number_format($total_factura,2);
     //echo "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1')";
-    $insert        = mysqli_query($conexion, "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1','$nombre','$telefono','$provincia','$calle_principal','$ciudad','$calle_secundaria','$referencia','$observacion')");
+    $insert        = mysqli_query($conexion, "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1','$nombre','$telefono','$provincia','$calle_principal','$ciudad','$calle_secundaria','$referencia','$observacion',0,'')");
     $delete        = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     //header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO
