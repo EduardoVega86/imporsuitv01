@@ -46,6 +46,7 @@ function agregar(id) {
         success: function(datos) {
             $.Notification.notify('success', 'bottom center', 'NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')
             $("#resultados").html(datos);
+            calcular_guia();
         }
     });
 }
