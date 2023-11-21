@@ -133,6 +133,8 @@ echo paginate($reload, $page, $total_pages, $adjacents);
         ?></span></td>
             </tr>
         </table>
+           
+            <input>Aviso!</histrong>
     </div>
     <?php
 }
