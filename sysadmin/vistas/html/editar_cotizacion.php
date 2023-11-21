@@ -591,6 +591,34 @@ include "../modal/buscar_productos_ventas.php";
 	<!-- FIN -->
 <script>
 // print order function
+function cargar_provincia_pedido(){
+			
+			var id_provincia = $('#provinica').val();
+                        alert($('#provinica').val())
+  //var data = new FormData(formulario);
+
+			$.ajax({
+					url: "../ajax/cargar_ciudad_pedido.php",        // Url to which the request is send
+					type: "POST",             // Type of request to be send, called as method
+					data:  {
+				provinica: id_provincia,
+                               
+                                
+			}, 			  // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                                        dataType: 'text',// To send DOMDocument or non processed data file it is set to false
+					success: function(data)   // A function to be called if request succeeds
+					{
+                    
+        
+                                           
+                                            $('#div_ciudad').html(data);
+						
+
+					}
+				});
+
+		}
+                
 function calcular_guia() {
      
 	nombre_destino=$('#nombredestino').val();//CIERRA LA MODAL
@@ -641,37 +669,12 @@ function calcular_guia() {
     } // /if orderId
 }
 
-function cargar_provincia_pedido(){
-			
-			var id_provincia = $('#provinica').val();
-                        alert($('#provinica').val())
-  //var data = new FormData(formulario);
 
-			$.ajax({
-					url: "../ajax/cargar_ciudad_pedido.php",        // Url to which the request is send
-					type: "POST",             // Type of request to be send, called as method
-					data:  {
-				provinica: id_provincia,
-                               
-                                
-			}, 			  // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-                                        dataType: 'text',// To send DOMDocument or non processed data file it is set to false
-					success: function(data)   // A function to be called if request succeeds
-					{
-                    
-        
-                                           
-                                            $('#div_ciudad').html(data);
-						
-
-					}
-				});
-
-		}
 
 function generar_guia(id_factura) {
 	nombre_destino=$('#nombredestino').val();//CIERRA LA MODAL
-        ciudad=$('#ciudad').val();//CIERRA LA MODAL
+        ciudad=$('#ciudad_entrega').val();;
+       //alert(ciudad);
         direccion=$('#direccion').val();//CIERRA LA MODAL
         referencia=$('#referencia').val();//CIERRA LA MODAL
         telefono=$('#telefono').val();//CIERRA LA MODAL
@@ -682,6 +685,8 @@ function generar_guia(id_factura) {
         productos_guia=$('#productos_guia').val();
         cantidad_total=$('#cantidad_total').val();
         valor_total=$('#valor_total').val();
+        costo_total=$('#costo_total').val();
+        
         
     
    
