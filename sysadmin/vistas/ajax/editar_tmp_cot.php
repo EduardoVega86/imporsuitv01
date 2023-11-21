@@ -89,6 +89,9 @@ $nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
 $sumador_total  = 0;
 $total_iva      = 0;
 $total_impuesto = 0;
+$cantidad_total = 0;
+$costo_total=0;
+$productos_guia = "";
 $sql            = mysqli_query($conexion, "select * from productos, facturas_cot, detalle_fact_cot where facturas_cot.id_factura=detalle_fact_cot.id_factura and  facturas_cot.id_factura='$id_factura' and productos.id_producto=detalle_fact_cot.id_producto");
 while ($row = mysqli_fetch_array($sql)) {
     $id_detalle      = $row["id_detalle"];
@@ -97,6 +100,7 @@ while ($row = mysqli_fetch_array($sql)) {
     $cantidad        = $row['cantidad'];
     $desc_tmp        = $row['desc_venta'];
     $nombre_producto = $row['nombre_producto'];
+    $costo_producto    = $row['costo_producto'];
     $precio_venta    = $row['precio_venta'];
     $precio_venta_f  = number_format($precio_venta, 2); //Formateo variables
     $precio_venta_r  = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
@@ -116,8 +120,13 @@ while ($row = mysqli_fetch_array($sql)) {
     ?>
     <tr>
         <td class='text-center'><?php echo $codigo_producto; ?></td>
-        <td class='text-center'><?php echo $cantidad; ?></td>
-        <td><?php echo $nombre_producto; ?></td>
+        <td class='text-center'><?php 
+        $cantidad_total=$cantidad_total+$cantidad;
+        $costo_total=$costo_total+$costo_producto+$cantidad;
+        echo $cantidad; ?></td>
+        <td><?php 
+        $productos_guia=$productos_guia.' '.$nombre_producto;
+        echo $nombre_producto; ?></td>
         <td class='text-center'>
             <div class="input-group">
                 <select id="<?php echo $id_detalle; ?>" class="form-control employee_id">
@@ -146,7 +155,7 @@ $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . 
     </tr>
     <?php
 }
-$total_factura = $subtotal + $total_impuesto;
+$total_factura = @$subtotal + $total_impuesto;
 $update        = mysqli_query($conexion, "update facturas_cot set monto_factura='$total_factura' where id_factura='$id_factura'");
 
 ?>
@@ -167,6 +176,13 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
 </tr>
 </tbody>
 </table>
+    
+    <input type="hidden"   value="<?php echo $total_factura; ?>" id="valor_total" name="valor_total">
+    <input type="hidden"   value="<?php echo $cantidad_total; ?>" id="cantidad_total" name="cantidad_total">
+    <input type="hidden"   value="<?php echo $productos_guia; ?>" id="productos_guia" name="productos_guia">
+    <input type="hidden"   value="<?php echo $costo_total; ?>" id="costo_total" name="costo_total">
+    
+    
 </div>
 <script>
     $(document).ready(function () {
