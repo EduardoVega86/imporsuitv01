@@ -22,7 +22,8 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
 if (isset($_GET['id_factura'])) {
     $id_factura  = intval($_GET['id_factura']);
-    $campos      = "clientes.id_cliente, clientes.nombre_cliente, clientes.fiscal_cliente, clientes.email_cliente, facturas_cot.id_vendedor, facturas_cot.fecha_factura, facturas_cot.condiciones, facturas_cot.validez, facturas_cot.numero_factura";
+    $campos      = "clientes.id_cliente, clientes.nombre_cliente, clientes.fiscal_cliente, clientes.email_cliente, facturas_cot.id_vendedor, facturas_cot.fecha_factura, facturas_cot.condiciones, facturas_cot.validez, facturas_cot.numero_factura, facturas_cot.nombre,facturas_cot.telefono, facturas_cot.provincia,facturas_cot.c_principal,facturas_cot.c_secundaria,facturas_cot.referencia, facturas_cot.observacion, facturas_cot.ciudad_cot";
+    //echo "select $campos from facturas_cot, clientes where facturas_cot.id_cliente=clientes.id_cliente and id_factura='" . $id_factura . "'";
     $sql_factura = mysqli_query($conexion, "select $campos from facturas_cot, clientes where facturas_cot.id_cliente=clientes.id_cliente and id_factura='" . $id_factura . "'");
     $count       = mysqli_num_rows($sql_factura);
     if ($count == 1) {
@@ -36,14 +37,28 @@ if (isset($_GET['id_factura'])) {
         $condiciones                = $rw_factura['condiciones'];
         $validez                    = $rw_factura['validez'];
         $numero_factura             = $rw_factura['numero_factura'];
+        
+        $nombredestino            = $rw_factura['nombre'];
+        $provinciadestino             = $rw_factura['provincia'];
+        $ciudaddestino             = $rw_factura['ciudad_cot'];
+        $direccion =$rw_factura['c_principal'].' '.$rw_factura['c_secundaria'];
+    $referencia =$rw_factura['referencia'];
+    $telefono =$rw_factura['telefono'];
+    $observacion =$rw_factura['observacion'];
+        
+    //calcular segun la ciudad
+    $valor_base= get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
+    
+        
+        
         $_SESSION['id_factura']     = $id_factura;
         $_SESSION['numero_factura'] = $numero_factura;
     } else {
-        header("location: facturas.php");
+        //header("location: facturas.php");
         exit;
     }
 } else {
-    header("location: facturas.php");
+    //header("location: facturas.php");
     exit;
 }
 //consulta para elegir el comprobante
@@ -123,7 +138,7 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 						<div class="portlet">
 							<div class="portlet-heading bg-primary">
 								<h3 class="portlet-title">
-									Editar Cotización
+									Editar Pedido
 								</h3>
 								<div class="portlet-widgets">
 								</div>
@@ -192,15 +207,185 @@ include "../modal/buscar_productos_ventas.php";
 
 												</div>
 											</div>
+<H2>DATOS PARA LA GUIA</H2>
+<form role="form" id="datos_pedido">
+    
 
+                                                                        <div class="row">
+                                                                    
+                                                                            <div class="col-md-6">
+                                                                                <span class="help-block">Nombre Destinatario  </span>
+                                                                                <input id="nombredestino" name="nombredestino" class="form-control" value="<?php echo $nombredestino; ?>">  
+                                                                            
+                                                                            </div>
+                                                                                
+                                                                                <div class="col-md-6">
+                                                                                      <span class="help-block">Identificacion  </span>
+                                                                                    <input id="identificacion" name="identificacion" class="form-control" placeholder="Ingrese Identificacion" value="">
+                                                                                  
+                                                                                </div>
+                                                                          
+                                                                        </div>
+                                                                         <div class="row">
+                                                                    
+                                                                            <div class="col-md-6">
+                                                                                 <span class="help-block">Provincia  </span>
+                                                                                <select onchange="cargar_provincia_pedido()" class="datos form-control" id="provinica" name="provinica"  required>
+    <option value="">Provincia *</option>
+    <?php
+    $sql2 = "select * from provincia_laar ";
+    $query2 = mysqli_query($conexion, $sql2);
+
+    while ($row2 = mysqli_fetch_array($query2)) {
+        $id_prov = $row2['id_prov'];
+        $provincia = $row2['provincia'];
+        $cod_provincia = $row2['codigo_provincia'];
+
+        // Obtener el valor almacenado en la tabla orgien_laar
+        $valor_seleccionado = $provinciadestino ;
+
+        // Verificar si el valor actual coincide con el almacenado en la tabla
+        $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
+
+        // Imprimir la opción con la marca de "selected" si es el valor almacenado
+        echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
+    }
+    ?>
+</select>
+                                                                               
+                                                                                
+                                                                                
+                                                                            </div>
+                                                                                
+                                                                                <div class="col-md-6">
+                                                                                     <span class="help-block">Ciudad  </span>
+                                                                                     <div id="div_ciudad">
+                                                                                    <select  onchange="calcular_guia()" class="datos form-control" id="ciudad_entrega" name="ciudad_entrega"  required>
+                  <option value="">Ciudad *</option>
+                  <?php
+                           $sql2="select * from ciudad_laar ";
+                           //echo $sql2;
+                           $query2 = mysqli_query($conexion, $sql2);
+                        
+                            $rowcount=mysqli_num_rows($query2);
+                            //echo $rowcount;
+                            $i=1;
+                           while ($row2 = mysqli_fetch_array($query2)) {
+                               $id_ciudad       = $row2['id_ciudad']; 
+                                 $nombre      = $row2['nombre']; 
+                                 $cod_ciudad      = $row2['codigo'];
+                                 $valor_seleccionado = $ciudaddestino ;
+                                   $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
+
+        // Imprimir la opción con la marca de "selected" si es el valor almacenado
+        echo '<option value="' . $cod_ciudad . '" ' . $selected . '>' . $nombre . '</option>';
+                           
+?>
+        
+         <?php }?>
+         </select>
+                                                                                     </div>
+                                                                                   
+                                                                                </div>
+                                                                          
+                                                                        </div>
+
+                                                                    <div class="row">
+                                                                    
+                                                                            <div class="col-md-6">
+                                                                                <span class="help-block">Dirección  </span>
+                                                                                <input id="direccion" name="direccion" class="form-control" value="<?php echo $direccion; ?>">  
+                                                                            
+                                                                            </div>
+                                                                                
+                                                                                <div class="col-md-6">
+                                                                                      <span class="help-block">Referencia  </span>
+                                                                                    <input id="referencia" name="referencia" class="form-control" placeholder="Referencia" value="<?php echo $referencia; ?>">
+                                                                                  
+                                                                                </div>
+                                                                          
+                                                                        </div>
+
+<div class="row">
+                                                                    
+                                                                            <div class="col-md-6">
+                                                                                <span class="help-block">Teléfono  </span>
+                                                                                <input id="telefono" name="telefono" class="form-control" value="<?php echo $telefono; ?>">  
+                                                                            
+                                                                            </div>
+                                                                                
+                                                                                <div class="col-md-6">
+                                                                                      <span class="help-block">Celular  </span>
+                                                                                    <input id="celular" name="celular" class="form-control" placeholder="Celular" value="">
+                                                                                  
+                                                                                </div>
+                                                                          
+                                                                        </div>
+<div class="row">
+                                                                    
+                                                                            <div class="col-md-6">
+                                                                                <span class="help-block">Observaciones para la entrega  </span>
+                                                                                <input id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">  
+                                                                            
+                                                                            </div>
+    
+     <div class="col-md-3">
+         <span class="help-block">Recaudo  </span>
+         <select onchange="calcular_guia()" id="cod" name="cod" class="form-control">
+            <option value="">COD *</option>
+             <option value="true">Con Recuado</option>
+              <option value="false">Sin Recaudo </option>
+         </select>
+         
+                                                                                 
+                                                                            
+                                                                            </div>
+    
+      <div class="col-md-3">
+         <span class="help-block">Seguro   </span>
+         <select onchange="calcular_guia()" id="seguro" name="seguro" class="form-control">
+            <option value="">Deseas assegurar la mercadería </option>
+             <option value="1">SI</option>
+              <option value="0">NO </option>
+         </select>
+         
+                                                                                 
+                                                                            
+                                                                            </div>
+                                                                                
+                                                                              
+                                                                          
+                                                                        </div>
+<div class="row">
+    <div class="col-md-6">
+        </br>
+<button style="cursor: pointer;" type="button" onclick="generar_guia()" class="btn btn-danger">Generar Guía</button>
+</div>
+    <div class="col-md-6">
+        </br>
+        
+        <div style="" id="valor_envio">
+         <table  class="table table-sm table-striped">
+    <tr> <th><img width="100px" src="../../img_sistema/logo-dark.png" alt=""/></th>
+        <th>$<?php echo number_format($valor_base,2)?></th>
+    </tr>
+     
+</table>
+        </div>    
+    </div>
+    </div>
+    </form>
 										</div>
 
 										<div class="col-lg-4">
 											<div class="card-box">
 												<div class="widget-chart">
 												<div class="editar_factura" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
-													<form role="form" id="datos_factura">
+													
+                                                                                                <form role="form" id="datos_factura">
 														<input id="id_vendedor" name="id_vendedor" type='hidden' value="<?php echo $id_vendedor_db; ?>">
+                                                                                                                
+                                                                                                                
 														<div class="form-group row">
 															<label class="col-2 col-form-label"></label>
 															<div class="col-12">
@@ -327,11 +512,11 @@ include "../modal/buscar_productos_ventas.php";
 											</div>
 
 										</div>
+                                                                            
 
 									</div>
 									<!-- end row -->
-
-
+                                                                        
 								</div>
 							</div>
 						</div>
@@ -406,6 +591,130 @@ include "../modal/buscar_productos_ventas.php";
 	<!-- FIN -->
 <script>
 // print order function
+function calcular_guia() {
+     
+	nombre_destino=$('#nombredestino').val();//CIERRA LA MODAL
+        ciudad=$('#ciudad_entrega').val();;
+       //alert(ciudad);
+        direccion=$('#direccion').val();//CIERRA LA MODAL
+        referencia=$('#referencia').val();//CIERRA LA MODAL
+        telefono=$('#telefono').val();//CIERRA LA MODAL
+        celular=$('#celular').val();//CIERRA LA MODAL
+        observacion=$('#observacion').val();//CIERRA LA MODAL
+        cod=$('#cod').val();//CIERRA LA MODAL
+        seguro=$('#seguro').val();//CIERRA LA MODAL
+        productos_guia=$('#productos_guia').val();
+        cantidad_total=$('#cantidad_total').val();
+        valor_total=$('#valor_total').val();
+        costo_total=$('#costo_total').val();
+        
+           
+    id_factura=1;
+	if (id_factura=1) {
+		$.ajax({
+			url: '../ajax/calcular_guia.php',
+			type: 'post',
+			data: {
+				nombre_destino: nombre_destino,
+                                ciudad: ciudad,
+                                direccion: direccion,
+                                referencia: referencia,
+                                telefono: telefono,
+                                celular: celular,
+                                observacion: observacion,
+                                cod: cod,
+                                seguro: seguro,
+                                productos_guia: productos_guia,
+                                cantidad_total: cantidad_total,
+                                valor_total: valor_total,
+                                costo_total: costo_total,
+                                
+			},
+			dataType: 'text',
+			success: function(response) {
+				//alert(response)
+                                
+                                 $('#valor_envio').html(response);
+            } // /success function
+
+        }); // /ajax function to fetch the printable order
+    } // /if orderId
+}
+
+function cargar_provincia_pedido(){
+			
+			var id_provincia = $('#provinica').val();
+                        alert($('#provinica').val())
+  //var data = new FormData(formulario);
+
+			$.ajax({
+					url: "../ajax/cargar_ciudad_pedido.php",        // Url to which the request is send
+					type: "POST",             // Type of request to be send, called as method
+					data:  {
+				provinica: id_provincia,
+                               
+                                
+			}, 			  // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                                        dataType: 'text',// To send DOMDocument or non processed data file it is set to false
+					success: function(data)   // A function to be called if request succeeds
+					{
+                    
+        
+                                           
+                                            $('#div_ciudad').html(data);
+						
+
+					}
+				});
+
+		}
+
+function generar_guia(id_factura) {
+	nombre_destino=$('#nombredestino').val();//CIERRA LA MODAL
+        ciudad=$('#ciudad').val();//CIERRA LA MODAL
+        direccion=$('#direccion').val();//CIERRA LA MODAL
+        referencia=$('#referencia').val();//CIERRA LA MODAL
+        telefono=$('#telefono').val();//CIERRA LA MODAL
+        celular=$('#celular').val();//CIERRA LA MODAL
+        observacion=$('#observacion').val();//CIERRA LA MODAL
+        cod=$('#cod').val();//CIERRA LA MODAL
+        seguro=$('#seguro').val();//CIERRA LA MODAL
+        productos_guia=$('#productos_guia').val();
+        cantidad_total=$('#cantidad_total').val();
+        valor_total=$('#valor_total').val();
+        
+    
+   
+    id_factura=1;
+	if (id_factura=1) {
+		$.ajax({
+			url: '../ajax/enviar_laar.php',
+			type: 'post',
+			data: {
+				nombre_destino: nombre_destino,
+                                ciudad: ciudad,
+                                direccion: direccion,
+                                referencia: referencia,
+                                telefono: telefono,
+                                celular: celular,
+                                 observacion: observacion,
+                                 cod: cod,
+                                 seguro: seguro,
+                                  productos_guia: productos_guia,
+                                cantidad_total: cantidad_total,
+                                valor_total: valor_total,
+                                
+			},
+			dataType: 'text',
+			success: function(response) {
+				alert(response)
+            } // /success function
+
+        }); // /ajax function to fetch the printable order
+    } // /if orderId
+}
+
+
 function printOrder(id_factura) {
 	$('#modal_vuelto').modal('hide');//CIERRA LA MODAL
 	if (id_factura) {
@@ -496,6 +805,8 @@ function obtener_caja(user_id) {
          },50);
         })
        })
+       
+       
 </script>
 
 <?php require 'includes/footer_end.php'
