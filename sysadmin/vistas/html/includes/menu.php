@@ -199,6 +199,7 @@ require_once "../funciones.php";
                                                                                                         <li><a href="../html/gracias.php">Pagina de Gracias</a></li>
                                                                                                         <li><a href="../html/horizontal.php">Texto Flotante</a></li>
                                                                                                         <li><a href="../html/testimonios.php">Testimonios</a></li>
+                                                                                                        <li><a href="../html/origen_laar.php">Configurar Origen Laar Courier</a></li>
                                                                                                         													
 													
 													
