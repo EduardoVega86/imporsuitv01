@@ -1,8 +1,6 @@
 <?php
 /*-------------------------
-Autor: Delmar Lopez
-Web: www.softwys.com
-Mail: softwysop@gmail.com
+Autor: Eduardo vega
 ---------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 $session_id = session_id();
@@ -101,6 +99,11 @@ while ($row = mysqli_fetch_array($sql)) {
     $desc_tmp        = $row['desc_venta'];
     $nombre_producto = $row['nombre_producto'];
     $costo_producto    = $row['costo_producto'];
+    
+    $id_pedido_cot      = $row["id_factura"];
+    $tienda   = $row['tienda'];
+    
+    
     $precio_venta    = $row['precio_venta'];
     $precio_venta_f  = number_format($precio_venta, 2); //Formateo variables
     $precio_venta_r  = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
@@ -181,6 +184,8 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
     <input type="hidden"   value="<?php echo $cantidad_total; ?>" id="cantidad_total" name="cantidad_total">
     <input type="hidden"   value="<?php echo $productos_guia; ?>" id="productos_guia" name="productos_guia">
     <input type="hidden"   value="<?php echo $costo_total; ?>" id="costo_total" name="costo_total">
+    <input type="hidden"   value="<?php echo $tienda; ?>" id="tienda" name="tienda">
+    <input type="hidden"   value="<?php echo $id_pedido_cot; ?>" id="id_pedido_cot" name="id_pedido_cot">
     
     
 </div>
