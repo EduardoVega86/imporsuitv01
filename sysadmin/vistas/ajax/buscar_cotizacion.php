@@ -58,6 +58,7 @@ if ($action == 'ajax') {
                 <th>Ciudad</th>
                 <th>Direccion</th>
                 <th>Observacion</th>
+                <th>Guia</th>
                 <th>Pago</th>
                 <th class='text-center'>Total</th>
                 <th></th>
@@ -86,6 +87,8 @@ while ($row = mysqli_fetch_array($query)) {
             $email_cliente    = $row['email_cliente'];
             $nombre_vendedor  = $row['nombre_users'] . " " . $row['apellido_users'];
             $estado_factura   = $row['estado_factura'];
+            $guia_enviada   = $row['guia_enviada'];
+            
             if ($estado_factura == 1) {
                 $text_estado = "CONTADO";
                 $label_class = 'badge-success';} else {
@@ -103,6 +106,18 @@ while ($row = mysqli_fetch_array($query)) {
                          <td><?php echo $ciudad_cot; ?></td>
                          <td><?php echo $direccion; ?></td>
                           <td><?php echo $observacion; ?></td>
+                           <td><?php 
+                           if ($guia_enviada==1){
+                               $url= get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                    $traking="https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=".get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+           ?>
+                               <a style="cursor: pointer;"  href="<?php echo $url; ?>" target="blank"  >Imprimir Guía</a><BR>
+                <a style="cursor: pointer;"  href="<?php echo $traking; ?>" target="blank"  >Ver estado</a>
+                                   <?php
+                           }else{
+                            echo 'NO ENVIADA' ;  
+                           }?>
+                           </td>
                          <td><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
                          <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
                          <td class="text-center">
