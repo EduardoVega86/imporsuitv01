@@ -126,12 +126,12 @@ require_once "../funciones.php";
 											<!--<li><a href="../html/new_notadebito.php">Nueva Nota D&eacute;bito</a></li>
 											<li><a href="../html/bitacora_debito.php">Bitacora Nota D&eacute;bito</a></li>
 											<br>-->
-											<li><a href="../html/new_guia.php">Nueva Gu&iacute;a</a></li>
-											<li><a href="../html/bitacora_guia.php">Bitacora Gu&iacute;a</a></li>
+											<!--li><a href="../html/new_guia.php">Nueva Gu&iacute;a</a></li-->
+											<!--li><a href="../html/bitacora_guia.php">Bitacora Gu&iacute;a</a></li>
 											<!--<li><a href="../html/new_retencion.php">Nueva Retenci&oacute;n</a></li>
 											<li><a href="../html/bitacora_retencion.php">Bitacora Retenci&oacute;n</a></li>-->
 										
-											<li><a href="../html/new_retencion20.php">Nueva Retenci&oacute;n</a></li>
+											<!--li><a href="../html/new_retencion20.php">Nueva Retenci&oacute;n</a></li>
 											<li><a href="../html/bitacora_retencion20.php">Bitacora Retenci&oacute;n</a></li>
 											<li><a href="../html/caja.php">Caja</a></li>
 										</ul>
