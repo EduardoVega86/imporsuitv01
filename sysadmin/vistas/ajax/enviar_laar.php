@@ -226,4 +226,5 @@ echo 'ok';
 } else {
     echo 'No se recibió respuesta del servicio de destino';
 }
+
 ?>
