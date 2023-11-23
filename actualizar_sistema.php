@@ -22,7 +22,7 @@ function full_copy( $source, $target ) {
 $source ='/home/import/public_html/repositorio';
 $destination = '.';
 full_copy($source, $destination);
-echo "Página actualizada";
+echo "Página actualizada 2V";
 sleep (2);
 include 'sysadmin/vistas/db.php';
 include 'sysadmin/vistas/php_conexion.php';
