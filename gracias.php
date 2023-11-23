@@ -304,7 +304,7 @@ if (empty($_POST['session'])) {
                      
                     direccion='%3a%0A'+'*Dirección:* '+($("#direccion").val());
                     comentario='%3a%0A'+'*Productos:* '+($("#contenido").val());
-                  
+                   
                    //Producto 1%3a* SOLUTION PACK "PRIMEROS FRIOS"%0A*Cantidad%3a*1%20%0A*Precio%3a* %241500%0A%0A*Total*%3a %241500%0A%0APor favor tengan a bien responder para coordinar la entrega.&source=&data=&app_absent=
                     variable='https://api.whatsapp.com/send?phone='+<?php
         echo get_row('perfil', 'whatsapp', 'id_perfil', '1');
