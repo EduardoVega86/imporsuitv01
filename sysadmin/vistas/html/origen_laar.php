@@ -142,12 +142,7 @@ $row           = mysqli_fetch_array($query_empresa);
 													</div>
 												</div>
                                                                         
-                                                                        <div class="form-group row">
-													<label for="inputPassword3" class="col-sm-3 col-form-label">Dirección:</label>
-													<div class="col-sm-6">
-														<input type="text" class="form-control" name="telefono" value="<?php echo $row['direccion'] ?>" required autocomplete="off">
-													</div>
-												</div>
+                                                                        
 												<div class="form-group row">
 													<label for="inputPassword3" class="col-sm-3 col-form-label">Teléfono:</label>
 													<div class="col-sm-6">
@@ -402,7 +397,7 @@ $row           = mysqli_fetch_array($query_empresa);
 					processData:false,        // To send DOMDocument or non processed data file it is set to false
 					success: function(data)   // A function to be called if request succeeds
 					{
-						alert(data);
+						//alert(data);
                                                 $('#div_ciudad').html(data);
 
 					}
