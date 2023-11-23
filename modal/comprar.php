@@ -155,7 +155,7 @@
 
 
 			$.ajax({
-					url: "sysadmin/vistas/ajax/cargar_ciudad.php",        // Url to which the request is send
+					url: "ajax/cargar_ciudad.php",        // Url to which the request is send
 					type: "POST",             // Type of request to be send, called as method
 					data: data, 			  // Data sent to server, a set of key/value pairs (i.e. form fields and values)
 					contentType: false,       // The content type used when sending data to the server.
