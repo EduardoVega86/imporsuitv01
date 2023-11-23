@@ -111,8 +111,9 @@ while ($row = mysqli_fetch_array($query)) {
                                $url= get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                     $traking="https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=".get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
            ?>
-                               <a style="cursor: pointer;"  href="<?php echo $url; ?>" target="blank"  >Imprimir Guía</a><BR>
-                <a style="cursor: pointer;"  href="<?php echo $traking; ?>" target="blank"  >Ver estado</a>
+                               <a style="cursor: pointer;"  href="<?php echo $url; ?>" target="blank"  ><span class="badge badge-primary">Imprimir Guía</span></a><BR>
+                               <a style="cursor: pointer;"  href="<?php echo $traking; ?>" target="blank"  ><span class="badge badge-primary">Ver estado</span></a>
+                               
                                    <?php
                            }else{
                             echo 'NO ENVIADA' ;  
@@ -126,7 +127,7 @@ while ($row = mysqli_fetch_array($query)) {
                             <div class="dropdown-menu dropdown-menu-right">
                                <?php if ($permisos_editar == 1) {?>
                                <a class="dropdown-item" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
-                               <a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir</a>
+                               <!--a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir</a-->
                                <?php }
             if ($permisos_eliminar == 1) {?>
                                <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
