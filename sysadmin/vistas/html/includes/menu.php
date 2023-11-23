@@ -167,19 +167,18 @@ require_once "../funciones.php";
 												</ul>
 											</li>
 
-											<li class="has_sub">
+											<!--li class="has_sub">
 												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-files"></i><span> Reportes Facturaci&oacute;n </span> <span class="menu-arrow"></span></a>
 												<ul class="list-unstyled">
-													<!--<li><a href="../html/rep_producto.php">Reporte Productos</a></li>-->
+													
 													<li><a href="../html/rep_comprobantes.php">Reporte de Comprobantes</a></li>
 													<li><a href="../html/rep_comprobantes_ventas.php">Ventas</a></li>
 													<li><a href="../html/rep_ventas_detalladas.php">Ventas Detalladas</a></li>
 													<li><a href="../html/rep_retenciones_totales.php">Reporte Retenciones Totales</a></li>
 													<li><a href="../html/rep_retenciones_factura.php">Reporte Retenciones x Factura</a></li>
-													<!--<li><a href="../html/rep_caja_general.php">Corte de Caja General</a></li>
-													<li><a href="../html/rep_financiero.php">Reporte Financiero</a></li>-->
+													
 												</ul>
-											</li>
+											</li-->
 
 											<li class="has_sub">
 												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-settings"></i><span> Configuración </span> <span class="menu-arrow"></span></a>
@@ -210,7 +209,7 @@ require_once "../funciones.php";
 													
 												</ul>
 											</li>													
-<li class="has_sub">
+<!--li class="has_sub">
 										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-import"></i><span> Carga Txt
 										</span> <span class="menu-arrow"></span></a>
 										<ul class="list-unstyled">
@@ -218,7 +217,7 @@ require_once "../funciones.php";
 											
 																																					   
 										</ul>
-</li>
+</li-->
 
 										</ul>
 
