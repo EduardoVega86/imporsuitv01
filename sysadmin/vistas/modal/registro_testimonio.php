@@ -36,7 +36,7 @@ if (isset($conexion)) {
                                                                     <label for="descripcion" class="control-label">Página:</label>
                                                 <select class='form-control' name='id_producto' id='id_producto' required>
 												<option value="">-- Selecciona --</option>
-                                                                                                <option style="background-color: #D9EDF7" value="-1">PÁGINA DE INICIO</option>
+                                                                                                <option style="background-color: #D9EDF7" value="-1">TODAS LAS PÁGINAS</option>
                                                                                                 
 												<?php
 
