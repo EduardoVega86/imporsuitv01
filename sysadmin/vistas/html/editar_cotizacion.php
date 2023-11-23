@@ -412,10 +412,10 @@ include "../modal/buscar_productos_ventas.php";
                 ?>
 										</div>
 
-										<div class="col-lg-4">
+										<!--div class="col-lg-4">
 											<div class="card-box">
 												<div class="widget-chart">
-												<div class="editar_factura" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
+												<div class="editar_factura" class='col-md-12' style="margin-top:10px"></div>
 													
                                                                                                 <form role="form" id="datos_factura">
 														<input id="id_vendedor" name="id_vendedor" type='hidden' value="<?php echo $id_vendedor_db; ?>">
@@ -477,14 +477,14 @@ include "../modal/buscar_productos_ventas.php";
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label for="fiscal">No. Comprobante</label>
-																	<div id="outer_comprobante"></div><!-- Carga los datos ajax -->
+																	<div id="outer_comprobante"></div>
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="form-group">
-																	<div id="resultados4"></div><!-- Carga los datos ajax -->
+																	<div id="resultados4"></div>
 																</div>
-																<div id="resultados5"></div><!-- Carga los datos ajax -->
+																<div id="resultados5"></div>
 															</div>
 														</div>
 
@@ -503,7 +503,7 @@ include "../modal/buscar_productos_ventas.php";
 															</div>
 															<div class="col-md-6">
 																<div class="form-group">
-																	<div id="resultados3"></div><!-- Carga los datos ajax del incremento de la fatura -->
+																	<div id="resultados3"></div>
 																</div>
 															</div>
 														</div>
@@ -546,7 +546,7 @@ include "../modal/buscar_productos_ventas.php";
 												</div>
 											</div>
 
-										</div>
+										</div-->
                                                                             
 
 									</div>
