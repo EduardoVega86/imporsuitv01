@@ -81,10 +81,9 @@ if ($action == 'ajax') {
                 <th>Online</th>
                 <th class='text-center'>Existencia</th>
                 <th class='text-left'>Costo</th>
-                <th class='text-left'>P. Venta</th>
-                <th class='text-left'>P. Mayoreo</th>
-                <th class='text-left'>P. Online</th>
-                <th class='text-left'>P. Normal Online</th>
+                <th class='text-left'>PxMayor</th>
+                <th class='text-left'>PVP</th>
+                <th class='text-left'>Precio Referencial</th>
                 <th>Landing</th>
                 <th>Imagenes</th>
                 <?php
@@ -200,7 +199,6 @@ if ($image_path == null) {
                     <td><?php echo $estado_online; ?></td>
                     <td class='text-center'><?php echo stock($stock_producto); ?></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($costo_producto, 2); ?></span></td>
-                    <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_producto, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_mayoreo, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_especial, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_normal, 2); ?></span></td>
