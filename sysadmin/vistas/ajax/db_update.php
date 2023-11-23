@@ -1,8 +1,8 @@
 <?php 
 
 //echo 'funciona';
-include '../sysadmin/vistas/db.php';
-include '../sysadmin/vistas/php_conexion.php';
+include '../vistas/db.php';
+include '../vistas/php_conexion.php';
 
 
 $tildes = $conexion->query("SET NAMES 'utf8'"); //Para que se inserten las tildes correctamente
