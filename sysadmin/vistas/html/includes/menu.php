@@ -20,6 +20,11 @@ require_once "../funciones.php";
 					<i class="mdi mdi-crop-free noti-icon"></i>
 				</a>
 			</li>
+                        <li class="list-inline-item notification-list hide-phone">
+				<a class="nav-link waves-light waves-effect" href="../ajax/actualizar_sistema.php" id="">
+					<i class="mdi mdi-radar noti-icon"></i>
+				</a>
+			</li>
 
 			<li class="list-inline-item dropdown notification-list">
 				<a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
@@ -102,7 +107,7 @@ require_once "../funciones.php";
 										class="ti-truck"></i><span> Traslados </span></a>
 									</li>-->
 
-									<li class="has_sub">
+									<!--li class="has_sub">
 										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-shopping-cart-full"></i><span> Ventas
 										</span> <span class="menu-arrow"></span></a>
 										<ul class="list-unstyled">
@@ -130,13 +135,13 @@ require_once "../funciones.php";
 											<li><a href="../html/bitacora_retencion20.php">Bitacora Retenci&oacute;n</a></li>
 											<li><a href="../html/caja.php">Caja</a></li>
 										</ul>
-									</li>
+									</li-->
 									
 									<li class="has_sub">
 										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Pedidos
 										</span> <span class="menu-arrow"></span></a>
 										<ul class="list-unstyled">
-											<li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li>
+											<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
 											<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
 										</ul>
 									</li>
