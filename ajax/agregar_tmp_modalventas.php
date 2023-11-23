@@ -114,7 +114,21 @@ while ($row = mysqli_fetch_array($sql)) {
          
                 <div class="_rsi-modal-line-item" data-line-item-variant-id="45622098493721">
                     <div class="_rsi-modal-line-item-image-container">
-                        <img src=" sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>" class="_rsi-modal-line-item-image">
+                        <img src="
+                             
+                              <?php
+                $subcadena = "http";
+
+if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+    ?>
+    <?php echo  $image_path.'"';?>
+    <?php
+} else {
+    ?>
+    sysadmin/<?php echo str_replace ( "../.." , "" , $image_path  )?>"
+    <?php
+}
+?> class="_rsi-modal-line-item-image">
                         <div class="_rsi-modal-line-item-quantity"><?php echo $cantidad; ?></div>
                             
                     </div>
