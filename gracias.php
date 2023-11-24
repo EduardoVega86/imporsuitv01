@@ -235,7 +235,7 @@ if (empty($_POST['session'])) {
       </div>
 
       <div class="contenido">
-          <input type="hidden" id="nombre" name='nombre' value="sqw">
+          <input type="hidden" id="nombre" name='nombre' value="<?php echo $nombre;?>">
           <input type="hidden" id="telefono" value="<?php echo $telefono;?>">
           <input type="hidden" id="direccion" value="<?php echo $direccion;?>">
           <input type="hidden" id="contenido" value="<?php echo $contenido;?>">
