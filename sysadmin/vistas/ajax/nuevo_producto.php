@@ -94,6 +94,7 @@ if (empty($_POST['codigo'])) {
         
         
    
+
     }
     //Seleccionamos el ultimo compo numero_fatura y aumentamos una
     $sql         = mysqli_query($conexion, "select LAST_INSERT_ID(id_producto) as last from productos order by id_producto desc limit 0,1 ");
