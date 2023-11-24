@@ -378,7 +378,7 @@ function guardar_entradas($fecha, $id_producto, $cant_entrada, $costo_entrada, $
     
     $sql = "INSERT INTO kardex (fecha_kardex, producto_kardex, cant_entrada, costo_entrada, total_entrada, cant_saldo, costo_saldo, total_saldo, added_kardex, users_kardex, tipo_movimiento)
   VALUES ('$fecha','$id_producto','$cant_entrada','$costo_entrada','$total_entrada', '$cant_saldo','$costo_promedio','$total_saldo','$fecha_added','$users','$tipo');";
-echo $sql;
+//echo $sql;
     $query = mysqli_query($conexion, $sql);
 
 }
