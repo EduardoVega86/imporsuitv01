@@ -290,14 +290,14 @@ $categoria_activa="menu_activo texto_boton";
                  if (isset($_GET['id_cat'])){
                   if (isset($categorias) and $categorias!=''){
                       $lista_cat =substr($categorias, 0, -1);
-                      $sql="select * from productos where pagina_web='1' and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
+                      $sql="select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
                      
                     }else{
                        $lista_cat="''";  
-                      $sql="select * from productos where pagina_web='1' and id_linea_producto=$id_categoria"; 
+                      $sql="select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria"; 
                     }
                  }else{
-                     $sql="select * from productos where pagina_web='1'";
+                     $sql="select * from productos where  pagina_web='1' and stock_producto > 0";
                  }
                 
                            $query = mysqli_query($conexion, $sql);
