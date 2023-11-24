@@ -28,7 +28,7 @@ if (empty($_POST['session'])) {
     
     $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
     $contenido='';
-    $direccion=$provincia.' '.$ciudad.' '.$calle_principal.' '.$calle_secundaria.' '.$referencia;
+    $direccion= get_row('provincia_laar', 'provincia', 'codigo_provincia', $provincia).' '.get_row('ciudad_laar', 'nombre', 'codigo', $ciudad).' '.$calle_principal.' '.$calle_secundaria.' '.$referencia;
 //Comprobamos si hay archivos en la tabla temporal
    // echo "select * from tmp_ventas where session_id='" . $session_id . "'";
     $sql_count = mysqli_query($conexion, "select * from tmp_ventas where session_id='" . $session_id . "'");
@@ -153,7 +153,7 @@ if (empty($_POST['session'])) {
       <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       Skip to content
       </a>
-      <script src="js/cart.js" type="text/javascript"></script>
+      
       <script src="js/product-info.js" type="text/javascript"></script>
       <script src="js/product-form.js" type="text/javascript"></script>
       <script src="js/cart.js?v=139383546597281746371693673626" defer="defer"></script>
@@ -286,15 +286,15 @@ if (empty($_POST['session'])) {
 
 <script>
         window.onload = function() {
-             enviar_registro();
+         //  alert();
             <?php  if(get_row('perfil', 'whatsapp', 'id_perfil', '1')) {?>
                    
-                    
+               enviar_registro();       
          <?php }?>       
         };
         
          function enviar_registro(){
-                     
+                    
        
                    whatsapp='%3a%0A'+"<?php echo get_row('perfil', 'whatsapp', 'id_perfil', '1')?>";
                   
