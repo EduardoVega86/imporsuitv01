@@ -90,7 +90,7 @@ if (isset($conexion)) {
                                                             
                                                             <div class="row">
 									<div class="col-md-12">
-                                                                            <img width="100%" src="../../img/formato_pro.jpg" alt=""/>
+                                                                            <img width="100%" src="../../img_sistema/formato_pro.jpg" alt=""/>
 										<div class="form-group">
 											<label for="estado" class="control-label">Formato Pagina Productos:</label>
 											<select class="form-control" id="formato" name="formato" required>
@@ -153,7 +153,7 @@ if (isset($conexion)) {
 									</div>-->
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="costo" class="control-label">Ultimo Costo:</label>
+											<label for="costo" class="control-label">Costo:</label>
 											<input type="text" class="form-control" id="costo" name="costo" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8" required>
 										</div>
 									</div>
@@ -168,25 +168,25 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group">
-											<label for="precio" class="control-label">Precio Venta:</label>
+											<label for="precio" class="control-label">PVP:</label>
 											<input type="text" class="form-control" id="precio" name="precio" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8">
 										</div>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label for="preciom" class="control-label">Precio Mayoreo:</label>
+											<label for="preciom" class="control-label">PxMayor:</label>
 											<input type="text" class="form-control" id="preciom" name="preciom" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8">
 										</div>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label for="precioe" class="control-label">Precio Especial:</label>
+											<label for="precioe" class="control-label">PVP:</label>
 											<input type="text" class="form-control" id="precioe" name="precioe" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8">
 										</div>
 									</div>
                                                                     <div class="col-md-3">
 										<div class="form-group">
-											<label for="precioe" class="control-label">Precio Normal:</label>
+											<label for="precioe" class="control-label">Precio Referencial:</label>
 											<input type="text" class="form-control" id="precion" name="precion" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8">
 										</div>
 									</div>
