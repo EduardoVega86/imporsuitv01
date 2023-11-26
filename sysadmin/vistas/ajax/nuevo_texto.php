@@ -9,6 +9,7 @@ if (empty($_POST['nombre'])) {
     require_once "../php_conexion.php";
     // escaping, additionally removing everything that could be (html/javascript-) code
     $nombre      = $_POST["nombre"];
+    $posicion      = $_POST["posicion"];
    
     $estado      = 1;
  
@@ -16,7 +17,8 @@ if (empty($_POST['nombre'])) {
    
     $users       = intval($_SESSION['id_users']);
     // check if user or email address already exists
-    $sql                   = "SELECT * FROM horizontal WHERE texto ='" . $nombre . "';";
+    $sql                   = "SELECT * FROM horizontal WHERE  posicion=".$posicion." and texto ='" . $nombre . "';";
+    
     $query_check_user_name = mysqli_query($conexion, $sql);
     $query_check_user      = mysqli_num_rows($query_check_user_name);
     if ($query_check_user == true) {
@@ -24,8 +26,8 @@ if (empty($_POST['nombre'])) {
     } else {
         // write new user's data into database
 
-       $sql = "INSERT INTO horizontal (texto, estado)
-        VALUES ('$nombre','$estado')";
+       $sql = "INSERT INTO horizontal (texto, estado, posicion)
+        VALUES ('$nombre','$estado', $posicion)";
         $query_new_insert = mysqli_query($conexion, $sql);
 
         if ($query_new_insert) {
