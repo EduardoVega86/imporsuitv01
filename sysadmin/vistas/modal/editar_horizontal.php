@@ -20,6 +20,16 @@ if (isset($conexion)) {
 									<input id="mod_id" name="mod_id" type='hidden'>
 								</div>
 							</div>
+                                                    
+                                                    <div class="col-md-6">
+								<div class="form-group">
+									<label for="nombre" class="control-label">Posición:</label>
+                                                                        <select id="mod_posicion" name="mod_posicion" class="form-control">
+                                                                            <option value="1">Barra Superior</option>
+                                                                            <option value="2">Barra Inferior</option>
+                                                                        </select>
+								</div>
+							</div>
 						</div>
 
 						
