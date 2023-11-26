@@ -279,11 +279,11 @@
                animation: horTicker 50s linear infinite forwards;
                }
             </style>
-            
+            <div class="horizontal-ticker horizontal-ticker-template--20805846597913__05db8b15-3aa7-4652-a96c-89ad2a167474 color-inverse section-template--20805846597913__05db8b15-3aa7-4652-a96c-89ad2a167474-padding">
                <!-- <div class="horizontal-ticker__inner"> -->
                <?php      include 'includes/horizontal_tikets.php' ?>
                <!-- </div> -->
-            
+            </div>
          </div>
          <section id="shopify-section-template--20805846597913__c65117da-b894-43a0-8d4d-7bd214ab10a9" class="shopify-section section">
             <link href="ccs/section-multicolumn.css" rel="stylesheet" type="text/css"/>
