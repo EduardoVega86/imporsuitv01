@@ -61,8 +61,9 @@ if ($action == 'ajax') {
                 <tr  class="info">
                     <th>Id</th>
                     <th>Nombre</th>
+                    
+                    <th>POSICIÓN</th>
                     <th>Estado</th>
-                    <th>Posición</th>
                     <th class='text-right'>Acciones</th>
 
                 </tr>
