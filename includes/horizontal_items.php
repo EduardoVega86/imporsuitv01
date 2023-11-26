@@ -1,5 +1,5 @@
 
-<div align="center"style="color: white !important;WW" class="texto_cabecera superior horizontal-ticker horizontal-ticker-sections--20805847122201__2c2ec774-3430-481f-b927-e9c035b9d24e section-sections--20805847122201__2c2ec774-3430-481f-b927-e9c035b9d24e-padding">
+<div align="center"style="color: white !important;" class="texto_cabecera superior horizontal-ticker horizontal-ticker-sections--20805847122201__2c2ec774-3430-481f-b927-e9c035b9d24e section-sections--20805847122201__2c2ec774-3430-481f-b927-e9c035b9d24e-padding">
 <div  class="  horizontal-ticker__container ">
 
     <?php
