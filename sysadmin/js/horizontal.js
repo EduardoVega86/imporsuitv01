@@ -103,9 +103,11 @@
 
 		function obtener_datos(id) {
 		    var texto = $("#texto" + id).val();
+                    var posicion = $("#posicion" + id).val();
 		 
                 // alert(id)
 		    $("#mod_nombre").val(texto);
+                    $("#mod_posicion").val(posicion);
                      $("#mod_id").val(id);
 		 
                     
