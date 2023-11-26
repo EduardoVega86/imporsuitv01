@@ -19,6 +19,16 @@ if (isset($conexion)) {
 									<input type="text" class="form-control UpperCase" id="nombre" name="nombre"  autocomplete="off" required>
 								</div>
 							</div>
+                                                    
+                                                    <div class="col-md-6">
+								<div class="form-group">
+									<label for="nombre" class="control-label">Posición:</label>
+                                                                        <select id="posicion" name="posicion" class="form-control">
+                                                                            <option value="1">Barra Superior</option>
+                                                                            <option value="2">Barra Inferior</option>
+                                                                        </select>
+								</div>
+							</div>
 						</div>
 
 						
