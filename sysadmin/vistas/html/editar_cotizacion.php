@@ -155,7 +155,7 @@ include "../modal/buscar_productos_ventas.php";
     include "../modal/caja.php";
     ?>
 									<div class="row">
-										<div class="col-lg-8">
+										<div class="col-lg-7">
 											<div class="card-box">
 
 												<div class="widget-chart">
@@ -209,7 +209,19 @@ include "../modal/buscar_productos_ventas.php";
 
 												</div>
 											</div>
-                <?php if($guia_enviada==1){
+               <div style="" id="valor_envio">
+         <table  class="table table-sm table-striped">
+    <tr> <th><img width="100px" src="../../img_sistema/logo-dark.png" alt=""/></th>
+        <th>$<?php echo number_format($valor_base,2)?></th>
+    </tr>
+     
+</table>
+        </div> 
+										</div>
+                                                                            
+                                                                            <div class="col-lg-5">
+                                                                                
+                                                                         <?php if($guia_enviada==1){
                     $url= get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                     $traking="https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=".get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                  ?>
@@ -227,7 +239,7 @@ include "../modal/buscar_productos_ventas.php";
                 <?php
                 }   else{      
                 ?>
-<H2>DATOS PARA LA GUIA</H2>
+<H5><strong>DATOS PARA LA GUIA</strong></H5>
 <form role="form" id="datos_pedido">
     
 
@@ -395,23 +407,15 @@ include "../modal/buscar_productos_ventas.php";
     <div class="col-md-6">
         </br>
         
-        <div style="" id="valor_envio">
-         <table  class="table table-sm table-striped">
-    <tr> <th><img width="100px" src="../../img_sistema/logo-dark.png" alt=""/></th>
-        <th>$<?php echo number_format($valor_base,2)?></th>
-    </tr>
-     
-</table>
-        </div>    
+           
     </div>
     </div>
     </form>
 <?php 
                     
                 }         
-                ?>
-										</div>
-
+                ?>        
+                                                                            </div>
 										<!--div class="col-lg-4">
 											<div class="card-box">
 												<div class="widget-chart">
@@ -629,7 +633,7 @@ include "../modal/buscar_productos_ventas.php";
 function cargar_provincia_pedido(){
 			
 			var id_provincia = $('#provinica').val();
-                        alert($('#provinica').val())
+                        //alert($('#provinica').val())
   //var data = new FormData(formulario);
 
 			$.ajax({
