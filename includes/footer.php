@@ -122,8 +122,8 @@
     <div class="footer__content-bottom-wrapper page-width">
       <div class="footer__copyright caption">
         <small class="copyright__content"
-          >&copy; 2023, <a href="/" title="">Sitio Web desarrollado por</a></small>
-          <small class="copyright__content">IMPORSUIT</small><ul class="policies list-unstyled"></ul></div>
+          >&copy; 2023 Sitio Web desarrollado por</small>
+          <a href="www.imporsuit.com" title=""><small class="copyright__content">IMPORSUIT</small></a><ul class="policies list-unstyled"></ul></div>
     </div>
   </div>
 </footer>
