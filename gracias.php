@@ -309,7 +309,9 @@ if (empty($_POST['session'])) {
                     variable='https://api.whatsapp.com/send?phone='+<?php
         echo get_row('perfil', 'whatsapp', 'id_perfil', '1');
     ?>+'&text=Nuevo pedido'+nombre+telefono+direccion+comentario;
-            window.open(variable,'width=400,height=300,resizable=yes');   
+            window.location.href = variable;
+
+            //window.open(variable,'width=400,height=300,resizable=yes');   
             
                      
         }
