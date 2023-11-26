@@ -9,6 +9,7 @@ if (empty($_POST['nombre'])) {
     require_once "../php_conexion.php";
     // escaping, additionally removing everything that could be (html/javascript-) code
     $nombre      = $_POST["nombre"];
+    $posicion      = $_POST["posicion"];
    
     $estado      = 1;
  
@@ -24,10 +25,11 @@ if (empty($_POST['nombre'])) {
     } else {
         // write new user's data into database
 
-       $sql = "INSERT INTO horizontal (texto, estado)
+       $sql = "INSERT INTO horizontal (texto, estado, posicion)
         VALUES ('$nombre','$estado')";
-        $query_new_insert = mysqli_query($conexion, $sql);
+        $query_new_insert = mysqli_query($conexion, $sql, $posicion);
 
+        echo $sql;
         if ($query_new_insert) {
             $messages[] = "Texto ha sido ingresada con Exito.";
         } else {
