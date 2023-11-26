@@ -2,7 +2,6 @@
 <style>
         /* Estilos CSS para la sección de redes sociales en el footer */
         .footer-social {
-           // background-color: #333; /* Color de fondo del footer */
            padding: 20px 0; /* Espaciado interno superior e inferior */
             text-align: center; /* Centra el contenido horizontalmente */
         }
@@ -77,7 +76,7 @@
                             ?>
                     <?php  if(get_row('perfil', 'tiktok', 'id_perfil', '1')) {
                             ?>
-            <li><a target="_blank" href="<?php if(get_row('perfil', 'tiktok', 'id_perfil', '1')){ echo get_row('perfil', 'tiktok', 'id_perfil', '1'); }?>""><i class="fab fa-tiktok"></i></a></li>
+            <li><a target="_blank" href="<?php if(get_row('perfil', 'tiktok', 'id_perfil', '1')){ echo get_row('perfil', 'tiktok', 'id_perfil', '1'); }?>"><i class="fab fa-tiktok"></i></a></li>
                     
                      <?php  }
                             ?>
