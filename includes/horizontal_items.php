@@ -3,7 +3,7 @@
 <div  class="  horizontal-ticker__container ">
 
     <?php
-     $sql   = "SELECT * FROM  horizontal";
+     $sql   = "SELECT * FROM  horizontal  where posicion=1";
      $query = mysqli_query($conexion, $sql);
      while ($row = mysqli_fetch_array($query)) {
          $texto       = $row['texto'];
