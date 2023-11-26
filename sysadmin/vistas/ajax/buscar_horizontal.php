@@ -62,6 +62,7 @@ if ($action == 'ajax') {
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Estado</th>
+                    <th>Posición</th>
                     <th class='text-right'>Acciones</th>
 
                 </tr>
@@ -71,6 +72,7 @@ while ($row = mysqli_fetch_array($query)) {
             $texto       = $row['texto'];
            
             $estado_linea = $row['estado'];
+            $posicion = $row['posicion'];
           
             //$date_added   = date('d/m/Y', strtotime($row['date_added']));
             if ($estado_linea == 1) {
@@ -91,6 +93,12 @@ while ($row = mysqli_fetch_array($query)) {
         <td><span class="badge badge-purple"><?php echo $id_horizontal; ?></span></td>
         <td><?php echo $texto; ?></td>
          
+          <td><?php if($posicion==1){
+              $posicion='Barra superior';
+          }else{
+             $posicion='Barra inferior'; 
+          }
+              echo $posicion; ?></td>
           
         
          <td><?php echo $estado; ?></td>
