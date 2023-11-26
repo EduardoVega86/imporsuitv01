@@ -91,6 +91,7 @@ $cantidad_total = 0;
 $costo_total=0;
 $productos_guia = "";
 $sql            = mysqli_query($conexion, "select * from productos, facturas_cot, detalle_fact_cot where facturas_cot.id_factura=detalle_fact_cot.id_factura and  facturas_cot.id_factura='$id_factura' and productos.id_producto=detalle_fact_cot.id_producto");
+$costo_total=0;
 while ($row = mysqli_fetch_array($sql)) {
     $id_detalle      = $row["id_detalle"];
     $id_producto     = $row["id_producto"];
@@ -99,7 +100,7 @@ while ($row = mysqli_fetch_array($sql)) {
     $desc_tmp        = $row['desc_venta'];
     $nombre_producto = $row['nombre_producto'];
     $costo_producto    = $row['costo_producto'];
-    
+    //echo $costo_producto;
     $id_pedido_cot      = $row["id_factura"];
     $tienda   = $row['tienda'];
     
@@ -125,7 +126,7 @@ while ($row = mysqli_fetch_array($sql)) {
         <td class='text-center'><?php echo $codigo_producto; ?></td>
         <td class='text-center'><?php 
         $cantidad_total=$cantidad_total+$cantidad;
-        $costo_total=$costo_total+$costo_producto+$cantidad;
+        $costo_total=$costo_total+$costo_producto*$cantidad;
         echo $cantidad; ?></td>
         <td><?php 
         $productos_guia=$productos_guia.' '.$nombre_producto;
