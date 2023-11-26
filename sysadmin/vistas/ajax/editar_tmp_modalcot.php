@@ -15,7 +15,9 @@ require_once "../db.php"; //Contiene las variables de configuracion para conecta
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
 //Archivo de funciones PHP
 include "../funciones.php";
+echo 'pasa';
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
+    echo 'entra al if';
     // consulta para comparar el stock con la cantidad resibida
     $query = mysqli_query($conexion, "select stock_producto, inv_producto from productos where id_producto = '$id'");
     $rw    = mysqli_fetch_array($query);
@@ -25,11 +27,14 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
 //Cmprobamos si agregamos un producto a la tabla tmp_compra
     $comprobar = mysqli_query($conexion, "select * from detalle_fact_cot where id_producto='" . $id . "' and id_factura='" . $id_factura . "'");
     if ($row = mysqli_fetch_array($comprobar)) {
+        echo 'entra al segundo if';
         $cant = $row['cantidad'] + $cantidad;
         // condicion si el stock e menor que la cantidad requerida
         if ($cant > $stock and $inv == 0) {
             echo "<script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE', 'error')</script>";
         } else {
+            echo 'entra al segundo if';
+            echo "UPDATE detalle_fact_cot SET cantidad='" . $cant . "' WHERE id_producto='" . $id . "' and id_factura='" . $id_factura . "'";
             $sql          = "UPDATE detalle_fact_cot SET cantidad='" . $cant . "' WHERE id_producto='" . $id . "' and id_factura='" . $id_factura . "'";
             $query_update = mysqli_query($conexion, $sql);
         }
