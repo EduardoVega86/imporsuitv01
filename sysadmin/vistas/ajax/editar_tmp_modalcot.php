@@ -1,8 +1,7 @@
 <?php
 /*-------------------------
-Autor: Delmar Lopez
-Web: www.softwys.com
-Mail: softwysop@gmail.com
+Autor: Eduardo vega
+Web: www.imporsuit.com
 ---------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 $id_factura     = $_SESSION['id_factura'];
@@ -41,6 +40,7 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
         if ($cantidad > $stock and $inv == 0) {
             echo "<script>swal('LA CANTIDAD SUPERA AL STOCK!', 'INTENTAR NUEVAMENTE', 'error')</script>";
         } else {
+            echo "INSERT INTO detalle_fact_cot (id_factura,numero_factura, id_producto,cantidad,precio_venta) VALUES ('$id_factura','$numero_factura','$id','$cantidad','$precio_venta')";
             $insert_tmp = mysqli_query($conexion, "INSERT INTO detalle_fact_cot (id_factura,numero_factura, id_producto,cantidad,precio_venta) VALUES ('$id_factura','$numero_factura','$id','$cantidad','$precio_venta')");
         }
         // fin codicion cantaidad
