@@ -201,16 +201,18 @@ if ($response) {
     // Puedes trabajar con los datos de respuesta aquí
     
     
-    $id_pedido_cot=$_POST['id_pedido_cot'];
+$id_pedido_cot=$_POST['id_pedido_cot'];
 
-$sql_update =  "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='LAAR' WHERE `id_factura` = $id_pedido_cot";
- //echo $sql_update;
-$query_update = mysqli_query($conexion, $sql_update);
+
 
 @$guia = $data["guia"];
 @$url = $data["url"];
 
 if(isset($guia)){
+    $sql_update =  "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='LAAR' WHERE `id_factura` = $id_pedido_cot";
+ //echo $sql_update;
+$query_update = mysqli_query($conexion, $sql_update);
+
     $date_added = date("Y-m-d H:i:s");
 $sql_insertar_guia="INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido` ) 
         VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '','$url','$id_pedido_cot')"; 
