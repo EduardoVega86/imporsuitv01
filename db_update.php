@@ -869,7 +869,7 @@ mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `tienda_proveedor` VARCHAR(
 mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `url_guia` VARCHAR(400) NULL AFTER `tienda_proveedor`; ");
 mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `id_pedido` INT  NULL AFTER `url_guia`; ");
 mysqli_query($conexion, "ALTER TABLE `productos` CHANGE `stock_producto` `stock_producto` DOUBLE NULL; ");
-mysqli_query($conexion, "ALTER TABLE `horizontal` ADD `posicion` INT NOT NULL AFTER `estado`; ");
+mysqli_query($conexion, "ALTER TABLE `horizontal` ADD `posicion` INT NULL AFTER `estado`; ");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
