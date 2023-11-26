@@ -170,25 +170,25 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-3">
 										<div class="form-group">
-											<label for="mod_precio" class="control-label">Precio Venta:</label>
+											<label for="mod_precio" class="control-label">PVP:</label>
 											<input type="text" class="form-control" id="mod_precio" name="mod_precio" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8">
 										</div>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label for="mod_preciom" class="control-label">P Mayoreo:</label>
+											<label for="mod_preciom" class="control-label">PxMayor:</label>
 											<input type="text" class="form-control" id="mod_preciom" name="mod_preciom" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8">
 										</div>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label for="mod_precioe" class="control-label">P Especial:</label>
+											<label for="mod_precioe" class="control-label">PVP Online:</label>
 											<input type="text" class="form-control" id="mod_precioe" name="mod_precioe" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8">
 										</div>
 									</div>
                                                                     <div class="col-md-3">
 										<div class="form-group">
-											<label for="mod_precioe" class="control-label">P Normal:</label>
+											<label for="mod_precioe" class="control-label">P Referencial:</label>
 											<input type="text" class="form-control" id="mod_precion" name="mod_precion" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8">
 										</div>
 									</div>
