@@ -13,9 +13,10 @@ if (empty($_POST['mod_id'])) {
     $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_nombre"], ENT_QUOTES)));
     
   $id=$_POST['mod_id'];
+  $posicion=$_POST['mod_posicion'];
 
-    $sql = "UPDATE horizontal SET estado=1, texto='" . $nombre. "' where id_horizontal=$id";
-        echo $sql;                        
+    $sql = "UPDATE horizontal SET estado=1, posicion=".$posicion.", texto='" . $nombre. "' where id_horizontal=$id";
+       // echo $sql;                        
     $query_update = mysqli_query($conexion, $sql);
     if ($query_update) {
         $messages[] = "Linea ha sido actualizada con Exito.";
