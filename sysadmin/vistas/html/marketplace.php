@@ -102,7 +102,7 @@ if ($permisos_editar == 1) {
 
 												<div class="col-md-2">
 													<div class="btn-group pull-right">
-														<button type="button" class="btn btn-success btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#nuevoProducto"><i class="fa fa-plus"></i> Agregar</button>
+														<!--button type="button" class="btn btn-success btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#nuevoProducto"><i class="fa fa-plus"></i> Agregar</button-->
 													</div>
 
 												</div>
