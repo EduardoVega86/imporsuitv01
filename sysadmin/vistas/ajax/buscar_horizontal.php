@@ -87,6 +87,7 @@ while ($row = mysqli_fetch_array($query)) {
     <input type="hidden" value="<?php echo $texto; ?>" id="texto<?php echo $id_horizontal; ?>">
     
     <input type="hidden" value="<?php echo $estado_linea; ?>" id="estado<?php echo $id_linea; ?>">
+    <input type="hidden" value="<?php echo $posicion; ?>" id="posicion<?php echo $id_linea; ?>">
     
 
     <tr>
