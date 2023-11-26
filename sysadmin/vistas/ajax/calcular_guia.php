@@ -10,6 +10,7 @@ require_once "../db.php";
     $cod=$_POST['cod'];
     $seguro=$_POST['seguro'];
     $costo=$_POST['costo_total'];
+    //echo $costo;
     $valorasegurado=$_POST['valorasegurado'];
      //valorasegurado=$('#valorasegurado').val();
     
