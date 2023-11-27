@@ -100,7 +100,7 @@ while ($row = mysqli_fetch_array($sql)) {
     $desc_tmp        = $row['desc_venta'];
     $nombre_producto = $row['nombre_producto'];
     $costo_producto    = $row['costo_producto'];
-    //echo $costo_producto;
+    echo $costo_producto;
     $id_pedido_cot      = $row["id_factura"];
     $tienda   = $row['tienda'];
     
