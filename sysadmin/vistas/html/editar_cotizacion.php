@@ -256,12 +256,21 @@ include "../modal/buscar_productos_ventas.php";
 
     </form>
                 <div class="row">
-
+    <div align="center" class="col-md-4">
         </br>
         
         <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank"  class=""><img width="80%" src="../../img_sistema/4.png" alt=""/><br>Imprimir Guía</a>
 </div>
-
+    <div align="center" class="col-md-4">
+        </br>
+       
+        <a style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/5.png" alt=""/><br>Ver estado</a>
+</div>
+                     <div align="center" class="col-md-4">
+        </br>
+        
+       
+        <a style="cursor: pointer;" href="#" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);?>')" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt=""/><br>Cancelar guia</a>
 </div>
     
     </div>
@@ -409,7 +418,7 @@ include "../modal/buscar_productos_ventas.php";
              <option value="1">SI</option>
               <option value="0">NO </option>
          </select>
-         <input id="valorasegurado" name="valorasegurado" type="number" class="form-control" value="" placeholder="Valor a aegurar">
+         <input id="valorasegurado" name="valorasegurado" class="form-control" value="" placeholder="Valor a aegurar">
          
                                                                                  
                                                                             
@@ -628,7 +637,8 @@ include "../modal/buscar_productos_ventas.php";
 	<!-- ============================================================== -->
 	<!-- Codigos Para el Auto complete de Clientes -->
 	<script>
-
+          
+     
             
 		$(function() {
 			$("#nombre_cliente").autocomplete({
