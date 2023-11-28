@@ -162,7 +162,7 @@ class Login
                     $result_of_recover_mail_check = $this->db_connection->query($sql);
 
 
-                    
+
                     // send a mail to the user
                     require_once('PHPMailer/PHPMailer.php');
                     require_once('PHPMailer/SMTP.php');
@@ -178,7 +178,7 @@ class Login
                     $mail->Username = 'apikey';
                     $mail->Password = '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';
                     $mail->Port = 465;
-                    $mail->SMTPSecure = 'ssl/tls';
+                    $mail->SMTPSecure = 'ssl';
 
                     $mail->isHTML(true);
                     $mail->CharSet = 'UTF-8';
@@ -194,7 +194,6 @@ class Login
                     } else {
                         $this->messages[] = "Se ha enviado un correo electrónico a su dirección de correo electrónico.";
                     }
-                    
                 }
             }
         }
