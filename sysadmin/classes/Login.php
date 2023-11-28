@@ -162,7 +162,7 @@ class Login
                     $result_of_recover_mail_check = $this->db_connection->query($sql);
 
 
-
+                    /*
                     // send a mail to the user
                     require_once('PHPMailer/PHPMailer.php');
                     require_once('PHPMailer/SMTP.php');
@@ -194,6 +194,25 @@ class Login
                     } else {
                         $this->messages[] = "Se ha enviado un correo electrónico a su dirección de correo electrónico.";
                     }
+                    */
+
+                    $hostname = '{smtp.titan.email:465/ssl}'; // Reemplaza con tu información de servidor IMAP
+                    $username = 'desarrollo1@imporfactoryusa.com';
+                    $password = 'desarrollo.1';
+
+                    // Intenta conectar
+                    $mailbox = imap_open($hostname, $username, $password) or die('No se pudo conectar al servidor IMAP: ' . imap_last_error());
+
+                    // Obtener información de los correos electrónicos (por ejemplo, los encabezados)
+                    $headers = imap_headers($mailbox);
+
+                    // Iterar sobre los encabezados
+                    foreach ($headers as $header) {
+                        echo $header . '<br>';
+                    }
+
+                    // Cerrar la conexión
+                    imap_close($mailbox);
                 }
             }
         }
