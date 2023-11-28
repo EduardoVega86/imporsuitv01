@@ -159,7 +159,7 @@ curl_close($curl);
            ?>
                                <a style="cursor: pointer;"  href="<?php echo $url; ?>" target="blank"  ><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
                                <a style="cursor: pointer;"  href="<?php echo $url; ?>" target="blank"  ><span class=""><?php echo $guia_numero; ?></span></a><BR>
-                               <a style="cursor: pointer;"   href="<?php echo $traking; ?>" target="blank"  ><img width="50px" src="../../img_sistema/rastreo.png" alt=""/></a>
+                               <a style="cursor: pointer;"   href="<?php echo $traking; ?>" target="blank"  ><img width="40px" src="../../img_sistema/rastreo.png" alt=""/></a>
                                
                                    <?php
                            }else{
