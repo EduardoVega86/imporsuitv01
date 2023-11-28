@@ -173,16 +173,16 @@ class Login
                     $mail = new PHPMailer();
                     $mail->isSMTP();
                     $mail->SMTPDebug = 0;
-                    $mail->Host = 'smtp.titan.email';
+                    $mail->Host = 'smtp.sendgrid.net';
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'desarrollo1@imporfactoryusa.com';
-                    $mail->Password = 'desarrollo.1';
+                    $mail->Username = 'apikey';
+                    $mail->Password = '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';
                     $mail->Port = 465;
                     $mail->SMTPSecure = 'ssl';
 
                     $mail->isHTML(true);
                     $mail->CharSet = 'UTF-8';
-                    $mail->setFrom('desarrollo1@imporfactoryusa.com', 'Imporfactory');
+                    $mail->setFrom('info@danytraveloficial.com', 'Imporfactory');
                     $mail->addAddress($email_users);
                     $mail->Subject = 'Recuperación de contraseña';
                     $mail->Body = $message_body;
