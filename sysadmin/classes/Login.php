@@ -162,7 +162,7 @@ class Login
                     $result_of_recover_mail_check = $this->db_connection->query($sql);
 
 
-
+                    
                     // send a mail to the user
                     /* require_once('PHPMailer/PHPMailer.php');
                     require_once('PHPMailer/SMTP.php');
@@ -172,17 +172,13 @@ class Login
 
                     $mail = new PHPMailer();
                     $mail->isSMTP();
-                    $mail->SMTPDebug = 0;
-                    $mail->Host = 'imap.titan.email';
-                    $mail->SMTPAuth = true;
-                    $mail->Username = 'desarrollo1@imporfactoryusa.com';
-                    $mail->Password = 'desarrollo.1';
-                    $mail->Port = 993;
+
+ 
                     $mail->SMTPSecure = 'ssl/tls';
 
                     $mail->isHTML(true);
                     $mail->CharSet = 'UTF-8';
-                    $mail->setFrom('desarrollo1@imporfactoryusa.com', 'Imporfactory');
+                    $mail->setFrom('info@danytraveloficial.com', 'Imporfactory');
                     $mail->addAddress($email_users);
                     $mail->Subject = 'Recuperación de contraseña';
                     $mail->Body = $message_body;
@@ -212,8 +208,6 @@ class Login
                         echo $header . '<br>';
                     }
 
-                    // Cerrar la conexión
-                    imap_close($mailbox);
                 }
             }
         }

@@ -1,8 +1,8 @@
 <?php
 
 //echo 'funciona';
-include '../sysadmin/vistas/db.php';
-include '../sysadmin/vistas/php_conexion.php';
+include 'sysadmin/vistas/db.php';
+include 'sysadmin/vistas/php_conexion.php';
 
 
 $tildes = $conexion->query("SET NAMES 'utf8'"); //Para que se inserten las tildes correctamente
@@ -26,7 +26,7 @@ mysqli_query($conexion, "CREATE TABLE `ciudad_laar`(
   UNIQUE KEY `id_ciudad` (`id_ciudad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=413 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (20100101901, 'AMBATO', 'TP', 'TUNGURAHUA', '201001019', 16);");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (20100101902, 'BAÃOS DE AGUA SANTA', 'TE', 'TUNGURAHUA', '201001019', 16);");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (20100101902, 'BAÑOS DE AGUA SANTA', 'TE', 'TUNGURAHUA', '201001019', 16);");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001001, 'QUITO', 'TP', 'PICHINCHA', '201001001', 1);");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001002, 'CAYAMBE', 'TP', 'PICHINCHA', '201001001', 22);");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001003, 'TABACUNDO', 'TE', 'PICHINCHA', '201001001', 22); ");
@@ -41,7 +41,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001012, 'PEDRO V. MALDONADO', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001013, 'PUERTO QUITO', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001014, 'GUAYLLABAMBA', 'TE', 'PICHINCHA', '201001001', 1); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001018, 'AMAGUAÃA', 'TS', 'PICHINCHA', '201001001', 1); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001018, 'AMAGUAÑA', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001019, 'ALOAG', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001020, 'TUMBACO', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001021, 'MITAD DEL MUNDO', 'TS', 'PICHINCHA', '201001001', 1); ");
@@ -52,7 +52,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001027, 'SAN ANTONIO IBARRA', 'TS', 'IMBABURA', '201001011', 67); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001028, 'POMASQUI', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001029, 'NANEGALITO', 'TE', 'PICHINCHA', '201001001', 1); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001030, 'MARCELINO MARIDUEÃA', 'TE', 'GUAYAS', '201001002', 57);  ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001030, 'MARCELINO MARIDUEÑA', 'TE', 'GUAYAS', '201001002', 57);  ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001031, 'ALANGASI', 'TS', 'PICHINCHA', '201001001', 1);  ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001032, '24 DE MAYO', 'TE', 'MANABI', '201001014', 40);  ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001033, 'CONOCOTO', 'TS', 'PICHINCHA', '201001001', 1);  ");
@@ -86,7 +86,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001066, 'RumiÃ±ahui', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001067, 'OtÃ³n', 'TE', 'PICHINCHA', '201001001', 22); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001068, 'Nono', 'TE', 'PICHINCHA', '201001001', 1); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001069, 'MejÃ­a', 'TE', 'PICHINCHA', '201001001', 1); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001069, 'Mejía', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001070, 'Guangopolo', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001071, 'El Chaupi', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001002001, 'GUAYAQUIL', 'TP', 'GUAYAS', '201001002', 11); ");
@@ -147,7 +147,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001002062, 'SABANILLA', 'TE', 'GUAYAS', '201001002', 66); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001002063, 'TARIFA', 'TE', 'GUAYAS', '201001002', 66); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001002064, 'MATILDE ESTHER', 'TE', 'GUAYAS', '201001002', 57); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001002065, 'BOCA DE CAÃA', 'TE', 'GUAYAS', '201001002', 11); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001002065, 'BOCA DE CAÑA', 'TE', 'GUAYAS', '201001002', 11); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001002066, 'SAMBORONDON (Pueblo)', 'TE', 'GUAYAS', '201001002', 11); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001002067, 'BOLICHE', 'TE', 'GUAYAS', '201001002', 11); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001002068, 'Virgen De FÃ¡tima Km 26', 'TE', 'GUAYAS', '201001002', 57); ");
@@ -168,7 +168,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003006, 'CHORDELEG', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003007, 'SIG SIG', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003008, 'PATATE', 'TE', 'TUNGURAHUA', '201001019', 16); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003009, 'EL TAMBO', 'TE', 'CAÃAR', '201001005', 18); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003009, 'EL TAMBO', 'TE', 'CAÑAR', '201001005', 18); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003011, 'CUENCA', 'TP', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003016, 'CHAULLABAMBA', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003017, 'CUMBE', 'TE', 'AZUAY', '201001003', 15); ");
@@ -179,9 +179,9 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003022, 'Nulti', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003023, 'Paccha', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003024, 'San Fernando', 'TE', 'AZUAY', '201001003', 15); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003025, 'San JoaquÃ­n', 'TE', 'AZUAY', '201001003', 15); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003025, 'San Joaquín', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003026, 'Sidcay', 'TE', 'AZUAY', '201001003', 15); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003027, 'SimÃ³n BolÃ­var (Cab. en GaÃ±anzol)', 'TE', 'AZUAY', '201001003', 15); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003027, 'SimÃ³n Bolívar (Cab. en GaÃ±anzol)', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003028, 'Sinincay', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003029, 'Tomebamba', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001003030, 'Turi', 'TE', 'AZUAY', '201001003', 15); ");
@@ -202,11 +202,11 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001004007, 'CALUMA', 'TE', 'LOS RIOS', '201001013', 19); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001004008, 'CHAMBO', 'TE', 'CHIMBORAZO', '201001008', 44); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001004011, 'SALINAS DE GUARANDA', 'TE', 'BOLIVAR', '201001004', 29); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005001, 'AZOGUES', 'TP', 'CAÃAR', '201001005', 18); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005002, 'LA TRONCAL', 'TE', 'CAÃAR', '201001005', 57); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005003, 'CAÃAR', 'TP', 'CAÃAR', '201001005', 18); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005004, 'BIBLIAN', 'TS', 'CAÃAR', '201001005', 18); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005007, 'COJITAMBO', 'TE', 'CAÃAR', '201001005', 18); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005001, 'AZOGUES', 'TP', 'CAÑAR', '201001005', 18); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005002, 'LA TRONCAL', 'TE', 'CAÑAR', '201001005', 57); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005003, 'CAÑAR', 'TP', 'CAÑAR', '201001005', 18); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005004, 'BIBLIAN', 'TS', 'CAÑAR', '201001005', 18); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001005007, 'COJITAMBO', 'TE', 'CAÑAR', '201001005', 18); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001006001, 'TULCAN', 'TP', 'CARCHI', '201001006', 47); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001006002, 'MIRA', 'TE', 'CARCHI', '201001006', 67); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001006003, 'EL ANGEL', 'TE', 'CARCHI', '201001006', 47); ");
@@ -240,7 +240,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001009001, 'MACHALA', 'TP', 'EL ORO', '201001009', 36); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001009002, 'PASAJE', 'TE', 'EL ORO', '201001009', 36); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001009003, 'PORTOVELO', 'TE', 'EL ORO', '201001009', 36); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001009004, 'PIÃAS', 'TE', 'EL ORO', '201001009', 36); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001009004, 'PIÑAS', 'TE', 'EL ORO', '201001009', 36); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001009005, 'ZARUMA', 'TE', 'EL ORO', '201001009', 36); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001009006, 'ARENILLAS', 'TE', 'EL ORO', '201001009', 36); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001009007, 'HUAQUILLAS', 'TE', 'EL ORO', '201001009', 36); ");
@@ -373,7 +373,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001015002, 'GUALAQUIZA', 'TO', 'MORONA SANTIAGO', '201001015', 48); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001015003, 'YANTZAZA', 'TO', 'ZAMORA CHINCHIPE', '201001021', 48); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001016001, 'TENA', 'TO', 'NAPO', '201001016', 46); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001016002, 'OÃA', 'TE', 'AZUAY', '201001003', 15); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001016002, 'OÑA', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001016003, 'ARCHIDONA', 'TO', 'NAPO', '201001016', 46); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001016004, 'PTO. NAPO', 'TO', 'NAPO', '201001016', 46); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001016005, 'MISAHUALLI', 'TO', 'NAPO', '201001016', 46); ");
@@ -401,7 +401,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001019011, 'HUAMBALO', 'TE', 'TUNGURAHUA', '201001019', 16); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001019012, 'Ulba', 'TE', 'TUNGURAHUA', '201001019', 16); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001019013, 'San Pedro De Pelileo', 'TE', 'TUNGURAHUA', '201001019', 16); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001019014, 'BetÃ­nez (Pachanlica)', 'TE', 'TUNGURAHUA', '201001019', 16); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001019014, 'Betínez (Pachanlica)', 'TE', 'TUNGURAHUA', '201001019', 16); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001020001, 'PUERTO BAQUERIZO MORENO', 'TG', 'GALAPAGOS', '201001020', 27); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001020002, 'SANTA CRUZ', 'TG', 'GALAPAGOS', '201001020', 28); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001020003, 'SAN CRISTOBAL', 'TG', 'GALAPAGOS', '201001020', 27); ");
@@ -413,7 +413,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001022002, 'SHUSHUFINDI', 'TO', 'SUCUMBIOS', '201001022', 31); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023001, 'PUNTA CARNERO', 'TE', 'SANTA ELENA', '201001023', 33); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023002, 'PUNTA BLANCA', 'TE', 'SANTA ELENA', '201001023', 33); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023003, 'MONTAÃITA', 'TE', 'SANTA ELENA', '201001023', 33); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023003, 'MONTAÑITA', 'TE', 'SANTA ELENA', '201001023', 33); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023004, 'MAR BRAVO', 'TE', 'SANTA ELENA', '201001023', 33); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023005, 'MUEY', 'TE', 'SANTA ELENA', '201001023', 33); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023006, 'OLON', 'TE', 'SANTA ELENA', '201001023', 33); ");
@@ -448,7 +448,7 @@ mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('LOS RIOS', '201001013'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('CARCHI', '201001006'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('AZUAY', '201001003'); ");
-mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('CAÃAR', '201001005'); ");
+mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('CAÑAR', '201001005'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('BOLIVAR', '201001004'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('CHIMBORAZO', '201001008'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('COTOPAXI', '201001007'); ");
@@ -868,8 +868,13 @@ mysqli_query($conexion, "ALTER TABLE `guia_laar` CHANGE `tienda` `tienda_venta` 
 mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `tienda_proveedor` VARCHAR(500) NULL AFTER `zpl`; ");
 mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `url_guia` VARCHAR(400) NULL AFTER `tienda_proveedor`; ");
 mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `id_pedido` INT  NULL AFTER `url_guia`; ");
+mysqli_query($conexion, "ALTER TABLE `productos` CHANGE `stock_producto` `stock_producto` DOUBLE NULL; ");
+mysqli_query($conexion, "ALTER TABLE `horizontal` ADD `posicion` INT NULL AFTER `estado`; ");
+mysqli_query($conexion, "ALTER TABLE `detalle_fact_cot` CHANGE `desc_venta` `desc_venta` INT NULL; ");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `identificacion` VARCHAR(20) NULL AFTER `transporte`, ADD `celular` VARCHAR(20) NULL AFTER `identificacion`, ADD `cod` BOOLEAN NULL AFTER `celular`, ADD `valor_seguro` DOUBLE NULL AFTER `cod`; ");
 
-mysqli_query($conexion, "UPDATE `user_group` SET `permission` = 'Inicio,1,1,1;Productos,1,1,1;Proveedores,1,1,1;Clientes,1,1,1;Reportes,1,1,1;Configuracion,1,1,1;Usuarios,1,1,1;Permisos,1,1,1;Categorias,1,1,1;Ventas,1,1,1;Compras,1,1,1;Pedidos,1,1,1;Integraciones,1,1,1;' WHERE `user_group`.`user_group_id` = 1;");
+mysqli_query($conexion, "ALTER TABLE `users` ADD `token_act` VARCHAR(400) NULL AFTER `comision_users`, ADD `estado_token` INT NULL AFTER `token_act`, ADD `fecha_actualizacion` DATETIME NULL AFTER `estado_token`");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo 'Los datos han sido insertados en la base de datos';
