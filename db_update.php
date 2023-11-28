@@ -871,8 +871,9 @@ mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `id_pedido` INT  NULL AFTER
 mysqli_query($conexion, "ALTER TABLE `productos` CHANGE `stock_producto` `stock_producto` DOUBLE NULL; ");
 mysqli_query($conexion, "ALTER TABLE `horizontal` ADD `posicion` INT NULL AFTER `estado`; ");
 mysqli_query($conexion, "ALTER TABLE `detalle_fact_cot` CHANGE `desc_venta` `desc_venta` INT NULL; ");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `identificacion` VARCHAR(20) NULL AFTER `transporte`, ADD `celular` VARCHAR(20) NULL AFTER `identificacion`, ADD `cod` BOOLEAN NULL AFTER `celular`, ADD `valor_seguro` DOUBLE NULL AFTER `cod`; ");
 
- 
+  
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo 'Los datos han sido insertados en la base de datos';
