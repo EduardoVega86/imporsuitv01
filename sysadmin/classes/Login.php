@@ -164,7 +164,7 @@ class Login
 
 
                     // send a mail to the user
-                    require_once('PHPMailer/PHPMailer.php');
+                    /* require_once('PHPMailer/PHPMailer.php');
                     require_once('PHPMailer/SMTP.php');
                     require_once('PHPMailer/Exception.php');
                     $url_change = 'http://localhost/sysadmin/change_password.php?token=' . $token;
@@ -173,11 +173,11 @@ class Login
                     $mail = new PHPMailer();
                     $mail->isSMTP();
                     $mail->SMTPDebug = 0;
-                    $mail->Host = 'smtp.titan.email';
+                    $mail->Host = 'imap.titan.email';
                     $mail->SMTPAuth = true;
                     $mail->Username = 'desarrollo1@imporfactoryusa.com';
                     $mail->Password = 'desarrollo.1';
-                    $mail->Port = 465;
+                    $mail->Port = 993;
                     $mail->SMTPSecure = 'ssl/tls';
 
                     $mail->isHTML(true);
@@ -193,7 +193,27 @@ class Login
                         $this->errors[] = $mail->ErrorInfo;
                     } else {
                         $this->messages[] = "Se ha enviado un correo electrónico a su dirección de correo electrónico.";
+                    } */
+
+
+
+                    $hostname = '{smtp.titan.email:465/ssl}'; // Reemplaza con tu información de servidor IMAP
+                    $username = 'desarrollo1@imporfactoryusa.com';
+                    $password = 'desarrollo.1';
+
+                    // Intenta conectar
+                    $mailbox = imap_open($hostname, $username, $password) or die('No se pudo conectar al servidor IMAP: ' . imap_last_error());
+
+                    // Obtener información de los correos electrónicos (por ejemplo, los encabezados)
+                    $headers = imap_headers($mailbox);
+
+                    // Iterar sobre los encabezados
+                    foreach ($headers as $header) {
+                        echo $header . '<br>';
                     }
+
+                    // Cerrar la conexión
+                    imap_close($mailbox);
                 }
             }
         }
