@@ -4,15 +4,15 @@ require_once "../db.php";
     require_once "../php_conexion.php";
     require_once "../funciones.php";
     
-    $ciudad=$_POST['ciudad'];
-    $valor_total=$_POST['valor_total'];
-    $cantidad_total=$_POST['cantidad_total'];
-    $cod=$_POST['cod'];
-    $seguro=$_POST['seguro'];
+    $ciudad = $_POST['ciudad'];
+    $valor_total = $_POST['valor_total'];
+    $cantidad_total = $_POST['cantidad_total'];
+    $cod = $_POST['cod'];
+    $seguro = $_POST['seguro'];
     $costo=$_POST['costo_total'];
     //echo $costo;
     $valorasegurado=$_POST['valorasegurado'];
-     //valorasegurado=$('#valorasegurado').val();
+    //valorasegurado=$('#valorasegurado').val();
     
     //echo $valor_total;
     $valor_base= get_row('ciudad_laar', 'precio', 'codigo', $ciudad);
