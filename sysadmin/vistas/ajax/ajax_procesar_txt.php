@@ -17,16 +17,22 @@ if (empty($_POST['contenido'])) {
      
     $query_check_user_name = mysqli_query($conexion, $sql);
     $query_check_user      = mysqli_num_rows($query_check_user_name);
-    if ($query_check_user == true) {
+    if ($query_check_user == true ) {
         //update
          // Generar un nombre de archivo único
         $fila = mysqli_fetch_assoc($query_check_user_name);
     
     // Accede al valor del campo "landing"
     $valorLanding = $fila['contenido'];
-    unlink($valorLanding);
+   if (strpos($contenido, 'html') !== false){
+     unlink($valorLanding);
+     $nombre_archivo = $valorLanding;
+   }else{
+    $nombre_archivo = 'landing_producto/landing_' . time() . '.html';   
+   }
     
-    $nombre_archivo = $valorLanding;
+    
+    
     
     // Guardar el contenido en un archivo
     file_put_contents($nombre_archivo, $contenido);

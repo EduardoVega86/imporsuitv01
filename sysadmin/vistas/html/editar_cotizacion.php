@@ -226,13 +226,15 @@ include "../modal/buscar_productos_ventas.php";
                     $traking="https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=".get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                  ?>
                 <div class="row">
-    <div class="col-md-3">
+    <div align="center" class="col-md-6">
         </br>
-        <a style="cursor: pointer;" type="button" href="<?php echo $url; ?>" target="blank"  class="btn btn-danger">Imprimir Guía</a>
+        
+        <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank"  class=""><img width="80%" src="../../img_sistema/4.png" alt=""/><br>Imprimir Guía</a>
 </div>
-    <div class="col-md-3">
+    <div align="center" class="col-md-6">
         </br>
-        <a style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank"  class="btn btn-danger">Ver estado</a>
+       
+        <a style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/5.png" alt=""/><br>Ver estado</a>
 </div>
     
     </div>
@@ -599,6 +601,9 @@ include "../modal/buscar_productos_ventas.php";
 	<!-- ============================================================== -->
 	<!-- Codigos Para el Auto complete de Clientes -->
 	<script>
+            
+     
+            
 		$(function() {
 			$("#nombre_cliente").autocomplete({
 				source: "../ajax/autocomplete/clientes.php",
