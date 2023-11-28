@@ -1,9 +1,11 @@
 $(document).ready(function() {
     load(1);
+    
     $("#resultados").load("../ajax/editar_tmp_cot.php");
     $("#resultados3").load("../ajax/carga_resibido.php");
     $("#resultados4").load("../ajax/tipo_doc.php");
     $("#resultados5").load("../ajax/carga_num_trans.php");
+   
 });
 
 function load(page) {
@@ -17,8 +19,10 @@ function load(page) {
         success: function(data) {
             $(".outer_div").html(data).fadeIn('slow');
             $('#loader').html('');
+            
         }
     })
+    
 }
 
 function agregar(id) {
@@ -247,4 +251,62 @@ $("#btn_guardar").on("click", function(e) {
 
 function imprimir_factura(id_factura) {
     VentanaCentrada('../pdf/documentos/ver_factura.php?id_factura=' + id_factura, 'Factura', '', '724', '568', 'true');
+}
+
+function calcular_guia() {
+    
+    //alert();
+     
+	nombre_destino=$('#nombredestino').val();//CIERRA LA MODAL
+        ciudad=$('#ciudad_entrega').val();;
+       //alert(ciudad);
+        direccion=$('#direccion').val();//CIERRA LA MODAL
+        referencia=$('#referencia').val();//CIERRA LA MODAL
+        telefono=$('#telefono').val();//CIERRA LA MODAL
+        celular=$('#celular').val();//CIERRA LA MODAL
+        observacion=$('#observacion').val();//CIERRA LA MODAL
+        cod=$('#cod').val();//CIERRA LA MODAL
+        seguro=$('#seguro').val();//CIERRA LA MODAL
+        productos_guia=$('#productos_guia').val();
+        cantidad_total=$('#cantidad_total').val();
+        //alert(cantidad_total);
+        valor_total=$('#valor_total_').val();
+   //alert(valor_total)
+        costo_total=$('#costo_total').val();
+         valorasegurado=$('#valorasegurado').val();
+        
+          // alert('pasa');
+    id_factura=1;
+	if (id_factura=1) {
+            
+           // alert('pasa');
+		$.ajax({
+			url: '../ajax/calcular_guia.php',
+			type: 'post',
+			data: {
+				nombre_destino: nombre_destino,
+                                ciudad: ciudad,
+                                direccion: direccion,
+                                referencia: referencia,
+                                telefono: telefono,
+                                celular: celular,
+                                observacion: observacion,
+                                cod: cod,
+                                seguro: seguro,
+                                productos_guia: productos_guia,
+                                cantidad_total: cantidad_total,
+                                valor_total: valor_total,
+                                costo_total: costo_total,
+                                valorasegurado: valorasegurado,
+                                
+			},
+			dataType: 'text',
+			success: function(response) {
+				//alert(response)
+                                
+                                 $('#valor_envio').html(response);
+            } // /success function
+
+        }); // /ajax function to fetch the printable order
+    } // /if orderId
 }

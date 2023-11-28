@@ -181,7 +181,7 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
 </tbody>
 </table>
     
-    <input type="hidden"   value="<?php echo $total_factura; ?>" id="valor_total" name="valor_total">
+    <input type="hidden"   value="<?php echo $total_factura; ?>" id="valor_total_" name="valor_total">
     <input type="hidden"   value="<?php echo $cantidad_total; ?>" id="cantidad_total" name="cantidad_total">
     <input type="hidden"   value="<?php echo $productos_guia; ?>" id="productos_guia" name="productos_guia">
     <input type="hidden"   value="<?php echo $costo_total; ?>" id="costo_total" name="costo_total">
@@ -191,6 +191,7 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
     
 </div>
 <script>
+    $("#valorasegurado").val(<?php echo $costo_total; ?>);
     $(document).ready(function () {
         $('.txt_desc').off('blur');
         $('.txt_desc').on('blur',function(event){

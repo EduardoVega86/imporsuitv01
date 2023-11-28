@@ -114,8 +114,8 @@ require_once "../sysadmin/vistas/php_conexion.php";
     $total_iva     = ($subtotal * $impuesto) / 100;
     $total_iva     = number_format($total_iva, 2, '.', '') - number_format($t_iva, 2, '.', '');
     $total_factura = $subtotal + $total_iva;
-    echo "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1','$nombre','$telefono','$provincia','$calle_principal','$ciudad','$calle_secundaria','$referencia','$observacion',1,'')";
-    $insert        = mysqli_query($conexion, "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1','$nombre','$telefono','$provincia','$calle_principal','$ciudad','$calle_secundaria','$referencia','$observacion',1,'')");
+    echo "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1','$nombre','$telefono','$provincia','$calle_principal','$ciudad','$calle_secundaria','$referencia','$observacion',1,'','','','','')";
+    $insert        = mysqli_query($conexion, "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1','$nombre','$telefono','$provincia','$calle_principal','$ciudad','$calle_secundaria','$referencia','$observacion',1,'','','','','')");
     $delete        = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO

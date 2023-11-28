@@ -95,10 +95,10 @@ else {
                 <th class='text-left'>Costo</th>
                 <th class='text-left'>PxMayor</th>
                 <th class='text-left'>PVP</th>
-                <th class='text-left'>Precio Referencial</th>
+                <th class='text-left'>P. Referencial</th>
                 
                 
-                <th>Landing</th>
+                 <th>Landing</th>
                  <th>Importar</th>
                  <th>Disponible</th>
                  
