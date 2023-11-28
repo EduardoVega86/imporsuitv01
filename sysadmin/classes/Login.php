@@ -172,7 +172,7 @@ class Login
 
                     $mail = new PHPMailer();
                     $mail->isSMTP();
-                    $mail->SMTPDebug = 0;
+                    $mail->SMTPDebug = 3;
                     $mail->Host = 'smtp.sendgrid.net';
                     $mail->SMTPAuth = true;
                     $mail->Username = 'apikey';
