@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] !=
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
 //Inicia Control de Permisos
+
 include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
