@@ -178,7 +178,7 @@ class Login
                     $mail->Username = 'desarrollo1@imporfactoryusa.com';
                     $mail->Password = 'desarrollo.1';
                     $mail->Port = 465;
-                    $mail->SMTPSecure = 'ssl';
+                    $mail->SMTPSecure = 'ssl/tls';
 
                     $mail->isHTML(true);
                     $mail->CharSet = 'UTF-8';
