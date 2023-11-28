@@ -170,23 +170,23 @@ class Login
                     $url_change = 'http://localhost/sysadmin/change_password.php?token=' . $token;
                     include 'PHPMailer/Mail.php';
 
+
                     $mail = new PHPMailer();
                     $mail->isSMTP();
-                    $mail->SMTPDebug = 3;
-                    $mail->Host = 'smtp.sendgrid.net';
+                    $mail->SMTPDebug = 0;
+                    $mail->Host = 'smtp.titan.email';
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'apikey';
-                    $mail->Password = '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';
+                    $mail->Username = 'desarrollo1@imporfactoryusa.com';
+                    $mail->Password = 'desarrollo.1';
                     $mail->Port = 465;
                     $mail->SMTPSecure = 'ssl';
 
                     $mail->isHTML(true);
                     $mail->CharSet = 'UTF-8';
-                    $mail->setFrom('info@danytraveloficial.com', 'Imporfactory');
+                    $mail->setFrom('desarrollo1@imporfactoryusa.com', 'Imporfactory');
                     $mail->addAddress($email_users);
                     $mail->Subject = 'Recuperación de contraseña';
                     $mail->Body = $message_body;
-
 
 
                     if (!$mail->send()) {
