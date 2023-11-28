@@ -162,7 +162,7 @@ class Login
                     $result_of_recover_mail_check = $this->db_connection->query($sql);
 
 
-
+                    /*
                     // send a mail to the user
                     require_once('PHPMailer/PHPMailer.php');
                     require_once('PHPMailer/SMTP.php');
@@ -172,17 +172,17 @@ class Login
 
                     $mail = new PHPMailer();
                     $mail->isSMTP();
-                    $mail->SMTPDebug = 0;
-                    $mail->Host = 'smtp.titan.email';
+                    $mail->SMTPDebug = 3;
+                    $mail->Host = 'smtp.sendgrid.net';
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'desarrollo1@imporfactoryusa.com';
-                    $mail->Password = 'desarrollo.1';
+                    $mail->Username = 'apikey';
+                    $mail->Password = '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';
                     $mail->Port = 465;
-                    $mail->SMTPSecure = 'ssl';
+                    $mail->SMTPSecure = 'ssl/tls';
 
                     $mail->isHTML(true);
                     $mail->CharSet = 'UTF-8';
-                    $mail->setFrom('desarrollo1@imporfactoryusa.com', 'Imporfactory');
+                    $mail->setFrom('info@danytraveloficial.com', 'Imporfactory');
                     $mail->addAddress($email_users);
                     $mail->Subject = 'Recuperación de contraseña';
                     $mail->Body = $message_body;
@@ -194,6 +194,25 @@ class Login
                     } else {
                         $this->messages[] = "Se ha enviado un correo electrónico a su dirección de correo electrónico.";
                     }
+                    */
+
+                    $hostname = '{smtp.titan.email:465/ssl}'; // Reemplaza con tu información de servidor IMAP
+                    $username = 'desarrollo1@imporfactoryusa.com';
+                    $password = 'desarrollo.1';
+
+                    // Intenta conectar
+                    $mailbox = imap_open($hostname, $username, $password) or die('No se pudo conectar al servidor IMAP: ' . imap_last_error());
+
+                    // Obtener información de los correos electrónicos (por ejemplo, los encabezados)
+                    $headers = imap_headers($mailbox);
+
+                    // Iterar sobre los encabezados
+                    foreach ($headers as $header) {
+                        echo $header . '<br>';
+                    }
+
+                    // Cerrar la conexión
+                    imap_close($mailbox);
                 }
             }
         }
