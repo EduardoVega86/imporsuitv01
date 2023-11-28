@@ -50,15 +50,15 @@ if ($action == 'ajax') {
         <div class="table-responsive">
           <table class="table table-sm table-striped">
              <tr  class="info">
-                <th># Factura</th>
+                <th># Orden</th>
                 <th>Fecha</th>
                 <th>Cliente</th>
                 <th>Telefono</th>
-                <th>Provincia</th>
-                <th>Ciudad</th>
+                <th>Localidad</th>
+                
                 <th>Direccion</th>
-                <th>Observacion</th>
-                <th>Guia</th>
+                
+                <th align="center">Guia</th>
                 <th>Pago</th>
                 <th class='text-center'>Total</th>
                 <th></th>
@@ -79,7 +79,7 @@ while ($row = mysqli_fetch_array($query)) {
             //echo $provincia;
             $ciudad_cot   = $row['ciudad_cot'];
             //echo $ciudad_cot;
-             $ciudad_cot   = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad_cot);
+            $ciudad_cot   = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad_cot);
             
             $observacion   = $row['observacion'];
             $direccion   = $row['c_principal'].' y '.$row['c_secundaria'].'-'.$row['referencia'];
@@ -102,17 +102,64 @@ while ($row = mysqli_fetch_array($query)) {
                          <td><?php echo $fecha; ?></td>
                          <td><?php echo $nombre; ?></td>
                          <td><?php echo $telefono; ?></td>
-                         <td><?php echo $provincia; ?></td>
-                         <td><?php echo $ciudad_cot; ?></td>
+                         
+                         <td><?php echo '<strong>'.$provincia.'</strong>'.'<br>'.$ciudad_cot; ?></td>
                          <td><?php echo $direccion; ?></td>
-                          <td><?php echo $observacion; ?></td>
-                           <td><?php 
+                       
+                           <td align="center"><?php 
                            if ($guia_enviada==1){
+                               $guia_numero=get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                               $url = 'https://api.laarcourier.com:9727/guias/'.$guia_numero;
+
+$curl = curl_init($url);
+
+// Establecer opciones para la solicitud cURL
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    'Accept: application/json'
+]);
+
+// Realizar la solicitud GET
+$response = curl_exec($curl);
+
+// Verificar si hubo algún error en la solicitud
+if ($response === false) {
+    echo 'Error en la solicitud: ' . curl_error($curl);
+} else {
+    // Procesar la respuesta
+    $data = json_decode($response, true);
+     if ($data !== null && isset($data['estadoActual'])) {
+        // Imprimir el estadoActual
+        //echo 'Estado Actual: ' . $data['estadoActual'];
+        switch ($data['estadoActual']) {
+    case 'Anulado':
+       
+        $span_estado='badge-danger';
+        $estado_guia='Anulado';
+        break;
+    case 'Pendiente':
+       $span_estado='badge-purple';
+        $estado_guia='Pendiente';
+        break;
+    case 2:
+        echo "i es igual a 2";
+        break;
+}
+
+    } else {
+        echo 'No se pudo obtener el estadoActual';
+    }
+}
+
+// Cerrar la sesión cURL
+curl_close($curl);
+
                                $url= get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                     $traking="https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=".get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
            ?>
-                               <a style="cursor: pointer;"  href="<?php echo $url; ?>" target="blank"  ><span class="badge badge-primary">Imprimir Guía</span></a><BR>
-                               <a style="cursor: pointer;"  href="<?php echo $traking; ?>" target="blank"  ><span class="badge badge-primary">Ver estado</span></a>
+                               <a style="cursor: pointer;"  href="<?php echo $url; ?>" target="blank"  ><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
+                               <a style="cursor: pointer;"  href="<?php echo $url; ?>" target="blank"  ><span class=""><?php echo $guia_numero; ?></span></a><BR>
+                               <a style="cursor: pointer;"   href="<?php echo $traking; ?>" target="blank"  ><img width="50px" src="../../img_sistema/rastreo.png" alt=""/></a>
                                
                                    <?php
                            }else{
