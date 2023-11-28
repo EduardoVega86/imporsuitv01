@@ -37,7 +37,7 @@ if (isset($_GET['id_factura'])) {
         $condiciones                = $rw_factura['condiciones'];
         $validez                    = $rw_factura['validez'];
         $numero_factura             = $rw_factura['numero_factura'];
-        
+   
         $nombredestino            = $rw_factura['nombre'];
         $provinciadestino             = $rw_factura['provincia'];
         $ciudaddestino             = $rw_factura['ciudad_cot'];
@@ -184,7 +184,19 @@ include "../modal/buscar_productos_ventas.php";
 														</div>
 													</form>
                                                                                                         
-                                                                                                        <div class="table-responsive">												<div id="resultados" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
+                                                                                                        <div class="table-responsive">	
+                                                                                                            <div id="resultados" class='col-md-12' style="margin-top:10px"></div>
+                                                                                                            <?php if($guia_enviada==1){
+                                                                                                                
+                                                                                                            
+                                                                                                                
+                                                                                                            ?>
+                                                                                                            <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Ver informacion de la guía</button>
+                                                                                                            <?php 
+                                                                                                             }   
+                                                                                                            ?>
+                                                                                                            <!-- Carga los datos ajax -->
+                                                                                                                
 <!--div class="stepwizard">
     <div class="stepwizard-row">
         <div class="stepwizard-step">
@@ -225,16 +237,40 @@ include "../modal/buscar_productos_ventas.php";
                     $url= get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                     $traking="https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=".get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                  ?>
+                 <form role="form" id="datos_pedido">
+                 <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo $nombredestino; ?>">  
+                 <input type="hidden" id="identificacion" name="identificacion"  value="">
+                 <input type="hidden" id="provinica" name="provinica"  value="<?php echo $provinciadestino; ?>"> 
+                 <input type="hidden" id="ciudad_entrega" name="ciudad_entrega"  value="<?php echo $ciudaddestino; ?>"> 
+                 <input type="hidden" id="direccion_destino" name="direccion_destino"  value="<?php echo $direccion; ?>">  
+                 <input  type="hidden" id="referencia" name="referencia"  value="<?php echo $referencia; ?>">
+                <input type="hidden" id="telefono" name="telefono"  value="<?php echo $telefono; ?>">  
+                <input id="celular" type="hidden" name="celular"  value="">
+                <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">  
+      <input id="cod" type="hidden" name="cod" >    
+      <input id="seguro" type="hidden" name="seguro" >
+      <input  id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
+      <input type="hidden" id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">
+      
+   
+
+    </form>
                 <div class="row">
-    <div align="center" class="col-md-6">
+    <div align="center" class="col-md-4">
         </br>
         
         <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank"  class=""><img width="80%" src="../../img_sistema/4.png" alt=""/><br>Imprimir Guía</a>
 </div>
-    <div align="center" class="col-md-6">
+    <div align="center" class="col-md-4">
         </br>
        
         <a style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/5.png" alt=""/><br>Ver estado</a>
+</div>
+                     <div align="center" class="col-md-4">
+        </br>
+        
+       
+        <a style="cursor: pointer;" href="#" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);?>')" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt=""/><br>Cancelar guia</a>
 </div>
     
     </div>
@@ -382,7 +418,7 @@ include "../modal/buscar_productos_ventas.php";
              <option value="1">SI</option>
               <option value="0">NO </option>
          </select>
-         <input id="valorasegurado" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
+         <input id="valorasegurado" name="valorasegurado" type="number" class="form-control" value="" placeholder="Valor a aegurar">
          
                                                                                  
                                                                             
@@ -404,7 +440,7 @@ include "../modal/buscar_productos_ventas.php";
 </div>
     <div class="col-md-3">
         </br>
-        <button style="cursor: pointer;" type="button" onclick="calcular_guia()()" class="btn btn-primary">Calcular</button>
+        <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Calcular</button>
 </div>
     <div class="col-md-6">
         </br>
@@ -601,7 +637,7 @@ include "../modal/buscar_productos_ventas.php";
 	<!-- ============================================================== -->
 	<!-- Codigos Para el Auto complete de Clientes -->
 	<script>
-            
+          
      
             
 		$(function() {
@@ -663,58 +699,7 @@ function cargar_provincia_pedido(){
 
 		}
                 
-function calcular_guia() {
-     
-	nombre_destino=$('#nombredestino').val();//CIERRA LA MODAL
-        ciudad=$('#ciudad_entrega').val();;
-       //alert(ciudad);
-        direccion=$('#direccion').val();//CIERRA LA MODAL
-        referencia=$('#referencia').val();//CIERRA LA MODAL
-        telefono=$('#telefono').val();//CIERRA LA MODAL
-        celular=$('#celular').val();//CIERRA LA MODAL
-        observacion=$('#observacion').val();//CIERRA LA MODAL
-        cod=$('#cod').val();//CIERRA LA MODAL
-        seguro=$('#seguro').val();//CIERRA LA MODAL
-        productos_guia=$('#productos_guia').val();
-        cantidad_total=$('#cantidad_total').val();
-        //alert(cantidad_total);
-        valor_total=$('#valor_total').val();
-        costo_total=$('#costo_total').val();
-         valorasegurado=$('#valorasegurado').val();
-        
-           
-    id_factura=1;
-	if (id_factura=1) {
-		$.ajax({
-			url: '../ajax/calcular_guia.php',
-			type: 'post',
-			data: {
-				nombre_destino: nombre_destino,
-                                ciudad: ciudad,
-                                direccion: direccion,
-                                referencia: referencia,
-                                telefono: telefono,
-                                celular: celular,
-                                observacion: observacion,
-                                cod: cod,
-                                seguro: seguro,
-                                productos_guia: productos_guia,
-                                cantidad_total: cantidad_total,
-                                valor_total: valor_total,
-                                costo_total: costo_total,
-                                valorasegurado: valorasegurado,
-                                
-			},
-			dataType: 'text',
-			success: function(response) {
-				//alert(response)
-                                
-                                 $('#valor_envio').html(response);
-            } // /success function
 
-        }); // /ajax function to fetch the printable order
-    } // /if orderId
-}
 
 
 
@@ -733,10 +718,10 @@ function generar_guia(id_factura) {
         seguro=$('#seguro').val();//CIERRA LA MODAL
         productos_guia=$('#productos_guia').val();
         cantidad_total=$('#cantidad_total').val();
-        valor_total=$('#valor_total').val();
+        valor_total=$('#valor_total_').val();
         costo_total=$('#costo_total').val();
         numerocasa=$('#numerocasa').val();
-        valor_envio=$('#valor_envio').val();
+        valor_envio=$('#valor_total_').val();
          valorasegurado=$('#valorasegurado').val();
         
         id_pedido_cot=$('#id_pedido_cot').val();
@@ -784,7 +769,31 @@ function generar_guia(id_factura) {
     } // /if orderId
 }
 
+function anular_guia(guia) {
 
+    id_factura=1;
+	if (id_factura=1) {
+		$.ajax({
+			url: '../ajax/eliminar_guia.php',
+			type: 'post',
+			data: {
+				guia: guia,
+                                
+			},
+			dataType: 'text',
+			success: function(response) {
+                            
+                            if(response=='ok'){
+                              location.reload();  
+                            }else{
+                              alert(response)  
+                            }
+				
+            } // /success function
+
+        }); // /ajax function to fetch the printable order
+    } // /if orderId
+}
 function printOrder(id_factura) {
 	$('#modal_vuelto').modal('hide');//CIERRA LA MODAL
 	if (id_factura) {
