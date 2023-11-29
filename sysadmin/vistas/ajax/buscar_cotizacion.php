@@ -191,13 +191,13 @@ curl_close($curl);
 }
         ?>
            <tr>
-              <td colspan=7><span class="pull-right"><?php
+              <td colspan=10><span class="pull-right"><?php
 echo paginate($reload, $page, $total_pages, $adjacents);
         ?></span></td>
             </tr>
         </table>
            
-            <input>Aviso!</histrong>
+            
     </div>
     <?php
 }
