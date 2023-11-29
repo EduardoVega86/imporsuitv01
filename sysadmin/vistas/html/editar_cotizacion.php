@@ -123,9 +123,60 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
 }
 </style>
 <!-- Begin page -->
+
 <div id="wrapper" class="forced enlarged">
 
-	<?php require 'includes/menu.php';?>
+	<?php 
+        
+        
+        require 'includes/menu.php';
+        
+        $guia_numero=get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                               $url = 'https://api.laarcourier.com:9727/guias/'.$guia_numero;
+
+$curl = curl_init($url);
+
+// Establecer opciones para la solicitud cURL
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    'Accept: application/json'
+]);
+
+// Realizar la solicitud GET
+$response = curl_exec($curl);
+
+// Verificar si hubo algún error en la solicitud
+if ($response === false) {
+    echo 'Error en la solicitud: ' . curl_error($curl);
+} else {
+    // Procesar la respuesta
+    $data = json_decode($response, true);
+     if ($data !== null && isset($data['estadoActual'])) {
+        // Imprimir el estadoActual
+        //echo 'Estado Actual: ' . $data['estadoActual'];
+        switch ($data['estadoActual']) {
+    case 'Anulado':
+       
+        $span_estado='badge-danger';
+        $estado_guia='Anulado';
+        break;
+    case 'Pendiente':
+       $span_estado='badge-purple';
+        $estado_guia='Pendiente';
+        break;
+    case 2:
+        echo "i es igual a 2";
+        break;
+}
+
+    } else {
+        echo 'No se pudo obtener el estadoActual';
+    }
+}
+
+// Cerrar la sesión cURL
+curl_close($curl);
+        ?>
 
 	<!-- ============================================================== -->
 	<!-- Start right Content here -->
@@ -234,6 +285,20 @@ include "../modal/buscar_productos_ventas.php";
                                                                             <div class="col-lg-5">
                                                                                 
                                                                          <?php if($guia_enviada==1){
+                                                                             if ($estado_guia='Anulado'){
+                                                                       ?> 
+                                                     <div class="widget-bg-color-icon card-box">
+                <div class="bg-icon bg-icon-danger pull-left">
+                  <i class="ti-dashboard text-danger"></i>
+                </div>
+                <div class="text-right">
+                  <h5 class="text-dark text-center"><b class=" text-danger">Guía Anulada</b></h5>
+           
+                </div>
+                <div class="clearfix"></div>
+              </div>
+                                                                                <?php
+                                                                             }else{
                     $url= get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                     $traking="https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=".get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                  ?>
@@ -275,6 +340,7 @@ include "../modal/buscar_productos_ventas.php";
     
     </div>
                 <?php
+                }
                 }   else{      
                 ?>
 <H5><strong>DATOS PARA LA GUIA</strong></H5>
