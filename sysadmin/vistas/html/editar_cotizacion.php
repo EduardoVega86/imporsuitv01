@@ -259,18 +259,18 @@ include "../modal/buscar_productos_ventas.php";
     <div align="center" class="col-md-4">
         </br>
         
-        <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank"  class=""><img width="80%" src="../../img_sistema/4.png" alt=""/><br>Imprimir Guía</a>
+        <button style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank"  class=""><img width="80%" src="../../img_sistema/4.png" alt=""/></button><br>Imprimir Guía</a>
 </div>
     <div align="center" class="col-md-4">
         </br>
        
-        <a style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/5.png" alt=""/><br>Ver estado</a>
+        <button style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/5.png" alt=""/></button><br>Ver estado</a>
 </div>
                      <div align="center" class="col-md-4">
         </br>
         
        
-        <a style="cursor: pointer;" href="#" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);?>')" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt=""/><br>Cancelar guia</a>
+        <button style="cursor: pointer;"  onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);?>')" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt=""/></button><br>Cancelar guia</a>
 </div>
     
     </div>
