@@ -1,5 +1,15 @@
 <?php
 
+$smtp_debug = 0;
+$smtp_host = 'smtp.titan.email';
+$smtp_port = 465;
+$smtp_secure = 'ssl';
+$smtp_user = 'desarrollo1@imporfactoryusa.com';
+$smtp_pass = 'desarrollo.1';
+$smtp_from = $smtp_user;
+$smtp_from_name = 'ImporSuit';
+
+
 $message_body = '<!DOCTYPE html>
 <html lang="es">
 
