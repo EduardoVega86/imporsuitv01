@@ -285,7 +285,7 @@ include "../modal/buscar_productos_ventas.php";
                                                                             <div class="col-lg-5">
                                                                                 
                                                                          <?php if($guia_enviada==1){
-                                                                             if ($estado_guia='Anulado'){
+                                                                             if ($estado_guia=='Anulado'){
                                                                        ?> 
                                                      <div class="widget-bg-color-icon card-box">
                 <div class="bg-icon bg-icon-danger pull-left">
