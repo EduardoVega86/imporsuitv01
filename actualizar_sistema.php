@@ -23,4 +23,4 @@ function full_copy($source, $target)
 $source = '/home/imporsuit/public_html/repositorio';
 $destination = '.';
 full_copy($source, $destination);
-echo json_encode("Actualización exitosa");
+echo json_encode("ok");

@@ -1,4 +1,5 @@
 const actualizar = () => {
+  const dominio = window.location.origin + "/";
   Swal.fire({
     title: "¿Estás seguro?",
     text: "¡Se actualizará el sistema!",
@@ -8,11 +9,10 @@ const actualizar = () => {
     cancelButtonText: "¡No, cancelar!",
     reverseButtons: true,
   }).then(async (result) => {
-    console.log(result);
     if (!result.isConfirmed) {
       return;
     } else {
-      const response = await fetch("http://localhost/db_update.php", {
+      const response = await fetch(dominio + "db_update.php", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -21,11 +21,38 @@ const actualizar = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data === "ok") {
-            Swal.fire(
-              "¡Actualizado!",
-              "El sistema se actualizó correctamente.",
-              "success"
-            );
+            Swal.fire({
+              title: "¡Actualizado!",
+              text: "El sistema se actualizó correctamente.",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1000,
+            }).then((result) => {
+              fetch(dominio + "db_update.php", {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  if (data === "ok") {
+                    Swal.fire({
+                      title: "¡Actualizado!",
+                      text: "La base de datos se actualizó correctamente.",
+                      icon: "success",
+                      showConfirmButton: false,
+                      timer: 1000,
+                    });
+                  } else {
+                    Swal.fire(
+                      "¡Error!",
+                      "La base de datos no se actualizó correctamente.",
+                      "error"
+                    );
+                  }
+                });
+            });
           } else {
             Swal.fire(
               "¡Error!",
