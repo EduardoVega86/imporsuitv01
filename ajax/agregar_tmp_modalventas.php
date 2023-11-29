@@ -14,10 +14,11 @@ if (isset($_POST['descripcion_libre'])) {$descripcion_libre = $_POST['descripcio
 //echo $descripcion_libre;
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     // consulta para comparar el stock con la cantidad resibida
-    $query = mysqli_query($conexion, "select stock_producto, inv_producto from productos where id_producto = '$id'");
+    $query = mysqli_query($conexion, "select stock_producto, drogshipin, inv_producto from productos where id_producto = '$id'");
     $rw    = mysqli_fetch_array($query);
     $stock = $rw['stock_producto'];
     $inv   = $rw['inv_producto'];
+    $drogshipin_tmp   = $rw['drogshipin'];
     $session_id= $_POST['sesion'];
     //Comprobamos si agregamos un producto a la tabla tmp_compra
     $comprobar = mysqli_query($conexion, "select * from tmp_ventas, productos where productos.id_producto = tmp_ventas.id_producto and tmp_ventas.id_producto='" . $id . "' and tmp_ventas.session_id='" . $session_id . "'");
@@ -44,8 +45,8 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
             </script>";
             exit;
         } else {
-           
-            $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id) VALUES ('$id','$cantidad','$precio_venta','0','$session_id')");
+           //echo "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id, drogshipin_tmp) VALUES ('$id','$cantidad','$precio_venta','0','$session_id','$drogshipin_tmp')";
+            $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id, drogshipin_tmp) VALUES ('$id','$cantidad','$precio_venta','0','$session_id','$drogshipin_tmp')");
            // echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
         }
         // fin codicion cantaidad
