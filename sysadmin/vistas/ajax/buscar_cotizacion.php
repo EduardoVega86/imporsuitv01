@@ -53,8 +53,10 @@ if ($action == 'ajax') {
                 <th># Orden</th>
                 <th>Fecha</th>
                 <th>Cliente</th>
+                <th>TIENDA</th>
                 <th>Telefono</th>
                 <th>Localidad</th>
+               
                 
                 <th>Direccion</th>
                 
@@ -88,6 +90,8 @@ while ($row = mysqli_fetch_array($query)) {
             $nombre_vendedor  = $row['nombre_users'] . " " . $row['apellido_users'];
             $estado_factura   = $row['estado_factura'];
             $guia_enviada   = $row['guia_enviada'];
+            $drogshipin   = $row['drogshipin'];
+            $tienda   = $row['tienda'];
             
             if ($estado_factura == 1) {
                 $text_estado = "CONTADO";
@@ -101,6 +105,13 @@ while ($row = mysqli_fetch_array($query)) {
                          <td><label class='badge badge-purple'><?php echo $numero_factura; ?></label></td>
                          <td><?php echo $fecha; ?></td>
                          <td><?php echo $nombre; ?></td>
+                         <td><?php
+                         if($drogshipin==1){
+                          $tipo_ped=$tienda;   
+                         }else{
+                           $tipo_ped='LOCAL';    
+                         }
+                         echo $tipo_ped; ?></td>
                          <td><?php echo $telefono; ?></td>
                          
                          <td><?php echo '<strong>'.$provincia.'</strong>'.'<br>'.$ciudad_cot; ?></td>
