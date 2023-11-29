@@ -12,12 +12,15 @@ const actualizar = () => {
     if (!result.isConfirmed) {
       return;
     } else {
-      const response = await fetch(dominio + "db_update.php", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      const response = await fetch(
+        dominio + "actualizacion_sistema291123.php",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data === "ok") {
@@ -28,7 +31,7 @@ const actualizar = () => {
               showConfirmButton: false,
               timer: 1000,
             }).then((result) => {
-              fetch(dominio + "db_update.php", {
+              fetch(dominio + "db_update291123.php", {
                 method: "GET",
                 headers: {
                   "Content-Type": "application/json",
