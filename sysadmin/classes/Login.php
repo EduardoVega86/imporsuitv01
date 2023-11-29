@@ -167,7 +167,19 @@ class Login
                     require_once('PHPMailer/PHPMailer.php');
                     require_once('PHPMailer/SMTP.php');
                     require_once('PHPMailer/Exception.php');
-                    $url_change = 'http://localhost/sysadmin/change_password.php?token=' . $token;
+
+                    if (
+                        isset($_SERVER['HTTPS']) &&
+                        ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+                        isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+                        $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+                    ) {
+                        $protocol = 'https://';
+                    } else {
+                        $protocol = 'http://';
+                    }
+
+                    $url_change = $protocol . $_SERVER['HTTP_HOST'] . '/sysadmin/change_password.php?token=' . $token;
                     include 'PHPMailer/Mail.php';
 
 

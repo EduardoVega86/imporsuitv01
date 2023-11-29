@@ -21,7 +21,7 @@ require_once "../funciones.php";
 				</a>
 			</li>
 			<li class="list-inline-item notification-list hide-phone">
-				<a class="nav-link waves-light waves-effect" href="../../../actualizar_sistema.php" id="">
+				<a class="nav-link waves-light waves-effect" onclick="actualizar()" id="">
 					<i class="mdi mdi-radar noti-icon"></i>
 				</a>
 			</li>

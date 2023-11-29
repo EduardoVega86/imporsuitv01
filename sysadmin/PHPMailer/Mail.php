@@ -1,11 +1,11 @@
 <?php
 
 $smtp_debug = 0;
-$smtp_host = 'smtp.titan.email';
+$smtp_host = 'mail.imporsuit.com';
 $smtp_port = 465;
 $smtp_secure = 'ssl';
-$smtp_user = 'desarrollo1@imporfactoryusa.com';
-$smtp_pass = 'desarrollo.1';
+$smtp_user = 'sistema@imporsuit.com';
+$smtp_pass = 'PqcX~e1o$5Sq';
 $smtp_from = $smtp_user;
 $smtp_from_name = 'ImporSuit';
 
