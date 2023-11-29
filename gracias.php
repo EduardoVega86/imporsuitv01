@@ -79,7 +79,9 @@ if ($resultado) {
         $data_id = mysqli_fetch_assoc($query_id);
         $factura = $data_id['factura'] + 1;
     } else {
-        $factura = 1;
+         $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_cot order by id_factura desc limit 0,1 ");
+    $rw         = mysqli_fetch_array($sql);
+    $id_factura = $rw['last'] + 1;
     }
 
     $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
@@ -148,9 +150,7 @@ if ($resultado) {
     //echo $sql;
     $insert      = mysqli_query($conexion, $sql);
     
-        $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_cot order by id_factura desc limit 0,1 ");
-    $rw         = mysqli_fetch_array($sql);
-    $id_factura = $rw['last'] + 1;
+       
     // SI ES DROGSHIPDEBE GENERARSE EN EL MARKETPLACE
         
     }
