@@ -6,7 +6,7 @@ $authData = array(
 );
 
 $guia = $_POST['guia'];
-echo $guia;
+//echo $guia;
 // Convertir los datos de autenticación a formato JSON
 $authDataJSON = json_encode($authData);
 
