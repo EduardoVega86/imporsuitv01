@@ -167,23 +167,35 @@ class Login
                     require_once('PHPMailer/PHPMailer.php');
                     require_once('PHPMailer/SMTP.php');
                     require_once('PHPMailer/Exception.php');
-                    $url_change = 'http://localhost/sysadmin/change_password.php?token=' . $token;
+
+                    if (
+                        isset($_SERVER['HTTPS']) &&
+                        ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+                        isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+                        $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+                    ) {
+                        $protocol = 'https://';
+                    } else {
+                        $protocol = 'http://';
+                    }
+
+                    $url_change = $protocol . $_SERVER['HTTP_HOST'] . '/sysadmin/change_password.php?token=' . $token;
                     include 'PHPMailer/Mail.php';
 
 
                     $mail = new PHPMailer();
                     $mail->isSMTP();
-                    $mail->SMTPDebug = 0;
-                    $mail->Host = 'smtp.titan.email';
+                    $mail->SMTPDebug = $smtp_debug;
+                    $mail->Host = $smtp_host;
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'desarrollo1@imporfactoryusa.com';
-                    $mail->Password = 'desarrollo.1';
+                    $mail->Username = $smtp_user;
+                    $mail->Password = $smtp_pass;
                     $mail->Port = 465;
-                    $mail->SMTPSecure = 'ssl';
+                    $mail->SMTPSecure = $smtp_secure;
 
                     $mail->isHTML(true);
                     $mail->CharSet = 'UTF-8';
-                    $mail->setFrom('desarrollo1@imporfactoryusa.com', 'Imporfactory');
+                    $mail->setFrom($smtp_from, $smtp_from_name);
                     $mail->addAddress($email_users);
                     $mail->Subject = 'Recuperación de contraseña';
                     $mail->Body = $message_body;

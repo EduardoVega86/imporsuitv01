@@ -23,10 +23,4 @@ function full_copy($source, $target)
 $source = '/home/imporsuit/public_html/repositorio';
 $destination = '.';
 full_copy($source, $destination);
-echo "Página actualizada";
-?>
-<script>
-    setTimeout(() => {
-        window.open('db_update.php');
-    }, 2000);
-</script>
+echo json_encode("ok");
