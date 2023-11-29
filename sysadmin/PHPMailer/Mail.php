@@ -1,12 +1,12 @@
 <?php
 
 $smtp_debug = 0;
-$smtp_host = 'mail.imporsuit.com';
+$smtp_host = 'smtp.sendgrid.net';
 $smtp_port = 465;
 $smtp_secure = 'ssl';
-$smtp_user = 'sistema@imporsuit.com';
-$smtp_pass = 'PqcX~e1o$5Sq';
-$smtp_from = $smtp_user;
+$smtp_user = 'apikey';
+$smtp_pass = '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';
+$smtp_from = 'sistema@imporsuit.com';
 $smtp_from_name = 'ImporSuit';
 
 
