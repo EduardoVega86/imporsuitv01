@@ -78,13 +78,16 @@ if (empty($_POST['session'])) {
     $sumador_total = 0;
     $sum_total     = 0;
     $t_iva         = 0;
-   // echo  "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'";
-    $sql           = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
+    //echo  "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'";
+    $sql           = mysqli_query($conexion, "select * from productos, tmp_ventas where drogshipin_tmp=0 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
+   $resultado = mysqli_num_rows($sql);
+   if ($resultado > 0) {
     while ($row = mysqli_fetch_array($sql)) {
         $id_tmp          = $row["id_tmp"];
         $id_producto     = $row['id_producto'];
         $codigo_producto = $row['codigo_producto'];
         $cantidad        = $row['cantidad_tmp'];
+        $drogshipin        = $row['drogshipin_tmp'];
         $desc_tmp        = $row['desc_tmp'];
         $nombre_producto = $row['nombre_producto'];
         $contenido .=' %3a%0A '.$nombre_producto.' x '.$cantidad;
@@ -118,7 +121,7 @@ if (empty($_POST['session'])) {
         $contenido .=' %3a%0A '.'*Precio: * $'.number_format($precio_venta,2);
         //Insert en la tabla detalle_factura
        // echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r')";
-        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r')");
+        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')");
     }
     // Fin de la consulta Principal
     $subtotal      = number_format($sumador_total, 2, '.', '');
@@ -127,10 +130,111 @@ if (empty($_POST['session'])) {
     $total_factura = $subtotal + $total_iva;
     $contenido .=' %3a%0A '.'*Total Pedido: * $'.number_format($total_factura,2);
     //echo "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1')";
-    $sql="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`) "
-            . "VALUES ( '$factura', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', ''); ";
+    $sql="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`,  `drogshipin`) "
+            . "VALUES ( '$factura', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 0); ";
     //echo $sql;
     $insert      = mysqli_query($conexion, $sql);
+    
+    // SI ES DROGSHIPDEBE GENERARSE EN EL MARKETPLACE
+        
+    }
+    //si la venta es drgoshipin
+    
+   
+    
+    $sql_productos="SELECT tienda, COUNT(*) as cantidad_productos
+FROM productos, tmp_ventas 
+WHERE drogshipin_tmp=1 
+    AND productos.id_producto=tmp_ventas.id_producto 
+    AND tmp_ventas.session_id='$session_id'
+GROUP BY tienda;";
+    
+   // echo $sql_productos;
+    $sql_producto_tienda=mysqli_query($conexion,$sql_productos);
+    
+    if ($sql_producto_tienda) {
+    while ($row_tienda = mysqli_fetch_assoc($sql_producto_tienda)) {
+        $tienda         = $row_tienda["tienda"];
+    
+          $query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
+    or die('error ' . mysqli_error($conexion));
+    
+    $count = mysqli_num_rows($query_id);
+ 
+    if ($count != 0) {
+
+        $data_id = mysqli_fetch_assoc($query_id);
+        $factura = $data_id['factura'] + 1;
+    } else {
+        $factura = 1;
+    }
+
+    $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
+    $factura = "COT-$buat_id";
+    
+   // $sql_tienda           = mysqli_query($conexion, "select * from productos, tmp_ventas where  tienda=$tienda and drogshipin_tmp=1 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
+    //echo "select * from productos, tmp_ventas where tienda='$tienda' and drogshipin_tmp=1 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'";
+    $sql           = mysqli_query($conexion, "select * from productos, tmp_ventas where tienda='$tienda' and  drogshipin_tmp=1 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
+   $resultado = mysqli_num_rows($sql);
+   if ($resultado > 0) {
+    while ($row = mysqli_fetch_array($sql)) {
+        $id_tmp          = $row["id_tmp"];
+        $id_producto     = $row['id_producto'];
+        $codigo_producto = $row['codigo_producto'];
+        $cantidad        = $row['cantidad_tmp'];
+        $drogshipin        = $row['drogshipin_tmp'];
+        $desc_tmp        = $row['desc_tmp'];
+        $nombre_producto = $row['nombre_producto'];
+        $contenido .=' %3a%0A '.$nombre_producto.' x '.$cantidad;
+        // control del impuesto por productos.
+        if ($row['iva_producto'] == 0) {
+            $p_venta   = $row['precio_tmp'];
+            $p_venta_f = number_format($p_venta, 2); //Formateo variables
+            $p_venta_r = str_replace(",", "", $p_venta_f); //Reemplazo las comas
+            $p_total   = $p_venta_r * $cantidad;
+            $f_items   = rebajas($p_total, $desc_tmp); //Aplicando el descuento
+            /*--------------------------------------------------------------------------------*/
+            $p_total_f = number_format($f_items, 2); //Precio total formateado
+            $p_total_r = str_replace(",", "", $p_total_f); //Reemplazo las comas
+
+            $sum_total += $p_total_r; //Sumador
+            $t_iva = ($sum_total * $impuesto) / 100;
+            $t_iva = number_format($t_iva, 2, '.', '');
+        }
+        //end impuesto
+
+        $precio_venta   = $row['precio_tmp'];
+        $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
+        $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
+        $precio_total   = $precio_venta_r * $cantidad;
+        $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
+        /*--------------------------------------------------------------------------------*/
+        $precio_total_f = number_format($final_items, 2); //Precio total formateado
+        $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
+        $sumador_total += $precio_total_r; //Sumador
+
+        $contenido .=' %3a%0A '.'*Precio: * $'.number_format($precio_venta,2);
+        //Insert en la tabla detalle_factura
+       // echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r')";
+        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')");
+    }
+    // Fin de la consulta Principal
+    $subtotal      = number_format($sumador_total, 2, '.', '');
+    $total_iva     = ($subtotal * $impuesto) / 100;
+    $total_iva     = number_format($total_iva, 2, '.', '') - number_format($t_iva, 2, '.', '');
+    $total_factura = $subtotal + $total_iva;
+    $contenido .=' %3a%0A '.'*Total Pedido: * $'.number_format($total_factura,2);
+    //echo "INSERT INTO facturas_cot VALUES (NULL,'$factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$validez','1')";
+    $sql="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`) "
+            . "VALUES ( '$factura', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 1,'$tienda'); ";
+   // echo $sql;
+    $insert      = mysqli_query($conexion, $sql);
+    
+        
+    }
+    }
+    }
+    
     $delete        = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     //header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO

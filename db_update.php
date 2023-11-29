@@ -875,6 +875,10 @@ mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `identificacion` VARCHAR
 
 mysqli_query($conexion, "ALTER TABLE `users` ADD `token_act` VARCHAR(400) NULL AFTER `comision_users`, ADD `estado_token` INT NULL AFTER `token_act`, ADD `fecha_actualizacion` DATETIME NULL AFTER `estado_token`");
 
+mysqli_query($conexion, "ALTER TABLE `tmp_ventas` ADD `drogshipin_tmp` INT NULL AFTER `session_id`");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `drogshipin` INT NULL AFTER `valor_seguro`");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `tienda` VARCHAR(500) NULL AFTER `drogshipin`");
+ 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo 'Los datos han sido insertados en la base de datos';
