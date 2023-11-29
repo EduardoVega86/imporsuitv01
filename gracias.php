@@ -50,9 +50,22 @@ if (empty($_POST['session'])) {
     }
     //echo "select LAST_INSERT_ID(id_factura) as last from facturas_cot order by id_factura desc limit 0,1 ";
 //Seleccionamos el ultimo compo numero_fatura y aumentamos una
-    $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_cot order by id_factura desc limit 0,1 ");
-    $rw         = mysqli_fetch_array($sql);
-    $id_factura = $rw['last'] + 1;
+    $sql = "SELECT MAX(id_factura) as ultima_factura FROM facturas_cot";
+$resultado = mysqli_query($conexion, $sql);
+
+if ($resultado) {
+    $fila = mysqli_fetch_assoc($resultado);
+    $ultima_factura = $fila['ultima_factura'];
+    
+    if ($ultima_factura !== null) {
+       $id_factura =  $ultima_factura + 1;;
+    } else {
+        $id_factura=1;
+    }
+} else {
+    echo "Error en la consulta: " . mysqli_error($conexion);
+}
+    
 // finde la ultima fatura
     //Control de la  numero_fatura y aumentamos una
     //echo "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1";
@@ -135,6 +148,9 @@ if (empty($_POST['session'])) {
     //echo $sql;
     $insert      = mysqli_query($conexion, $sql);
     
+        $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_cot order by id_factura desc limit 0,1 ");
+    $rw         = mysqli_fetch_array($sql);
+    $id_factura = $rw['last'] + 1;
     // SI ES DROGSHIPDEBE GENERARSE EN EL MARKETPLACE
         
     }
@@ -150,11 +166,20 @@ WHERE drogshipin_tmp=1
 GROUP BY tienda;";
     
    // echo $sql_productos;
+     
+    
     $sql_producto_tienda=mysqli_query($conexion,$sql_productos);
     
     if ($sql_producto_tienda) {
+        
     while ($row_tienda = mysqli_fetch_assoc($sql_producto_tienda)) {
         $tienda         = $row_tienda["tienda"];
+    
+         $nums          = 1;
+    $impuesto      = get_row('perfil', 'impuesto', 'id_perfil', 1);
+    $sumador_total = 0;
+    $sum_total     = 0;
+    $t_iva         = 0;
     
           $query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
     or die('error ' . mysqli_error($conexion));
@@ -171,6 +196,8 @@ GROUP BY tienda;";
 
     $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
     $factura = "COT-$buat_id";
+    
+    
     
    // $sql_tienda           = mysqli_query($conexion, "select * from productos, tmp_ventas where  tienda=$tienda and drogshipin_tmp=1 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
     //echo "select * from productos, tmp_ventas where tienda='$tienda' and drogshipin_tmp=1 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'";
@@ -216,6 +243,22 @@ GROUP BY tienda;";
         $contenido .=' %3a%0A '.'*Precio: * $'.number_format($precio_venta,2);
         //Insert en la tabla detalle_factura
        // echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r')";
+        $sql_f = "SELECT MAX(id_factura) as ultima_factura FROM facturas_cot";
+$resultado_f = mysqli_query($conexion, $sql_f);
+
+if ($resultado_f) {
+    $fila = mysqli_fetch_assoc($resultado_f);
+    $ultima_factura = $fila['ultima_factura'];
+    
+    if ($ultima_factura !== null) {
+       $id_factura =  $ultima_factura + 1;;
+    } else {
+       $id_factura=1;
+    }
+} else {
+    echo "Error en la consulta: " . mysqli_error($conexion);
+}
+
         $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')");
     }
     // Fin de la consulta Principal
@@ -228,14 +271,18 @@ GROUP BY tienda;";
     $sql="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`) "
             . "VALUES ( '$factura', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 1,'$tienda'); ";
    // echo $sql;
+ 
     $insert      = mysqli_query($conexion, $sql);
+    
+        
+    
     
         
     }
     }
     }
     
-    $delete        = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
+    //$delete        = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     //header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO
 
