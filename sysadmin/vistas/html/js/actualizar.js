@@ -20,7 +20,7 @@ const actualizar = () => {
         }
       );
       responseAS.json().then((data) => {
-        if (data.contains("ok")) {
+        if (data === "ok") {
           Swal.fire({
             title: "¡Actualización del sistema exitosa!",
             icon: "success",
