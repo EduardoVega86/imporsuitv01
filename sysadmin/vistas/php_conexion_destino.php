@@ -10,7 +10,7 @@ if ($info !== null) {
     $DB_USER = $info['DB_USER'];
     $DB_PASS = $info['DB_PASS'];
     $DB_NAME = $info['DB_NAME'];
-echo $DB_NAME;
+//echo $DB_NAME;
     $host_d=$DB_HOST;
     $user_d=$DB_USER;
     $pass_d=$DB_PASS;
