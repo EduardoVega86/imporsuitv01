@@ -14,7 +14,7 @@ $query_empresa = mysqli_query($conexion, "select * from perfil where id_perfil=1
 $row           = mysqli_fetch_array($query_empresa);
 
 $favicon = $row['favicon'];
-echo $favicon;
+
 ?>
 <?php require 'includes/header_start.php'; ?>
 

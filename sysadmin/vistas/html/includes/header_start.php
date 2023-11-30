@@ -1,3 +1,6 @@
+<?php
+require_once "../funciones.php";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -7,7 +10,7 @@
 	<meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
 	<meta name="author" content="Coderthemes">
 
-	<link rel="shortcut icon" href="<?php echo $favicon; ?>">
+	<link rel="shortcut icon" href="/sysadmin<?php echo str_replace("../..", "", get_row('perfil', 'favicon', 'id_perfil', '1')) ?>">
 	<!-- daterange picker -->
 	<link rel="stylesheet" href="../../assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
 	<link href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
