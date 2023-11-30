@@ -23,3 +23,4 @@ require_once "../funciones.php";
 	<link href="../../assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
 	<link href="../../assets/plugins/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css" />
 	<link href="../../assets/plugins/select2/select2.css" rel="stylesheet" type="text/css" />
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

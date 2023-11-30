@@ -44,6 +44,10 @@ while ($r = $query->fetch_object()) {
                 <?php if ($permisos_ver == 1) {
                 ?>
                     <div class="col ">
+                        <div>
+                            <a href="" class=""></a>
+                            <a href="#" class='bx bx-play-circle youtube '><span class="texto">ver video</span></a>
+                        </div>
                         <div class="row d-flex justify-content-center">
                             <div class="bg-white p-5">
                                 <p class="text-muted fs-s">PASO 1:</p>
@@ -71,29 +75,7 @@ while ($r = $query->fetch_object()) {
 
                             </div>
                         </div>
-                        <div class="row d-flex justify-content-center mt-5">
-                            <div class="bg-white w-full p-5">
-                                <p class="text-muted fs-s">PASO 2:</p>
-                                <h4 class="text-center font-bold">Gestiona tu favicon</h4>
-                                <p>
-                                    Instrucciones: <br>
-                                    1.- Selecciona una imagen en formato .png, .ico o .jpg <br>
-                                    2.- Una vez que hayas seleccionado la imagen, haz click en el botón "Configurar" <br>
-                                    3.- Espera a que se cargue la imagen y listo! <br>
-                                </p>
 
-                                <div>
-
-                                    <form class="d-flex gap-2" method="post" id="favForm" enctype="multipart/form-data">
-                                        <!-- upload images ico, png, jpg -->
-                                        <input class="form-control" name="favicon" id="favicon" type="file" accept=".png, .ico, .jpg" />
-                                        <button class="btn btn-outline-info">Configurar</button>
-
-                                    </form>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
             </div>
         <?php
