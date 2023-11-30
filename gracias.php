@@ -576,7 +576,7 @@ $insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_c
          //  alert();
             <?php  if(get_row('perfil', 'whatsapp', 'id_perfil', '1')) {?>
                    
-             //  enviar_registro();       
+               enviar_registro();       
          <?php }?>       
         };
         

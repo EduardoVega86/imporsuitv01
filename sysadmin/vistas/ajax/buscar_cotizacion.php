@@ -42,6 +42,7 @@ if ($action == 'ajax') {
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    //echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
@@ -60,8 +61,8 @@ if ($action == 'ajax') {
                 
                 <th>Direccion</th>
                 
-                <th align="center">Guia</th>
-                <th>Pago</th>
+                <th align="center">Estado Guia</th>
+                <th>Estado Pedido</th>
                 <th class='text-center'>Total</th>
                 <th></th>
 
@@ -76,6 +77,7 @@ while ($row = mysqli_fetch_array($query)) {
             
             $telefono   = $row['telefono'];
             $id_prvo=$row['provincia'];
+               $estado_factura=$row['estado_factura'];
             //echo  $id_prvo;
             $provincia   = get_row('provincia_laar', 'provincia', 'codigo_provincia', $id_prvo);
             //echo $provincia;
@@ -94,10 +96,34 @@ while ($row = mysqli_fetch_array($query)) {
             $tienda   = $row['tienda'];
             
             if ($estado_factura == 1) {
-                $text_estado = "CONTADO";
+                $text_estado = "INGRESADA";
                 $label_class = 'badge-success';} else {
                 $text_estado = "CREDITO";
                 $label_class = 'badge-danger';}
+                
+                switch ($estado_factura) {
+    case 0:
+        $text_estado = "Anulada";
+                $label_class = 'badge-danger';
+        break;
+    case 1:
+       $text_estado = "Ingresada";
+                $label_class = 'badge-success';
+        break;
+    case 3:
+        echo "El estado de la factura es 3";
+        break;
+    case 4:
+        echo "El estado de la factura es 4";
+        break;
+    case 5:
+        echo "El estado de la factura es 5";
+        break;
+    default:
+        echo "Estado no reconocido";
+}
+                
+                
             $total_venta    = $row['monto_factura'];
             $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             ?>
@@ -106,7 +132,8 @@ while ($row = mysqli_fetch_array($query)) {
                          <td><?php echo $fecha; ?></td>
                          <td><?php echo $nombre; ?></td>
                          <td><?php
-                         if($drogshipin==1){
+                         $estado_guia= 'NO ENVIADA';
+                         if($drogshipin==1 || $drogshipin==3){
                           $tipo_ped=$tienda;   
                          }else{
                            $tipo_ped='LOCAL';    
@@ -118,7 +145,7 @@ while ($row = mysqli_fetch_array($query)) {
                          <td><?php echo $direccion; ?></td>
                        
                            <td align="center"><?php 
-                           if ($guia_enviada==1){
+                           if ($guia_enviada==1 && $estado_factura!=0){
                                $guia_numero=get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                                $url = 'https://api.laarcourier.com:9727/guias/'.$guia_numero;
 
@@ -144,7 +171,11 @@ if ($response === false) {
         //echo 'Estado Actual: ' . $data['estadoActual'];
         switch ($data['estadoActual']) {
     case 'Anulado':
-       
+       if ($estado_factura!=0){
+           $sql_anular="UPDATE `facturas_cot` SET `estado_factura` = '0' WHERE `facturas_cot`.`id_factura` = $id_factura"; 
+       $query = mysqli_query($conexion, $sql_anular);
+           
+       }
         $span_estado='badge-danger';
         $estado_guia='Anulado';
         break;
@@ -174,7 +205,11 @@ curl_close($curl);
                                
                                    <?php
                            }else{
-                            echo 'NO ENVIADA' ;  
+                            if ($estado_factura==0){
+                           echo 'GUIA ANULADA' ;    
+                            }else{
+                             echo 'NO ENVIADA' ;   
+                            }  
                            }?>
                            </td>
                          <td><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
