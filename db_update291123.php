@@ -884,6 +884,8 @@ mysqli_query($conexion, " ALTER TABLE `productos` ADD `id_marketplace` INT NULL 
 
 mysqli_query($conexion, "UPDATE `user_group` SET `permission` = 'Inicio,1,1,1;Productos,1,1,1;Proveedores,1,1,1;Clientes,1,1,1;Reportes,1,1,1;Configuracion,1,1,1;Usuarios,1,1,1;Permisos,1,1,1;Categorias,1,1,1;Ventas,1,1,1;Compras,1,1,1;Pedidos,1,1,1;Integraciones,1,1,1;Dominios,1,1,1;' WHERE `user_group`.`user_group_id` = 1;");
 
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `favicon` TEXT NULL AFTER `habilitar_proveedor`;");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
