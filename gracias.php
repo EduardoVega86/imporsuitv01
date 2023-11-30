@@ -3,6 +3,7 @@
    session_start();
    
    require_once "sysadmin/vistas/db.php";
+   //echo DB_HOST;
        require_once "sysadmin/vistas/php_conexion.php";
        require_once "sysadmin/vistas/funciones.php";
       // echo 'sysadmin/vistas/ajax/banner/'.get_row('perfil', 'banner', 'id_perfil', 1);
@@ -157,7 +158,18 @@ if ($resultado) {
     //si la venta es drgoshipin
     
    
-    
+   
+
+
+//require_once "$server_url/marketplace/sysadmin/vistas/db.php";
+
+
+
+// Guardar el contenido descargado en un archivo local
+
+       //require_once "sysadmin/vistas/funciones.php";
+       
+       
     $sql_productos="SELECT tienda, COUNT(*) as cantidad_productos
 FROM productos, tmp_ventas 
 WHERE drogshipin_tmp=1 
@@ -175,6 +187,46 @@ GROUP BY tienda;";
     while ($row_tienda = mysqli_fetch_assoc($sql_producto_tienda)) {
         $tienda         = $row_tienda["tienda"];
     
+        if ($_SERVER['HTTP_HOST']=='localhost'){
+    $or_marketplace = 'http://localhost/marketplace/';
+}else{
+ $or_marketplace = 'https://marketplace.imporsuit.com/';  
+}
+        $archivo_origen=$or_marketplace.'sysadmin/vistas/db1.php';
+       // echo $archivo_origen;
+        $contenido = file_get_contents($archivo_origen);
+      //  echo $contenido;
+
+        $archivo_destino = 'sysadmin/vistas/db_destino_marketplace.php'; // Nombre del archivo de destino
+        // Obtener el contenido del archivo original
+
+       // $origen = fopen($archivo_origen_marketplace, 'r');
+if (file_put_contents($archivo_destino, $contenido) !== false) {
+    //echo "El JSON se ha guardado correctamente en el archivo.";
+   
+
+} else {
+    echo "Error al guardar eddl JSON en el archivo.";
+}
+
+  require_once "sysadmin/vistas/php_conexion_marketplace.php";
+
+  //conexion a la base destino
+        $archivo_tienda = $tienda.'/sysadmin/vistas/db1.php'; // Nombre del archivo original
+       $contenido_tienda = file_get_contents($archivo_tienda);
+       $archivo_destino_tienda = 'sysadmin/vistas/db_destino.php'; // Nombre del archivo de destino
+       
+       // $origen = fopen($archivo_origen_marketplace, 'r');
+if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+    //echo "El JSON se ha guardado correctamente en el archivo.";
+   
+
+} else {
+    echo "Error al guardar eddl JSON en el archivo.";
+}
+
+  require_once "sysadmin/vistas/php_conexion_destino.php";
+     
          $nums          = 1;
     $impuesto      = get_row('perfil', 'impuesto', 'id_perfil', 1);
     $sumador_total = 0;
@@ -183,9 +235,33 @@ GROUP BY tienda;";
     
           $query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
     or die('error ' . mysqli_error($conexion));
+          
+          $query_id_destino = mysqli_query($conexion_destino, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
+    or die('error ' . mysqli_error($conexion_destino));
+          
+            $query_id_marketplace = mysqli_query($conexion_marketplace, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
+    or die('error ' . mysqli_error($conexion_marketplace));
     
     $count = mysqli_num_rows($query_id);
+    $count_destino = mysqli_num_rows($query_id_destino);
+    $count_marketplace = mysqli_num_rows($query_id_marketplace);
+    
+    if ($count_marketplace != 0) {
+
+        $data_id_marketplace = mysqli_fetch_assoc($query_id_marketplace);
+        $factura_marketplace = $data_id_marketplace['factura'] + 1;
+    } else {
+        $factura_marketplace = 1;
+    }
  
+    if ($count_destino != 0) {
+
+        $data_id_destino = mysqli_fetch_assoc($query_id_destino);
+        $factura_destino = $data_id_destino['factura'] + 1;
+    } else {
+        $factura_destino = 1;
+    }
+    
     if ($count != 0) {
 
         $data_id = mysqli_fetch_assoc($query_id);
@@ -195,7 +271,11 @@ GROUP BY tienda;";
     }
 
     $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
+    $buat_id_destino = str_pad($factura_destino, 6, "0", STR_PAD_LEFT);
+    $buat_id_marketplace = str_pad($factura_marketplace, 6, "0", STR_PAD_LEFT);
     $factura = "COT-$buat_id";
+    $factura_destino = "COT-$buat_id_destino";
+    $factura_marketplace = "COT-$buat_id_marketplace";
     
     
     
@@ -212,6 +292,8 @@ GROUP BY tienda;";
         $drogshipin        = $row['drogshipin_tmp'];
         $desc_tmp        = $row['desc_tmp'];
         $nombre_producto = $row['nombre_producto'];
+        $id_producto_origen = $row['id_producto_origen'];
+        $id_marketplace = $row['id_marketplace'];
         $contenido .=' %3a%0A '.$nombre_producto.' x '.$cantidad;
         // control del impuesto por productos.
         if ($row['iva_producto'] == 0) {
@@ -259,7 +341,45 @@ if ($resultado_f) {
     echo "Error en la consulta: " . mysqli_error($conexion);
 }
 
-        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')");
+ $sql_f_destino = "SELECT MAX(id_factura) as ultima_factura FROM facturas_cot";
+$resultado_f_destino = mysqli_query($conexion_destino, $sql_f_destino);
+
+if ($resultado_f_destino) {
+    $fila_destino = mysqli_fetch_assoc($resultado_f_destino);
+    $ultima_factura_destino = $fila_destino['ultima_factura'];
+    
+    if ($ultima_factura_destino !== null) {
+       $id_factura_destino =  $ultima_factura_destino + 1;;
+    } else {
+       $id_factura_destino=1;
+    }
+} else {
+    echo "Error en la consulta: " . mysqli_error($conexion_destino);
+}
+
+//marketplace
+$sql_f_marketplace = "SELECT MAX(id_factura) as ultima_factura FROM facturas_cot";
+$resultado_f_marketplace = mysqli_query($conexion_marketplace, $sql_f_marketplace);
+
+if ($resultado_f_marketplace) {
+    $fila_marketplace = mysqli_fetch_assoc($resultado_f_marketplace);
+    $ultima_factura_marketplace = $fila_marketplace['ultima_factura'];
+    
+    if ($ultima_factura_marketplace !== null) {
+       $id_factura_marketplace =  $ultima_factura_marketplace + 1;;
+    } else {
+       $id_factura_marketplace=1;
+    }
+} else {
+    echo "Error en la consulta: " . mysqli_error($conexion_marketplace);
+}
+//echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')";
+ 
+
+       
+$insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')");
+$insert_detail = mysqli_query($conexion_destino, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_destino','$factura_destino','$id_producto_origen','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')");
+$insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_marketplace','$factura_marketplace','$id_marketplace','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')");
     }
     // Fin de la consulta Principal
     $subtotal      = number_format($sumador_total, 2, '.', '');
@@ -274,15 +394,28 @@ if ($resultado_f) {
  
     $insert      = mysqli_query($conexion, $sql);
     
-        
+    $sql_destino="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`) "
+            . "VALUES ( '$factura_destino', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 3,'$tienda'); ";
+   // echo $sql;
+ 
+    $insert_destino      = mysqli_query($conexion_destino, $sql_destino);
+    
+     $sql_marketplace="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`) "
+            . "VALUES ( '$factura_marketplace', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 3,'$tienda'); ";
+   // echo $sql;
+ 
+    $insert_destino      = mysqli_query($conexion_marketplace, $sql_marketplace);
     
     
         
+    
+    
+        
     }
     }
     }
     
-    //$delete        = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
+    $delete        = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     //header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO
 
