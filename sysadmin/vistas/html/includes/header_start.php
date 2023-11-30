@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
 	<meta name="author" content="Coderthemes">
 
-	<link rel="shortcut icon" href="../../assets/images/favicon.png">
+	<link rel="shortcut icon" href="<?php echo $favicon; ?>">
 	<!-- daterange picker -->
 	<link rel="stylesheet" href="../../assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
 	<link href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 	<!-- librerias para la busqueda de de autocomplete -->
-	<link type="text/css" href="../../js/jquery-ui.css" rel="stylesheet"  />
+	<link type="text/css" href="../../js/jquery-ui.css" rel="stylesheet" />
 
 	<title>Facturacón V.3</title>
 
