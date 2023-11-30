@@ -201,6 +201,7 @@ require_once "../funciones.php";
 						<li><a href="../html/testimonios.php">Testimonios</a></li>
 						<li><a href="../html/origen_laar.php">Configurar Origen Laar Courier</a></li>
 						<li><a href="../html/integraciones.php">Integraciones</a></li>
+						<li><a href="../html/dominios.php">Dominio</a></li>
 
 
 

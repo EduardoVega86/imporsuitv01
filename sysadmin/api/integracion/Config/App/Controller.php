@@ -1,19 +1,20 @@
 <?php
-class Controller{
-
-    public function __construct(){
+class Controller
+{
+    protected $views, $model;
+    public function __construct()
+    {
         $this->views = new Views();
         $this->loadModel();
     }
-    public function loadModel(){
-        $model = get_class($this)."Model";
-        $routClass = "Models/".$model.".php";
-        if(file_exists($routClass)){
-            require_once($routClass);
-            $this->model = new $model();
+
+    public function loadModel()
+    {
+        $model = get_class($this) . "Model";
+        $rute = "Models/" . $model . ".php";
+        if (file_exists($rute)) {
+            require_once $rute;
+            $this->model = new $model(); // Assign the new instance to the $model property
         }
-    }
-    public function view($view, $data = []){
-        require_once '../api/Views/'.$view.'.php';
     }
 }
