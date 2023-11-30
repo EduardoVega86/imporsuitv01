@@ -24,7 +24,8 @@ const actualizar = () => {
           Swal.fire({
             title: "¡Actualización del sistema exitosa!",
             icon: "success",
-            showConfirmButton: false,
+            text: "¡Espere un momento mientras se actualiza la base de datos!",
+
             showLoaderOnConfirm: true,
             preConfirm: async () => {
               const responseAS = await fetch(dominio + "db_update291123.php", {
