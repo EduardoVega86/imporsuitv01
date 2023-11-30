@@ -428,7 +428,7 @@ $row           = mysqli_fetch_array($query_empresa);
 			success: function(data) // A function to be called if request succeeds
 			{
 				$("#load_img3").html(data);
-				console.log(data);
+
 			}
 		});
 
