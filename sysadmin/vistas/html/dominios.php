@@ -11,7 +11,7 @@ require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de 
 include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
-$modulo = "Integraciones";
+$modulo = "Dominios";
 permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 /*$count      = mysqli_query($conexion, "select MAX(codigo_producto) as codigo from productos");
