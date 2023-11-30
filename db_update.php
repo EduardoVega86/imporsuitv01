@@ -879,6 +879,8 @@ mysqli_query($conexion, "ALTER TABLE `tmp_ventas` ADD `drogshipin_tmp` INT NULL 
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `drogshipin` INT NULL AFTER `valor_seguro`");
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `tienda` VARCHAR(500) NULL AFTER `drogshipin`");
 mysqli_query($conexion, "ALTER TABLE `detalle_fact_cot` ADD `drogshipin_tmp` INT NULL AFTER `precio_venta`");
+mysqli_query($conexion, "ALTER TABLE `detalle_fact_cot` ADD `id_producto_origen` INT NULL AFTER `drogshipin_tmp`");
+mysqli_query($conexion, " ALTER TABLE `productos` ADD `id_marketplace` INT NULL AFTER `id_producto_origen`");
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo 'Los datos han sido insertados en la base de datos';
