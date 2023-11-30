@@ -70,6 +70,12 @@ const dominio = (e) => {
         }).then(() => {
           window.location.reload();
         });
+      } else {
+        Swal.fire({
+          title: "¡Error al actualizar el dominio!",
+          icon: "error",
+          confirmButtonText: "¡Aceptar!",
+        });
       }
     });
   });

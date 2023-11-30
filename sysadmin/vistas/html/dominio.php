@@ -26,7 +26,7 @@ $response = curl_exec($ch);
 
 // Verificar si hubo errores
 if (curl_errno($ch)) {
-    echo 'Error al hacer la solicitud cURL: ' . curl_error($ch);
+    echo "fail_";
 } else {
     // Analizar la respuesta JSON si es necesario
     $responseData = json_decode($response, true);
@@ -79,7 +79,7 @@ $response = curl_exec($ch);
 
 // Verificar si hubo errores
 if (curl_errno($ch)) {
-    echo 'Error al hacer la solicitud cURL: ' . curl_error($ch);
+    echo 'fail_';
 } else {
     // Analizar la respuesta JSON si es necesario
     $responseData = json_decode($response, true);
@@ -106,7 +106,7 @@ if ($res === TRUE) {
     $zip->close();
     echo 'ok';
 } else {
-    echo 'Error descomprimiendo el archivo...';
+    echo 'fail';
 }
 $oldFile = "/home/imporsuit/public_html/$domi/index.html";
 file_put_contents($oldFile, str_replace("totototo", "$name", file_get_contents($oldFile)));
