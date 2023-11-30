@@ -73,6 +73,7 @@ $query_check_user_name = mysqli_query($destino, $sql);
        $valor4_producto = $fila['valor4_producto'];
        
        $id_producto_origen= $fila['id_producto_origen'];
+       $id_producto_marketplace= $fila['id_producto'];
       if(isset($valor4_producto)){
           
       }else{
@@ -118,7 +119,7 @@ $image_path=$image_path;
                 . "`pagina_web`, `formato`, `url_a1`, "
                 . "`url_a2`, `url_a3`, `url_a4`, "
                 . "`url_a5`, `valor4_producto`, `tienda`, "
-                . "`drogshipin`, `id_producto_origen`) VALUES (NULL, '$codigo_producto', '$nombre_producto', "
+                . "`drogshipin`, `id_producto_origen`, `id_marketplace`) VALUES (NULL, '$codigo_producto', '$nombre_producto', "
                 . "'$descripcion_producto', '$id_linea_producto', 0, "
                 . "'$id_proveedor', '$inv_producto', '$iva_producto', "
                 . "'$estado_producto', '$costo_producto', '$utilidad_producto', "
@@ -127,9 +128,9 @@ $image_path=$image_path;
                 . "'$date_added', '$image_path', '$id_imp_producto', "
                 . "'$pagina_web', '$formato', '$url_a1', "
                 . "'$url_a2', '$url_a3', '$url_a4', "
-                . "'$url_a5', $valor4_producto, '$tienda', '1',$id_producto_origen );";
+                . "'$url_a5', $valor4_producto, '$tienda', '1',$id_producto_origen, $id_producto_marketplace );";
         
-        //echo $insert_query;
+        echo $insert_query;
         
          if (!$conexion->query($insert_query)) {
             echo "Error al insertar datos: " . $destino->error;
