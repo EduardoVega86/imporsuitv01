@@ -948,6 +948,7 @@ mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descri
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (48, '1', 'Registro de Novedad de COD x Inventario', 'COD')");
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (49, '1', 'Eliminacion COD', 'COD')");
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (50, '1', 'Actualizacion Valor COD', 'COD')");
+mysqli_query($conexion, "INSERT INTO `currencies` (`id`, `name`, `symbol`, `precision`, `thousand_separator`, `decimal_separator`, `code`) VALUES (32, 'Sol', 'S/.', '2', ',', '.', 'PEN');");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
