@@ -69,7 +69,7 @@ include 'includes/head.php'
 
       .load {
          position: absolute;
-         top: 25%;
+         top: 20%;
          width: 200px;
          height: 200px;
          z-index: 1000;
