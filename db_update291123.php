@@ -25,6 +25,7 @@ mysqli_query($conexion, "CREATE TABLE `ciudad_laar`(
   `codigor` varchar(100) NULL,
   UNIQUE KEY `id_ciudad` (`id_ciudad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=413 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
+mysqli_query($conexion, "DELETE FROM `ciudad_laar`;");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (20100101901, 'AMBATO', 'TP', 'TUNGURAHUA', '201001019', 16);");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (20100101902, 'BAÑOS DE AGUA SANTA', 'TE', 'TUNGURAHUA', '201001019', 16);");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001001, 'QUITO', 'TP', 'PICHINCHA', '201001001', 1);");
@@ -883,7 +884,68 @@ mysqli_query($conexion, "ALTER TABLE `detalle_fact_cot` ADD `id_producto_origen`
 mysqli_query($conexion, " ALTER TABLE `productos` ADD `id_marketplace` INT NULL AFTER `id_producto_origen`");
 
 mysqli_query($conexion, "UPDATE `user_group` SET `permission` = 'Inicio,1,1,1;Productos,1,1,1;Proveedores,1,1,1;Clientes,1,1,1;Reportes,1,1,1;Configuracion,1,1,1;Usuarios,1,1,1;Permisos,1,1,1;Categorias,1,1,1;Ventas,1,1,1;Compras,1,1,1;Pedidos,1,1,1;Integraciones,1,1,1;Dominios,1,1,1;' WHERE `user_group`.`user_group_id` = 1;");
+mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `identificacionO` VARCHAR(500) NULL AFTER `id_pedido`, ADD `ciudadO` VARCHAR(500) NULL AFTER `identificacionO`, ADD `nombreO` VARCHAR(500) NULL AFTER `ciudadO`, ADD `direccionO` VARCHAR(500) NULL AFTER `nombreO`, ADD `referenciaO` VARCHAR(500) NULL AFTER `direccionO`, ADD `numeroCasaO` VARCHAR(500) NULL AFTER `referenciaO`, ADD `postalO` VARCHAR(500) NULL AFTER `numeroCasaO`, ADD `telefonoO` VARCHAR(500) NULL AFTER `postalO`, ADD `celularO` VARCHAR(500) NULL AFTER `telefonoO`, ADD `identificacionD` VARCHAR(500) NULL AFTER `celularO`");
+mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `ciudadD` VARCHAR(500) NULL AFTER `identificacionD`, ADD `nombreD` VARCHAR(500) NULL AFTER `ciudadD`, ADD `direccionD` VARCHAR(500) NULL AFTER `nombreD`, ADD `referenciaD` VARCHAR(500) NULL AFTER `direccionD`, ADD `numeroCasaD` VARCHAR(500) NULL AFTER `referenciaD`, ADD `postalD` VARCHAR(500)  NULL AFTER `numeroCasaD`, ADD `telefonoD` VARCHAR(500) NULL AFTER `postalD`, ADD `celularD` VARCHAR(500) NULL AFTER `telefonoD`, ADD `tipoServicio` VARCHAR(500) NULL AFTER `celularD`, ADD `noPiezas` INT NULL AFTER `tipoServicio`, ADD `peso` DOUBLE NULL AFTER `noPiezas`, ADD `valorDeclarado` DOUBLE NULL AFTER `peso`, ADD `contiene` VARCHAR(500) NULL AFTER `valorDeclarado`, ADD `cod` BOOLEAN NULL AFTER `contiene`, ADD `costoflete` DOUBLE NULL AFTER `cod`, ADD `costoproducto` DOUBLE NULL AFTER `costoflete`, ADD `tipocobro` VARCHAR(500) NULL AFTER `costoproducto`, ADD `comentario` VARCHAR(500)  NULL AFTER `tipocobro`");
+mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `estado_guia` INT NOT NULL AFTER `comentario`");
+mysqli_query($conexion, "CREATE TABLE `estado_courier` (
+  `id_estado` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `codigo` int(11) DEFAULT NULL,
+  `id_servicio` int(11) DEFAULT NULL,
+  `descripcion` varchar(500) DEFAULT NULL,
+  `alias` varchar(500) DEFAULT NULL,
+  UNIQUE KEY `id_estado` (`id_estado`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci");
 
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (1, '1', 'Envío listo para despachar', 'Pendiente')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (2, '1', 'Envío creado por procesar', 'Por Recolectar')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (3, '1', 'Envío Recolectado', 'Recolectado')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (4, '1', 'Ingreso en Bodega', 'En Bodega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (5, '1', 'En proceso operativo', 'En Tránsito')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (6, '1', 'En zona para entrega al destino', 'Zona de Entrega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (7, '1', 'Entregado', 'Entregado')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (8, '1', 'Anulacion de Guía', 'Anulado')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (9, '1', 'Devolucion al Cliente', 'Devolución/Entrega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (10, '1', 'Facturado', 'Facturado')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (11, '1', 'En Ruta Regional/Confir. de Salida Confirmación de Salida', 'En Tránsito')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (12, '1', 'En Ruta Regional/Confir. de Llegada Confirmación de Llegada', 'En Tránsito')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (13, '1', 'Confirmación en Transito', 'En Tránsito')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (14, '1', 'En zona para entrega al destino/Novedad', 'Con Novedad')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (15, '1', 'Ingreso en Bodega / Por no entrega', 'Zona de Entrega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (16, '1', 'Eliminacion Novedad', 'Zona de Entrega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (17, '1', 'Envio Provicionalmente en Bodega', 'En Bodega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (18, '1', 'Facturado', 'Facturado')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (19, '1', 'Confirmación de Llegada Automática por Zona', 'Zona de Entrega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (20, '1', 'Guía sin la Confirmación de Salida De Regional por no pesar', 'En Tránsito')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (21, '1', 'Guía sin la Confirmación de Llegada De Regional por no pesar', 'En Tránsito')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (22, '1', 'Guía sin pesar electronicamente y sin registrar en manifiesto de zona', 'Zona de Entrega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (23, '1', 'Guía Borrada del Manifiesto de Zona', 'Zona de Entrega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (24, '1', 'Guía que no fue Registrada en Bodega', 'Zona de Entrega')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (25, '1', 'Liberado Aduana', 'Aduana')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (26, '1', 'No Liberado Aduana', 'Aduana')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (27, '1', 'Devolución Regional', 'Devolución Regional')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (28, '1', 'Registro en Zona por el Courier de Limites de Intentos', 'Zona de Entrega/Registro Limite')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (29, '1', 'Eliminacion Novedad Devolución', 'Reversa de Devolución')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (30, '1', 'Registro de Devolución en Zona de Entrega', 'Zona de Entrega/Registro Devolución')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (31, '1', 'Registro de Usuario que modifico POD PE', 'Digitación')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (32, '1', 'Registro de Usuario que modifico POD GC', 'Digitación')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (33, '1', 'Registro de Usuario que Elimino POD GC', 'Digitación')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (34, '1', 'Registro de Observacion Guia Retorno', 'Digitacion')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (35, '1', 'Registro del Cierre de COD Cartera para el Pago al Cliente', 'COD')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (36, '1', 'Registro del Cierre de COD Facturación para Cobro al Cliente', 'COD')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (37, '1', 'Registro de Usuario que Elimino POD UTILITARIO', 'Digitación')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (38, '1', 'Envío No Recolectado', 'No Recolectado')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (39, '1', 'Envío No Recolectado Cerrado', 'Cierre No Recolección')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (40, '1', 'Registro del Usuario que Ingreso la Devolución', 'Registro(Devolucion)')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (41, '1', 'Registro del Usuario que Ingreso los Datos Acutalizados', 'Registro(Actualizacion)')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (42, '1', 'Registro del Usuario que Ingreso el Mal Direccionado', 'Registro(Mal Direccionado)')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (43, '1', 'Registro del Usuario que Ingreso el Cambio Trayecto', 'Registro(Cambio Trayecto)')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (44, '1', 'Registro de Actualizacion de Guia Cliente (Dev, Actualizacion o Cambio Trayecto)', 'Registro(Dev-CTray-Act)')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (45, '1', 'Registro de Excepcion de un Cod por falta de pago', 'COD')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (46, '1', 'Registro de Deposito de COD', 'COD')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (47, '1', 'Registro Entregas Sabado/Feriado', 'SAC')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (48, '1', 'Registro de Novedad de COD x Inventario', 'COD')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (49, '1', 'Eliminacion COD', 'COD')");
+mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (50, '1', 'Actualizacion Valor COD', 'COD')");
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
