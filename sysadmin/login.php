@@ -1,16 +1,4 @@
 <?php
-//Verificar actualizaciones
-//include './vistas/verificar_actualizacion.php';
-// checking for minimum PHP version
-
-error_reporting(E_ALL);
-
-// Otra opción para mostrar errores:
-// error_reporting(-1);
-
-// Muestra los errores directamente en la página en lugar de almacenarlos en el registro de errores
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
