@@ -1,4 +1,5 @@
 <?php
+
 // Datos de usuario y contraseña
 $usuario = "prueba.importshop.api";
 $contrasena = "!mp0rt@sh@23";
@@ -40,92 +41,91 @@ if ($token_response) {
 }
 
 require_once "../db.php";
-    require_once "../php_conexion.php";
-    require_once "../funciones.php";
-    
+require_once "../php_conexion.php";
+require_once "../funciones.php";
+
 // Configuración de la base de datos de destino
-if ($_SERVER['HTTP_HOST']=='localhost'){
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
     $destino = new mysqli('localhost', 'root', '', 'master');
-}else{
- $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');   
+} else {
+    $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 }
 
 if ($destino->connect_error) {
     die('Error en la conexión a la base de datos de destino: ' . $destino->connect_error);
 }
 
-$sql   = "SELECT * FROM guia_laar order by id_guia desc limit 1" ;
+$sql = "SELECT * FROM guia_laar order by id_guia desc limit 1";
 
-    $query = mysqli_query($destino, $sql);
-    $row_cnt = mysqli_num_rows($query);
-    if ($row_cnt > 0) {
-      while ($row = mysqli_fetch_array($query)) {
-        $guia_sistema     = $row['id_guia']+1;
+$query = mysqli_query($destino, $sql);
+$row_cnt = mysqli_num_rows($query);
+if ($row_cnt > 0) {
+    while ($row = mysqli_fetch_array($query)) {
+        $guia_sistema = $row['id_guia'] + 1;
     }
-    }else{
-        $guia_sistema=1;
-    }
-     if (isset($_SERVER['HTTPS']) &&
-    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
-    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-  $protocol = 'https://';
+} else {
+    $guia_sistema = 1;
 }
-else {
-  $protocol = 'http://';
+if (isset($_SERVER['HTTPS']) &&
+        ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+        isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+        $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+    $protocol = 'https://';
+} else {
+    $protocol = 'http://';
 }
 $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
 $date_added = date("Y-m-d H:i:s");
 
-$sql   = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`) "
-        . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1');" ;
-    $query = mysqli_query($destino, $sql);
+$sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`) "
+        . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1');";
+$query = mysqli_query($destino, $sql);
 
-    $ultimoid=mysqli_insert_id($destino);
-  $sql_update =  "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_laar`.`id_guia` = $ultimoid";
-  $query_update = mysqli_query($destino, $sql_update);
-        
+$ultimoid = mysqli_insert_id($destino);
+$sql_update = "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_laar`.`id_guia` = $ultimoid";
+$query_update = mysqli_query($destino, $sql_update);
+
 //origen
-$identificacionO= get_row('origen_laar', 'identificacion', 'id_origen', 1);
-$provinciaO= get_row('origen_laar', 'provinciaO','id_origen', 1);
-$ciudadO= get_row('origen_laar',  'ciudadO','id_origen', 1);
-$nombreO= get_row('origen_laar',  'nombreO','id_origen', 1);
-$direccionO= get_row('origen_laar',  'direccion', 'id_origen',1);
-$refenciaO= get_row('origen_laar',  'referencia','id_origen', 1);
-$numeroCasaO= get_row('origen_laar', 'numeroCasa','id_origen',  1);
-$telefonoO= get_row('origen_laar',  'telefono','id_origen', 1);
-$celularO= get_row('origen_laar',  'celular','id_origen', 1);
+$identificacionO = get_row('origen_laar', 'identificacion', 'id_origen', 1);
+$provinciaO = get_row('origen_laar', 'provinciaO', 'id_origen', 1);
+$ciudadO = get_row('origen_laar', 'ciudadO', 'id_origen', 1);
+$nombreO = get_row('origen_laar', 'nombreO', 'id_origen', 1);
+$direccionO = get_row('origen_laar', 'direccion', 'id_origen', 1);
+$refenciaO = get_row('origen_laar', 'referencia', 'id_origen', 1);
+$numeroCasaO = get_row('origen_laar', 'numeroCasa', 'id_origen', 1);
+$telefonoO = get_row('origen_laar', 'telefono', 'id_origen', 1);
+$celularO = get_row('origen_laar', 'celular', 'id_origen', 1);
 
 //destino
-$nombre_destino=$_POST['nombre_destino'];
-$ciudad_entrega=$_POST['ciudad'];
-$direccion=$_POST['direccion'];
+$nombre_destino = $_POST['nombre_destino'];
+$ciudad_entrega = $_POST['ciudad'];
+$direccion = $_POST['direccion'];
 //echo $direccion;
-$referencia=$_POST['referencia'];
-$telefono=$_POST['telefono'];
-$celular=$_POST['celular'];
-$valorasegurado=$_POST['valorasegurado'];
+$referencia = $_POST['referencia'];
+$telefono = $_POST['telefono'];
+$celular = $_POST['celular'];
+$valorasegurado = $_POST['valorasegurado'];
 
-$numerocasa=$_POST['numerocasa'];
-$cod=$_POST['cod'];
+$numerocasa = $_POST['numerocasa'];
+$cod = $_POST['cod'];
 $cod = filter_var($cod, FILTER_VALIDATE_BOOLEAN);
 
-$seguro=$_POST['seguro'];
-$observacion=$_POST['observacion'];
+$seguro = $_POST['seguro'];
+$observacion = $_POST['observacion'];
 
 $fechaActual = date("m/y/Y");
 //echo $fechaActual;
-if($seguro==1){
-  $valorasegurado=$valorasegurado;  
-}else{
-    $valorasegurado=0;
+if ($seguro == 1) {
+    $valorasegurado = $valorasegurado;
+} else {
+    $valorasegurado = 0;
 }
-$productos_guia=$_POST['productos_guia'];
-$cantidad_total=$_POST['cantidad_total'];
+$productos_guia = $_POST['productos_guia'];
+$cantidad_total = $_POST['cantidad_total'];
 //echo $cantidad_total;
-$identificacion=$_POST['identificacion'];
-$valor_total=$_POST['valor_total'];
+$identificacion = $_POST['identificacion'];
+$valor_total = $_POST['valor_total'];
 // URL del servicio web al que deseas enviar los datos con el token
 $destino_url = "https://api.laarcourier.com:9727/guias";
 // Datos a enviar en formato JSON al servicio de destino
@@ -165,7 +165,6 @@ $datos_destino = array(
     "tipocobro" => 0,
     "comentario" => "$observacion",
     "fechaPedido" => "$fechaActual",
-   
     "extras" => array(
         "Campo1" => "",
         "Campo2" => "",
@@ -199,34 +198,49 @@ curl_close($ch);
 if ($response) {
     $data = json_decode($response, true);
     // Puedes trabajar con los datos de respuesta aquí
-    
-    
-$id_pedido_cot=$_POST['id_pedido_cot'];
+
+
+    $id_pedido_cot = $_POST['id_pedido_cot'];
 
 
 
-@$guia = $data["guia"];
-@$url = $data["url"];
+    @$guia = $data["guia"];
+    @$url = $data["url"];
 
-if(isset($guia)){
-    $sql_update =  "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='LAAR' WHERE `id_factura` = $id_pedido_cot";
- //echo $sql_update;
-$query_update = mysqli_query($conexion, $sql_update);
+    if (isset($guia)) {
+        $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='LAAR' WHERE `id_factura` = $id_pedido_cot";
+        //echo $sql_update;
+        $query_update = mysqli_query($conexion, $sql_update);
 
-    $date_added = date("Y-m-d H:i:s");
-$sql_insertar_guia="INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido` ) 
-        VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '','$url','$id_pedido_cot')"; 
+        $date_added = date("Y-m-d H:i:s");
+        $sql_insertar_guia = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
+            `identificacionO`,`ciudadO`, `nombreO`,
+            `direccionO`, `referenciaO`,`numeroCasaO`, 
+            `postalO`,`telefonoO`, `celularO`,
+            `identificacionD`, `ciudadD`,`nombreD`, 
+            `direccionD`,`referenciaD`, `numeroCasaD`,
+            `postalD`, `telefonoD`,`celularD`, 
+            `tipoServicio`,`noPiezas`, `peso`,
+            `valorDeclarado`, `contiene`,`cod` ,
+            `costoflete`,`costoproducto`, `tipocobro`,
+            `comentario`) 
+        VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$server_url','$url','$id_pedido_cot',"
+                . "'$identificacionO','$ciudadO','$nombreO',"
+                . "'$direccionO','$referenciaO','$numeroCasaO',"
+                . "'$postalO','$telefonoO','$celularO',"
+                . "'$identificacionD','$ciudadD','$nombreD',"
+                . "'$direccionD','$referenciaD','$numeroCasaD',"
+                . "'$postalD','$telefonoD','$celularD',"
+                . "'$tipoServicio','$noPiezas','$peso',"
+                . "'$valorDeclarado','$contiene','$cod','$costoflete','$costoproducto',"
+                . "'$tipocobro','$comentario')";
 //echo $sql_insertar_guia;
-$query_insertar = mysqli_query($conexion, $sql_insertar_guia);
-echo 'ok';
-}else{
-    var_dump($data);
-}
-
-
-
+        $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
+        echo 'ok';
+    } else {
+        var_dump($data);
+    }
 } else {
     echo 'No se recibió respuesta del servicio de destino';
 }
-
 ?>

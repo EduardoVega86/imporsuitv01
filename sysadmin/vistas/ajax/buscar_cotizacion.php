@@ -173,7 +173,7 @@ if ($response === false) {
     case 'Anulado':
        if ($estado_factura!=0){
            $sql_anular="UPDATE `facturas_cot` SET `estado_factura` = '0' WHERE `facturas_cot`.`id_factura` = $id_factura"; 
-       $query = mysqli_query($conexion, $sql_anular);
+       $query2 = mysqli_query($conexion, $sql_anular);
            
        }
         $span_estado='badge-danger';
