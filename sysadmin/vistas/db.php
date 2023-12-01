@@ -18,10 +18,9 @@ if (count($subdominioComponentes) > 2) {
 $user = "imporsuit_" . $primeraParte;
 $pass = "imporsuit_" . $primeraParte;
 
-
 @define('DB_HOST', 'localhost'); //DB_HOST:  generalmente suele ser "127.0.0.1"
 @define('DB_USER', $user); //Usuario de tu base de datos
-if ($url == 'imporshop.imporsuit.com') {
+if ($user == 'imporsuit_imporshop') {
     $pass = 'E?c7Iij&885Y';
 }
 @define('DB_PASS', $pass); //Contraseña del usuario de la base de datos
