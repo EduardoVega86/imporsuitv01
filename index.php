@@ -20,8 +20,8 @@ include 'includes/head.php'
 
 <body class="gradient">
    <img class="load" src="<?php
-                           if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
-                              echo "assets/img/image.png";
+                           if (empty(get_row('perfil', 'favicon', 'id_perfil', '1'))) {
+                              echo "assets/img/imporsuit.png";
                            } else {
                               echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
                            }
@@ -69,11 +69,11 @@ include 'includes/head.php'
 
       .load {
          position: absolute;
-         top: 10px;
-
+         top: 30%;
+         width: 200px;
          z-index: 1000;
-         right: 0;
-         left: 0;
+         right: 45%;
+
       }
 
       .loading {
