@@ -71,6 +71,7 @@ include 'includes/head.php'
          position: absolute;
          top: 30%;
          width: 200px;
+         height: 100px;
          z-index: 1000;
          right: 45%;
 
