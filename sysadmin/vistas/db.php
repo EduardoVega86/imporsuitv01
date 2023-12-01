@@ -24,5 +24,9 @@ if ($url == 'imporshop.imporsuit.com/') {
 
 $host = 'localhost';
 $usuario = $user;
-$contrasena = $user;
+if ($url == 'imporshop.imporsuit.com/') {
+    $contrasena = 'E?c7Iij&885Y';
+} else {
+    $contrasena = $user;
+}
 $base_de_datos = $user;
