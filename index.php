@@ -20,15 +20,15 @@ include 'includes/head.php'
 
 <body class="gradient">
    <img class="load" src="<?php
-                           if (empty(get_row('perfil', 'favicon', 'id_perfil', '1'))) {
+                           if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
                               echo "assets/img/image.png";
                            } else {
-                              echo  get_row('perfil', 'favicon', 'id_perfil', '1');
+                              echo  get_row('perfil', 'logo_url', 'id_perfil', '1');
                            }
                            ?>" alt="Imagen" />
 
    <div class="loader">
-      <img class="loading" src="./assets/img/loading.png" alt="">
+      <img class="loading" width="10px" src="./assets/img/loading.png" alt="">
    </div> <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       Skip to content
    </a>
@@ -49,7 +49,7 @@ include 'includes/head.php'
 
       window.addEventListener("load", () => {
          // Elimina todo después de 2000 milisegundos (2 segundos)
-         setTimeout(removeElements, 2000);
+         setTimeout(removeElements, 1500);
       });
    </script>
    <style>
@@ -70,8 +70,8 @@ include 'includes/head.php'
 
       .load {
          position: absolute;
-         top: 150px;
-         width: 20%;
+         top: 10px;
+
          z-index: 1000;
          right: 40%;
 
@@ -79,7 +79,7 @@ include 'includes/head.php'
 
       .loading {
          animation: rotate 1s linear infinite;
-         width: 10%;
+         width: 100px;
          filter: brightness(10%)
       }
 
