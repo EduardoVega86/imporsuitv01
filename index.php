@@ -73,7 +73,8 @@ include 'includes/head.php'
          top: 10px;
 
          z-index: 1000;
-         right: 50%;
+         right: 0;
+         left: 0;
       }
 
       .loading {
