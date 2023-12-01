@@ -48,8 +48,7 @@ include 'includes/head.php'
       }
 
       window.addEventListener("load", () => {
-         // Elimina todo después de 2000 milisegundos (2 segundos)
-         setTimeout(removeElements, 1500);
+         setTimeout(removeElements, 1000);
       });
    </script>
    <style>
@@ -73,7 +72,8 @@ include 'includes/head.php'
          top: 10px;
 
          z-index: 1000;
-         right: 50%;
+         right: 0;
+         left: 0;
       }
 
       .loading {
