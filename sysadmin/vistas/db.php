@@ -1,5 +1,4 @@
 <?php
-//echo 'asd';
 @define('DB_HOST', 'localhost'); //DB_HOST:  generalmente suele ser "127.0.0.1"
 @define('DB_USER', 'imporsuit_alvitorsa'); //Usuario de tu base de datos
 @define('DB_PASS', 'imporsuit_alvitorsa'); //Contrasena del usuario de la base de datos
