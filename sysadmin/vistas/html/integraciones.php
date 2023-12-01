@@ -49,68 +49,79 @@ while ($r = $query->fetch_object()) {
                                 <div class="grid items-center">
 
                                     <img src="https://cdn.icon-icons.com/icons2/836/PNG/512/Shopify_icon-icons.com_66757.png" width="30px" alt="img">
-                                    <h3 class="text-left font-bold">Titulo
+                                    <h3 class="text-left font-bold">Shopify
                                 </div>
 
                                 </h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, dolore consequuntur autem delectus deleniti repellat, in accusamus odio obcaecati tempora mollitia voluptate nam vitae illo unde. Vel ab soluta tempora.</p>
-                                <div class="grid grid-cols-2">
-                                    <a href="#" class="btn btn-outline-primary">Conectar</a><a href="#" class="btn btn-outline-danger">Ver Video</a>
+                                <p>Añade automaticamente tus pedidos de shopify con nuestra api.</p>
+                                <div class="d-flex flex-column gap-1">
+                                    <a href="#" class="btn btn-outline-primary">Conectar</a>
+                                    <a href="#" class="btn btn-outline-danger">Ver Video</a>
                                 </div>
                             </div>
                             <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
                                 <div class="grid items-center">
 
-                                    <img src="https://cdn.icon-icons.com/icons2/836/PNG/512/Shopify_icon-icons.com_66757.png" width="30px" alt="img">
-                                    <h3 class="text-left font-bold">Titulo
+                                    <img src="https://cdn.icon-icons.com/icons2/2429/PNG/512/facebook_logo_icon_147291.png" width="30px" alt="img">
+                                    <h3 class="text-left font-bold">Facebook
                                 </div>
 
                                 </h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, dolore consequuntur autem delectus deleniti repellat, in accusamus odio obcaecati tempora mollitia voluptate nam vitae illo unde. Vel ab soluta tempora.</p>
-                                <div class="grid grid-cols-2">
-                                    <a href="#" class="btn btn-outline-primary">Conectar</a><a href="#" class="btn btn-outline-danger">Ver Video</a>
+                                <p>Manten actualizadas tus campañas con nuestra api.</p>
+                                <div class="d-flex flex-column gap-1">
+                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#facebook">
+                                        Conectar
+                                    </button>
+                                    <a href="#" class="btn btn-outline-danger">Ver Video</a>
                                 </div>
                             </div>
-                            <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
-                                <div class="grid items-center">
-
-                                    <img src="https://cdn.icon-icons.com/icons2/836/PNG/512/Shopify_icon-icons.com_66757.png" width="30px" alt="img">
-                                    <h3 class="text-left font-bold">Titulo
-                                </div>
-
-                                </h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, dolore consequuntur autem delectus deleniti repellat, in accusamus odio obcaecati tempora mollitia voluptate nam vitae illo unde. Vel ab soluta tempora.</p>
-                                <div class="grid grid-cols-2">
-                                    <a href="#" class="btn btn-outline-primary">Conectar</a><a href="#" class="btn btn-outline-danger">Ver Video</a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="facebook" tabindex="-1" role="dialog" aria-labelledby="facebookLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="facebookLabel">Conectar con Facebook</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-            </div>
-        <?php
+                <?php
                 } else {
-        ?>
-            <section class="content">
-                <div class="alert alert-danger" align="center">
-                    <h3>Acceso denegado! </h3>
-                    <p>No cuentas con los permisos necesario para acceder a este módulo.</p>
-                </div>
-            </section>
-        <?php
+                ?>
+                    <section class="content">
+                        <div class="alert alert-danger" align="center">
+                            <h3>Acceso denegado! </h3>
+                            <p>No cuentas con los permisos necesario para acceder a este módulo.</p>
+                        </div>
+                    </section>
+                <?php
                 }
-        ?>
+                ?>
 
+            </div>
+            <!-- end container -->
         </div>
-        <!-- end container -->
+        <!-- end content -->
+
+        <?php require 'includes/pie.php'; ?>
+
     </div>
-    <!-- end content -->
-
-    <?php require 'includes/pie.php'; ?>
-
-</div>
-<!-- ============================================================== -->
-<!-- End Right content here -->
-<!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- End Right content here -->
+    <!-- ============================================================== -->
 
 
 </div>

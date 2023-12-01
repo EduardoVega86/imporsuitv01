@@ -949,6 +949,8 @@ mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descri
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (49, '1', 'Eliminacion COD', 'COD')");
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (50, '1', 'Actualizacion Valor COD', 'COD')");
 mysqli_query($conexion, "INSERT INTO `currencies` (`id`, `name`, `symbol`, `precision`, `thousand_separator`, `decimal_separator`, `code`) VALUES (32, 'Sol', 'S/.', '2', ',', '.', 'PEN');");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `importado` INT NULL DEFAULT '0' AFTER `tienda`;");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `plataforma_importa` VARCHAR(100) NULL AFTER `importado`;");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
