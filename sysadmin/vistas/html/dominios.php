@@ -44,8 +44,13 @@ while ($r = $query->fetch_object()) {
                 <?php if ($permisos_ver == 1) {
                 ?>
                     <div class="col ">
+                        <div>
+                            <a href="" class=""></a>
+                            <a href="#" class='bx bx-play-circle youtube '><span class="texto">ver video</span></a>
+                        </div>
                         <div class="row d-flex justify-content-center">
                             <div class="bg-white p-5">
+                                <p class="text-muted fs-s">PASO 1:</p>
                                 <h4 class="text-center font-bold">Gestiona tu dominio</h4>
 
                                 <p>
@@ -70,6 +75,7 @@ while ($r = $query->fetch_object()) {
 
                             </div>
                         </div>
+
                     </div>
             </div>
         <?php

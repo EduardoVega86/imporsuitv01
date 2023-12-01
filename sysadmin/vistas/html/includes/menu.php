@@ -141,14 +141,14 @@ require_once "../funciones.php";
 						<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
 					</ul>
 				</li>
-				<li class="has_sub">
+				<!-- <li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-agenda"></i><span> Cobros y Pagos </span>
 						<span class="menu-arrow"></span></a>
 					<ul class="list-unstyled">
 						<li><a href="../html/cxc.php">Abono Cliente</a></li>
 						<li><a href="../html/cxp.php">Abono Proveedor</a></li>
 					</ul>
-				</li>
+				</li> -->
 
 				<li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-files"></i><span> Reportes </span> <span class="menu-arrow"></span></a>

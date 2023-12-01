@@ -24,24 +24,27 @@ const actualizar = () => {
           Swal.fire({
             title: "¡Actualización del sistema exitosa!",
             icon: "success",
-            showConfirmButton: false,
-            timer: 1000,
-          }).then(async () => {
-            const responseAS = await fetch(dominio + "db_update291123.php", {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
-            responseAS.json().then((data) => {
-              if (data === "ok") {
-                Swal.fire({
-                  title: "¡Actualización de la base de datos exitosa!",
-                  icon: "success",
-                  confirmButtonText: "¡Aceptar!",
-                });
-              }
-            });
+            text: "¡Pulse click en siguiente y espere mientras la base de datos se actualiza!",
+            confirmButtonText: "¡Siguiente!",
+            showCancelButton: false,
+            showLoaderOnConfirm: true,
+            preConfirm: async () => {
+              const responseAS = await fetch(dominio + "db_update291123.php", {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              });
+              responseAS.json().then((data) => {
+                if (data === "ok") {
+                  Swal.fire({
+                    title: "¡Actualización de la base de datos exitosa!",
+                    icon: "success",
+                    confirmButtonText: "¡Aceptar!",
+                  });
+                }
+              });
+            },
           });
         }
       });
