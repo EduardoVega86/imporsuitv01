@@ -130,7 +130,7 @@ $image_path=$image_path;
                 . "'$url_a2', '$url_a3', '$url_a4', "
                 . "'$url_a5', $valor4_producto, '$tienda', '1',$id_producto_origen, $id_producto_marketplace );";
         
-        echo $insert_query;
+        //echo $insert_query;
         
          if (!$conexion->query($insert_query)) {
             echo "Error al insertar datos: " . $destino->error;
