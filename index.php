@@ -48,7 +48,7 @@ include 'includes/head.php'
       }
 
       window.addEventListener("load", () => {
-         setTimeout(removeElements, 1000);
+         setTimeout(removeElements, 600);
       });
    </script>
    <style>
@@ -69,9 +69,9 @@ include 'includes/head.php'
 
       .load {
          position: absolute;
-         top: 30%;
+         top: 25%;
          width: 200px;
-         height: 100px;
+         height: 200px;
          z-index: 1000;
          right: 45%;
 
