@@ -1,7 +1,5 @@
 <?php
-$url = $_SERVER['HTTP_HOST'];
-echo $url;
-// Parsea la URL
+$url = $_SERVER['HTTP_HOST']; // Parsea la URL
 $parsedUrl = parse_url($url);
 // Obtiene el fragmento que necesitas
 $primeraParte = $parsedUrl['path'];
@@ -15,8 +13,6 @@ if (count($subdominioComponentes) > 2) {
     $primeraParte = $subdominioComponentes[0];
 }
 $user = "imporsuit_" . $primeraParte;
-
-
 @define('DB_HOST', 'localhost'); //DB_HOST:  generalmente suele ser "127.0.0.1"
 @define('DB_USER', $user); //Usuario de tu base de datos
 if ($url == 'imporshop.imporsuit.com/') {
