@@ -10,13 +10,3 @@ $host = 'localhost';
 $usuario = 'root';
 $contrasena= '';
 $base_de_datos = 'prueba_imporsuit';
-
-$info = [
-    'DB_HOST' => 'localhost',
-    'DB_USER' => 'root',
-    'DB_PASS' => '',
-    'DB_NAME' => 'prueba_imporsuit'
-];
-
-// Convertir el array asociativo a JSON
-$json_info = json_encode($info, JSON_PRETTY_PRINT);
