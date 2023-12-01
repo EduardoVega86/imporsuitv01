@@ -20,7 +20,7 @@ include 'includes/head.php'
 
 <body class="gradient">
    <img class="load" src="<?php
-                           if (empty(get_row('perfil', 'favicon', 'id_perfil', '1'))) {
+                           if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
                               echo "assets/img/imporsuit.png";
                            } else {
                               echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
