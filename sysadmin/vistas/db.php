@@ -15,8 +15,10 @@ if (count($subdominioComponentes) > 2) {
     $primeraParte = $subdominioComponentes[0];
 }
 
+
 $user = "imporsuit_" . $primeraParte;
 $pass = "imporsuit_" . $primeraParte;
+
 
 @define('DB_HOST', 'localhost'); //DB_HOST:  generalmente suele ser "127.0.0.1"
 @define('DB_USER', $user); //Usuario de tu base de datos
