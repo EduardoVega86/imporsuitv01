@@ -23,7 +23,7 @@ include 'includes/head.php'
                            if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
                               echo "assets/img/image.png";
                            } else {
-                              echo  get_row('perfil', 'logo_url', 'id_perfil', '1');
+                              echo str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
                            }
                            ?>" alt="Imagen" />
 
