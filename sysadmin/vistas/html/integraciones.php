@@ -55,7 +55,9 @@ while ($r = $query->fetch_object()) {
                                 </h3>
                                 <p>Añade automaticamente tus pedidos de shopify con nuestra api.</p>
                                 <div class="d-flex flex-column gap-1">
-                                    <a href="#" class="btn btn-outline-primary">Conectar</a>
+                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Shopify">
+                                        Conectar
+                                    </button>
                                     <a href="#" class="btn btn-outline-danger">Ver Video</a>
                                 </div>
                             </div>
@@ -90,7 +92,30 @@ while ($r = $query->fetch_object()) {
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="Shopify" tabindex="-1" role="dialog" aria-labelledby="ShopifyLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="ShopifyLabel">Conectar con Shopify</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?php
+                                            $url_actual = "http://" . $_SERVER["HTTP_HOST"];
+
+                                            ?>
+                                            Ingresa la siguiente url en tu tienda de shopify: <br>
+                                            <input type="text" class="form-control" value="<?php echo $url_actual; ?>/sysadmin/api/integracion/Shopify" readonly>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
