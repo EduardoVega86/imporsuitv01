@@ -137,7 +137,7 @@ if ($resultado) {
         $contenido .=' %3a%0A '.'*Precio: * $'.number_format($precio_venta,2);
         //Insert en la tabla detalle_factura
        // echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r')";
-        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')");
+        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin',NULL)");
     }
     // Fin de la consulta Principal
     $subtotal      = number_format($sumador_total, 2, '.', '');

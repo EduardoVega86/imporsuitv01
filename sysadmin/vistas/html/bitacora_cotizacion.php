@@ -57,6 +57,8 @@ $ventas = 1;
 							<div class="portlet-body">
 							<?php
 include "../modal/eliminar_factura.php";
+include "../modal/cambiar_estado_guia.php";
+
     ?>
 
 								<form class="form-horizontal" role="form" id="datos_cotizacion">
