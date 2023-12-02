@@ -23,18 +23,13 @@ class Shopify extends Controller
 
         $line_items = $json_decode['line_items'];
 
-        foreach ($line_items as $key => $value) {
-            $nombre_producto = $value['name'];
-            $cantidad = $value['quantity'];
-            $precio = $value['price'];
-            $sku = $value['sku'];
+        //$this->model->insertarPedido($nombre, $apellido, $principal, $secundaria, $provincia, $ciudad, $codigo_postal, $pais, $telefono, $email, $total, $nombre_producto, $cantidad, $precio, $sku, $line_items);
+        $this->model->insertarPedido($nombre, $apellido, $principal, $secundaria, $provincia, $ciudad, $codigo_postal, $pais, $telefono, $email, $total, $line_items);
+    }
 
-            $this->model->insertarPedido($nombre, $apellido, $principal, $secundaria, $provincia, $ciudad, $codigo_postal, $pais, $telefono, $email, $total, $nombre_producto, $cantidad, $precio, $sku);
-        }
-
-
-
-
+    public function recibir()
+    {
+        $json = file_get_contents('php://input');
         $this->model->getJson($json);
     }
 }
