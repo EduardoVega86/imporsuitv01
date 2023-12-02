@@ -72,13 +72,13 @@ while ($r = $query->fetch_object()) {
                                 <p>Manten actualizadas tus campañas con nuestra api.</p>
                                 <div class="d-flex flex-column gap-1">
                                     <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#facebook">
-                                        Conectar
+                                        Proximamente
                                     </button>
-                                    <a href="#" class="btn btn-outline-danger">Ver Video</a>
+                                    <!-- <a href="#" class="btn btn-outline-danger">Ver Video</a> -->
                                 </div>
                             </div>
                             <!-- Modal -->
-                            <div class="modal fade" id="facebook" tabindex="-1" role="dialog" aria-labelledby="facebookLabel" aria-hidden="true">
+                            <!-- <div class="modal fade" id="facebook" tabindex="-1" role="dialog" aria-labelledby="facebookLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -95,7 +95,7 @@ while ($r = $query->fetch_object()) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- Modal -->
                             <div class="modal fade" id="Shopify" tabindex="-1" role="dialog" aria-labelledby="ShopifyLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
