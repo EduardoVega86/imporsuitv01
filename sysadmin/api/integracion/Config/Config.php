@@ -1,7 +1,9 @@
 <?php
-const BASE_URL = "http://localhost/sysadmin/api/integracion/";
-const HOST = "localhost";
-const USER = "imporsuit_alvitorsa";
-const PASSWORD = "imporsuit_alvitorsa";
-const DB = "shopify";
+
+require_once '../../vistas/db.php';
+
+const HOST = 'localhost';
+const USER = DB_USER;
+const PASSWORD = DB_PASS;
+const DB = DB_PASS;
 const CHARSET = "utf8";

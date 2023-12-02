@@ -7,5 +7,7 @@
 
 $host = 'localhost';
 $usuario = 'imporsuit_alvitorsa';
-$contrasena= 'imporsuit_alvitorsa';
+$contrasena = 'imporsuit_alvitorsa';
 $base_de_datos = 'imporsuit_alvitorsa';
+
+$hola = 'hola';
