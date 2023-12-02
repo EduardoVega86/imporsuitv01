@@ -127,6 +127,9 @@ while ($row = mysqli_fetch_array($query)) {
             $total_venta    = $row['monto_factura'];
             $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             ?>
+            
+           
+    <input type="hidden" value="<?php echo $estado_factura; ?>" id="estado<?php echo $id_factura; ?>">
                         <tr>
                          <td><label class='badge badge-purple'><?php echo $numero_factura; ?></label></td>
                          <td><?php echo $fecha; ?></td>
