@@ -10,14 +10,20 @@ require_once "../funciones.php";
 	<meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
 	<meta name="author" content="Coderthemes">
 
-	<link rel="shortcut icon" href="/sysadmin<?php echo str_replace("../..", "", get_row('perfil', 'favicon', 'id_perfil', '1')) ?>">
+	<link rel="shortcut icon" href="<?php
+									if (get_row('perfil', 'favicon', 'id_perfil', '1') == "") {
+										echo "../../assets/images/favicon.png";
+									} else {
+										echo str_replace("../..", "", get_row('perfil', 'favicon', 'id_perfil', '1'));
+									}
+									?>">
 	<!-- daterange picker -->
 	<link rel="stylesheet" href="../../assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
 	<link href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 	<!-- librerias para la busqueda de de autocomplete -->
 	<link type="text/css" href="../../js/jquery-ui.css" rel="stylesheet" />
 
-	<title>Facturacón V.3</title>
+	<title>IMPORSUIT</title>
 
 	<!-- Sweet Alert css -->
 	<link href="../../assets/plugins/switchery/switchery.min.css" rel="stylesheet" />

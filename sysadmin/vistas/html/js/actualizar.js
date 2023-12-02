@@ -41,6 +41,8 @@ const actualizar = () => {
                     title: "¡Actualización de la base de datos exitosa!",
                     icon: "success",
                     confirmButtonText: "¡Aceptar!",
+                  }).then(() => {
+                    window.location.reload();
                   });
                 }
               });

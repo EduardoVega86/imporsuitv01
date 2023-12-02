@@ -199,13 +199,19 @@ require_once "../funciones.php";
 						<li><a href="../html/gracias.php">Pagina de Gracias</a></li>
 						<li><a href="../html/horizontal.php">Texto Flotante</a></li>
 						<li><a href="../html/testimonios.php">Testimonios</a></li>
-						<li><a href="../html/origen_laar.php">Configurar Origen Laar Courier</a></li>
 						<li><a href="../html/integraciones.php">Integraciones</a></li>
 						<li><a href="../html/dominios.php">Dominio</a></li>
 
 
 
 					</ul>
+				</li>
+				<li>
+					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-truck"></i><span> Transporte</span> <span class="menu-arrow"></span></a>
+					<ul class="list-unstyled">
+
+						<li><a href="../html/origen_laar.php">Configurar Origen Laar Courier</a></li>
+
 				</li>
 				<!--li class="has_sub">
 										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-import"></i><span> Carga Txt
