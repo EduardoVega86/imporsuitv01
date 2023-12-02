@@ -950,7 +950,17 @@ mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descri
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (50, '1', 'Actualizacion Valor COD', 'COD')");
 mysqli_query($conexion, "INSERT INTO `currencies` (`id`, `name`, `symbol`, `precision`, `thousand_separator`, `decimal_separator`, `code`) VALUES (32, 'Sol', 'S/.', '2', ',', '.', 'PEN');");
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `importado` INT NULL DEFAULT '0' AFTER `tienda`;");
-mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `plataforma_importa` VARCHAR(100) NULL AFTER `importado`;");
+
+mysqli_query($conexion, "CREATE TABLE `estado_guia_sistema` (
+  `id_estado` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `estado` varchar(100) DEFAULT NULL,
+  UNIQUE KEY `id_estado` (`id_estado`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci");
+mysqli_query($conexion, "INSERT INTO `estado_guia_sistema` (`id_estado`, `estado`) VALUES (1, 'Confirmar'), (2, 'Pick y Pack '), (3, 'Despachado'), (4, 'Zona de entrega '), (5, 'Cobrado'), (6, 'Pagado '), (7, 'Liquidado')");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` CHANGE `estado_factura` `estado_factura` INT(1) NOT NULL");
+
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `estado_guia_sistema` INT NULL AFTER `plataforma_importa`");
+
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
