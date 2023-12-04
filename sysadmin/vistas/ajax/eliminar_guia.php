@@ -1,11 +1,14 @@
 <?php
 // Datos de autenticación
+require_once "../db.php";
+require_once "../php_conexion.php";
 $authData = array(
-    "username" => "prueba.importshop.api",
-    "password" => "!mp0rt@sh@23"
+    "username" => "import.uio.api",
+    "password" => "Imp@rt*23"
 );
 
 $guia = $_POST['guia'];
+$id=$_POST['id'];
 //echo $guia;
 // Convertir los datos de autenticación a formato JSON
 $authDataJSON = json_encode($authData);
@@ -58,6 +61,9 @@ if ($httpCode !== 200) {
     // Verificar si la solicitud DELETE fue exitosa
     $deleteHttpCode = curl_getinfo($chDelete, CURLINFO_HTTP_CODE);
     if ($deleteHttpCode === 200) {
+        $sql = "UPDATE facturas_cot SET  estado_factura=8
+                                WHERE id_factura='" . $id . "'";
+    $query_update = mysqli_query($conexion, $sql);
         echo 'ok';
     } else {
         echo 'Error al enviar la solicitud DELETE. Código de estado: ' . $deleteHttpCode;
