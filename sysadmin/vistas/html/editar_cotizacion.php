@@ -534,7 +534,7 @@ include "../modal/buscar_productos_ventas.php";
      <div class="col-md-3">
          <span class="help-block">Recaudo  </span>
          <select onchange="calcular_guia()" id="cod" name="cod" class="form-control">
-            <option value="">Seleccionar</option>
+            <option value="false">Seleccionar</option>
              <option value="true">Con Recuado</option>
               <option value="false">Sin Recaudo </option>
          </select>
