@@ -5,7 +5,8 @@ $(document).ready(function() {
     $("#resultados3").load("../ajax/carga_resibido.php");
     $("#resultados4").load("../ajax/tipo_doc.php");
     $("#resultados5").load("../ajax/carga_num_trans.php");
-   
+   // alert($('#costo_total').val());
+
 });
 
 function load(page) {
