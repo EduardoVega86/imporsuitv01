@@ -1,14 +1,36 @@
 <?php
-// Datos de autenticación
-require_once "../db.php";
-require_once "../php_conexion.php";
-$authData = array(
-    "username" => "import.uio.api",
-    "password" => "Imp@rt*23"
+include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
+/*Inicia validacion del lado del servidor*/
+if (empty($_POST['mod_id'])) {
+    $errors[] = "ID vacío";
+} else if (
+    !empty($_POST['mod_id'])
+) {
+    /* Connect To Database*/
+    require_once "../db.php";
+    require_once "../php_conexion.php";
+    require_once "../funciones.php";
+    // escaping, additionally removing everything that could be (html/javascript-) code
+    //$nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_nombre"], ENT_QUOTES)));
+    //$descripcion = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_descripcion"], ENT_QUOTES)));
+    $estado      = intval($_POST['mod_estado']);
+    $id      = intval($_POST['mod_id']);
+    
+
+   
+    $sql = "UPDATE facturas_cot SET  estado_factura=" . $estado . "
+                                WHERE id_factura='" . $id . "'";
+    $query_update = mysqli_query($conexion, $sql);
+    
+    if($estado==8){
+        $guia=get_row('guia_laar', 'guia_laar', 'id_pedido', $id );
+        $authData = array(
+    "username" => "prueba.importshop.api",
+    "password" => "!mp0rt@sh@23"
 );
 
-$guia = $_POST['guia'];
-$id=$_POST['id'];
+
+
 //echo $guia;
 // Convertir los datos de autenticación a formato JSON
 $authDataJSON = json_encode($authData);
@@ -61,9 +83,7 @@ if ($httpCode !== 200) {
     // Verificar si la solicitud DELETE fue exitosa
     $deleteHttpCode = curl_getinfo($chDelete, CURLINFO_HTTP_CODE);
     if ($deleteHttpCode === 200) {
-        $sql = "UPDATE facturas_cot SET  estado_factura=8
-                                WHERE id_factura='" . $id . "'";
-    $query_update = mysqli_query($conexion, $sql);
+        
         echo 'ok';
     } else {
         echo 'Error al enviar la solicitud DELETE. Código de estado: ' . $deleteHttpCode;
@@ -76,4 +96,45 @@ if ($httpCode !== 200) {
 
 // Cerrar la conexión cURL de autenticación
 curl_close($chAuth);
+    }
+    
+    
+     //echo $sql; 
+     
+    if ($query_update) {
+        $messages[] = "Linea ha sido actualizada con Exito.";
+    } else {
+        $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion);
+    }
+} else {
+    $errors[] = "Error desconocido.";
+}
+
+if (isset($errors)) {
+
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Error!</strong>
+        <?php
+foreach ($errors as $error) {
+        echo $error;
+    }
+    ?>
+    </div>
+    <?php
+}
+if (isset($messages)) {
+
+    ?>
+    <div class="alert alert-success" role="alert">
+        <strong>¡Bien hecho!</strong>
+        <?php
+foreach ($messages as $message) {
+        echo $message;
+    }
+    ?>
+    </div>
+    <?php
+}
+
 ?>

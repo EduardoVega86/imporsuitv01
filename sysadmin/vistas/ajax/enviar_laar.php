@@ -1,8 +1,8 @@
 <?php
 
 // Datos de usuario y contraseña
-$usuario = "prueba.importshop.api";
-$contrasena = "!mp0rt@sh@23";
+$usuario = "import.uio.api";
+$contrasena = "Imp@rt*23";
 
 $token_url = "https://api.laarcourier.com:9727/authenticate";
 
@@ -43,6 +43,7 @@ if ($token_response) {
 require_once "../db.php";
 require_once "../php_conexion.php";
 require_once "../funciones.php";
+require_once "../funciones_destino.php";
 
 // Configuración de la base de datos de destino
 if ($_SERVER['HTTP_HOST'] == 'localhost') {
@@ -87,6 +88,58 @@ $sql_update = "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_l
 $query_update = mysqli_query($destino, $sql_update);
 
 //origen
+$id_pedido_cot = $_POST['id_pedido_cot'];
+$tipo_origen= get_row('facturas_cot', 'drogshipin', 'id_factura', $id_pedido_cot);
+if($tipo_origen==1){
+    //conexion a marketplace para guardar guia
+ 
+  ///
+  
+  //conexion a marketplace para guardar guia
+ $tienda         = $tipo_origen= get_row('facturas_cot', 'tienda', 'id_factura', $id_pedido_cot);
+        if ($_SERVER['HTTP_HOST']=='localhost'){
+    $or_marketplace = 'http://localhost/marketplace/';
+}else{
+ $or_marketplace = 'https://marketplace.imporsuit.com/';  
+}
+        $archivo_origen=$or_marketplace.'sysadmin/vistas/db1.php';
+        $contenido = file_get_contents($archivo_origen);
+        $archivo_destino = '../db_destino_marketplace.php';
+if (file_put_contents($archivo_destino, $contenido) !== false) {
+} else {
+    echo "Error al guardar eddl JSON en el archivo.";
+}
+  require_once "../php_conexion_marketplace_guia.php";
+  ///
+  // conexion destino
+  $archivo_tienda = $tienda.'/sysadmin/vistas/db1.php'; // Nombre del archivo original
+       // echo $archivo_tienda;
+       $contenido_tienda = file_get_contents($archivo_tienda);
+       $archivo_destino_tienda = '../db_destino_guia.php'; // Nombre del archivo de destino
+       
+       // $origen = fopen($archivo_origen_marketplace, 'r');
+if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+    //echo "El JSON se ha guardado correctamente en el archivo.";
+   
+
+} else {
+    echo "Error al guardar eddl JSON en el archivo.";
+}
+
+  require_once "../php_conexion_destino_guia.php";
+  
+$identificacionO = get_row_destino($conexion_destino, 'origen_laar', 'identificacion', 'id_origen', 1);
+$provinciaO = get_row_destino($conexion_destino,'origen_laar', 'provinciaO', 'id_origen', 1);
+$ciudadO = get_row_destino($conexion_destino, 'origen_laar', 'ciudadO', 'id_origen', 1);
+$nombreO = get_row_destino($conexion_destino, 'origen_laar', 'nombreO', 'id_origen', 1);
+$direccionO = get_row_destino($conexion_destino, 'origen_laar', 'direccion', 'id_origen', 1);
+$refenciaO = get_row_destino($conexion_destino, 'origen_laar', 'referencia', 'id_origen', 1);
+$numeroCasaO = get_row_destino($conexion_destino, 'origen_laar', 'numeroCasa', 'id_origen', 1);
+$telefonoO = get_row_destino($conexion_destino, 'origen_laar', 'telefono', 'id_origen', 1);
+$celularO = get_row_destino($conexion_destino, 'origen_laar', 'celular', 'id_origen', 1);
+
+}else{
+  
 $identificacionO = get_row('origen_laar', 'identificacion', 'id_origen', 1);
 $provinciaO = get_row('origen_laar', 'provinciaO', 'id_origen', 1);
 $ciudadO = get_row('origen_laar', 'ciudadO', 'id_origen', 1);
@@ -95,7 +148,11 @@ $direccionO = get_row('origen_laar', 'direccion', 'id_origen', 1);
 $refenciaO = get_row('origen_laar', 'referencia', 'id_origen', 1);
 $numeroCasaO = get_row('origen_laar', 'numeroCasa', 'id_origen', 1);
 $telefonoO = get_row('origen_laar', 'telefono', 'id_origen', 1);
-$celularO = get_row('origen_laar', 'celular', 'id_origen', 1);
+$celularO = get_row('origen_laar', 'celular', 'id_origen', 1);  
+}
+
+echo $ciudadO;
+//echo $celularO;
 
 //destino
 $nombre_destino = $_POST['nombre_destino'];
@@ -126,6 +183,7 @@ $cantidad_total = $_POST['cantidad_total'];
 //echo $cantidad_total;
 $identificacion = $_POST['identificacion'];
 $valor_total = $_POST['valor_total'];
+$costo_total = $_POST['costo_total'];
 // URL del servicio web al que deseas enviar los datos con el token
 $destino_url = "https://api.laarcourier.com:9727/guias";
 // Datos a enviar en formato JSON al servicio de destino
@@ -223,19 +281,86 @@ if ($response) {
             `tipoServicio`,`noPiezas`, `peso`,
             `valorDeclarado`, `contiene`,`cod` ,
             `costoflete`,`costoproducto`, `tipocobro`,
-            `comentario`) 
+            `comentario`,`estado_guia`,`estado_guia_sistema`,`valor_costo`) 
         VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$server_url','$url','$id_pedido_cot',"
                 . "'$identificacionO','$ciudadO','$nombreO',"
-                . "'$direccionO','$referenciaO','$numeroCasaO',"
-                . "'$postalO','$telefonoO','$celularO',"
-                . "'$identificacionD','$ciudadD','$nombreD',"
-                . "'$direccionD','$referenciaD','$numeroCasaD',"
-                . "'$postalD','$telefonoD','$celularD',"
-                . "'$tipoServicio','$noPiezas','$peso',"
-                . "'$valorDeclarado','$contiene','$cod','$costoflete','$costoproducto',"
-                . "'$tipocobro','$comentario')";
+                . "'$direccionO','$refenciaO','$numeroCasaO',"
+                . "'','$telefonoO','$celularO',"
+                . "'$identificacion','$ciudad_entrega','$nombre_destino',"
+                . "'$direccion','$referencia','$numerocasa',"
+                . "'','$telefono','$celular',"
+                . "'201202002002013','$cantidad_total','2',"
+                . "'$valorasegurado','$productos_guia','$cod','0','$valor_total',"
+                . "'0','$observacion',1,1,'$costo_total')";
 //echo $sql_insertar_guia;
         $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
+        
+        //ingresar guia destino
+        $sql_insertar_guia_destino = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
+            `identificacionO`,`ciudadO`, `nombreO`,
+            `direccionO`, `referenciaO`,`numeroCasaO`, 
+            `postalO`,`telefonoO`, `celularO`,
+            `identificacionD`, `ciudadD`,`nombreD`, 
+            `direccionD`,`referenciaD`, `numeroCasaD`,
+            `postalD`, `telefonoD`,`celularD`, 
+            `tipoServicio`,`noPiezas`, `peso`,
+            `valorDeclarado`, `contiene`,`cod` ,
+            `costoflete`,`costoproducto`, `tipocobro`,
+            `comentario`,`estado_guia`,`estado_guia_sistema`,`valor_costo`) 
+        VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$server_url','$url','$id_pedido_cot',"
+                . "'$identificacionO','$ciudadO','$nombreO',"
+                . "'$direccionO','$refenciaO','$numeroCasaO',"
+                . "'','$telefonoO','$celularO',"
+                . "'$identificacion','$ciudad_entrega','$nombre_destino',"
+                . "'$direccion','$referencia','$numerocasa',"
+                . "'','$telefono','$celular',"
+                . "'201202002002013','$cantidad_total','2',"
+                . "'$valorasegurado','$productos_guia','$cod','0','$valor_total',"
+                . "'0','$observacion',1,1,'$costo_total')";
+//echo $sql_insertar_guia;
+        
+        if($tipo_origen==1){
+            
+        
+        $query_insertar_destino = mysqli_query($conexion_destino, $sql_insertar_guia_destino);
+        
+        $id_fact_destino=get_row_destino($conexion_destino, 'facturas_cot', 'id_factura', 'id_origen_factura', $id_pedido_cot);
+         $sql = "UPDATE facturas_cot SET  estado_factura=2
+                                WHERE id_factura='" . $id_fact_destino . "'";
+    $query_update_destino = mysqli_query($conexion_destino, $sql);
+    
+     //ingresar guia marketplace
+        $sql_insertar_guia_marketplace = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
+            `identificacionO`,`ciudadO`, `nombreO`,
+            `direccionO`, `referenciaO`,`numeroCasaO`, 
+            `postalO`,`telefonoO`, `celularO`,
+            `identificacionD`, `ciudadD`,`nombreD`, 
+            `direccionD`,`referenciaD`, `numeroCasaD`,
+            `postalD`, `telefonoD`,`celularD`, 
+            `tipoServicio`,`noPiezas`, `peso`,
+            `valorDeclarado`, `contiene`,`cod` ,
+            `costoflete`,`costoproducto`, `tipocobro`,
+            `comentario`,`estado_guia`,`estado_guia_sistema`,`valor_costo`) 
+        VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$server_url','$url','$id_pedido_cot',"
+                . "'$identificacionO','$ciudadO','$nombreO',"
+                . "'$direccionO','$refenciaO','$numeroCasaO',"
+                . "'','$telefonoO','$celularO',"
+                . "'$identificacion','$ciudad_entrega','$nombre_destino',"
+                . "'$direccion','$referencia','$numerocasa',"
+                . "'','$telefono','$celular',"
+                . "'201202002002013','$cantidad_total','2',"
+                . "'$valorasegurado','$productos_guia','$cod','0','$valor_total',"
+                . "'0','$observacion',1,1,'$costo_total')";
+//echo $sql_insertar_guia;
+        $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
+        
+        $id_fact_marketplace=get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_origen_factura', $id_pedido_cot);
+         $sql = "UPDATE facturas_cot SET  estado_factura=2
+                                WHERE id_factura='" . $id_fact_marketplace . "'";
+    $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+  
+        
+    }
         echo 'ok';
     } else {
         var_dump($data);

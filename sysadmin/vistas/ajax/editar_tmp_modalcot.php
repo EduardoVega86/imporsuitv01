@@ -23,6 +23,8 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     $rw    = mysqli_fetch_array($query);
     $stock = $rw['stock_producto'];
     $inv   = $rw['inv_producto'];
+     
+    
 
 //Cmprobamos si agregamos un producto a la tabla tmp_compra
     $comprobar = mysqli_query($conexion, "select * from detalle_fact_cot where id_producto='" . $id . "' and id_factura='" . $id_factura . "'");
@@ -99,6 +101,9 @@ while ($row = mysqli_fetch_array($sql)) {
     $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
     $precio_total   = $precio_venta_r * $cantidad;
     $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
+    
+    $id_pedido_cot      = $row["id_factura"];
+    $tienda   = $row['tienda'];
     /*--------------------------------------------------------------------------------*/
     $precio_total_f = number_format($final_items, 2); //Precio total formateado
     $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
@@ -174,6 +179,8 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
     <input type="hidden"   value="<?php echo $cantidad_total; ?>" id="cantidad_total" name="cantidad_total">
     <input type="hidden"   value="<?php echo $productos_guia; ?>" id="productos_guia" name="productos_guia">
     <input type="hidden"   value="<?php echo $costo_total; ?>" id="costo_total" name="costo_total">
+    <input type="hidden"   value="<?php echo $tienda; ?>" id="tienda" name="tienda">
+    <input type="hidden"   value="<?php echo $id_pedido_cot; ?>" id="id_pedido_cot" name="id_pedido_cot">
 </div>
 <script>
     $("#valorasegurado").val(<?php echo $costo_total; ?>);

@@ -1,7 +1,32 @@
 		$(document).ready(function() {
 		    load(1);
 		});
+$("#editar_linea").submit(function(event) {
+   // alert();
+		    $('#actualizar_datos').attr("disabled", true);
+		    var parametros = $(this).serialize();
+		    $.ajax({
+		        type: "POST",
+                    url: "../ajax/editar_pedido.php",
+		        data: parametros,
+		        beforeSend: function(objeto) {
+		            $("#resultados_ajax2").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(datos) {
+		            $("#resultados_ajax2").html(datos);
+		            $('#actualizar_datos').attr("disabled", false);
+		            load(1);
+		            $('#editarLinea').modal('hide');
 
+		            window.setTimeout(function() {
+		                $(".alert").fadeTo(200, 0).slideUp(200, function() {
+		                    $(this).remove();
+		                });
+		            }, 2000);
+		        }
+		    });
+		    event.preventDefault();
+		})
 		function load(page) {
 		    var q = $("#q").val();
 		    $("#loader").fadeIn('slow');
@@ -100,3 +125,13 @@
 		        }); // /ajax function to fetch the printable order
 		    } // /if orderId
 		} // /print order function
+                
+                function obtener_datos(id) {
+		    var estado = $("#estado" + id).val();
+		  // alert(estado);
+		  
+		    $("#mod_estado").val(estado);
+		    $("#mod_id").val(id);
+                  
+                    
+		}

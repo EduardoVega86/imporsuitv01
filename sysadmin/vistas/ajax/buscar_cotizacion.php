@@ -102,22 +102,39 @@ while ($row = mysqli_fetch_array($query)) {
                 $label_class = 'badge-danger';}
                 
                 switch ($estado_factura) {
-    case 0:
-        $text_estado = "Anulada";
-                $label_class = 'badge-danger';
-        break;
+  
     case 1:
-       $text_estado = "Ingresada";
+       $text_estado = "Confirmar";
                 $label_class = 'badge-success';
         break;
+       case 2:
+        $text_estado = "Pick y Pack ";
+                $label_class = 'badge-info';
+        break;
     case 3:
-        echo "El estado de la factura es 3";
+        $text_estado = "Despachado";
+                $label_class = 'badge-success';
         break;
     case 4:
-        echo "El estado de la factura es 4";
+       $text_estado = "Zona de entrega ";
+                $label_class = 'badge-purple';
         break;
     case 5:
-        echo "El estado de la factura es 5";
+         $text_estado = "Cobrado";
+                $label_class = 'badge-warning';
+        break;
+      case 6:
+         $text_estado = "Pagado ";
+                $label_class = 'badge-purple';
+        break;
+    
+       case 7:
+         $text_estado = "Liquidado";
+                $label_class = 'badge-primary';
+        break;
+        case 8:
+         $text_estado = "Anulado";
+                $label_class = 'badge-danger';
         break;
     default:
         echo "Estado no reconocido";
@@ -130,6 +147,7 @@ while ($row = mysqli_fetch_array($query)) {
             
            
     <input type="hidden" value="<?php echo $estado_factura; ?>" id="estado<?php echo $id_factura; ?>">
+    
                         <tr>
                          <td><label class='badge badge-purple'><?php echo $numero_factura; ?></label></td>
                          <td><?php echo $fecha; ?></td>
@@ -169,24 +187,44 @@ if ($response === false) {
 } else {
     // Procesar la respuesta
     $data = json_decode($response, true);
-     if ($data !== null && isset($data['estadoActual'])) {
+     if ($data !== null && isset($data['estadoActualCodigo'])) {
         // Imprimir el estadoActual
         //echo 'Estado Actual: ' . $data['estadoActual'];
-        switch ($data['estadoActual']) {
-    case 'Anulado':
-       if ($estado_factura!=0){
-           $sql_anular="UPDATE `facturas_cot` SET `estado_factura` = '0' WHERE `facturas_cot`.`id_factura` = $id_factura"; 
-       $query2 = mysqli_query($conexion, $sql_anular);
-           
-       }
+        switch ($data['estadoActualCodigo']) {
+    case '1':
+       
         $span_estado='badge-danger';
         $estado_guia='Anulado';
         break;
-    case 'Pendiente':
+    case '2':
        $span_estado='badge-purple';
-        $estado_guia='Pendiente';
+        $estado_guia='Por recolectar';
         break;
-    case 2:
+    case '3':
+        $span_estado='badge-purple';
+        $estado_guia='Por recolectar';
+        break;
+    case '4':
+        $span_estado='badge-purple';
+        $estado_guia='Por recolectar';
+        break;
+    case '5':
+        $span_estado='badge-purple';
+        $estado_guia='Por recolectar';
+        break;
+    case '6':
+       $span_estado='badge-purple';
+        $estado_guia='Por recolectar';
+        break;
+    case '7':
+       $span_estado='badge-purple';
+        $estado_guia='Anulada';
+        break;
+    case '8':
+       $span_estado='badge-purple';
+        $estado_guia='Anulada';
+        break;
+    case '9':
         echo "i es igual a 2";
         break;
 }
@@ -215,7 +253,7 @@ curl_close($curl);
                             }  
                            }?>
                            </td>
-                         <td><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
+                           <td><a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos('<?php echo $id_factura; ?>');"><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></a></td>
                          <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
                          <td class="text-center">
                           <div class="btn-group dropdown">

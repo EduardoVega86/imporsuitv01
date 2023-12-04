@@ -100,7 +100,8 @@ while ($row = mysqli_fetch_array($sql)) {
     $desc_tmp        = $row['desc_venta'];
     $nombre_producto = $row['nombre_producto'];
     $costo_producto    = $row['costo_producto'];
-    echo $costo_producto;
+    $guia_enviada             = $row['guia_enviada'];
+    //echo $costo_producto;
     $id_pedido_cot      = $row["id_factura"];
     $tienda   = $row['tienda'];
     
@@ -153,7 +154,14 @@ $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . 
         </td>
         <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($final_items, 2); ?></td>
         <td class='text-center'>
+             <?php
+            if($guia_enviada!=1){
+                
+            ?>
             <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_detalle ?>')"><i class="fa fa-remove"></i>
+             <?php
+            
+            }?>
             </a>
         </td>
     </tr>

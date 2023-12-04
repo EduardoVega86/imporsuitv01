@@ -130,9 +130,14 @@ while ($r = $query->fetch_object()) {$tipo[] = $r;}
         
         
         require 'includes/menu.php';
-        
-        $guia_numero=get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+       // echo $guia_enviada;
+                if($guia_enviada==1){
+                    
+                
+        @$guia_numero=get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                                $url = 'https://api.laarcourier.com:9727/guias/'.$guia_numero;
+                               
+      // echo  $url;                       
 
 $curl = curl_init($url);
 
@@ -151,31 +156,56 @@ if ($response === false) {
 } else {
     // Procesar la respuesta
     $data = json_decode($response, true);
-     if ($data !== null && isset($data['estadoActual'])) {
+     if ($data !== null && isset($data['estadoActualCodigo'])) {
         // Imprimir el estadoActual
         //echo 'Estado Actual: ' . $data['estadoActual'];
-        switch ($data['estadoActual']) {
-    case 'Anulado':
+        switch ($data['estadoActualCodigo']) {
+    case '1':
        
         $span_estado='badge-danger';
         $estado_guia='Anulado';
         break;
-    case 'Pendiente':
+    case '2':
        $span_estado='badge-purple';
-        $estado_guia='Pendiente';
+        $estado_guia='Por recolectar';
         break;
-    case 2:
+    case '3':
+        $span_estado='badge-purple';
+        $estado_guia='Por recolectar';
+        break;
+    case '4':
+        $span_estado='badge-purple';
+        $estado_guia='Por recolectar';
+        break;
+    case '5':
+        $span_estado='badge-purple';
+        $estado_guia='Por recolectar';
+        break;
+    case '6':
+       $span_estado='badge-purple';
+        $estado_guia='Por recolectar';
+        break;
+    case '7':
+       $span_estado='badge-purple';
+        $estado_guia='Anulada';
+        break;
+    case '8':
+       $span_estado='badge-purple';
+        $estado_guia='Anulada';
+        break;
+    case '9':
         echo "i es igual a 2";
         break;
 }
 
     } else {
-        echo 'No se pudo obtener el estadoActual';
+       // echo 'No se pudo obtener el estadoActual';
     }
 }
 
 // Cerrar la sesión cURL
 curl_close($curl);
+}
         ?>
 
 	<!-- ============================================================== -->
@@ -212,6 +242,7 @@ include "../modal/buscar_productos_ventas.php";
 												<div class="widget-chart">
 													<div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
 													<form class="form-horizontal" role="form" id="barcode_form">
+                                                                                                             <?php if($guia_enviada!=1){?>
 														<div class="form-group row">
 															<label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
 															<div class="col-md-2">
@@ -228,11 +259,16 @@ include "../modal/buscar_productos_ventas.php";
 																</div>
 															</div>
 															<div class="col-md-2">
+                                                                                                                            
 																<button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar">
 																	<span class="fa fa-search"></span> Buscar
 																</button>
+                                                                                                                         
 															</div>
 														</div>
+                                                                                                            <?php                                                                                                                                 
+                                                                                                                            }
+                                                                                                                            ?>
 													</form>
                                                                                                         
                                                                                                         <div class="table-responsive">	
@@ -242,7 +278,38 @@ include "../modal/buscar_productos_ventas.php";
                                                                                                             
                                                                                                                 
                                                                                                             ?>
-                                                                                                            <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Ver informacion de la guía</button>
+                                                                                                            <table  class="table table-sm table-striped">
+    <tr> <th><img width="100px" src="../../img_sistema/logo-dark.png" alt=""/></th>
+        <th></th>
+    </tr>
+     <tr> <th>Total Venta </th>
+        <td>$<?php $total_guia= get_row('guia_laar', 'costoproducto', 'id_pedido', $id_factura);
+        echo $total_guia;?></td>
+    </tr>
+    <tr> <th>Costo  </th>
+        <td>$<?php $costo_guia= get_row('guia_laar', 'valor_costo', 'id_pedido', $id_factura);
+        echo $costo_guia;
+        ?></td>
+    </tr>
+    <tr> <th>Precio de Envío </th>
+        <td>$<?php if (get_row('guia_laar', 'cod', 'id_pedido', $id_factura)==1){
+            $valor_base=$valor_base+($total_guia*0.03);             
+        }
+        if (get_row('guia_laar', 'valorDeclarado', 'id_pedido', $id_factura)>1){
+            $valor_base=$valor_base+(get_row('guia_laar', 'valorDeclarado', 'id_pedido', $id_factura)*0.01);             
+        }
+        echo $valor_base;
+?></td>
+    </tr>
+    <tr> <th>Comisión de la plataforma </th>
+        <td>$0</td>
+    </tr>
+    <tr> <th>Monto a ganar </th>
+        <td><strong>$<?php 
+        echo $total_guia-$costo_guia-$valor_base;
+        //echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);?></td>
+    </tr></strong>
+</table>
                                                                                                             <?php 
                                                                                                              }   
                                                                                                             ?>
@@ -273,19 +340,14 @@ include "../modal/buscar_productos_ventas.php";
 												</div>
 											</div>
                <div style="" id="valor_envio">
-         <table  class="table table-sm table-striped">
-    <tr> <th><img width="100px" src="../../img_sistema/logo-dark.png" alt=""/></th>
-        <th>$<?php echo number_format($valor_base,2)?></th>
-    </tr>
-     
-</table>
+        
         </div> 
 										</div>
                                                                             
                                                                             <div class="col-lg-5">
                                                                                 
                                                                          <?php if($guia_enviada==1){
-                                                                             if ($estado_guia=='Anulado'){
+                                                                             if ($data['estadoActualCodigo']=='8'){
                                                                        ?> 
                                                      <div class="widget-bg-color-icon card-box">
                 <div class="bg-icon bg-icon-danger pull-left">
@@ -299,18 +361,19 @@ include "../modal/buscar_productos_ventas.php";
               </div>
                                                                                 <?php
                                                                              }else{
+                                                                                 
                     $url= get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                     $traking="https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=".get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                  ?>
                  <form role="form" id="datos_pedido">
-                 <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo $nombredestino; ?>">  
+                 <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">  
                  <input type="hidden" id="identificacion" name="identificacion"  value="">
-                 <input type="hidden" id="provinica" name="provinica"  value="<?php echo $provinciadestino; ?>"> 
-                 <input type="hidden" id="ciudad_entrega" name="ciudad_entrega"  value="<?php echo $ciudaddestino; ?>"> 
-                 <input type="hidden" id="direccion_destino" name="direccion_destino"  value="<?php echo $direccion; ?>">  
-                 <input  type="hidden" id="referencia" name="referencia"  value="<?php echo $referencia; ?>">
-                <input type="hidden" id="telefono" name="telefono"  value="<?php echo $telefono; ?>">  
-                <input id="celular" type="hidden" name="celular"  value="">
+                 <input type="hidden" id="provinica" name="provinica"  value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>"> 
+                 <input type="hidden" id="ciudad_entrega" name="ciudad_entrega"  value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>"> 
+                 <input type="hidden" id="direccion_destino" name="direccion_destino"  value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">  
+                 <input  type="hidden" id="referencia" name="referencia"  value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                 <input type="hidden" id="telefono" name="telefono"  value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">  
+                 <input id="celular" type="hidden" name="celular"  value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                 <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">  
       <input id="cod" type="hidden" name="cod" >    
       <input id="seguro" type="hidden" name="seguro" >
@@ -324,21 +387,24 @@ include "../modal/buscar_productos_ventas.php";
     <div align="center" class="col-md-4">
         </br>
         
-        <button style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank"  class=""><img width="80%" src="../../img_sistema/4.png" alt=""/></button><br>Imprimir Guía</a>
+      <button>   <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank"  class=""><img width="80%" src="../../img_sistema/4.png" alt=""/><br>Imprimir Guía</a></button>
 </div>
     <div align="center" class="col-md-4">
         </br>
        
-        <button style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/5.png" alt=""/></button><br>Ver estado</a>
+        <button>  <a  style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/5.png" alt=""/><br>Ver estado</a></button>
 </div>
                      <div align="center" class="col-md-4">
         </br>
         
        
-        <button style="cursor: pointer;"  onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);?>')" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt=""/></button><br>Cancelar guia</a>
+        <button style="cursor: pointer;"  onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura);?>')" type="button" href="<?php echo $traking; ?>" target="blank"  class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt=""/><br>Cancelar guia</button>
 </div>
     
     </div>
+                                                                                <div class="row">
+                                                                                    
+                                                                                </div>
                 <?php
                 }
                 }   else{      
@@ -452,7 +518,7 @@ include "../modal/buscar_productos_ventas.php";
                                                                                 
                                                                                 <div class="col-md-6">
                                                                                       <span class="help-block">Celular  </span>
-                                                                                    <input id="celular" name="celular" class="form-control" placeholder="Celular" value="">
+                                                                                    <input id="celular" name="celular" class="form-control" placeholder="Celular" value="<?php echo $telefono; ?>">
                                                                                   
                                                                                 </div>
                                                                           
@@ -737,6 +803,7 @@ include "../modal/buscar_productos_ventas.php";
 	<!-- FIN -->
 <script>
 // print order function
+
 function cargar_provincia_pedido(){
 			
 			var id_provincia = $('#provinica').val();
@@ -786,6 +853,7 @@ function generar_guia(id_factura) {
         cantidad_total=$('#cantidad_total').val();
         valor_total=$('#valor_total_').val();
         costo_total=$('#costo_total').val();
+       
         numerocasa=$('#numerocasa').val();
         valor_envio=$('#valor_total_').val();
          valorasegurado=$('#valorasegurado').val();
@@ -817,16 +885,31 @@ function generar_guia(id_factura) {
                                 numerocasa: numerocasa,
                                 id_pedido_cot: id_pedido_cot,
                                 identificacion: identificacion,
+                                costo_total: costo_total,
                                 valorasegurado: valorasegurado,
                                 
 			},
 			dataType: 'text',
 			success: function(response) {
                             
-                            if(response=='ok'){
-                              location.reload();  
+                            if(response=='ok'){    Swal.fire({
+                    title: "¡Generiación de guía exitosa!",
+                    icon: "success",
+                    confirmButtonText: "¡Aceptar!",
+                  }).then(() => {
+                    window.location.reload();
+                  });
                             }else{
-                              alert(response)  
+                              //  let objetoJSON = JSON.parse(response);
+                                 Swal.fire({
+                    title: "Oops...",
+                    text: response,
+                    icon: "error",
+                    confirmButtonText: "¡Aceptar!",
+                  }).then(() => {
+                    window.location.reload();
+                  });
+                               
                             }
 				
             } // /success function
@@ -835,7 +918,7 @@ function generar_guia(id_factura) {
     } // /if orderId
 }
 
-function anular_guia(guia) {
+function anular_guia(guia,id) {
 
     id_factura=1;
 	if (id_factura=1) {
@@ -844,6 +927,7 @@ function anular_guia(guia) {
 			type: 'post',
 			data: {
 				guia: guia,
+                                id: id,
                                 
 			},
 			dataType: 'text',

@@ -213,6 +213,7 @@ if (file_put_contents($archivo_destino, $contenido) !== false) {
 
   //conexion a la base destino
         $archivo_tienda = $tienda.'/sysadmin/vistas/db1.php'; // Nombre del archivo original
+       // echo $archivo_tienda;
        $contenido_tienda = file_get_contents($archivo_tienda);
        $archivo_destino_tienda = 'sysadmin/vistas/db_destino.php'; // Nombre del archivo de destino
        
@@ -395,6 +396,8 @@ $insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_c
    // echo $sql;
  
     $insert      = mysqli_query($conexion, $sql);
+    $ultimo_id = mysqli_insert_id($conexion_destino);
+    
      if (isset($_SERVER['HTTPS']) &&
     ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
     isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
@@ -404,18 +407,20 @@ $insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_c
 else {
   $protocol = 'http://';
 }
-$image_path = str_replace('../..', 'sysadmin', $image_path);
+//$image_path = str_replace('../..', 'sysadmin', $image_path);
 
         $server_url = $protocol . $_SERVER['HTTP_HOST'];
         
-    $sql_destino="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`) "
-            . "VALUES ( '$factura_destino', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 3,'$server_url'); ";
+    $sql_destino="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`, `id_factura_origen`) "
+            . "VALUES ( '$factura_destino', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 3,'$server_url','$ultimo_id'); ";
    // echo $sql;
  
     $insert_destino      = mysqli_query($conexion_destino, $sql_destino);
     
-     $sql_marketplace="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`) "
-            . "VALUES ( '$factura_marketplace', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 3,'$server_url'); ";
+    
+    
+     $sql_marketplace="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`, `id_factura_origen`) "
+            . "VALUES ( '$factura_marketplace', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 3,'$server_url','$ultimo_id'); ";
    // echo $sql;
  
     $insert_destino      = mysqli_query($conexion_marketplace, $sql_marketplace);
@@ -590,7 +595,7 @@ $image_path = str_replace('../..', 'sysadmin', $image_path);
          //  alert();
             <?php  if(get_row('perfil', 'whatsapp', 'id_perfil', '1')) {?>
                    
-               enviar_registro();       
+          //     enviar_registro();       
          <?php }?>       
         };
         
