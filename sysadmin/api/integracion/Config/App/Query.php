@@ -8,7 +8,8 @@ class Query extends Conexion
         $this->connection = $this->pdo->connect();
     }
 
-    public function select($sql){
+    public function select($sql)
+    {
         $this->sql = $sql;
         $query = $this->connection->prepare($this->sql);
         $query->execute();
@@ -16,7 +17,8 @@ class Query extends Conexion
         return $result;
     }
 
-    public function insert($sql, $data){
+    public function insert($sql, $data)
+    {
         $this->sql = $sql;
         $query = $this->connection->prepare($this->sql);
         $query->execute($data);
@@ -24,5 +26,26 @@ class Query extends Conexion
         return $result;
     }
 
+    public function update($sql, $data)
+    {
+        $this->sql = $sql;
+        $query = $this->connection->prepare($this->sql);
+        $query->execute($data);
+        $result = $query->rowCount();
+        return $result;
+    }
 
+    public function delete($sql)
+    {
+        $this->sql = $sql;
+        $query = $this->connection->prepare($this->sql);
+        $query->execute();
+        $result = $query->rowCount();
+        return $result;
+    }
+
+    public function close()
+    {
+        $this->pdo->close();
+    }
 }
