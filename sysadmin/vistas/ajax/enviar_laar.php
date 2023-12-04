@@ -79,8 +79,8 @@ $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
 $date_added = date("Y-m-d H:i:s");
 
-$sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`) "
-        . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1');";
+$sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`, `estado_guia`) "
+        . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1',2);";
 $query = mysqli_query($destino, $sql);
 
 $ultimoid = mysqli_insert_id($destino);
@@ -281,7 +281,7 @@ if ($response) {
             `tipoServicio`,`noPiezas`, `peso`,
             `valorDeclarado`, `contiene`,`cod` ,
             `costoflete`,`costoproducto`, `tipocobro`,
-            `comentario`,`estado_guia`,`estado_guia_sistema`,`valor_costo`) 
+            `comentario`,`valor_costo`, `estado_guia`) 
         VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$server_url','$url','$id_pedido_cot',"
                 . "'$identificacionO','$ciudadO','$nombreO',"
                 . "'$direccionO','$refenciaO','$numeroCasaO',"
@@ -291,7 +291,7 @@ if ($response) {
                 . "'','$telefono','$celular',"
                 . "'201202002002013','$cantidad_total','2',"
                 . "'$valorasegurado','$productos_guia','$cod','0','$valor_total',"
-                . "'0','$observacion',1,1,'$costo_total')";
+                . "'0','$observacion','$costo_total',2)";
 //echo $sql_insertar_guia;
         $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
         
@@ -306,7 +306,7 @@ if ($response) {
             `tipoServicio`,`noPiezas`, `peso`,
             `valorDeclarado`, `contiene`,`cod` ,
             `costoflete`,`costoproducto`, `tipocobro`,
-            `comentario`,`estado_guia`,`estado_guia_sistema`,`valor_costo`) 
+            `comentario`,`valor_costo`, `estado_guia`) 
         VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$server_url','$url','$id_pedido_cot',"
                 . "'$identificacionO','$ciudadO','$nombreO',"
                 . "'$direccionO','$refenciaO','$numeroCasaO',"
@@ -316,7 +316,7 @@ if ($response) {
                 . "'','$telefono','$celular',"
                 . "'201202002002013','$cantidad_total','2',"
                 . "'$valorasegurado','$productos_guia','$cod','0','$valor_total',"
-                . "'0','$observacion',1,1,'$costo_total')";
+                . "'0','$observacion','$costo_total',2)";
 //echo $sql_insertar_guia;
         
         if($tipo_origen==1){
@@ -340,7 +340,7 @@ if ($response) {
             `tipoServicio`,`noPiezas`, `peso`,
             `valorDeclarado`, `contiene`,`cod` ,
             `costoflete`,`costoproducto`, `tipocobro`,
-            `comentario`,`estado_guia`,`estado_guia_sistema`,`valor_costo`) 
+            `comentario`,`valor_costo`, `estado_guia`) 
         VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$server_url','$url','$id_pedido_cot',"
                 . "'$identificacionO','$ciudadO','$nombreO',"
                 . "'$direccionO','$refenciaO','$numeroCasaO',"
@@ -350,7 +350,7 @@ if ($response) {
                 . "'','$telefono','$celular',"
                 . "'201202002002013','$cantidad_total','2',"
                 . "'$valorasegurado','$productos_guia','$cod','0','$valor_total',"
-                . "'0','$observacion',1,1,'$costo_total')";
+                . "'0','$observacion','$costo_total',2)";
 //echo $sql_insertar_guia;
         $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
         
