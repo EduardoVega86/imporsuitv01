@@ -149,6 +149,12 @@ $row           = mysqli_fetch_array($query_empresa);
 														<input type="text" class="form-control" name="telefono" value="<?php echo $row['telefono'] ?>" required autocomplete="off">
 													</div>
 												</div>
+                                                                        <div class="form-group row">
+													<label for="inputPassword3" class="col-sm-3 col-form-label">Celular:</label>
+													<div class="col-sm-6">
+														<input type="text" class="form-control" name="celular" value="<?php echo $row['celular'] ?>" required autocomplete="off">
+													</div>
+												</div>
 												 <div class="form-group row">
 													<label for="inputPassword3" class="col-sm-3 col-form-label">Referencia:</label>
 													<div class="col-sm-6">
