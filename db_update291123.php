@@ -25,6 +25,8 @@ mysqli_query($conexion, "CREATE TABLE `ciudad_laar`(
   `codigor` varchar(100) NULL,
   UNIQUE KEY `id_ciudad` (`id_ciudad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=413 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
+
+mysqli_query($conexion, "DELETE FROM `ciudad_laar`");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (20100101901, 'AMBATO', 'TP', 'TUNGURAHUA', '201001019', 16);");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (20100101902, 'BAÑOS DE AGUA SANTA', 'TE', 'TUNGURAHUA', '201001019', 16);");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001001, 'QUITO', 'TP', 'PICHINCHA', '201001001', 1);");
@@ -948,18 +950,19 @@ mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descri
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (48, '1', 'Registro de Novedad de COD x Inventario', 'COD')");
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (49, '1', 'Eliminacion COD', 'COD')");
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (50, '1', 'Actualizacion Valor COD', 'COD')");
-mysqli_query($conexion, "INSERT INTO `currencies` (`id`, `name`, `symbol`, `precision`, `thousand_separator`, `decimal_separator`, `code`) VALUES (32, 'Sol', 'S/.', '2', ',', '.', 'PEN');");
-mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `importado` INT NULL DEFAULT '0' AFTER `tienda`;");
-
+mysqli_query($conexion, "INSERT INTO `currencies` (`id`, `name`, `symbol`, `precision`, `thousand_separator`, `decimal_separator`, `code`) VALUES (32, 'Sol', 'S/.', '2', ',', '.', 'PEN')");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `importado` INT NULL DEFAULT '0' AFTER `tienda`");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `plataforma_importa` VARCHAR(500) NULL  AFTER `importado`");
 mysqli_query($conexion, "CREATE TABLE `estado_guia_sistema` (
   `id_estado` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `estado` varchar(100) DEFAULT NULL,
   UNIQUE KEY `id_estado` (`id_estado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci");
-mysqli_query($conexion, "INSERT INTO `estado_guia_sistema` (`id_estado`, `estado`) VALUES (1, 'Confirmar'), (2, 'Pick y Pack '), (3, 'Despachado'), (4, 'Zona de entrega '), (5, 'Cobrado'), (6, 'Pagado '), (7, 'Liquidado')");
-mysqli_query($conexion, "ALTER TABLE `facturas_cot` CHANGE `estado_factura` `estado_factura` INT(1) NOT NULL");
-
+mysqli_query($conexion, "INSERT INTO `estado_guia_sistema` (`id_estado`, `estado`) VALUES (1, 'Confirmar'), (2, 'Pick y Pack '), (3, 'Despachado'), (4, 'Zona de entrega '), (5, 'Cobrado'), (6, 'Pagado '), (7, 'Liquidado'), (8, 'Anulado')");
+//mysqli_query($conexion, "ALTER TABLE `facturas_cot` CHANGE `estado_factura` `estado_factura` INT(1) NOT NULL");
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `estado_guia_sistema` INT NULL AFTER `plataforma_importa`");
+mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `valor_costo` DOUBLE  NULL AFTER `costoproducto`");
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `id_factura_origen` INT NULL AFTER `estado_guia_sistema`");
 
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
