@@ -78,24 +78,67 @@ while ($r = $query->fetch_object()) {
                                 </div>
                             </div>
                             <!-- Modal -->
-                            <!-- <div class="modal fade" id="facebook" tabindex="-1" role="dialog" aria-labelledby="facebookLabel" aria-hidden="true">
+                            <div class="modal fade" id="facebook" tabindex="-1" role="dialog" aria-labelledby="facebookLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="facebookLabel">Conectar con Facebook</h5>
+                                            <h5 class="modal-title text-center" id="facebookLabel">Conectar con Facebook</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            ...
+                                            <form class="mb-3">
+
+                                                <span class="mb-5">
+                                                    Introduce tu ID de píxel de Facebook para hacer un seguimiento de las acciones que tus clientes realizan mientras visitan tu sitio web
+                                                </span>
+                                                <span class="mb-5 font-bold"> <br> Facebook Pixel ID</span>
+                                                <div class="form-group mb-3">
+
+                                                    <input type="text" class="form-control" placeholder="ID de píxel de Facebook">
+                                                </div>
+
+                                                <div class="form-group px-5">
+                                                    <input class="form-check-input" type="checkbox" name="habilitar_api" id="habilitar_api">
+                                                    <label class="form-label" for="habilitar_api">Habilitar conversiones API <br>
+                                                        <span class="fs-xs">Recomendado, envia eventos directamente desde nuestros servidores.</span>
+                                                    </label>
+                                                </div>
+
+                                                <span class="font-bold">
+                                                    Token de acceso a la API de conversiones <br>
+                                                </span>
+                                                <span class="mb-5">
+                                                    Introduce tu token de acceso de Facebook para hacer un seguimiento de las acciones que tus clientes realizan mientras visitan tu sitio web
+                                                </span>
+                                                <div class="form-group mb-3">
+                                                    <input type="text" class="form-control" placeholder="Token de acceso de Facebook">
+                                                </div>
+
+                                                <span class="font-bold">
+                                                    Probar la API de conversiones <br>
+                                                </span>
+                                                <span class="mb-5">
+                                                    Para probar los eventos del servidor, copia y pega aquí tu código de prueba de Facebook y haz clic en el botón "Guardar y probar", si todo está bien, verás un evento de prueba en el registro de eventos de tu píxel.
+                                                </span>
+
+                                                <div class="form-group">
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                </div>
+
+                                                <div class="d-flex justify-content-center">
+                                                    <button type="button">Desconectar</button>
+                                                    <button type="button" class="btn btn-outline-primary">Guardar y probar</button>
+                                                </div>
+                                            </form>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <!-- Modal -->
                             <div class="modal fade" id="Shopify" tabindex="-1" role="dialog" aria-labelledby="ShopifyLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -108,7 +151,7 @@ while ($r = $query->fetch_object()) {
                                         </div>
                                         <div class="modal-body">
                                             <?php
-                                            $url_actual = "http://" . $_SERVER["HTTP_HOST"];
+                                            $url_actual = "https://" . $_SERVER["HTTP_HOST"];
 
                                             ?>
                                             Ingresa la siguiente url en tu tienda de shopify: <br>
