@@ -1,22 +1,26 @@
 <?php
-class Conexion{
+class Conexion
+{
     private $connection;
-    public function __construct(){
+    private $marketplace;
+    public function __construct()
+    {
         $pdo = "mysql:host=" . HOST . ";dbname=" . DB . ";charset=" . CHARSET;
-        try{
+        try {
             $this->connection = new PDO($pdo, USER, PASSWORD);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }catch(PDOException $e){
-            
+        } catch (PDOException $e) {
+
             echo "Error: " . $e->getMessage();
         }
     }
-    public function connect(){
+    public function connect()
+    {
         return $this->connection;
     }
 
-    public function close(){
+    public function close()
+    {
         $this->connection = null;
     }
-
 }
