@@ -15,7 +15,13 @@ $base_url = $protocol . '://' . $domain;
 <head>
 
    <link rel="apple-touch-icon" href="sysadmin/<?php echo str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1')) ?>">
-   <link rel="shortcut icon" type="image/x-icon" href="sysadmin/<?php echo str_replace("../..", "", get_row('perfil', 'favicon', 'id_perfil', '1')) ?>">
+   <link rel="shortcut icon" type="image/x-icon" href="sysadmin<?php
+                                                               if (get_row('perfil', 'favicon', 'id_perfil', '1') == "") {
+                                                                  echo "/assets/images/favicon.png";
+                                                               } else {
+                                                                  echo str_replace("../..", "", get_row('perfil', 'favicon', 'id_perfil', '1'));
+                                                               }
+                                                               ?>">
    <meta name="title" content="<?php echo get_row('perfil', 'nombre_empresa', 'id_perfil', '1') ?>">
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,7 +47,7 @@ $base_url = $protocol . '://' . $domain;
 
    <script id="sections-script" data-sections="header,footer" defer="defer" src="js/scripts.js?84"></script>
    <style id="shopify-dynamic-checkout-cart">
-      @media screen and (min-width: 750px) {
+      @media screen and (min-width: 750px) {}
    </style>
    <link href="ccs/style_ini.css" rel="stylesheet" type="text/css" />
    <link href="ccs/base.css?v=108207397045790613361693673626" rel="stylesheet" type="text/css" media="all" />
@@ -49,8 +55,15 @@ $base_url = $protocol . '://' . $domain;
    <?php
    $sql = "select * from pixel";
    $query = mysqli_query($conexion, $sql);
-   while ($row = mysqli_fetch_array($query)) {
-      echo $row['pixel'];
+   $row = mysqli_fetch_array($query);
+   if (!empty($row['pixel'])) {
+   ?>
+      <script>
+         fbq('init', '<?= $row['pixel'] ?>');
+         fbq('track', 'PageView');
+      </script>
+
+   <?php
    }
    ?>
    <script>

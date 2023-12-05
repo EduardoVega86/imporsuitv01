@@ -67,10 +67,8 @@ class ShopifyModel extends Query
             if ($es_drogshipin == 1) {
                 $this->insertarFacturaMarketplace($nueva_factura_numero_formateada, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES ('$nueva_factura_numero_formateada', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '0', NULL, '1', 'Shopify');");
                 $this->insertarPedidoMarketplace($nueva_factura_numero_formateada, $cantidad, $precio, $sku);
-            } else {
-
-                $this->insertarDetalleFactura_local($nueva_factura_numero_formateada, $cantidad, $precio, $sku);
             }
+            $this->insertarDetalleFactura_local($nueva_factura_numero_formateada, $cantidad, $precio, $sku);
         }
 
         return array($query_factura_cot);
@@ -102,6 +100,9 @@ class ShopifyModel extends Query
         }
         return $market_connect;
     }
+
+
+
     public function insertarPedidoMarketplace($numero_factura, $cantidad, $precio, $sku)
     {
         $market_connect = $this->conectarMarketplace();
