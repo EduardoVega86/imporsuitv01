@@ -62,10 +62,10 @@ $query = mysqli_query($destino, $sql);
 $row_cnt = mysqli_num_rows($query);
 if ($row_cnt > 0) {
     while ($row = mysqli_fetch_array($query)) {
-        $guia_sistema = $row['id_guia'] + 1;
+        $guia_sistema = 'IMP'.$row['id_guia'] + 1;
     }
 } else {
-    $guia_sistema = 1;
+    $guia_sistema = "IMP1";
 }
 if (isset($_SERVER['HTTPS']) &&
         ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
@@ -167,6 +167,7 @@ $valorasegurado = $_POST['valorasegurado'];
 
 $numerocasa = $_POST['numerocasa'];
 $cod = $_POST['cod'];
+$cod_guia= $cod;
 $cod = filter_var($cod, FILTER_VALIDATE_BOOLEAN);
 
 $seguro = $_POST['seguro'];
@@ -291,7 +292,7 @@ if ($response) {
                 . "'$direccion','$referencia','$numerocasa',"
                 . "'','$telefono','$celular',"
                 . "'201202002002013','$cantidad_total','2',"
-                . "'$valorasegurado','$productos_guia','$cod','0','$valor_total',"
+                . "'$valorasegurado','$productos_guia','$cod_guia','0','$valor_total',"
                 . "'0','$observacion','$costo_total',2)";
 //echo $sql_insertar_guia;
         $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
@@ -316,7 +317,7 @@ if ($response) {
                 . "'$direccion','$referencia','$numerocasa',"
                 . "'','$telefono','$celular',"
                 . "'201202002002013','$cantidad_total','2',"
-                . "'$valorasegurado','$productos_guia','$cod','0','$valor_total',"
+                . "'$valorasegurado','$productos_guia','$cod_guia','0','$valor_total',"
                 . "'0','$observacion','$costo_total',2)";
 //echo $sql_insertar_guia;
         
@@ -350,7 +351,7 @@ if ($response) {
                 . "'$direccion','$referencia','$numerocasa',"
                 . "'','$telefono','$celular',"
                 . "'201202002002013','$cantidad_total','2',"
-                . "'$valorasegurado','$productos_guia','$cod','0','$valor_total',"
+                . "'$valorasegurado','$productos_guia','$cod_guia','0','$valor_total',"
                 . "'0','$observacion','$costo_total',2)";
 //echo $sql_insertar_guia;
         $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
