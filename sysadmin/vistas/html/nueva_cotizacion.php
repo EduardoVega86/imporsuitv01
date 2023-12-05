@@ -12,6 +12,9 @@ require_once "../funciones.php";
 //Inicia Control de Permisos
 include "../permisos.php";
 $user_id = $_SESSION['id_users'];
+//include 'is_logged.php'; 
+$session_id = session_id();
+//echo $session_id; 
 
 $tienda = $_GET['id'];
 
