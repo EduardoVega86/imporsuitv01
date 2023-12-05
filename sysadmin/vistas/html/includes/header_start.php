@@ -10,13 +10,13 @@ require_once "../funciones.php";
 	<meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
 	<meta name="author" content="Coderthemes">
 
-	<link rel="shortcut icon" href="<?php
-									if (get_row('perfil', 'favicon', 'id_perfil', '1') == "") {
-										echo "../../assets/images/favicon.png";
-									} else {
-										echo str_replace("../..", "sysadmin", get_row('perfil', 'favicon', 'id_perfil', '1'));
-									}
-									?>">
+	<link rel="shortcut icon" href="sysadmin<?php
+											if (get_row('perfil', 'favicon', 'id_perfil', '1') == "") {
+												echo "../../assets/images/favicon.png";
+											} else {
+												echo str_replace("../..", "", get_row('perfil', 'favicon', 'id_perfil', '1'));
+											}
+											?>">
 	<!-- daterange picker -->
 	<link rel="stylesheet" href="../../assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css">
 	<link href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
