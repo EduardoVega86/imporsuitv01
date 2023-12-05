@@ -97,6 +97,7 @@ if (empty($_POST['session'])) {
     //echo  "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'";
     $sql           = mysqli_query($conexion, "select * from productos, tmp_ventas where drogshipin_tmp=0 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
     $resultado = mysqli_num_rows($sql);
+     $contenido_productos="";
     if ($resultado > 0) {
         while ($row = mysqli_fetch_array($sql)) {
             $id_tmp          = $row["id_tmp"];
@@ -106,7 +107,8 @@ if (empty($_POST['session'])) {
             $drogshipin        = $row['drogshipin_tmp'];
             $desc_tmp        = $row['desc_tmp'];
             $nombre_producto = $row['nombre_producto'];
-            $contenido .= ' %3a%0A ' . $nombre_producto . ' x ' . $cantidad;
+            $contenido_productos .= ' %3a%0A ' . $nombre_producto . ' x ' . $cantidad;
+            //echo $contenido;
             // control del impuesto por productos.
             if ($row['iva_producto'] == 0) {
                 $p_venta   = $row['precio_tmp'];
@@ -284,6 +286,7 @@ GROUP BY tienda;";
             //echo "select * from productos, tmp_ventas where tienda='$tienda' and drogshipin_tmp=1 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'";
             $sql           = mysqli_query($conexion, "select * from productos, tmp_ventas where tienda='$tienda' and  drogshipin_tmp=1 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
             $resultado = mysqli_num_rows($sql);
+            $contenido_productos="";
             if ($resultado > 0) {
                 while ($row = mysqli_fetch_array($sql)) {
                     $id_tmp          = $row["id_tmp"];
@@ -295,7 +298,7 @@ GROUP BY tienda;";
                     $nombre_producto = $row['nombre_producto'];
                     $id_producto_origen = $row['id_producto_origen'];
                     $id_marketplace = $row['id_marketplace'];
-                    $contenido .= ' %3a%0A ' . $nombre_producto . ' x ' . $cantidad;
+                    $contenido_productos .= ' %3a%0A ' . $nombre_producto . ' x ' . $cantidad;
                     // control del impuesto por productos.
                     if ($row['iva_producto'] == 0) {
                         $p_venta   = $row['precio_tmp'];
@@ -379,7 +382,9 @@ GROUP BY tienda;";
 
 
                     $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto_origen')");
+                    //$sql_insertar_detalle="INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_destino','$factura_destino','$id_producto_origen','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto_origen')";
                     $insert_detail = mysqli_query($conexion_destino, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_destino','$factura_destino','$id_producto_origen','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto_origen')");
+                    echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_marketplace','$factura_marketplace','$id_marketplace','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto_origen')";
                     $insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_marketplace','$factura_marketplace','$id_marketplace','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto_origen')");
                 }
                 // Fin de la consulta Principal
@@ -538,7 +543,7 @@ include 'includes/head.php'
         <input type="hidden" id="nombre" name='nombre' value="<?php echo $nombre; ?>">
         <input type="hidden" id="telefono" value="<?php echo $telefono; ?>">
         <input type="hidden" id="direccion" value="<?php echo $direccion; ?>">
-        <input type="hidden" id="contenido" value="<?php echo $contenido; ?>">
+        <input type="hidden" id="contenido" value="<?php echo $contenido_productos; ?>">
 
         <?php
         echo get_row('gracias', 'contenido', 'id_gacias', 1);
@@ -599,7 +604,7 @@ include 'includes/head.php'
 
     function enviar_registro() {
 
-
+//alert($("#contenido").val());
         whatsapp = '%3a%0A' + "<?php echo get_row('perfil', 'whatsapp', 'id_perfil', '1') ?>";
 
         nombre = '%3a%0A' + '*Nombre:* ' + $("#nombre").val();
