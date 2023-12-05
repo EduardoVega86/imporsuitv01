@@ -52,12 +52,12 @@ $base_url = $protocol . '://' . $domain;
    <link href="ccs/style_ini.css" rel="stylesheet" type="text/css" />
    <link href="ccs/base.css?v=108207397045790613361693673626" rel="stylesheet" type="text/css" media="all" />
 
-   <?php
-   $sql = "select * from pixel";
-   $query = mysqli_query($conexion, $sql);
-   $row = mysqli_fetch_array($query);
-   if (!empty($row['pixel'])) {
-   ?>
+   <!--  <?php
+         $sql = "select * from pixel";
+         $query = mysqli_query($conexion, $sql);
+         $row = mysqli_fetch_array($query);
+         if (!empty($row['pixel'])) {
+         ?>
       <script>
          //Pixel de Facebook, PageView, Purchase, AddToCart, InitiateCheckout, CompleteRegistration, ViewContent, PotentialCustomer
          ! function(f, b, e, v, n, t, s) {
@@ -92,8 +92,8 @@ $base_url = $protocol . '://' . $domain;
       </script>
 
    <?php
-   }
-   ?>
+         }
+   ?> -->
    <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
       if (Shopify.designMode) {
