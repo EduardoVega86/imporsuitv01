@@ -14,7 +14,7 @@ require_once "../funciones.php";
 									if (get_row('perfil', 'favicon', 'id_perfil', '1') == "") {
 										echo "../../assets/images/favicon.png";
 									} else {
-										echo str_replace("../..", "", get_row('perfil', 'favicon', 'id_perfil', '1'));
+										echo str_replace("../..", "/sysadmin", get_row('perfil', 'favicon', 'id_perfil', '1'));
 									}
 									?>">
 	<!-- daterange picker -->
