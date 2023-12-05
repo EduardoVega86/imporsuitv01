@@ -2,7 +2,7 @@ const actualizar = () => {
   const dominio = window.location.origin + "/";
   Swal.fire({
     title: "¿Estás seguro?",
-    text: "¡Se actualizará el sistema!",
+    text: "¡Se actualizará la base de datos!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonText: "¡Sí, actualizar!",
@@ -10,35 +10,35 @@ const actualizar = () => {
     reverseButtons: true,
     showLoaderOnConfirm: true,
     preConfirm: async () => {
-      const responseAS = await fetch(
-        dominio + "actualizacion_sistema291123.php",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const responseAS = await fetch(dominio + "db_update291123.php", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       responseAS.json().then((data) => {
         if (data === "ok") {
           Swal.fire({
-            title: "¡Actualización del sistema exitosa!",
+            title: "¡Actualización de la base de datos exitosa!",
             icon: "success",
-            text: "¡Pulse click en siguiente y espere mientras la base de datos se actualiza!",
+            text: "¡Pulse click en siguiente y espere mientras el sistema se actualiza!",
             confirmButtonText: "¡Siguiente!",
             showCancelButton: false,
             showLoaderOnConfirm: true,
             preConfirm: async () => {
-              const responseAS = await fetch(dominio + "db_update291123.php", {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              });
+              const responseAS = await fetch(
+                dominio + "actualizacion_sistema291123.php",
+                {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
               responseAS.json().then((data) => {
                 if (data === "ok") {
                   Swal.fire({
-                    title: "¡Actualización de la base de datos exitosa!",
+                    title: "¡Actualización del sistema exitosa!",
                     icon: "success",
                     confirmButtonText: "¡Aceptar!",
                   }).then(() => {
