@@ -33,7 +33,7 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
         echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
     } else {
         
-        echo "INSERT INTO tmp_cotizacion (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id,drogshipin_tmp,id_origen,id_marketplace) VALUES ('$id','$cantidad','$precio_venta','0','$session_id')";
+        //echo "INSERT INTO tmp_cotizacion (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id,drogshipin_tmp,id_origen,id_marketplace) VALUES ('$id','$cantidad','$precio_venta','0','$session_id')";
         $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_cotizacion (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id,drogshipin_tmp) VALUES ('$id','$cantidad','$precio_venta','0','$session_id', $drogshipin_tmp)");
 
         echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
