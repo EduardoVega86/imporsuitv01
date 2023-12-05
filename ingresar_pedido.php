@@ -310,6 +310,7 @@ if ($resultado_f_marketplace) {
 //echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin')";
 $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto_origen')");
 $insert_detail = mysqli_query($conexion_destino, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_destino','$factura_destino','$id_producto_origen','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto_origen')");
+echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_marketplace','$factura_marketplace','$id_marketplace','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto_origen')";
 $insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_marketplace','$factura_marketplace','$id_marketplace','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto_origen')");
     }
     // Fin de la consulta Principal
@@ -347,10 +348,10 @@ else {
     }
     }
     }
-        $delete        = mysqli_query($conexion, "DELETE FROM tmp_cotizacion WHERE session_id='" . $session_id . "'");
+       // $delete        = mysqli_query($conexion, "DELETE FROM tmp_cotizacion WHERE session_id='" . $session_id . "'");
     //header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO
 //echo 'funciona';
-echo '<script>window.location.href = "sysadmin/vistas/html/bitacora_cotizacion.php";</script>';
+//echo '<script>window.location.href = "sysadmin/vistas/html/bitacora_cotizacion.php";</script>';
 }
     ?>
