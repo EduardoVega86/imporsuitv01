@@ -84,6 +84,7 @@ $sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `f
 $query = mysqli_query($destino, $sql);
 
 $ultimoid = mysqli_insert_id($destino);
+$ultimoid='IMP'.$ultimoid;
 $sql_update = "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_laar`.`id_guia` = $ultimoid";
 $query_update = mysqli_query($destino, $sql_update);
 
@@ -151,7 +152,7 @@ $telefonoO = get_row('origen_laar', 'telefono', 'id_origen', 1);
 $celularO = get_row('origen_laar', 'celular', 'id_origen', 1);  
 }
 
-echo $ciudadO;
+//echo $ciudadO;
 //echo $celularO;
 
 //destino
@@ -185,7 +186,7 @@ $identificacion = $_POST['identificacion'];
 $valor_total = $_POST['valor_total'];
 $costo_total = $_POST['costo_total'];
 // URL del servicio web al que deseas enviar los datos con el token
-$destino_url = "https://api.laarcourier.com:9727/guias";
+$destino_url = "https://api.laarcourier.com:9727/guias/contado";
 // Datos a enviar en formato JSON al servicio de destino
 $datos_destino = array(
     "origen" => array(
