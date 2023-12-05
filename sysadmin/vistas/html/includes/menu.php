@@ -136,8 +136,10 @@ require_once "../funciones.php";
 				<li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Pedidos
 						</span> <span class="menu-arrow"></span></a>
+                                             
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
+                                                <li><a href="../html/new_cotizacion.php">Ingresar Pedidos</a></li>
 						<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
 					</ul>
 				</li>

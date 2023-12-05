@@ -593,7 +593,7 @@ include 'includes/head.php'
         //  alert();
         <?php if (get_row('perfil', 'whatsapp', 'id_perfil', '1')) { ?>
 
-            //     enviar_registro();       
+                 enviar_registro();       
         <?php } ?>
     };
 
