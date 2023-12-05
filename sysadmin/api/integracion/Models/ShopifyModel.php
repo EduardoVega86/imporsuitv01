@@ -65,8 +65,35 @@ class ShopifyModel extends Query
             $sku = $value['sku'];
 
             if ($es_drogshipin == 1) {
-                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES ('$nueva_factura_numero_formateada', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '0', NULL, '1', 'Shopify');");
-                $this->insertarPedidoMarketplace($nueva_factura_numero_formateada, $cantidad, $precio, $sku);
+
+                // se obtiene el proveedor
+                $proveedor_server = $this->buscarProveedor($sku);
+
+                $producto_proveedor = $this->obtenerProveedor($sku);
+
+
+
+                $proveedor_server = $this->conseguirUltimaFactura('localhost', $proveedor_server);
+                // se obtiene la ultima factura del marketplace
+                $marketplace_server = $this->conseguirUltimaFactura('localhost', 'imporsuit_marketplace');
+
+                // se separa el COT-000001 en COT y 000001
+                preg_match('/^COT-(\d+)$/', $proveedor_server, $matches);
+                $numero_actual_proveedor = (int)$matches[1];
+                $nuevo_numero_proveedor = $numero_actual_proveedor + 1;
+                $nueva_factura_numero_formateada_proveedor = sprintf("COT-%06d", $nuevo_numero_proveedor);
+
+                preg_match('/^COT-(\d+)$/', $marketplace_server, $matches);
+                $numero_actual_marketplace = (int)$matches[1];
+                $nuevo_numero_marketplace = $numero_actual_marketplace + 1;
+                $nueva_factura_numero_formateada_marketplace = sprintf("COT-%06d", $nuevo_numero_marketplace);
+
+
+
+                $this->insertarFacturaProveedor($nueva_factura_numero_formateada_proveedor, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES ('$nueva_factura_numero_formateada_proveedor', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '0', NULL, $producto_proveedor, 'Shopify');", $sku);
+                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada_marketplace, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES ('$nueva_factura_numero_formateada_marketplace', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '0', NULL, $producto_proveedor, 'Shopify');");
+                $this->insertarPedidoMarketplace($nueva_factura_numero_formateada_marketplace, $cantidad, $precio, $sku);
+                $this->insertarPedidoProveedor($nueva_factura_numero_formateada_proveedor, $cantidad, $precio, $sku);
             }
             $this->insertarDetalleFactura_local($nueva_factura_numero_formateada, $cantidad, $precio, $sku);
         }
@@ -101,13 +128,49 @@ class ShopifyModel extends Query
         return $market_connect;
     }
 
+    protected function conectarProveedor($proveedor)
+    {
+        $contrasena = $proveedor;
+        if ($proveedor == 'imporsuit_imporshop') {
+            $contrasena = 'E?c7Iij&885Y';
+        }
+        $proveedor_connect = mysqli_connect('localhost', $proveedor, $contrasena, $proveedor);
+        if (!$proveedor_connect) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+        return $proveedor_connect;
+    }
 
+    public function insertarPedidoProveedor($numero_factura, $cantidad, $precio, $sku)
+    {
+        $proveedor = $this->conectarProveedor($this->buscarProveedor($sku));
+        $ultima_factura_sql = "SELECT MAX(id_factura) AS factura FROM facturas_cot;";
+        $ultima_factura = mysqli_query($proveedor, $ultima_factura_sql);
+        $ultima_factura = mysqli_fetch_assoc($ultima_factura);
+        $ultima_factura_numero = $ultima_factura['factura'] + 1;
+
+
+
+        $sql_detalle_factura_cot = "INSERT INTO `detalle_fact_cot` ( `id_factura`, `numero_factura`, `id_producto`, `cantidad`, `desc_venta`, `precio_venta`, `drogshipin_tmp`, `id_producto_origen`) VALUES ('$ultima_factura_numero', '$numero_factura', '$sku', '$cantidad', NULL, '$precio', NULL, NULL);";
+
+        $query = mysqli_query($proveedor, $sql_detalle_factura_cot);
+        echo mysqli_error($proveedor);
+
+        mysqli_close($proveedor);
+
+        return $query;
+    }
 
     public function insertarPedidoMarketplace($numero_factura, $cantidad, $precio, $sku)
     {
         $market_connect = $this->conectarMarketplace();
-        $ultima_factura = $this->select("SELECT MAX(id_factura) AS factura FROM facturas_cot;");
-        $ultima_factura_numero = $ultima_factura[0]['factura'];
+
+
+        $ultima_factura_sql = "SELECT MAX(id_factura) AS factura FROM facturas_cot;";
+        $ultima_factura = mysqli_query($market_connect, $ultima_factura_sql);
+        $ultima_factura = mysqli_fetch_assoc($ultima_factura);
+        $ultima_factura_numero = $ultima_factura['factura'];
+
         $sql_detalle_factura_cot = "INSERT INTO `detalle_fact_cot` ( `id_factura`, `numero_factura`, `id_producto`, `cantidad`, `desc_venta`, `precio_venta`, `drogshipin_tmp`, `id_producto_origen`) VALUES ('$ultima_factura_numero', '$numero_factura', '$sku', '$cantidad', NULL, '$precio', NULL, NULL);";
 
         $query = mysqli_query($market_connect, $sql_detalle_factura_cot);
@@ -116,6 +179,26 @@ class ShopifyModel extends Query
         mysqli_close($market_connect);
 
         return $query;
+    }
+
+    public function insertarFacturaProveedor($ultima_factura, $sql, $sku)
+    {
+        $proveedor = $this->conectarProveedor($this->buscarProveedor($sku));
+
+        //Verificar si la factura ya existe
+        $sql_factura = "SELECT numero_factura FROM facturas_cot WHERE numero_factura = '$ultima_factura';";
+
+        $query_factura = mysqli_query($proveedor, $sql_factura);
+        $factura = mysqli_fetch_assoc($query_factura);
+        if (!empty($factura)) {
+            mysqli_close($proveedor);
+            return false;
+        } else {
+            $query = mysqli_query($proveedor, $sql);
+            echo mysqli_error($proveedor);
+            mysqli_close($proveedor);
+            return $query;
+        }
     }
 
     public function insertarFacturaMarketplace($ultima_factura, $sql)
@@ -135,5 +218,48 @@ class ShopifyModel extends Query
             mysqli_close($market_connect);
             return $query;
         }
+    }
+
+    public function buscarProveedor($sku)
+    {
+        $sql = "SELECT tienda FROM productos WHERE id_producto = '$sku';";
+        $query = $this->select($sql);
+        $dominiotienda = $query[0]['tienda'];
+        // quitar el https:// y el .com
+        $dominiotienda = str_replace("https://", "", $dominiotienda);
+        $dominiotienda = str_replace(".com", "", $dominiotienda);
+        $dominiotienda = str_replace(".imporsuit", "", $dominiotienda);
+        $dominiotienda = "imporsuit_" . $dominiotienda;
+        return $dominiotienda;
+    }
+
+    public function obtenerProveedor($sku)
+    {
+        $sql = "SELECT tienda FROM productos WHERE id_producto = '$sku';";
+        $query = $this->select($sql);
+        $dominiotienda = $query[0]['tienda'];
+
+        return $dominiotienda;
+    }
+
+    public function conseguirUltimaFactura($servidor, $tienda)
+    {
+        $contrasena = $tienda;
+        if ($tienda == 'imporsuit_imporshop') {
+            $contrasena = 'E?c7Iij&885Y';
+        }
+        $sql = "SELECT MAX(numero_factura) AS factura FROM facturas_cot;";
+
+        $Query_con = mysqli_connect($servidor, $tienda, $contrasena, $tienda);
+
+        $query = mysqli_query($Query_con, $sql);
+        $factura = mysqli_fetch_assoc($query);
+        if (empty($factura['factura'])) {
+            $factura['factura'] = 'COT-000001';
+        }
+        echo mysqli_error($Query_con);
+        mysqli_close($Query_con);
+        $factura = $factura['factura'];
+        return $factura;
     }
 }
