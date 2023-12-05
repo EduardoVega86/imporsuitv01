@@ -967,6 +967,8 @@ mysqli_query($conexion, "ALTER TABLE `tmp_cotizacion` ADD `drogshipin_tmp` INT N
 mysqli_query($conexion, "ALTER TABLE `guia_laar` CHANGE `cod` `cod` INT NULL DEFAULT NULL");
 mysqli_query($conexion, " ALTER TABLE `tmp_ventas` DROP `id_marketplace`");
 mysqli_query($conexion, " ALTER TABLE `tmp_ventas` DROP `id_origen`");
+mysqli_query($conexion, " ALTER TABLE `tmp_cotizacion` DROP `id_marketplace`");
+mysqli_query($conexion, " ALTER TABLE `tmp_cotizacion` DROP `id_origen`");
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
