@@ -218,6 +218,7 @@ if ($image_path == null) {
            echo 'VUELVA A IMPORTAR EL PRODUCTO';
        }
     }else{
+        
      echo stock($stock_producto);
     }
                     ?></td>
