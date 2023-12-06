@@ -965,10 +965,11 @@ mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `valor_costo` DOUBLE  NULL 
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `id_factura_origen` INT NULL AFTER `estado_guia_sistema`");
 mysqli_query($conexion, "ALTER TABLE `tmp_cotizacion` ADD `drogshipin_tmp` INT NULL AFTER `session_id`, ADD `id_origen` INT NULL AFTER `drogshipin_tmp`, ADD `id_marketplace` INT NULL AFTER `id_origen`");
 mysqli_query($conexion, "ALTER TABLE `guia_laar` CHANGE `cod` `cod` INT NULL DEFAULT NULL");
-mysqli_query($conexion, " ALTER TABLE `tmp_ventas` DROP `id_marketplace`");
-mysqli_query($conexion, " ALTER TABLE `tmp_ventas` DROP `id_origen`");
-mysqli_query($conexion, " ALTER TABLE `tmp_cotizacion` DROP `id_marketplace`");
-mysqli_query($conexion, " ALTER TABLE `tmp_cotizacion` DROP `id_origen`");
+mysqli_query($conexion, "ALTER TABLE `tmp_ventas` DROP `id_marketplace`");
+mysqli_query($conexion, "ALTER TABLE `tmp_ventas` DROP `id_origen`");
+mysqli_query($conexion, "ALTER TABLE `tmp_cotizacion` DROP `id_marketplace`");
+mysqli_query($conexion, "ALTER TABLE `tmp_cotizacion` DROP `id_origen`");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `precio` = '3.5' WHERE `ciudad_laar`.`codigo` = '201001001001'");
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
