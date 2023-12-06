@@ -893,7 +893,7 @@ function generar_guia(id_factura) {
 			success: function(response) {
                             
                             if(response=='ok'){    Swal.fire({
-                    title: "¡Generiación de guía exitosa!",
+                    title: "¡Generación de guía exitosa!",
                     icon: "success",
                     confirmButtonText: "¡Aceptar!",
                   }).then(() => {
