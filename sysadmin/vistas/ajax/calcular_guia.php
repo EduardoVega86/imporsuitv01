@@ -17,7 +17,7 @@ require_once "../db.php";
     //echo $valor_total;
     $valor_base= get_row('ciudad_laar', 'precio', 'codigo', $ciudad);
     //echo $cod;
-if ($cod=="true"){
+if ($cod=="1"){
       $cod=$valor_total*0.03;  
     }else{
       $cod=0;  
