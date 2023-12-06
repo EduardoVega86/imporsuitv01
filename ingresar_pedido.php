@@ -323,7 +323,7 @@ $insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_c
             . "VALUES ( '$factura', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 1,'$tienda'); ";
    // echo $sql;
     $insert      = mysqli_query($conexion, $sql);
-    $ultimo_id = mysqli_insert_id($conexion_destino);
+    $ultimo_id = mysqli_insert_id($conexion);
     
      if (isset($_SERVER['HTTPS']) &&
     ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
