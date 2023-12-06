@@ -366,7 +366,7 @@ if ($response) {
     }
     
     $query = "SELECT * FROM detalle_fact_cot WHERE id_factura = $id_pedido_cot";
-
+//echo $query;
 // Realizar la consulta
 $resultado = mysqli_query($conexion, $query);
 
@@ -386,6 +386,7 @@ if ($conexion->connect_error) {
     while ($fila = mysqli_fetch_assoc($resultado)) {
        
         $id_producto = $fila['id_producto'];
+        echo $id_producto;
         $drogshipin = get_row('productos', 'drogshipin', 'id_producto', $id_producto);
         $id_marketplace= get_row('productos', 'id_marketplace', 'id_producto', $id_producto);
         $cantidad= $fila['cantidad'];
