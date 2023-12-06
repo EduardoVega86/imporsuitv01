@@ -98,6 +98,13 @@ if ($action == 'ajax') {
 
             </tr>
             <?php
+                if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $conexion_destino = new mysqli('localhost', 'root', '', 'master');
+} else {
+    $conexion_destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+}
+
+
 while ($row = mysqli_fetch_array($query)) {
             $id_producto          = $row['id_producto'];
             $codigo_producto      = $row['codigo_producto'];
@@ -130,6 +137,7 @@ while ($row = mysqli_fetch_array($query)) {
             $id_imp_producto      = $row['id_imp_producto'];
             $formato      = $row['formato'];
             $tienda      = $row['tienda'];
+            $drogshipin      = $row['drogshipin'];
             
           //  $texto_boton1      = $row['texto_boton'];
            // $texto_boton2      = $row['texto_boton2'];
@@ -197,7 +205,22 @@ if ($image_path == null) {
                     <td><?php echo $codigo_producto; ?></td>
                     <td ><?php echo $nombre_producto; ?></td>
                     <td><?php echo $estado_online; ?></td>
-                    <td class='text-center'><?php echo stock($stock_producto); ?></td>
+                    <td class='text-center'><?php 
+                    if($drogshipin==1){
+                         $id_marketplace      = $row['id_marketplace'];
+                         if(isset($id_marketplace)){
+        $sql2    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_marketplace . "'");
+        $rw      = mysqli_fetch_array($sql2);
+       
+        $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
+       echo stock($old_qty);
+       }else{
+           echo 'VUELVA A IMPORTAR EL PRODUCTO';
+       }
+    }else{
+     echo stock($stock_producto);
+    }
+                    ?></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($costo_producto, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_mayoreo, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_especial, 2); ?></span></td>
