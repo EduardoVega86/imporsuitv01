@@ -969,7 +969,7 @@ mysqli_query($conexion, "ALTER TABLE `tmp_ventas` DROP `id_marketplace`");
 mysqli_query($conexion, "ALTER TABLE `tmp_ventas` DROP `id_origen`");
 mysqli_query($conexion, "ALTER TABLE `tmp_cotizacion` DROP `id_marketplace`");
 mysqli_query($conexion, "ALTER TABLE `tmp_cotizacion` DROP `id_origen`");
-mysqli_query($conexion, "UPDATE `ciudad_laar` SET `precio` = '3.5' WHERE `ciudad_laar`.`codigo` = '201001001001'");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `precio` = '3.5' WHERE `codigo` = '201001001001'");
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
