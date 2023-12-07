@@ -89,16 +89,18 @@ $ultimoid='IMP'.$ultimoid;
 $sql_update = "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_laar`.`id_guia` = $ultimoid";
 $query_update = mysqli_query($destino, $sql_update);
 
+
 //origen
 $id_pedido_cot = $_POST['id_pedido_cot'];
 $tipo_origen= get_row('facturas_cot', 'drogshipin', 'id_factura', $id_pedido_cot);
 if($tipo_origen==1){
+    //echo'asddsa';
     //conexion a marketplace para guardar guia
  
   ///
   
   //conexion a marketplace para guardar guia
- $tienda         = $tipo_origen= get_row('facturas_cot', 'tienda', 'id_factura', $id_pedido_cot);
+ $tienda         =  get_row('facturas_cot', 'tienda', 'id_factura', $id_pedido_cot);
         if ($_SERVER['HTTP_HOST']=='localhost'){
     $or_marketplace = 'http://localhost/marketplace/';
 }else{
@@ -118,7 +120,7 @@ if (file_put_contents($archivo_destino, $contenido) !== false) {
        // echo $archivo_tienda;
        $contenido_tienda = file_get_contents($archivo_tienda);
        $archivo_destino_tienda = '../db_destino_guia.php'; // Nombre del archivo de destino
-       
+       //echo $archivo_destino_tienda;
        // $origen = fopen($archivo_origen_marketplace, 'r');
 if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
     //echo "El JSON se ha guardado correctamente en el archivo.";
@@ -320,16 +322,18 @@ if ($response) {
                 . "'201202002002013','$cantidad_total','2',"
                 . "'$valorasegurado','$productos_guia','$cod_guia','0','$valor_total',"
                 . "'0','$observacion','$costo_total',2)";
-//echo $sql_insertar_guia;
-        
+//echo $sql_insertar_guia_destino;
+        echo $tipo_origen;
         if($tipo_origen==1){
             
-        
+        echo "origen";
         $query_insertar_destino = mysqli_query($conexion_destino, $sql_insertar_guia_destino);
         
-        $id_fact_destino=get_row_destino($conexion_destino, 'facturas_cot', 'id_factura', 'id_origen_factura', $id_pedido_cot);
-         $sql = "UPDATE facturas_cot SET  estado_factura=2
+        $id_fact_destino=get_row_destino($conexion_destino, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
+       // echo $id_fact_destino;
+        $sql = "UPDATE facturas_cot SET  estado_factura=2
                                 WHERE id_factura='" . $id_fact_destino . "'";
+       // echo $sql;
     $query_update_destino = mysqli_query($conexion_destino, $sql);
     
      //ingresar guia marketplace
@@ -357,7 +361,7 @@ if ($response) {
 //echo $sql_insertar_guia;
         $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
         
-        $id_fact_marketplace=get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_origen_factura', $id_pedido_cot);
+        $id_fact_marketplace=get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
          $sql = "UPDATE facturas_cot SET  estado_factura=2
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
     $query_update_destino = mysqli_query($conexion_marketplace, $sql);
