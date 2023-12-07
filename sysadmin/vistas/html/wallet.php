@@ -53,13 +53,16 @@ permisos($modulo, $cadena_permisos);
                                     <form id="wallet" role="form" class="form-horizontal">
                                         <div class="form-group row">
                                             <div class="col-md-5">
-                                                <div class="input-group">
+                                                <div class="input-group mb-2">
                                                     <input type="text" class="form-control" id="q" placeholder="Nombre del cliente o # factura" onkeyup='load(1);'>
                                                     <span class="input-group-btn">
                                                         <button type="button" class="btn btn-info waves-effect waves-light" onclick='load(1);'>
                                                             <span class="fa fa-search"></span></button>
                                                     </span>
                                                 </div>
+
+
+
                                             </div>
                                             <div class="col-md-4">
                                                 <span id="loader"></span>
@@ -122,6 +125,35 @@ permisos($modulo, $cadena_permisos);
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script>
+    function filtrarDatos() {
+        // Obtén los valores de los campos de filtro
+        var fechaInicio = $('#fecha_inicio').val();
+        var fechaFin = $('#fecha_fin').val();
+        var estado = $('#estado').val();
+
+        // Realiza la petición Ajax
+        $.ajax({
+            type: 'GET',
+            url: '../ajax/filtro_input.php',
+            data: {
+                fecha_inicio: fechaInicio,
+                fecha_fin: fechaFin,
+                estado: estado
+            },
+            success: function(response) {
+                // Actualiza la sección de resultados con la respuesta del servidor
+                $('#resultados').html(response);
+            },
+            error: function(error) {
+                console.error('Error en la petición Ajax:', error);
+            }
+        });
+    }
+
+    $('.filtroInput').change(function() {
+        filtrarDatos();
+    });
+
     $("#perfil").submit(function(event) {
         $('.guardar_datos').attr("disabled", true);
 
@@ -164,7 +196,9 @@ permisos($modulo, $cadena_permisos);
                     $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
                 },
                 success: function(datos) {
+
                     $("#resultados").html(datos);
+
                 }
             });
 
