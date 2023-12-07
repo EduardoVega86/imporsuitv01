@@ -17,7 +17,7 @@ $("#editar_linea").submit(function (event) {
     success: function (datos) {
       $("#resultados_ajax2").html(datos);
       $("#actualizar_datos").attr("disabled", false);
-      load(1);
+      //load(1);
       $("#editarLinea").modal("hide");
 
       window.setTimeout(function () {
@@ -152,9 +152,13 @@ function print_ticket(id_factura) {
 } // /print order function
 
 function obtener_datos(id) {
-  var estado = $("#estado" + id).val();
+  var estado = $("#estado_sistema" + id).val();
   // alert(estado);
 
   $("#mod_estado").val(estado);
   $("#mod_id").val(id);
+  
+  
+    $("#editar_linea").submit(); // Esto activará el envío del formulario con el ID "editar_linea"
+
 }
