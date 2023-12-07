@@ -19,13 +19,15 @@ $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != NULL) ? $_REQUES
 if ($action == "ajax") {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-    $sTable = "wallet_cot";
+    $sTable = "cabecera_cuenta_cobrar, facturas_cot";
     $sWhere = "";
-    $sWhere .= "WHERE facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
+    $sWhere .= " WHERE cabecera_cuenta_cobrar.numero_factura=facturas_cot.numero_factura";
     if ($_GET['q'] != "") {
-        $sWhere .= " and  (clientes.nombre_cliente like '%$q%' or facturas_cot.numero_factura like '%$q%')";
+        $sWhere .= "";
     }
-    $sWhere .= " order by facturas_cot.id_factura desc";
+    $sWhere .= "";
+
+
     include 'pagination.php'; //include pagination file
     //pagination variables  
     $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
@@ -42,8 +44,25 @@ if ($action == "ajax") {
     $sql = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
+
+
     if ($numrows > 0) {
 ?>
+        <form id="filter-form">
+            <label for="fecha">Fecha:</label>
+            <input type="date" name="fecha" id="fecha">
+
+            <label for="estado">Estado de Pedido:</label>
+            <select name="estado" id="estado">
+                <option value="0">Todos</option>
+                <option value="1">Confirmar</option>
+                <option value="2">Pick y Pack</option>
+                <!-- Agrega más opciones según tus estados de pedido -->
+            </select>
+
+            <button class="btn btn-outline-primary" type="button" onclick="filterData()">Filtrar</button>
+        </form>
+
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead class="thead-light">
@@ -52,7 +71,7 @@ if ($action == "ajax") {
                         <th class="text-center">Fecha</th>
                         <th class="text-center">Cliente</th>
                         <th class="text-center">Tienda</th>
-                        <th class="text-center">Estado Guia</th>
+                        <th class="text-center">Estado Pedido</th>
                         <th class="text-center">Total Venta</th>
                         <th class="text-center">Costo</th>
                         <th class="text-center">Precio de Envio</th>
@@ -60,19 +79,20 @@ if ($action == "ajax") {
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="resultados">
+
                     <?php
                     while ($row = mysqli_fetch_array($query)) {
-                        $id_factura = $row['id_factura'];
+                        $id_factura = $row['numero_factura'];
                         $fecha = date('d/m/Y', strtotime($row['fecha']));
-                        $nombre_cliente = $row['nombre_cliente'];
-                        $tienda = $row['tienda'];
+                        $nombre_cliente = $row['cliente'];
+                        $tienda = $row[4];
                         $estado_guia = $row['estado_guia'];
                         $total_venta = $row['total_venta'];
                         $costo = $row['costo'];
                         $precio_envio = $row['precio_envio'];
                         $monto_recibir = $row['monto_recibir'];
-                        $estado_factura = $row['estado_factura'];
+                        $estado_factura = $row['estado_pedido'];
                         $guia_enviada   = $row['guia_enviada'];
 
                         if ($estado_factura == 1) {
@@ -130,106 +150,18 @@ if ($action == "ajax") {
                             <td class="text-center"><?php echo $fecha; ?></td>
                             <td class="text-center"><?php echo $nombre_cliente; ?></td>
                             <td class="text-center"><?php echo $tienda; ?></td>
-                            <td class="text-center"><?php
-                                                    $estado_guia = "NO ENVIADA";
-                                                    if ($guia_enviada == 1 && $estado_guia != 0) {
-                                                        $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
-                                                        $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
 
-                                                        $curl = curl_init($url);
-
-                                                        // Establecer opciones para la solicitud cURL
-                                                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                                                        curl_setopt($curl, CURLOPT_HTTPHEADER, [
-                                                            'Accept: application/json'
-                                                        ]);
-
-                                                        // Realizar la solicitud GET
-                                                        $response = curl_exec($curl);
-
-                                                        // Verificar si hubo algún error en la solicitud
-                                                        if ($response === false) {
-                                                            echo 'Error en la solicitud: ' . curl_error($curl);
-                                                        } else {
-                                                            // Procesar la respuesta
-                                                            $data = json_decode($response, true);
-                                                            if ($data !== null && isset($data['estadoActualCodigo'])) {
-                                                                // Imprimir el estadoActual
-                                                                //echo 'Estado Actual: ' . $data['estadoActual'];
-                                                                switch ($data['estadoActualCodigo']) {
-                                                                    case '1':
-
-                                                                        $span_estado = 'badge-danger';
-                                                                        $estado_guia = 'Anulado';
-                                                                        break;
-                                                                    case '2':
-                                                                        $span_estado = 'badge-purple';
-                                                                        $estado_guia = 'Por recolectar';
-                                                                        break;
-                                                                    case '3':
-                                                                        $span_estado = 'badge-purple';
-                                                                        $estado_guia = 'Por recolectar';
-                                                                        break;
-                                                                    case '4':
-                                                                        $span_estado = 'badge-purple';
-                                                                        $estado_guia = 'Por recolectar';
-                                                                        break;
-                                                                    case '5':
-                                                                        $span_estado = 'badge-purple';
-                                                                        $estado_guia = 'Por recolectar';
-                                                                        break;
-                                                                    case '6':
-                                                                        $span_estado = 'badge-purple';
-                                                                        $estado_guia = 'Por recolectar';
-                                                                        break;
-                                                                    case '7':
-                                                                        $span_estado = 'badge-purple';
-                                                                        $estado_guia = 'Anulada';
-                                                                        break;
-                                                                    case '8':
-                                                                        $span_estado = 'badge-purple';
-                                                                        $estado_guia = 'Anulada';
-                                                                        break;
-                                                                    case '9':
-                                                                        echo "i es igual a 2";
-                                                                        break;
-                                                                }
-                                                            } else {
-                                                                echo 'No se pudo obtener el estadoActual';
-                                                            }
-                                                        }
-
-                                                        // Cerrar la sesión cURL
-                                                        curl_close($curl);
-
-                                                        $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
-                                                        $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
-
-
-                                                    ?>
-                                    <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
-                                    <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
-                                    <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
-                                <?php
-                                                    } else {
-                                                        if ($estado_factura == 8) {
-                                                            echo 'GUIA ANULADA';
-                                                        } else {
-                                                            echo 'NO ENVIADA';
-                                                        }
-                                                    }
-                                ?>
-                            </td>
+                            <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>
-                            <td class="text-center"><?php echo $monto_recibir; ?></td>
+                            <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
                             <td class="text-center">
                                 <div class="btn-group dropdown">
                                     <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <?php if ($permisos_editar == 1) { ?>
-                                            <a class="dropdown-item" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
+                                            <a class="dropdown-item" href="editar_wallet.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
                                             <!--a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir</a-->
                                         <?php }
                                         if ($permisos_eliminar == 1) { ?>
@@ -245,13 +177,13 @@ if ($action == "ajax") {
                     <?php
                     }
                     ?>
-                    <tr>
-                        <td colspan=10><span class="pull-right">
-                                <?php
-                                echo paginate($reload, $page, $total_pages, $adjacents);
-                                ?></span></td>
-                    </tr>
                 </tbody>
+                <tr>
+                    <td colspan=10><span class="pull-right">
+                            <?php
+                            echo paginate($reload, $page, $total_pages, $adjacents);
+                            ?></span></td>
+                </tr>
 
             </table>
         </div>
@@ -266,3 +198,20 @@ if ($action == "ajax") {
     }
 }
 ?>
+
+<script>
+    function filterData() {
+        var fecha = document.getElementById('fecha').value;
+        var estado = document.getElementById('estado').value;
+
+        var url = '../ajax/filtro_input.php?fecha_inicio=' + fecha + '&fecha_fin=' + fecha + '&estado=' + estado;
+        var ajax = new XMLHttpRequest();
+        ajax.open('GET', url, true);
+        ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                document.getElementById('resultados').innerHTML = ajax.responseText;
+            }
+        }
+        ajax.send();
+    }
+</script>
