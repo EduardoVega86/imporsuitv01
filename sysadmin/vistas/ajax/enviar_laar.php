@@ -326,7 +326,7 @@ if ($response) {
         echo $tipo_origen;
         if($tipo_origen==1){
             
-        echo "origen";
+        //echo "origen";
         $query_insertar_destino = mysqli_query($conexion_destino, $sql_insertar_guia_destino);
         
         $id_fact_destino=get_row_destino($conexion_destino, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
