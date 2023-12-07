@@ -24,7 +24,7 @@ if ($action == 'ajax') {
     $sWhere = "";
     $sWhere .= " WHERE facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
     if ($_GET['q'] != "") {
-        $sWhere .= " and  (clientes.nombre_cliente like '%$q%' or facturas_cot.numero_factura like '%$q%')";
+        $sWhere .= " and  (facturas_cot.nombre like '%$q%' or facturas_cot.numero_factura like '%$q%')";
     }
 
     $sWhere .= " order by facturas_cot.id_factura desc";
@@ -171,31 +171,31 @@ if ($action == 'ajax') {
                         <td><?php echo $direccion; ?></td>
 
                         <td align="center"><?php
-                                            if (($guia_enviada == 1 && $estado_factura != 0)||$drogshipin==3) {
-                                                if($drogshipin==3){
-                                                     $archivo_tienda = $tienda.'/sysadmin/vistas/db1.php'; // Nombre del archivo original
-       // echo $archivo_tienda;
-       $contenido_tienda = file_get_contents($archivo_tienda);
-       $archivo_destino_tienda = '../db_destino_guia.php'; // Nombre del archivo de destino
-       //echo $archivo_destino_tienda;
-       // $origen = fopen($archivo_origen_marketplace, 'r');
-if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
-    //echo "El JSON se ha guardado correctamente en el archivo.";
-   
+                                            if (($guia_enviada == 1 && $estado_factura != 0) || $drogshipin == 3) {
+                                                if ($drogshipin == 3) {
+                                                    $archivo_tienda = $tienda . '/sysadmin/vistas/db1.php'; // Nombre del archivo original
+                                                    // echo $archivo_tienda;
+                                                    $contenido_tienda = file_get_contents($archivo_tienda);
+                                                    $archivo_destino_tienda = '../db_destino_guia.php'; // Nombre del archivo de destino
+                                                    //echo $archivo_destino_tienda;
+                                                    // $origen = fopen($archivo_origen_marketplace, 'r');
+                                                    if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+                                                        //echo "El JSON se ha guardado correctamente en el archivo.";
 
-} else {
-    echo "Error al guardar eddl JSON en el archivo.";
-}
 
-  require_once "../php_conexion_destino_guia.php";
-  $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
-  echo $guia_numero;
-  $id_factura_guia=$id_factura_origen;
-                                                 //  $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); 
-                                                }else{
-                                                  $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);  
+                                                    } else {
+                                                        echo "Error al guardar eddl JSON en el archivo.";
+                                                    }
+
+                                                    require_once "../php_conexion_destino_guia.php";
+                                                    $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
+                                                    echo $guia_numero;
+                                                    $id_factura_guia = $id_factura_origen;
+                                                    //  $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); 
+                                                } else {
+                                                    $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                                                 }
-                                                
+
                                                 $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
 
                                                 $curl = curl_init($url);
@@ -264,15 +264,15 @@ if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
 
                                                 // Cerrar la sesión cURL
                                                 curl_close($curl);
-if($drogshipin==3){
-    $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen);
-     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
-}else{
-   $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); 
-    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
-}
-                                                
-                                               
+                                                if ($drogshipin == 3) {
+                                                    $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen);
+                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
+                                                } else {
+                                                    $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                }
+
+
 
                                             ?>
                                 <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
