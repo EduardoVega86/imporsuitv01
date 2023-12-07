@@ -142,6 +142,8 @@ if ($action == 'ajax') {
                         default:
                             echo "Estado no reconocido";
                     }
+                    
+                    
 
 
                     $total_venta    = $row['monto_factura'];
@@ -247,13 +249,14 @@ if ($action == 'ajax') {
                                                                 $estado_guia = 'Anulada';
                                                                 break;
                                                             case '8':
-                                                                $span_estado = 'badge-purple';
+                                                                $span_estado = 'badge-danger';
                                                                 $estado_guia = 'Anulada';
                                                                 break;
                                                             case '9':
                                                                 echo "i es igual a 2";
                                                                 break;
                                                         }
+                                                         $estado_guia=get_row('estado_courier','alias','codigo',$data['estadoActualCodigo']);
                                                     } else {
                                                         echo 'No se pudo obtener el estadoActual';
                                                     }

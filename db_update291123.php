@@ -899,6 +899,7 @@ mysqli_query($conexion, "CREATE TABLE `estado_courier` (
   `alias` varchar(500) DEFAULT NULL,
   UNIQUE KEY `id_estado` (`id_estado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci");
+mysqli_query($conexion, "DELETE FROM `estado_courier`");
 
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (1, '1', 'Envío listo para despachar', 'Pendiente')");
 mysqli_query($conexion, "INSERT INTO estado_courier (codigo, id_servicio, descripcion, alias) VALUES (2, '1', 'Envío creado por procesar', 'Por Recolectar')");
