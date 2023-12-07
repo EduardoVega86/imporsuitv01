@@ -51,9 +51,15 @@ $base_url = $protocol . '://' . $domain;
    </style>
    <link href="ccs/style_ini.css" rel="stylesheet" type="text/css" />
    <link href="ccs/base.css?v=108207397045790613361693673626" rel="stylesheet" type="text/css" media="all" />
+   <?php
+   $sql = "select * from pixel";
+   $query = mysqli_query($conexion, $sql);
+   $row = mysqli_fetch_array($query);
+
+   ?>
+
+   <!-- Meta Pixel Code -->
    <script>
-      //Pixel de Facebook, PageView, Purchase, AddToCart, InitiateCheckout, CompleteRegistration, ViewContent, PotentialCustomer
-      /*
       ! function(f, b, e, v, n, t, s) {
          if (f.fbq) return;
          n = f.fbq = function() {
@@ -72,29 +78,17 @@ $base_url = $protocol . '://' . $domain;
          s.parentNode.insertBefore(t, s)
       }(window, document, 'script',
          'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '<?php echo $row['pixel'] ?>');
+      fbq('init', '260280873723650');
       fbq('track', 'PageView');
-      fbq('track', 'Purchase', {
-         value: 0.00,
-         currency: 'USD'
-      });
+      fbq('track', 'Purchase');
       fbq('track', 'AddToCart');
       fbq('track', 'InitiateCheckout');
       fbq('track', 'CompleteRegistration');
       fbq('track', 'ViewContent');
-      fbq('track', 'PotentialCustomer');*/
    </script>
-   <!--  <?php
-         $sql = "select * from pixel";
-         $query = mysqli_query($conexion, $sql);
-         $row = mysqli_fetch_array($query);
-         if (!empty($row['pixel'])) {
-         ?>
-      
+   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=260280873723650&ev=PageView&noscript=1" /></noscript>
+   <!-- End Meta Pixel Code -->
 
-   <?php
-         }
-   ?> -->
    <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
       if (Shopify.designMode) {

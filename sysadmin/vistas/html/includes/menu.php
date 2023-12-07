@@ -136,10 +136,10 @@ require_once "../funciones.php";
 				<li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Pedidos
 						</span> <span class="menu-arrow"></span></a>
-                                             
+
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
-                                                <li><a href="../html/new_cotizacion.php">Ingresar Pedidos</a></li>
+						<li><a href="../html/new_cotizacion.php">Ingresar Pedidos</a></li>
 						<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
 					</ul>
 				</li>
@@ -214,6 +214,15 @@ require_once "../funciones.php";
 
 						<li><a href="../html/origen_laar.php">Configurar Origen Laar Courier</a></li>
 
+					</ul>
+				</li>
+				<li>
+					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-wallet"></i><span> Cartera</span> <span class="menu-arrow"></span></a>
+					<ul class="list-unstyled">
+
+						<li><a href="../html/wallet.php">Configurar Cartera</a></li>
+
+					</ul>
 				</li>
 				<!--li class="has_sub">
 										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-import"></i><span> Carga Txt

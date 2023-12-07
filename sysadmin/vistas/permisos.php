@@ -12,9 +12,8 @@ function get_cadena($user_id_iws)
     $row = mysqli_fetch_array($query_user);
 
     $cadena_permisos = $row['permission'];
-//echo $cadena_permisos;
+    //echo $cadena_permisos;
     return $cadena_permisos;
-
 }
 
 function permisos($modulo, $cadena)
@@ -31,9 +30,7 @@ function permisos($modulo, $cadena)
         $cadena = substr($cadena, $inicio, $count_search);
 
         list($modulo_permisos, $permisos_ver, $permisos_editar, $permisos_eliminar) = explode(",", $cadena);
-
     }
-
 }
 
 function permisos_menu($modulo, $cadena)
@@ -50,7 +47,5 @@ function permisos_menu($modulo, $cadena)
         $cadena = substr($cadena, $inicio, $count_search);
 
         list($modulo_permisos_menu, $permisos_ver_menu, $permisos_editar_menu, $permisos_eliminar_menu) = explode(",", $cadena);
-
     }
-
 }
