@@ -256,7 +256,7 @@ if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
                                                                 echo "i es igual a 2";
                                                                 break;
                                                         }
-                                                         $estado_guia=get_row('estado_courier','alias','codigo',$data['estadoActualCodigo']);
+                                                     $estado_guia=get_row('estado_courier','alias','codigo',$data['estadoActualCodigo']);
                                                     } else {
                                                         echo 'No se pudo obtener el estadoActual';
                                                     }
@@ -288,7 +288,23 @@ if($drogshipin==3){
                                                 }
                                             } ?>
                         </td>
-                        <td><a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos('<?php echo $id_factura; ?>');"><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></a></td>
+                        <td>
+                            <select onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado' >
+												<option value="">-- Selecciona --</option>
+												<?php
+//echo "select * from estado_guia";
+    $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
+    while ($rw = mysqli_fetch_array($query_categoria)) {
+         $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
+        ?>
+													<option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
+													<?php
+}
+    ?>
+											</select>
+                            
+                            
+                        </td>
                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
                         <td class="text-center">
                             <div class="btn-group dropdown">
