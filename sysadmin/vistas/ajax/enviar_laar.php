@@ -323,7 +323,7 @@ if ($response) {
                 . "'$valorasegurado','$productos_guia','$cod_guia','0','$valor_total',"
                 . "'0','$observacion','$costo_total',2)";
 //echo $sql_insertar_guia_destino;
-        echo $tipo_origen;
+        //echo $tipo_origen;
         if($tipo_origen==1){
             
         //echo "origen";
