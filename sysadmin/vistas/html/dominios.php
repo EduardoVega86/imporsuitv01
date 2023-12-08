@@ -113,7 +113,7 @@ while ($r = $query->fetch_object()) {
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-
+<script src="./js/dominio.js"></script>
 
 <?php require 'includes/footer_end.php'
 ?>
