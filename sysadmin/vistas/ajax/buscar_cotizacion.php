@@ -22,7 +22,7 @@ if ($action == 'ajax') {
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "facturas_cot, clientes, users";
     $sWhere = "";
-    $sWhere .= " WHERE estado_factura <> 8 and  facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
+    $sWhere .= " WHERE estado_factura <> 8 and estado_factura <> 7 and facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
     if ($_GET['q'] != "") {
         $sWhere .= " and  (facturas_cot.nombre like '%$q%' or facturas_cot.numero_factura like '%$q%')";
     }
@@ -189,7 +189,7 @@ if ($action == 'ajax') {
 
                                                     require_once "../php_conexion_destino_guia.php";
                                                     $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
-                                                    echo $guia_numero;
+                                                   // echo $guia_numero;
                                                     $id_factura_guia = $id_factura_origen;
                                                     //  $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); 
                                                 } else {
@@ -275,6 +275,10 @@ if ($action == 'ajax') {
                                                      $estado_guia=get_row('estado_courier','alias','codigo',$data['estadoActualCodigo']);
                                                     } else {
                                                         echo 'No se pudo obtener el estadoActual';
+                                                        if($drogshipin==3){
+                                                          $guia_numero = get_row_destino($conexion_destino,'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);  
+                                                        }
+                                             
                                                     }
                                                 }
 

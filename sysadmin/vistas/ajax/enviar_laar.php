@@ -193,6 +193,7 @@ $costo_total = $_POST['costo_total'];
 // URL del servicio web al que deseas enviar los datos con el token
 $destino_url = "https://api.laarcourier.com:9727/guias/contado";
 // Datos a enviar en formato JSON al servicio de destino
+$cantidad_total=1;
 $datos_destino = array(
     "origen" => array(
         "identificacionO" => "$identificacionO",
