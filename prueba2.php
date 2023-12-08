@@ -1,6 +1,2 @@
 <?php
-echo 'a';
-echo 'asd';
-echo 'prueba';
-echo 'pruebsada';
-  ?>
+echo json_encode(exec('git rev-parse --abbrev-ref HEAD'));
