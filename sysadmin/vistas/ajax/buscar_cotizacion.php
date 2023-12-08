@@ -308,6 +308,11 @@ if ($action == 'ajax') {
                             <select onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado' >
 												<option value="">-- Selecciona --</option>
 												<?php
+                                                                                                if ($data['estadoActualCodigo']==8){
+                                                                                                       $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
+                                                                                                WHERE id_factura='" . $id_factura . "'";
+                                                                                             $query_anular = mysqli_query($conexion, $sql_anular);
+                                                                                                }
 //echo "select * from estado_guia";
     $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
     while ($rw = mysqli_fetch_array($query_categoria)) {
