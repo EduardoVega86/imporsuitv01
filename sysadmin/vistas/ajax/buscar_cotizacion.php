@@ -108,7 +108,7 @@ if ($action == 'ajax') {
 
                         case 1:
                             $text_estado = "Confirmar";
-                            $label_class = 'badge-success';
+                            $label_class = 'badge-warning';
                             break;
                         case 2:
                             $text_estado = "Pick y Pack ";
@@ -124,7 +124,7 @@ if ($action == 'ajax') {
                             break;
                         case 5:
                             $text_estado = "Cobrado";
-                            $label_class = 'badge-warning';
+                            $label_class = 'badge-primary';
                             break;
                         case 6:
                             $text_estado = "Pagado ";
@@ -142,8 +142,8 @@ if ($action == 'ajax') {
                         default:
                             echo "Estado no reconocido";
                     }
-                    
-                    
+
+
 
 
                     $total_venta    = $row['monto_factura'];
@@ -189,7 +189,7 @@ if ($action == 'ajax') {
 
                                                     require_once "../php_conexion_destino_guia.php";
                                                     $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
-                                                   // echo $guia_numero;
+                                                    // echo $guia_numero;
                                                     $id_factura_guia = $id_factura_origen;
                                                     //  $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); 
                                                 } else {
@@ -256,15 +256,15 @@ if ($action == 'ajax') {
                                                                 $span_estado = 'badge-danger';
                                                                 //$estado_guia = 'Anulada';
                                                                 break;
-                                                             case '16':
+                                                            case '16':
                                                                 $span_estado = 'badge-danger';
                                                                 //$estado_guia = 'Anulada';
                                                                 break;
-                                                             case '29':
+                                                            case '29':
                                                                 $span_estado = 'badge-danger';
                                                                 //$estado_guia = 'Anulada';
                                                                 break;
-                                                             case '48':
+                                                            case '48':
                                                                 $span_estado = 'badge-danger';
                                                                 //$estado_guia = 'Anulada';
                                                                 break;
@@ -272,13 +272,12 @@ if ($action == 'ajax') {
                                                                 echo "i es igual a 2";
                                                                 break;
                                                         }
-                                                     $estado_guia=get_row('estado_courier','alias','codigo',$data['estadoActualCodigo']);
+                                                        $estado_guia = get_row('estado_courier', 'alias', 'codigo', $data['estadoActualCodigo']);
                                                     } else {
                                                         echo 'No se pudo obtener el estadoActual';
-                                                        if($drogshipin==3){
-                                                          $guia_numero = get_row_destino($conexion_destino,'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);  
+                                                        if ($drogshipin == 3) {
+                                                            $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
                                                         }
-                                             
                                                     }
                                                 }
 
@@ -309,26 +308,26 @@ if ($action == 'ajax') {
                                             } ?>
                         </td>
                         <td>
-                            <select onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado' >
-												<option value="">-- Selecciona --</option>
-												<?php
-                                                                                                if ($data['estadoActualCodigo']==8){
-                                                                                                       $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
+                            <select onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
+                                <option value="">-- Selecciona --</option>
+                                <?php
+                                if ($data['estadoActualCodigo'] == 8) {
+                                    $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
                                                                                                 WHERE id_factura='" . $id_factura . "'";
-                                                                                             $query_anular = mysqli_query($conexion, $sql_anular);
-                                                                                                }
-//echo "select * from estado_guia";
-    $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
-    while ($rw = mysqli_fetch_array($query_categoria)) {
-         $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
-        ?>
-													<option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-													<?php
-}
-    ?>
-											</select>
-                            
-                            
+                                    $query_anular = mysqli_query($conexion, $sql_anular);
+                                }
+                                //echo "select * from estado_guia";
+                                $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
+                                while ($rw = mysqli_fetch_array($query_categoria)) {
+                                    $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
+                                ?>
+                                    <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+
+
                         </td>
                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
                         <td class="text-center">

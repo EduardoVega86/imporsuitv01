@@ -443,7 +443,6 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
   }
 </script>
 
-<script src="../js/actualizar.js"></script>
 
 <?php require 'includes/footer_end.php'
 ?>
