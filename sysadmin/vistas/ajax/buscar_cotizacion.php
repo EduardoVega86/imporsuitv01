@@ -252,6 +252,22 @@ if ($action == 'ajax') {
                                                                 $span_estado = 'badge-danger';
                                                                 $estado_guia = 'Anulada';
                                                                 break;
+                                                            case '14':
+                                                                $span_estado = 'badge-danger';
+                                                                //$estado_guia = 'Anulada';
+                                                                break;
+                                                             case '16':
+                                                                $span_estado = 'badge-danger';
+                                                                //$estado_guia = 'Anulada';
+                                                                break;
+                                                             case '29':
+                                                                $span_estado = 'badge-danger';
+                                                                //$estado_guia = 'Anulada';
+                                                                break;
+                                                             case '48':
+                                                                $span_estado = 'badge-danger';
+                                                                //$estado_guia = 'Anulada';
+                                                                break;
                                                             case '9':
                                                                 echo "i es igual a 2";
                                                                 break;
