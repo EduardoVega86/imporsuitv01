@@ -141,6 +141,7 @@ require_once "../funciones.php";
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
 						<li><a href="../html/new_cotizacion.php">Ingresar Pedidos</a></li>
 						<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
+                                                <li><a href="../html/bitacora_anulaciones.php">Anulados</a></li>
 					</ul>
 				</li>
 				<!-- <li class="has_sub">
