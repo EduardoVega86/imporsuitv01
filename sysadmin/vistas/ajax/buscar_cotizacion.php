@@ -22,7 +22,7 @@ if ($action == 'ajax') {
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "facturas_cot, clientes, users";
     $sWhere = "";
-    $sWhere .= " WHERE facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
+    $sWhere .= " WHERE estado_factura <> 8 and  facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
     if ($_GET['q'] != "") {
         $sWhere .= " and  (facturas_cot.nombre like '%$q%' or facturas_cot.numero_factura like '%$q%')";
     }
