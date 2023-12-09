@@ -71,7 +71,7 @@ if ($action == "ajax") {
                         <th class="text-center">Fecha</th>
                         <th class="text-center">Cliente</th>
                         <th class="text-center">Tienda</th>
-                        <th class="text-center">Estado Pedido</th>
+                        <th class="text-center">Estado de la Guia</th>
                         <th class="text-center">Total Venta</th>
                         <th class="text-center">Costo</th>
                         <th class="text-center">Precio de Envio</th>
@@ -95,52 +95,40 @@ if ($action == "ajax") {
                         $estado_factura = $row['estado_pedido'];
                         $guia_enviada   = $row['guia_enviada'];
 
-                        if ($estado_factura == 1) {
-                            $text_estado = "INGRESADA";
-                            $label_class = 'badge-success';
-                        } else {
-                            $text_estado = "CREDITO";
-                            $label_class = 'badge-danger';
-                        }
-
-                        switch ($estado_factura) {
+                        switch ($guia_enviada) {
                             case 1:
-                                $text_estado = "Confirmar";
-                                $label_class = 'badge-success';
+                                $guia_enviada = "Pendiente";
                                 break;
                             case 2:
-                                $text_estado = "Pick y Pack ";
-                                $label_class = 'badge-info';
+                                $guia_enviada = "Por recolectar";
                                 break;
                             case 3:
-                                $text_estado = "Despachado";
-                                $label_class = 'badge-success';
+                                $guia_enviada = "Recolectado";
                                 break;
                             case 4:
-                                $text_estado = "Zona de entrega ";
-                                $label_class = 'badge-purple';
+                                $guia_enviada = "En bodeg";
                                 break;
+
                             case 5:
-                                $text_estado = "Cobrado";
-                                $label_class = 'badge-warning';
+                                $guia_enviada = "En transito";
                                 break;
                             case 6:
-                                $text_estado = "Pagado ";
-                                $label_class = 'badge-purple';
+                                $guia_enviada = "Zona de entrega";
                                 break;
-
                             case 7:
-                                $text_estado = "Liquidado";
-                                $label_class = 'badge-primary';
+                                $guia_enviada = "Entregado";
                                 break;
                             case 8:
-                                $text_estado = "Anulado";
-                                $label_class = 'badge-danger';
+                                $guia_enviada = "Anulado";
                                 break;
-                            default:
-                                echo "Estado no reconocido";
+                            case 9:
+                                $guia_enviada = "Devuelto";
+                                break;
+                            case 10:
+                                $guia_enviada = "Facturado  ";
+                                break;
                         }
-
+                        $label_class = 'badge-purple';
                         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                     ?>
                         <input type="hidden" value="<?php echo $estado_factura; ?>" id="estado<?php echo $id_factura; ?>">
@@ -151,7 +139,7 @@ if ($action == "ajax") {
                             <td class="text-center"><?php echo $nombre_cliente; ?></td>
                             <td class="text-center"><?php echo $tienda; ?></td>
 
-                            <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
+                            <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $guia_enviada; ?></span></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>

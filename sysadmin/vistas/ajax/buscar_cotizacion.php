@@ -14,7 +14,13 @@ include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
 $modulo = "Ventas";
-permisos($modulo, $cadena_permisos); 
+
+permisos($modulo, $cadena_permisos);
+// obtiene el dominio actual
+$dominio = $_SERVER['HTTP_HOST'];
+// se quitan los espacios en blanco 
+$dominio = str_replace(' ', '', $dominio);
+
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
@@ -69,6 +75,7 @@ if ($action == 'ajax') {
                     <th>Estado Pedido</th>
                     <th class='text-center'>Total</th>
                     <th></th>
+                    <th></th>
 
                 </tr>
                 <?php
@@ -99,7 +106,7 @@ if ($action == 'ajax') {
                     $guia_enviada   = $row['guia_enviada'];
                     $drogshipin   = $row['drogshipin'];
                     $tienda   = $row['tienda'];
-                    $span_estado='';
+                    $span_estado = '';
 
                     if ($estado_factura == 1) {
                         $text_estado = "INGRESADA";
@@ -178,24 +185,23 @@ if ($action == 'ajax') {
                         <td align="center"><?php
                                             if (($estado_factura != 0) || $drogshipin == 3) {
                                                 if ($drogshipin == 3) {
-                                                   
-                                                        
-                                                    
-                                                   $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen." and tienda_venta='".$tienda."'");
-                                                   
-                                                   if(isset($guia_numero)){
-                                                       
-                                                   }else{
-                                                     $guia_numero='GUIA NO ENVIADA';  
-                                                   }
-                                                //  echo $guia_numero;
+
+
+
+                                                    $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+
+                                                    if (isset($guia_numero)) {
+                                                    } else {
+                                                        $guia_numero = 'GUIA NO ENVIADA';
+                                                    }
+                                                    //  echo $guia_numero;
                                                 } else {
                                                     $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
-                                                   // echo 'as';
+                                                    // echo 'as';
                                                 }
 
                                                 $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-//echo $url;
+                                                //echo $url;
                                                 $curl = curl_init($url);
 
                                                 // Establecer opciones para la solicitud cURL
@@ -213,7 +219,7 @@ if ($action == 'ajax') {
                                                 } else {
                                                     // Procesar la respuesta
                                                     $data = json_decode($response, true);
-                                                   // echo $data['estadoActualCodigo'];
+                                                    // echo $data['estadoActualCodigo'];
                                                     if ($data !== null && isset($data['estadoActualCodigo'])) {
                                                         // Imprimir el estadoActual
                                                         //echo 'Estado Actual: ' . $data['estadoActual'];
@@ -274,19 +280,19 @@ if ($action == 'ajax') {
                                                         $estado_guia = get_row('estado_courier', 'alias', 'codigo', $data['estadoActualCodigo']);
                                                     } else {
                                                         echo 'No se pudo obtener el estadoActual';
-                                                       // echo 'hasta';
+                                                        // echo 'hasta';
                                                         if ($drogshipin == 3) {
-                                                           // $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
+                                                            // $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
                                                         }
                                                     }
                                                 }
 
                                                 // Cerrar la sesi贸n cURL
                                                 curl_close($curl);
-                                             
+
                                                 if ($drogshipin == 3) {
-                                                    $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen." and tienda_venta='".$tienda."'");
-                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen." and tienda_venta='".$tienda."'");;
+                                                    $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");;
                                                 } else {
                                                     $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
@@ -304,7 +310,7 @@ if ($action == 'ajax') {
                                                 if ($estado_factura == 0) {
                                                     echo 'GUIA ANULADA';
                                                 } else {
-                                                   
+
                                                     echo '<h1>NO ENVIADA</h2>';
                                                 }
                                             } ?>
@@ -332,6 +338,8 @@ if ($action == 'ajax') {
 
                         </td>
                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
+
+
                         <td class="text-center">
                             <div class="btn-group dropdown">
                                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
@@ -343,6 +351,14 @@ if ($action == 'ajax') {
                                     if ($permisos_eliminar == 1) { ?>
                                         <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                     <?php } ?>
+                                    <?php
+                                    if ($dominio == 'localhost' || $dominio == 'marketplace.imporsuit.com') {
+                                    ?>
+
+                                        <button class="dropdown-item" onclick="wallet('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Cartera</button>
+                                    <?php
+                                    }
+                                    ?>
 
 
                                 </div>
@@ -372,6 +388,7 @@ if ($action == 'ajax') {
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>Aviso!</strong> No hay Registro de Cotizaciones
         </div>
+
 <?php
     }
     // fin else
