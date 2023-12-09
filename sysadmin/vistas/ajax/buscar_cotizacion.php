@@ -95,6 +95,7 @@ if ($action == 'ajax') {
                     $guia_enviada   = $row['guia_enviada'];
                     $drogshipin   = $row['drogshipin'];
                     $tienda   = $row['tienda'];
+                    $span_estado='';
 
                     if ($estado_factura == 1) {
                         $text_estado = "INGRESADA";
@@ -171,33 +172,26 @@ if ($action == 'ajax') {
                         <td><?php echo $direccion; ?></td>
 
                         <td align="center"><?php
-                                            if (($guia_enviada == 1 && $estado_factura != 0) || $drogshipin == 3) {
+                                            if (($estado_factura != 0) || $drogshipin == 3) {
                                                 if ($drogshipin == 3) {
-                                                    $archivo_tienda = $tienda . '/sysadmin/vistas/db1.php'; // Nombre del archivo original
-                                                    // echo $archivo_tienda;
-                                                    $contenido_tienda = file_get_contents($archivo_tienda);
-                                                    $archivo_destino_tienda = '../db_destino_guia.php'; // Nombre del archivo de destino
-                                                    //echo $archivo_destino_tienda;
-                                                    // $origen = fopen($archivo_origen_marketplace, 'r');
-                                                    if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
-                                                        //echo "El JSON se ha guardado correctamente en el archivo.";
-
-
-                                                    } else {
-                                                        echo "Error al guardar eddl JSON en el archivo.";
-                                                    }
-
-                                                    require_once "../php_conexion_destino_guia.php";
-                                                    $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
-                                                    // echo $guia_numero;
-                                                    $id_factura_guia = $id_factura_origen;
-                                                    //  $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); 
+                                                   
+                                                        
+                                                    
+                                                   $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen." and tienda_venta='".$tienda."'");
+                                                   
+                                                   if(isset($guia_numero)){
+                                                       
+                                                   }else{
+                                                     $guia_numero='GUIA NO ENVIADA';  
+                                                   }
+                                                //  echo $guia_numero;
                                                 } else {
                                                     $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                   // echo 'as';
                                                 }
 
                                                 $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-
+//echo $url;
                                                 $curl = curl_init($url);
 
                                                 // Establecer opciones para la solicitud cURL
@@ -209,12 +203,13 @@ if ($action == 'ajax') {
                                                 // Realizar la solicitud GET
                                                 $response = curl_exec($curl);
 
-                                                // Verificar si hubo algún error en la solicitud
+                                                // Verificar si hubo alg煤n error en la solicitud
                                                 if ($response === false) {
                                                     echo 'Error en la solicitud: ' . curl_error($curl);
                                                 } else {
                                                     // Procesar la respuesta
                                                     $data = json_decode($response, true);
+                                                   // echo $data['estadoActualCodigo'];
                                                     if ($data !== null && isset($data['estadoActualCodigo'])) {
                                                         // Imprimir el estadoActual
                                                         //echo 'Estado Actual: ' . $data['estadoActual'];
@@ -275,17 +270,19 @@ if ($action == 'ajax') {
                                                         $estado_guia = get_row('estado_courier', 'alias', 'codigo', $data['estadoActualCodigo']);
                                                     } else {
                                                         echo 'No se pudo obtener el estadoActual';
+                                                       // echo 'hasta';
                                                         if ($drogshipin == 3) {
-                                                            $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
+                                                           // $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
                                                         }
                                                     }
                                                 }
 
-                                                // Cerrar la sesión cURL
+                                                // Cerrar la sesi贸n cURL
                                                 curl_close($curl);
+                                             
                                                 if ($drogshipin == 3) {
-                                                    $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen);
-                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
+                                                    $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen." and tienda_venta='".$tienda."'");
+                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen." and tienda_venta='".$tienda."'");;
                                                 } else {
                                                     $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
@@ -303,7 +300,8 @@ if ($action == 'ajax') {
                                                 if ($estado_factura == 0) {
                                                     echo 'GUIA ANULADA';
                                                 } else {
-                                                    echo 'NO ENVIADA';
+                                                   
+                                                    echo '<h1>NO ENVIADA</h2>';
                                                 }
                                             } ?>
                         </td>
