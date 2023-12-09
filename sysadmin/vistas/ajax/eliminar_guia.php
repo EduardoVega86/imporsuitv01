@@ -3,7 +3,7 @@
 require_once "../db.php";
 require_once "../php_conexion.php";
 $authData = array(
-    "username" => "import.uio.api",
+     "username" => "import.uio.api",
     "password" => "Imp@rt*23"
 );
 

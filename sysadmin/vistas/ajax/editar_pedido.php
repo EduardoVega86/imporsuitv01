@@ -25,11 +25,9 @@ if (empty($_POST['mod_id'])) {
     if($estado==8){
         $guia=get_row('guia_laar', 'guia_laar', 'id_pedido', $id );
         $authData = array(
-    "username" => "prueba.importshop.api",
-    "password" => "!mp0rt@sh@23"
+    "username" => "import.uio.api",
+    "password" => "Imp@rt*23"
 );
-
-
 
 //echo $guia;
 // Convertir los datos de autenticación a formato JSON
