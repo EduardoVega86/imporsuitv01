@@ -123,6 +123,6 @@ $ventas = 1;
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/bitacora_cotizacion.js"></script>
-
+<script src="../ajax/js/wallet.js"></script>
 <?php require 'includes/footer_end.php'
 ?>

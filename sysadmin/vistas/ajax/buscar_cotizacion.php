@@ -15,6 +15,10 @@ $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
 $modulo = "Ventas";
 permisos($modulo, $cadena_permisos);
+// obtiene el dominio actual
+$dominio = $_SERVER['HTTP_HOST'];
+// se quitan los espacios en blanco 
+$dominio = str_replace(' ', '', $dominio);
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
@@ -64,6 +68,7 @@ if ($action == 'ajax') {
                     <th align="center">Estado Guia</th>
                     <th>Estado Pedido</th>
                     <th class='text-center'>Total</th>
+                    <th></th>
                     <th></th>
 
                 </tr>
@@ -330,6 +335,8 @@ if ($action == 'ajax') {
 
                         </td>
                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
+
+
                         <td class="text-center">
                             <div class="btn-group dropdown">
                                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
@@ -341,6 +348,14 @@ if ($action == 'ajax') {
                                     if ($permisos_eliminar == 1) { ?>
                                         <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                     <?php } ?>
+                                    <?php
+                                    if ($dominio == 'localhost' || $dominio == 'marketplace.imporsuit.com') {
+                                    ?>
+
+                                        <button class="dropdown-item" onclick="wallet('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Cartera</button>
+                                    <?php
+                                    }
+                                    ?>
 
 
                                 </div>
@@ -370,6 +385,7 @@ if ($action == 'ajax') {
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>Aviso!</strong> No hay Registro de Cotizaciones
         </div>
+
 <?php
     }
     // fin else
