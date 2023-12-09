@@ -27,6 +27,14 @@ const wallet = (numero_factura) => {
           }).then(() => {
             window.location.reload();
           });
+        }
+        if (data === "existe") {
+          Swal.fire({
+            title: "¡Error al actualizar la billetera!",
+            icon: "error",
+            text: "¡La billetera ya existe!",
+            confirmButtonText: "¡Aceptar!",
+          });
         } else {
           Swal.fire({
             title: "¡Error al actualizar la billetera!",

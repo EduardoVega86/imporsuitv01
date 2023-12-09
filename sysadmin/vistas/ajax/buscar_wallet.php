@@ -125,56 +125,10 @@ if ($action == "ajax") {
                                 $guia_enviada = "Devuelto";
                                 break;
                             case 10:
-                                $guia_enviada = "Facturado";
+                                $guia_enviada = "Facturado  ";
                                 break;
                         }
-
-                        if ($estado_factura == 1) {
-                            $text_estado = "INGRESADA";
-                            $label_class = 'badge-success';
-                        } else {
-                            $text_estado = "CREDITO";
-                            $label_class = 'badge-danger';
-                        }
-
-                        switch ($estado_factura) {
-                            case 1:
-                                $text_estado = "Confirmar";
-                                $label_class = 'badge-success';
-                                break;
-                            case 2:
-                                $text_estado = "Pick y Pack ";
-                                $label_class = 'badge-info';
-                                break;
-                            case 3:
-                                $text_estado = "Despachado";
-                                $label_class = 'badge-success';
-                                break;
-                            case 4:
-                                $text_estado = "Zona de entrega ";
-                                $label_class = 'badge-purple';
-                                break;
-                            case 5:
-                                $text_estado = "Cobrado";
-                                $label_class = 'badge-warning';
-                                break;
-                            case 6:
-                                $text_estado = "Pagado ";
-                                $label_class = 'badge-purple';
-                                break;
-
-                            case 7:
-                                $text_estado = "Liquidado";
-                                $label_class = 'badge-primary';
-                                break;
-                            case 8:
-                                $text_estado = "Anulado";
-                                $label_class = 'badge-danger';
-                                break;
-                            default:
-                                echo "Estado no reconocido";
-                        }
-
+                        $label_class = 'badge-purple';
                         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                     ?>
                         <input type="hidden" value="<?php echo $estado_factura; ?>" id="estado<?php echo $id_factura; ?>">

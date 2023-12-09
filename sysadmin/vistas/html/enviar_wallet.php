@@ -17,6 +17,14 @@ if (
 }
 $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
+// verifica si ya existe la facutra en la tabla de cuenta por cobrar
+
+$existeFactura = get_row('cabecera_cuenta_cobrar', 'numero_factura', 'numero_factura', $numero_factura);
+if ($existeFactura) {
+    echo json_encode('existe');
+    exit;
+}
+
 
 $conexion = mysqli_connect($host, $usuario, $contrasena, $base_de_datos);
 $conexion->set_charset("utf8");
