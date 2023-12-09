@@ -14,7 +14,7 @@ include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
 $modulo = "Ventas";
-permisos($modulo, $cadena_permisos);
+permisos($modulo, $cadena_permisos); 
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
@@ -25,6 +25,10 @@ if ($action == 'ajax') {
     $sWhere .= " WHERE estado_factura <> 8 and estado_factura <> 7 and facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
     if ($_GET['q'] != "") {
         $sWhere .= " and  (facturas_cot.nombre like '%$q%' or facturas_cot.numero_factura like '%$q%')";
+    }
+    if (@$_GET['tienda'] != "") {
+        $tienda    = $_REQUEST['tienda'];
+        $sWhere .= " and  tienda='$tienda'";
     }
 
     $sWhere .= " order by facturas_cot.id_factura desc";
