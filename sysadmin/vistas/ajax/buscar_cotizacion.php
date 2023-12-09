@@ -71,8 +71,8 @@ if ($action == 'ajax') {
 
                     <th>Direccion</th>
 
-                    <th align="center">Estado Guia</th>
-                    <th>Estado Pedido</th>
+                    <th colspan="2" style="text-align: center;">Estado</th>
+                
                     <th class='text-center'>Total</th>
                     <th></th>
                     <th></th>
@@ -316,7 +316,10 @@ if ($action == 'ajax') {
                                             } ?>
                         </td>
                         <td>
-                            <select onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
+                            <?php if($drogshipin==3){
+                           
+                                ?>
+                            <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
                                 <option value="">-- Selecciona --</option>
                                 <?php
                                 if ($data['estadoActualCodigo'] == 8) {
@@ -334,7 +337,9 @@ if ($action == 'ajax') {
                                 }
                                 ?>
                             </select>
-
+        <?php 
+                            }
+                                ?>
 
                         </td>
                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
