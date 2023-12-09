@@ -71,7 +71,7 @@ if ($action == "ajax") {
                         <th class="text-center">Fecha</th>
                         <th class="text-center">Cliente</th>
                         <th class="text-center">Tienda</th>
-                        <th class="text-center">Estado Pedido</th>
+                        <th class="text-center">Estado de la Guia</th>
                         <th class="text-center">Total Venta</th>
                         <th class="text-center">Costo</th>
                         <th class="text-center">Precio de Envio</th>
@@ -94,6 +94,40 @@ if ($action == "ajax") {
                         $monto_recibir = $row['monto_recibir'];
                         $estado_factura = $row['estado_pedido'];
                         $guia_enviada   = $row['guia_enviada'];
+
+                        switch ($guia_enviada) {
+                            case 1:
+                                $guia_enviada = "Pendiente";
+                                break;
+                            case 2:
+                                $guia_enviada = "Por recolectar";
+                                break;
+                            case 3:
+                                $guia_enviada = "Recolectado";
+                                break;
+                            case 4:
+                                $guia_enviada = "En bodeg";
+                                break;
+
+                            case 5:
+                                $guia_enviada = "En transito";
+                                break;
+                            case 6:
+                                $guia_enviada = "Zona de entrega";
+                                break;
+                            case 7:
+                                $guia_enviada = "Entregado";
+                                break;
+                            case 8:
+                                $guia_enviada = "Anulado";
+                                break;
+                            case 9:
+                                $guia_enviada = "Devuelto";
+                                break;
+                            case 10:
+                                $guia_enviada = "Facturado";
+                                break;
+                        }
 
                         if ($estado_factura == 1) {
                             $text_estado = "INGRESADA";
@@ -151,7 +185,7 @@ if ($action == "ajax") {
                             <td class="text-center"><?php echo $nombre_cliente; ?></td>
                             <td class="text-center"><?php echo $tienda; ?></td>
 
-                            <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
+                            <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $guia_enviada; ?></span></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>
