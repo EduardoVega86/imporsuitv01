@@ -48,6 +48,27 @@ function load(page) {
     },
   });
 }
+
+function buscar(tienda) {
+   // alert(tienda)
+  var q = $("#q").val();
+  page=1;
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url: "../ajax/buscar_cotizacion.php?action=ajax&page=" + page + "&tienda=" + tienda+ "&q=" + q,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
+}
+
 $("#dataDelete").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget); // Botón que activó el modal
   var id = button.data("id"); // Extraer la información de atributos de datos
