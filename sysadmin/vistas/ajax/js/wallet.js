@@ -34,9 +34,9 @@ const wallet = (numero_factura) => {
           });
         } else if (data === "no_guias") {
           Swal.fire({
-            title: "¡Error al generar la billetera!",
+            title: "¡No se ha generado la guia!!",
             icon: "warning",
-            text: "¡No hay se ha generado la guia!",
+            text: "¡Genere la guia primero!",
             confirmButtonText: "¡Aceptar!",
           });
         } else {
