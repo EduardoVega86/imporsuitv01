@@ -76,7 +76,10 @@ if ($action == "ajax") {
                         <th class="text-center">Costo</th>
                         <th class="text-center">Precio de Envio</th>
                         <th class="text-center">Monto a recibir</th>
-                        <th></th>
+                        <th class="text-center">Valor cobrado</th>
+                        <th class="text-center">Valor pendiente</th>
+
+                        <th colspan="3"></th>
                     </tr>
                 </thead>
                 <tbody id="resultados">
@@ -94,6 +97,8 @@ if ($action == "ajax") {
                         $monto_recibir = $row['monto_recibir'];
                         $estado_factura = $row['estado_pedido'];
                         $guia_enviada   = $row['guia_enviada'];
+                        $valor_cobrado = $row['valor_cobrado'];
+                        $valor_pendiente = $row['valor_pendiente'];
 
                         switch ($guia_enviada) {
                             case 1:
@@ -144,6 +149,8 @@ if ($action == "ajax") {
                             <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>
                             <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
+                            <td class="text-center"><?php echo $simbolo_moneda . $valor_cobrado; ?></td>
+                            <td class="text-center"><?php echo $simbolo_moneda . $valor_pendiente; ?></td>
                             <td class="text-center">
                                 <div class="btn-group dropdown">
                                     <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
@@ -155,9 +162,10 @@ if ($action == "ajax") {
                                         if ($permisos_eliminar == 1) { ?>
                                             <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                         <?php } ?>
-
+                                        <a href="pagar_wallet.php?id_factura=<?php echo $id_factura ?>&tienda=<?php echo $tienda ?>" class="dropdown-item"> <i class="ti-wallet"></i> Pagar </a>
 
                                     </div>
+
                                 </div>
 
                             </td>

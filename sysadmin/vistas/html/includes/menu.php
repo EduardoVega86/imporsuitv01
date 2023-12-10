@@ -99,35 +99,35 @@ require_once "../funciones.php";
 				</li>
 
 				<!--<li>
-									<a href="../html/traslados.php" class="waves-effect waves-primary"><i
-										class="ti-truck"></i><span> Traslados </span></a>
-									</li>-->
+					<a href="../html/traslados.php" class="waves-effect waves-primary"><i
+					class="ti-truck"></i><span> Traslados </span></a>
+				</li>-->
 
-				<!--li class="has_sub">
-										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-shopping-cart-full"></i><span> Ventas
-										</span> <span class="menu-arrow"></span></a>
-										<ul class="list-unstyled">
-											<li><a href="../html/new_venta.php">Nueva Venta</a></li>
-											<li><a href="../html/bitacora_ventas.php">Bitácora de Ventas</a></li>
+				<!-- <li class="has_sub">
+					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-shopping-cart-full"></i><span> Ventas
+						
+						<li><a href="../html/new_notacredito.php">Nueva Nota Credito</a></li>
+						<li><a href="../html/bitacora_credito.php">Bitacora Nota Cr&eacute;dito</a></li>
+						
+					</span> <span class="menu-arrow"></span></a>
+					<ul class="list-unstyled">
+						<li><a href="../html/bitacora_ventas.php">Bitácora de Ventas</a></li>
+						<li><a href="../html/new_venta.php">Nueva Venta</a></li>
 											
 											<li><a href="../html/new_liquidacioncompra.php">Nueva Liquidacion Compra</a></li>
 											<li><a href="../html/bitacora_liquidacion.php">Bitacora Liquidacion Compra</a></li>
-											
-											<li><a href="../html/new_notacredito.php">Nueva Nota Credito</a></li>
-											<li><a href="../html/bitacora_credito.php">Bitacora Nota Cr&eacute;dito</a></li>
-										
 											<li><a href="../html/new_notadebito20.php">Nueva Nota D&eacute;bito</a></li>
-											<li><a href="../html/bitacora_notadebito20.php">Bitacora Nota D&eacute;bito</a></li>
-										
-											<!--<li><a href="../html/new_notadebito.php">Nueva Nota D&eacute;bito</a></li>
-											<li><a href="../html/bitacora_debito.php">Bitacora Nota D&eacute;bito</a></li>
-											<br>-->
-				<!--li><a href="../html/new_guia.php">Nueva Gu&iacute;a</a></li-->
-				<!--li><a href="../html/bitacora_guia.php">Bitacora Gu&iacute;a</a></li>
-											<!--<li><a href="../html/new_retencion.php">Nueva Retenci&oacute;n</a></li>
-											<li><a href="../html/bitacora_retencion.php">Bitacora Retenci&oacute;n</a></li>-->
+											<li><a href="../html/bitacora_notadebito20.php">Bitacora Nota D&eacute;bito</a></li> -->
 
-				<!--li><a href="../html/new_retencion20.php">Nueva Retenci&oacute;n</a></li>
+				<!--<li><a href="../html/new_notadebito.php">Nueva Nota D&eacute;bito</a></li>
+											<li><a href="../html/bitacora_debito.php">Bitacora Nota D&eacute;bito</a></li>
+											<br>
+				li><a href="../html/new_guia.php">Nueva Gu&iacute;a</a></li>
+				<i><a href="../html/bitacora_guia.php">Bitacora Gu&iacute;a</a></i>
+										<li><a href="../html/new_retencion.php">Nueva Retenci&oacute;n</a></li>
+											<li><a href="../html/bitacora_retencion.php">Bitacora Retenci&oacute;n</a></li>
+
+				<li><a href="../html/new_retencion20.php">Nueva Retenci&oacute;n</a></li>
 											<li><a href="../html/bitacora_retencion20.php">Bitacora Retenci&oacute;n</a></li>
 											<li><a href="../html/caja.php">Caja</a></li>
 										</ul>
@@ -141,7 +141,7 @@ require_once "../funciones.php";
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
 						<li><a href="../html/new_cotizacion.php">Ingresar Pedidos</a></li>
 						<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
-                                                <li><a href="../html/bitacora_anulaciones.php">Anulados</a></li>
+						<li><a href="../html/bitacora_anulaciones.php">Anulados</a></li>
 					</ul>
 				</li>
 				<!-- <li class="has_sub">

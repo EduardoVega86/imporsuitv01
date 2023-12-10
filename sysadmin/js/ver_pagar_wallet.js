@@ -1,8 +1,7 @@
 $(document).ready(function () {
-  $("#widgets").load("../ajax/carga_widgets.php");
+  $("#widgets").load("../ajax/cargar_widget_wallet.php");
   load(1);
 });
-
 function load(page) {
   var range = $("#range").val();
   var parametros = {
@@ -12,7 +11,7 @@ function load(page) {
   };
   $("#loader").fadeIn("slow");
   $.ajax({
-    url: "../ajax/ver_cxc.php",
+    url: "../ajax/ver_pagos.php",
     data: parametros,
     beforeSend: function (objeto) {
       $("#loader").html("<img src='../../img/ajax-loader.gif'>");
@@ -42,7 +41,7 @@ $("#add_abono").submit(function (event) {
   var parametros = $(this).serialize();
   $.ajax({
     type: "POST",
-    url: "../ajax/agregar_abono.php",
+    url: "../ajax/agregar_abono_wallet.php",
     data: parametros,
     beforeSend: function (objeto) {
       $("#resultados_ajax").html(
@@ -56,8 +55,8 @@ $("#add_abono").submit(function (event) {
       //resetea el formulario
       $("#add_abono")[0].reset();
       //cierra la Modal
-      $("#outer_div").load("../ajax/ver_cxc.php");
-      $("#widgets").load("../ajax/carga_widgets.php");
+      $("#outer_div").load("../ajax/ver_pagos.php");
+      $("#widgets").load("../ajax/cargar_widget_wallet.php");
       $("#add-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {
@@ -71,12 +70,13 @@ $("#add_abono").submit(function (event) {
   });
   event.preventDefault();
 });
+
 $("#remove_stock").submit(function (event) {
   $("#eliminar_datos").attr("disabled", true);
   var parametros = $(this).serialize();
   $.ajax({
     type: "POST",
-    url: "../ajax/eliminar_stock.php",
+    url: "../ajax/eliminar_stock_wallet.php",
     data: parametros,
     beforeSend: function (objeto) {
       $("#resultados_ajax2").html(
@@ -86,10 +86,13 @@ $("#remove_stock").submit(function (event) {
     success: function (datos) {
       $("#resultados_ajax2").html(datos);
       $("#eliminar_datos").attr("disabled", false);
-      $("#outer_div").load("../ajax/ver_historial.php");
       load(1);
       //resetea el formulario
       $("#remove_stock")[0].reset();
+      //cierra la Modal
+      $("#outer_div").load("../ajax/ver_pagos.php");
+      $("#widgets").load("../ajax/cargar_widget_wallet.php");
+      $("#remove-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {
         $(".alert")
