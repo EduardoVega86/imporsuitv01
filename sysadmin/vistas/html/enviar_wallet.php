@@ -18,9 +18,10 @@ if (
 $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
 // verifica si ya existe la facutra en la tabla de cuenta por cobrar
-
-$existeFactura = get_row('cabecera_cuenta_cobrar', 'numero_factura', 'numero_factura', $numero_factura);
-if ($existeFactura) {
+$existeFactura_sql = "SELECT * FROM `cabecera_cuenta_cobrar` WHERE numero_factura = '$numero_factura'";
+$existeFactura_query = mysqli_query($conexion, $existeFactura_sql);
+$existeFactura = mysqli_num_rows($existeFactura_query);
+if ($existeFactura > 0) {
     echo json_encode('existe');
     exit;
 }
@@ -66,7 +67,9 @@ $valor_total = get_row('productos', 'valor1_producto', 'id_producto', $producto_
 
 $monto_recibir = $total_guia - $valor_base - $costo_guia;
 
-$sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`) VALUES ('$numero_factura','$fecha','$nombre_cliente','$server_url','2','$estado_pedido','$valor_total','$costo_total','$valor_base','$monto_recibir')";
+
+
+$sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES ('$numero_factura','$fecha','$nombre_cliente','$server_url','2','$estado_pedido','$valor_total','$costo_total','$valor_base','$monto_recibir','$monto_recibir')";
 
 $query_insertar_cc = mysqli_query($conexion, $sql_cc);
 

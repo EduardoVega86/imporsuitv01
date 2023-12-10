@@ -21,17 +21,14 @@ const wallet = (numero_factura) => {
       responseAS.json().then((data) => {
         if (data === "ok") {
           Swal.fire({
-            title: "¡Actualización de la billetera exitosa!",
+            title: "¡Generación de la billetera exitosa!",
             icon: "success",
             confirmButtonText: "¡Aceptar!",
-          }).then(() => {
-            window.location.reload();
-          });
-        }
-        if (data === "existe") {
+          }).then(() => {});
+        } else if (data === "existe") {
           Swal.fire({
-            title: "¡Error al actualizar la billetera!",
-            icon: "error",
+            title: "¡Error al generar la billetera!",
+            icon: "warning",
             text: "¡La billetera ya existe!",
             confirmButtonText: "¡Aceptar!",
           });
