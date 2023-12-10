@@ -26,7 +26,6 @@ if ($existeFactura > 0) {
     exit;
 }
 
-
 $conexion = mysqli_connect($host, $usuario, $contrasena, $base_de_datos);
 $conexion->set_charset("utf8");
 
@@ -45,7 +44,16 @@ $guia_enviada = $datos['guia_enviada'];
 $ciudad_cot = $datos['ciudad_cot'];
 $id_factura = $datos['id_factura'];
 
+$tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE id_pedido = '$id_factura'";
 
+$tieneGuias_query = mysqli_query($conexion, $tieneGuias_sql);
+
+$tieneGuias = mysqli_num_rows($tieneGuias_query);
+
+if (empty($tieneGuias)) {
+    echo json_encode('no_guias');
+    exit;
+}
 
 $producto_id = get_row('detalle_fact_cot', 'id_producto', 'id_factura', $id_factura);
 
@@ -69,7 +77,7 @@ $monto_recibir = $total_guia - $valor_base - $costo_guia;
 
 
 
-$sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES ('$numero_factura','$fecha','$nombre_cliente','$server_url','2','$estado_pedido','$valor_total','$costo_total','$valor_base','$monto_recibir','$monto_recibir')";
+$sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES ('$numero_factura','$fecha','$nombre_cliente','$tienda','2','$estado_pedido','$valor_total','$costo_total','$valor_base','$monto_recibir','$monto_recibir')";
 
 $query_insertar_cc = mysqli_query($conexion, $sql_cc);
 

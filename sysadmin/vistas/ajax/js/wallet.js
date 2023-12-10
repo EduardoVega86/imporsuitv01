@@ -32,6 +32,13 @@ const wallet = (numero_factura) => {
             text: "¡La billetera ya existe!",
             confirmButtonText: "¡Aceptar!",
           });
+        } else if (data === "no_guias") {
+          Swal.fire({
+            title: "¡No se ha generado la guia!!",
+            icon: "warning",
+            text: "¡Genere la guia primero!",
+            confirmButtonText: "¡Aceptar!",
+          });
         } else {
           Swal.fire({
             title: "¡Error al actualizar la billetera!",
