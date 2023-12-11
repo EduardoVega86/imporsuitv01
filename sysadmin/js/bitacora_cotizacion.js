@@ -33,9 +33,23 @@ $("#editar_linea").submit(function (event) {
 });
 function load(page) {
   var q = $("#q").val();
+  var tienda = $("#tienda_q").val();
+  var url = "";
+
+  if (tienda != 0) {
+    url =
+      "../ajax/buscar_cotizacion.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda;
+  } else {
+    url = "../ajax/buscar_cotizacion.php?action=ajax&page=" + page + "&q=" + q;
+  }
   $("#loader").fadeIn("slow");
   $.ajax({
-    url: "../ajax/buscar_cotizacion.php?action=ajax&page=" + page + "&q=" + q,
+    url: url,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -50,12 +64,18 @@ function load(page) {
 }
 
 function buscar(tienda) {
-   // alert(tienda)
+  // alert(tienda)
   var q = $("#q").val();
-  page=1;
+  page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
-    url: "../ajax/buscar_cotizacion.php?action=ajax&page=" + page + "&tienda=" + tienda+ "&q=" + q,
+    url:
+      "../ajax/buscar_cotizacion.php?action=ajax&page=" +
+      page +
+      "&tienda=" +
+      tienda +
+      "&q=" +
+      q,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -178,8 +198,8 @@ function obtener_datos(id) {
 
   $("#mod_estado").val(estado);
   $("#mod_id").val(id);
-  
-  
-    $("#editar_linea").submit(); // Esto activará el envío del formulario con el ID "editar_linea"
 
+  $("#editar_linea").submit(); // Esto activará el envío del formulario con el ID "editar_linea"
 }
+
+function guia_importar(numero_factura) {}

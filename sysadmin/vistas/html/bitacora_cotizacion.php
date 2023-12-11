@@ -66,26 +66,26 @@ $ventas = 1;
 											<div class="col-md-5">
 												<div class="input-group">
 													<input type="text" class="form-control" id="q" placeholder="Nombre del cliente o # factura" onkeyup='load(1);'>
-                                                                                                        <select onchange="buscar(this.value)" class="form-control" >
-                                                                                                          <option value="0">  Seleccione Tienda </option>
-                                                                                                            <?php
-                             
-                                //echo "select * from estado_guia";
-                                $query_categoria = mysqli_query($conexion, "select distinct tienda from facturas_cot");
-                                while ($rw = mysqli_fetch_array($query_categoria)) {
-                                ?>
-                                    <option value="<?php echo $rw['tienda']; ?>" ><?php echo $rw['tienda']; ?></option>
-                                <?php
-                                }
-                                ?>
-                                                                                                        </select>
-													
-                                                                                                        <span class="input-group-btn">
+													<select onchange="buscar(this.value)" id="tienda_q" class="form-control">
+														<option value="0"> Seleccione Tienda </option>
+														<?php
+
+														//echo "select * from estado_guia";
+														$query_categoria = mysqli_query($conexion, "select distinct tienda from facturas_cot");
+														while ($rw = mysqli_fetch_array($query_categoria)) {
+														?>
+															<option value="<?php echo $rw['tienda']; ?>"><?php echo $rw['tienda']; ?></option>
+														<?php
+														}
+														?>
+													</select>
+
+													<span class="input-group-btn">
 														<button type="button" class="btn btn-info waves-effect waves-light" onclick='load(1);'>
 															<span class="fa fa-search"></span></button>
 													</span>
 												</div>
-                                                                                            
+
 											</div>
 											<div class="col-md-4">
 												<span id="loader"></span>
