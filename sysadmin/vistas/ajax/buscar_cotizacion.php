@@ -72,7 +72,7 @@ if ($action == 'ajax') {
                     <th>Direccion</th>
 
                     <th colspan="2" style="text-align: center;">Estado</th>
-                
+
                     <th class='text-center'>Total</th>
                     <th></th>
                     <th></th>
@@ -107,6 +107,12 @@ if ($action == 'ajax') {
                     $drogshipin   = $row['drogshipin'];
                     $tienda   = $row['tienda'];
                     $span_estado = '';
+
+                    $id_producto_origen = $row['id_factura_origen'];
+                    $existe_guia_sql = "SELECT * FROM guia_laar WHERE id_pedido='" . $id_producto_origen . "'";
+                    $existe_guia_query = mysqli_query($conexion, $existe_guia_sql);
+                    $existe_guia = mysqli_num_rows($existe_guia_query);
+                    //echo $existe_guia;
 
                     if ($estado_factura == 1) {
                         $text_estado = "INGRESADA";
@@ -316,30 +322,30 @@ if ($action == 'ajax') {
                                             } ?>
                         </td>
                         <td>
-                            <?php if($drogshipin==3){
-                           
-                                ?>
-                            <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
-                                <option value="">-- Selecciona --</option>
-                                <?php
-                                if ($data['estadoActualCodigo'] == 8) {
-                                    $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
+                            <?php if ($drogshipin == 3) {
+
+                            ?>
+                                <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
+                                    <option value="">-- Selecciona --</option>
+                                    <?php
+                                    if ($data['estadoActualCodigo'] == 8) {
+                                        $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
                                                                                                 WHERE id_factura='" . $id_factura . "'";
-                                    $query_anular = mysqli_query($conexion, $sql_anular);
-                                }
-                                //echo "select * from estado_guia";
-                                $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
-                                while ($rw = mysqli_fetch_array($query_categoria)) {
-                                    $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
-                                ?>
-                                    <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-        <?php 
+                                        $query_anular = mysqli_query($conexion, $sql_anular);
+                                    }
+                                    //echo "select * from estado_guia";
+                                    $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
+                                    while ($rw = mysqli_fetch_array($query_categoria)) {
+                                        $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
+                                    ?>
+                                        <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            <?php
                             }
-                                ?>
+                            ?>
 
                         </td>
                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
@@ -350,7 +356,7 @@ if ($action == 'ajax') {
                                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <?php if ($permisos_editar == 1) { ?>
-                                    <a class="dropdown-item" target="blank" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
+                                        <a class="dropdown-item" target="blank" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
                                         <!--a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir</a-->
                                     <?php }
                                     if ($permisos_eliminar == 1) { ?>
@@ -361,6 +367,14 @@ if ($action == 'ajax') {
                                     ?>
 
                                         <button class="dropdown-item" onclick="wallet('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Cartera</button>
+
+
+                                    <?php
+
+                                    }
+                                    if ($existe_guia == 0) {
+                                    ?>
+                                        <button class="dropdown-item" onclick="guia_importar('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Importar Guia</button>
                                     <?php
                                     }
                                     ?>

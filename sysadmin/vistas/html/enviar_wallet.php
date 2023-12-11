@@ -43,8 +43,9 @@ $estado_pedido = $datos['estado_factura'];
 $guia_enviada = $datos['guia_enviada'];
 $ciudad_cot = $datos['ciudad_cot'];
 $id_factura = $datos['id_factura'];
+$id_pedido_origen = $datos['id_factura_origen'];
 
-$tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE id_pedido = '$id_factura'";
+$tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE id_pedido = '$id_pedido_origen'";
 
 $tieneGuias_query = mysqli_query($conexion, $tieneGuias_sql);
 
@@ -62,14 +63,14 @@ $producto_id = get_row('detalle_fact_cot', 'id_producto', 'id_factura', $id_fact
 $costo_total = get_row('productos', 'costo_producto', 'id_producto', $producto_id);
 
 $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudad_cot);
-$total_guia = get_row('guia_laar', 'costoproducto', 'id_pedido', $id_factura);
-if (get_row('guia_laar', 'cod', 'id_pedido', $id_factura) == 1) {
+$total_guia = get_row('guia_laar', 'costoproducto', 'id_pedido', $id_pedido_origen);
+if (get_row('guia_laar', 'cod', 'id_pedido', $id_pedido_origen) == 1) {
     $valor_base = $valor_base + ($total_guia * 0.03);
 }
-if (get_row('guia_laar', 'valorDeclarado', 'id_pedido', $id_factura) > 1) {
-    $valor_base = $valor_base + (get_row('guia_laar', 'valorDeclarado', 'id_pedido', $id_factura) * 0.01);
+if (get_row('guia_laar', 'valorDeclarado', 'id_pedido', $id_pedido_origen) > 1) {
+    $valor_base = $valor_base + (get_row('guia_laar', 'valorDeclarado', 'id_pedido', $id_pedido_origen) * 0.01);
 }
-$costo_guia = get_row('guia_laar', 'valor_costo', 'id_pedido', $id_factura);
+$costo_guia = get_row('guia_laar', 'valor_costo', 'id_pedido', $id_pedido_origen);
 
 $valor_total = get_row('productos', 'valor1_producto', 'id_producto', $producto_id);
 
