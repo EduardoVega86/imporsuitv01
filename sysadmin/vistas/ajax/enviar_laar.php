@@ -289,7 +289,7 @@ if ($response) {
             `valorDeclarado`, `contiene`,`cod` ,
             `costoflete`,`costoproducto`, `tipocobro`,
             `comentario`,`valor_costo`, `estado_guia`) 
-        VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$server_url','$url','$id_pedido_cot',"
+        VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$tienda','$url','$id_pedido_cot',"
             . "'$identificacionO','$ciudadO','$nombreO',"
             . "'$direccionO','$refenciaO','$numeroCasaO',"
             . "'','$telefonoO','$celularO',"
