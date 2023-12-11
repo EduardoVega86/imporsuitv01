@@ -10,6 +10,8 @@ $cpanelPassword = '09992631072demasiado.';
 $subdomain = $domi;
 $rootdomain = 'imporsuit.com';
 
+
+
 // URL de la API para agregar subdominios
 $apiUrl = $cpanelUrl . '/cpsess' . session_id() . '/execute/SubDomain/addsubdomain?domain=' . $subdomain . '&rootdomain=' . $rootdomain;
 
@@ -23,16 +25,15 @@ curl_setopt($ch, CURLOPT_USERPWD, $cpanelUsername . ':' . $cpanelPassword);
 
 // Ejecutar la solicitud
 $response = curl_exec($ch);
-
+$msg_status = "";
 // Verificar si hubo errores
 if (curl_errno($ch)) {
-    echo "fail_";
 } else {
     // Analizar la respuesta JSON si es necesario
     $responseData = json_decode($response, true);
 
     // Hacer algo con la respuesta (puede variar según la respuesta de la API)
-    echo 'ok_';
+    $msg_status .= "ok_";
 }
 
 // Cerrar la sesión cURL
@@ -79,13 +80,13 @@ $response = curl_exec($ch);
 
 // Verificar si hubo errores
 if (curl_errno($ch)) {
-    echo 'fail_';
+    $msg_status .= "fail_";
 } else {
     // Analizar la respuesta JSON si es necesario
     $responseData = json_decode($response, true);
 
     // Hacer algo con la respuesta (puede variar según la respuesta de la API)
-    echo 'ok_';
+    $msg_status .= "ok_";
 }
 
 // Cerrar la sesión cURL
@@ -104,12 +105,15 @@ $res = $zip->open("/home/imporsuit/public_html/index.zip");
 if ($res === TRUE) {
     $zip->extractTo("/home/imporsuit/public_html/$domi/");
     $zip->close();
-    echo 'ok';
+    $msg_status .= "ok";
 } else {
-    echo 'fail';
+    $msg_status .= "fail";
 }
 $oldFile = "/home/imporsuit/public_html/$domi/index.html";
 file_put_contents($oldFile, str_replace("totototo", "$name", file_get_contents($oldFile)));
 $oldFile = "/home/imporsuit/public_html/$domi/index.html";
 file_put_contents($oldFile, str_replace("https://joelpizzano.imporfactory.app/", "https://$host", file_get_contents($oldFile)));
+
+echo json_encode($msg_status);
+
 ?>
