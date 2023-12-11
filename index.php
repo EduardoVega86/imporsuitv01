@@ -19,16 +19,16 @@ include 'includes/head.php'
 ?>
 
 <body class="gradient">
-   <img class="load" src="<?php
-                           if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
-                              echo "assets/img/imporsuit.png";
-                           } else {
-                              echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
-                           }
-                           ?>" alt="Imagen" />
+   <img class="load_logo" src="<?php
+                                 if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
+                                    echo "assets/img/imporsuit.png";
+                                 } else {
+                                    echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
+                                 }
+                                 ?>" alt="Imagen" />
 
-   <div class="loader">
-      <img class="loading" width="10px" src="./assets/img/loading.png" alt="">
+   <div class="loader_logo">
+      <img class="loading_logo" width="10px" src="./assets/img/loading.png" alt="">
    </div> <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       Skip to content
    </a>
@@ -39,12 +39,12 @@ include 'includes/head.php'
    <script src="js/product-info.js?v=174806172978439001541693673628" defer="defer"></script>
    <script>
       function removeElements() {
-         document.querySelectorAll(".loader").forEach((loader) => {
+         document.querySelectorAll(".loader_logo").forEach((loader) => {
             loader.remove();
          });
 
          // Elimina la imagen
-         document.querySelector(".load").remove();
+         document.querySelector(".load_logo").remove();
       }
 
       window.addEventListener("load", () => {
@@ -56,7 +56,7 @@ include 'includes/head.php'
          visibility: hidden;
       }
 
-      .loader {
+      .loader_logo {
          display: flex;
          justify-content: center;
          align-items: center;
@@ -67,17 +67,18 @@ include 'includes/head.php'
          background-color: #fff;
       }
 
-      .load {
+      .load_logo {
          position: absolute;
          top: 20%;
          width: 200px;
          height: 200px;
          z-index: 1000;
-         right: 45%;
+         left: 50%;
+         transform: translateX(-50%);
 
       }
 
-      .loading {
+      .loading_logo {
          animation: rotate 1s linear infinite;
          width: 100px;
          filter: brightness(10%)
