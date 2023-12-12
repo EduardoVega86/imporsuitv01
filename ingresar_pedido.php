@@ -8,6 +8,26 @@
       // echo 'sysadmin/vistas/ajax/banner/'.get_row('perfil', 'banner', 'id_perfil', 1);
    //include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /*Inicia validacion del lado del servidor*/
+       if ($_SERVER['HTTP_HOST']=='localhost'){
+    $or_marketplace = 'http://localhost/marketplace/';
+}else{
+ $or_marketplace = 'https://marketplace.imporsuit.com/';  
+}
+        $archivo_origen=$or_marketplace.'sysadmin/vistas/db1.php';
+       // echo $archivo_origen;
+        $contenido = file_get_contents($archivo_origen);
+      //  echo $contenido;
+        $archivo_destino = 'sysadmin/vistas/db_destino_marketplace.php'; // Nombre del archivo de destino
+        // Obtener el contenido del archivo original
+       // $origen = fopen($archivo_origen_marketplace, 'r');
+if (file_put_contents($archivo_destino, $contenido) !== false) {
+    //echo "El JSON se ha guardado correctamente en el archivo.";
+} else {
+    echo "Error al guardar eddl JSON en el archivo.";
+}
+  require_once "sysadmin/vistas/php_conexion_marketplace.php";
+
+  
 $session=$_POST['session'];
 //echo 'asdasd'.$session;
 if (empty($_POST['session'])) {
@@ -64,7 +84,10 @@ $resultado = mysqli_query($conexion, $sql);
     //echo "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1";
     $query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
     or die('error ' . mysqli_error($conexion));
+    $query_id_marketplace = mysqli_query($conexion_marketplace, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
+    or die('error ' . mysqli_error($conexion_marketplace));
     $count = mysqli_num_rows($query_id);
+    $count_marketplace = mysqli_num_rows($query_id_marketplace);
     if ($count != 0) {
 
         $data_id = mysqli_fetch_assoc($query_id);
@@ -74,6 +97,13 @@ $resultado = mysqli_query($conexion, $sql);
     $rw         = mysqli_fetch_array($sql);
     $id_factura = $rw['last'] + 1;
     }
+    if ($count_marketplace != 0) {
+        $data_id_marketplace = mysqli_fetch_assoc($query_id_marketplace);
+        $factura_marketplace = $data_id_marketplace['factura'] + 1;
+    } else {
+        $factura_marketplace = 1;
+    }
+    
     $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
     $factura = "COT-$buat_id";
 // fin de numero de fatura
@@ -86,6 +116,17 @@ $resultado = mysqli_query($conexion, $sql);
     //echo  "select * from productos, tmp_cotizacion where drogshipin_tmp=0 and productos.id_producto=tmp_cotizacion.id_producto and tmp_cotizacion.session_id='" . $session_id . "'";
     $sql           = mysqli_query($conexion, "select * from productos, tmp_cotizacion where drogshipin_tmp=0 and productos.id_producto=tmp_cotizacion.id_producto and tmp_cotizacion.session_id='" . $session_id . "'");
    $resultado = mysqli_num_rows($sql);
+   
+     if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+  $protocol = 'https://';
+}
+else {
+  $protocol = 'http://';
+}
+     $server_url = $protocol . $_SERVER['HTTP_HOST'];
   if ($resultado > 0) {
     while ($row = mysqli_fetch_array($sql)) {
         $id_tmp          = $row["id_tmp"];
@@ -96,6 +137,8 @@ $resultado = mysqli_query($conexion, $sql);
         $desc_tmp        = $row['desc_tmp'];
         $nombre_producto = $row['nombre_producto'];
         $contenido .=' %3a%0A '.$nombre_producto.' x '.$cantidad;
+         $id_marketplace = $row['id_marketplace'];
+         $id_producto_origen = $row['id_producto_origen'];
         // control del impuesto por productos.
         if ($row['iva_producto'] == 0) {
             $p_venta   = $row['precio_tmp'];
@@ -123,8 +166,30 @@ $resultado = mysqli_query($conexion, $sql);
         $contenido .=' %3a%0A '.'*Precio: * $'.number_format($precio_venta,2);
         //Insert en la tabla detalle_factura
        // echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin',NULL)";
-        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin',NULL)");
+        //marketplace
+$sql_f_marketplace = "SELECT MAX(id_factura) as ultima_factura FROM facturas_cot";
+$resultado_f_marketplace = mysqli_query($conexion_marketplace, $sql_f_marketplace);
+if ($resultado_f_marketplace) {
+    
+    $fila_marketplace = mysqli_fetch_assoc($resultado_f_marketplace);
+    $ultima_factura_marketplace = $fila_marketplace['ultima_factura'];
+  
+    if ($ultima_factura_marketplace !== null) {
+       $id_factura_marketplace =  $ultima_factura_marketplace + 1;
+         echo $id_factura_marketplace;
+    } else {
+       $id_factura_marketplace=1;
     }
+} else {
+    echo "Error en la consulta: " . mysqli_error($conexion_marketplace);
+}
+        //$id_producto_marketplace= get_row_guia($conexion_marketplace, $table, $row, $id, $equal);
+       // $id_producto_marketplace=get_row_guia('productos', 'id_producto', 'id_producto_origen', $id_producto . " and tienda='" . $server_url . "'");
+        
+        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin',NULL)");
+        $insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_marketplace','$factura_marketplace','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto')");
+        
+        }
     // Fin de la consulta Principal
     $subtotal      = number_format($sumador_total, 2, '.', '');
     $total_iva     = ($subtotal * $impuesto) / 100;
@@ -135,7 +200,14 @@ $resultado = mysqli_query($conexion, $sql);
     $sql="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`,  `drogshipin`) "
             . "VALUES ( '$factura', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 0); ";
     //echo $sql;
+ 
     $insert      = mysqli_query($conexion, $sql);
+    $ultimo_id = mysqli_insert_id($conexion);
+    
+    $sql_marketplace="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`, `id_factura_origen`) "
+            . "VALUES ( '$factura_marketplace', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 3,'$server_url','$ultimo_id'); ";
+echo $sql_marketplace;
+$insert      = mysqli_query($conexion_marketplace, $sql_marketplace);
     // SI ES DROGSHIPDEBE GENERARSE EN EL MARKETPLACE
     }
     //si la venta es drgoshipin
@@ -155,25 +227,7 @@ GROUP BY tienda;";
     while ($row_tienda = mysqli_fetch_assoc($sql_producto_tienda)) {
         //echo 'sddsahha'.$session_id;
         $tienda         = $row_tienda["tienda"];
-        if ($_SERVER['HTTP_HOST']=='localhost'){
-    $or_marketplace = 'http://localhost/marketplace/';
-}else{
- $or_marketplace = 'https://marketplace.imporsuit.com/';  
-}
-        $archivo_origen=$or_marketplace.'sysadmin/vistas/db1.php';
-       // echo $archivo_origen;
-        $contenido = file_get_contents($archivo_origen);
-      //  echo $contenido;
-        $archivo_destino = 'sysadmin/vistas/db_destino_marketplace.php'; // Nombre del archivo de destino
-        // Obtener el contenido del archivo original
-       // $origen = fopen($archivo_origen_marketplace, 'r');
-if (file_put_contents($archivo_destino, $contenido) !== false) {
-    //echo "El JSON se ha guardado correctamente en el archivo.";
-} else {
-    echo "Error al guardar eddl JSON en el archivo.";
-}
-  require_once "sysadmin/vistas/php_conexion_marketplace.php";
- //conexion a la base destino
+         //conexion a la base destino
         $archivo_tienda = $tienda.'/sysadmin/vistas/db1.php'; // Nombre del archivo original
        // echo $archivo_tienda;
        $contenido_tienda = file_get_contents($archivo_tienda);
@@ -347,10 +401,10 @@ else {
     }
     }
     }
-        $delete        = mysqli_query($conexion, "DELETE FROM tmp_cotizacion WHERE session_id='" . $session_id . "'");
+       // $delete        = mysqli_query($conexion, "DELETE FROM tmp_cotizacion WHERE session_id='" . $session_id . "'");
     //header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO
 //echo 'funciona';
-echo '<script>window.location.href = "sysadmin/vistas/html/bitacora_cotizacion.php";</script>';
+//echo '<script>window.location.href = "sysadmin/vistas/html/bitacora_cotizacion.php";</script>';
 }
     ?>
