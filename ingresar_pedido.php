@@ -206,7 +206,7 @@ if ($resultado_f_marketplace) {
     
     $sql_marketplace="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`, `id_factura_origen`) "
             . "VALUES ( '$factura_marketplace', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 4,'$server_url','$ultimo_id'); ";
-echo $sql_marketplace;
+//echo $sql_marketplace;
 $insert      = mysqli_query($conexion_marketplace, $sql_marketplace);
     // SI ES DROGSHIPDEBE GENERARSE EN EL MARKETPLACE
     }
@@ -401,10 +401,10 @@ else {
     }
     }
     }
-       // $delete        = mysqli_query($conexion, "DELETE FROM tmp_cotizacion WHERE session_id='" . $session_id . "'");
+        $delete        = mysqli_query($conexion, "DELETE FROM tmp_cotizacion WHERE session_id='" . $session_id . "'");
     //header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO
 //echo 'funciona';
-//echo '<script>window.location.href = "sysadmin/vistas/html/bitacora_cotizacion.php";</script>';
+echo '<script>window.location.href = "sysadmin/vistas/html/bitacora_cotizacion.php";</script>';
 }
     ?>

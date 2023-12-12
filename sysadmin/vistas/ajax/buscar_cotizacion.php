@@ -189,8 +189,8 @@ if ($action == 'ajax') {
                         <td><?php echo $direccion; ?></td>
 
                         <td align="center"><?php
-                                            if (($estado_factura != 0) || $drogshipin == 3) {
-                                                if ($drogshipin == 3) {
+                                            if (($estado_factura != 0) || $drogshipin == 3 || $drogshipin == 4) {
+                                                if ($drogshipin == 3 || $drogshipin == 4) {
 
 
 
@@ -296,7 +296,7 @@ if ($action == 'ajax') {
                                                 // Cerrar la sesi贸n cURL
                                                 curl_close($curl);
 
-                                                if ($drogshipin == 3) {
+                                                if ($drogshipin == 3 || $drogshipin == 4) {
                                                     $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");;
                                                 } else {
@@ -322,7 +322,7 @@ if ($action == 'ajax') {
                                             } ?>
                         </td>
                         <td>
-                            <?php if ($drogshipin == 3) {
+                            <?php if ($drogshipin == 3 || $drogshipin == 3) {
 
                             ?>
                                 <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
@@ -372,8 +372,14 @@ if ($action == 'ajax') {
                                     <?php
 
                                     }
-                                    if ($existe_guia == 0) {
+                                    if ($drogshipin == 3) {
+                                   if ($guia_numero='NO ENVIADA'){
+                                       
+                                   }else{
+                                       
+                                   }
                                     ?>
+                                        
                                         <button class="dropdown-item" onclick="guia_importar('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Importar Guia</button>
                                     <?php
                                     }
