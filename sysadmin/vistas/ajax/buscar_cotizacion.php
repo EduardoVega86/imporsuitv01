@@ -189,8 +189,8 @@ if ($action == 'ajax') {
                         <td><?php echo $direccion; ?></td>
 
                         <td align="center"><?php
-                                            if (($estado_factura != 0) || $drogshipin == 3) {
-                                                if ($drogshipin == 3) {
+                                            if (($estado_factura != 0) || $drogshipin == 3 || $drogshipin == 4) {
+                                                if ($drogshipin == 3 || $drogshipin == 4) {
 
 
 
@@ -322,7 +322,7 @@ if ($action == 'ajax') {
                                             } ?>
                         </td>
                         <td>
-                            <?php if ($drogshipin == 3) {
+                            <?php if ($drogshipin == 3 || $drogshipin == 3) {
 
                             ?>
                                 <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
