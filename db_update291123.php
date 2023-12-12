@@ -976,6 +976,26 @@ mysqli_query($conexion, "UPDATE `ciudad_laar` SET `precio` = '3.5' WHERE `codigo
 
 mysqli_query($conexion, "UPDATE `user_group` SET `permission` = 'Inicio,1,1,1;Productos,1,1,1;Proveedores,1,1,1;Clientes,1,1,1;Reportes,1,1,1;Configuracion,1,1,1;Usuarios,1,1,1;Permisos,1,1,1;Categorias,1,1,1;Ventas,1,1,1;Compras,1,1,1;Pedidos,1,1,1;Integraciones,1,1,1;Dominios,1,1,1;Wallets,1,1,1;' WHERE `user_group`.`user_group_id` = 1;");
 
+mysqli_query($conexion, "CREATE TABLE `cabecera_cuenta_cobrar` (
+  `id_cabecera` int(11) NOT NULL,
+  `numero_factura` varchar(100) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `cliente` varchar(100) DEFAULT NULL,
+  `tienda` varchar(100) DEFAULT NULL,
+  `estado_guia` int(11) DEFAULT NULL,
+  `estado_pedido` int(11) DEFAULT NULL,
+  `total_venta` double DEFAULT NULL,
+  `costo` double DEFAULT NULL,
+  `precio_envio` double DEFAULT NULL,
+  `monto_recibir` double DEFAULT NULL,
+  `valor_cobrado` double DEFAULT 0,
+  `valor_pendiente` double DEFAULT 0
+)");
+
+mysqli_query($conexion, "ALTER TABLE `cabecera_cuenta_cobrar`
+ADD PRIMARY KEY (`id_cabecera`);");
+
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");

@@ -4,6 +4,11 @@ if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] !=
     header("location: ../../login.php");
     exit;
 }
+
+// Al inicio del script
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
