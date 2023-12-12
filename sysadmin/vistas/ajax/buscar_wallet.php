@@ -218,7 +218,7 @@ if ($action == "ajax") {
     <?php
 
     }
-    if ($numrows > 0 && $dominio_actual != 'marketplace.imporsuit.net') {
+    if ($numrows > 0 && $dominio_actual != 'marketplace.imporsuit') {
 
     ?>
         <form id="filter-form">
