@@ -100,40 +100,50 @@ if ($action == "ajax") {
                         $valor_cobrado = $row['valor_cobrado'];
                         $valor_pendiente = $row['valor_pendiente'];
 
-                        switch ($guia_enviada) {
+                        switch ($estado_guia) {
                             case 1:
                                 $guia_enviada = "Pendiente";
+                                $label_class = 'badge-purple';
                                 break;
                             case 2:
                                 $guia_enviada = "Por recolectar";
+                                $label_class = 'badge-info';
                                 break;
                             case 3:
                                 $guia_enviada = "Recolectado";
+                                $label_class = 'badge-success';
                                 break;
                             case 4:
-                                $guia_enviada = "En bodeg";
+                                $guia_enviada = "En bodega";
+                                $label_class = 'badge-warning';
                                 break;
 
                             case 5:
                                 $guia_enviada = "En transito";
+                                $label_class = 'badge-primary';
                                 break;
                             case 6:
                                 $guia_enviada = "Zona de entrega";
+                                $label_class = 'badge-dark';
                                 break;
                             case 7:
                                 $guia_enviada = "Entregado";
+                                $label_class = 'badge-success';
                                 break;
                             case 8:
                                 $guia_enviada = "Anulado";
+                                $label_class = 'badge-danger';
                                 break;
                             case 9:
                                 $guia_enviada = "Devuelto";
+                                $label_class = 'badge-danger';
                                 break;
                             case 10:
                                 $guia_enviada = "Facturado  ";
+                                $label_class = 'badge-success';
                                 break;
                         }
-                        $label_class = 'badge-purple';
+
                         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                     ?>
                         <input type="hidden" value="<?php echo $estado_factura; ?>" id="estado<?php echo $id_factura; ?>">

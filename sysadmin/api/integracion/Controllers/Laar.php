@@ -1,6 +1,6 @@
 <?php
 
-class Laars extends Controller
+class Laar extends Controller
 {
 
     public function index()
