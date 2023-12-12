@@ -9,17 +9,17 @@ class LaarModel extends Query
     public function cambiarEstado($no_guia, $estado_actual_codigo)
     {
 
+        if ($estado_actual_codigo == 7) {
+            $this->pedidoEntragado($no_guia, $estado_actual_codigo);
+        } else if ($estado_actual_codigo == 9) {
+            $this->pedidoDevolucion($no_guia, $estado_actual_codigo);
+        }
         // local
         $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
         // proveedor 
         $this->actualizarProveedor($no_guia, $estado_actual_codigo);
         // marketplace
         $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
-        if ($estado_actual_codigo == 7) {
-            $this->pedidoEntragado($no_guia, $estado_actual_codigo);
-        } else if ($estado_actual_codigo == 9) {
-            $this->pedidoDevolucion($no_guia, $estado_actual_codigo);
-        }
     }
     protected function conectarProveedor($proveedor)
     {
@@ -108,11 +108,12 @@ class LaarModel extends Query
 
     public function pedidoEntragado($no_guia, $estado_actual_codigo)
     {
-        $query = "SELECT id_pedido FROM guia_laar WHERE guia_laar = '$no_guia'";
+        $query = "SELECT id_pedido, tienda_proveedor FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
 
         $id_pedido = $query[0]['id_pedido'];
-        $query = "SELECT * from facturas_cot WHERE id_factura_origen = '$id_pedido'";
+        $tienda = $query[0]['tienda_proveedor'];
+        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda' AND id_factura_origen = '$id_pedido'";
         $query = $this->select($query);
 
         $numero_factura = $query[0]['numero_factura'];
@@ -179,11 +180,12 @@ class LaarModel extends Query
 
     public function pedidoDevolucion($no_guia, $estado_actual_codigo)
     {
-        $query = "SELECT id_pedido FROM guia_laar WHERE guia_laar = '$no_guia'";
+        $query = "SELECT id_pedido, tienda_proveedor FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
 
         $id_pedido = $query[0]['id_pedido'];
-        $query = "SELECT * from facturas_cot WHERE id_factura_origen = '$id_pedido'";
+        $tienda = $query[0]['tienda_proveedor'];
+        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda' AND id_factura_origen = '$id_pedido'";
         $query = $this->select($query);
 
         $numero_factura = $query[0]['numero_factura'];
@@ -245,7 +247,7 @@ class LaarModel extends Query
 
         $monto_recibir = 0 - $costo_envio;
 
-        $sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_proveedor`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $valor_total, $costo_total, $valor_base, $monto_recibir, $monto_recibir);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
