@@ -108,12 +108,12 @@ class LaarModel extends Query
 
     public function pedidoEntragado($no_guia, $estado_actual_codigo)
     {
-        $query = "SELECT id_pedido, tienda_proveedor FROM guia_laar WHERE guia_laar = '$no_guia'";
+        $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
 
         $id_pedido = $query[0]['id_pedido'];
-        $tienda = $query[0]['tienda_proveedor'];
-        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda' AND id_factura_origen = '$id_pedido'";
+        $tienda_venta = $query[0]['tienda_venta'];
+        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'";
         $query = $this->select($query);
 
         $numero_factura = $query[0]['numero_factura'];
@@ -126,7 +126,7 @@ class LaarModel extends Query
         $id_factura = $query[0]['id_factura'];
         $id_pedido_origen = $query[0]['id_factura_origen'];
 
-        $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE id_pedido = '$id_pedido_origen'";
+        $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'";
         $tieneGuias_query = $this->select($tieneGuias_sql);
         $tieneGuias = count($tieneGuias_query);
 
@@ -145,21 +145,21 @@ class LaarModel extends Query
         $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
         $valor_base = $valor_base[0]['precio'];
 
-        $total_guia = $this->select("SELECT costoproducto FROM guia_laar WHERE id_pedido = '$id_pedido_origen'");
+        $total_guia = $this->select("SELECT costoproducto FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $total_guia = $total_guia[0]['costoproducto'];
 
 
-        if ($this->select("SELECT cod FROM guia_laar WHERE id_pedido = '$id_pedido_origen'")[0]['cod'] == 1) {
+        if ($this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'")[0]['cod'] == 1) {
             $valor_base = $valor_base + ($total_guia * 0.03);
         }
-        $valor_declarado = $this->select("SELECT valorDeclarado FROM guia_laar WHERE id_pedido = '$id_pedido_origen'");
+        $valor_declarado = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $valor_declarado = $valor_declarado[0]['valorDeclarado'];
         if ($valor_declarado > 1) {
-            $valor = $this->select("SELECT valorDeclarado FROM guia_laar WHERE id_pedido = '$id_pedido_origen'");
+            $valor = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
             $valor_base = $valor_base + ($valor[0]['valorDeclarado'] * 0.01);
         }
 
-        $costo_guia = $this->select("SELECT valor_costo FROM guia_laar WHERE id_pedido = '$id_pedido_origen'");
+        $costo_guia = $this->select("SELECT valor_costo FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $costo_guia = $costo_guia[0]['valor_costo'];
 
         $valor_total = $this->select("SELECT valor1_producto FROM productos WHERE id_producto = '$producto_id'");
@@ -180,12 +180,12 @@ class LaarModel extends Query
 
     public function pedidoDevolucion($no_guia, $estado_actual_codigo)
     {
-        $query = "SELECT id_pedido, tienda_proveedor FROM guia_laar WHERE guia_laar = '$no_guia'";
+        $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
 
         $id_pedido = $query[0]['id_pedido'];
-        $tienda = $query[0]['tienda_proveedor'];
-        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda' AND id_factura_origen = '$id_pedido'";
+        $tienda_venta = $query[0]['tienda_venta'];
+        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'";
         $query = $this->select($query);
 
         $numero_factura = $query[0]['numero_factura'];
@@ -198,7 +198,7 @@ class LaarModel extends Query
         $id_factura = $query[0]['id_factura'];
         $id_pedido_origen = $query[0]['id_factura_origen'];
 
-        $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE id_pedido = '$id_pedido_origen'";
+        $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'";
         $tieneGuias_query = $this->select($tieneGuias_sql);
         $tieneGuias = count($tieneGuias_query);
 
@@ -217,24 +217,24 @@ class LaarModel extends Query
         $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
         $valor_base = $valor_base[0]['precio'];
 
-        $total_guia = $this->select("SELECT costoproducto FROM guia_laar WHERE id_pedido = '$id_pedido_origen'");
+        $total_guia = $this->select("SELECT costoproducto FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $total_guia = $total_guia[0]['costoproducto'];
 
-        $auxiliar = $this->select("SELECT cod FROM guia_laar WHERE id_pedido = '$id_pedido_origen'");
+        $auxiliar = $this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $auxiliar = $auxiliar[0]['cod'];
 
         if ($auxiliar == 1) {
             $valor_base = $valor_base + ($total_guia * 0.03);
         }
 
-        $valor_declarado = $this->select("SELECT valorDeclarado FROM guia_laar WHERE id_pedido = '$id_pedido_origen'");
+        $valor_declarado = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $valor_declarado = $valor_declarado[0]['valorDeclarado'];
         if ($valor_declarado > 1) {
-            $valor = $this->select("SELECT valorDeclarado FROM guia_laar WHERE id_pedido = '$id_pedido_origen'");
+            $valor = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
             $valor_base = $valor_base + ($valor[0]['valorDeclarado'] * 0.01);
         }
 
-        $costo_guia = $this->select("SELECT valor_costo FROM guia_laar WHERE id_pedido = '$id_pedido_origen'");
+        $costo_guia = $this->select("SELECT valor_costo FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $costo_guia = $costo_guia[0]['valor_costo'];
 
         $valor_total = $this->select("SELECT valor1_producto FROM productos WHERE id_producto = '$producto_id'");
@@ -242,12 +242,11 @@ class LaarModel extends Query
         $valor_total = $valor_total[0]['valor1_producto'];
 
         $costo_envio = $valor_base + ($valor_base * 0.25);
-        echo $costo_envio;
         $costo_envio = number_format($costo_envio, 2);
 
         $monto_recibir = 0 - $costo_envio;
 
-        $sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_proveedor`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $valor_total, $costo_total, $valor_base, $monto_recibir, $monto_recibir);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
