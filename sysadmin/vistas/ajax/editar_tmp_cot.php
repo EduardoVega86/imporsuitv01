@@ -90,8 +90,37 @@ $total_impuesto = 0;
 $cantidad_total = 0;
 $costo_total=0;
 $productos_guia = "";
-$sql            = mysqli_query($conexion, "select * from productos, facturas_cot, detalle_fact_cot where facturas_cot.id_factura=detalle_fact_cot.id_factura and  facturas_cot.id_factura='$id_factura' and productos.id_producto=detalle_fact_cot.id_producto");
+$id_factura_cotizacion_edit=$id_factura;
+$pedido_drog= get_row('facturas_cot', 'drogshipin', 'id_factura', $id_factura);
+$tienda_drog= get_row('facturas_cot', 'tienda', 'id_factura', $id_factura);
+  //echo 'sa'.$pedido_drog;
+  
+  if($pedido_drog==4){
+      $archivo_tienda = $tienda_drog . '/sysadmin/vistas/db1.php'; // Nombre del archivo original
+     //echo $archivo_tienda;
+    $contenido_tienda = file_get_contents($archivo_tienda);
+    $archivo_destino_tienda = '../db_destino_guia.php'; // Nombre del archivo de destino
+    //echo $archivo_destino_tienda;
+    // $origen = fopen($archivo_origen_marketplace, 'r');
+    if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+        //echo "El JSON se ha guardado correctamente en el archivo.";
+
+
+    } else {
+        echo "Error al guardar eddl JSON en el archivo.";
+    }
+
+    require_once "../php_conexion_destino_guia.php";
+    $id_factura= get_row('facturas_cot', 'id_factura_origen', 'id_factura', $id_factura);
+    $sql            = mysqli_query($conexion_destino, "select * from productos, facturas_cot, detalle_fact_cot where facturas_cot.id_factura=detalle_fact_cot.id_factura and  facturas_cot.id_factura='$id_factura' and productos.id_producto=detalle_fact_cot.id_producto");    
+  }else{
+  $sql            = mysqli_query($conexion, "select * from productos, facturas_cot, detalle_fact_cot where facturas_cot.id_factura=detalle_fact_cot.id_factura and  facturas_cot.id_factura='$id_factura' and productos.id_producto=detalle_fact_cot.id_producto");    
+  }
+ 
+//echo "select * from productos, facturas_cot, detalle_fact_cot where facturas_cot.id_factura=detalle_fact_cot.id_factura and  facturas_cot.id_factura='$id_factura' and productos.id_producto=detalle_fact_cot.id_producto";
+
 $costo_total=0;
+//print_r($sql);
 while ($row = mysqli_fetch_array($sql)) {
     $id_detalle      = $row["id_detalle"];
     $id_producto     = $row["id_producto"];
@@ -101,6 +130,10 @@ while ($row = mysqli_fetch_array($sql)) {
     $nombre_producto = $row['nombre_producto'];
     $costo_producto    = $row['costo_producto'];
     $guia_enviada             = $row['guia_enviada'];
+    //$id_factura             = $row['id_factura'];
+    $drogshipin_tmp             = $row['drogshipin_tmp'];
+    
+   
     //echo $costo_producto;
     $id_pedido_cot      = $row["id_factura"];
     $tienda   = $row['tienda'];
@@ -167,8 +200,9 @@ $sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . 
     </tr>
     <?php
 }
+//echo "update facturas_cot set monto_factura='$total_factura' where id_factura='$id_factura_cotizacion_edit'";
 $total_factura = @$subtotal + $total_impuesto;
-$update        = mysqli_query($conexion, "update facturas_cot set monto_factura='$total_factura' where id_factura='$id_factura'");
+$update        = mysqli_query($conexion, "update facturas_cot set monto_factura='$total_factura' where id_factura='$id_factura_cotizacion_edit'");
 
 ?>
 <tr>
@@ -242,4 +276,3 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
 
     });
 </script>
-
