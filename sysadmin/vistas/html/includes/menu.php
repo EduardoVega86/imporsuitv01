@@ -220,16 +220,13 @@ $marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
 
 					</ul>
 				</li>
-				<?php if ($marketplace_url === "marketplace.imporsuit" || $marketplace_url == "localhost") echo '
 				<li>
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-wallet"></i><span> Cartera</span> <span class="menu-arrow"></span></a>
 					<ul class="list-unstyled">
 						<li><a href="../html/wallet.php">Configurar Cartera</a></li>
 					</ul>
 				</li>
-				';
 
-				?>
 				<!--li class="has_sub">
 										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-import"></i><span> Carga Txt
 										</span> <span class="menu-arrow"></span></a>

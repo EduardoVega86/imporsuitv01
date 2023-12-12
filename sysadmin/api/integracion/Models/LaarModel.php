@@ -14,12 +14,7 @@ class LaarModel extends Query
         } else if ($estado_actual_codigo == 9) {
             $this->pedidoDevolucion($no_guia, $estado_actual_codigo);
         }
-        // local
-        $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
-        // proveedor 
-        $this->actualizarProveedor($no_guia, $estado_actual_codigo);
-        // marketplace
-        $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
+        $this->cambiarEstados($no_guia, $estado_actual_codigo);
     }
     protected function conectarProveedor($proveedor)
     {
@@ -168,7 +163,7 @@ class LaarModel extends Query
         $monto_recibir = $total_guia - $valor_base - $costo_guia;
 
         $sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $valor_total, $costo_total, $valor_base, $monto_recibir, $monto_recibir);
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
         if ($query_insertar_cc) {
@@ -247,7 +242,7 @@ class LaarModel extends Query
         $monto_recibir = 0 - $costo_envio;
 
         $sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $valor_total, $costo_total, $valor_base, $monto_recibir, $monto_recibir);
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
         if ($query_insertar_cc) {
@@ -255,5 +250,16 @@ class LaarModel extends Query
         } else {
             echo json_encode('error');
         }
+    }
+
+    public function actualizarTablas($no_guia, $estado_actual_codigo)
+    {
+    }
+
+    public function cambiarEstados($no_guia, $estado_actual_codigo)
+    {
+        $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
+        $this->actualizarProveedor($no_guia, $estado_actual_codigo);
+        $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
     }
 }
