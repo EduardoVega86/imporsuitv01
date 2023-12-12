@@ -241,6 +241,7 @@ while ($r = $query->fetch_object()) {
                                                 <div class="widget-chart">
                                                     <div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
                                                     <form class="form-horizontal" role="form" id="barcode_form">
+                                                        <input type="hidden"   value="<?php echo $valor_base; ?>" id="costo_envio" name="costo_envio">
                                                         <?php if ($guia_enviada != 1) { ?>
                                                             <div class="form-group row">
                                                                 <label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
@@ -574,7 +575,7 @@ while ($r = $query->fetch_object()) {
                                                     <div class="row">
                                                         <div class="col-md-3">
                                                             </br>
-                                                            <button style="cursor: pointer;" type="button" onclick="generar_guia()" class="btn btn-danger">Generar Guía</button>
+                                                            <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn btn-danger" disabled>Generar Guía</button>
                                                         </div>
                                                         <div class="col-md-3">
                                                             </br>
@@ -871,7 +872,9 @@ while ($r = $query->fetch_object()) {
         valorasegurado = $('#valorasegurado').val();
 
         id_pedido_cot = $('#id_pedido_cot').val();
-        //alert(id_pedido_cot);
+        costo_envio = $('#valor_envio2').val();
+        
+        //alert(costo_envio);
 
 
 
@@ -899,6 +902,7 @@ while ($r = $query->fetch_object()) {
                     identificacion: identificacion,
                     costo_total: costo_total,
                     valorasegurado: valorasegurado,
+                    costo_envio: costo_envio,
 
                 },
                 dataType: 'text',

@@ -55,6 +55,6 @@ if ($cod=="1"){
     </tr>
 </table>
 
-<input type="hidden" id="valor_envio" name="valor_envio" value="<?php echo $valor_envio; ?>" >
+<input type="hidden" id="valor_envio2" name="valor_envio2" value="<?php echo $valor_envio; ?>" >
 
 

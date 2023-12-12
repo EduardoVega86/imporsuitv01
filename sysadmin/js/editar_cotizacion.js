@@ -306,6 +306,7 @@ function calcular_guia() {
 				//alert(response)
                                 
                                  $('#valor_envio').html(response);
+                                   $('#generar_guia_btn').prop('disabled', false);
             } // /success function
 
         }); // /ajax function to fetch the printable order

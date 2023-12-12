@@ -176,24 +176,26 @@ if ($action == 'ajax') {
                         <td><?php echo $fecha; ?></td>
                         <td><?php echo $nombre; ?></td>
                         <td><?php
+                       // echo 'sa';
                             $estado_guia = 'NO ENVIADA';
-                            if ($drogshipin == 1 || $drogshipin == 3) {
+                            if ($drogshipin == 1 || $drogshipin == 3 || $drogshipin == 4) {
                                 $tipo_ped = $tienda;
                             } else {
                                 $tipo_ped = 'LOCAL';
                             }
-                            echo $tipo_ped; ?></td>
+                           // echo $tipo_ped; ?></td>
                         <td><?php echo $telefono; ?></td>
 
                         <td><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
                         <td><?php echo $direccion; ?></td>
 
                         <td align="center"><?php
+                       // echo $drogshipin;
                                             if (($estado_factura != 0) || $drogshipin == 3 || $drogshipin == 4) {
                                                 if ($drogshipin == 3 || $drogshipin == 4) {
 
 
-
+//echo 'entra';
                                                     $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
 
                                                     if (isset($guia_numero)) {
@@ -322,7 +324,7 @@ if ($action == 'ajax') {
                                             } ?>
                         </td>
                         <td>
-                            <?php if ($drogshipin == 3 || $drogshipin == 3) {
+                            <?php if ($drogshipin == 3 || $drogshipin == 4) {
 
                             ?>
                                 <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
