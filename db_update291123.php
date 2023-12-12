@@ -973,6 +973,9 @@ mysqli_query($conexion, "ALTER TABLE `tmp_ventas` DROP `id_origen`");
 mysqli_query($conexion, "ALTER TABLE `tmp_cotizacion` DROP `id_marketplace`");
 mysqli_query($conexion, "ALTER TABLE `tmp_cotizacion` DROP `id_origen`");
 mysqli_query($conexion, "UPDATE `ciudad_laar` SET `precio` = '3.5' WHERE `codigo` = '201001001001'");
+
+mysqli_query($conexion, "UPDATE `user_group` SET `permission` = 'Inicio,1,1,1;Productos,1,1,1;Proveedores,1,1,1;Clientes,1,1,1;Reportes,1,1,1;Configuracion,1,1,1;Usuarios,1,1,1;Permisos,1,1,1;Categorias,1,1,1;Ventas,1,1,1;Compras,1,1,1;Pedidos,1,1,1;Integraciones,1,1,1;Dominios,1,1,1;Wallets,1,1,1;' WHERE `user_group`.`user_group_id` = 1;");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
