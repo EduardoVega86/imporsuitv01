@@ -9,8 +9,7 @@ require_once "../db.php"; //Contiene las variables de configuracion para conecta
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
 //Inicia Control de Permisos
 include "../permisos.php";
-$marketplace_url = $_SERVER['HTTP_HOST'];
-$marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
+
 
 $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
