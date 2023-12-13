@@ -87,6 +87,12 @@ function buscar(tienda) {
   // alert(tienda)
   var q = $("#q").val();
   var estado = $("#estado_q").val();
+  if (tienda == 0) {
+    tienda = "";
+  }
+  if (estado == 0) {
+    estado = "";
+  }
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -96,7 +102,9 @@ function buscar(tienda) {
       "&tienda=" +
       tienda +
       "&q=" +
-      q,
+      q +
+      "&estado=" +
+      estado,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -114,6 +122,12 @@ function buscar_estado(estado) {
   // alert(tienda)
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
+  if (tienda == 0) {
+    tienda = "";
+  }
+  if (estado == 0) {
+    estado = "";
+  }
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -123,7 +137,9 @@ function buscar_estado(estado) {
       "&estado=" +
       estado +
       "&q=" +
-      q,
+      q +
+      "&tienda=" +
+      tienda,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
