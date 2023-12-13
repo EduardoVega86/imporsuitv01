@@ -84,7 +84,7 @@ $resultado = mysqli_query($conexion, $sql);
     //echo "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1";
     $query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
     or die('error ' . mysqli_error($conexion));
-    $query_id_marketplace = mysqli_query($conexion_marketplace, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
+    $query_id_marketplace = mysqli_query($conexion_marketplace, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY id_factura DESC LIMIT 1")
     or die('error ' . mysqli_error($conexion_marketplace));
     $count = mysqli_num_rows($query_id);
     $count_marketplace = mysqli_num_rows($query_id_marketplace);
@@ -100,12 +100,16 @@ $resultado = mysqli_query($conexion, $sql);
     if ($count_marketplace != 0) {
         $data_id_marketplace = mysqli_fetch_assoc($query_id_marketplace);
         $factura_marketplace = $data_id_marketplace['factura'] + 1;
+        //echo $factura_marketplace;
     } else {
         $factura_marketplace = 1;
     }
     
     $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
     $factura = "COT-$buat_id";
+     $buat_id_market = str_pad($factura_marketplace, 6, "0", STR_PAD_LEFT);
+    $factura_marketplace = "COT-$buat_id_market";
+    
 // fin de numero de fatura
     // consulta principal
     $nums          = 1;
@@ -186,7 +190,7 @@ if ($resultado_f_marketplace) {
 }
         //$id_producto_marketplace= get_row_guia($conexion_marketplace, $table, $row, $id, $equal);
        // $id_producto_marketplace=get_row_guia('productos', 'id_producto', 'id_producto_origen', $id_producto . " and tienda='" . $server_url . "'");
-        
+       // echo 'eee'.$factura_marketplace;
         $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin',NULL)");
         $insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_marketplace','$factura_marketplace','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto')");
         
@@ -250,7 +254,7 @@ if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
           $query_id_destino = mysqli_query($conexion_destino, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
     or die('error ' . mysqli_error($conexion_destino));
           
-            $query_id_marketplace = mysqli_query($conexion_marketplace, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
+            $query_id_marketplace = mysqli_query($conexion_marketplace, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY id_factura DESC LIMIT 1")
     or die('error ' . mysqli_error($conexion_marketplace));
     $count = mysqli_num_rows($query_id);
     $count_destino = mysqli_num_rows($query_id_destino);
@@ -258,6 +262,7 @@ if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
     if ($count_marketplace != 0) {
         $data_id_marketplace = mysqli_fetch_assoc($query_id_marketplace);
         $factura_marketplace = $data_id_marketplace['factura'] + 1;
+        echo $data_id_marketplace['factura'] + 1;
     } else {
         $factura_marketplace = 1;
     }
@@ -394,11 +399,11 @@ else {
         $server_url = $protocol . $_SERVER['HTTP_HOST'];
     $sql_destino="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`, `id_factura_origen`) "
             . "VALUES ( '$factura_destino', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 3,'$server_url','$ultimo_id'); ";
-   // echo $sql;
+   // echo $sql_destino;
      $insert_destino      = mysqli_query($conexion_destino, $sql_destino);
      $sql_marketplace="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`, `id_factura_origen`) "
             . "VALUES ( '$factura_marketplace', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 3,'$server_url','$ultimo_id'); ";
-   // echo $sql;
+   // echo $sql_marketplace;
      $insert_destino      = mysqli_query($conexion_marketplace, $sql_marketplace);
     }
     }

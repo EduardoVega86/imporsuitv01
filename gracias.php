@@ -118,6 +118,10 @@ if (empty($_POST['session'])) {
     $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
     $factura = "COT-$buat_id";
     // fin de numero de fatura
+    // 
+    // $buat_id_marketplace = str_pad($factura_marketplace, 6, "0", STR_PAD_LEFT);
+    $buat_id_marketplace = str_pad($factura_marketplace, 6, "0", STR_PAD_LEFT);     
+    $factura_marketplace = "COT-$buat_id_marketplace";
     // consulta principal
     $nums          = 1;
     $impuesto      = get_row('perfil', 'impuesto', 'id_perfil', 1);
