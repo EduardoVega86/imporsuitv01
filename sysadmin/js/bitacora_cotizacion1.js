@@ -35,6 +35,7 @@ function load(page) {
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
   var estado = $("#estado_q").val();
+  console.log(estado);
   var url = "";
 
   if (tienda != 0) {
@@ -85,6 +86,7 @@ function load(page) {
 function buscar(tienda) {
   // alert(tienda)
   var q = $("#q").val();
+  var estado = $("#estado_q").val();
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -93,6 +95,33 @@ function buscar(tienda) {
       page +
       "&tienda=" +
       tienda +
+      "&q=" +
+      q,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
+}
+
+function buscar_estado(estado) {
+  // alert(tienda)
+  var q = $("#q").val();
+  var tienda = $("#tienda_q").val();
+  page = 1;
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url:
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      page +
+      "&estado=" +
+      estado +
       "&q=" +
       q,
     beforeSend: function (objeto) {
