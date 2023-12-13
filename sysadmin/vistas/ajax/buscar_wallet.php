@@ -257,7 +257,14 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         //main query to fetch the data
         $sql = "SELECT DISTINCT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
         $query = mysqli_query($conexion_db, $sql);
+        $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         //loop through fetched data
+
+        $total_pendiente_a_la_tienda_sql = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_cobrar WHERE tienda = '$dominio_completo'";
+        $query_total_pendiente_a_la_tienda = mysqli_query($conexion_db, $total_pendiente_a_la_tienda_sql);
+        $row_total_pendiente_a_la_tienda = mysqli_fetch_array($query_total_pendiente_a_la_tienda);
+        $total_pendiente_a_la_tienda = $row_total_pendiente_a_la_tienda['total_pendiente_a_la_tienda'];
+
         if ($numrows > 0) { {
             ?>
                 <form id="filter-form">
@@ -274,6 +281,18 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
                     <button class="btn btn-outline-primary" type="button" onclick="filterData()">Filtrar</button>
                 </form>
+
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-store text-danger "></i>
+                            <div class="wid-icon-info text-right">
+                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_pendiente_a_la_tienda, 2); ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="table-responsive">
                     <table class="table table-hover">

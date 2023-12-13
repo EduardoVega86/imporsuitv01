@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 class LaarModel extends Query
 {
     public function __construct()
@@ -31,7 +34,7 @@ class LaarModel extends Query
     }
     protected function conectarMarketplace()
     {
-        # Conexión a la base de datos de marketplace
+        # Conexi贸n a la base de datos de marketplace
         $market_connect = mysqli_connect(MARKETPLACE, MARKETPLACE_USER, MARKETPLACE_PASSWORD, MARKETPLACE_DB);
         if (!$market_connect) {
             die("Connection failed: " . mysqli_connect_error());
@@ -42,20 +45,21 @@ class LaarModel extends Query
 
     public function actualizarTiendaVenta($no_guia, $estado_actual_codigo)
     {
-        $tienda_venta = $this->conectarProveedor($this->buscarTiendaVenta($no_guia));
+        $tienda_ventas = $this->conectarProveedor($this->buscarTiendaVenta($no_guia));
         $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
-        $result = mysqli_query($tienda_venta, $sql);
+        $result = mysqli_query($tienda_ventas, $sql);
 
-        $sql = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar ='$no_guia'";
+        $sql = "SELECT id_pedido, tienda_proveedor FROM guia_laar WHERE guia_laar ='$no_guia'";
         $query = $this->select($sql);
         $id_pedido = $query[0]['id_pedido'];
-        $tienda_venta = $query[0]['tienda_venta'];
+        $tienda_venta = $query[0]['tienda_proveedor'];
 
-        $sql = "UPDATE facturas_cot SET estado_guia_sistema ='$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_venta'";
-        $result = mysqli_query($tienda_venta, $sql);
+        $sql = "UPDATE `facturas_cot` SET `estado_guia_sistema` = '$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_venta'";
 
-        echo mysqli_error($tienda_venta);
-        mysqli_close($tienda_venta);
+        $result = mysqli_query($tienda_ventas, $sql);
+
+        echo mysqli_error($tienda_ventas);
+        mysqli_close($tienda_ventas);
         return $result;
     }
 
@@ -132,7 +136,11 @@ class LaarModel extends Query
     public function pedidoEntragado($no_guia, $estado_actual_codigo)
     {
         $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
-        $numero_factura_verificar = $numero_factura_verificar[0]['numero_factura'];
+        $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
+        $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
+        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
+        $numero_factura_verificar = $numero_factura[0]['numero_factura'];
+
         $verificar = $this->select("SELECT * FROM cabecera_cuenta_cobrar WHERE numero_factura = '$numero_factura_verificar'");
         $verificar = count($verificar);
         if ($verificar > 0) {
@@ -213,7 +221,11 @@ class LaarModel extends Query
     public function pedidoDevolucion($no_guia, $estado_actual_codigo)
     {
         $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
-        $numero_factura_verificar = $numero_factura_verificar[0]['numero_factura'];
+        $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
+        $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
+        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
+        $numero_factura_verificar = $numero_factura[0]['numero_factura'];
+
         $verificar = $this->select("SELECT * FROM cabecera_cuenta_cobrar WHERE numero_factura = '$numero_factura_verificar'");
         $verificar = count($verificar);
         if ($verificar > 0) {
@@ -311,7 +323,7 @@ class LaarModel extends Query
         $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
     }
 
-    public function modificarEstadoGeneral($no_guia,)
+    public function modificarEstadoGeneral($no_guia)
     {
     }
 }
