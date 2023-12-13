@@ -38,14 +38,14 @@ function load(page) {
 
   if (tienda != 0) {
     url =
-      "../ajax/buscar_cotizacion.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
       "&tienda=" +
       tienda;
   } else {
-    url = "../ajax/buscar_cotizacion.php?action=ajax&page=" + page + "&q=" + q;
+    url = "../ajax/buscar_cotizacion1.php?action=ajax&page=" + page + "&q=" + q;
   }
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -70,7 +70,7 @@ function buscar(tienda) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_cotizacion.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
       page +
       "&tienda=" +
       tienda +
