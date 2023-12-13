@@ -850,6 +850,7 @@ while ($r = $query->fetch_object()) {
 
 
     function generar_guia(id_factura) {
+        $('#generar_guia_btn').prop('disabled', true);
         nombre_destino = $('#nombredestino').val();
         identificacion = $('#identificacion').val();
         ciudad = $('#ciudad_entrega').val();;
