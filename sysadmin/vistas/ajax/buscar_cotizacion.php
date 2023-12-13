@@ -234,8 +234,19 @@ if ($action == 'ajax') {
                         <td align="center"><?php
                        // echo $drogshipin;
                           switch ($drogshipin) {
+                              case 0:
+                              if($guia_enviada==1){
+                                
+                                   $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                   $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero; 
+                              }else{
+                                  echo 'GUIA NO ENVIADA';
+                              }
+                             
+                          break;
                           case 1:
                               if($guia_enviada==1){
+                                
                                    $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                                    $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero; 
                               }else{
