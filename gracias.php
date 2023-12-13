@@ -190,7 +190,7 @@ if ($resultado_f_marketplace) {
   
     if ($ultima_factura_marketplace !== null) {
        $id_factura_marketplace =  $ultima_factura_marketplace + 1;
-         echo $id_factura_marketplace;
+       //  echo $id_factura_marketplace;
     } else {
        $id_factura_marketplace=1;
     }
