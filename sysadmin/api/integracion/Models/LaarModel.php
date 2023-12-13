@@ -245,6 +245,8 @@ class LaarModel extends Query
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
+
+
         if ($query_insertar_cc) {
             echo json_encode('ok');
         } else {
@@ -261,5 +263,9 @@ class LaarModel extends Query
         $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
         $this->actualizarProveedor($no_guia, $estado_actual_codigo);
         $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
+    }
+
+    public function modificarEstadoGeneral($no_guia,)
+    {
     }
 }
