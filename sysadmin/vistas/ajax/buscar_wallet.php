@@ -2,6 +2,8 @@
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
+
+
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
@@ -230,10 +232,12 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 } else {
     if ($action == "ajax") {
         // escaping, additionally removing everything that could be (html/javascript-) code
-        $q = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
+        $sDominio = 'imporsuit_marketplace';
+        $conexion_db = mysqli_connect('localhost', $sDominio, $sDominio, $sDominio);
+        $q = mysqli_real_escape_string($conexion_db, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
         $sTable = "cabecera_cuenta_cobrar, facturas_cot";
         $sWhere = "";
-        $sWhere .= " WHERE cabecera_cuenta_cobrar.tienda = '$dominio_completo' AND cabecera_cuenta_cobrar.numero_factura=facturas_cot.numero_factura";
+        $sWhere .= " WHERE  cabecera_cuenta_cobrar.tienda = '$dominio_completo' and cabecera_cuenta_cobrar.numero_factura=facturas_cot.numero_factura GROUP BY cabecera_cuenta_cobrar.numero_factura";
         if ($_GET['q'] != "") {
             $sWhere .= "";
         }
@@ -245,14 +249,14 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $adjacents  = 4; //gap between pages after number of adjacents
         $offset = ($page - 1) * $per_page;
         //Count the total number of row in your table*/
-        $count_query   = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+        $count_query   = mysqli_query($conexion_db, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
         $row = mysqli_fetch_array($count_query);
         $numrows = $row['numrows'];
         $total_pages = ceil($numrows / $per_page);
         $reload = '../reportes/wallet.php';
         //main query to fetch the data
-        $sql = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-        $query = mysqli_query($conexion, $sql);
+        $sql = "SELECT DISTINCT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+        $query = mysqli_query($conexion_db, $sql);
         //loop through fetched data
         if ($numrows > 0) { {
             ?>
@@ -312,7 +316,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 $id_factura_origen = $row['id_factura_origen'];
 
                                 $guia_laar = "select guia_laar from guia_laar where tienda_venta ='$dominio_completo' AND id_pedido = '$id_factura_origen'";
-                                $query_guia_laar = mysqli_query($conexion, $guia_laar);
+                                $query_guia_laar = mysqli_query($conexion_db, $guia_laar);
                                 $row_guia_laar = mysqli_fetch_array($query_guia_laar);
 
                                 $guia_laar = $row_guia_laar['guia_laar'];

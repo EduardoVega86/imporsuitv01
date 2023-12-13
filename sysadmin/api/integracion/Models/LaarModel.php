@@ -45,6 +45,15 @@ class LaarModel extends Query
         $tienda_venta = $this->conectarProveedor($this->buscarTiendaVenta($no_guia));
         $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
         $result = mysqli_query($tienda_venta, $sql);
+
+        $sql = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar ='$no_guia'";
+        $query = $this->select($sql);
+        $id_pedido = $query[0]['id_pedido'];
+        $tienda_venta = $query[0]['tienda_venta'];
+
+        $sql = "UPDATE facturas_cot SET estado_guia_sistema ='$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_venta'";
+        $result = mysqli_query($tienda_venta, $sql);
+
         echo mysqli_error($tienda_venta);
         mysqli_close($tienda_venta);
         return $result;
@@ -56,6 +65,15 @@ class LaarModel extends Query
         $proveedor = $this->conectarProveedor($this->buscarProveedor($no_guia));
         $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
         $result = mysqli_query($proveedor, $sql);
+
+        $sql = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar ='$no_guia'";
+        $query = $this->select($sql);
+        $id_pedido = $query[0]['id_pedido'];
+        $tienda_proveedor = $query[0]['tienda_venta'];
+
+        $sql = "UPDATE facturas_cot SET estado_guia_sistema ='$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_proveedor'";
+        $result = mysqli_query($proveedor, $sql);
+
         echo mysqli_error($proveedor);
         mysqli_close($proveedor);
         return $result;
@@ -66,6 +84,16 @@ class LaarModel extends Query
         $marketplace = $this->conectarMarketplace();
         $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
         $result = mysqli_query($marketplace, $sql);
+        echo mysqli_error($marketplace);
+
+        $sql = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar ='$no_guia'";
+        $query = $this->select($sql);
+        $id_pedido = $query[0]['id_pedido'];
+        $tienda_venta = $query[0]['tienda_venta'];
+
+        $sql = "UPDATE facturas_cot SET estado_guia_sistema ='$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_venta'";
+        $result = mysqli_query($marketplace, $sql);
+
         echo mysqli_error($marketplace);
         mysqli_close($marketplace);
         return $result;
@@ -103,6 +131,15 @@ class LaarModel extends Query
 
     public function pedidoEntragado($no_guia, $estado_actual_codigo)
     {
+        $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
+        $numero_factura_verificar = $numero_factura_verificar[0]['numero_factura'];
+        $verificar = $this->select("SELECT * FROM cabecera_cuenta_cobrar WHERE numero_factura = '$numero_factura_verificar'");
+        $verificar = count($verificar);
+        if ($verificar > 0) {
+            echo json_encode('ya_existe');
+            exit;
+        }
+
         $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
 
@@ -175,6 +212,15 @@ class LaarModel extends Query
 
     public function pedidoDevolucion($no_guia, $estado_actual_codigo)
     {
+        $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
+        $numero_factura_verificar = $numero_factura_verificar[0]['numero_factura'];
+        $verificar = $this->select("SELECT * FROM cabecera_cuenta_cobrar WHERE numero_factura = '$numero_factura_verificar'");
+        $verificar = count($verificar);
+        if ($verificar > 0) {
+            echo json_encode('ya_existe');
+            exit;
+        }
+
         $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
 
@@ -245,6 +291,8 @@ class LaarModel extends Query
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
+
+
         if ($query_insertar_cc) {
             echo json_encode('ok');
         } else {
@@ -261,5 +309,9 @@ class LaarModel extends Query
         $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
         $this->actualizarProveedor($no_guia, $estado_actual_codigo);
         $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
+    }
+
+    public function modificarEstadoGeneral($no_guia,)
+    {
     }
 }
