@@ -995,6 +995,44 @@ mysqli_query($conexion, "CREATE TABLE `cabecera_cuenta_cobrar` (
 mysqli_query($conexion, "ALTER TABLE `cabecera_cuenta_cobrar`
 ADD PRIMARY KEY (`id_cabecera`);");
 
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001001027';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001001043';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001001060';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001001062';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001002020';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001002029';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001002070';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001002073';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001002076';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001003020';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001003035';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001005007';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001007013';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001011014';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001011019';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001012004';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001012005';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001013008';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001013021';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001014007';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001014025';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001014026';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001014041';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001016004';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001017001';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001017002';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001017003';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001020001';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001020002';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001020003';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001021005';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001022001';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001023021';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001024004';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001024005';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001024006';");
+mysqli_query($conexion, "UPDATE `ciudad_laar` SET `costo`='3.5',`precio`='5.5' WHERE codigo='201001024007';");
+
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
