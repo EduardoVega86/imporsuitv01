@@ -85,6 +85,16 @@ class LaarModel extends Query
         $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
         $result = mysqli_query($marketplace, $sql);
         echo mysqli_error($marketplace);
+
+        $sql = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar ='$no_guia'";
+        $query = $this->select($sql);
+        $id_pedido = $query[0]['id_pedido'];
+        $tienda_venta = $query[0]['tienda_venta'];
+
+        $sql = "UPDATE facturas_cot SET estado_guia_sistema ='$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_venta'";
+        $result = mysqli_query($marketplace, $sql);
+
+        echo mysqli_error($marketplace);
         mysqli_close($marketplace);
         return $result;
     }
