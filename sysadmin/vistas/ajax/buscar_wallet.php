@@ -2,6 +2,8 @@
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
+
+
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
@@ -230,10 +232,8 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 } else {
     if ($action == "ajax") {
         // escaping, additionally removing everything that could be (html/javascript-) code
-        $sDominio = $dominio_actual;
-        $sDominio = str_replace('.imporsuit', '', $sDominio);
-        $sDominio = 'imporsuit_' . $sDominio;
-        $conexion_db = mysqli_connect($sDominio, $sDominio, $sDominio, $sDominio);
+        $sDominio = 'imporsuit_marketplace';
+        $conexion_db = mysqli_connect('localhost', $sDominio, $sDominio, $sDominio);
         $q = mysqli_real_escape_string($conexion_db, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
         $sTable = "cabecera_cuenta_cobrar, facturas_cot";
         $sWhere = "";
