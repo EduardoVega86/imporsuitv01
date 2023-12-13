@@ -127,6 +127,7 @@ else {
   $protocol = 'http://';
 }
      $server_url = $protocol . $_SERVER['HTTP_HOST'];
+     echo $server_url;
   if ($resultado > 0) {
     while ($row = mysqli_fetch_array($sql)) {
         $id_tmp          = $row["id_tmp"];
@@ -293,6 +294,7 @@ if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
         $nombre_producto = $row['nombre_producto'];
         $id_producto_origen = $row['id_producto_origen'];
         $id_marketplace = $row['id_marketplace'];
+         $tienda = $row['tienda'];
         $contenido .=' %3a%0A '.$nombre_producto.' x '.$cantidad;
         // control del impuesto por productos.
         if ($row['iva_producto'] == 0) {
@@ -401,7 +403,8 @@ else {
     }
     }
     }
-        $delete        = mysqli_query($conexion, "DELETE FROM tmp_cotizacion WHERE session_id='" . $session_id . "'");
+     
+    $delete        = mysqli_query($conexion, "DELETE FROM tmp_cotizacion WHERE session_id='" . $session_id . "'");
     //header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO
 //echo 'funciona';
