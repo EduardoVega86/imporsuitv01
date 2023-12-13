@@ -79,6 +79,19 @@ $ventas = 1;
                                                         }
                                                         ?>
                                                     </select>
+                                                    <select onchange="buscar(this.value)" name="estado_q" class="form-control" id="estado_q">
+                                                        <option value="0"> Seleccione Estado </option>
+                                                        <?php
+
+                                                        //echo "select * from estado_guia";
+                                                        $query_categoria = mysqli_query($conexion, "select * from estado_courier");
+                                                        while ($rw = mysqli_fetch_array($query_categoria)) {
+                                                        ?>
+                                                            <option value="<?php echo $rw['codigo']; ?>"><?php echo $rw['alias']; ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
 
                                                     <span class="input-group-btn">
                                                         <button type="button" class="btn btn-info waves-effect waves-light" onclick='load(1);'>
