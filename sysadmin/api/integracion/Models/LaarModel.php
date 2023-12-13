@@ -121,6 +121,15 @@ class LaarModel extends Query
 
     public function pedidoEntragado($no_guia, $estado_actual_codigo)
     {
+        $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
+        $numero_factura_verificar = $numero_factura_verificar[0]['numero_factura'];
+        $verificar = $this->select("SELECT * FROM cabecera_cuenta_cobrar WHERE numero_factura = '$numero_factura_verificar'");
+        $verificar = count($verificar);
+        if ($verificar > 0) {
+            echo json_encode('ya_existe');
+            exit;
+        }
+
         $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
 
@@ -193,6 +202,15 @@ class LaarModel extends Query
 
     public function pedidoDevolucion($no_guia, $estado_actual_codigo)
     {
+        $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
+        $numero_factura_verificar = $numero_factura_verificar[0]['numero_factura'];
+        $verificar = $this->select("SELECT * FROM cabecera_cuenta_cobrar WHERE numero_factura = '$numero_factura_verificar'");
+        $verificar = count($verificar);
+        if ($verificar > 0) {
+            echo json_encode('ya_existe');
+            exit;
+        }
+
         $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
 

@@ -237,7 +237,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $q = mysqli_real_escape_string($conexion_db, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
         $sTable = "cabecera_cuenta_cobrar, facturas_cot";
         $sWhere = "";
-        $sWhere .= " WHERE cabecera_cuenta_cobrar.tienda = '$dominio_completo' AND cabecera_cuenta_cobrar.numero_factura=facturas_cot.numero_factura";
+        $sWhere .= " WHERE  cabecera_cuenta_cobrar.tienda = '$dominio_completo' and cabecera_cuenta_cobrar.numero_factura=facturas_cot.numero_factura GROUP BY cabecera_cuenta_cobrar.numero_factura";
         if ($_GET['q'] != "") {
             $sWhere .= "";
         }
@@ -255,7 +255,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $total_pages = ceil($numrows / $per_page);
         $reload = '../reportes/wallet.php';
         //main query to fetch the data
-        $sql = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+        $sql = "SELECT DISTINCT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
         $query = mysqli_query($conexion_db, $sql);
         //loop through fetched data
         if ($numrows > 0) { {
