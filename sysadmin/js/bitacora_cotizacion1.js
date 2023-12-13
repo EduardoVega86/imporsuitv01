@@ -34,6 +34,7 @@ $("#editar_linea").submit(function (event) {
 function load(page) {
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
+  var estado = $("#estado_q").val();
   var url = "";
 
   if (tienda != 0) {
@@ -44,6 +45,24 @@ function load(page) {
       q +
       "&tienda=" +
       tienda;
+  } else if (estado != 0) {
+    url =
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&estado=" +
+      estado;
+  } else if (tienda != 0 && estado != 0) {
+    url =
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda +
+      "&estado=" +
+      estado;
   } else {
     url = "../ajax/buscar_cotizacion1.php?action=ajax&page=" + page + "&q=" + q;
   }
