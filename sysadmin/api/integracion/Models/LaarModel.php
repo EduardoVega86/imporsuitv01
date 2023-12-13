@@ -45,6 +45,15 @@ class LaarModel extends Query
         $tienda_venta = $this->conectarProveedor($this->buscarTiendaVenta($no_guia));
         $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
         $result = mysqli_query($tienda_venta, $sql);
+
+        $sql = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar ='$no_guia'";
+        $query = $this->select($sql);
+        $id_pedido = $query[0]['id_pedido'];
+        $tienda_venta = $query[0]['tienda_venta'];
+
+        $sql = "UPDATE facturas_cot SET estado_guia_sistema ='$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_venta'";
+        $result = mysqli_query($tienda_venta, $sql);
+
         echo mysqli_error($tienda_venta);
         mysqli_close($tienda_venta);
         return $result;
@@ -56,6 +65,15 @@ class LaarModel extends Query
         $proveedor = $this->conectarProveedor($this->buscarProveedor($no_guia));
         $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
         $result = mysqli_query($proveedor, $sql);
+
+        $sql = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar ='$no_guia'";
+        $query = $this->select($sql);
+        $id_pedido = $query[0]['id_pedido'];
+        $tienda_proveedor = $query[0]['tienda_venta'];
+
+        $sql = "UPDATE facturas_cot SET estado_guia_sistema ='$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_proveedor'";
+        $result = mysqli_query($proveedor, $sql);
+
         echo mysqli_error($proveedor);
         mysqli_close($proveedor);
         return $result;
