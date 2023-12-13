@@ -6,6 +6,26 @@ require_once "sysadmin/vistas/db.php";
 //echo DB_HOST;
 require_once "sysadmin/vistas/php_conexion.php";
 require_once "sysadmin/vistas/funciones.php";
+
+if ($_SERVER['HTTP_HOST']=='localhost'){
+    $or_marketplace = 'http://localhost/marketplace/';
+}else{
+ $or_marketplace = 'https://marketplace.imporsuit.com/';  
+}
+        $archivo_origen=$or_marketplace.'sysadmin/vistas/db1.php';
+       // echo $archivo_origen;
+        $contenido = file_get_contents($archivo_origen);
+      //  echo $contenido;
+        $archivo_destino = 'sysadmin/vistas/db_destino_marketplace.php'; // Nombre del archivo de destino
+        // Obtener el contenido del archivo original
+       // $origen = fopen($archivo_origen_marketplace, 'r');
+if (file_put_contents($archivo_destino, $contenido) !== false) {
+    //echo "El JSON se ha guardado correctamente en el archivo.";
+} else {
+    echo "Error al guardar eddl JSON en el archivo.";
+}
+  require_once "sysadmin/vistas/php_conexion_marketplace.php";
+  
 // echo 'sysadmin/vistas/ajax/banner/'.get_row('perfil', 'banner', 'id_perfil', 1);
 $id_producto = 0;
 $pagina = 'gracias';
@@ -72,8 +92,11 @@ if (empty($_POST['session'])) {
     //echo "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1";
     $query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
         or die('error ' . mysqli_error($conexion));
-
+  $query_id_marketplace = mysqli_query($conexion_marketplace, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_cot ORDER BY factura DESC LIMIT 1")
+    or die('error ' . mysqli_error($conexion_marketplace));
+  
     $count = mysqli_num_rows($query_id);
+    $count_marketplace = mysqli_num_rows($query_id_marketplace);
 
     if ($count != 0) {
 
@@ -83,6 +106,13 @@ if (empty($_POST['session'])) {
         $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_cot order by id_factura desc limit 0,1 ");
         $rw         = mysqli_fetch_array($sql);
         $id_factura = $rw['last'] + 1;
+    }
+    
+     if ($count_marketplace != 0) {
+        $data_id_marketplace = mysqli_fetch_assoc($query_id_marketplace);
+        $factura_marketplace = $data_id_marketplace['factura'] + 1;
+    } else {
+        $factura_marketplace = 1;
     }
 
     $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
@@ -97,6 +127,19 @@ if (empty($_POST['session'])) {
     //echo  "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'";
     $sql           = mysqli_query($conexion, "select * from productos, tmp_ventas where drogshipin_tmp=0 and productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
     $resultado = mysqli_num_rows($sql);
+    
+     if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+  $protocol = 'https://';
+}
+else {
+  $protocol = 'http://';
+}
+     $server_url = $protocol . $_SERVER['HTTP_HOST'];
+     //echo $server_url;
+     
      $contenido_productos="";
     if ($resultado > 0) {
         while ($row = mysqli_fetch_array($sql)) {
@@ -128,6 +171,7 @@ if (empty($_POST['session'])) {
 
             $precio_venta   = $row['precio_tmp'];
             $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
+            
             $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
             $precio_total   = $precio_venta_r * $cantidad;
             $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
@@ -137,10 +181,28 @@ if (empty($_POST['session'])) {
             $sumador_total += $precio_total_r; //Sumador
 
             $contenido .= ' %3a%0A ' . '*Precio: * $' . number_format($precio_venta, 2);
+            $sql_f_marketplace = "SELECT MAX(id_factura) as ultima_factura FROM facturas_cot";
+$resultado_f_marketplace = mysqli_query($conexion_marketplace, $sql_f_marketplace);
+if ($resultado_f_marketplace) {
+    
+    $fila_marketplace = mysqli_fetch_assoc($resultado_f_marketplace);
+    $ultima_factura_marketplace = $fila_marketplace['ultima_factura'];
+  
+    if ($ultima_factura_marketplace !== null) {
+       $id_factura_marketplace =  $ultima_factura_marketplace + 1;
+         echo $id_factura_marketplace;
+    } else {
+       $id_factura_marketplace=1;
+    }
+} else {
+    echo "Error en la consulta: " . mysqli_error($conexion_marketplace);
+}
             //Insert en la tabla detalle_factura
             // echo "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r')";
             $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura','$factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin',NULL)");
-        }
+        $insert_detail = mysqli_query($conexion_marketplace, "INSERT INTO detalle_fact_cot VALUES (NULL,'$id_factura_marketplace','$factura_marketplace','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$drogshipin','$id_producto')");
+            
+}
         // Fin de la consulta Principal
         $subtotal      = number_format($sumador_total, 2, '.', '');
         $total_iva     = ($subtotal * $impuesto) / 100;
@@ -153,7 +215,11 @@ if (empty($_POST['session'])) {
         //echo $sql;
         $insert      = mysqli_query($conexion, $sql);
 
-
+    $ultimo_id = mysqli_insert_id($conexion);
+$sql_marketplace="INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`, `id_factura_origen`) "
+            . "VALUES ( '$factura_marketplace', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 4,'$server_url','$ultimo_id'); ";
+//echo $sql_marketplace;
+$insert      = mysqli_query($conexion_marketplace, $sql_marketplace);
         // SI ES DROGSHIPDEBE GENERARSE EN EL MARKETPLACE
 
     }
