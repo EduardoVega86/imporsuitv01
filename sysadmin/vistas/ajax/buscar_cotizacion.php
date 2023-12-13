@@ -175,7 +175,7 @@ if ($action == 'ajax') {
                            $tipo_venta_m = 'LOCAL';
                             break;
                          case 1:
-                          $tipo_venta_m = 'DROPSHIPPIN';
+                          $tipo_venta_m = 'DROPSHIPPING';
                             break;
                         
                         case 2:
@@ -183,7 +183,7 @@ if ($action == 'ajax') {
                             break;
                         
                         case 3:
-                         $tipo_venta_m = 'DROPSHIPPIN'; 
+                         $tipo_venta_m = 'DROPSHIPPING'; 
                             break;
                         
                          case 4:
