@@ -79,7 +79,7 @@ $ventas = 1;
                                                         }
                                                         ?>
                                                     </select>
-                                                    <select onchange="buscar(this.value)" name="estado_q" class="form-control" id="estado_q">
+                                                    <select onchange="buscar_estado(this.value)" name="estado_q" class="form-control" id="estado_q">
                                                         <option value="0"> Seleccione Estado </option>
                                                         <?php
 
