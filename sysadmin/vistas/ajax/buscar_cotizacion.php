@@ -64,11 +64,10 @@ if ($action == 'ajax') {
                     <th># Orden</th>
                     <th>Fecha</th>
                     <th>Cliente</th>
+                    <th>TIPO</th>
                     <th>TIENDA</th>
                     <th>Telefono</th>
                     <th>Localidad</th>
-
-
                     <th>Direccion</th>
 
                     <th colspan="2" style="text-align: center;">Estado</th>
@@ -105,6 +104,7 @@ if ($action == 'ajax') {
                     $estado_factura   = $row['estado_factura'];
                     $guia_enviada   = $row['guia_enviada'];
                     $drogshipin   = $row['drogshipin'];
+                    
                     $tienda   = $row['tienda'];
                     $span_estado = '';
 
@@ -113,15 +113,9 @@ if ($action == 'ajax') {
                     $existe_guia_query = mysqli_query($conexion, $existe_guia_sql);
                     $existe_guia = mysqli_num_rows($existe_guia_query);
                     //echo $existe_guia;
-
-                    if ($estado_factura == 1) {
-                        $text_estado = "INGRESADA";
-                        $label_class = 'badge-success';
-                    } else {
-                        $text_estado = "CREDITO";
-                        $label_class = 'badge-danger';
-                    }
-
+                    $guia_numero='';
+           
+                    $estado_guia='';
                     switch ($estado_factura) {
 
                         case 1:
@@ -175,15 +169,63 @@ if ($action == 'ajax') {
                         <td><label class='badge badge-purple'><?php echo $numero_factura; ?></label></td>
                         <td><?php echo $fecha; ?></td>
                         <td><?php echo $nombre; ?></td>
+                        <td><?php 
+                        switch ($drogshipin) {
+                          case 0:
+                           $tipo_venta_m = 'LOCAL';
+                            break;
+                         case 1:
+                          $tipo_venta_m = 'DROGSHIPIN';
+                            break;
+                        
+                        case 2:
+                          $tipo_venta_m = 'LOCAL';
+                            break;
+                        
+                        case 3:
+                         $tipo_venta_m = 'DROGSHIPIN'; 
+                            break;
+                        
+                         case 4:
+                         $tipo_venta_m = 'LOCAL';
+                             
+                            break;
+                        
+                         default:
+                            echo "Estado no reconocido";
+                        
+                         }
+                         echo $tipo_venta_m;
+                        ?></td>
                         <td><?php
                        // echo 'sa';
-                            $estado_guia = 'NO ENVIADA';
-                            if ($drogshipin == 1 || $drogshipin == 3 || $drogshipin == 4) {
-                                $tipo_ped = $tienda;
-                            } else {
-                                $tipo_ped = 'LOCAL';
-                            }
-                           // echo $tipo_ped; ?></td>
+                         switch ($drogshipin) {
+                          case 0:
+                           $tipo_ped = $tienda;
+                            break;
+                         case 1:
+                          $tipo_ped = $tienda;
+                            break;
+                        
+                        case 2:
+                          $tipo_ped = $tienda;
+                            break;
+                        
+                        case 3:
+                         $tipo_ped = $tienda; 
+                            break;
+                        
+                         case 4:
+                         $tipo_ped = $tienda;
+                             
+                            break;
+                        
+                         default:
+                            echo "Estado no reconocido";
+                        
+                         }
+                           
+                            echo $tipo_ped; ?></td>
                         <td><?php echo $telefono; ?></td>
 
                         <td><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
@@ -191,23 +233,33 @@ if ($action == 'ajax') {
 
                         <td align="center"><?php
                        // echo $drogshipin;
-                                            if (($estado_factura != 0) || $drogshipin == 3 || $drogshipin == 4) {
-                                                if ($drogshipin == 3 || $drogshipin == 4) {
-
-
-//echo 'entra';
-                                                    $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
-
-                                                    if (isset($guia_numero)) {
-                                                    } else {
-                                                        $guia_numero = 'GUIA NO ENVIADA';
-                                                    }
-                                                    //  echo $guia_numero;
-                                                } else {
-                                                    $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
-                                                    // echo 'as';
-                                                }
-
+                          switch ($drogshipin) {
+                          case 1:
+                              if($guia_enviada==1){
+                                   $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                   $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero; 
+                              }else{
+                                  echo 'GUIA NO ENVIADA';
+                              }
+                             
+                          break;
+                          case 3:
+                             
+                          $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                          $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;  
+                          break;
+						  case 4:
+                          $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                          $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;  
+                          break;
+                        
+                         default:
+                            echo "Estado no reconocido";
+                        
+                         }
+                         
+                        
+                                          
                                                 $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
                                                 //echo $url;
                                                 $curl = curl_init($url);
@@ -314,14 +366,7 @@ if ($action == 'ajax') {
                                 <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
 
                             <?php
-                                            } else {
-                                                if ($estado_factura == 0) {
-                                                    echo 'GUIA ANULADA';
-                                                } else {
-
-                                                    echo '<h1>NO ENVIADA</h2>';
-                                                }
-                                            } ?>
+                                            ?>
                         </td>
                         <td>
                             <?php if ($drogshipin == 3 || $drogshipin == 4) {
