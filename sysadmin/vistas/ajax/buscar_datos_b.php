@@ -165,10 +165,11 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $sql = "SELECT * FROM  $sTable $sWhere";
         $query = mysqli_query($conexion_db, $sql);
 
+        $rows = mysqli_num_rows($query);
 
         //loop through fetched data
 
-        if ($query > 0) { {
+        if ($rows > 0) { {
             ?>
                 <form id="filter-form">
                     <label for="fecha">Fecha:</label>
