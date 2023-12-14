@@ -224,6 +224,7 @@ $marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-wallet"></i><span> Cartera</span> <span class="menu-arrow"></span></a>
 					<ul class="list-unstyled">
 						<li><a href="../html/wallet.php">Configurar Cartera</a></li>
+						<li><a href="../html/datos_banco.php">Datos Bancarios</a></li>
 					</ul>
 				</li>
 
