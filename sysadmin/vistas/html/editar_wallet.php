@@ -223,7 +223,7 @@ if (isset($_GET['id_factura'])) {
                                                     Precio de Envio
                                                 </label>
                                                 <input type="text" name="precio" id="precio" class="form-control" value="<?php echo $precio_envio; ?>">
-                                                <input type="submit" value="Cambiar">
+                                                <input class="btn btn-outline-success w-100 pt-3" type="submit" value="Cambiar precio">
                                             </form>
                                         </div>
                                     </div>
@@ -338,7 +338,7 @@ if (isset($_GET['id_factura'])) {
     function cambiar_precio(e) {
         e.preventDefault();
         var precio = $("#precio").val();
-        var id_factura = <?php echo $id_factura; ?>;
+        var id_factura = '<?php echo $id_factura; ?>';
         $.ajax({
             url: '../ajax/cambiar_precio.php',
             type: 'post',
@@ -348,7 +348,16 @@ if (isset($_GET['id_factura'])) {
             },
             dataType: 'text',
             success: function(response) {
-                $.Notification.notify('success', 'bottom center', 'NOTIFICACIÓN', 'PRECIO CAMBIADO CORRECTAMENTE')
+                if (response == 'si') {
+                    $.Notification.notify('custom', 'bottom right', 'EXITO!', 'Precio cambiado correctamente')
+                    // actualizar_tabla();
+
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    $.Notification.notify('custom', 'bottom right', 'ERROR!', 'Error al cambiar el precio')
+                }
             }
         })
 
