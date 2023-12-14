@@ -307,11 +307,25 @@ if ($action == 'ajax') {
                                                     $resultado = mysqli_query($conexion_destino, $sql);
 
                                                     if ($data['estadoActualCodigo'] == 7) {
-                                                        $sql = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`, `valor_cobrado`, `valor_pendiente` ) VALUES
+                                                        $sql_existe = "SELECT * FROM `cabecera_cuenta_cobrar` WHERE `numero_factura`='" . $numero_factura . "'";
+                                                        $resultado_existe = mysqli_query($conexion_destino, $sql_existe);
+                                                        $existe = mysqli_num_rows($resultado_existe);
+                                                        if ($existe == 0) {
+                                                            $sql = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`, `valor_cobrado`, `valor_pendiente` ) VALUES
                                                          ('" . $numero_factura . "','" . $fecha . "','" . $nombre_cliente . "','" . $tienda . "','" . $data['estadoActualCodigo'] . "','" . $estado_factura . "','" . $costoproducto . "','" . $valor_costo . "','" . $costo_envio . "','" . $monto_recibir . "','" . 0 . "','" . $monto_recibir . "')";
-                                                        /*  $resultado = mysqli_query($conexion_destino, $sql); */
-                                                        echo $sql;
+                                                        }
+                                                    } else if ($data['estadoActualCodigo'] == 9) {
+                                                        $sql_existe = "SELECT * FROM `cabecera_cuenta_cobrar` WHERE `numero_factura`='" . $numero_factura . "'";
+                                                        $resultado_existe = mysqli_query($conexion_destino, $sql_existe);
+                                                        $existe = mysqli_num_rows($resultado_existe);
+                                                        if ($existe == 0) {
+                                                            $envio_negativo = -$costo_envio($costo_envio * 0.25);
+
+                                                            $sql = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`, `valor_cobrado`, `valor_pendiente` ) VALUES
+                                                         ('" . $numero_factura . "','" . $fecha . "','" . $nombre_cliente . "','" . $tienda . "','" . $data['estadoActualCodigo'] . "','" . $estado_factura . "','" . $costoproducto . "','" . $valor_costo . "','" . $costo_envio . "','" . $envio_negativo . "','" . 0 . "','" . $envio_negativo . "')";
+                                                        }
                                                     }
+
 
 
                                                     switch ($data['estadoActualCodigo']) {
