@@ -40,7 +40,7 @@ function load(page) {
 
   if (tienda != 0) {
     url =
-      "../ajax/actualizacion_estados.php?action=ajax&page=" +
+      "../ajax/actualizar_estados.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
@@ -48,7 +48,7 @@ function load(page) {
       tienda;
   } else if (estado != 0) {
     url =
-      "../ajax/actualizacion_estados.php?action=ajax&page=" +
+      "../ajax/actualizar_estados.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
@@ -56,7 +56,7 @@ function load(page) {
       estado;
   } else if (tienda != 0 && estado != 0) {
     url =
-      "../ajax/actualizacion_estados.php?action=ajax&page=" +
+      "../ajax/actualizar_estados.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
@@ -65,8 +65,7 @@ function load(page) {
       "&estado=" +
       estado;
   } else {
-    url =
-      "../ajax/actualizacion_estados.php?action=ajax&page=" + page + "&q=" + q;
+    url = "../ajax/actualizar_estados.php?action=ajax&page=" + page + "&q=" + q;
   }
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -98,7 +97,7 @@ function buscar(tienda) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/actualizacion_estados.php?action=ajax&page=" +
+      "../ajax/actualizar_estados.php?action=ajax&page=" +
       page +
       "&tienda=" +
       tienda +
@@ -133,7 +132,7 @@ function buscar_estado(estado) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/actualizacion_estados.php?action=ajax&page=" +
+      "../ajax/actualizar_estados.php?action=ajax&page=" +
       page +
       "&estado=" +
       estado +
