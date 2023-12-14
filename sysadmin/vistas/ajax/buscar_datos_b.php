@@ -2,7 +2,8 @@
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
@@ -155,6 +156,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $sTable = "datos_banco_usuarios";
         $sWhere = "";
         $sWhere .= " WHERE tienda = '$dominio_completo'";
+
         if ($_GET['q'] != "") {
             $sWhere .= "";
         }
@@ -165,26 +167,18 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $sql = "SELECT * FROM  $sTable $sWhere";
         $query = mysqli_query($conexion_db, $sql);
 
-        $rows = mysqli_num_rows($query);
-
+        if ($query) {
+            $rows = 1;
+        } else {
+            $rows = 0;
+        }
         //loop through fetched data
 
         if ($rows > 0) { {
             ?>
-                <form id="filter-form">
-                    <label for="fecha">Fecha:</label>
-                    <input type="date" name="fecha" id="fecha">
-
-                    <label for="estado">Estado de Pedido:</label>
-                    <select name="estado" id="estado">
-                        <option value="0">Todos</option>
-                        <option value="1">Confirmar</option>
-                        <option value="2">Pick y Pack</option>
-                        <!-- Agrega más opciones según tus estados de pedido -->
-                    </select>
-
-                    <button class="btn btn-outline-primary" type="button" onclick="filterData()">Filtrar</button>
-                </form>
+                <div class="mb-3 text-right">
+                    <button class="btn btn-outline-primary" type="button" onclick="solicitarPago()">Solicitar Pago</button>
+                </div>
 
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -197,6 +191,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <th class="text-center">Cedula del titular</th>
                                 <th class="text-center">Correo del titular</th>
                                 <th class="text-center">Telefono del titular</th>
+                                <th class="text-center">Tienda</th>
                                 <th class="text-center">Estado</th>
 
                                 <th colspan="2"></th>
