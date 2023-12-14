@@ -21,6 +21,18 @@ $dominio = $_SERVER['HTTP_HOST'];
 // se quitan los espacios en blanco 
 $dominio = str_replace(' ', '', $dominio);
 
+if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+  $protocol = 'https://';
+}
+else {
+  $protocol = 'http://';
+}
+     $server_url = $protocol . $_SERVER['HTTP_HOST'];
+     
+
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
@@ -363,10 +375,12 @@ if ($action == 'ajax') {
 
                                                 if ($drogshipin == 3 || $drogshipin == 4) {
                                                     $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                                                    
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");;
                                                 } else {
-                                                    $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
-                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                    $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
+                                                    //$url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
                                                 }
 
 
@@ -474,6 +488,6 @@ if ($action == 'ajax') {
 
 <?php
     }
-    // fin else
+     // fin else
 }
 ?>
