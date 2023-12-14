@@ -218,7 +218,13 @@ if (isset($_GET['id_factura'])) {
                                             </table>
                                         </div>
                                         <div class="col">
-
+                                            <form method="post" onsubmit="cambiar_precio(event)">
+                                                <label for="precio">
+                                                    Precio de Envio
+                                                </label>
+                                                <input type="text" name="precio" id="precio" class="form-control" value="<?php echo $precio_envio; ?>">
+                                                <input type="submit" value="Cambiar">
+                                            </form>
                                         </div>
                                     </div>
 
@@ -227,6 +233,7 @@ if (isset($_GET['id_factura'])) {
                                 <!-- end row -->
 
                             </div>
+
                         </div>
                     </div>
             </div>
@@ -265,7 +272,6 @@ if (isset($_GET['id_factura'])) {
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-<script type="text/javascript" src="../../js/editar_cotizacion.js"></script>
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
 <script>
@@ -297,177 +303,7 @@ if (isset($_GET['id_factura'])) {
     });
 </script>
 <!-- FIN -->
-<script>
-    // print order function
 
-    function cargar_provincia_pedido() {
-
-        var id_provincia = $('#provinica').val();
-        //alert($('#provinica').val())
-        //var data = new FormData(formulario);
-
-        $.ajax({
-            url: "../ajax/cargar_ciudad_pedido.php", // Url to which the request is send
-            type: "POST", // Type of request to be send, called as method
-            data: {
-                provinica: id_provincia,
-
-
-            }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-            dataType: 'text', // To send DOMDocument or non processed data file it is set to false
-            success: function(data) // A function to be called if request succeeds
-            {
-
-
-
-                $('#div_ciudad').html(data);
-
-
-            }
-        });
-
-    }
-
-
-
-
-
-    function generar_guia(id_factura) {
-        nombre_destino = $('#nombredestino').val();
-        identificacion = $('#identificacion').val();
-        ciudad = $('#ciudad_entrega').val();;
-        //alert(ciudad);
-        direccion_destino = $('#direccion_destino').val(); //CIERRA LA MODAL
-        //alert(direccion_destino);
-        referencia = $('#referencia').val(); //CIERRA LA MODAL
-        telefono = $('#telefono').val(); //CIERRA LA MODAL
-        celular = $('#celular').val(); //CIERRA LA MODAL
-        observacion = $('#observacion').val(); //CIERRA LA MODAL
-        cod = $('#cod').val(); //CIERRA LA MODAL
-        seguro = $('#seguro').val(); //CIERRA LA MODAL
-        productos_guia = $('#productos_guia').val();
-        cantidad_total = $('#cantidad_total').val();
-        valor_total = $('#valor_total_').val();
-        costo_total = $('#costo_total').val();
-
-        numerocasa = $('#numerocasa').val();
-        valor_envio = $('#valor_total_').val();
-        valorasegurado = $('#valorasegurado').val();
-
-        id_pedido_cot = $('#id_pedido_cot').val();
-        //alert(id_pedido_cot);
-
-
-
-
-        id_factura = 1;
-        if (id_factura = 1) {
-            $.ajax({
-                url: '../ajax/enviar_laar.php',
-                type: 'post',
-                data: {
-                    nombre_destino: nombre_destino,
-                    ciudad: ciudad,
-                    direccion: direccion_destino,
-                    referencia: referencia,
-                    telefono: telefono,
-                    celular: celular,
-                    observacion: observacion,
-                    cod: cod,
-                    seguro: seguro,
-                    productos_guia: productos_guia,
-                    cantidad_total: cantidad_total,
-                    valor_total: valor_total,
-                    numerocasa: numerocasa,
-                    id_pedido_cot: id_pedido_cot,
-                    identificacion: identificacion,
-                    costo_total: costo_total,
-                    valorasegurado: valorasegurado,
-
-                },
-                dataType: 'text',
-                success: function(response) {
-
-                    if (response == 'ok') {
-                        Swal.fire({
-                            title: "¡Generación de guía exitosa!",
-                            icon: "success",
-                            confirmButtonText: "¡Aceptar!",
-                        }).then(() => {
-                            window.location.reload();
-                        });
-                    } else {
-                        //  let objetoJSON = JSON.parse(response);
-                        Swal.fire({
-                            title: "Oops...",
-                            text: response,
-                            icon: "error",
-                            confirmButtonText: "¡Aceptar!",
-                        }).then(() => {
-                            window.location.reload();
-                        });
-
-                    }
-
-                } // /success function
-
-            }); // /ajax function to fetch the printable order
-        } // /if orderId
-    }
-
-    function anular_guia(guia, id) {
-
-        id_factura = 1;
-        if (id_factura = 1) {
-            $.ajax({
-                url: '../ajax/eliminar_guia.php',
-                type: 'post',
-                data: {
-                    guia: guia,
-                    id: id,
-
-                },
-                dataType: 'text',
-                success: function(response) {
-
-                    if (response == 'ok') {
-                        location.reload();
-                    } else {
-                        alert(response)
-                    }
-
-                } // /success function
-
-            }); // /ajax function to fetch the printable order
-        } // /if orderId
-    }
-
-    function printOrder(id_factura) {
-        $('#modal_vuelto').modal('hide'); //CIERRA LA MODAL
-        if (id_factura) {
-            $.ajax({
-                url: '../pdf/documentos/imprimir_venta.php',
-                type: 'post',
-                data: {
-                    id_factura: id_factura
-                },
-                dataType: 'text',
-                success: function(response) {
-                    var mywindow = window.open('', 'Stock Management System', 'height=400,width=600');
-                    mywindow.document.write('<html><head><title>Facturación</title>');
-                    mywindow.document.write('</head><body>');
-                    mywindow.document.write(response);
-                    mywindow.document.write('</body></html>');
-                    mywindow.document.close(); // necessary for IE >= 10
-                    mywindow.focus(); // necessary for IE >= 10
-                    mywindow.print();
-                    mywindow.close();
-                } // /success function
-
-            }); // /ajax function to fetch the printable order
-        } // /if orderId
-    } // /print order function
-</script>
 <script>
     // print order function
     function printFactura(id_factura) {
@@ -496,44 +332,27 @@ if (isset($_GET['id_factura'])) {
         } // /if orderId
     } // /print order function
 </script>
+
+
 <script>
-    function obtener_caja(user_id) {
-        $(".outer_div3").load("../modal/carga_caja.php?user_id=" + user_id); //carga desde el ajax
-    }
-
-    function showDiv(select) {
-        if (select.value == 4) {
-            $("#resultados3").load("../ajax/carga_prima.php");
-        } else {
-            $("#resultados3").load("../ajax/carga_resibido.php");
-        }
-    }
-
-    function comprobar(select) {
-        var rnc = $("#rnc").val();
-        id_comp == $("#id_comp").val();
-        //alert(id_comp)
-        if (select.value == 1 && rnc == '') {
-            $.Notification.notify('warning', 'bottom center', 'NOTIFICACIÓN', 'AL CLIENTE SELECCIONADO NO SE LE PUEDE IMPRIR LA FACTURA, NO TIENE RNC/DEDULA REGISTRADO')
-            $("#resultados4").load("../ajax/tipo_doc.php");
-        } else {
-            //$("#resultados3").load("../ajax/carga_resibido.php");
-        }
-    }
-
-    function getval(sel) {
-        $.Notification.notify('success', 'bottom center', 'NOTIFICACIÓN', 'CAMBIO DE COMPROBANTE')
-        $("#outer_comprobante").load("../ajax/carga_correlativos.php?id_comp=" + sel.value);
-
-    }
-    $(document).ready(function() {
-        $(".UpperCase").on("keypress", function() {
-            $input = $(this);
-            setTimeout(function() {
-                $input.val($input.val().toUpperCase());
-            }, 50);
+    function cambiar_precio(e) {
+        e.preventDefault();
+        var precio = $("#precio").val();
+        var id_factura = <?php echo $id_factura; ?>;
+        $.ajax({
+            url: '../ajax/cambiar_precio.php',
+            type: 'post',
+            data: {
+                precio: precio,
+                id_factura: id_factura
+            },
+            dataType: 'text',
+            success: function(response) {
+                $.Notification.notify('success', 'bottom center', 'NOTIFICACIÓN', 'PRECIO CAMBIADO CORRECTAMENTE')
+            }
         })
-    })
+
+    }
 </script>
 
 <?php require 'includes/footer_end.php'
