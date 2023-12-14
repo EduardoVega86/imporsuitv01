@@ -54,7 +54,7 @@ class LaarModel extends Query
         $id_pedido = $query[0]['id_pedido'];
         $tienda_venta = $query[0]['tienda_proveedor'];
 
-        $sql = "UPDATE `facturas_cot` SET `estado_guia_sistema` = '$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_venta'";
+        $sql = "UPDATE `facturas_cot` SET `estado_guia_sistema` = '$estado_actual_codigo' WHERE id_factura ='$id_pedido' AND tienda = '$tienda_venta'";
 
         $result = mysqli_query($tienda_ventas, $sql);
 
