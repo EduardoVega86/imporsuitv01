@@ -325,8 +325,8 @@ if ($action == 'ajax') {
                                                                 $estado_guia = 'Por recolectar';
                                                                 break;
                                                             case '5':
-                                                                $span_estado = 'badge-purple';
-                                                                $estado_guia = 'Por recolectar';
+                                                                $span_estado = 'badge-warning';
+                                                                
                                                                 break;
                                                             case '6':
                                                                 $span_estado = 'badge-purple';
@@ -379,6 +379,7 @@ if ($action == 'ajax') {
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");;
                                                 } else {
                                                     $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
+                                                    
                                                     //$url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
                                                 }
