@@ -16,8 +16,8 @@ $cedula = $datos['cedula'];
 
 $marketplace = 'imporsuit_marketplace';
 $conexion_marketplace = mysqli_connect('localhost', $marketplace, $marketplace, $marketplace);
-$protocolo = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === true ? 'https://' : 'http://';
-$tienda = $protocolo . $_SERVER['HTTP_HOST'] . '/';
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+$tienda = $protocolo . $_SERVER['HTTP_HOST'];
 $tienda = str_replace('www.', '', $tienda);
 
 
