@@ -129,7 +129,9 @@ const enviar_datos_b = (e) => {
         $("#resultados_ajax").html(
           '<div class="alert alert-danger" role="alert">Datos ingresados correctamente.</div>'
         );
-        load(1);
+        setTimeout(() => {
+          load(1);
+        }, 2000);
       }
     },
   });
