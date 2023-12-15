@@ -172,9 +172,34 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         if ($rows > 0) { {
             ?>
                 <div class="mb-3 text-right">
-                    <button class="btn btn-outline-primary" type="button" onclick="solicitarPago()">Solicitar Pago</button>
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#solicitar">
+                        Solicitar Pago
+                    </button>
                 </div>
+                <div class="modal fade" id="solicitar" tabindex="-1" role="dialog" aria-labelledby="solicitarLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center" id="solicitarLabel">Solicitar Pago</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="mb-3" method="post" onsubmit="solicitar_pago(event)">
+                                    <input type="hidden" name="tienda" value="<?php echo $dominio_completo  ?>">
+                                    <div class="form-group">
+                                        <label for="dinero" class="form-label">Cantidad:</label>
+                                        <input type="text" class="form-control" id="dinero" placeholder="Cantidad" autofocus>
+                                    </div>
 
+                                    <input class="btn btn-outline-success w-100" type="submit" value="Solicitar pago">
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="thead-light">
