@@ -11,7 +11,7 @@ include "../permisos.php";
 //Archivo de funciones PHP
 require_once "../funciones.php";
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
-$orderSql       = "SELECT * FROM cabecera_cuenta_cobrar where numero_factura = '$numero_factura'";
+$orderSql       = "SELECT * FROM cabecera_cuenta_pagar where numero_factura = '$numero_factura'";
 $orderQuery     = $conexion->query($orderSql);
 $results       = $orderQuery->fetch_assoc();
 
@@ -20,7 +20,7 @@ $valor_cobrado = $results['valor_cobrado'];
 $valor_pendiente = $results['valor_pendiente'];
 $tienda = $results['tienda'];
 
-$total_pendiente_a_la_tienda_sql = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_cobrar WHERE tienda = '$tienda'";
+$total_pendiente_a_la_tienda_sql = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$tienda'";
 
 $total_pendiente_a_la_tienda_query = $conexion->query($total_pendiente_a_la_tienda_sql);
 $total_pendiente_a_la_tienda_results = $total_pendiente_a_la_tienda_query->fetch_assoc();

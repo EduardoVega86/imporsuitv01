@@ -194,6 +194,24 @@ const solicitar_pago = (e) => {
           load(1);
         }, 2000);
       }
+      if (datos == "dinero") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ingrese un monto",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+      if (datos == "mayor") {
+        Swal.fire({
+          icon: "warning",
+          title: "Oops...",
+          text: "El monto solicitado es mayor al saldo disponible para su tienda",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
     },
   });
 };

@@ -17,7 +17,7 @@ if (empty($_POST['abono'])) {
     $user_id  = $_SESSION['id_users'];
     $fecha    = date("Y-m-d H:i:s");
     // Consulta para Extraer los datos del credito
-    $consultar     = mysqli_query($conexion, "select * from cabecera_cuenta_cobrar where numero_factura='" . $numero_factura . "'");
+    $consultar     = mysqli_query($conexion, "select * from cabecera_cuenta_pagar where numero_factura='" . $numero_factura . "'");
     $rw            = mysqli_fetch_array($consultar);
     $cliente    = $rw['cliente'];
     $monto = $rw['total_venta'];
@@ -41,12 +41,12 @@ if (empty($_POST['abono'])) {
     $sql = "INSERT INTO `pagos`( `fecha`, `numero_documento`, `valor`, `forma_pago`) VALUES ('$fecha', '$numero_factura', $abono, '$forma_pago');";
     $query = mysqli_query($conexion, $sql);
     // actualizamos el saldo del cliente de la factura correspondiente
-    $update_saldo = mysqli_query($conexion, "update cabecera_cuenta_cobrar set monto_recibir='$saldo', valor_cobrado='$cobrado', valor_pendiente='$saldo' where numero_factura='$numero_factura'");
+    $update_saldo = mysqli_query($conexion, "update cabecera_cuenta_pagar set monto_recibir='$saldo', valor_cobrado='$cobrado', valor_pendiente='$saldo' where numero_factura='$numero_factura'");
     // Actualizamos el estado de la facturas si el crédito es cancelado en su totalidad
-    $comprobar = mysqli_query($conexion, "select * from cabecera_cuenta_cobrar where numero_factura='" . $numero_factura . "'");
+    $comprobar = mysqli_query($conexion, "select * from cabecera_cuenta_pagar where numero_factura='" . $numero_factura . "'");
     $rww       = mysqli_fetch_array($comprobar);
     if ($rww['monto_recibir'] == 0) {
-        $up_credito = mysqli_query($conexion, "update cabecera_cuenta_cobrar set estado_factura=1 where numero_factura='$numero_factura'");
+        $up_credito = mysqli_query($conexion, "update cabecera_cuenta_pagar set estado_factura=1 where numero_factura='$numero_factura'");
         echo "<script>
         $.Notification.notify('info','bottom center','NOTIFICACIÓN', 'LA FACTURA SE HA CANCELADO EN SU TOTALIDAD')
         </script>";
