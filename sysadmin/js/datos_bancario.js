@@ -152,3 +152,48 @@ const enviar_datos_b = (e) => {
     },
   });
 };
+
+const solicitar_pago = (e) => {
+  e.preventDefault();
+
+  const tienda = e.target.tienda.value;
+  const dinero = e.target.dinero.value;
+
+  // send data to backend
+  $.ajax({
+    type: "POST",
+    url: "../ajax/solicitar_pago.php",
+    data: {
+      tienda,
+      dinero,
+    },
+    beforeSend: function (objeto) {
+      $("#resultados_ajax").html(
+        '<img src="../../img/ajax-loader.gif"> Cargando...'
+      );
+    },
+    success: function (datos) {
+      if (datos == "error") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error al ingresar los datos",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+      if (datos == "datos") {
+        Swal.fire({
+          icon: "success",
+          title: "Correcto",
+          text: "Datos ingresados correctamente",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        setTimeout(() => {
+          load(1);
+        }, 2000);
+      }
+    },
+  });
+};
