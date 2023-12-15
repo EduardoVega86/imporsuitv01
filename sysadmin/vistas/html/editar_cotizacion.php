@@ -102,7 +102,7 @@ while ($r = $query->fetch_object()) {
         width: 100%;
         height: 1px;
         background-color: #ccc;
-        z-order: 0;
+
 
     }
 
@@ -241,7 +241,7 @@ while ($r = $query->fetch_object()) {
                                                 <div class="widget-chart">
                                                     <div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
                                                     <form class="form-horizontal" role="form" id="barcode_form">
-                                                        <input type="hidden"   value="<?php echo $valor_base; ?>" id="costo_envio" name="costo_envio">
+                                                        <input type="hidden" value="<?php echo $valor_base; ?>" id="costo_envio" name="costo_envio">
                                                         <?php if ($guia_enviada != 1) { ?>
                                                             <div class="form-group row">
                                                                 <label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
@@ -346,7 +346,7 @@ while ($r = $query->fetch_object()) {
 
                                                 </div>
                                             </div>
-                                            <div style="" id="valor_envio">
+                                            <div id="valor_envio">
 
                                             </div>
                                         </div>
@@ -874,7 +874,7 @@ while ($r = $query->fetch_object()) {
 
         id_pedido_cot = $('#id_pedido_cot').val();
         costo_envio = $('#valor_envio2').val();
-        
+
         //alert(costo_envio);
 
 
