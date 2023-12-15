@@ -39,7 +39,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $q = mysqli_real_escape_string($conexion_db, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
         $sTable = "datos_banco_usuarios";
         $sWhere = "";
-        $sWhere .= " WHERE  tienda = '$dominio_completo'";
+        $sWhere .= "";
         if ($_GET['q'] != "") {
             $sWhere .= "";
         }
