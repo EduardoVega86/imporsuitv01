@@ -4,6 +4,20 @@ require_once "../funciones.php";
 $marketplace_url = $_SERVER['HTTP_HOST'];
 $marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
 
+$marketplace_url_conexion = 'imporsuit_marketplace';
+$marketplace_conexion = mysqli_connect($host, $marketplace_conexion, $marketplace_conexion, $marketplace_conexion);
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+
+$dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
+
+$query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_cobrar WHERE tienda = '$dominio_completo'";
+$total_venta = mysqli_query($marketplace_conexion, $query_total_ventas);
+$total_venta = mysqli_fetch_assoc($total_venta);
+$total_venta = $total_venta['total_pendiente_a_la_tienda'];
+if ($total_venta == null) {
+	$total_venta = 0;
+}
+
 ?>
 <div class="topbar">
 
@@ -18,6 +32,8 @@ $marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
 	<nav class="navbar-custom">
 
 		<ul class="list-inline float-right mb-0">
+			<li class="list-inline-item notification-list hide-phone text-white">$ <?php echo $total_venta ?> </li>
+
 			<li class="list-inline-item notification-list hide-phone">
 				<a class="nav-link waves-light waves-effect" href="#" id="btn-fullscreen">
 					<i class="mdi mdi-crop-free noti-icon"></i>
