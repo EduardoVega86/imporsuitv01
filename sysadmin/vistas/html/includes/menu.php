@@ -5,7 +5,7 @@ $marketplace_url = $_SERVER['HTTP_HOST'];
 $marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
 
 $marketplace_url_conexion = 'imporsuit_marketplace';
-$marketplace_conexion = mysqli_connect('localhost', $marketplace_conexion, $marketplace_conexion, $marketplace_conexion);
+$marketplace_conexion = mysqli_connect('localhost', $marketplace_url_conexion, $marketplace_url_conexion, $marketplace_url_conexion);
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 
 $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
