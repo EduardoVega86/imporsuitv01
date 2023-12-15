@@ -318,6 +318,7 @@ if ($action == 'ajax') {
                                                         $sql_existe = "SELECT * FROM `cabecera_cuenta_cobrar` WHERE `numero_factura`='" . $numero_factura . "'";
                                                         $resultado_existe = mysqli_query($conexion_destino, $sql_existe);
                                                         $existe = mysqli_num_rows($resultado_existe);
+
                                                         if ($existe == 0) {
                                                             $envio_negativo = -$costo_envio($costo_envio * 0.25);
 
