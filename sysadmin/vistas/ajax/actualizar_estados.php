@@ -51,7 +51,7 @@ if ($action == 'ajax') {
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
-    $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    $sql   = "SELECT * FROM  $sTable $sWhere";
     //echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
