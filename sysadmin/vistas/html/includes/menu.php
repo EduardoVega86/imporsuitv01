@@ -14,10 +14,15 @@ $query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tiend
 $total_venta = mysqli_query($marketplace_conexion, $query_total_ventas);
 $total_venta = mysqli_fetch_assoc($total_venta);
 $total_venta = $total_venta['total_pendiente_a_la_tienda'];
+$color = '';
 if ($total_venta == null) {
 	$total_venta = 0;
+	$color = 'text-white';
+} elseif ($total_venta > 0) {
+	$color = 'text-success';
+} else {
+	$color = 'text-danger';
 }
-
 ?>
 <div class="topbar">
 
@@ -32,7 +37,7 @@ if ($total_venta == null) {
 	<nav class="navbar-custom">
 
 		<ul class="list-inline float-right mb-0">
-			<li class="list-inline-item notification-list hide-phone text-white">$ <?php echo $total_venta ?> </li>
+			<li class="list-inline-item notification-list hide-phone <?php echo $color ?>">$ <?php echo $total_venta ?> </li>
 
 			<li class="list-inline-item notification-list hide-phone">
 				<a class="nav-link waves-light waves-effect" href="#" id="btn-fullscreen">
