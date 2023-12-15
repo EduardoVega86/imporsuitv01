@@ -111,24 +111,40 @@ const enviar_datos_b = (e) => {
     },
     success: function (datos) {
       if (datos == "error") {
-        $("#resultados_ajax").html(
-          '<div class="alert alert-danger" role="alert">Error al registrar los datos</div>'
-        );
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error al ingresar los datos",
+          showConfirmButton: false,
+          timer: 1000,
+        });
       }
       if (datos == "banco") {
-        $("#resultados_ajax").html(
-          '<div class="alert alert-danger" role="alert">Ingrese un banco</div>'
-        );
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ingrese un banco",
+          showConfirmButton: false,
+          timer: 1000,
+        });
       }
       if (datos == "cuenta") {
-        $("#resultados_ajax").html(
-          '<div class="alert alert-danger" role="alert">Ingrese un tipo de cuenta</div>'
-        );
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Ingrese un numero de cuenta",
+          showConfirmButton: false,
+          timer: 1000,
+        });
       }
       if (datos == "datos") {
-        $("#resultados_ajax").html(
-          '<div class="alert alert-danger" role="alert">Datos ingresados correctamente.</div>'
-        );
+        Swal.fire({
+          icon: "success",
+          title: "Correcto",
+          text: "Datos ingresados correctamente",
+          showConfirmButton: false,
+          timer: 1000,
+        });
         setTimeout(() => {
           load(1);
         }, 2000);
