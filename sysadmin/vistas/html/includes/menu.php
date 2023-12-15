@@ -25,6 +25,7 @@ if ($total_venta == null) {
 } else {
 	$color = 'text-danger';
 }
+$total_venta = number_format($total_venta, 2, '.', ',');
 ?>
 <div class="topbar">
 
