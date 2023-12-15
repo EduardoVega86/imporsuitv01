@@ -162,7 +162,7 @@ include 'includes/head_producto.php'
                           </div>
 
                           <div class="cart-item__price-wrapper"><span class="price price--end">
-                              $ <?php echo number_format($precio_especial, 2); ?>
+                               <?php echo get_row('perfil', 'moneda', 'id_perfil', 1).number_format($precio_especial, 2); ?>
                             </span></div>
                         </td>
 
@@ -454,13 +454,13 @@ include 'includes/head_producto.php'
                     <div class="price__regular">
                       <span class="visually-hidden visually-hidden--inline">Regular price</span>
                       <span class="price-item price-item--regular">
-                        $<?php echo $precio_especial; ?>
+                        <?php echo get_row('perfil', 'moneda', 'id_perfil', 1).$precio_especial; ?>
                       </span>
                     </div>
                     <div class="price__sale ">
                       <span class="visually-hidden visually-hidden--inline regular-price-label">Sale price</span>
                       <span class="price-item price-item--sale price-item--last">
-                        $<?php echo $precio_especial; ?>
+                        <?php echo get_row('perfil', 'moneda', 'id_perfil', 1).$precio_especial; ?>
                       </span>
                       <span class="visually-hidden visually-hidden--inline compare-price-label">Regular price</span>
                       <?php
@@ -468,7 +468,7 @@ include 'includes/head_producto.php'
                       ?>
                         <span class="price__compare-price">
                           <s class="price-item price-item--regular">
-                            $<?php echo $precio_normal; ?>
+                            $<?php echo get_row('perfil', 'moneda', 'id_perfil', 1).$precio_normal; ?>
                           </s>
                         <?php
                       }
