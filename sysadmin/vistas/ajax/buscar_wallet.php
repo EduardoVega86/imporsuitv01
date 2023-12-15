@@ -34,9 +34,9 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     if ($action == "ajax") {
         // escaping, additionally removing everything that could be (html/javascript-) code
         $q = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-        $sTable = "cabecera_cuenta_cobrar, facturas_cot";
+        $sTable = "cabecera_cuenta_pagar, facturas_cot";
         $sWhere = "";
-        $sWhere .= " WHERE cabecera_cuenta_cobrar.numero_factura=facturas_cot.numero_factura";
+        $sWhere .= " WHERE cabecera_cuenta_pagar.numero_factura=facturas_cot.numero_factura";
         if ($_GET['q'] != "") {
             $sWhere .= "";
         }
@@ -235,9 +235,9 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $sDominio = 'imporsuit_marketplace';
         $conexion_db = mysqli_connect('localhost', $sDominio, $sDominio, $sDominio);
         $q = mysqli_real_escape_string($conexion_db, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-        $sTable = "cabecera_cuenta_cobrar, facturas_cot";
+        $sTable = "cabecera_cuenta_pagar, facturas_cot";
         $sWhere = "";
-        $sWhere .= " WHERE  cabecera_cuenta_cobrar.tienda = '$dominio_completo' and cabecera_cuenta_cobrar.numero_factura=facturas_cot.numero_factura GROUP BY cabecera_cuenta_cobrar.numero_factura";
+        $sWhere .= " WHERE  cabecera_cuenta_pagar.tienda = '$dominio_completo' and cabecera_cuenta_pagar.numero_factura=facturas_cot.numero_factura GROUP BY cabecera_cuenta_pagar.numero_factura";
         if ($_GET['q'] != "") {
             $sWhere .= "";
         }
@@ -260,7 +260,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         //loop through fetched data
 
-        $total_pendiente_a_la_tienda_sql = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_cobrar WHERE tienda = '$dominio_completo'";
+        $total_pendiente_a_la_tienda_sql = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo'";
         $query_total_pendiente_a_la_tienda = mysqli_query($conexion_db, $total_pendiente_a_la_tienda_sql);
         $row_total_pendiente_a_la_tienda = mysqli_fetch_array($query_total_pendiente_a_la_tienda);
         $total_pendiente_a_la_tienda = $row_total_pendiente_a_la_tienda['total_pendiente_a_la_tienda'];

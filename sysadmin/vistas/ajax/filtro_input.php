@@ -13,13 +13,13 @@ $modulo = "Wallets";
 permisos($modulo, $cadena_permisos);
 // Construye la consulta SQL con los filtros
 if ($estado == 0 && $fechaInicio != "" && $fechaFin != "") {
-    $sql = "SELECT * FROM cabecera_cuenta_cobrar WHERE fecha BETWEEN '$fechaInicio' AND '$fechaFin'";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE fecha BETWEEN '$fechaInicio' AND '$fechaFin'";
 } else if ($estado != 0 && $fechaInicio != "" && $fechaFin != "") {
-    $sql = "SELECT * FROM cabecera_cuenta_cobrar WHERE fecha BETWEEN '$fechaInicio' AND '$fechaFin' AND estado_pedido = '$estado'";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE fecha BETWEEN '$fechaInicio' AND '$fechaFin' AND estado_pedido = '$estado'";
 } else if ($estado != 0 && $fechaInicio == "" && $fechaFin == "") {
-    $sql = "SELECT * FROM cabecera_cuenta_cobrar WHERE estado_pedido = '$estado'";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE estado_pedido = '$estado'";
 } else if ($estado == 0 && $fechaInicio == "" && $fechaFin == "") {
-    $sql = "SELECT * FROM cabecera_cuenta_cobrar";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar";
 }
 
 include 'pagination.php'; //include pagination file
@@ -30,7 +30,7 @@ $adjacents  = 4; //gap between pages after number of adjacents
 $offset = ($page - 1) * $per_page;
 
 //Count the total number of row in your table*/
-$count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM cabecera_cuenta_cobrar");
+$count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM cabecera_cuenta_pagar");
 if (!$count_query) {
     die('Error en la consulta: ' . mysqli_error($conexion));
 }

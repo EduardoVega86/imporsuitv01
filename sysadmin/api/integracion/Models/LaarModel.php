@@ -141,7 +141,7 @@ class LaarModel extends Query
         $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
         $numero_factura_verificar = $numero_factura[0]['numero_factura'];
 
-        $verificar = $this->select("SELECT * FROM cabecera_cuenta_cobrar WHERE numero_factura = '$numero_factura_verificar'");
+        $verificar = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura_verificar'");
         $verificar = count($verificar);
         if ($verificar > 0) {
             echo json_encode('ya_existe');
@@ -207,7 +207,7 @@ class LaarModel extends Query
 
         $monto_recibir = $total_guia - $valor_base - $costo_guia;
 
-        $sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
@@ -226,7 +226,7 @@ class LaarModel extends Query
         $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
         $numero_factura_verificar = $numero_factura[0]['numero_factura'];
 
-        $verificar = $this->select("SELECT * FROM cabecera_cuenta_cobrar WHERE numero_factura = '$numero_factura_verificar'");
+        $verificar = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura_verificar'");
         $verificar = count($verificar);
         if ($verificar > 0) {
             echo json_encode('ya_existe');
@@ -299,7 +299,7 @@ class LaarModel extends Query
 
         $monto_recibir = 0 - $costo_envio;
 
-        $sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
