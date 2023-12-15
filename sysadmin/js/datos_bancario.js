@@ -132,7 +132,7 @@ const enviar_datos_b = (e) => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Ingrese un numero de cuenta",
+          text: "Ingrese un tipo de cuenta",
           showConfirmButton: false,
           timer: 1000,
         });
