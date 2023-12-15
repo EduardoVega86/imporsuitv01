@@ -166,12 +166,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
         $sql = "SELECT * FROM  $sTable $sWhere";
         $query = mysqli_query($conexion_db, $sql);
-
-        if ($query) {
-            $rows = 1;
-        } else {
-            $rows = 0;
-        }
+        $rows = mysqli_num_rows($query);
         //loop through fetched data
 
         if ($rows > 0) { {

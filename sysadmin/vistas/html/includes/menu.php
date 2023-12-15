@@ -40,7 +40,11 @@ $total_venta = number_format($total_venta, 2, '.', ',');
 	<nav class="navbar-custom">
 
 		<ul class="list-inline float-right mb-0">
-			<li class="list-inline-item notification-list hide-phone <?php echo $color ?>">$ <?php echo $total_venta ?> </li>
+
+			<li class="list-inline-item notification-list hide-phone   waves-light waves-effect">
+				<i class="ti-wallet"></i>
+				<span class="<?php echo $color ?>">$ <?php echo $total_venta ?></span>
+			</li>
 
 			<li class="list-inline-item notification-list hide-phone">
 				<a class="nav-link waves-light waves-effect" href="#" id="btn-fullscreen">
