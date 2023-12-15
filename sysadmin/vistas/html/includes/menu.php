@@ -5,14 +5,14 @@ $marketplace_url = $_SERVER['HTTP_HOST'];
 $marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
 
 $marketplace_url_conexion = 'imporsuit_marketplace';
-$marketplace_conexion = mysqli_connect('localhost', $marketplace_url_conexion, $marketplace_url_conexion, $marketplace_url_conexion);
+$marketplace_conexion_2 = mysqli_connect('localhost', $marketplace_url_conexion, $marketplace_url_conexion, $marketplace_url_conexion);
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 
 $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
 
 echo $dominio_completo;
 $query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_cobrar WHERE tienda = '$dominio_completo'";
-$total_venta = mysqli_query($marketplace_conexion, $query_total_ventas);
+$total_venta = mysqli_query($marketplace_conexion_2, $query_total_ventas);
 echo "a";
 $total_venta = mysqli_fetch_assoc($total_venta);
 $total_venta = $total_venta['total_pendiente_a_la_tienda'];
