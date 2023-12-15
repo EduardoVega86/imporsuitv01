@@ -471,7 +471,7 @@ if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
     <div class="price__sale ">
       <span class="visually-hidden visually-hidden--inline regular-price-label">Precio Regular</span>
       <span class="price-item price-item--sale price-item--last">
-        <?php echo '$'.number_format($precio_especial,2);?>
+        <?php echo get_row('perfil', 'moneda', 'id_perfil', 1).number_format($precio_especial,2);?>
       </span>
         <span class="visually-hidden visually-hidden--inline compare-price-label">Precio normal</span>
         <span class="price__compare-price">
