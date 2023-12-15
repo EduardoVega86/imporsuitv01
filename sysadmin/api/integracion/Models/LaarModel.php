@@ -318,8 +318,8 @@ class LaarModel extends Query
 
     public function cambiarEstados($no_guia, $estado_actual_codigo)
     {
-        $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
-        $this->actualizarProveedor($no_guia, $estado_actual_codigo);
+        /* $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
+        $this->actualizarProveedor($no_guia, $estado_actual_codigo); */
         $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
     }
 

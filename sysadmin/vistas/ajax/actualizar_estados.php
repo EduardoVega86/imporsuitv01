@@ -51,7 +51,7 @@ if ($action == 'ajax') {
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
-    $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    $sql   = "SELECT * FROM  $sTable $sWhere";
     //echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
@@ -318,6 +318,7 @@ if ($action == 'ajax') {
                                                         $sql_existe = "SELECT * FROM `cabecera_cuenta_cobrar` WHERE `numero_factura`='" . $numero_factura . "'";
                                                         $resultado_existe = mysqli_query($conexion_destino, $sql_existe);
                                                         $existe = mysqli_num_rows($resultado_existe);
+
                                                         if ($existe == 0) {
                                                             $envio_negativo = -$costo_envio($costo_envio * 0.25);
 
