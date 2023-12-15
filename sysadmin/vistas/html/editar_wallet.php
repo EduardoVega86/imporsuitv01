@@ -133,7 +133,7 @@ if (isset($_GET['id_factura'])) {
         width: 100%;
         height: 1px;
         background-color: #ccc;
-        z-order: 0;
+
 
     }
 

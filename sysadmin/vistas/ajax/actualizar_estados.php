@@ -51,7 +51,7 @@ if ($action == 'ajax') {
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
-    $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    $sql   = "SELECT * FROM  $sTable $sWhere";
     //echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
@@ -109,9 +109,16 @@ if ($action == 'ajax') {
                     $span_estado = '';
 
                     $id_producto_origen = $row['id_factura_origen'];
-                    $existe_guia_sql = "SELECT * FROM guia_laar WHERE id_pedido='" . $id_producto_origen . "'";
+                    $existe_guia_sql = "SELECT * FROM guia_laar WHERE id_pedido='" . $id_producto_origen . "' and tienda_venta='" . $tienda . "'";
                     $existe_guia_query = mysqli_query($conexion, $existe_guia_sql);
                     $existe_guia = mysqli_num_rows($existe_guia_query);
+                    $datos = mysqli_fetch_array($existe_guia_query);
+
+                    $costoproducto = $datos['costoproducto'];
+                    $costo_envio = $datos['costoflete'];
+                    $valor_costo = $datos['valor_costo'];
+
+                    $monto_recibir = $costoproducto - $costo_envio - $valor_costo;
                     //echo $existe_guia;
                     $guia_numero = '';
 
@@ -298,6 +305,28 @@ if ($action == 'ajax') {
                                                     $resultado = mysqli_query($conexion_destino, $sql);
                                                     $sql = "UPDATE `facturas_cot` SET `estado_guia_sistema`='" . $data['estadoActualCodigo'] . "' WHERE `numero_factura`='" . $numero_factura . "'";
                                                     $resultado = mysqli_query($conexion_destino, $sql);
+
+                                                    if ($data['estadoActualCodigo'] == 7) {
+                                                        $sql_existe = "SELECT * FROM `cabecera_cuenta_cobrar` WHERE `numero_factura`='" . $numero_factura . "'";
+                                                        $resultado_existe = mysqli_query($conexion_destino, $sql_existe);
+                                                        $existe = mysqli_num_rows($resultado_existe);
+                                                        if ($existe == 0) {
+                                                            $sql = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`, `valor_cobrado`, `valor_pendiente` ) VALUES
+                                                         ('" . $numero_factura . "','" . $fecha . "','" . $nombre_cliente . "','" . $tienda . "','" . $data['estadoActualCodigo'] . "','" . $estado_factura . "','" . $costoproducto . "','" . $valor_costo . "','" . $costo_envio . "','" . $monto_recibir . "','" . 0 . "','" . $monto_recibir . "')";
+                                                        }
+                                                    } else if ($data['estadoActualCodigo'] == 9) {
+                                                        $sql_existe = "SELECT * FROM `cabecera_cuenta_cobrar` WHERE `numero_factura`='" . $numero_factura . "'";
+                                                        $resultado_existe = mysqli_query($conexion_destino, $sql_existe);
+                                                        $existe = mysqli_num_rows($resultado_existe);
+
+                                                        if ($existe == 0) {
+                                                            $envio_negativo = -$costo_envio($costo_envio * 0.25);
+
+                                                            $sql = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`, `valor_cobrado`, `valor_pendiente` ) VALUES
+                                                         ('" . $numero_factura . "','" . $fecha . "','" . $nombre_cliente . "','" . $tienda . "','" . $data['estadoActualCodigo'] . "','" . $estado_factura . "','" . $costoproducto . "','" . $valor_costo . "','" . $costo_envio . "','" . $envio_negativo . "','" . 0 . "','" . $envio_negativo . "')";
+                                                        }
+                                                    }
+
 
 
                                                     switch ($data['estadoActualCodigo']) {

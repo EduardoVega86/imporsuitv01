@@ -13,11 +13,18 @@ $banco = $datos['banco'];
 $tipo_cuenta = $datos['tipo_cuenta'];
 $numero_cuenta = $datos['numero_cuenta'];
 $cedula = $datos['cedula'];
-
+if ($banco == "0") {
+    echo 'banco';
+    exit;
+}
+if ($tipo_cuenta == "0") {
+    echo 'cuenta';
+    exit;
+}
 $marketplace = 'imporsuit_marketplace';
 $conexion_marketplace = mysqli_connect('localhost', $marketplace, $marketplace, $marketplace);
-$protocolo = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === true ? 'https://' : 'http://';
-$tienda = $protocolo . $_SERVER['HTTP_HOST'] . '/';
+$protocolo = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+$tienda = $protocolo . $_SERVER['HTTP_HOST'];
 $tienda = str_replace('www.', '', $tienda);
 
 
@@ -25,8 +32,8 @@ $sql = "INSERT INTO `datos_banco_usuarios`(`tipo_cuenta`, `nombre`, `banco`, `ce
 $resultado = mysqli_query($conexion_marketplace, $sql);
 
 if ($resultado) {
-    echo 'Datos guardados correctamente';
+    echo 'datos';
 } else {
-    echo 'Error al guardar los datos';
+    echo 'error';
 }
 echo mysqli_error($conexion_marketplace);

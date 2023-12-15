@@ -110,7 +110,29 @@ const enviar_datos_b = (e) => {
       );
     },
     success: function (datos) {
-      console.log("hola");
+      if (datos == "error") {
+        $("#resultados_ajax").html(
+          '<div class="alert alert-danger" role="alert">Error al registrar los datos</div>'
+        );
+      }
+      if (datos == "banco") {
+        $("#resultados_ajax").html(
+          '<div class="alert alert-danger" role="alert">Ingrese un banco</div>'
+        );
+      }
+      if (datos == "cuenta") {
+        $("#resultados_ajax").html(
+          '<div class="alert alert-danger" role="alert">Ingrese un tipo de cuenta</div>'
+        );
+      }
+      if (datos == "datos") {
+        $("#resultados_ajax").html(
+          '<div class="alert alert-danger" role="alert">Datos ingresados correctamente.</div>'
+        );
+        setTimeout(() => {
+          load(1);
+        }, 2000);
+      }
     },
   });
 };
