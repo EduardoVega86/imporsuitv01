@@ -123,7 +123,7 @@ while ($row = mysqli_fetch_array($sql)) {
         $costo_total=$costo_total+$costo_producto*$cantidad;
         echo $cantidad; ?></td>
         <td><?php 
-        $productos_guia=$productos_guia.' '.$nombre_producto;
+        $productos_guia=$productos_guia.' '.$nombre_producto.'x'.$cantidad;
         echo $nombre_producto; ?></td>
         <td class='text-center'>
             <div class="input-group">
