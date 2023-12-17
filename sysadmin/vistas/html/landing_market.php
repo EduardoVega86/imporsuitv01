@@ -69,8 +69,8 @@ permisos($modulo, $cadena_permisos);
     ?>
 				<div class="col-lg-12">
 					<div class="portlet">
-                                            <h2>Ingresa la descripción de tu producto</h2>
-    <p>Aquí puedes proporcionar una descripción detallada de tu producto. Puedes destacar sus características, beneficios y cualquier otra información relevante que desees comunicar a tus visitantes.</p>
+                                            <h2>Descripción de tu producto</h2>
+
 
     <br>
     <div class="portlet-heading bg-primary">
