@@ -62,7 +62,7 @@ while ($r = $query->fetch_object()) {$impuesto[] = $r;}
 									<?php
 if ($permisos_editar == 1) {
         include '../modal/registro_producto.php';
-        include "../modal/editar_producto.php";
+        include "../modal/editar_producto_market.php";
         include "../modal/editar_producto_2.php";
         include "../modal/eliminar_producto.php";
         include "../modal/registro_landing.php";
@@ -174,7 +174,7 @@ if ($permisos_editar == 1) {
 	<!-- Todo el codigo js aqui-->
 	<!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-	<script type="text/javascript" src="../../js/marketplace.js"></script>
+<script type="text/javascript" src="../../js/js_marketplace.js"></script>
 	<script>
 		function precio_venta(){
 			var profit = $("#utilidad").val();
