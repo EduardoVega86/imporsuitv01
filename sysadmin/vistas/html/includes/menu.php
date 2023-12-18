@@ -5,12 +5,12 @@ $marketplace_url = $_SERVER['HTTP_HOST'];
 $marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
 
 $marketplace_url_conexion = 'imporsuit_marketplace';
- if ($_SERVER['HTTP_HOST'] == 'localhost') {
-                $marketplace_conexion_2 = new mysqli('localhost', 'root', '', 'master');
-            } else {
-                $marketplace_conexion_2 = mysqli_connect('localhost', $marketplace_url_conexion, $marketplace_url_conexion, $marketplace_url_conexion);
-            }
-            
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+	$marketplace_conexion_2 = new mysqli('localhost', 'root', '', 'master');
+} else {
+	$marketplace_conexion_2 = mysqli_connect('localhost', $marketplace_url_conexion, $marketplace_url_conexion, $marketplace_url_conexion);
+}
+
 
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 
@@ -179,6 +179,7 @@ $total_venta = number_format($total_venta, 2, '.', ',');
 						<li><a href="../html/new_cotizacion.php">Ingresar Pedidos</a></li>
 						<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
 						<li><a href="../html/bitacora_anulaciones.php">Anulados</a></li>
+						<li><a href="../html/bitacora_noenviados.php">No enviados</a></li>
 					</ul>
 				</li>
 				<!-- <li class="has_sub">
