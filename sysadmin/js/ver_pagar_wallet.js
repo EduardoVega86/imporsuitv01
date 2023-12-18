@@ -1,5 +1,6 @@
 $(document).ready(function () {
   $("#widgets").load("../ajax/cargar_widget_wallet.php");
+  $("facturas").load("../ajax/cargar_facturas.php");
   load(1);
 });
 function load(page) {
@@ -57,6 +58,7 @@ $("#add_abono").submit(function (event) {
       //cierra la Modal
       $("#outer_div").load("../ajax/ver_pagos.php");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
+      $("#facturas").load("../ajax/cargar_facturas.php");
       $("#add-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {
@@ -92,6 +94,7 @@ $("#remove_stock").submit(function (event) {
       //cierra la Modal
       $("#outer_div").load("../ajax/ver_pagos.php");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
+
       $("#remove-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {

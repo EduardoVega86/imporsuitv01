@@ -24,6 +24,7 @@ require_once "../funciones.php"; //Contiene funcion que conecta a la base de dat
 include "../permisos.php";
 
 $user_id = $_SESSION['id_users'];
+$_SESSION['tienda'] = $tienda;
 get_cadena($user_id);
 $modulo = "Wallets";
 permisos($modulo, $cadena_permisos);
@@ -92,7 +93,7 @@ $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_f
                                                 </div>
                                             </div>
                                             <div id="widgets"></div>
-
+                                            <div class="facturas"></div>
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="panel panel-color panel-info">
@@ -137,6 +138,12 @@ $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_f
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+
                                         </div>
                                     </div>
 
