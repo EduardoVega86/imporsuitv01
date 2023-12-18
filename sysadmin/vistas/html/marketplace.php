@@ -78,12 +78,18 @@ if ($permisos_editar == 1) {
 												</div>
 												<div class="col-md-3">
 												<div class="input-group">
+                                                                                                    <?php
+                                                                                                    if ($_SERVER['HTTP_HOST']=='localhost'){
+    $destino = new mysqli('localhost', 'root', '', 'master');
+}else{
+ $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');   
+}?>
 													<select name='categoria' id='categoria' class="form-control" onchange="load(1);">
 														<option value="">-- Selecciona Linea --</option>
 														<option value="">Todos</option>
 														<?php
 
-    $query_categoria = mysqli_query($conexion, "select * from lineas order by nombre_linea");
+    $query_categoria = mysqli_query($destino, "select * from lineas order by nombre_linea");
     while ($rw = mysqli_fetch_array($query_categoria)) {
         ?>
 															<option value="<?php echo $rw['id_linea']; ?>"><?php echo $rw['nombre_linea']; ?></option>
