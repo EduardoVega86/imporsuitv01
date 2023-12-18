@@ -2,7 +2,6 @@
 <?php
 require_once "../funciones.php";
 
-
 ?>
 <div class="topbar">
 
@@ -24,7 +23,6 @@ require_once "../funciones.php";
 			</li>
 
 			<li class="list-inline-item dropdown notification-list">
-				<span>$ <?php echo $total_venta ?> </span>
 				<a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
 					<img src="<?php echo get_row('perfil', 'logo_url', 'id_perfil', 1); ?>" alt="user" class="rounded-circle">
 				</a>
@@ -52,6 +50,3 @@ require_once "../funciones.php";
 </div>
 <!-- Top Bar End -->
 <!-- ========== Left Sidebar Start ========== -->
-
-
-<!-- Left Sidebar End -->vistas
