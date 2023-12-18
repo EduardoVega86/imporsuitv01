@@ -21,6 +21,11 @@ $dominio = $_SERVER['HTTP_HOST'];
 // se quitan los espacios en blanco 
 $dominio = str_replace(' ', '', $dominio);
 
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+
+$dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
+
+
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
@@ -29,6 +34,9 @@ if ($action == 'ajax') {
     $sTable = "facturas_cot, clientes, users, guia_laar";
     $sWhere = "";
     $sWhere .= " WHERE estado_factura <> 8 and estado_factura <> 7 and facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users and facturas_cot.id_factura_origen=guia_laar.id_pedido and facturas_cot.tienda=guia_laar.tienda_venta";
+    if ($dominio != 'marketplace.imporsuit.com') {
+        $sWhere .= " and  facturas_cot.tienda='$dominio_completo'";
+    }
     if ($_GET['q'] != "") {
         $sWhere .= " and  (facturas_cot.nombre like '%$q%' or facturas_cot.numero_factura like '%$q%')";
     }
@@ -42,6 +50,8 @@ if ($action == 'ajax') {
         $sWhere .= " and  estado_guia_sistema='$estado'";
     }
 
+    $marketplace_con = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
+
     $sWhere .= " order by facturas_cot.id_factura desc";
     include 'pagination.php'; //include pagination file
     //pagination variables
@@ -50,15 +60,26 @@ if ($action == 'ajax') {
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
-    $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+    $count_query = '';
+    if ($dominio == 'marketplace.imporsuit.com') {
+        $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+    } else {
+        $count_query = mysqli_query($marketplace_con, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+    }
+
     $row         = mysqli_fetch_array($count_query);
     $numrows     = $row['numrows'];
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-
-    $query = mysqli_query($conexion, $sql);
+    echo $sql;
+    $query = '';
+    if ($dominio == 'marketplace.imporsuit.com') {
+        $query = mysqli_query($conexion, $sql);
+    } else {
+        $query = mysqli_query($marketplace_con, $sql);
+    }
     //loop through fetched data
 
     if ($numrows > 0) {
