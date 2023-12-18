@@ -5,7 +5,13 @@ $marketplace_url = $_SERVER['HTTP_HOST'];
 $marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
 
 $marketplace_url_conexion = 'imporsuit_marketplace';
-$marketplace_conexion_2 = mysqli_connect('localhost', $marketplace_url_conexion, $marketplace_url_conexion, $marketplace_url_conexion);
+ if ($_SERVER['HTTP_HOST'] == 'localhost') {
+                $marketplace_conexion_2 = new mysqli('localhost', 'root', '', 'master');
+            } else {
+                $marketplace_conexion_2 = mysqli_connect('localhost', $marketplace_url_conexion, $marketplace_url_conexion, $marketplace_url_conexion);
+            }
+            
+
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 
 $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
@@ -14,8 +20,8 @@ $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
 $query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_cobrar WHERE tienda = '$dominio_completo'";
 $total_venta = mysqli_query($marketplace_conexion_2, $query_total_ventas);
 
-$total_venta = mysqli_fetch_assoc($total_venta);
-$total_venta = $total_venta['total_pendiente_a_la_tienda'];
+@$total_venta = mysqli_fetch_assoc($total_venta);
+@$total_venta = $total_venta['total_pendiente_a_la_tienda'];
 $color = '';
 if ($total_venta == null) {
 	$total_venta = 0;
