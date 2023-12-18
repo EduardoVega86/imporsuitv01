@@ -45,17 +45,7 @@ $valor_total_pendiente = $valor_total_tienda_SQL['total_pendiente'];
         </div>
     </div>
 </div>
-<div class="col-lg-12 col-md-6">
-    <div class="card-box widget-icon">
-        <div>
-            <i class="mdi mdi-calendar text-pink"></i>
-            <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE</p>
-                <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente, 2); ?></h4>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="col-lg-12 col-md-6">
     <div class="card-box widget-icon">
         <div>

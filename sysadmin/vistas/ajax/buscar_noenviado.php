@@ -122,7 +122,6 @@ if ($action == 'ajax') {
                     $span_estado = '';
 
                     $id_producto_origen = $row['id_factura_origen'];
-                    $estado_guia_sistema = $row[99];
                     $existe_guia_sql = "SELECT * FROM guia_laar WHERE id_pedido='" . $id_producto_origen . "'";
                     $existe_guia_query = mysqli_query($conexion, $existe_guia_sql);
                     $existe_guia = mysqli_num_rows($existe_guia_query);
@@ -281,80 +280,106 @@ if ($action == 'ajax') {
                                             }
 
 
-                                            if (isset($estado_guia_sistema)) {
 
+                                            $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                            //echo $url;
+                                            $curl = curl_init($url);
 
-                                                switch ($estado_guia_sistema) {
-                                                    case '1':
+                                            // Establecer opciones para la solicitud cURL
+                                            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                                            curl_setopt($curl, CURLOPT_HTTPHEADER, [
+                                                'Accept: application/json'
+                                            ]);
 
-                                                        $span_estado = 'badge-danger';
-                                                        $estado_guia = 'Anulado';
-                                                        break;
-                                                    case 2:
-                                                        $span_estado = 'badge-purple';
-                                                        $estado_guia = 'Por recolectar';
-                                                        break;
-                                                    case '3':
-                                                        $span_estado = 'badge-purple';
-                                                        $estado_guia = 'Por recolectar';
-                                                        break;
-                                                    case '4':
-                                                        $span_estado = 'badge-purple';
-                                                        $estado_guia = 'Por recolectar';
-                                                        break;
-                                                    case '5':
-                                                        $span_estado = 'badge-purple';
-                                                        $estado_guia = 'Por recolectar';
-                                                        break;
-                                                    case '6':
-                                                        $span_estado = 'badge-purple';
-                                                        $estado_guia = 'Por recolectar';
-                                                        break;
-                                                    case '7':
-                                                        $span_estado = 'badge-purple';
-                                                        $estado_guia = 'Anulada';
-                                                        break;
-                                                    case '8':
-                                                        $span_estado = 'badge-danger';
-                                                        $estado_guia = 'Anulada';
-                                                        break;
-                                                    case '14':
-                                                        $span_estado = 'badge-danger';
-                                                        //$estado_guia = 'Anulada';
-                                                        break;
-                                                    case '16':
-                                                        $span_estado = 'badge-danger';
-                                                        //$estado_guia = 'Anulada';
-                                                        break;
-                                                    case '29':
-                                                        $span_estado = 'badge-danger';
-                                                        //$estado_guia = 'Anulada';
-                                                        break;
-                                                    case '48':
-                                                        $span_estado = 'badge-danger';
-                                                        //$estado_guia = 'Anulada';
-                                                        break;
-                                                    case '9':
-                                                        echo "i es igual a 2";
-                                                        break;
-                                                }
-                                                $estado_guia = get_row('estado_courier', 'alias', 'codigo', $estado_guia_sistema);
+                                            // Realizar la solicitud GET
+                                            $response = curl_exec($curl);
+
+                                            // Verificar si hubo alg煤n error en la solicitud
+                                            if ($response === false) {
+                                                echo 'Error en la solicitud: ' . curl_error($curl);
                                             } else {
-                                                echo 'No se pudo obtener el estadoActual';
-                                                // echo 'hasta';
-                                                if ($drogshipin == 3) {
-                                                    // $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
+                                                // Procesar la respuesta
+                                                $data = json_decode($response, true);
+                                                // echo $data['estadoActualCodigo'];
+                                                if ($data !== null && isset($data['estadoActualCodigo'])) {
+                                                    // Imprimir el estadoActual
+                                                    //echo 'Estado Actual: ' . $data['estadoActual'];
+                                                    switch ($data['estadoActualCodigo']) {
+                                                        case '1':
+
+                                                            $span_estado = 'badge-danger';
+                                                            $estado_guia = 'Anulado';
+                                                            break;
+                                                        case '2':
+                                                            $span_estado = 'badge-purple';
+                                                            $estado_guia = 'Por recolectar';
+                                                            break;
+                                                        case '3':
+                                                            $span_estado = 'badge-purple';
+                                                            $estado_guia = 'Por recolectar';
+                                                            break;
+                                                        case '4':
+                                                            $span_estado = 'badge-purple';
+                                                            $estado_guia = 'Por recolectar';
+                                                            break;
+                                                        case '5':
+                                                            $span_estado = 'badge-warning';
+
+                                                            break;
+                                                        case '6':
+                                                            $span_estado = 'badge-purple';
+                                                            $estado_guia = 'Por recolectar';
+                                                            break;
+                                                        case '7':
+                                                            $span_estado = 'badge-purple';
+                                                            $estado_guia = 'Anulada';
+                                                            break;
+                                                        case '8':
+                                                            $span_estado = 'badge-danger';
+                                                            $estado_guia = 'Anulada';
+                                                            break;
+                                                        case '14':
+                                                            $span_estado = 'badge-danger';
+                                                            //$estado_guia = 'Anulada';
+                                                            break;
+                                                        case '16':
+                                                            $span_estado = 'badge-danger';
+                                                            //$estado_guia = 'Anulada';
+                                                            break;
+                                                        case '29':
+                                                            $span_estado = 'badge-danger';
+                                                            //$estado_guia = 'Anulada';
+                                                            break;
+                                                        case '48':
+                                                            $span_estado = 'badge-danger';
+                                                            //$estado_guia = 'Anulada';
+                                                            break;
+                                                        case '9':
+                                                            echo "i es igual a 2";
+                                                            break;
+                                                    }
+                                                    $estado_guia = get_row('estado_courier', 'alias', 'codigo', $data['estadoActualCodigo']);
+                                                } else {
+                                                    echo 'No se pudo obtener el estadoActual';
+                                                    // echo 'hasta';
+                                                    if ($drogshipin == 3) {
+                                                        // $guia_numero = get_row_destino($conexion_destino, 'guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen);
+                                                    }
                                                 }
                                             }
 
-
+                                            // Cerrar la sesi贸n cURL
+                                            curl_close($curl);
 
                                             if ($drogshipin == 3 || $drogshipin == 4) {
                                                 $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+
                                                 $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");;
                                             } else {
-                                                $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
-                                                $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
+
+                                                //$url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                                                $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
                                             }
 
 
@@ -374,7 +399,7 @@ if ($action == 'ajax') {
                                 <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
                                     <option value="">-- Selecciona --</option>
                                     <?php
-                                    if ($estado_guia_sistema == 8) {
+                                    if ($data['estadoActualCodigo'] == 8) {
                                         $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
                                                                                                 WHERE id_factura='" . $id_factura . "'";
                                         $query_anular = mysqli_query($conexion, $sql_anular);
