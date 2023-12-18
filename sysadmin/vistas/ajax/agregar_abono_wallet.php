@@ -46,6 +46,8 @@ if (empty($_POST['abono'])) {
             $saldo = $rw['monto_recibir'] - $abono;
             $cobrado = $rw['valor_cobrado'] + $abono;
             $numero_factura = $rw['numero_factura'];
+
+            // Se actualiza la primera factura que se encuentra en la base de datos
             $sql_update = "UPDATE `cabecera_cuenta_pagar` SET `monto_recibir`='$saldo',`valor_cobrado`='$cobrado' WHERE `numero_factura`='$numero_factura';";
             $query_update = mysqli_query($conexion, $sql_update);
             $sql_pago = "INSERT INTO `pagos`( `fecha`, `numero_documento`, `valor`, `forma_pago`) VALUES ('$fecha', '$numero_factura', $abono, '$forma_pago');";

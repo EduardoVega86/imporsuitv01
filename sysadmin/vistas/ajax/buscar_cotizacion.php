@@ -94,7 +94,7 @@ if ($action == 'ajax') {
                 while ($row = mysqli_fetch_array($query)) {
                     $id_factura       = $row['id_factura'];
                     $numero_factura   = $row['numero_factura'];
-                    $fecha            = date("d/m/Y h:i:s ", strtotime($row['fecha_factura']));
+                    $fecha            = date("d/m/Y h:i:s a ", strtotime($row['fecha_factura']));
                     $nombre_cliente   = $row['nombre_cliente'];
                     $nombre   = $row['nombre'];
                     $id_factura_origen   = $row['id_factura_origen'];
@@ -129,6 +129,8 @@ if ($action == 'ajax') {
                     $guia_numero = '';
 
                     $estado_guia = '';
+
+                    $estado_actua = '';
                     switch ($estado_factura) {
 
                         case 1:
@@ -306,6 +308,8 @@ if ($action == 'ajax') {
                                                 if ($data !== null && isset($data['estadoActualCodigo'])) {
                                                     // Imprimir el estadoActual
                                                     //echo 'Estado Actual: ' . $data['estadoActual'];
+                                                    $estado_actua = $data['estadoActualCodigo'];
+
                                                     switch ($data['estadoActualCodigo']) {
                                                         case '1':
 
@@ -452,6 +456,16 @@ if ($action == 'ajax') {
                                     ?>
 
                                         <button class="dropdown-item" onclick="guia_importar('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Importar Guia</button>
+                                    <?php
+                                    }
+                                    ?>
+                                    <?php
+                                    if ($estado_actua >= 2 && $estado_actua <= 7) {
+                                    } else {
+
+                                    ?>
+                                        <button class="dropdown-item" onclick="anular('<?php echo $id_factura ?>')" type="button"><i class="ti-wallet"></i> Anular</button>
+
                                     <?php
                                     }
                                     ?>
