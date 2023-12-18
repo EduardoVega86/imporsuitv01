@@ -42,7 +42,7 @@ $ventas = 1;
 						<div class="portlet">
 							<div class="portlet-heading bg-primary">
 								<h3 class="portlet-title">
-									Bítocora de Cotización
+									Bítacora de Cotización
 								</h3>
 								<div class="portlet-widgets">
 									<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
@@ -75,6 +75,19 @@ $ventas = 1;
 														while ($rw = mysqli_fetch_array($query_categoria)) {
 														?>
 															<option value="<?php echo $rw['tienda']; ?>"><?php echo $rw['tienda']; ?></option>
+														<?php
+														}
+														?>
+													</select>
+													<select onchange="buscar_estado(this.value)" name="estado_q" class="form-control" id="estado_q">
+														<option value="0"> Seleccione Estado </option>
+														<?php
+
+														//echo "select * from estado_guia";
+														$query_categoria = mysqli_query($conexion, "select * from estado_courier");
+														while ($rw = mysqli_fetch_array($query_categoria)) {
+														?>
+															<option value="<?php echo $rw['codigo']; ?>"><?php echo $rw['alias']; ?></option>
 														<?php
 														}
 														?>
@@ -137,7 +150,7 @@ $ventas = 1;
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-<script type="text/javascript" src="../../js/bitacora_cotizacion.js"></script>
+<script type="text/javascript" src="../../js/bitacora_cotizacion1.js"></script>
 <script src="../ajax/js/wallet.js"></script>
 <?php require 'includes/footer_end.php'
 ?>
