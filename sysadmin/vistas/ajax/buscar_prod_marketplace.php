@@ -8,7 +8,7 @@ include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a 
 require_once "../db.php";
 require_once "../php_conexion.php";
 
-// Configuración de la base de datos de destino
+// Configuraci贸n de la base de datos de destino
 if ($_SERVER['HTTP_HOST']=='localhost'){
     $destino = new mysqli('localhost', 'root', '', 'master');
 }else{
@@ -84,7 +84,7 @@ else {
         ?>
 
        
-            
+         <div class="row">     
             <?php
 while ($row = mysqli_fetch_array($query)) {
             $id_producto          = $row['id_producto'];
@@ -137,13 +137,14 @@ while ($row = mysqli_fetch_array($query)) {
                 $estado_online = "<span class='badge badge-danger'>NO</span>";
             }
             ?>
+          
 <div  class="col-3" >
-<div  align="center" class="card" style="width: 18rem;">
+<div  style="padding:10px"  align="center" class="card" >
          <?php
 if ($image_path == null) {
                 echo '<img src="../../img/productos/default.jpg" class="" width="100%">';
             } else {
-                echo '<img src="' . $image_path . '" class="" width="60">';
+                echo '<img src="' . $image_path . '" class="" width="100%" style="max-height:280px">';
             }
 
             ?>
@@ -206,10 +207,9 @@ if ($image_path == null) {
            <?php
 }
         ?>
-
+  </div>
 <?php
 }
-//Este else Fue agregado de Prueba de prodria Quitar
     else {
         ?>
     <div class="alert alert-warning alert-dismissible" role="alert" align="center">
