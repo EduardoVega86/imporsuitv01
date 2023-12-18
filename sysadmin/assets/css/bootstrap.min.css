@@ -366,7 +366,7 @@ select {
 [type=submit],
 button,
 html [type=button] {
-    -webkit-appearance: button
+    --webkit-appearance: button
 }
 
 [type=button]::-moz-focus-inner,
@@ -3200,11 +3200,7 @@ pre code {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
-.form-group {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 1rem
-}
+
 
 .w-100 {
     width: 100%
