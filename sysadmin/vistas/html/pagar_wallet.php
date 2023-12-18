@@ -32,12 +32,12 @@ permisos($modulo, $cadena_permisos);
 
 
 
-$datos = "SELECT * FROM `cabecera_cuenta_cobrar` WHERE numero_factura = '$id_factura'";
+$datos = "SELECT * FROM `cabecera_cuenta_pagar` WHERE numero_factura = '$id_factura'";
 $datos_query = mysqli_query($conexion, $datos);
 $rw = mysqli_fetch_array($datos_query);
 
 
-$valor_total_tienda_sql = "SELECT SUM(valor_pendiente) AS valor_total_tienda FROM `cabecera_cuenta_cobrar` WHERE tienda = '$tienda'";
+$valor_total_tienda_sql = "SELECT SUM(valor_pendiente) AS valor_total_tienda FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda'";
 $valor_total_tienda_query = mysqli_query($conexion, $valor_total_tienda_sql);
 $valor_total_tienda = mysqli_fetch_array($valor_total_tienda_query);
 $valor_total_tienda = $valor_total_tienda['valor_total_tienda'];
@@ -47,7 +47,7 @@ $valor_total_tienda = (float)$valor_total_tienda;
 $_SESSION['numero_factura'] = $id_factura;
 
 
-$valor_pendiente = get_row('cabecera_cuenta_cobrar', 'valor_pendiente', 'numero_factura', $id_factura);
+$valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_factura', $id_factura);
 
 ?>
 
