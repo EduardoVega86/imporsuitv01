@@ -1,8 +1,6 @@
 <?php
 
-$id_factura = $_GET['id_factura'];
 $tienda = $_GET['tienda'];
-
 
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
@@ -32,20 +30,9 @@ permisos($modulo, $cadena_permisos);
 
 
 
-$datos = "SELECT * FROM `cabecera_cuenta_pagar` WHERE numero_factura = '$id_factura'";
+$datos = "SELECT DISTINCT numero_factura, fecha, cliente, estado_guia, estado_pedido, total_venta, valor_cobrado, valor_pendiente, precio_envio, costo, monto_recibir FROM cabecera_cuenta_pagar WHERE tienda = '$tienda'";
 $datos_query = mysqli_query($conexion, $datos);
 $rw = mysqli_fetch_array($datos_query);
-
-
-$valor_total_tienda_sql = "SELECT SUM(valor_pendiente) AS valor_total_tienda FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda'";
-$valor_total_tienda_query = mysqli_query($conexion, $valor_total_tienda_sql);
-$valor_total_tienda = mysqli_fetch_array($valor_total_tienda_query);
-$valor_total_tienda = $valor_total_tienda['valor_total_tienda'];
-
-$valor_total_tienda = (float)$valor_total_tienda;
-
-$_SESSION['numero_factura'] = $id_factura;
-
 
 $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_factura', $id_factura);
 
@@ -97,7 +84,7 @@ $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_f
                                                         <i class="ti-user text-purple"></i>
                                                     </div>
                                                     <div class="text-right">
-                                                        <h5 class="text-dark"><b class="counter"><?php echo $rw['cliente']; ?></b></h5>
+                                                        <h5 class="text-dark"><b class="counter"><?php echo $tienda; ?></b></h5>
                                                         <a class='btn btn-primary waves-effect waves-light btn-sm m-b-5' href="wallet.php" title="Regresar a la wallet"><i class="fa fa-reply"></i> Regresar
                                                         </a>
                                                     </div>
