@@ -1,6 +1,8 @@
 <?php
 include 'is_logged.php'; //Archivo comprueba si el usuario esta logueado
-$numero_factura = $_SESSION['numero_factura'];
+
+$tienda = $_SESSION['tienda'];
+
 /* Connect To Database*/
 require_once "../db.php";
 if (empty($_POST['abono'])) {
@@ -17,12 +19,14 @@ if (empty($_POST['abono'])) {
     $user_id  = $_SESSION['id_users'];
     $fecha    = date("Y-m-d H:i:s");
     // Consulta para Extraer los datos del credito
-    $consultar     = mysqli_query($conexion, "select * from cabecera_cuenta_pagar where numero_factura='" . $numero_factura . "'");
+
+    $consultar     = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda';");
     $rw            = mysqli_fetch_array($consultar);
-    $cliente    = $rw['cliente'];
-    $monto = $rw['total_venta'];
-    $saldo         = $rw['monto_recibir'] - $abono;
-    $cobrado = $rw['valor_cobrado'] + $abono;
+
+    $total_monto_recibir_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' GROUP BY numero_factura ) as subquery;";
+    $total_monto_recibir_query = mysqli_query($conexion, $total_monto_recibir_sql);
+    $total_monto_recibir_SQL = mysqli_fetch_array($total_monto_recibir_query);
+    $total_monto_recibir = $total_monto_recibir_SQL['total_pendiente'];
     // verificamos si el monto esta cancelado
     if ($rw['monto_recibir'] == 0) {
         echo "<script>
@@ -31,31 +35,40 @@ if (empty($_POST['abono'])) {
         exit;
     }
     // verificamos si el abono es mayor a la deunda
-    if ($abono > $rw['monto_recibir']) {
+    if ($abono > $total_monto_recibir) {
         echo "<script>
         $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'EL ABONO ES MAYOR A LA DEUDA, INTENTAR NUEVAMENTE')
         </script>";
         exit;
     }
+    foreach ($consultar as $rw) {
+        if ($abono != 0) {
+            $saldo = $rw['monto_recibir'] - $abono;
+            $cobrado = $rw['valor_cobrado'] + $abono;
+            $numero_factura = $rw['numero_factura'];
+            $sql_update = "UPDATE `cabecera_cuenta_pagar` SET `monto_recibir`='$saldo',`valor_cobrado`='$cobrado' WHERE `numero_factura`='$numero_factura';";
+            $query_update = mysqli_query($conexion, $sql_update);
+            $sql_pago = "INSERT INTO `pagos`( `fecha`, `numero_documento`, `valor`, `forma_pago`) VALUES ('$fecha', '$numero_factura', $abono, '$forma_pago');";
+            $query_pago = mysqli_query($conexion, $sql_pago);
+            $comprobar = mysqli_query($conexion, "select * from cabecera_cuenta_pagar where numero_factura='" . $numero_factura . "'");
+            $rww       = mysqli_fetch_array($comprobar);
+            if ($rww['monto_recibir'] == 0) {
+                $up_credito = mysqli_query($conexion, "update cabecera_cuenta_pagar set estado_factura=1 where numero_factura='$numero_factura'");
+                echo "<script>
+                $.Notification.notify('info','bottom center','NOTIFICACIÓN', 'LA FACTURA SE HA CANCELADO EN SU TOTALIDAD')
+                </script>";
+            }
+            if ($sql) {
+                $messages[] = "El Abono  ha sido ingresado satisfactoriamente." . '' . $numero_factura;
+            } else {
+                $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion);
+            }
+        } else {
+            break;
+        }
+    }
     // guardamos los datos la tabla de abonos
-    $sql = "INSERT INTO `pagos`( `fecha`, `numero_documento`, `valor`, `forma_pago`) VALUES ('$fecha', '$numero_factura', $abono, '$forma_pago');";
-    $query = mysqli_query($conexion, $sql);
-    // actualizamos el saldo del cliente de la factura correspondiente
-    $update_saldo = mysqli_query($conexion, "update cabecera_cuenta_pagar set monto_recibir='$saldo', valor_cobrado='$cobrado', valor_pendiente='$saldo' where numero_factura='$numero_factura'");
-    // Actualizamos el estado de la facturas si el crédito es cancelado en su totalidad
-    $comprobar = mysqli_query($conexion, "select * from cabecera_cuenta_pagar where numero_factura='" . $numero_factura . "'");
-    $rww       = mysqli_fetch_array($comprobar);
-    if ($rww['monto_recibir'] == 0) {
-        $up_credito = mysqli_query($conexion, "update cabecera_cuenta_pagar set estado_factura=1 where numero_factura='$numero_factura'");
-        echo "<script>
-        $.Notification.notify('info','bottom center','NOTIFICACIÓN', 'LA FACTURA SE HA CANCELADO EN SU TOTALIDAD')
-        </script>";
-    }
-    if ($sql) {
-        $messages[] = "El Abono  ha sido ingresado satisfactoriamente." . '' . $numero_factura;
-    } else {
-        $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion);
-    }
+
 } else {
     $errors[] = "Error desconocido.";
 }
