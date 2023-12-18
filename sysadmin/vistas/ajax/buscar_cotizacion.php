@@ -94,7 +94,7 @@ if ($action == 'ajax') {
                 while ($row = mysqli_fetch_array($query)) {
                     $id_factura       = $row['id_factura'];
                     $numero_factura   = $row['numero_factura'];
-                    $fecha            = date("d/m/Y h:i:s ", strtotime($row['fecha_factura']));
+                    $fecha            = date("d/m/Y h:i:s a ", strtotime($row['fecha_factura']));
                     $nombre_cliente   = $row['nombre_cliente'];
                     $nombre   = $row['nombre'];
                     $id_factura_origen   = $row['id_factura_origen'];
