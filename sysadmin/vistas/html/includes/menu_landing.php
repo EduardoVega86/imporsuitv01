@@ -50,6 +50,3 @@ require_once "../funciones.php";
 </div>
 <!-- Top Bar End -->
 <!-- ========== Left Sidebar Start ========== -->
-
-
-<!-- Left Sidebar End -->
