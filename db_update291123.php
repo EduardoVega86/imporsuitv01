@@ -1039,6 +1039,10 @@ mysqli_query($conexion, "ALTER TABLE cabecera_cuenta_cobrar RENAME TO cabecera_c
 
 mysqli_query($conexion, "CREATE TABLE detalle_cuenta_cobrar( id_detalle_cpp int PRIMARY KEY AUTO_INCREMENT, valor double, id_cabecera_cpp int, signo varchar(2), metodo_pago varchar(50), id_pago int, FOREIGN KEY (id_cabecera_cpp) REFERENCES cabecera_cuenta_pagar(id_cabecera), FOREIGN KEY (id_pago) REFERENCES pagos(id_pago) );");
 
+mysqli_query($conexion, "ALTER TABLE `provincia_laar` ADD `id_pais` INT NOT NULL DEFAULT '1' AFTER `codigo_provincia`;");
+
+ 
+    
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
