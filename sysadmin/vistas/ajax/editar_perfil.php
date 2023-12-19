@@ -71,6 +71,7 @@ if (empty($_POST['nombre_empresa'])) {
     $secuencialguia  = mysqli_real_escape_string($conexion, (strip_tags($_POST["secuencialguia"], ENT_QUOTES)));
     $secuencialretencion  = mysqli_real_escape_string($conexion, (strip_tags($_POST["secuencialretencion"], ENT_QUOTES)));
     $secuencialliquidacion  = mysqli_real_escape_string($conexion, (strip_tags($_POST["secuencialliquidacion"], ENT_QUOTES)));
+    $pais  = mysqli_real_escape_string($conexion, (strip_tags($_POST["pais"], ENT_QUOTES)));
     if($firma == ""){
         $sql = "UPDATE perfil SET nombre_empresa='" . $nombre_empresa . "',
                                             giro_empresa='" . $giro . "',
@@ -84,6 +85,7 @@ if (empty($_POST['nombre_empresa'])) {
                                             ciudad='" . $ciudad . "',
                                             estado='" . $estado . "',
                                             codigo_postal='$codigo_postal',
+                                            pais='$pais',
 
                                             ambiente='" . $ambiente . "',
                                             tipoEmision='" . $tipoEmision . "',
