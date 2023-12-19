@@ -17,8 +17,8 @@ $marketplace_conexionquery = mysqli_connect('localhost', $marketplace_query_url,
 $query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$tienda'";
 
 $resultado_total_ventas = mysqli_query($marketplace_conexionquery, $query_total_ventas);
-
 $datos_total_ventas = mysqli_fetch_assoc($resultado_total_ventas);
+print_r($datos_total_ventas);
 
 $total_pendiente_a_la_tienda = $datos_total_ventas['total_pendiente_a_la_tienda'];
 
@@ -72,7 +72,7 @@ try {
     $mail->isHTML(true);
     $mail->CharSet = 'UTF-8';
     $mail->setFrom($smtp_from, $smtp_from_name);
-    $mail->addAddress('contabilidadimporfactory@gmail.com');
+    $mail->addAddress('desarrollo1@imporfactoryusa.com');
     $mail->Subject = 'Solicitud de pago ' . $tienda;
     $mail->Body = $message_body;
 
