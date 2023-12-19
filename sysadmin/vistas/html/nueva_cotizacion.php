@@ -15,6 +15,7 @@ $user_id = $_SESSION['id_users'];
 //include 'is_logged.php'; 
 $session_id = session_id();
 //echo $session_id; 
+$pais= get_row('perfil', 'pais', 'id_perfil', 1);
 
 $tienda = $_GET['id'];
 
@@ -140,7 +141,7 @@ include "../modal/buscar_productos_ventas.php";
                                                                                 <select onchange="cargar_provincia_pedido()" class="datos form-control" id="provinica" name="provinica"  required>
     <option value="">Provincia *</option>
     <?php
-    $sql2 = "select * from provincia_laar ";
+    $sql2 = "select * from provincia_laar where id_pais=$pais";
     $query2 = mysqli_query($conexion, $sql2);
 
     while ($row2 = mysqli_fetch_array($query2)) {

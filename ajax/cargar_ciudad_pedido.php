@@ -39,11 +39,14 @@ $id_provincia = $_POST['provinica'];
     //echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
-
+$pais= get_row('perfil', 'pais', 'id_perfil', 1);
         ?>
  <div class="input-group-prepend">
                 <span style="height: 45px" class="icon_datos input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
+<?php
+if($pais==1){
+?>
                 <select  class="datos form-control" id="ciudad" name="ciudad" required>
                   <option value="">Ciudad *</option>
                   <?php
@@ -65,8 +68,13 @@ $id_provincia = $_POST['provinica'];
          <?php }?>
          </select>
 <?php
+}else{
+    
 
+?>
+<input  class="datos form-control" id="ciudad" name="ciudad" placeholder="Ingrese la ciudad" required>
 
-// fin else
-
+<?php
+}
+    
 ?>
