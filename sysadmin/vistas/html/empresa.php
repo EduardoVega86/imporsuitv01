@@ -114,7 +114,7 @@ $row           = mysqli_fetch_array($query_empresa);
 																}else{
 																	?>
 																	<option value="1">ECUADOR</option>
-																	<option value="2" selected>PERU</option>
+																	<option value="2" selected>PERÚ</option>
 																	<?php
 																}
 															?>
