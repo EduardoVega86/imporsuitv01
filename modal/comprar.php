@@ -74,11 +74,15 @@
                 <div class="input-group-prepend">
                 <span style="height: 45px" class=" icon_datos input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
+                 <?php
+                  
+                  ?>
          <select  onchange="cargar_provincia(this.value)" class="datos form-control" id="provinica" name="provinica" required>
                   <option value="">Provincia *</option>
                   <?php
-                           $sql2="select * from provincia_laar ";
-                          // echo $sql2;
+                  $pais= get_row('perfil', 'pais', 'id_perfil', 1);
+                           $sql2="select * from provincia_laar where id_pais=$pais";
+                           //echo $sql2;
                            $query2 = mysqli_query($conexion, $sql2);
                         
                             $rowcount=mysqli_num_rows($query2);
