@@ -102,6 +102,25 @@ $row           = mysqli_fetch_array($query_empresa);
 														<input type="email" class="form-control" name="email" value="<?php echo $row['email'] ?>" autocomplete="off" >
 													</div>
 												</div>
+                                                                                    <div class="form-group row">
+													<label for="inputEmail3" class="col-sm-3 col-form-label">País:</label>
+													<div class="col-sm-9">
+														<select name="pais"  class="form-control UpperCase">
+															<?php if($row["pais"] === '1'){
+																	?>
+																	<option value="1" selected>ECUADOR</option>
+																	<option value="2">PERÚ</option>
+																	<?php
+																}else{
+																	?>
+																	<option value="1">ECUADOR</option>
+																	<option value="2" selected>PERU</option>
+																	<?php
+																}
+															?>
+														</select>
+													</div>
+												</div>
 												<div class="form-group row">
 													<label for="inputPassword3" class="col-sm-3 col-form-label">Impuesto %:</label>
 													<div class="col-sm-4">
