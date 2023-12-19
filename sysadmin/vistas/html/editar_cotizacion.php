@@ -573,14 +573,24 @@ while ($r = $query->fetch_object()) {
                                                         </div>
                                                     </div>
                                                     <div class="row">
+                                                        <?php
+                                                             $pais= get_row('perfil', 'pais', 'id_perfil', 1);
+                                                             if($pais==1){
+                                                             ?>
                                                         <div class="col-md-3">
                                                             </br>
+                                                             
                                                             <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn btn-danger" disabled>Generar Guía</button>
+                                                       
                                                         </div>
                                                         <div class="col-md-3">
                                                             </br>
                                                             <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Calcular</button>
                                                         </div>
+                                                         <?php
+                                                            
+                                                             }
+                                                             ?>
                                                         <div class="col-md-6">
                                                             </br>
 
