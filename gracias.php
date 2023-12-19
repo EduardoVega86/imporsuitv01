@@ -49,7 +49,13 @@ if (empty($_POST['session'])) {
 
     $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
     $contenido = '';
-    $direccion = get_row('provincia_laar', 'provincia', 'codigo_provincia', $provincia) . ' ' . get_row('ciudad_laar', 'nombre', 'codigo', $ciudad) . ' ' . $calle_principal . ' ' . $calle_secundaria . ' ' . $referencia;
+    $pais= get_row('perfil', 'pais', 'id_perfil', 1);
+    if($pais==1){
+     $direccion = get_row('provincia_laar', 'provincia', 'codigo_provincia', $provincia) . ' ' . get_row('ciudad_laar', 'nombre', 'codigo', $ciudad) . ' ' . $calle_principal . ' ' . $calle_secundaria . ' ' . $referencia;   
+    }else{
+     $direccion = get_row('provincia_laar', 'provincia', 'codigo_provincia', $provincia) . ' ' .  $ciudad . ' ' . $calle_principal . ' ' . $calle_secundaria . ' ' . $referencia;   
+    }
+    
     //Comprobamos si hay archivos en la tabla temporal
     // echo "select * from tmp_ventas where session_id='" . $session_id . "'";
     $sql_count = mysqli_query($conexion, "select * from tmp_ventas where session_id='" . $session_id . "'");
