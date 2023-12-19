@@ -24,7 +24,7 @@ $dominio = str_replace(' ', '', $dominio);
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 
 $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
-
+echo "XD";
 
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
@@ -56,7 +56,7 @@ if ($action == 'ajax') {
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
-    $per_page  = 10; //how much records you want to show
+    $per_page  = 50; //how much records you want to show
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
@@ -144,6 +144,9 @@ if ($action == 'ajax') {
                     $guia_numero = '';
 
                     $estado_guia = '';
+
+                    $estado_actual_guia_X = '';
+
                     switch ($estado_factura) {
 
                         case 1:
@@ -432,6 +435,8 @@ if ($action == 'ajax') {
                                     <?php
 
                                     }
+
+                                    $numero_de_guia = $guia_numero;
                                     if ($drogshipin == 3) {
                                         if ($guia_numero = 'NO ENVIADA') {
                                         } else {
@@ -441,6 +446,14 @@ if ($action == 'ajax') {
                                         <button class="dropdown-item" onclick="guia_importar('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Importar Guia</button>
                                     <?php
                                     }
+
+                                    if ($estado_actual_guia_X >= 2 && $estado_actual_guia_X <= 7) {
+                                    } else {
+                                    ?>
+                                        <button class="dropdown-item" onclick="guia_anulada('<?php echo $numero_de_guia ?>')" type="button"><i class="ti-wallet"></i> Anulada Guia</button>
+                                    <?php
+                                    }
+
                                     ?>
 
 
