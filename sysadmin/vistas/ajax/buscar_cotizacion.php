@@ -344,6 +344,10 @@ if ($action == 'ajax') {
                                                             $span_estado = 'badge-danger';
                                                             $estado_guia = 'Anulada';
                                                             break;
+                                                         case '11':
+                                                            $span_estado = 'badge-warning';
+                                                          
+                                                            break;
                                                         case '14':
                                                             $span_estado = 'badge-danger';
                                                             //$estado_guia = 'Anulada';
