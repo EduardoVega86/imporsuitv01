@@ -18,6 +18,7 @@ permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 $title          = "Ventas";
 $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
+$pais= get_row('perfil', 'pais', 'id_perfil', 1);
 ?>
 
 <?php require 'includes/header_start.php';?>
@@ -75,7 +76,7 @@ include "../modal/buscar_productos_ventas.php";
     while ($row_tienda = mysqli_fetch_assoc($sql_producto_tienda)) {
         
     $tienda         = $row_tienda["tienda"];
-   if ($tienda !== "" && $tienda !== null && $tienda !== 'enviado'){
+   if ($tienda !== "" && $tienda !== null && $tienda !== 'enviado' &&$pais==1){
       // echo $tienda;
    
                                                                             ?>
