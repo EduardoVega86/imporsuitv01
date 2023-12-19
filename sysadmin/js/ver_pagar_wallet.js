@@ -87,7 +87,7 @@ function ver_detalles(numero_factura) {
     success: function (datos) {
       $("#loader").html("");
       $("#detalles").html(datos);
-      $("#detalles").modal("show");
+      $("#Modal").modal("show");
     },
   });
 }
