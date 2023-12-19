@@ -203,3 +203,22 @@ function obtener_datos(id) {
 }
 
 function guia_importar(numero_factura) {}
+
+async function guia_anulada(guia) {
+  await fetch(
+    "https://marketplace.imporsuit.com/sysadmin/api/integracion/Laar/",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        noGuia: guia,
+        estadoActualCodigo: 9,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    }
+  )
+    .then((response) => response.json())
+    .then((json) => console.log(json))
+    .catch((err) => console.log(err));
+}

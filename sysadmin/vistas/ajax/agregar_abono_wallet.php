@@ -20,8 +20,11 @@ if (empty($_POST['abono'])) {
     $fecha    = date("Y-m-d H:i:s");
     // Consulta para Extraer los datos del credito
 
-    $consultar     = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda';");
+    $consultar     = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' AND `valor_pendiente` != 0;");
     $rw            = mysqli_fetch_array($consultar);
+
+
+
 
     $total_monto_recibir_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' GROUP BY numero_factura ) as subquery;";
     $total_monto_recibir_query = mysqli_query($conexion, $total_monto_recibir_sql);
@@ -41,17 +44,51 @@ if (empty($_POST['abono'])) {
         </script>";
         exit;
     }
-    foreach ($consultar as $rw) {
-        if ($abono != 0) {
-            $saldo = $rw['monto_recibir'] - $abono;
-            $cobrado = $rw['valor_cobrado'] + $abono;
-            $numero_factura = $rw['numero_factura'];
+    foreach ($consultar as $rws) {
+
+        if ($abono > 0) {
+            $saldo = $rws['monto_recibir'] - $abono;
+            if ($saldo <= 0) {
+                $abono =  -$saldo;
+                $saldo = 0;
+                $cobrado = $rws['monto_recibir'];
+            } else {
+                $cobrado = $abono;
+                $abono = 0;
+            }
+
+            $numero_factura = $rws['numero_factura'];
 
             // Se actualiza la primera factura que se encuentra en la base de datos
-            $sql_update = "UPDATE `cabecera_cuenta_pagar` SET `monto_recibir`='$saldo',`valor_cobrado`='$cobrado' WHERE `numero_factura`='$numero_factura';";
+            $sql_update = "UPDATE `cabecera_cuenta_pagar` SET `monto_recibir`='$saldo',`valor_cobrado`='$cobrado', valor_pendiente='$saldo' WHERE `numero_factura`='$numero_factura';";
+
             $query_update = mysqli_query($conexion, $sql_update);
+
             $sql_pago = "INSERT INTO `pagos`( `fecha`, `numero_documento`, `valor`, `forma_pago`) VALUES ('$fecha', '$numero_factura', $abono, '$forma_pago');";
             $query_pago = mysqli_query($conexion, $sql_pago);
+            if ($query_pago) {
+                echo "<script>
+                $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'EL PAGO SE HA REGISTRADO CORRECTAMENTE')
+                </script>";
+            } else {
+                echo "<script>
+                $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'EL PAGO NO SE HA REGISTRADO CORRECTAMENTE')
+                </script>";
+            }
+
+            $sql_detalle_pago = "INSERT INTO `detalle_cuenta_pagar`(`valor`, `id_cabecera_cpp`, `signo`, `metodo_pago`, `id_pago`) VALUES " .
+                "($abono, (SELECT id_cabecera FROM `cabecera_cuenta_pagar` WHERE numero_factura = '$numero_factura'), '+', '$forma_pago', (SELECT id_pago FROM `pagos` WHERE numero_documento ='$numero_factura'));";
+            $query_detalle_pago = mysqli_query($conexion, $sql_detalle_pago);
+            if ($query_detalle_pago) {
+                echo "<script>
+                $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'EL DETALLE DEL PAGO SE HA REGISTRADO CORRECTAMENTE')
+                </script>";
+            } else {
+                echo "<script>
+                $.Notification.notify('error','bottom center','NOTIFICACIÓN', 'EL DETALLE DEL PAGO NO SE HA REGISTRADO CORRECTAMENTE')
+                </script>";
+            }
+
             $comprobar = mysqli_query($conexion, "select * from cabecera_cuenta_pagar where numero_factura='" . $numero_factura . "'");
             $rww       = mysqli_fetch_array($comprobar);
             if ($rww['monto_recibir'] == 0) {
@@ -60,7 +97,7 @@ if (empty($_POST['abono'])) {
                 $.Notification.notify('info','bottom center','NOTIFICACIÓN', 'LA FACTURA SE HA CANCELADO EN SU TOTALIDAD')
                 </script>";
             }
-            if ($sql) {
+            if ($rww) {
                 $messages[] = "El Abono  ha sido ingresado satisfactoriamente." . '' . $numero_factura;
             } else {
                 $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion);

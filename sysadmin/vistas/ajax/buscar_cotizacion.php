@@ -54,7 +54,7 @@ if ($action == 'ajax') {
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
-    $per_page  = 10; //how much records you want to show
+    $per_page  = 30; //how much records you want to show
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
@@ -130,7 +130,8 @@ if ($action == 'ajax') {
 
                     $estado_guia = '';
 
-                    $estado_actua = '';
+                    $estado_actual_guia_X = '';
+
                     switch ($estado_factura) {
 
                         case 1:
@@ -306,10 +307,9 @@ if ($action == 'ajax') {
                                                 $data = json_decode($response, true);
                                                 // echo $data['estadoActualCodigo'];
                                                 if ($data !== null && isset($data['estadoActualCodigo'])) {
+                                                    $estado_actual_guia_X = $data['estadoActualCodigo'];
                                                     // Imprimir el estadoActual
                                                     //echo 'Estado Actual: ' . $data['estadoActual'];
-                                                    $estado_actua = $data['estadoActualCodigo'];
-
                                                     switch ($data['estadoActualCodigo']) {
                                                         case '1':
 
@@ -422,6 +422,7 @@ if ($action == 'ajax') {
                                 </select>
                             <?php
                             }
+
                             ?>
 
                         </td>
@@ -458,14 +459,11 @@ if ($action == 'ajax') {
                                         <button class="dropdown-item" onclick="guia_importar('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Importar Guia</button>
                                     <?php
                                     }
-                                    ?>
-                                    <?php
-                                    if ($estado_actua >= 2 && $estado_actua <= 7) {
+
+                                    if ($estado_actual_guia_X >= 2 && $estado_actual_guia_X <= 7) {
                                     } else {
-
                                     ?>
-                                        <button class="dropdown-item" onclick="anular('<?php echo $id_factura ?>')" type="button"><i class="ti-wallet"></i> Anular</button>
-
+                                        <button class="dropdown-item" onclick="guia_anulada('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Anulada Guia</button>
                                     <?php
                                     }
                                     ?>
