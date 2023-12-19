@@ -142,8 +142,8 @@ if ($action == 'ajax') {
                         default:
                             echo "Estado no reconocido";
                     }
-                    
-                    
+
+
 
 
                     $total_venta    = $row['monto_factura'];
@@ -215,9 +215,11 @@ if ($action == 'ajax') {
                                                 } else {
                                                     // Procesar la respuesta
                                                     $data = json_decode($response, true);
+                                                    print_r($data);
                                                     if ($data !== null && isset($data['estadoActualCodigo'])) {
                                                         // Imprimir el estadoActual
                                                         //echo 'Estado Actual: ' . $data['estadoActual'];
+                                                        echo $data["estadoActualCodigo"];
                                                         switch ($data['estadoActualCodigo']) {
                                                             case '1':
 
@@ -256,15 +258,15 @@ if ($action == 'ajax') {
                                                                 $span_estado = 'badge-danger';
                                                                 //$estado_guia = 'Anulada';
                                                                 break;
-                                                             case '16':
+                                                            case '16':
                                                                 $span_estado = 'badge-danger';
                                                                 //$estado_guia = 'Anulada';
                                                                 break;
-                                                             case '29':
+                                                            case '29':
                                                                 $span_estado = 'badge-danger';
                                                                 //$estado_guia = 'Anulada';
                                                                 break;
-                                                             case '48':
+                                                            case '48':
                                                                 $span_estado = 'badge-danger';
                                                                 //$estado_guia = 'Anulada';
                                                                 break;
@@ -272,7 +274,7 @@ if ($action == 'ajax') {
                                                                 echo "i es igual a 2";
                                                                 break;
                                                         }
-                                                     $estado_guia=get_row('estado_courier','alias','codigo',$data['estadoActualCodigo']);
+                                                        $estado_guia = get_row('estado_courier', 'alias', 'codigo', $data['estadoActualCodigo']);
                                                     } else {
                                                         echo 'No se pudo obtener el estadoActual';
                                                     }
@@ -289,6 +291,7 @@ if ($action == 'ajax') {
                                                 }
 
 
+                                                echo $data["estadoActualCodigo"];
 
                                             ?>
                                 <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
@@ -305,21 +308,21 @@ if ($action == 'ajax') {
                                             } ?>
                         </td>
                         <td>
-                            <select onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado' >
-												<option value="">-- Selecciona --</option>
-												<?php
-//echo "select * from estado_guia";
-    $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
-    while ($rw = mysqli_fetch_array($query_categoria)) {
-         $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
-        ?>
-													<option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-													<?php
-}
-    ?>
-											</select>
-                            
-                            
+                            <select onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
+                                <option value="">-- Selecciona --</option>
+                                <?php
+                                //echo "select * from estado_guia";
+                                $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
+                                while ($rw = mysqli_fetch_array($query_categoria)) {
+                                    $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
+                                ?>
+                                    <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+
+
                         </td>
                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
                         <td class="text-center">
