@@ -16,15 +16,15 @@ $query = mysqli_query($conexion, $sql);
 $rw = mysqli_fetch_array($query);
 $cabecera = $rw['id_cabecera'];
 
-$sql = "SELECT * FROM detalle_cuenta_pagar WHERE id_cabecera_cpp = '$cabecera'";
+$sql = "SELECT pagos.*
+FROM cabecera_cuenta_pagar cabecera
+JOIN detalle_cuenta_pagar detalle ON cabecera.id_cabecera = detalle.id_cabecera_cpp
+JOIN pagos pagos ON detalle.id_pago = pagos.id_pago
+WHERE cabecera.numero_factura = '$numero_factura';";
 $query = mysqli_query($conexion, $sql);
+
 
 $rw = mysqli_fetch_array($query);
-
-$id_pago = $rw['id_pago'];
-
-$sql = "SELECT * FROM pagos WHERE id_pago = '$id_pago'";
-$query = mysqli_query($conexion, $sql);
 
 ?>
 
@@ -43,29 +43,36 @@ $query = mysqli_query($conexion, $sql);
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table table-condensed table-hover table-striped ">
-                        <tr>
-                            <th>#Documento</th>
-                            <th>Fecha</th>
-                            <th>Valor</th>
-                            <th>Forma de pago</th>
+                    <?php if ($query->num_rows > 0) { ?>
 
-
-                            <th></th>
-                        </tr>
-                        <?php
-                        $finales = 0;
-                        foreach ($query as $rws) {
-                            $finales++;
-                        ?>
+                        <table class="table table-sm table table-condensed table-hover table-striped ">
                             <tr>
-                                <td><?php echo $rws['numero_documento']; ?></td>
-                                <td><?php echo $rws['fecha']; ?></td>
-                                <td><?php echo $rws['valor']; ?></td>
-                                <td><?php echo $rws['forma_pago']; ?></td>
+                                <th>#Documento</th>
+                                <th>Fecha</th>
+                                <th>Valor</th>
+                                <th>Forma de pago</th>
+
+
+                                <th></th>
                             </tr>
-                        <?php } ?>
-                    </table>
+                            <?php
+                            $finales = 0;
+                            foreach ($query as $rws) {
+                                $finales++;
+                            ?>
+                                <tr>
+                                    <td><?php echo $rws['numero_documento']; ?></td>
+                                    <td><?php echo $rws['fecha']; ?></td>
+                                    <td><?php echo $rws['valor']; ?></td>
+                                    <td><?php echo $rws['forma_pago']; ?></td>
+                                </tr>
+                            <?php } ?>
+                        </table>
+                    <?php } else { ?>
+                        <div class="alert alert-warning">
+                            <strong>Advertencia!</strong> No hay pagos registrados para esta factura.
+                        </div>
+                    <?php } ?>
                 </div>
 
             </div>
