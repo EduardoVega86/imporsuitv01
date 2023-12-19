@@ -13,8 +13,7 @@ require_once "../sysadmin/vistas/funciones.php";
 //include "../permisos.php";
 //$user_id = $_SESSION['id_users'];
 $id_provincia = $_POST['provinica'];
-//echo 'la puta madre0'.$_POST['provinica'];
-//get_cadena($user_id);
+
 //$modulo = "Categorias";
 //permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
@@ -39,11 +38,15 @@ $id_provincia = $_POST['provinica'];
     //echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
-
+$pais= get_row('perfil', 'pais', 'id_perfil', 1);
         ?>
  <div class="input-group-prepend">
                 <span style="height: 45px" class="icon_datos input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
+<?php
+if($pais==1){
+?>
+
                 <select  class="datos form-control" id="ciudad" name="ciudad" required>
                   <option value="">Ciudad *</option>
                   <?php
@@ -65,8 +68,14 @@ $id_provincia = $_POST['provinica'];
          <?php }?>
          </select>
 <?php
-
-
-// fin else
+}else{
+    
 
 ?>
+<input  class="datos form-control" id="ciudad" name="ciudad" placeholder="Ingrese la ciudad" required>
+
+<?php
+}
+    
+?>
+
