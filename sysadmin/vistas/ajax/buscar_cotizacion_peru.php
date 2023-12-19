@@ -84,7 +84,7 @@ if ($action == 'ajax') {
                     <th>Localidad</th>
                     <th>Direccion</th>
 
-                    <th colspan="2" style="text-align: center;">Estado</th>
+                    <th  style="text-align: center;">Estado</th>
 
                     <th class='text-center'>Total</th>
                     <th></th>
@@ -108,7 +108,7 @@ if ($action == 'ajax') {
                     //echo $provincia;
                     $ciudad_cot   = $row['ciudad_cot'];
                     //echo $ciudad_cot;
-                    $ciudad_cot   = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad_cot);
+                    //$ciudad_cot   = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad_cot);
 
                     $observacion   = $row['observacion'];
                     $direccion   = $row['c_principal'] . ' y ' . $row['c_secundaria'] . '-' . $row['referencia'];
@@ -248,9 +248,7 @@ if ($action == 'ajax') {
 
                        
                         <td>
-                            <?php if ($drogshipin == 3 || $drogshipin == 4) {
-
-                            ?>
+                            
                                 <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
                                     <option value="">-- Selecciona --</option>
                                     <?php
@@ -269,10 +267,7 @@ if ($action == 'ajax') {
                                     }
                                     ?>
                                 </select>
-                            <?php
-                            }
-
-                            ?>
+                           
 
                         </td>
                         <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
