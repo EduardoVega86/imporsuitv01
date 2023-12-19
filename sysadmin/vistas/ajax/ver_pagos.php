@@ -1,6 +1,6 @@
 <?php
 include "is_logged.php"; //Archivo comprueba si el usuario esta logueado
-$numero_factura = $_SESSION['numero_factura'];
+$tienda = $_SESSION['tienda'];
 /* Connect To Database*/
 require_once "../db.php";
 require_once "../php_conexion.php";
@@ -16,7 +16,7 @@ if ($action == 'ajax') {
     $daterange = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['range'], ENT_QUOTES)));
     $tables = "pagos";
     $campos = "*";
-    $sWhere = "numero_documento='" . $numero_factura . "'";
+    $sWhere = "tienda='" . $tienda . "'";
     if (!empty($daterange)) {
         list($f_inicio, $f_final) = explode(" - ", $daterange); //Extrae la fecha inicial y la fecha final en formato espa?ol
         list($dia_inicio, $mes_inicio, $anio_inicio) = explode("/", $f_inicio); //Extrae fecha inicial
@@ -52,12 +52,11 @@ if ($action == 'ajax') {
 
         <div class="table-responsive">
             <table class="table table-sm table table-condensed table-hover table-striped ">
-                <tr>
+                <tr class="text-center">
                     <th>Numero documento</th>
                     <th>Fecha</th>
                     <th>Valor</th>
                     <th>Forma de Pago</th>
-                    <th></th>
                 </tr>
                 <?php
                 $finales = 0;
@@ -74,10 +73,7 @@ if ($action == 'ajax') {
                         <td><?php echo $fecha; ?></td>
                         <td><?php echo $simbolo_moneda . ' ' . number_format($valor, 2); ?></td>
                         <td><?php echo $forma_pago; ?></td>
-                        <td>
-                            <a href="#" class='btn btn-default' title='Editar pago' onclick="obtener_datos('<?php echo $id_pago; ?>');" data-toggle="modal" data-target="#myModal2"><i class="fas fa-edit"></i></a>
-                            <a href="#" class='btn btn-default' title='Borrar pago' onclick="eliminar('<?php echo $id_pago; ?>')"><i class="fas fa-trash-alt"></i></a>
-                        </td>
+
                     </tr>
                 <?php
                 }

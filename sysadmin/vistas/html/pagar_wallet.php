@@ -93,7 +93,7 @@ $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_f
                                                 </div>
                                             </div>
                                             <div id="widgets"></div>
-                                            <div class="facturas"></div>
+                                            <div id="facturas"></div>
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="panel panel-color panel-info">

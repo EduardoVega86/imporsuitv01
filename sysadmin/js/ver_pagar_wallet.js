@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $("#widgets").load("../ajax/cargar_widget_wallet.php");
-  $("facturas").load("../ajax/cargar_facturas.php");
+  $("#facturas").load("../ajax/cargar_facturas.php");
   load(1);
 });
 function load(page) {
@@ -60,42 +60,6 @@ $("#add_abono").submit(function (event) {
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
       $("#facturas").load("../ajax/cargar_facturas.php");
       $("#add-stock").modal("hide");
-      //desaparecer la alerta
-      window.setTimeout(function () {
-        $(".alert")
-          .fadeTo(500, 0)
-          .slideUp(500, function () {
-            $(this).remove();
-          });
-      }, 5000);
-    },
-  });
-  event.preventDefault();
-});
-
-$("#remove_stock").submit(function (event) {
-  $("#eliminar_datos").attr("disabled", true);
-  var parametros = $(this).serialize();
-  $.ajax({
-    type: "POST",
-    url: "../ajax/eliminar_stock_wallet.php",
-    data: parametros,
-    beforeSend: function (objeto) {
-      $("#resultados_ajax2").html(
-        '<img src="../../img/ajax-loader.gif"> Cargando...'
-      );
-    },
-    success: function (datos) {
-      $("#resultados_ajax2").html(datos);
-      $("#eliminar_datos").attr("disabled", false);
-      load(1);
-      //resetea el formulario
-      $("#remove_stock")[0].reset();
-      //cierra la Modal
-      $("#outer_div").load("../ajax/ver_pagos.php");
-      $("#widgets").load("../ajax/cargar_widget_wallet.php");
-
-      $("#remove-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {
         $(".alert")

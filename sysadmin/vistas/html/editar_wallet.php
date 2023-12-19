@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
     header("location: ../../login.php");
@@ -12,6 +13,7 @@ if (strtolower($marketplace_url) !== "marketplace.imporsuit" && strtolower($mark
     header("location: ../../login.php");
     exit;
 }
+
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
@@ -32,7 +34,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 if (isset($_GET['id_factura'])) {
 
     $id_factura     = $_GET['id_factura'];
-    $query          = mysqli_query($conexion, "SELECT * FROM cabecera_cuenta_cobrar WHERE numero_factura='" . $id_factura . "'");
+    $query          = mysqli_query($conexion, "SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura='" . $id_factura . "'");
     $count         = mysqli_num_rows($query);
     if ($count == 1) {
         $rw_factura = mysqli_fetch_array($query);
@@ -354,7 +356,7 @@ if (isset($_GET['id_factura'])) {
 
                     setTimeout(function() {
                         location.reload();
-                    }, 2000);
+                    }, 1000);
                 } else {
                     $.Notification.notify('custom', 'bottom right', 'ERROR!', 'Error al cambiar el precio')
                 }
