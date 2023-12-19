@@ -30,6 +30,13 @@ $title          = "Wallet";
 $wallets         = 1;
 $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
+$total_pendiente_sql = "select valor_pendiente from cabecera_cuenta_pagar where tienda = '$nombre_usuario'";
+$total_pendiente_query = mysqli_query($conexion, $total_pendiente_sql);
+$total_pendiente = $total_pendiente_query->fetch_assoc();
+$total_pendiente = $total_pendiente['valor_pendiente'];
+
+
+
 
 if (isset($_GET['id_factura'])) {
 
@@ -175,82 +182,89 @@ if (isset($_GET['id_factura'])) {
             <div class="container">
                 <?php if ($permisos_ver == 1) {
                 ?>
-                    <div class="col-lg-12">
-                        <div class="portlet">
-                            <div class="portlet-heading bg-primary">
-                                <h3 class="portlet-title">
-                                    Editar Wallet
-                                </h3>
-                                <div class="portlet-widgets">
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div id="bg-primary" class="panel-collapse collapse show">
-                                <div class="portlet-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            <table class="table table-sm table-striped table-responsive">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center">ORDEN</th>
-                                                        <th class="text-center">FECHA</th>
-                                                        <th class="text-center">CLIENTE</th>
-                                                        <th class="text-center">TIENDA</th>
-                                                        <th class="text-center">ESTADO</th>
-                                                        <th class="text-center">TOTAL</th>
-                                                        <th class="text-center">COSTO</th>
-                                                        <th class="text-center">ENVIO</th>
-                                                        <th class="text-center">MONTO RECIBIR</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-center"><label class="badge badge-purple"> <?php echo $id_factura; ?></label></td>
-                                                        <td class="text-center"><?php echo $fecha; ?></td>
-                                                        <td class="text-center"><?php echo $cliente; ?></td>
-                                                        <td class="text-center"><?php echo $tienda; ?></td>
-
-                                                        <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
-                                                        <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
-                                                        <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
-                                                        <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>
-                                                        <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col">
-                                            <form method="post" onsubmit="cambiar_precio(event)">
-                                                <label for="precio">
-                                                    Precio de Envio
-                                                </label>
-                                                <input type="text" name="precio" id="precio" class="form-control" value="<?php echo $precio_envio; ?>">
-                                                <input class="btn btn-outline-success w-100 pt-3" type="submit" value="Cambiar precio">
-                                            </form>
-                                        </div>
+                    <?php if ($total_pendiente != 0) { ?>
+                        <div class="col-lg-12">
+                            <div class="portlet">
+                                <div class="portlet-heading bg-primary">
+                                    <h3 class="portlet-title">
+                                        Editar Wallet
+                                    </h3>
+                                    <div class="portlet-widgets">
                                     </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div id="bg-primary" class="panel-collapse collapse show">
+                                    <div class="portlet-body">
+                                        <div class="row">
 
+                                            <div class="col">
+
+                                                <table class="table table-sm table-striped table-responsive">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">ORDEN</th>
+                                                            <th class="text-center">FECHA</th>
+                                                            <th class="text-center">CLIENTE</th>
+                                                            <th class="text-center">TIENDA</th>
+                                                            <th class="text-center">ESTADO</th>
+                                                            <th class="text-center">TOTAL</th>
+                                                            <th class="text-center">COSTO</th>
+                                                            <th class="text-center">ENVIO</th>
+                                                            <th class="text-center">MONTO RECIBIR</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-center"><label class="badge badge-purple"> <?php echo $id_factura; ?></label></td>
+                                                            <td class="text-center"><?php echo $fecha; ?></td>
+                                                            <td class="text-center"><?php echo $cliente; ?></td>
+                                                            <td class="text-center"><?php echo $tienda; ?></td>
+
+                                                            <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
+                                                            <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
+                                                            <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
+                                                            <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>
+                                                            <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+
+
+                                            </div>
+                                            <div class="col">
+                                                <form method="post" onsubmit="cambiar_precio(event)">
+                                                    <label for="precio">
+                                                        Precio de Envio
+                                                    </label>
+                                                    <input type="text" name="precio" id="precio" class="form-control" value="<?php echo $precio_envio; ?>">
+                                                    <input class="btn btn-outline-success w-100 pt-3" type="submit" value="Cambiar precio">
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <!-- end row -->
 
                                 </div>
-                                <!-- end row -->
 
                             </div>
-
                         </div>
-                    </div>
-            </div>
-        <?php
-                } else {
-        ?>
-            <section class="content">
-                <div class="alert alert-danger" align="center">
-                    <h3>Acceso denegado! </h3>
-                    <p>No cuentas con los permisos necesario para acceder a este módulo.</p>
-                </div>
-            </section>
-        <?php
+                    <?php
+                    } else {
+                    ?>
+                        <section class="content">
+                            <div class="alert alert-danger" align="center">
+                                <h3>Acceso denegado! </h3>
+                                <p>Esta facuta ya ha sido cancelada, no puede ser editada.</p>
+                            </div>
+                        </section>
+                <?php
+                    }
                 }
-        ?>
+                ?>
+            </div>
 
         </div>
         <!-- end container -->
