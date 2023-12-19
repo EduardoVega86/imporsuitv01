@@ -72,3 +72,22 @@ $("#add_abono").submit(function (event) {
   });
   event.preventDefault();
 });
+
+function ver_detalles(numero_factura) {
+  var parametros = {
+    numero_factura: numero_factura,
+  };
+  $.ajax({
+    type: "POST",
+    url: "../ajax/ver_detalles.php",
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#loader").html("<img src='../../img/ajax-loader.gif'>");
+    },
+    success: function (datos) {
+      $("#loader").html("");
+      $("#detalles").html(datos);
+      $("#detalles").modal("show");
+    },
+  });
+}

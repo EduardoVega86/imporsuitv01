@@ -48,7 +48,7 @@ $rw = mysqli_fetch_array($consultar);
                 <td><?php echo $rws['valor_cobrado']; ?></td>
                 <td><?php echo $rws['valor_pendiente']; ?></td>
                 <td>
-                    <a href="editar_wallet.php?id_factura=<?php echo $rws['numero_factura']; ?>" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a>
+                    <button onclick="ver_detalles('<?php echo $rws['numero_factura']; ?>')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
                 </td>
             </tr>
         <?php } ?>
