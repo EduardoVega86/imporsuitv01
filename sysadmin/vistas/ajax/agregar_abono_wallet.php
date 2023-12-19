@@ -63,10 +63,7 @@ if (empty($_POST['abono'])) {
                 $bct = $abono;
                 $abono = 0;
             }
-
-
             $numero_factura = $rws['numero_factura'];
-
             // Se actualiza la primera factura que se encuentra en la base de datos
             $sql_update = "UPDATE `cabecera_cuenta_pagar` SET `monto_recibir`='$saldo',`valor_cobrado`='$cobrado', valor_pendiente='$saldo' WHERE `numero_factura`='$numero_factura';";
 
@@ -80,7 +77,6 @@ if (empty($_POST['abono'])) {
             $sql_detalle_pago = "INSERT INTO `detalle_cuenta_pagar`(`valor`, `id_cabecera_cpp`, `signo`, `metodo_pago`, `id_pago`) VALUES " .
                 "($bct, (SELECT MAX( id_cabecera) FROM `cabecera_cuenta_pagar` WHERE numero_factura = '$numero_factura'), '+', '$forma_pago', (SELECT MAX(id_pago) FROM `pagos`));";
             $query_detalle_pago = mysqli_query($conexion, $sql_detalle_pago);
-            echo $sql_detalle_pago;
 
             $comprobar = mysqli_query($conexion, "select * from cabecera_cuenta_pagar where numero_factura='" . $numero_factura . "'");
             $rww       = mysqli_fetch_array($comprobar);
