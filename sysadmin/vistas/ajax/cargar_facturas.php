@@ -16,7 +16,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
 <div class="table-responsive">
     <table class="table table-sm table table-condensed table-hover table-striped ">
         <tr>
-            <th><i class="fa-solid fa-check-to-slot"></i></th>
+            <th><i class="ti-check-box"></i></th>
             <th>Factura</th>
             <th>Fecha</th>
             <th>Cliente</th>
@@ -27,11 +27,12 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             <th>Monto a Recibir</th>
             <th>Monto Cobrado</th>
             <th>Monto Pendiente</th>
-            <th>Número Guia</th>
+            <th>Numero Guia</th>
             <th>Guia</th>
             <th>Ver</th>
             <th>Editar</th>
-            <th>¿Devolución?</th>
+            <th>Devolucion</th>
+            <th>Eliminar</th>
         </tr>
         <?php
         $finales = 0;
@@ -46,7 +47,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             }
         ?>
             <tr class="<?php echo $color_row ?>">
-                <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked" ?> onclick="visto('<?php $rws['numero_factura'] ?> ')"></td>
+                <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked" ?> onclick="visto('<?php echo $rws['numero_factura'] ?>')"></td>
                 <td><?php echo $rws['numero_factura']; ?></td>
                 <td><?php echo $rws['fecha']; ?></td>
                 <td><?php echo $rws['cliente']; ?></td>
@@ -59,6 +60,9 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
 
                 <td><?php echo number_format($rws['valor_pendiente'], 2); ?></td>
                 <td class="text-center">
+                    <?php echo $rws['guia_laar']; ?>
+                </td>
+                <td class="text-center">
                     <a href="<?php echo $url_guia . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>
                 </td>
                 <td class="text-center">
@@ -69,6 +73,9 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
                 </td>
                 <td class="text-center">
                     <button onclick="devolucion('<?php echo $rws['guia_laar']; ?>')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                </td>
+                <td class="text-center">
+                    <button onclick="eliminar('<?php echo $rws['id_cabecera']; ?>')" class="btn btn-danger btn-sm"><i class="ti-brush-alt"></i></button>
                 </td>
             </tr>
         <?php } ?>
