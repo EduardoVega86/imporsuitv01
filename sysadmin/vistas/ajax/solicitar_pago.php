@@ -33,7 +33,6 @@ if ($cantidad > $total_pendiente_a_la_tienda) {
 require_once '../../PHPMailer/PHPMailer.php';
 require_once '../../PHPMailer/SMTP.php';
 require_once '../../PHPMailer/Exception.php';
-include '../../PHPMailer/Mail_Pago.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -51,6 +50,7 @@ $numero_cuenta = $datos_correo['numero_cuenta'];
 $cedula = $datos_correo['cedula'];
 $telefono = $datos_correo['telefono'];
 
+include '../../PHPMailer/Mail_pago.php';
 
 
 $mail = new PHPMailer(true);
@@ -70,7 +70,7 @@ try {
     $mail->isHTML(true);
     $mail->CharSet = 'UTF-8';
     $mail->setFrom($smtp_from, $smtp_from_name);
-    $mail->addAddress('desarrollo1@imporfactoryusa.com');
+    $mail->addAddress('desarrollo1imporfactory@gmail.com');
     $mail->Subject = 'Solicitud de pago ' . $tienda;
     $mail->Body = $message_body;
 
