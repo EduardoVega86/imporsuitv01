@@ -1,11 +1,14 @@
+<script>
+    async function cargar(factura) {
+        await fetch('https://marketplace.imporsuit.com/sysadmin/api/integracion/Laar/guias', {
+            method: 'POST',
+            body: JSON.stringify({
+                factura: factura
+            })
+        });
+    }
+</script>
 <?php
-
-session_start();
-if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
-    header("location: ../../login.php");
-    exit;
-}
-
 // Al inicio del script
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -17,9 +20,12 @@ require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de 
 include "../permisos.php";
 
 
-$user_id = $_SESSION['id_users'];
-get_cadena($user_id);
-$modulo = "Wallets";
-permisos($modulo, $cadena_permisos);
+$sql = "SELECT numero_factura FROM `cabecera_cuenta_pagar`;";
+$consultar = mysqli_query($conexion, $sql);
 
-echo "hola";
+// Imprimir todas las filas
+while ($rw = mysqli_fetch_assoc($consultar)) {
+    print_r($rw);
+}
+
+?>
