@@ -99,7 +99,7 @@ function devolucion(guia_laar) {
   };
   $.ajax({
     type: "POST",
-    url: "https://marketplace.imporsuit.com/sysadmin/api/integracion/Laar/devolucion",
+    url: "../ajax/devolucion.php",
     data: parametros,
     beforeSend: function (objeto) {
       $("#loader").html("<img src='../../img/ajax-loader.gif'>");
