@@ -425,36 +425,7 @@ if ($action == 'ajax') {
                                     if ($permisos_eliminar == 1) { ?>
                                         <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                     <?php } ?>
-                                    <?php
-                                    if ($dominio == 'localhost' || $dominio == 'marketplace.imporsuit.com') {
-                                    ?>
 
-                                        <button class="dropdown-item" onclick="wallet('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Cartera</button>
-
-
-                                    <?php
-
-                                    }
-
-                                    $numero_de_guia = $guia_numero;
-                                    if ($drogshipin == 3) {
-                                        if ($guia_numero = 'NO ENVIADA') {
-                                        } else {
-                                        }
-                                    ?>
-
-                                        <button class="dropdown-item" onclick="guia_importar('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Importar Guia</button>
-                                    <?php
-                                    }
-
-                                    if ($estado_actual_guia_X >= 2 && $estado_actual_guia_X <= 7) {
-                                    } else {
-                                    ?>
-                                        <button class="dropdown-item" onclick="guia_anulada('<?php echo $numero_de_guia ?>')" type="button"><i class="ti-wallet"></i> Anulada Guia</button>
-                                    <?php
-                                    }
-
-                                    ?>
 
 
                                 </div>
