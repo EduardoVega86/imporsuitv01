@@ -29,7 +29,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             <th>Guia</th>
             <th>Ver</th>
             <th>Editar</th>
-            <th>¿Devolucion?</th>
+            <th>驴Devolucion?</th>
         </tr>
         <?php
         $finales = 0;
@@ -58,7 +58,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
                     <a href="editar_wallet.php?id_factura=<?php echo $rws['numero_factura']; ?>" class="btn btn-secondary btn-sm"><i class="fa fa-wrench"></i></a>
                 </td>
                 <td>
-                    <button onclick="devolucion('<?php echo $rws['numero_factura']; ?>')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                    <button onclick="devolucion('<?php echo $rws['guia_laar']; ?>')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
         <?php } ?>

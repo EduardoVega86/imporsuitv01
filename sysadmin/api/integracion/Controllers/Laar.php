@@ -30,7 +30,9 @@ class Laar extends Controller
     public function devolucion()
     {
         $json = file_get_contents('php://input');
-        $json_decode = json_decode($json, true);
-        print_r($json_decode);
+        parse_str($json, $output);
+        $guia = $output['guia_laar'];
+        $estado = $output['estado'];
+        $this->model->devolucion($guia, $estado);
     }
 }

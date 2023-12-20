@@ -356,4 +356,100 @@ class LaarModel extends Query
             echo json_encode('no_existe');
         }
     }
+
+
+    public function devolucion($no_guia, $estado_actual_codigo)
+    {
+
+        $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' ");
+        $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
+        $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
+        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
+        $numero_factura_verificar = $numero_factura[0]['numero_factura'];
+
+
+
+        $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
+        $query = $this->select($query);
+
+        $id_pedido = $query[0]['id_pedido'];
+        $tienda_venta = $query[0]['tienda_venta'];
+        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'";
+        $query = $this->select($query);
+
+        $numero_factura = $query[0]['numero_factura'];
+        $fecha = $query[0]['fecha_factura'];
+        $nombre_cliente = $query[0]['nombre'];
+        $tienda = $query[0]['tienda'];
+        $estado_pedido = $query[0]['estado_factura'];
+        $guia_enviada = $query[0]['guia_enviada'];
+        $ciudad_cot = $query[0]['ciudad_cot'];
+        $id_factura = $query[0]['id_factura'];
+        $id_pedido_origen = $query[0]['id_factura_origen'];
+
+        $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'";
+        $tieneGuias_query = $this->select($tieneGuias_sql);
+        $tieneGuias = count($tieneGuias_query);
+
+        if (empty($tieneGuias)) {
+            echo json_encode('no_guias');
+            exit;
+        }
+
+        $producto_id = $this->select("SELECT id_producto FROM detalle_fact_cot WHERE id_factura = '$id_factura'");
+
+        $producto_id = $producto_id[0]['id_producto'];
+
+        $costo_total = $this->select("SELECT costo_producto FROM productos WHERE id_producto = '$producto_id'");
+        $costo_total = $costo_total[0]['costo_producto'];
+
+        $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
+        $valor_base = $valor_base[0]['precio'];
+
+        $total_guia = $this->select("SELECT costoproducto FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
+        $total_guia = $total_guia[0]['costoproducto'];
+
+        $auxiliar = $this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
+        $auxiliar = $auxiliar[0]['cod'];
+
+        if ($auxiliar == 1) {
+            $valor_base = $valor_base + ($total_guia * 0.03);
+        }
+
+        $valor_declarado = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
+        $valor_declarado = $valor_declarado[0]['valorDeclarado'];
+        if ($valor_declarado > 1) {
+            $valor = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
+            $valor_base = $valor_base + ($valor[0]['valorDeclarado'] * 0.01);
+        }
+
+        $costo_guia = $this->select("SELECT valor_costo FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
+        $costo_guia = $costo_guia[0]['valor_costo'];
+
+        $valor_total = $this->select("SELECT valor1_producto FROM productos WHERE id_producto = '$producto_id'");
+
+        $valor_total = $valor_total[0]['valor1_producto'];
+
+        $costo_envio = $valor_base + ($valor_base * 0.25);
+        $costo_envio = number_format($costo_envio, 2);
+
+        $monto_recibir = 0 - $costo_envio;
+
+        $monto_recibir = number_format($monto_recibir, 2);
+
+        $verificar = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura_verificar'");
+        $verificar = count($verificar);
+        if ($verificar > 0) {
+            $sql_edit = "UPDATE `cabecera_cuenta_pagar` SET `estado_guia` = ?, `estado_pedido` = ?, `total_venta` = ?, `costo` = ?, `precio_envio` = ?, `monto_recibir` = ?, `valor_pendiente` = ? WHERE `numero_factura` = ?";
+            $datos_edit = array($estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $numero_factura_verificar);
+            $query_edit = $this->update($sql_edit, $datos_edit);
+            if ($query_edit) {
+                echo json_encode('ok');
+            } else {
+                echo json_encode('error');
+            }
+        } else {
+            echo json_encode('no_existe');
+        }
+    }
 }
