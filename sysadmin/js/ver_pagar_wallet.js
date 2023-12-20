@@ -106,6 +106,7 @@ function devolucion(guia_laar) {
     },
     success: function (datos) {
       $("#loader").html("");
+      $("#facturas").load("../ajax/cargar_facturas.php");
     },
   });
 }
