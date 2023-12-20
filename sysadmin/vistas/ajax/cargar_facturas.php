@@ -29,7 +29,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             <th>Guia</th>
             <th>Ver</th>
             <th>Editar</th>
-            <th>驴Devolucion?</th>
+            <th>¿Devolucion?</th>
         </tr>
         <?php
         $finales = 0;
