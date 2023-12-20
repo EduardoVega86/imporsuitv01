@@ -29,19 +29,12 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             <th>Guia</th>
             <th>Ver</th>
             <th>Editar</th>
-            <th>¿Devolucion?</th>
+            <th>驴Devolucion?</th>
         </tr>
         <?php
         $finales = 0;
         foreach ($consultar as $rws) {
             $finales++;
-
-            $color_btn = "";
-            if ($rws['estado_guia'] == 7) {
-                $color_btn = "btn btn-success btn-sm";
-            } else {
-                $color_btn = "btn btn-danger btn-sm";
-            }
         ?>
             <tr>
                 <td><?php echo $rws['numero_factura']; ?></td>
@@ -55,16 +48,16 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
                 <td><?php echo $rws['valor_cobrado']; ?></td>
 
                 <td><?php echo number_format($rws['valor_pendiente'], 2); ?></td>
-                <td>
-                    <a href="<?php echo $url_guia . $rws['guia_laar']; ?>" target="_blank" class="<?php echo $color_btn ?>"><i class="fa fa-truck"></i></a>
+                <td class="text-center">
+                    <a href="<?php echo $url_guia . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>
                 </td>
-                <td>
+                <td class="text-center">
                     <button onclick="ver_detalles('<?php echo $rws['numero_factura']; ?>')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
                 </td>
-                <td>
+                <td class="text-center">
                     <a href="editar_wallet.php?id_factura=<?php echo $rws['numero_factura']; ?>" class="btn btn-secondary btn-sm"><i class="fa fa-wrench"></i></a>
                 </td>
-                <td>
+                <td class="text-center">
                     <button onclick="devolucion('<?php echo $rws['guia_laar']; ?>')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>

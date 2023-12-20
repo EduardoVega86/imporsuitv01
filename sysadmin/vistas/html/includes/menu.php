@@ -24,7 +24,7 @@ $total_venta = mysqli_query($marketplace_conexion_2, $query_total_ventas);
 @$total_venta = mysqli_fetch_assoc($total_venta);
 @$total_venta = $total_venta['total_pendiente_a_la_tienda'];
 $color = '';
-$pais= get_row('perfil', 'pais', 'id_perfil', 1);
+$pais = get_row('perfil', 'pais', 'id_perfil', 1);
 if ($total_venta == null) {
 	$total_venta = 0;
 	$color = 'text-white';
@@ -180,19 +180,22 @@ $total_venta = number_format($total_venta, 2, '.', ',');
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
 						<li><a href="../html/new_cotizacion.php">Ingresar Pedidos</a></li>
-						
-                                                <?php if ($pais==1){
-                                                  
-?>
-                                                <li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
-                                                 <?php  }else{
-                                                  ?>
-                                                <li><a href="../html/bitacora_cotizacion_p.php">Pedidos</a></li>
-                                                <?php 
-                                                 } ?>
+
+						<?php if ($pais == 1) {
+
+						?>
+							<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
+						<?php  } else {
+						?>
+							<li><a href="../html/bitacora_cotizacion_p.php">Pedidos</a></li>
+						<?php
+						} ?>
 						<li><a href="../html/bitacora_anulaciones.php">Anulados</a></li>
-                                                    
+
 						<li><a href="../html/bitacora_noenviados.php">No enviados</a></li>
+						<?php if ($dominio_completo == "https://marketplace.imporsuit.com") { ?>
+							<li><a href="../html/bitacora_local.php">Locales</a></li>
+						<?php } ?>
 					</ul>
 				</li>
 				<!-- <li class="has_sub">
