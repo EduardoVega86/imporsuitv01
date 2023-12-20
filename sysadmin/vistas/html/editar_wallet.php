@@ -47,7 +47,8 @@ if (isset($_GET['id_factura'])) {
         $cliente = $rw_factura['cliente'];
         $tienda = $rw_factura['tienda'];
         $estado_factura = $rw_factura['estado_pedido'];
-        $total_venta = $rw_factura['total_venta'];
+        $total_ventass = $rw_factura['total_venta'];
+
         $costo = $rw_factura['costo'];
         $precio_envio = $rw_factura['precio_envio'];
         $monto_recibir = $rw_factura['monto_recibir'];
@@ -214,7 +215,7 @@ if (isset($_GET['id_factura'])) {
                                                             <td class="text-center"><?php echo $tienda; ?></td>
 
                                                             <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
-                                                            <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
+                                                            <td class="text-center"><?php echo $simbolo_moneda . $total_ventass; ?></td>
                                                             <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
                                                             <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>
                                                             <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
@@ -224,11 +225,22 @@ if (isset($_GET['id_factura'])) {
                                             </div>
                                             <div class="col">
                                                 <form method="post" onsubmit="cambiar_precio(event)">
-                                                    <label for="precio">
-                                                        Precio de Envio
-                                                    </label>
-                                                    <input type="text" name="precio" id="precio" class="form-control" value="<?php echo $precio_envio; ?>">
-                                                    <input class="btn btn-outline-success w-100 pt-3" type="submit" value="Cambiar precio">
+                                                    <div class="form-group">
+                                                        <div class="mb-3">
+                                                            <label for="total_ventas">
+                                                                Total de Ventas
+                                                            </label>
+                                                            <input type="text" name="total_ventas" id="total_ventas" class="form-control" value="<?php echo $total_ventass; ?>">
+                                                        </div>
+                                                        <div class="mb-3">
+
+                                                            <label for="precio">
+                                                                Precio de Envio
+                                                            </label>
+                                                            <input type="text" name="precio" id="precio" class="form-control" value="<?php echo $precio_envio; ?>">
+                                                            <input class="btn btn-outline-success w-100 pt-3" type="submit" value="Cambiar precio">
+                                                        </div>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
@@ -346,11 +358,13 @@ if (isset($_GET['id_factura'])) {
     function cambiar_precio(e) {
         e.preventDefault();
         var precio = $("#precio").val();
+        var total_ventas = $("#total_ventas").val();
         var id_factura = '<?php echo $id_factura; ?>';
         $.ajax({
             url: '../ajax/cambiar_precio.php',
             type: 'post',
             data: {
+                venta: total_ventas,
                 precio: precio,
                 id_factura: id_factura
             },
@@ -362,7 +376,7 @@ if (isset($_GET['id_factura'])) {
 
                     setTimeout(function() {
                         location.reload();
-                    }, 1000);
+                    }, 500);
                 } else {
                     $.Notification.notify('custom', 'bottom right', 'ERROR!', 'Error al cambiar el precio')
                 }

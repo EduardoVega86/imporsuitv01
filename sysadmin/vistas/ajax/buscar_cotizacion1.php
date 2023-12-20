@@ -33,7 +33,7 @@ if ($action == 'ajax') {
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "facturas_cot, clientes, users, guia_laar";
     $sWhere = "";
-    $sWhere .= " WHERE estado_factura <> 8 and estado_factura <> 7 and facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users and facturas_cot.id_factura_origen=guia_laar.id_pedido and facturas_cot.tienda=guia_laar.tienda_venta";
+    $sWhere .= " WHERE estado_factura <> 8 and estado_factura <> 7  and drogshipin <> 0 and drogshipin <> 2 and drogshipin <> 4 and facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users and facturas_cot.id_factura_origen=guia_laar.id_pedido and facturas_cot.tienda=guia_laar.tienda_venta";
     if ($dominio != 'marketplace.imporsuit.com') {
         $sWhere .= " and  facturas_cot.tienda='$dominio_completo'";
     }
