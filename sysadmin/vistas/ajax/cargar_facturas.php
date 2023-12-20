@@ -35,8 +35,13 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
         $finales = 0;
         foreach ($consultar as $rws) {
             $finales++;
+            if ($rws['valor_pendiente'] == 0) {
+                $color_row = 'table-success';
+            } else {
+                $color_row = 'table-warning';
+            }
         ?>
-            <tr>
+            <tr class="<?php echo $color_row ?>">
                 <td><?php echo $rws['numero_factura']; ?></td>
                 <td><?php echo $rws['fecha']; ?></td>
                 <td><?php echo $rws['cliente']; ?></td>

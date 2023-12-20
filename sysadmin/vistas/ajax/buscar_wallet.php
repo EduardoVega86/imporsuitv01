@@ -293,10 +293,15 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 }
 
                                 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
+                                if ($valor_pendiente == 0) {
+                                    $color_row = "table-success";
+                                } else {
+                                    $color_row = "table-warning";
+                                }
                             ?>
                                 <input type="hidden" value="<?php echo $estado_factura; ?>" id="estado<?php echo $id_factura; ?>">
 
-                                <tr>
+                                <tr class="<?php echo $color_row ?>">
                                     <td class="text-center"><label class="badge badge-purple"> <?php echo $id_factura; ?></label></td>
                                     <td class="text-center"><label class="badge badge-pink"> <?php echo $guia_laar; ?></label></td>
                                     <td class="text-center"><?php echo $fecha; ?></td>
