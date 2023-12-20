@@ -54,9 +54,6 @@ $telefono = $datos_correo['telefono'];
 
 
 $mail = new PHPMailer(true);
-
-$mensaje = '';
-
 try {
     //Server settings
 

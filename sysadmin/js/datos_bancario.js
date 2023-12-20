@@ -171,6 +171,13 @@ const solicitar_pago = (e) => {
       $("#resultados_ajax").html(
         '<img src="../../img/ajax-loader.gif"> Cargando...'
       );
+      Swal.fire({
+        icon: "info",
+        title: "Espere...",
+        text: "Estamos procesando su solicitud",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     },
     success: function (datos) {
       if (datos == "error") {
@@ -211,6 +218,16 @@ const solicitar_pago = (e) => {
           showConfirmButton: false,
           timer: 1000,
         });
+      }
+      if (datos == "enviado") {
+        Swal.fire({
+          icon: "success",
+          title: "Correcto",
+          text: "Solicitud enviada correctamente, por favor antes de enviar otra solicitud espere a que el equipo de contabilidad le de respuesta",
+        });
+        setTimeout(() => {
+          load(1);
+        }, 2000);
       }
     },
   });

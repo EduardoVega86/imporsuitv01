@@ -10,6 +10,47 @@ $smtp_from = $smtp_user;
 $smtp_from_name = 'ImporSuit';
 
 
+date_default_timezone_set('America/Bogota');
+// Establecer la configuración regional a español
+// Establecer la configuración regional a español directamente en el script
+setlocale(LC_TIME, 'es_ES.utf8', 'es_ES');
+
+// Obtener el nombre del día de la semana
+$nombreDia = strftime('%A');
+
+// Restaurar la configuración regional a la original (opcional)
+setlocale(LC_TIME, '');
+
+switch ($nombreDia) {
+    case 'Monday':
+        $nombreDia = 'Lunes';
+        break;
+
+    case 'Tuesday':
+        $nombreDia = 'Martes';
+        break;
+
+    case 'Wednesday':
+        $nombreDia = 'Miércoles';
+        break;
+
+    case 'Thursday':
+        $nombreDia = 'Jueves';
+        break;
+
+    case 'Friday':
+        $nombreDia = 'Viernes';
+        break;
+
+    case 'Saturday':
+        $nombreDia = 'Sábado';
+        break;
+
+    case 'Sunday':
+        $nombreDia = 'Domingo';
+        break;
+}
+
 
 $message_body = '<!DOCTYPE html>
 <html lang="es">
@@ -138,15 +179,27 @@ $message_body = '<!DOCTYPE html>
     <div class="container">
         <section class="text-center bg-white rounded-5 mt-5 p-5 shadow-lg border-5 border-top border-primary">
             <article>
-                <h1>ImporSuit</h1>
+            <img src="https://content.app-sources.com/s/96314659917631607/uploads/Images/imporsuit-logo-3305646.png" alt="Logo ImporSuit" width="200px">   
             </article>
             <article>
                 <h2>Solicitud de Pago</h2>
             </article>
             <article>
-                <p>Saludos, de parte de ' . $nombre . ' con la cedula ' . $cedula . ' solicito cordialmente</p>
-                <p>el pago de la cantidad de $' . $cantidad . ' a la cuenta de ' . $tipo_cuenta . ' ' . $banco . ' ' . $numero_cuenta . '</p>
-                <p>Para cualquier duda o aclaratoria, puede contactarme al telefono ' . $telefono . '</p>
+                <p>Saludos, de parte de <strong>' . $nombre . '</strong> con la cedula <strong> ' . $cedula . ' </strong>solicito coordialmente hoy ' . $nombreDia . ' <strong>' . date("d/m/Y") . ' a las ' . date("h:i:sa") . '
+                :</p>
+                <p>El pago de la cantidad de $' . $cantidad . ' de las utilidades de la tienda: <strong> ' . $tienda . '</strong></p>
+                <p>Por favor realizar el con los siguientes datos: </p>
+                <p>Banco:<strong> ' . $banco . '</strong></p>
+                <p>Tipo de cuenta: <strong>' . $tipo_cuenta . '</strong></p>
+                <p>Numero de cuenta: <strong>' . $numero_cuenta . '</strong></p>
+            </article>
+            <article>
+                <p>Para cualquier duda o aclaratoria, comunicarse al telefono: <strong>' . $telefono . '</strong></p>
+                <p>o al correo: <strong>' . $correo . '</strong></p>
+
+            </article>
+            <article>
+                <p>Gracias por su atencion.</p>
             </article>
         </section>
     </div>
