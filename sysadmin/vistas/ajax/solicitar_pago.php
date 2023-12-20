@@ -70,7 +70,7 @@ try {
     $mail->isHTML(true);
     $mail->CharSet = 'UTF-8';
     $mail->setFrom($smtp_from, $smtp_from_name);
-    $mail->addAddress('desarrollo1imporfactory@gmail.com');
+    $mail->addAddress('contabilidadimporfactory@gmail.com');
     $mail->Subject = 'Solicitud de pago ' . $tienda;
     $mail->Body = $message_body;
 
