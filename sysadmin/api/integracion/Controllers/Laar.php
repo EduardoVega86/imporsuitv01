@@ -18,4 +18,12 @@ class Laar extends Controller
         $json = file_get_contents('php://input');
         echo $json;
     }
+
+    public function guias()
+    {
+        $json = file_get_contents('php://input');
+        $json_decode = json_decode($json, true);
+        $numero_factura = $json_decode['factura'];
+        $this->model->establecer_guia($numero_factura);
+    }
 }

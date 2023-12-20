@@ -326,7 +326,34 @@ class LaarModel extends Query
         $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
     }
 
-    public function modificarEstadoGeneral($no_guia)
+    public function establecer_guia($numero_factura)
     {
+        $datos_para_laar = $this->select("SELECT tienda, id_factura_origen FROM facturas_cot WHERE numero_factura = '$numero_factura'");
+        $tienda = $datos_para_laar[0]['tienda'];
+        $id_factura_origen = $datos_para_laar[0]['id_factura_origen'];
+
+        $datos_para_laar = $this->select("SELECT guia_laar FROM guia_laar WHERE tienda_venta = '$tienda' AND id_pedido = '$id_factura_origen'");
+        $guia_laar = $datos_para_laar[0]['guia_laar'];
+
+        if ($guia_laar == '') {
+            echo json_encode('no_existe');
+            exit;
+        }
+
+        $existe_cabecera = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura'");
+
+        $verificar = count($existe_cabecera);
+        if ($verificar > 0) {
+            $query = "UPDATE cabecera_cuenta_pagar SET guia_laar = ? WHERE numero_factura = ?";
+            $datos = array($guia_laar, $numero_factura);
+            $query = $this->update($query, $datos);
+            if ($query) {
+                echo json_encode('ok');
+            } else {
+                echo json_encode('error');
+            }
+        } else {
+            echo json_encode('no_existe');
+        }
     }
 }
