@@ -207,8 +207,8 @@ class LaarModel extends Query
 
         $monto_recibir = $total_guia - $valor_base - $costo_guia;
         $monto_recibir = number_format($monto_recibir, 2);
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
         if ($query_insertar_cc) {
@@ -301,8 +301,9 @@ class LaarModel extends Query
 
         $monto_recibir = number_format($monto_recibir, 2);
 
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
+
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
 
@@ -320,8 +321,8 @@ class LaarModel extends Query
 
     public function cambiarEstados($no_guia, $estado_actual_codigo)
     {
-        $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
-        $this->actualizarProveedor($no_guia, $estado_actual_codigo);
+        /*  $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
+        $this->actualizarProveedor($no_guia, $estado_actual_codigo); */
         $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
     }
 
