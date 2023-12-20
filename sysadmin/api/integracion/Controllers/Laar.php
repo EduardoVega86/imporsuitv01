@@ -26,4 +26,11 @@ class Laar extends Controller
         $numero_factura = $json_decode['factura'];
         $this->model->establecer_guia($numero_factura);
     }
+
+    public function devolucion()
+    {
+        $json = file_get_contents('php://input');
+        $json_decode = json_decode($json, true);
+        print_r($json_decode);
+    }
 }

@@ -91,3 +91,21 @@ function ver_detalles(numero_factura) {
     },
   });
 }
+
+function devolucion(guia_laar) {
+  var parametros = {
+    guia_laar: guia_laar,
+    estado: 9,
+  };
+  $.ajax({
+    type: "POST",
+    url: "https://marketplace.imporsuit.com/sysadmin/api/integracion/Laar/devolucion",
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#loader").html("<img src='../../img/ajax-loader.gif'>");
+    },
+    success: function (datos) {
+      $("#loader").html("");
+    },
+  });
+}
