@@ -16,8 +16,6 @@ if (empty($_POST['mod_id'])) {
     $estado      = intval($_POST['mod_estado']);
     $id      = intval($_POST['mod_id']);
 
-
-
     $sql = "UPDATE wallet_cot SET  estado_factura=" . $estado . "
                                 WHERE id_factura='" . $id . "'";
     $query_update = mysqli_query($conexion, $sql);

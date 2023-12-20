@@ -11,6 +11,7 @@ $conexion_marketplace = mysqli_connect('localhost', $marketplace, $marketplace, 
 $sql_datos = "SELECT * FROM `cabecera_cuenta_pagar` WHERE `numero_factura`='$id_factura'";
 $resultado_datos = mysqli_query($conexion_marketplace, $sql_datos);
 $datos = mysqli_fetch_assoc($resultado_datos);
+echo mysqli_error($conexion_marketplace);
 $valor_pendiente = $datos['valor_pendiente'];
 $total_venta = $datos['total_venta'];
 $costo = $datos['costo'];
