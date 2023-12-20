@@ -29,21 +29,20 @@ permisos($modulo, $cadena_permisos);
 $title          = "Wallet";
 $wallets         = 1;
 $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
-
-$total_pendiente_sql = "select valor_pendiente from cabecera_cuenta_pagar where tienda = '$nombre_usuario'";
+$id_factura     = $_GET['id_factura'];
+$total_pendiente_sql = "select valor_pendiente from cabecera_cuenta_pagar where numero_factura = '$id_factura'";
 $total_pendiente_query = mysqli_query($conexion, $total_pendiente_sql);
-$total_pendiente = $total_pendiente_query->fetch_assoc();
+$total_pendiente = mysqli_fetch_array($total_pendiente_query);
+
 $total_pendiente = $total_pendiente['valor_pendiente'];
-
-
-
 
 if (isset($_GET['id_factura'])) {
 
     $id_factura     = $_GET['id_factura'];
     $query          = mysqli_query($conexion, "SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura='" . $id_factura . "'");
     $count         = mysqli_num_rows($query);
-    if ($count == 1) {
+    echo mysqli_error($conexion);
+    if ($count) {
         $rw_factura = mysqli_fetch_array($query);
         $cliente = $rw_factura['cliente'];
         $tienda = $rw_factura['tienda'];
@@ -165,14 +164,8 @@ if (isset($_GET['id_factura'])) {
 
 <div id="wrapper" class="forced enlarged">
 
-    <?php
-
-
-    require 'includes/menu.php';
-    // echo $guia_enviada;
-
+    <?php require 'includes/menu.php';   // echo $guia_enviada;
     ?>
-
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
@@ -228,9 +221,6 @@ if (isset($_GET['id_factura'])) {
                                                         </tr>
                                                     </tbody>
                                                 </table>
-
-
-
                                             </div>
                                             <div class="col">
                                                 <form method="post" onsubmit="cambiar_precio(event)">
@@ -253,11 +243,13 @@ if (isset($_GET['id_factura'])) {
                         </div>
                     <?php
                     } else {
+
                     ?>
+
                         <section class="content">
                             <div class="alert alert-danger" align="center">
                                 <h3>Acceso denegado! </h3>
-                                <p>Esta facuta ya ha sido cancelada, no puede ser editada.</p>
+                                <p>Esta factura ya ha sido cancelada, no puede ser editada.</p>
                             </div>
                         </section>
                 <?php

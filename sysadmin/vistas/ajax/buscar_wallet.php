@@ -101,10 +101,8 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     <div class="btn-group dropdown">
                                         <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <?php if ($permisos_editar == 1) { ?>
-                                                <a class="dropdown-item" href="editar_wallet.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
-                                                <!--a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir</a-->
-                                            <?php }
+
+                                            <?php
                                             if ($permisos_eliminar == 1) { ?>
                                                 <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                             <?php } ?>
