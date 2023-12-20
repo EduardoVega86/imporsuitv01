@@ -37,6 +37,8 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             $finales++;
             if ($rws['valor_pendiente'] == 0) {
                 $color_row = 'table-success';
+            } elseif ($rws['valor_pendiente'] < 0) {
+                $color_row = 'table-danger';
             } else {
                 $color_row = 'table-warning';
             }
