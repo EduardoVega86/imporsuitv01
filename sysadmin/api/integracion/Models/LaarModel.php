@@ -207,8 +207,8 @@ class LaarModel extends Query
 
         $monto_recibir = $total_guia - $valor_base - $costo_guia;
         $monto_recibir = number_format($monto_recibir, 2);
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
         if ($query_insertar_cc) {
@@ -301,8 +301,9 @@ class LaarModel extends Query
 
         $monto_recibir = number_format($monto_recibir, 2);
 
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir);
+
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
 
@@ -320,12 +321,39 @@ class LaarModel extends Query
 
     public function cambiarEstados($no_guia, $estado_actual_codigo)
     {
-        $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
-        $this->actualizarProveedor($no_guia, $estado_actual_codigo);
+        /*  $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
+        $this->actualizarProveedor($no_guia, $estado_actual_codigo); */
         $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
     }
 
-    public function modificarEstadoGeneral($no_guia)
+    public function establecer_guia($numero_factura)
     {
+        $datos_para_laar = $this->select("SELECT tienda, id_factura_origen FROM facturas_cot WHERE numero_factura = '$numero_factura'");
+        $tienda = $datos_para_laar[0]['tienda'];
+        $id_factura_origen = $datos_para_laar[0]['id_factura_origen'];
+
+        $datos_para_laar = $this->select("SELECT guia_laar FROM guia_laar WHERE tienda_venta = '$tienda' AND id_pedido = '$id_factura_origen'");
+        $guia_laar = $datos_para_laar[0]['guia_laar'];
+
+        if ($guia_laar == '') {
+            echo json_encode('no_existe');
+            exit;
+        }
+
+        $existe_cabecera = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura'");
+
+        $verificar = count($existe_cabecera);
+        if ($verificar > 0) {
+            $query = "UPDATE cabecera_cuenta_pagar SET guia_laar = ? WHERE numero_factura = ?";
+            $datos = array($guia_laar, $numero_factura);
+            $query = $this->update($query, $datos);
+            if ($query) {
+                echo json_encode('ok');
+            } else {
+                echo json_encode('error');
+            }
+        } else {
+            echo json_encode('no_existe');
+        }
     }
 }
