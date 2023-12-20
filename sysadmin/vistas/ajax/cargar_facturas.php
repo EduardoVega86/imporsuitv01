@@ -16,7 +16,6 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
 <div class="table-responsive">
     <table class="table table-sm table table-condensed table-hover table-striped ">
         <tr>
-            <th>#Cabecera</th>
             <th>Factura</th>
             <th>Fecha</th>
             <th>Cliente</th>
@@ -30,6 +29,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             <th>Guia</th>
             <th>Ver</th>
             <th>Editar</th>
+            <th>¿Devolucion?</th>
         </tr>
         <?php
         $finales = 0;
@@ -37,7 +37,6 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             $finales++;
         ?>
             <tr>
-                <td><?php echo $rws['id_cabecera']; ?></td>
                 <td><?php echo $rws['numero_factura']; ?></td>
                 <td><?php echo $rws['fecha']; ?></td>
                 <td><?php echo $rws['cliente']; ?></td>
@@ -50,13 +49,16 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
 
                 <td><?php echo number_format($rws['valor_pendiente'], 2); ?></td>
                 <td>
-                    <a href="<?php echo $url_guia . $rws['numero_guia']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>
+                    <a href="<?php echo $url_guia . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>
                 </td>
                 <td>
                     <button onclick="ver_detalles('<?php echo $rws['numero_factura']; ?>')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
                 </td>
                 <td>
                     <a href="editar_wallet.php?id_factura=<?php echo $rws['numero_factura']; ?>" class="btn btn-secondary btn-sm"><i class="fa fa-wrench"></i></a>
+                </td>
+                <td>
+                    <button onclick="devolucion('<?php echo $rws['numero_factura']; ?>')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                 </td>
             </tr>
         <?php } ?>
