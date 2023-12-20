@@ -132,3 +132,37 @@ function visto(numero_factura) {
     },
   });
 }
+
+function eliminar(id_cabecera) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "¡No podrás revertir esto!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, eliminarlo",
+    cancelButtonText: "No, cancelar",
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+  }).then((result) => {
+    if (result.value) {
+      var parametros = {
+        id_cabecera: id_cabecera,
+      };
+      $.ajax({
+        type: "POST",
+        url: "../ajax/eliminar_pago.php",
+        data: parametros,
+        beforeSend: function (objeto) {
+          $("#loader").html("<img src='../../img/ajax-loader.gif'>");
+        },
+        success: function (datos) {
+          $("#loader").html("");
+          $("#outer_div").load("../ajax/ver_pagos.php");
+          $("#widgets").load("../ajax/cargar_widget_wallet.php");
+          $("#facturas").load("../ajax/cargar_facturas.php");
+        },
+      });
+      Swal.fire("¡Eliminado!", "Su archivo ha sido eliminado.", "success");
+    }
+  });
+}
