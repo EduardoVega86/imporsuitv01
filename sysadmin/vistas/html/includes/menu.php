@@ -272,10 +272,10 @@ $total_venta = number_format($total_venta, 2, '.', ',');
 					</ul>
 				</li>
 				<li>
-					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-wallet"></i><span> Cartera</span> <span class="menu-arrow"></span></a>
+					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-wallet"></i><span> Billetera</span> <span class="menu-arrow"></span></a>
 					<ul class="list-unstyled">
-						<li><a href="../html/wallet.php">Configurar Cartera</a></li>
-						<li><a href="../html/datos_banco.php">Datos Bancarios</a></li>
+						<li><a href="../html/wallet.php">Detalles</a></li>
+						<li><a href="../html/datos_banco.php">Datos bancarios</a></li>
 					</ul>
 				</li>
 
