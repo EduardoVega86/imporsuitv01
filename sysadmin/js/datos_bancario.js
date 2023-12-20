@@ -225,9 +225,6 @@ const solicitar_pago = (e) => {
           title: "Correcto",
           text: "Solicitud enviada correctamente, por favor antes de enviar otra solicitud espere a que el equipo de contabilidad le de respuesta",
         });
-        setTimeout(() => {
-          load(1);
-        }, 2000);
       }
     },
   });
