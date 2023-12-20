@@ -10,7 +10,7 @@ require_once "../php_conexion.php";
 
 $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda';");
 $rw = mysqli_fetch_array($consultar);
-
+$url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
 ?>
 
 <div class="table-responsive">
@@ -27,7 +27,7 @@ $rw = mysqli_fetch_array($consultar);
             <th>Monto a Recibir</th>
             <th>Monto Cobrado</th>
             <th>Monto Pendiente</th>
-
+            <th>Guia</th>
             <th>Ver</th>
             <th>Editar</th>
         </tr>
@@ -47,7 +47,11 @@ $rw = mysqli_fetch_array($consultar);
                 <td><?php echo $rws['precio_envio']; ?></td>
                 <td><?php echo $rws['monto_recibir']; ?></td>
                 <td><?php echo $rws['valor_cobrado']; ?></td>
+
                 <td><?php echo number_format($rws['valor_pendiente'], 2); ?></td>
+                <td>
+                    <a href="<?php echo $url_guia . $rws['numero_guia']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>
+                </td>
                 <td>
                     <button onclick="ver_detalles('<?php echo $rws['numero_factura']; ?>')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
                 </td>
