@@ -295,6 +295,8 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                 if ($valor_pendiente == 0) {
                                     $color_row = "table-success";
+                                } elseif ($valor_pendiente < 0) {
+                                    $color_row = "table-danger";
                                 } else {
                                     $color_row = "table-warning";
                                 }
