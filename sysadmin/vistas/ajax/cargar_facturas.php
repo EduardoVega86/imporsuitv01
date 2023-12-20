@@ -35,6 +35,13 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
         $finales = 0;
         foreach ($consultar as $rws) {
             $finales++;
+
+            $color_btn = "";
+            if ($rws['estado_guia'] == 7) {
+                $color_btn = "btn btn-success btn-sm";
+            } else {
+                $color_btn = "btn btn-danger btn-sm";
+            }
         ?>
             <tr>
                 <td><?php echo $rws['numero_factura']; ?></td>
@@ -49,7 +56,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
 
                 <td><?php echo number_format($rws['valor_pendiente'], 2); ?></td>
                 <td>
-                    <a href="<?php echo $url_guia . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>
+                    <a href="<?php echo $url_guia . $rws['guia_laar']; ?>" target="_blank" class="<?php echo $color_btn ?>"><i class="fa fa-truck"></i></a>
                 </td>
                 <td>
                     <button onclick="ver_detalles('<?php echo $rws['numero_factura']; ?>')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
