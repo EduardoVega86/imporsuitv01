@@ -24,7 +24,7 @@ $dominio = str_replace(' ', '', $dominio);
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 
 $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
-echo "XD";
+
 
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
@@ -73,7 +73,7 @@ if ($action == 'ajax') {
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-    echo $sql;
+
     $query = '';
     if ($dominio == 'marketplace.imporsuit.com') {
         $query = mysqli_query($conexion, $sql);

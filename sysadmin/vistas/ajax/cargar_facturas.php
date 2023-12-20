@@ -47,7 +47,7 @@ $rw = mysqli_fetch_array($consultar);
                 <td><?php echo $rws['precio_envio']; ?></td>
                 <td><?php echo $rws['monto_recibir']; ?></td>
                 <td><?php echo $rws['valor_cobrado']; ?></td>
-                <td><?php echo $rws['valor_pendiente']; ?></td>
+                <td><?php echo number_format($rws['valor_pendiente'], 2); ?></td>
                 <td>
                     <button onclick="ver_detalles('<?php echo $rws['numero_factura']; ?>')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
                 </td>
