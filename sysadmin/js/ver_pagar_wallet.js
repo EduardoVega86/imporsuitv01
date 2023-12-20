@@ -112,3 +112,23 @@ function devolucion(guia_laar) {
     },
   });
 }
+
+function visto(numero_factura) {
+  var parametros = {
+    numero_factura: numero_factura,
+  };
+  $.ajax({
+    type: "POST",
+    url: "../ajax/visto.php",
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#loader").html("<img src='../../img/ajax-loader.gif'>");
+    },
+    success: function (datos) {
+      $("#loader").html("");
+      $("#outer_div").load("../ajax/ver_pagos.php");
+      $("#widgets").load("../ajax/cargar_widget_wallet.php");
+      $("#facturas").load("../ajax/cargar_facturas.php");
+    },
+  });
+}

@@ -16,6 +16,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
 <div class="table-responsive">
     <table class="table table-sm table table-condensed table-hover table-striped ">
         <tr>
+            <th><i class="fa-solid fa-check-to-slot"></i></th>
             <th>Factura</th>
             <th>Fecha</th>
             <th>Cliente</th>
@@ -26,10 +27,11 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             <th>Monto a Recibir</th>
             <th>Monto Cobrado</th>
             <th>Monto Pendiente</th>
+            <th>Número Guia</th>
             <th>Guia</th>
             <th>Ver</th>
             <th>Editar</th>
-            <th>驴Devolucion?</th>
+            <th>¿Devolución?</th>
         </tr>
         <?php
         $finales = 0;
@@ -44,6 +46,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             }
         ?>
             <tr class="<?php echo $color_row ?>">
+                <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked" ?> onclick="visto('<?php $rws['numero_factura'] ?> ')"></td>
                 <td><?php echo $rws['numero_factura']; ?></td>
                 <td><?php echo $rws['fecha']; ?></td>
                 <td><?php echo $rws['cliente']; ?></td>
