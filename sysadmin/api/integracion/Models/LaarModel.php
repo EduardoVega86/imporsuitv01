@@ -443,6 +443,13 @@ class LaarModel extends Query
             $sql_edit = "UPDATE `cabecera_cuenta_pagar` SET `estado_guia` = ?, `estado_pedido` = ?, `total_venta` = ?, `costo` = ?, `precio_envio` = ?, `monto_recibir` = ?, `valor_pendiente` = ? WHERE `numero_factura` = ?";
             $datos_edit = array($estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $numero_factura_verificar);
             $query_edit = $this->update($sql_edit, $datos_edit);
+            $sql_edit_facturas_cot = "UPDATE `facturas_cot` SET `estado_guia_sistema` = ? WHERE `numero_factura` = ?";
+            $datos_edit_facturas_cot = array($estado_actual_codigo, $numero_factura_verificar);
+            $query_edit_facturas_cot = $this->update($sql_edit_facturas_cot, $datos_edit_facturas_cot);
+            $sql_edit_guia_laar = "UPDATE `guia_laar` SET `estado_guia` = ? WHERE `guia_laar` = ?";
+            $datos_edit_guia_laar = array($estado_actual_codigo, $no_guia);
+            $query_edit_guia_laar = $this->update($sql_edit_guia_laar, $datos_edit_guia_laar);
+
             if ($query_edit) {
                 echo json_encode('ok');
             } else {
