@@ -224,6 +224,10 @@ const solicitar_pago = (e) => {
           icon: "success",
           title: "Correcto",
           text: "Solicitud enviada correctamente, por favor antes de enviar otra solicitud espere a que el equipo de contabilidad le de respuesta",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.reload();
+          }
         });
       }
     },
