@@ -18,7 +18,8 @@ $query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tiend
 
 $resultado_total_ventas = mysqli_query($marketplace_conexionquery, $query_total_ventas);
 $datos_total_ventas = mysqli_fetch_assoc($resultado_total_ventas);
-print_r($datos_total_ventas);
+
+
 
 $total_pendiente_a_la_tienda = $datos_total_ventas['total_pendiente_a_la_tienda'];
 

@@ -10,6 +10,7 @@ $smtp_from = $smtp_user;
 $smtp_from_name = 'ImporSuit';
 
 
+
 $message_body = '<!DOCTYPE html>
 <html lang="es">
 
@@ -140,15 +141,12 @@ $message_body = '<!DOCTYPE html>
                 <h1>ImporSuit</h1>
             </article>
             <article>
-                <h2>Recuperación de contraseña</h2>
+                <h2>Solicitud de Pago</h2>
             </article>
             <article>
-                <p>Estimado usuario, para recuperar su contraseña haga click en el siguiente enlace:</p>
-                <p><a class="btn btn-success" href="' . $url_change . '">Recuperar
-                        contraseña</a></p>
-                <p>Si el enlace no funciona, copie y pegue la siguiente dirección en su navegador:</p>
-                <p>' . $url_change . '</p>
-                <p>Si no ha solicitado recuperar su contraseña, por favor ignore este mensaje.</p>
+                <p>Saludos, de parte de ' . $nombre . ' con la cedula ' . $cedula . ' solicito cordialmente</p>
+                <p>el pago de la cantidad de $' . $cantidad . ' a la cuenta de ' . $tipo_cuenta . ' ' . $banco . ' ' . $numero_cuenta . '</p>
+                <p>Para cualquier duda o aclaratoria, puede contactarme al telefono ' . $telefono . '</p>
             </article>
         </section>
     </div>
