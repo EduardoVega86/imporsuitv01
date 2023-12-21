@@ -8,7 +8,7 @@ include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a 
 require_once "../db.php";
 require_once "../php_conexion.php";
 
-// Configuraci贸n de la base de datos de destino
+// Configuracin de la base de datos de destino
 if ($_SERVER['HTTP_HOST']=='localhost'){
     $destino = new mysqli('localhost', 'root', '', 'master');
 }else{
@@ -104,6 +104,7 @@ while ($row = mysqli_fetch_array($query)) {
             $precio_normal        = $row['valor4_producto'];
             $stock_producto       = $row['stock_producto'];
             $stock_min_producto   = $row['stock_min_producto'];
+            $tienda      = $row['tienda'];
             
             
             $online   = $row['pagina_web'];
@@ -150,9 +151,10 @@ if ($image_path == null) {
             ?>
   <div  class="card-body">
       <h5 class="card-title"><strong><?php echo $nombre_producto; ?></strong></h5>
-    <p class="card-text">Stock <?php echo stock($stock_producto); ?></p>
-    <p class="card-text">Precio Proveedor: $ <?php echo number_format($costo_producto, 2, '.', ''); ?></p>
-    <p class="card-text">Precio Sugerido: $ <?php echo number_format($precio_especial, 2, '.', ''); ?></p>
+    <p class="card-text"><strong>Stock</strong> <?php echo stock($stock_producto); ?></p>
+    <p class="card-text"><strong>Precio Proveedor:</strong> $ <?php echo number_format($costo_producto, 2, '.', ''); ?></p>
+    <p class="card-text"><strong>Precio Sugerido:</strong> $ <?php echo number_format($precio_especial, 2, '.', ''); ?></p>
+    <p class="card-text"><strong>Proveedor:</strong> <?php echo $tienda; ?></p>
     
     <br><br>
    <div width="100%" class="btn-group">
