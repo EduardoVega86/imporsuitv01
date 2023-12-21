@@ -126,9 +126,9 @@ function devolucion(guia_laar) {
   });
 }
 
-function visto(numero_factura) {
+function visto(id_cabecera) {
   var parametros = {
-    numero_factura: numero_factura,
+    id_cabecera: id_cabecera,
   };
   $.ajax({
     type: "POST",
