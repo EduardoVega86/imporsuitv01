@@ -47,7 +47,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             }
         ?>
             <tr class="<?php echo $color_row ?>">
-                <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked" ?> onclick="visto('<?php echo $rws['numero_factura'] ?>')"></td>
+                <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked" ?> onclick="visto('<?php echo $rws['id_cabecera'] ?>')"></td>
                 <td><?php echo $rws['numero_factura']; ?></td>
                 <td><?php echo $rws['fecha']; ?></td>
                 <td><?php echo $rws['cliente']; ?></td>

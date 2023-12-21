@@ -93,23 +93,36 @@ function ver_detalles(numero_factura) {
 }
 
 function devolucion(guia_laar) {
-  var parametros = {
-    guia_laar: guia_laar,
-    estado: 9,
-  };
-  $.ajax({
-    type: "POST",
-    url: "https://marketplace.imporsuit.com/sysadmin/api/integracion/Laar/devolucion",
-    data: parametros,
-    beforeSend: function (objeto) {
-      $("#loader").html("<img src='../../img/ajax-loader.gif'>");
-    },
-    success: function (datos) {
-      $("#loader").html("");
-      $("#outer_div").load("../ajax/ver_pagos.php");
-      $("#widgets").load("../ajax/cargar_widget_wallet.php");
-      $("#facturas").load("../ajax/cargar_facturas.php");
-    },
+  Swak.fire({
+    title: "¿Estás seguro?",
+    text: "¡No podrás revertir esto!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, eliminarlo",
+    cancelButtonText: "No, cancelar",
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+  }).then((result) => {
+    if (result.value) {
+      var parametros = {
+        guia_laar: guia_laar,
+      };
+      $.ajax({
+        type: "POST",
+        url: "../ajax/devolucion.php",
+        data: parametros,
+        beforeSend: function (objeto) {
+          $("#loader").html("<img src='../../img/ajax-loader.gif'>");
+        },
+        success: function (datos) {
+          $("#loader").html("");
+          $("#outer_div").load("../ajax/ver_pagos.php");
+          $("#widgets").load("../ajax/cargar_widget_wallet.php");
+          $("#facturas").load("../ajax/cargar_facturas.php");
+        },
+      });
+      Swal.fire("¡Eliminado!", "Su archivo ha sido eliminado.", "success");
+    }
   });
 }
 
