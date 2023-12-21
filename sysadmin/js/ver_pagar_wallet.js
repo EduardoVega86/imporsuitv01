@@ -73,9 +73,9 @@ $("#add_abono").submit(function (event) {
   event.preventDefault();
 });
 
-function ver_detalles(numero_factura) {
+function ver_detalles(id_cabecera) {
   var parametros = {
-    numero_factura: numero_factura,
+    id_cabecera: id_cabecera,
   };
   $.ajax({
     type: "POST",
@@ -93,7 +93,7 @@ function ver_detalles(numero_factura) {
 }
 
 function devolucion(guia_laar) {
-  Swak.fire({
+  Swal.fire({
     title: "¿Estás seguro?",
     text: "¡No podrás revertir esto!",
     icon: "warning",
