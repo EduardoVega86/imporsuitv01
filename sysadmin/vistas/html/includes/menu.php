@@ -185,12 +185,12 @@ $total_venta = number_format($total_venta, 2, '.', ',');
 
 						?>
 							<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
+							<li><a href="../html/bitacora_local.php">Locales</a></li>
 						<?php  } else {
 						?>
-							<li><a href="../html/bitacora_cotizacion_p.php">Pedidos</a></li>
-							<li><a href="../html/bitacora_local.php">Locales</a></li>
 						<?php
 						} ?>
+						<li><a href="../html/bitacora_cotizacion_p.php">Pedidos</a></li>
 						<li><a href="../html/bitacora_anulaciones.php">Anulados</a></li>
 
 						<li><a href="../html/bitacora_noenviados.php">No enviados</a></li>
