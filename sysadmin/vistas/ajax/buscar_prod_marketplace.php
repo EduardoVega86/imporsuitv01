@@ -76,7 +76,7 @@ else {
     $reload      = '../html/productos.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere ";
-    echo $sql;
+   // echo $sql;
     $query = mysqli_query($destino, $sql);
     //loop through fetched data
     if ($numrows > 0) {
