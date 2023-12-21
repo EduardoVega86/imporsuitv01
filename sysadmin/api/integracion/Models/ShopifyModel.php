@@ -47,10 +47,11 @@ class ShopifyModel extends Query
 
         // Formatea el nuevo número con ceros a la izquierda
         $nueva_factura_numero_formateada = sprintf("COT-%06d", $nuevo_numero);
-        echo $nueva_factura_numero_formateada;
+
         $fecha_actual = date('Y-m-d H:i:s');
 
         $es_drogshipins = $this->obtenerProveedor($line_items[0]['sku']);
+
         $drogshiping = 0;
         if ($es_drogshipins) {
             $es_drogshipin = $es_drogshipins;
@@ -60,8 +61,6 @@ class ShopifyModel extends Query
             $drogshiping = 0;
         }
 
-
-        /*
         #$sql_factura_cot = "INSERT INTO facturas_cot ('numero_factura','fecha_factura','id_cliente','id_vendedor','condiciones','monto_factura','estado_factura','id_users_factura','validez','id_sucursal','nombre','telefono','provincia','c_principal','ciudad_cot','c_secundaria','referencia','observacion','guia_enviada','transporte','identificacion','celular','cod','valor_seguro','drogshipin','tienda') VALUES ('$nueva_factura_numero_formateada',NOW(),0,0,'$nueva_factura_numero_formateada','$total','Pendiente',0,'30 días',0,'$nombre $apellido','$telefono','$provincia','$principal','$ciudad','$secundaria','','$email','','','','','','','');";
         $sql_factura_cot = "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES (?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
@@ -113,7 +112,6 @@ class ShopifyModel extends Query
             $this->insertarDetalleFactura_local($nueva_factura_numero_formateada, $cantidad, $precio, $sku);
         }
         return array($query_factura_cot);
-        */
     }
 
     private function insertarDetalleFactura_local($numero_factura, $cantidad, $precio, $sku)
@@ -253,6 +251,7 @@ class ShopifyModel extends Query
 
         $sql = "SELECT tienda FROM productos WHERE id_producto = '$sku';";
         $query = $this->select($sql);
+
         $dominiotienda = $query[0]['tienda'];
 
         return $dominiotienda;

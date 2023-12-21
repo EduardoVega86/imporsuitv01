@@ -7,5 +7,5 @@
 
 $host = 'localhost';
 $usuario = 'root';
-$contrasena= '';
+$contrasena = '';
 $base_de_datos = 'prueba_imporsuit';
