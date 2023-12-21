@@ -6,9 +6,9 @@ require_once "../funciones.php"; //Contiene funcion que conecta a la base de dat
 $data = file_get_contents("php://input");
 parse_str($data, $data);
 
-$numero_factura = $data['numero_factura'];
+$id_cabecera = $data['id_cabecera'];
 
-$consulta = "SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura'";
+$consulta = "SELECT * FROM cabecera_cuenta_pagar WHERE id_cabecera = '$id_cabecera'";
 $resultado = mysqli_query($conexion, $consulta);
 $rw = mysqli_fetch_array($resultado);
 $visto = $rw['visto'];
@@ -19,7 +19,7 @@ if ($visto == 1) {
     $visto = 1;
 }
 
-$consulta = "UPDATE cabecera_cuenta_pagar SET visto = '$visto' WHERE numero_factura = '$numero_factura'";
+$consulta = "UPDATE cabecera_cuenta_pagar SET visto = '$visto' WHERE id_cabecera = '$id_cabecera'";
 $resultado = mysqli_query($conexion, $consulta);
 
 if ($resultado) {

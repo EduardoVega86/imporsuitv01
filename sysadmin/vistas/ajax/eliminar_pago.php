@@ -14,5 +14,5 @@ $resultado = mysqli_query($conexion, $consulta);
 if ($resultado) {
     echo "Eliminado";
 } else {
-    echo "Error";
+    echo "cascada";
 }
