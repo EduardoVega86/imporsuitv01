@@ -118,8 +118,11 @@ class ShopifyModel extends Query
     {
         $ultima_factura = $this->select("SELECT MAX(id_factura) AS factura FROM facturas_cot;");
         $ultima_factura_numero = $ultima_factura[0]['factura'];
+        $id_producto = $this->select("SELECT id_producto FROM productos WHERE codigo_producto = '$sku';");
+        $id_producto = $id_producto[0]['id_producto'];
+
         $sql_detalle_factura_cot = "INSERT INTO `detalle_fact_cot` ( `id_factura`, `numero_factura`, `id_producto`, `cantidad`, `desc_venta`, `precio_venta`, `drogshipin_tmp`, `id_producto_origen`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);";
-        $detalle_fac_data = array($ultima_factura_numero, $numero_factura, $sku, $cantidad, NULL, $precio, NULL, NULL);
+        $detalle_fac_data = array($ultima_factura_numero, $numero_factura, $id_producto, $cantidad, NULL, $precio, NULL, NULL);
         $query_detalle_factura_cot = $this->insert($sql_detalle_factura_cot, $detalle_fac_data);
         return array($query_detalle_factura_cot);
     }
@@ -162,9 +165,10 @@ class ShopifyModel extends Query
         $ultima_factura = mysqli_fetch_assoc($ultima_factura);
         $ultima_factura_numero = $ultima_factura['factura'] + 1;
 
+        $id_producto = $this->select("SELECT id_producto FROM productos WHERE codigo_producto = '$sku';");
+        $id_producto = $id_producto[0]['id_producto'];
 
-
-        $sql_detalle_factura_cot = "INSERT INTO `detalle_fact_cot` ( `id_factura`, `numero_factura`, `id_producto`, `cantidad`, `desc_venta`, `precio_venta`, `drogshipin_tmp`, `id_producto_origen`) VALUES ('$ultima_factura_numero', '$numero_factura', '$sku', '$cantidad', NULL, '$precio', NULL, NULL);";
+        $sql_detalle_factura_cot = "INSERT INTO `detalle_fact_cot` ( `id_factura`, `numero_factura`, `id_producto`, `cantidad`, `desc_venta`, `precio_venta`, `drogshipin_tmp`, `id_producto_origen`) VALUES ('$ultima_factura_numero', '$numero_factura', '$id_producto', '$cantidad', NULL, '$precio', NULL, NULL);";
 
         $query = mysqli_query($proveedor, $sql_detalle_factura_cot);
         echo mysqli_error($proveedor);
@@ -183,8 +187,11 @@ class ShopifyModel extends Query
         $ultima_factura = mysqli_query($market_connect, $ultima_factura_sql);
         $ultima_factura = mysqli_fetch_assoc($ultima_factura);
         $ultima_factura_numero = $ultima_factura['factura'];
+        $id_producto = $this->select("SELECT id_producto FROM productos WHERE codigo_producto = '$sku';");
+        $id_producto = $id_producto[0]['id_producto'];
 
-        $sql_detalle_factura_cot = "INSERT INTO `detalle_fact_cot` ( `id_factura`, `numero_factura`, `id_producto`, `cantidad`, `desc_venta`, `precio_venta`, `drogshipin_tmp`, `id_producto_origen`) VALUES ('$ultima_factura_numero', '$numero_factura', '$sku', '$cantidad', NULL, '$precio', NULL, NULL);";
+
+        $sql_detalle_factura_cot = "INSERT INTO `detalle_fact_cot` ( `id_factura`, `numero_factura`, `id_producto`, `cantidad`, `desc_venta`, `precio_venta`, `drogshipin_tmp`, `id_producto_origen`) VALUES ('$ultima_factura_numero', '$numero_factura', '$id_producto', '$cantidad', NULL, '$precio', NULL, NULL);";
 
         $query = mysqli_query($market_connect, $sql_detalle_factura_cot);
         echo mysqli_error($market_connect);
