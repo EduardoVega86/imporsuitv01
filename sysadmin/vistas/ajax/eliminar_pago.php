@@ -8,7 +8,7 @@ parse_str($data, $data);
 
 $id_cabecera = $data['id_cabecera'];
 
-$consulta = "DELETE FROM cabecera_cuenta_pagar WHERE id_cabecera = '$id_cabecera' on delete cascade;";
+$consulta = "DELETE FROM cabecera_cuenta_pagar WHERE id_cabecera = '$id_cabecera';";
 $resultado = mysqli_query($conexion, $consulta);
 
 if ($resultado) {
