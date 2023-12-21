@@ -50,7 +50,7 @@ else {
         $sWhere .= " and id_linea_producto = '" . $id_categoria . "' ";
     }
     if ($_GET['q'] != "") {
-        $sWhere = "and (";
+        $sWhere .= " and (";
         for ($i = 0; $i < count($aColumns); $i++) {
             $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
         }
@@ -76,7 +76,7 @@ else {
     $reload      = '../html/productos.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere ";
-    //echo $sql;
+    echo $sql;
     $query = mysqli_query($destino, $sql);
     //loop through fetched data
     if ($numrows > 0) {
