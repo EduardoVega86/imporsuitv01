@@ -284,9 +284,10 @@ if ($action == 'ajax' && $server_url == "https://marketplace.imporsuit.com") {
                                             }
                                             if ($guia_numero != '') {
 
-                                                echo "<script> validar_laar('" . $guia_numero . "'); </script>";
-                                                $caspita = "<script> return result; </script>";
+                                                $dato = "<script>return validar_laar('" . $guia_numero . "')</script>";
                                                 echo $caspita;
+                                            } else {
+                                                $guia_numero = 'NO ENVIADA';
                                             }
 
 
