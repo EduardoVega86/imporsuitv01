@@ -345,7 +345,8 @@ if ($action == 'ajax' && $server_url == "https://marketplace.imporsuit.com") {
                                                         //$estado_guia = 'Anulada';
                                                         break;
                                                     case '9':
-                                                        echo "i es igual a 2";
+                                                        $span_estado = 'badge-danger';
+                                                        $estado_guia = 'Devuelto';
                                                         break;
                                                 }
                                                 if ($drogshipin == 3 || $drogshipin == 4) {
