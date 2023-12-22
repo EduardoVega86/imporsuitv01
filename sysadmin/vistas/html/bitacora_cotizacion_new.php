@@ -150,6 +150,15 @@ $ventas = 1;
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
+<script>
+    async function validar_laar(guia) {
+        let data = await fetch('https://api.laarcourier.com:9727/guias/' + guia, {
+            method: 'GET',
+        })
+        let result = await data.json();
+        console.log(result);
+    }
+</script>
 <script type="text/javascript" src="../../js/bitacora_cotizacion_new.js"></script>
 <script src="../ajax/js/wallet.js"></script>
 <?php require 'includes/footer_end.php'

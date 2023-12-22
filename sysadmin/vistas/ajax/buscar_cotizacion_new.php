@@ -1,5 +1,7 @@
 <?php
-
+/*-------------------------
+Autor: Eduardo Vega
+---------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
@@ -33,7 +35,7 @@ $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
-if ($action == 'ajax') {
+if ($action == 'ajax' && $server_url == "https://marketplace.imporsuit.com") {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "facturas_cot, clientes, users";
@@ -64,14 +66,22 @@ if ($action == 'ajax') {
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
     //echo $sql;
     $query = mysqli_query($conexion, $sql);
+
     //loop through fetched data
     if ($numrows > 0) {
         echo mysqli_error($conexion);
 
-        print_r($query);
+        while ($row = mysqli_fetch_assoc($query)) {
+            $id_factura = $row['id_factura_origen'];
+            $tienda_venta = $row['tienda'];
+            $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido="' . $id_factura . ' and tienda_venta"', $tienda_venta);
+
+            echo "<script> validar_laar('" . $guia_numero . "')</script>";
+        }
     }
 }
 ?>
+
 <!-- 
 
 <div class="table-responsive">
@@ -138,20 +148,3 @@ if ($action == 'ajax') {
             }
         </script>
  -->
-<?php
-/*
-        require_once "./db.php"; //Contiene las variables de configuracion para conectar a la base de datos
-        require_once "./php_conexion.php"; //Contiene funcion que conecta a la base de datos
-        require_once "./funciones.php"; //Contiene funcion que conecta a la base de datos
-
-
-        $guias_laar = 'SELECT * FROM `guia_laar`WHERE guia_laar != "" ORDER BY `fecha` DESC';
-
-        $guias_laar = mysqli_query($conexion, $guias_laar);
-
-        while ($rw = mysqli_fetch_assoc($guias_laar)) {
-            echo "<script> validar_laar('" . $rw['guia_laar'] . "')</script>";
-        }
-*/
-
-?>
