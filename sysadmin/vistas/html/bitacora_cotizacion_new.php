@@ -156,6 +156,29 @@ $ventas = 1;
             method: 'GET',
         })
         let result = await data.json();
+        let resultado = [];
+        if (result["novedades"].length > 0) {
+            result["novedades"].forEach(element => {
+                if (element["codigoTipoNovedad"] == 42 || element["codigoTipoNovedad"] == 96) {
+                    resultado["estado_codigo"] = 9;
+                } else {
+                    resultado["estado_codigo"] = 7;
+                }
+            });
+        } else {
+            resultado["estado_codigo"] = result["estadoActualCodigo"];
+        }
+        resultado["noGuia"] = result["noGuia"];
+
+        fetch("../ajax/guardar_guia_new.php", {
+                method: 'POST',
+                body: JSON.stringify(),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response));
 
     }
 </script>
