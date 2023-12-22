@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
@@ -284,33 +283,99 @@ if ($action == 'ajax' && $server_url == "https://marketplace.imporsuit.com") {
                                             }
                                             if ($guia_numero != '') {
 
-                                                $dato = "<script>return validar_laar('" . $guia_numero . "')</script>";
-                                                echo $caspita;
+                                                echo "<script> validar_laar('" . $guia_numero . "')</script>";
+                                                $estado_guia_for = get_row('guia_laar', 'estado_guia', 'guia_laar', $guia_numero);
+                                                switch ($estado_guia_for) {
+                                                    case '1':
+
+                                                        $span_estado = 'badge-danger';
+                                                        $estado_guia = 'Anulado';
+                                                        break;
+                                                    case '2':
+                                                        $span_estado = 'badge-purple';
+                                                        $estado_guia = 'Por recolectar';
+                                                        break;
+                                                    case '3':
+                                                        $span_estado = 'badge-purple';
+                                                        $estado_guia = 'Por recolectar';
+                                                        break;
+                                                    case '4':
+                                                        $span_estado = 'badge-purple';
+                                                        $estado_guia = 'Por recolectar';
+                                                        break;
+                                                    case '5':
+                                                        $span_estado = 'badge-warning';
+
+                                                        break;
+                                                    case '6':
+                                                        $span_estado = 'badge-purple';
+                                                        $estado_guia = 'Por recolectar';
+                                                        break;
+                                                    case '7':
+                                                        $span_estado = 'badge-purple';
+                                                        $estado_guia = 'Entregado';
+                                                        break;
+                                                    case '8':
+                                                        $span_estado = 'badge-danger';
+                                                        $estado_guia = 'Anulada';
+                                                        break;
+                                                    case '11':
+                                                        $span_estado = 'badge-warning';
+
+                                                        break;
+                                                    case '12':
+                                                        $span_estado = 'badge-warning';
+                                                        $estado_guia = "En Transito";
+                                                        break;
+
+                                                    case '14':
+                                                        $span_estado = 'badge-danger';
+                                                        //$estado_guia = 'Anulada';
+                                                        break;
+                                                    case '16':
+                                                        $span_estado = 'badge-danger';
+                                                        //$estado_guia = 'Anulada';
+                                                        break;
+                                                    case '29':
+                                                        $span_estado = 'badge-danger';
+                                                        //$estado_guia = 'Anulada';
+                                                        break;
+                                                    case '48':
+                                                        $span_estado = 'badge-danger';
+                                                        //$estado_guia = 'Anulada';
+                                                        break;
+                                                    case '9':
+                                                        echo "i es igual a 2";
+                                                        break;
+                                                }
+                                                if ($drogshipin == 3 || $drogshipin == 4) {
+                                                    $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+
+                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");;
+                                                } else {
+                                                    $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
+
+                                                    //$url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
+                                                }
                                             } else {
                                                 $guia_numero = 'NO ENVIADA';
                                             }
 
 
 
-                                            if ($drogshipin == 3 || $drogshipin == 4) {
-                                                $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
-
-                                                $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");;
-                                            } else {
-                                                $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
-
-                                                //$url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
-                                                $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
-                                            }
 
 
-
+                                            if ($estado_guia_for) {
                                             ?>
-                            <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
-                            <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
-                            <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
+                                <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
+                                <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
+                                <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
 
                             <?php
+                                            } else {
+                                                echo 'GUIA NO ENVIADA';
+                                            }
                             ?>
                         </td>
                         <td>

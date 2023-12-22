@@ -170,16 +170,17 @@ $ventas = 1;
         }
         resultado["noGuia"] = result["noGuia"];
 
-        fetch("../ajax/guardar_guia_new.php", {
-                method: 'POST',
-                body: JSON.stringify(),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(response => console.log('Success:', response));
+        $.ajax({
+            url: "../ajax/guardar_guia_new.php",
+            type: "POST",
+            data: {
+                "guia": resultado["noGuia"],
+                "estado": resultado["estado_codigo"]
+            },
+            success: function(data) {
 
+            }
+        });
     }
 </script>
 <script type="text/javascript" src="../../js/bitacora_cotizacion_new.js"></script>
