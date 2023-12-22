@@ -156,7 +156,7 @@ $ventas = 1;
             method: 'GET',
         })
         let result = await data.json();
-        console.log(result);
+
     }
 </script>
 <script type="text/javascript" src="../../js/bitacora_cotizacion_new.js"></script>
