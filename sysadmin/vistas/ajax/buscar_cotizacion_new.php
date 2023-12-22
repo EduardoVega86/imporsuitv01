@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
@@ -70,17 +72,335 @@ if ($action == 'ajax' && $server_url == "https://marketplace.imporsuit.com") {
     //loop through fetched data
     if ($numrows > 0) {
         echo mysqli_error($conexion);
+?>
+        <div class="table-responsive">
+            <table class="table table-sm table-striped">
+                <tr class="info">
+                    <th># Orden</th>
+                    <th>Fecha</th>
+                    <th>Cliente</th>
+                    <th>TIPO</th>
+                    <th>TIENDA</th>
+                    <th>Telefono</th>
+                    <th>Localidad</th>
+                    <th>Direccion</th>
 
-        while ($row = mysqli_fetch_assoc($query)) {
-            $id_factura = $row['id_factura_origen'];
-            $tienda_venta = $row['tienda'];
-            $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido="' . $id_factura . ' and tienda_venta"', $tienda_venta);
+                    <th colspan="2" style="text-align: center;">Estado</th>
 
-            echo "<script> validar_laar('" . $guia_numero . "')</script>";
-        }
+                    <th class='text-center'>Total</th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                <?php
+                while ($row = mysqli_fetch_assoc($query)) {
+                    $id_factura       = $row['id_factura'];
+                    $numero_factura   = $row['numero_factura'];
+                    $fecha            = date("d/m/Y h:i:s a ", strtotime($row['fecha_factura']));
+                    $nombre_cliente   = $row['nombre_cliente'];
+                    $nombre   = $row['nombre'];
+                    $id_factura_origen   = $row['id_factura_origen'];
+
+                    $telefono   = $row['telefono'];
+                    $id_prvo = $row['provincia'];
+                    $estado_factura = $row['estado_factura'];
+                    //echo  $id_prvo;
+                    $provincia   = get_row('provincia_laar', 'provincia', 'codigo_provincia', $id_prvo);
+                    //echo $provincia;
+                    $ciudad_cot   = $row['ciudad_cot'];
+                    //echo $ciudad_cot;
+                    $ciudad_cot   = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad_cot);
+
+                    $observacion   = $row['observacion'];
+                    $direccion   = $row['c_principal'] . ' y ' . $row['c_secundaria'] . '-' . $row['referencia'];
+                    $telefono_cliente = $row['telefono_cliente'];
+                    $email_cliente    = $row['email_cliente'];
+                    $nombre_vendedor  = $row['nombre_users'] . " " . $row['apellido_users'];
+                    $estado_factura   = $row['estado_factura'];
+                    $guia_enviada   = $row['guia_enviada'];
+                    $drogshipin   = $row['drogshipin'];
+
+                    $tienda   = $row['tienda'];
+                    $span_estado = '';
+
+                    $id_producto_origen = $row['id_factura_origen'];
+                    $existe_guia_sql = "SELECT * FROM guia_laar WHERE id_pedido='" . $id_producto_origen . "'";
+                    $existe_guia_query = mysqli_query($conexion, $existe_guia_sql);
+                    $existe_guia = mysqli_num_rows($existe_guia_query);
+                    //echo $existe_guia;
+                    $guia_numero = '';
+
+                    $estado_guia = '';
+
+                    $estado_actual_guia_X = '';
+                    switch ($estado_factura) {
+
+                        case 1:
+                            $text_estado = "Confirmar";
+                            $label_class = 'badge-warning';
+                            break;
+                        case 2:
+                            $text_estado = "Pick y Pack ";
+                            $label_class = 'badge-info';
+                            break;
+                        case 3:
+                            $text_estado = "Despachado";
+                            $label_class = 'badge-success';
+                            break;
+                        case 4:
+                            $text_estado = "Zona de entrega ";
+                            $label_class = 'badge-purple';
+                            break;
+                        case 5:
+                            $text_estado = "Cobrado";
+                            $label_class = 'badge-primary';
+                            break;
+                        case 6:
+                            $text_estado = "Pagado ";
+                            $label_class = 'badge-purple';
+                            break;
+
+                        case 7:
+                            $text_estado = "Liquidado";
+                            $label_class = 'badge-primary';
+                            break;
+                        case 8:
+                            $text_estado = "Anulado";
+                            $label_class = 'badge-danger';
+                            break;
+                        default:
+                            echo "Estado no reconocido";
+                    }
+
+
+
+
+                    $total_venta    = $row['monto_factura'];
+                    $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
+                ?>
+                    <input type="hidden" value="<?php echo $estado_factura; ?>" id="estado<?php echo $id_factura; ?>">
+
+                    <tr>
+                        <td><label class='badge badge-purple'><?php echo $numero_factura; ?></label></td>
+                        <td><?php echo $fecha; ?></td>
+                        <td><?php echo $nombre; ?></td>
+                        <td><?php
+                            switch ($drogshipin) {
+                                case 0:
+                                    $tipo_venta_m = 'LOCAL';
+                                    break;
+                                case 1:
+                                    $tipo_venta_m = 'DROPSHIPPING';
+                                    break;
+
+                                case 2:
+                                    $tipo_venta_m = 'LOCAL';
+                                    break;
+
+                                case 3:
+                                    $tipo_venta_m = 'DROPSHIPPING';
+                                    break;
+
+                                case 4:
+                                    $tipo_venta_m = 'LOCAL';
+
+                                    break;
+
+                                default:
+                                    echo "Estado no reconocido";
+                            }
+                            echo $tipo_venta_m;
+                            ?></td>
+                        <td><?php
+                            // echo 'sa';
+                            switch ($drogshipin) {
+                                case 0:
+                                    $tipo_ped = $tienda;
+                                    break;
+                                case 1:
+                                    $tipo_ped = $tienda;
+                                    break;
+
+                                case 2:
+                                    $tipo_ped = $tienda;
+                                    break;
+
+                                case 3:
+                                    $tipo_ped = $tienda;
+                                    break;
+
+                                case 4:
+                                    $tipo_ped = $tienda;
+
+                                    break;
+
+                                default:
+                                    echo "Estado no reconocido";
+                            }
+
+                            echo $tipo_ped; ?></td>
+                        <td><?php echo $telefono; ?></td>
+
+                        <td><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
+                        <td><?php echo $direccion; ?></td>
+
+                        <td align="center"><?php
+                                            // echo $drogshipin;
+                                            switch ($drogshipin) {
+                                                case 0:
+                                                    if ($guia_enviada == 1) {
+
+                                                        $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                        $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                                        echo $url;
+                                                    } else {
+                                                        echo 'GUIA NO ENVIADA';
+                                                    }
+
+                                                    break;
+                                                case 1:
+                                                    if ($guia_enviada == 1) {
+
+                                                        $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                        $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                                        // echo $url;
+                                                    } else {
+                                                        echo 'GUIA NO ENVIADA';
+                                                    }
+
+                                                    break;
+                                                case 3:
+
+                                                    $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                                                    $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                                    break;
+                                                case 4:
+                                                    $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                                                    $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                                    break;
+
+                                                default:
+                                                    echo "Estado no reconocido";
+                                            }
+                                            if ($guia_numero != '') {
+
+                                                echo "<script> validar_laar('" . $guia_numero . "'); </script>";
+                                                $caspita = "<script> return result; </script>";
+                                                echo $caspita;
+                                            }
+
+
+
+                                            if ($drogshipin == 3 || $drogshipin == 4) {
+                                                $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+
+                                                $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");;
+                                            } else {
+                                                $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
+
+                                                //$url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                                                $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
+                                            }
+
+
+
+                                            ?>
+                            <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
+                            <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
+                            <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
+
+                            <?php
+                            ?>
+                        </td>
+                        <td>
+                            <?php if ($drogshipin == 3 || $drogshipin == 4) {
+
+                            ?>
+                                <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
+                                    <option value="">-- Selecciona --</option>
+                                    <?php
+                                    if ($data['estadoActualCodigo'] == 8) {
+                                        $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
+                                                                            WHERE id_factura='" . $id_factura . "'";
+                                        $query_anular = mysqli_query($conexion, $sql_anular);
+                                    }
+                                    //echo "select * from estado_guia";
+                                    $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
+                                    while ($rw = mysqli_fetch_array($query_categoria)) {
+                                        $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
+                                    ?>
+                                        <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            <?php
+                            }
+
+                            ?>
+
+                        </td>
+                        <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
+
+
+                        <td class="text-center">
+                            <div class="btn-group dropdown">
+                                <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <?php if ($permisos_editar == 1) { ?>
+                                        <a class="dropdown-item" target="blank" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
+                                        <!--a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir</a-->
+                                    <?php }
+                                    if ($permisos_eliminar == 1) { ?>
+                                        <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
+                                    <?php } ?>
+                                    <?php
+
+                                    if ($drogshipin == 3) {
+                                        if ($guia_numero = 'NO ENVIADA') {
+                                        } else {
+                                        }
+                                    ?>
+
+                                        <button class="dropdown-item" onclick="guia_importar('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Importar Guia</button>
+                                    <?php
+                                    }
+                                    ?>
+
+                                </div>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                <?php
+                }
+                ?>
+                <tr>
+                    <td colspan=10><span class="pull-right"><?php
+                                                            echo paginate($reload, $page, $total_pages, $adjacents);
+                                                            ?></span></td>
+                </tr>
+            </table>
+
+
+        </div>
+    <?php
     }
+    //Este else Fue agregado de Prueba de prodria Quitar
+    else {
+    ?>
+        <div class="alert alert-warning alert-dismissible" role="alert" align="center">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Aviso!</strong> No hay Registro de Cotizaciones
+        </div>
+
+<?php
+    }
+    // fin else
 }
 ?>
+
 
 <!-- 
 

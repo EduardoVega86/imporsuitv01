@@ -94,11 +94,11 @@ function ver_detalles(id_cabecera) {
 
 function devolucion(guia_laar) {
   Swal.fire({
-    title: "¿Estás seguro?",
+    title: "¿Estás seguro de devolver?",
     text: "¡No podrás revertir esto!",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonText: "Sí, eliminarlo",
+    confirmButtonText: "Sí, devolver",
     cancelButtonText: "No, cancelar",
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
@@ -121,7 +121,7 @@ function devolucion(guia_laar) {
           $("#facturas").load("../ajax/cargar_facturas.php");
         },
       });
-      Swal.fire("¡Eliminado!", "Su archivo ha sido eliminado.", "success");
+      Swal.fire("¡Eliminado!", "Su archivo ha sido devuelto.", "success");
     }
   });
 }
