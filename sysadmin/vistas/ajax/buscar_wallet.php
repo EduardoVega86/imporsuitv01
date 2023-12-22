@@ -56,7 +56,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $total_pages = ceil($numrows / $per_page);
         $reload = '../reportes/wallet.php';
         //main query to fetch the data
-        $sql = "SELECT DISTINCT cabecera_cuenta_pagar.tienda FROM  $sTable $sWhere LIMIT $offset,$per_page";
+        $sql = "SELECT DISTINCT cabecera_cuenta_pagar.tienda FROM  $sTable $sWhere LIMIT $offset,$per_page order by cabecera_cuenta_pagar.tienda asc";
         $query = mysqli_query($conexion, $sql);
         $query = mysqli_fetch_all($query);
 
