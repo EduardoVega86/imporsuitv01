@@ -27,7 +27,9 @@ if (empty($_POST['abono'])) {
     $total_monto_recibir_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' GROUP BY numero_factura ) as subquery;";
     $total_monto_recibir_query = mysqli_query($conexion, $total_monto_recibir_sql);
     $total_monto_recibir_SQL = mysqli_fetch_array($total_monto_recibir_query);
+
     $total_monto_recibir = $total_monto_recibir_SQL['total_pendiente'];
+    $total_monto_recibir = number_format($total_monto_recibir, 2, '.', '');
     // verificamos si el monto esta cancelado
     if ($rw['monto_recibir'] == 0) {
         echo "<script>

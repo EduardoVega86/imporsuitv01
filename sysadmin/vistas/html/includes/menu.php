@@ -34,7 +34,7 @@ if ($total_venta == null) {
 	$color = 'text-danger';
 }
 $total_venta = number_format($total_venta, 2, '.', ',');
-
+$simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 ?>
 <div class="topbar">
 
@@ -52,7 +52,7 @@ $total_venta = number_format($total_venta, 2, '.', ',');
 
 			<li class="list-inline-item notification-list hide-phone   waves-light waves-effect">
 				<i class="ti-wallet"></i>
-				<span class="<?php echo $color ?>">$ <?php echo $total_venta ?></span>
+				<span class="<?php echo $color ?>"><?php echo $simbolo_moneda . $total_venta ?></span>
 			</li>
 
 			<li class="list-inline-item notification-list hide-phone">
