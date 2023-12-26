@@ -70,17 +70,17 @@ permisos($modulo, $cadena_permisos);
 
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="recibos" tabindex="-1" aria-labelledby="recibosLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
+                                                    <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="recibosLabel">Recibos</h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cerrarModal()"></button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div id="resultados_recibo"></div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                                <button type="button" class="btn btn-secondary" onclick="cerrarModal()" data-bs-dismiss="modal">Cerrar</button>
 
                                                             </div>
                                                         </div>
@@ -183,9 +183,17 @@ permisos($modulo, $cadena_permisos);
                 $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
             },
             success: function(datos) {
+                console.log(datos);
+                var resultado = document.querySelector('#resultados_recibo');
+                resultado.innerHTML = datos;
+                $('#recibos').modal('show');
                 $("#resultados_recibos").html(datos);
             }
         });
+    }
+
+    function cerrarModal() {
+        $('#recibos').modal('hide');
     }
 
     $('.filtroInput').change(function() {
