@@ -20,10 +20,10 @@ if (empty($_POST['abono'])) {
     $imagen = $_FILES['img']['name'];
     $ruta   = $_FILES['img']['tmp_name'];
 
-    $nombre_alterado = date("Y-m-d_H-i-s") . "_" . $imagen;
+    $nombre_alterado = date("Y-m-d-H-i-s") . "-" . $imagen;
     $url_ubicacion = "https://marketplace.imporsuit.com/sysadmin/img/facturas/" . $nombre_alterado;
 
-    $destino = "../img/facturas/" . $nombre_alterado;
+    $destino = "../../img/facturas/" . $nombre_alterado;
     copy($ruta, $destino);
 
 
