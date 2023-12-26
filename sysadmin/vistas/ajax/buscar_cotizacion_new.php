@@ -55,6 +55,10 @@ if ($action == 'ajax') {
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $per_page  = 30; //how much records you want to show
+    if ($_GET["numero"]) {
+        $per_page  = $_GET["numero"]; //how much records you want to show
+
+    }
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
@@ -241,7 +245,7 @@ if ($action == 'ajax') {
                         <td><?php echo $telefono; ?></td>
 
                         <td><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
-                        <td><?php echo $direccion; ?></td>
+                        <td style="max-width: 270px;"><?php echo $direccion; ?></td>
 
                         <td align="center"><?php
                                             // echo $drogshipin;
@@ -251,7 +255,6 @@ if ($action == 'ajax') {
 
                                                         $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                                                         $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-                                                        echo $url;
                                                     } else {
                                                         $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
                                                         $url = ''; // O asignar un valor específico para el caso sin guía
