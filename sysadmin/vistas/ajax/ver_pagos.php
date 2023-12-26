@@ -57,6 +57,7 @@ if ($action == 'ajax') {
                     <th>Fecha</th>
                     <th>Valor</th>
                     <th>Forma de Pago</th>
+                    <th>Recibo</th>
                 </tr>
                 <?php
                 $finales = 0;
@@ -66,6 +67,7 @@ if ($action == 'ajax') {
                     $fecha = $row['fecha'];
                     $valor = $row['valor'];
                     $forma_pago = $row['forma_pago'];
+                    $url_factura = $row['imagen'];
                     $finales++;
                 ?>
                     <tr>
@@ -73,6 +75,16 @@ if ($action == 'ajax') {
                         <td><?php echo $fecha; ?></td>
                         <td><?php echo $simbolo_moneda . ' ' . number_format($valor, 2); ?></td>
                         <td><?php echo $forma_pago; ?></td>
+                        <?php if ($url_factura == '') {
+                        ?>
+                            <td>Sin recibos</td>
+                        <?php
+                        } else {
+                        ?>
+                            <td><a href="<?php echo $url_factura; ?>" target="_blank"><i class="fa fa-file-pdf-o"></i></a></td>
+                        <?php
+                        }
+                        ?>
 
                     </tr>
                 <?php
