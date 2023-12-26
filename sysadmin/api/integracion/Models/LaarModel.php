@@ -12,12 +12,12 @@ class LaarModel extends Query
     public function cambiarEstado($no_guia, $estado_actual_codigo)
     {
 
+        $this->cambiarEstados($no_guia, $estado_actual_codigo);
         if ($estado_actual_codigo == 7) {
             $this->pedidoEntragado($no_guia, $estado_actual_codigo);
         } else if ($estado_actual_codigo == 9) {
             $this->pedidoDevolucion($no_guia, $estado_actual_codigo);
         }
-        $this->cambiarEstados($no_guia, $estado_actual_codigo);
     }
     protected function conectarProveedor($proveedor)
     {
