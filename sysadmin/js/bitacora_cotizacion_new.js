@@ -34,6 +34,8 @@ $("#editar_linea").submit(function (event) {
 function load(page) {
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
+  var estado = $("#estado_q").val();
+  var numero = $("#numero_q").val();
   var url = "";
 
   if (tienda != 0) {
@@ -43,7 +45,31 @@ function load(page) {
       "&q=" +
       q +
       "&tienda=" +
-      tienda;
+      tienda +
+      "&numero=" +
+      numero;
+  } else if (estado != 0) {
+    url =
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&estado=" +
+      estado +
+      "&numero=" +
+      numero;
+  } else if (tienda != 0 && estado != 0) {
+    url =
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda +
+      "&estado=" +
+      estado +
+      "&numero=" +
+      numero;
   } else {
     url =
       "../ajax/buscar_cotizacion_new.php?action=ajax&page=" + page + "&q=" + q;
@@ -67,6 +93,13 @@ function load(page) {
 function buscar(tienda) {
   // alert(tienda)
   var q = $("#q").val();
+  var estado = $("#estado_q").val();
+  if (tienda == 0) {
+    tienda = "";
+  }
+  if (estado == 0) {
+    estado = "";
+  }
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -76,7 +109,44 @@ function buscar(tienda) {
       "&tienda=" +
       tienda +
       "&q=" +
-      q,
+      q +
+      "&estado=" +
+      estado,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
+}
+
+function buscar_estado(estado) {
+  // alert(tienda)
+  var q = $("#q").val();
+  var tienda = $("#tienda_q").val();
+  if (tienda == 0) {
+    tienda = "";
+  }
+  if (estado == 0) {
+    estado = "";
+  }
+  page = 1;
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url:
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&estado=" +
+      estado +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -126,6 +196,73 @@ $("#eliminarDatos").submit(function (event) {
   event.preventDefault();
 });
 
+function imprimir_factura(id_factura) {
+  VentanaCentrada(
+    "../pdf/documentos/ver_cotizacion.php?id_factura=" + id_factura,
+    "Factura",
+    "",
+    "724",
+    "568",
+    "true"
+  );
+}
+// print order function
+function printOrder(id_factura) {
+  if (id_factura) {
+    $.ajax({
+      url: "../pdf/documentos/imprimir_factura.php",
+      type: "post",
+      data: {
+        id_factura: id_factura,
+      },
+      dataType: "text",
+      success: function (response) {
+        var mywindow = window.open(
+          "",
+          "Stock Management System",
+          "height=400,width=600"
+        );
+        mywindow.document.write("<html><head><title>Facturación</title>");
+        mywindow.document.write("</head><body>");
+        mywindow.document.write(response);
+        mywindow.document.write("</body></html>");
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+        mywindow.print();
+        mywindow.close();
+      }, // /success function
+    }); // /ajax function to fetch the printable order
+  } // /if orderId
+} // /print order function
+// print order function
+function print_ticket(id_factura) {
+  if (id_factura) {
+    $.ajax({
+      url: "../pdf/documentos/imprimir_venta_edit.php",
+      type: "post",
+      data: {
+        id_factura: id_factura,
+      },
+      dataType: "text",
+      success: function (response) {
+        var mywindow = window.open(
+          "",
+          "Stock Management System",
+          "height=400,width=600"
+        );
+        mywindow.document.write("<html><head><title>Facturación</title>");
+        mywindow.document.write("</head><body>");
+        mywindow.document.write(response);
+        mywindow.document.write("</body></html>");
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+        mywindow.print();
+        mywindow.close();
+      }, // /success function
+    }); // /ajax function to fetch the printable order
+  } // /if orderId
+} // /print order function
+
 function obtener_datos(id) {
   var estado = $("#estado_sistema" + id).val();
   // alert(estado);
@@ -138,47 +275,36 @@ function obtener_datos(id) {
 
 function guia_importar(numero_factura) {}
 
-async function guia_anulada(guia) {
-  await fetch(
-    "https://marketplace.imporsuit.com/sysadmin/api/integracion/Laar/",
-    {
-      method: "POST",
-      body: JSON.stringify({
-        noGuia: guia,
-        estadoActualCodigo: 9,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    }
-  )
-    .then((response) => response.json())
-    .then((json) => console.log(json))
-    .catch((err) => console.log(err));
-}
-
-function buscar_estado(estado) {
+function buscar_numero(numero) {
   // alert(tienda)
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
+  var estado = $("#estado_q").val();
   if (tienda == 0) {
     tienda = "";
+  }
+  if (numero == 0) {
+    numero = "";
   }
   if (estado == 0) {
     estado = "";
   }
+
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
       page +
-      "&estado=" +
-      estado +
+      "&numero=" +
+      numero +
       "&q=" +
       q +
       "&tienda=" +
-      tienda,
+      tienda +
+      "&estado=" +
+      estado,
+
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
