@@ -41,7 +41,7 @@ if ($action == 'ajax') {
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "facturas_cot, clientes, users";
     $sWhere = "";
-    $sWhere .= " WHERE estado_factura <> 8 and estado_factura <> 7 and drogshipin <> 0 and drogshipin <> 2 and drogshipin <> 4 and facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
+    $sWhere .= " WHERE facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
     if ($_GET['q'] != "") {
         $sWhere .= " and  (facturas_cot.nombre like '%$q%' or facturas_cot.numero_factura like '%$q%')";
     }
@@ -253,7 +253,8 @@ if ($action == 'ajax') {
                                                         $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
                                                         echo $url;
                                                     } else {
-                                                        echo 'GUIA NO ENVIADA';
+                                                        $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
+                                                        $url = ''; // O asignar un valor específico para el caso sin guía
                                                     }
 
                                                     break;
@@ -264,18 +265,35 @@ if ($action == 'ajax') {
                                                         $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
                                                         // echo $url;
                                                     } else {
-                                                        echo 'GUIA NO ENVIADA';
+                                                        $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
+                                                        $url = ''; // O asignar un valor específico para el caso sin guía
                                                     }
 
                                                     break;
                                                 case 3:
 
-                                                    $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
-                                                    $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+
+                                                    $validar = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                                                    if ($validar != '') {
+                                                        $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                                                        $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                                    } else {
+                                                        $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
+                                                        $url = ''; // O asignar un valor específico para el caso sin guía
+                                                    }
+
                                                     break;
                                                 case 4:
-                                                    $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
-                                                    $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+
+                                                    $validar = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                                                    if ($validar != '') {
+                                                        $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                                                        $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                                    } else {
+                                                        $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
+                                                        $url = ''; // O asignar un valor específico para el caso sin guía
+                                                    }
+
                                                     break;
 
                                                 default:
@@ -352,26 +370,34 @@ if ($action == 'ajax') {
                                                 if ($drogshipin == 3 || $drogshipin == 4) {
                                                     $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
 
-                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");;
+                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
                                                 } else {
                                                     $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
 
                                                     //$url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
                                                 }
                                             } else {
-                                                $guia_numero = 'NO ENVIADA';
+                                                $guia_numero = 'GUIA NO ENVIADA';
+                                                $traking = '';
                                             }
 
-
-
-
-
                                             if ($estado_guia_for) {
+                                                if ($traking != '') {
                                             ?>
-                                <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
-                                <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
-                                <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
+                                    <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
+                                    <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
+                                    <?php
+
+                                    ?>
+                                    <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
+                                <?php
+                                                } else {
+                                                    echo $guia_numero;
+                                                }
+                                ?>
+
 
                             <?php
                                             } else {
