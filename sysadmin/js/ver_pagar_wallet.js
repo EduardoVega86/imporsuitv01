@@ -39,11 +39,13 @@ $("#add_abono").submit(function (event) {
     return false;
   }
   //Fin validacion
-  var parametros = $(this).serialize();
+  var formData = new FormData(this);
   $.ajax({
     type: "POST",
     url: "../ajax/agregar_abono_wallet.php",
-    data: parametros,
+    data: formData,
+    processData: false,
+    contentType: false,
     beforeSend: function (objeto) {
       $("#resultados_ajax").html(
         '<img src="../../img/ajax-loader.gif"> Cargando...'
@@ -68,6 +70,12 @@ $("#add_abono").submit(function (event) {
             $(this).remove();
           });
       }, 5000);
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(
+        "Error en la solicitud AJAX: " + textStatus + " - " + errorThrown
+      );
+      // Puedes mostrar un mensaje de error al usuario aquí
     },
   });
   event.preventDefault();

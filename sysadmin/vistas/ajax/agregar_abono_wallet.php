@@ -19,7 +19,11 @@ if (empty($_POST['abono'])) {
 
     $imagen = $_FILES['img']['name'];
     $ruta   = $_FILES['img']['tmp_name'];
-    $destino = "../img/facturas/" . $imagen;
+
+    $nombre_alterado = date("Y-m-d_H-i-s") . "_" . $imagen;
+    $url_ubicacion = "https://marketplace.imporsuit.com/sysadmin/img/facturas/" . $nombre_alterado;
+
+    $destino = "../img/facturas/" . $nombre_alterado;
     copy($ruta, $destino);
 
 
@@ -77,7 +81,7 @@ if (empty($_POST['abono'])) {
 
             $query_update = mysqli_query($conexion, $sql_update);
             if ($i == 0) {
-                $sql_pago = "INSERT INTO `pagos`( `fecha`, `numero_documento`, `valor`, `forma_pago`,`tienda` ) VALUES ('$fecha', '$numero_factura', $total_abonado, '$forma_pago', '$tienda');";
+                $sql_pago = "INSERT INTO `pagos`( `fecha`, `numero_documento`, `valor`, `forma_pago`,`tienda`,`imagen`  ) VALUES ('$fecha', '$numero_factura', $total_abonado, '$forma_pago', '$tienda', '$url_ubicacion');";
                 $query_pago = mysqli_query($conexion, $sql_pago);
             }
             $i++;
