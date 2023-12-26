@@ -1,7 +1,7 @@
 <?php
 if (isset($conexion)) {
 ?>
-    <form class="form-horizontal" method="post" name="add_abono" id="add_abono">
+    <form class="form-horizontal" method="post" name="add_abono" id="add_abono" enctype="multipart/form-data">
         <!-- Modal -->
         <div id="add-stock" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -33,6 +33,11 @@ if (isset($conexion)) {
                                         <option value="Cheque">Cheque</option>
                                         <option value="Otro">Otro</option>
                                     </select>
+
+
+                                    <label for="img">Imagen de la factura:</label>
+                                    <input type="file" class="form-control" id="img" name="img" accept="image/*" required>
+
                                 </div>
                             </div>
                         </div>

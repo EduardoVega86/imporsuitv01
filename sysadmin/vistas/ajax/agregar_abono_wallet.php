@@ -17,6 +17,12 @@ if (empty($_POST['abono'])) {
     $total_abonado = $abono;
     $forma_pago = $_POST["forma_pago"];
 
+    $imagen = $_FILES['img']['name'];
+    $ruta   = $_FILES['img']['tmp_name'];
+    $destino = "../img/facturas/" . $imagen;
+    copy($ruta, $destino);
+
+
     $user_id  = $_SESSION['id_users'];
     $fecha    = date("Y-m-d H:i:s");
     // Consulta para Extraer los datos del credito

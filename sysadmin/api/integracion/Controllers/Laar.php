@@ -7,6 +7,7 @@ class Laar extends Controller
     {
         $json = file_get_contents('php://input');
         $json_decode = json_decode($json, true);
+        print_r($json_decode['novedades']);
         if (count($json_decode['novedades']) > 0) {
             foreach ($json_decode['novedades'] as $novedad) {
                 if ($novedad['codigoTipoNovedad'] == 42 || $novedad['codigoTipoNovedad'] == 96) {
