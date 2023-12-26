@@ -190,10 +190,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 							<li><a href="../html/bitacora_cotizacion_p.php">Pedidos</a></li>
 						<?php
 						} ?>
-						<li><a href="../html/bitacora_local.php">Locales</a></li>
-						<li><a href="../html/bitacora_anulaciones.php">Anulados</a></li>
 
-						<li><a href="../html/bitacora_noenviados.php">No enviados</a></li>
 
 					</ul>
 				</li>

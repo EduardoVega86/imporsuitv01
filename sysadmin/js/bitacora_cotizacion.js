@@ -222,3 +222,38 @@ async function guia_anulada(guia) {
     .then((json) => console.log(json))
     .catch((err) => console.log(err));
 }
+
+function buscar_estado(estado) {
+  // alert(tienda)
+  var q = $("#q").val();
+  var tienda = $("#tienda_q").val();
+  if (tienda == 0) {
+    tienda = "";
+  }
+  if (estado == 0) {
+    estado = "";
+  }
+  page = 1;
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url:
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      page +
+      "&estado=" +
+      estado +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
+}
