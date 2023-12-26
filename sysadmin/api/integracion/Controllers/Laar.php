@@ -16,6 +16,8 @@ class Laar extends Controller
                     $estado_actual_codigo = 7;
                 }
             }
+        } else {
+            $estado_actual_codigo = $json_decode['estadoActualCodigo'];
         }
 
         $no_guia = $json_decode['noGuia'];
