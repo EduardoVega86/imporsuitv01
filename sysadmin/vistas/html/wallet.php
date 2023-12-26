@@ -177,7 +177,7 @@ permisos($modulo, $cadena_permisos);
     function cargar_recibos(id_cabecera) {
         $.ajax({
             type: "POST",
-            url: "../ajax/recibos.php",
+            url: "../modal/recibos.php",
             data: "id_cabecera_cpp=" + id_cabecera,
             beforeSend: function(objeto) {
                 $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
