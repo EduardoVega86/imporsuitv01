@@ -184,7 +184,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 						<?php if ($pais == 1) {
 
 						?>
-							<li><a href="../html/bitacora_cotizacion.php">Pedidos</a></li>
+							<li><a href="../html/bitacora_cotizacion_new.php">Pedidos</a></li>
 						<?php  } else {
 						?>
 							<li><a href="../html/bitacora_cotizacion_p.php">Pedidos</a></li>
