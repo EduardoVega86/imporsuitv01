@@ -222,7 +222,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <th class="text-center">Valor cobrado</th>
                                 <th class="text-center">Valor pendiente</th>
                                 <th class="text-center">Recibos</th>
-                                <th colspan="3"></th>
+
                             </tr>
                         </thead>
                         <tbody id="resultados">

@@ -11,7 +11,7 @@
     $count_query = mysqli_query($marketplace_conexion, "SELECT count(*) AS numrows FROM detalle_cuenta_pagar WHERE id_cabecera_cpp = '$id_cabecera_cpp'");
     $row = mysqli_fetch_array($count_query);
     $num_rows = $row['numrows'];
-
+    $total_recibos = 0;
     if ($num_rows > 0) {
         $tabla = "
         <div class='container-fluid'>
@@ -41,6 +41,7 @@
             $numero_documento = $row_pago['numero_documento'];
             $imagen = $row_pago['imagen'];
             $fecha = $row_pago['fecha'];
+            $total_recibos += $valor;
             $tabla .= '
                         <tr>
                             <td>' . $numero_documento . '</td>
@@ -55,11 +56,21 @@
         $tabla .= "
             </tbody>
             </table>
+
+            <div class='text-success'>
+                <h5>Total dinero recibido: " . $total_recibos . "</h5>
+    
+                </div>
+            
             </div>
             ";
         echo $tabla;
     } else {
-        echo "No hay recibos";
+        echo "
+        <div class='alert alert-danger'>
+            <strong>No hay recibos para mostrar</strong>
+        </div>
+        ";
     }
 
     ?>

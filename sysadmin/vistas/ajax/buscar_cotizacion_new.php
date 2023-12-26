@@ -36,7 +36,7 @@ $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
-if ($action == 'ajax' && $server_url == "https://marketplace.imporsuit.com") {
+if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "facturas_cot, clientes, users";
@@ -467,71 +467,3 @@ if ($action == 'ajax' && $server_url == "https://marketplace.imporsuit.com") {
     // fin else
 }
 ?>
-
-
-<!-- 
-
-<div class="table-responsive">
-    <table class="table table-sm table-striped">
-        <thead>
-
-            <tr class="info">
-                <th># Orden</th>
-                <th>Fecha</th>
-                <th>Cliente</th>
-                <th>TIPO</th>
-                <th>TIENDA</th>
-                <th>Telefono</th>
-                <th>Localidad</th>
-                <th>Direccion</th>
-
-                <th colspan="2" style="text-align: center;">Estado</th>
-
-                <th class='text-center'>Total</th>
-                <th></th>
-                <th></th>
-
-            </tr>
-        </thead>
-        <tbody id="guia">
-
-        </tbody>
-
-        <script>
-            async function validar_laar(guia) {
-                let data = await fetch('https://api.laarcourier.com:9727/guias/' + guia, {
-                    method: 'GET',
-                })
-                let result = await data.json();
-                if (result["novedades"].length > 0) {
-                    result["novedades"].forEach(element => {
-                        if (element["codigoTipoNovedad"] == 42 || element["codigoTipoNovedad"] == 96) {
-                            result["estado_codigo"] = 9;
-                        } else {
-                            result["estado_codigo"] = 7;
-                        }
-                    });
-                } else {
-                    result["estado_codigo"] = result["estadoActualCodigo"];
-                }
-
-                document.getElementById('guia').innerHTML += `
-                <tr>
-                        <td>${result["noGuia"]}</td>
-                        <td>${result["destinatarioFecha"]}</td>
-                        <td>${result["nombreCliente"]}</td>
-                        <td>0</td>
-                        <td>${result["nombreTienda"]}</td>
-                        <td>${result["telefonoDestino2"]}</td>
-                        <td>${result["direccionDestino"]}</td>
-                        <td>${result["direccionOrigen"]}</td>
-                        <td>${result["estado_codigo"]}</td>
-                        <td>0</td>
-                        <td>0</td>
-                        </tr>
-                
-
-                    `
-            }
-        </script>
- -->
