@@ -7,7 +7,16 @@ class Laar extends Controller
     {
         $json = file_get_contents('php://input');
         $json_decode = json_decode($json, true);
-        $estado_actual_codigo = $json_decode['estadoActualCodigo'];
+        if (count($json_decode['novedades']) > 0) {
+            foreach ($json_decode['novedades'] as $novedad) {
+                if ($novedad['codigoTipoNovedad'] == 42 || $novedad['codigoTipoNovedad'] == 96) {
+                    $estado_actual_codigo = 9;
+                    break;
+                } else {
+                    $estado_actual_codigo = 7;
+                }
+            }
+        }
 
         $no_guia = $json_decode['noGuia'];
         $this->model->cambiarEstado($no_guia, $estado_actual_codigo);
