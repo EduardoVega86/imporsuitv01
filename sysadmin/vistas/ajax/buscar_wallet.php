@@ -175,6 +175,9 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
         if ($numrows > 0) { {
             ?>
+
+
+
                 <form id="filter-form">
                     <label for="fecha">Fecha:</label>
                     <input type="date" name="fecha" id="fecha">
@@ -218,7 +221,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <th class="text-center">Monto a recibir</th>
                                 <th class="text-center">Valor cobrado</th>
                                 <th class="text-center">Valor pendiente</th>
-
+                                <th class="text-center">Recibos</th>
                                 <th colspan="3"></th>
                             </tr>
                         </thead>
@@ -227,6 +230,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             <?php
                             while ($row = mysqli_fetch_array($query)) {
                                 $id_factura = $row['numero_factura'];
+                                $id_cabecera = $row['id_cabecera'];
                                 $fecha = date('d/m/Y', strtotime($row['fecha']));
                                 $nombre_cliente = $row['cliente'];
                                 $tienda = $row[4];
@@ -317,6 +321,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $valor_cobrado; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $valor_pendiente; ?></td>
+                                    <td class="text-center"><button class="btn btn-sm btn-outline-primary" onclick="cargar_recibos('<?php echo $id_cabecera ?>')"><i class="ti-receipt"></i></button></td>
 
                                 </tr>
 

@@ -68,7 +68,24 @@ permisos($modulo, $cadena_permisos);
                                                     </span>
                                                 </div>
 
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="recibos" tabindex="-1" aria-labelledby="recibosLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="recibosLabel">Recibos</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div id="resultados_recibo"></div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                             </div>
                                             <div class="col-md-4">
@@ -153,6 +170,20 @@ permisos($modulo, $cadena_permisos);
             },
             error: function(error) {
                 console.error('Error en la petición Ajax:', error);
+            }
+        });
+    }
+
+    function cargar_recibos(id_cabecera) {
+        $.ajax({
+            type: "POST",
+            url: "../ajax/recibos.php",
+            data: "id_cabecera_cpp=" + id_cabecera,
+            beforeSend: function(objeto) {
+                $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            },
+            success: function(datos) {
+                $("#resultados_recibos").html(datos);
             }
         });
     }
