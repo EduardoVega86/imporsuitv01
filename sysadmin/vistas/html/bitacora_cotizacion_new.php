@@ -161,6 +161,8 @@ $ventas = 1;
             result["novedades"].forEach(element => {
                 if (element["codigoTipoNovedad"] == 42 || element["codigoTipoNovedad"] == 96) {
                     resultado["estado_codigo"] = 9;
+                    //sale del ciclo
+                    return false;
                 } else {
                     resultado["estado_codigo"] = 7;
                 }
