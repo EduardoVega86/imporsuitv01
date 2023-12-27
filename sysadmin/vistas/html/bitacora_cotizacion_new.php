@@ -162,7 +162,8 @@ $ventas = 1;
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script>
-    async function validar_laar(guia, page) {
+    async function validar_laar(guia, cot, guia) {
+        console.log(cot);
         let data = await fetch('https://api.laarcourier.com:9727/guias/' + guia, {
             method: 'GET',
         })
@@ -191,7 +192,8 @@ $ventas = 1;
                 "estado": resultado["estado_codigo"]
             },
         })
-
+        let url_descarga = "https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=" + guia;
+        let url_VISTA = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" + guia;
         $.ajax({
             url: "../ajax/guardar_guia_new.php",
             type: "POST",
@@ -200,6 +202,67 @@ $ventas = 1;
                 "estado": resultado["estado_codigo"]
             },
             success: function(data) {
+                const estado_laar = document.querySelector("#estados_laar_" + cot);
+                let color_badge = ""
+
+                if (resultado["estado_codigo"] == 1) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-danger'><span> Anulado</span></a><BR>`;
+                } else if (resultado["estado_codigo"] == 2) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-purple'>Por recolectar</a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia}</span> </a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 3) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-purple'><span>Recolectado</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia} </span></a>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 4) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-purple'><span>En bodega</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"> <span>${guia}</span> </a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 5) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-warning'><span>En Transito</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia} </span></a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 6) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-purple'><span>Zona de Entrega</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"> <span>${guia}</span> </a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 7) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-purple'><span>Entregado</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"> <span>${guia}</span> </a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 8) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-danger'><span>Anulado</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"> <span>${guia}</span> </a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 9) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-danger'><span>Devolucion</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"> <span>${guia}</span> </a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 10) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-purple'><span>Facturado</span></a><BR> `
+                    color_badge += `<a href='${url_descarga}' target="blank"> <span>${guia}</span> </a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+                } else if (resultado["estado_codigo"] == 12) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-warning'><span>En Transito</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia} </span></a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 14) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-danger'><span>Con Novedad</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia}</span> </a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                }
+                estado_laar.innerHTML = color_badge;
 
             }
         });
