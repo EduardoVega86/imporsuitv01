@@ -42,7 +42,7 @@ $ventas = 1;
                         <div class="portlet">
                             <div class="portlet-heading bg-primary">
                                 <h3 class="portlet-title">
-                                    Bítacora de Cotización
+                                    Bitacora de Cotizacion
                                 </h3>
                                 <div class="portlet-widgets">
                                     <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
@@ -99,16 +99,7 @@ $ventas = 1;
                                                     </span>
                                                 </div>
 
-                                                <div class="input-group">
-                                                    <label for="numero_q">Número de facturas a ver:</label>
-                                                    <select onchange="buscar_numero(this.value)" name="numero_q" class="form-control" id="numero_q">
-                                                        <option value="10"> 10 </option>
-                                                        <option value="20"> 20 </option>
-                                                        <option value="50"> 50 </option>
-                                                        <option value="100"> 100 </option>
 
-                                                    </select>
-                                                </div>
 
                                             </div>
                                             <div class="col-md-4">
@@ -120,7 +111,16 @@ $ventas = 1;
                                     <div class="datos_ajax_delete"></div><!-- Datos ajax Final -->
                                     <div class='outer_div'></div><!-- Carga los datos ajax -->
 
+                                    <div class="input-group">
+                                        <label for="numero_q">Número de facturas a ver:</label>
+                                        <select onchange="buscar_numero(this.value)" name="numero_q" class="form-control" id="numero_q">
+                                            <option value="10"> 10 </option>
+                                            <option value="20"> 20 </option>
+                                            <option value="50"> 50 </option>
+                                            <option value="100"> 100 </option>
 
+                                        </select>
+                                    </div>
 
                                 </div>
                             </div>
@@ -175,7 +175,7 @@ $ventas = 1;
                     //sale del ciclo
                     return false;
                 } else {
-                    resultado["estado_codigo"] = 7;
+                    resultado["estado_codigo"] = result["estadoActualCodigo"];
                 }
             });
         } else {
