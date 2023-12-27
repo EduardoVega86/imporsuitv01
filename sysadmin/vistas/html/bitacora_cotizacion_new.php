@@ -84,7 +84,7 @@ $ventas = 1;
                                                         <?php
 
                                                         //echo "select * from estado_guia";
-                                                        $query_categoria = mysqli_query($conexion, "select * from estado_courier");
+                                                        $query_categoria = mysqli_query($conexion, "select * from estado_courier where codigo IN (1,2,3,4,5,6,7,8,9,10,14);");
                                                         while ($rw = mysqli_fetch_array($query_categoria)) {
                                                         ?>
                                                             <option value="<?php echo $rw['codigo']; ?>"><?php echo $rw['alias']; ?></option>
@@ -162,7 +162,7 @@ $ventas = 1;
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script>
-    async function validar_laar(guia) {
+    async function validar_laar(guia, page) {
         let data = await fetch('https://api.laarcourier.com:9727/guias/' + guia, {
             method: 'GET',
         })
@@ -184,6 +184,15 @@ $ventas = 1;
         resultado["noGuia"] = result["noGuia"];
 
         $.ajax({
+            url: "./bitacora_cotizacion_new.php",
+            type: "POST",
+            data: {
+                "guia": resultado["noGuia"],
+                "estado": resultado["estado_codigo"]
+            },
+        })
+
+        $.ajax({
             url: "../ajax/guardar_guia_new.php",
             type: "POST",
             data: {
@@ -194,6 +203,7 @@ $ventas = 1;
 
             }
         });
+
     }
 </script>
 <script type="text/javascript" src="../../js/bitacora_cotizacion_new.js"></script>
