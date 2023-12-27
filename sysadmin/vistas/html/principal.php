@@ -165,6 +165,30 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
               </div>
 
             </div>
+            <div class="col-lg-6">
+              <div class="card-box">
+                <h5 class="text-dark  header-title m-t-0 m-b-30">Grafica</h5>
+
+                <div class="widget-chart text-center">
+                  <div class='row'>
+                    <div class='col-md-4'>
+                      <select class="form-control" id="periodo" onchange="drawVisualization();">
+                        <?php
+                        for ($anio = (date("Y")); 2016 <= $anio; $anio--) {
+                          echo "<option value=" . $anio . ">Período:" . $anio . "</option>";
+                        }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div id="chart_div3" style="height: 300px;"></div>
+
+                </div>
+              </div>
+
+            </div>
+
+
 
 
           </div>
@@ -440,6 +464,37 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
     var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
     google.visualization.events.addListener(chart, 'error', errorHandler);
     chart.draw(data, options);
+  }
+
+  function drawVisualization3() {
+    var jsonData = $.ajax({
+      url: 'comparativa3.php',
+      data: {
+        'action': 'ajax'
+      },
+      dataType: 'json',
+      async: false
+    }).responseText;
+
+    // Carga la librería de Google Charts
+    google.charts.load('current', {
+      'packages': ['corechart']
+    });
+
+    // Llama a la función para dibujar el gráfico de pastel cuando la librería esté lista
+    google.charts.setOnLoadCallback(function() {
+      // Convierte los datos a un objeto DataTable
+      var data = google.visualization.arrayToDataTable(response);
+
+      // Opciones del gráfico de pastel
+      var options = {
+        title: 'Distribución de estados de guías de envío',
+      };
+
+      // Crea y dibuja el gráfico de pastel en el elemento con ID 'chart_div'
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    });
   }
 </script>
 
