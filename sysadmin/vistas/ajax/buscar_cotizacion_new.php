@@ -309,12 +309,8 @@ if ($action == 'ajax') {
                                                     echo "Estado no reconocido";
                                             }
                                             if ($guia_numero != '') {
-                                            ?>
-                                <script>
-                                    $test = validar_laar('<?php echo $guia_numero; ?>')
-                                </script>
-                                <?php
-                                                echo $test;
+                                                echo "<script> validar_laar('" . $guia_numero . "', '" . $page . "')</script>";
+
                                                 if ($drogshipin == 3 || $drogshipin == 4) {
                                                     $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
 
@@ -400,7 +396,7 @@ if ($action == 'ajax') {
 
                                             if ($estado_guia_for) {
                                                 if ($traking != '') {
-                                ?>
+                                            ?>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
                                     <?php
