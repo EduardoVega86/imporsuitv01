@@ -34,9 +34,11 @@ if (
 }
 $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
+if (isset($_POST['estado'])) {
+    $XD = $_POST['estado'];
 
-
-
+    echo $XD;
+}
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
@@ -248,7 +250,7 @@ if ($action == 'ajax') {
                         <td><?php echo $telefono; ?></td>
 
                         <td><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
-                        <td style="max-width: 270px;"><?php echo $direccion; ?></td>
+                        <td style="max-width: 220px;"><?php echo $direccion; ?></td>
 
                         <td align="center"><?php
                                             // echo $drogshipin;
@@ -258,7 +260,6 @@ if ($action == 'ajax') {
 
                                                         $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                                                         $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-                                                        echo "<script> validar_laar('" . $guia_numero . "')</script>";;
                                                     } else {
                                                         $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
                                                         $url = ''; // O asignar un valor específico para el caso sin guía
@@ -270,7 +271,6 @@ if ($action == 'ajax') {
 
                                                         $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                                                         $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-                                                        echo "<script> validar_laar('" . $guia_numero . "')</script>";;
 
                                                         // echo $url;
                                                     } else {
@@ -286,7 +286,6 @@ if ($action == 'ajax') {
                                                     if ($validar != '') {
                                                         $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
                                                         $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-                                                        echo "<script> validar_laar('" . $guia_numero . "')</script>";;
                                                     } else {
                                                         $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
                                                         $url = ''; // O asignar un valor específico para el caso sin guía
@@ -299,7 +298,6 @@ if ($action == 'ajax') {
                                                     if ($validar != '') {
                                                         $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
                                                         $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-                                                        echo "<script> validar_laar('" . $guia_numero . "')</script>";;
                                                     } else {
                                                         $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
                                                         $url = ''; // O asignar un valor específico para el caso sin guía
@@ -311,8 +309,12 @@ if ($action == 'ajax') {
                                                     echo "Estado no reconocido";
                                             }
                                             if ($guia_numero != '') {
-
-
+                                            ?>
+                                <script>
+                                    $test = validar_laar('<?php echo $guia_numero; ?>')
+                                </script>
+                                <?php
+                                                echo $test;
                                                 if ($drogshipin == 3 || $drogshipin == 4) {
                                                     $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
 
@@ -398,7 +400,7 @@ if ($action == 'ajax') {
 
                                             if ($estado_guia_for) {
                                                 if ($traking != '') {
-                                            ?>
+                                ?>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
                                     <?php
