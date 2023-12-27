@@ -7,7 +7,7 @@ if ($action == 'ajax') {
     //Archivo de funciones PHP
     include "../funciones.php";
 
-    $sql_guias = "SELECT estado_guia FROM guia_laar where guia_laar !='' group by estado_guia";
+    $sql_guias = "SELECT estado_guia FROM guia_laar where guia_laar !=''";
 
     $query_guias = mysqli_query($conexion, $sql_guias);
 
@@ -64,11 +64,11 @@ if ($action == 'ajax') {
         array('Por recolectar', $por_recolectar),
         array('Recolectado', $recolectado),
         array('En bodega', $en_bodega),
-        array('En tránsito', $en_transito),
+        array('En tr谩nsito', $en_transito),
         array('Zona de entrega', $zona_entrega),
         array('Entregado', $entregado),
         array('Anulado', $anulado),
-        array('Devolución', $devolucion),
+        array('Devoluci贸n', $devolucion),
         array('Facturado', $facturado),
         array('Novedad', $novedad),
     );
