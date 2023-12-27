@@ -145,7 +145,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $q = mysqli_real_escape_string($conexion_db, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
         $sTable = "cabecera_cuenta_pagar, facturas_cot";
         $sWhere = "";
-        $sWhere .= " WHERE  cabecera_cuenta_pagar.tienda = '$dominio_completo' and cabecera_cuenta_pagar.numero_factura=facturas_cot.numero_factura GROUP BY cabecera_cuenta_pagar.numero_factura";
+        $sWhere .= " WHERE  cabecera_cuenta_pagar.tienda = '$dominio_completo' and cabecera_cuenta_pagar.numero_factura=facturas_cot.numero_factura ";
         if ($_GET['q'] != "") {
             $sWhere .= "";
         }
