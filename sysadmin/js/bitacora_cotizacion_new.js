@@ -72,7 +72,12 @@ function load(page) {
       numero;
   } else {
     url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" + page + "&q=" + q;
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&numero=" +
+      numero;
   }
   $("#loader").fadeIn("slow");
   $.ajax({
