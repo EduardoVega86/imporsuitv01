@@ -216,9 +216,12 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com" || 
                                 require_once "../php_conexion_destino_guia.php";
 
                                 $query_provee = mysqli_query($conexion_destino, $sql_provee);
-
                                 $data = mysqli_fetch_assoc($query_provee);
+
                                 $proveedor = $data['tienda'];
+                                $proveedor = str_replace('https://', '', $proveedor);
+                                $proveedor = str_replace('http://', '', $proveedor);
+                                $proveedor = str_replace('.imporsuit.com', '', $proveedor);
                             } else {
                                 echo "Error al copiar el archivo";
                             }
@@ -234,6 +237,9 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com" || 
                             echo "Estado no reconocido";
                     }
                     list($año, $hora, $apm) = explode(" ", $fecha);
+                    $tienda = str_replace('https://', '', $tienda);
+                    $tienda = str_replace('http://', '', $tienda);
+                    $tienda = str_replace('.imporsuit.com', '', $tienda);
 
                     ?>
                     <tr class="align-middle">
