@@ -413,6 +413,7 @@ else {
     //header("Location: ../gracias.php");
 // SI TODO ESTA CORRECTO
 //echo 'funciona';
+    
 echo '<script>window.location.href = "sysadmin/vistas/html/bitacora_cotizacion_new.php";</script>';
 }
     ?>
