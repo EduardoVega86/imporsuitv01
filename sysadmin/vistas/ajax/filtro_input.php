@@ -7,6 +7,11 @@ require_once "../db.php";
 require_once "../php_conexion.php";
 require_once "../funciones.php";
 $user_id = $_SESSION['id_users'];
+
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+
+$dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
+
 include "../permisos.php";
 get_cadena($user_id);
 $modulo = "Wallets";
@@ -54,6 +59,7 @@ if (!$resultados) {
 $htmlResultados = "";
 
 while ($row = mysqli_fetch_assoc($resultados)) {
+    $id_cabecera = $row['id_cabecera'];
     $id_factura = $row['numero_factura'];
     $numero_factura = $row['numero_factura'];
     $fecha = date('d/m/Y', strtotime($row['fecha']));
@@ -65,6 +71,12 @@ while ($row = mysqli_fetch_assoc($resultados)) {
     $monto_recibir = $row['monto_recibir'];
     $estado_factura = $row['estado_pedido'];
 
+    $guia_enviada = $row['guia_enviada'];
+    $valor_cobrado = $row['valor_cobrado'];
+    $valor_pendiente = $row['valor_pendiente'];
+    $id_factura_origen = $row['id_factura_origen'];
+
+    $guia_laar = "select guia_laar from guia_laar where tienda_venta ='$dominio_completo' AND id_pedido = '$id_factura_origen'";
 
     if ($estado_factura == 1) {
         $text_estado = "INGRESADA";
@@ -114,10 +126,18 @@ while ($row = mysqli_fetch_assoc($resultados)) {
 
     $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
+    if ($valor_pendiente == 0) {
+        $color_row = "table-success";
+    } elseif ($valor_pendiente < 0) {
+        $color_row = "table-danger";
+    } else {
+        $color_row = "table-warning";
+    }
 
-
-    $htmlResultados .= "<tr>";
+    $htmlResultados .= "<tr class='" . $color_row . "'>";
     $htmlResultados .= "<td class='text-center'><label class='badge badge-purple'>" . $id_factura . "</label></td>";
+    $htmlResultados .= "<td class='text-center'><label class='badge badge-pink'>" . $guia_laar . "</label></td>";
+
     $htmlResultados .= "<td class='text-center'>" . $fecha . "</td>";
     $htmlResultados .= "<td class='text-center'>" . $nombre_cliente . "</td>";
     $htmlResultados .= "<td class='text-center'>" . $tienda . "</td>";
@@ -126,23 +146,9 @@ while ($row = mysqli_fetch_assoc($resultados)) {
     $htmlResultados .= "<td class='text-center'>" . $simbolo_moneda . $costo . "</td>";
     $htmlResultados .= "<td class='text-center'>" . $simbolo_moneda . $precio_envio . "</td>";
     $htmlResultados .= "<td class='text-center'>" . $simbolo_moneda . $monto_recibir . "</td>";
-    $htmlResultados .= "<td class='text-center'>
-    <div class='btn-group dropdown'>
-        <button type='button' class='btn btn-warning btn-sm dropdown-toggle waves-effect waves-light' data-toggle='dropdown' aria-expanded='false'> <i class='fa fa-cog'></i> <i class='caret'></i> </button>
-        <div class='dropdown-menu dropdown-menu-right'>
-            <?php if ($permisos_editar == 1) { ?>
-                <a class='dropdown-item' href='editar_wallet.php?id_factura=$numero_factura'><i class='fa fa-edit'></i> Editar</a>
-                <!--a class='dropdown-item' href='#' onclick='imprimir_factura('<?php echo $numero_factura; ?>');'><i class='fa fa-print'></i> Imprimir</a-->
-            <?php }
-            if ($permisos_eliminar == 1) { ?>
-                <!--<a class='dropdown-item' href='#' data-toggle='modal' data-target='#dataDelete' data-id='$numero_factura'; ?>'><i class='fa fa-trash'></i> Eliminar</a>-->
-            <?php } ?>
-
-
-        </div>
-    </div>
-
-</td>";
+    $htmlResultados .= "<td class='text-center'>" . $simbolo_moneda . $valor_cobrado . "</td>";
+    $htmlResultados .= "<td class='text-center'>" . $simbolo_moneda . $valor_pendiente . "</td>";
+    $htmlResultados .= "<td class='text-center'><button class='btn btn-sm btn-outline-primary' onclick='cargar_recibos('" . $id_cabecera . "')'><i class='ti-receipt'></i></button></td>";
     $htmlResultados .= "</tr>";
 
     // ... (agrega más columnas según tu estructura de base de datos)
