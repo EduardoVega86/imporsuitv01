@@ -78,7 +78,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         foreach ($query as $row) {
                             $tienda = $row[0];
 
-                            $total_venta_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' GROUP BY numero_factura ) as subquery;";
+                            $total_venta_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' and visto = '1' GROUP BY numero_factura ) as subquery;";
 
                             $query_total_venta = mysqli_query($conexion, $total_venta_sql);
                             $row_total_venta = mysqli_fetch_array($query_total_venta);
@@ -168,7 +168,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         //loop through fetched data
 
-        $total_pendiente_a_la_tienda_sql = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo'";
+        $total_pendiente_a_la_tienda_sql = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' and visto = '1'";
         $query_total_pendiente_a_la_tienda = mysqli_query($conexion_db, $total_pendiente_a_la_tienda_sql);
         $row_total_pendiente_a_la_tienda = mysqli_fetch_array($query_total_pendiente_a_la_tienda);
         $total_pendiente_a_la_tienda = $row_total_pendiente_a_la_tienda['total_pendiente_a_la_tienda'];
