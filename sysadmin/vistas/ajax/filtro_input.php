@@ -77,6 +77,9 @@ while ($row = mysqli_fetch_assoc($resultados)) {
     $id_factura_origen = $row['id_factura_origen'];
 
     $guia_laar = "select guia_laar from guia_laar where tienda_venta ='$dominio_completo' AND id_pedido = '$id_factura_origen'";
+    $guia_laar_query = mysqli_query($conexion, $guia_laar);
+    $guia_laar_sql = mysqli_fetch_array($guia_laar_query);
+    $guia_laar = $guia_laar_sql['guia_laar'];
 
     if ($estado_factura == 1) {
         $text_estado = "INGRESADA";
