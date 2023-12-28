@@ -475,7 +475,7 @@ GROUP BY tienda;";
                 // echo $sql;
 
                 $insert      = mysqli_query($conexion, $sql);
-                $ultimo_id = mysqli_insert_id($conexion_destino);
+                $ultimo_id = mysqli_insert_id($conexion);
 
                 if (
                     isset($_SERVER['HTTPS']) &&
