@@ -216,9 +216,12 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com" || 
                                 require_once "../php_conexion_destino_guia.php";
 
                                 $query_provee = mysqli_query($conexion_destino, $sql_provee);
-
                                 $data = mysqli_fetch_assoc($query_provee);
+
                                 $proveedor = $data['tienda'];
+                                $proveedor = str_replace('https://', '', $proveedor);
+                                $proveedor = str_replace('http://', '', $proveedor);
+                                $proveedor = str_replace('.imporsuit.com', '', $proveedor);
                             } else {
                                 echo "Error al copiar el archivo";
                             }
@@ -234,15 +237,18 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com" || 
                             echo "Estado no reconocido";
                     }
                     list($año, $hora, $apm) = explode(" ", $fecha);
+                    $tienda = str_replace('https://', '', $tienda);
+                    $tienda = str_replace('http://', '', $tienda);
+                    $tienda = str_replace('.imporsuit.com', '', $tienda);
 
                     ?>
                     <tr class="align-middle">
                         <td class="align-middle"><input type="checkbox" name="item" id="<?php echo $id_factura; ?>"></td>
                         <td class="align-middle text-center"><label class='badge badge-purple'><?php echo $numero_factura; ?></label><br><span class="fs-xs"><?php echo $tipo_venta_m; ?></span> </td>
                         <td class="text-center align-middle"><span><?php echo $año; ?></span> <br><span><?php echo $hora . " " . $apm; ?> </span></td>
-                        <td class="align-middle"> <button class="btn btn-sm btn-outline-primary"> Ver detalle</button> </td>
+                        <td class="align-middle"> <button onclick="ver_detalle_cot('<?php echo $numero_factura ?>')" class="btn btn-sm btn-outline-primary"> Ver detalle</button> </td>
 
-                        <td style="max-width: 220px;" class="text-center align-middle fs-7"><span class="text-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
+                        <td style="max-width: 220px;" class="text-center align-middle fs-7"><span class="font-weight-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
                         <td class="text-center align-middle"><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
                         <td class="text-center align-middle"><?php echo $tienda; ?></td>
                         <td class="text-center align-middle"><?php echo $proveedor; ?></td>

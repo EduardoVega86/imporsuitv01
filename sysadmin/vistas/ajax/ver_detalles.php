@@ -7,7 +7,7 @@ parse_str($data, $datos);
 require_once "../db.php";
 require_once "../php_conexion.php";
 
-$numero_factura = $datos['numero_factura'];
+$numero_factura = $datos['id_cabecera'];
 
 $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura'";
 
@@ -20,7 +20,8 @@ $sql = "SELECT pagos.*
 FROM cabecera_cuenta_pagar cabecera
 JOIN detalle_cuenta_pagar detalle ON cabecera.id_cabecera = detalle.id_cabecera_cpp
 JOIN pagos pagos ON detalle.id_pago = pagos.id_pago
-WHERE cabecera.numero_factura = '$numero_factura';";
+WHERE cabecera.id_cabecera = '$cabecera';";
+
 $query = mysqli_query($conexion, $sql);
 
 

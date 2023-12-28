@@ -328,3 +328,24 @@ function buscar_numero(numero) {
     },
   });
 }
+
+function ver_detalle_cot(numero_factura) {
+  // alert(numero_factura)
+  var parametros = {
+    action: "ajax",
+    numero_factura: numero_factura,
+  };
+  $.ajax({
+    url: "../ajax/ver_detalle_cot.php",
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $("#loader").html("");
+      $("#modal_cot").html(data);
+      $("#modal_cot").modal("show");
+      $;
+    },
+  });
+}
