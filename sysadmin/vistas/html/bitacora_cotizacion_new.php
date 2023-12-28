@@ -162,7 +162,7 @@ $ventas = 1;
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script>
-    async function validar_laar(guia, cot, guia) {
+    async function validar_laar(guia, cot) {
         console.log(cot);
         let data = await fetch('https://api.laarcourier.com:9727/guias/' + guia, {
             method: 'GET',
@@ -200,6 +200,10 @@ $ventas = 1;
             data: {
                 "guia": resultado["noGuia"],
                 "estado": resultado["estado_codigo"]
+            },
+            beforeSend: function(objeto) {
+
+                $("#estados_laar_" + cot).html('<img src="../../img/ajax-loader.gif"> Cargando...');
             },
             success: function(data) {
                 const estado_laar = document.querySelector("#estados_laar_" + cot);
