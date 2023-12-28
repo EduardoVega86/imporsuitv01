@@ -337,6 +337,7 @@ function ver_detalle_cot(numero_factura) {
   };
   $.ajax({
     url: "../ajax/ver_detalle_cot.php",
+
     data: parametros,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
@@ -344,7 +345,7 @@ function ver_detalle_cot(numero_factura) {
     success: function (data) {
       $("#loader").html("");
       $("#modal_cot").html(data);
-      $("#modal_cot").modal("show");
+      $("#Modal").modal("show");
       $;
     },
   });

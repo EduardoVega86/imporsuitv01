@@ -222,6 +222,7 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com" || 
                                 $proveedor = str_replace('https://', '', $proveedor);
                                 $proveedor = str_replace('http://', '', $proveedor);
                                 $proveedor = str_replace('.imporsuit.com', '', $proveedor);
+                                mysqli_close($conexion_destino);
                             } else {
                                 echo "Error al copiar el archivo";
                             }
