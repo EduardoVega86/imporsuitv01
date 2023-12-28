@@ -28,11 +28,12 @@ $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['pag
 $per_page = 10; //how much records you want to show
 $adjacents  = 4; //gap between pages after number of adjacents
 $offset = ($page - 1) * $per_page;
-
+$marketplace_urlCon = "imporsuit_marketplace";
+$marketplace_serverPlace    = mysqli_connect('localhost', $marketplace_urlCon, $marketplace_urlCon, $marketplace_urlCon);
 //Count the total number of row in your table*/
-$count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM cabecera_cuenta_pagar");
+$count_query = mysqli_query($marketplace_serverPlace, "SELECT count(*) AS numrows FROM cabecera_cuenta_pagar");
 if (!$count_query) {
-    die('Error en la consulta: ' . mysqli_error($conexion));
+    die('Error en la consulta: ' . mysqli_error($marketplace_serverPlace));
 }
 $row = mysqli_fetch_array($count_query);
 $numrows = $row['numrows'];
@@ -44,10 +45,10 @@ $reload = '../reportes/wallet.php';
 $sql .= " LIMIT $offset,$per_page";
 
 
-$resultados = mysqli_query($conexion, $sql);
+$resultados = mysqli_query($marketplace_serverPlace, $sql);
 
 if (!$resultados) {
-    die('Error en la consulta: ' . mysqli_error($conexion));
+    die('Error en la consulta: ' . mysqli_error($marketplace_serverPlace));
 }
 // Construye el HTML de la tabla de resultados
 $htmlResultados = "";
