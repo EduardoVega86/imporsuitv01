@@ -333,10 +333,10 @@ function ver_detalle_cot(numero_factura) {
   // alert(numero_factura)
   var parametros = {
     action: "ajax",
-    type: "POST",
     numero_factura: numero_factura,
   };
   $.ajax({
+    type: "POST",
     url: "../ajax/ver_detalle_cot.php",
 
     data: parametros,
