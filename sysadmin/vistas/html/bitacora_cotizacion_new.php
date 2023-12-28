@@ -251,7 +251,17 @@ $ventas = 1;
                     color_badge = `<a href='${url_descarga}' class='badge badge-purple'><span>Facturado</span></a><BR> `
                     color_badge += `<a href='${url_descarga}' target="blank"> <span>${guia}</span> </a><BR>`
                     color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+                } else if (resultado["estado_codigo"] == 11) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-warning'><span>En Transito</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia} </span></a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
                 } else if (resultado["estado_codigo"] == 12) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-warning'><span>En Transito</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia} </span></a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 13) {
                     color_badge = `<a href='${url_descarga}' class='badge badge-warning'><span>En Transito</span></a><BR>`
                     color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia} </span></a><BR>`
                     color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
