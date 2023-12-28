@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
@@ -206,23 +207,27 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com" || 
                             $tipo_venta_m = 'DROPSHIPPING';
                             $sql_provee = "SELECT * FROM facturas_cot WHERE id_factura='" . $id_factura_origen . "'";
                             $prove_temp = $tienda;
-                            $prove_temp = str_replace("https://", "", $prove_temp);
-                            $prove_temp = str_replace("http://", "", $prove_temp);
-                            $prove_temp = str_replace(".imporsuit.com", "", $prove_temp);
-                            $prove_temp = "imporsuit_" . $prove_temp;
-                            $pass_temp = $prove_temp;
-                            if ($prove_temp == 'imporsuit_imporshop') {
-                                $pass_temp = 'E?c7Iij&885Y';
+
+                            $archivo_tienda = $prove_temp . '/sysadmin/vistas/db1.php';
+                            $archivo_destino_tienda = "../db_destino_guia.php";
+                            $contenido_tienda = file_get_contents($archivo_tienda);
+                            if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+                                $sql_provee = "SELECT * FROM facturas_cot WHERE id_factura='" . $id_factura_origen . "'";
+                                require_once "../php_conexion_destino_guia.php";
+
+                                $query_provee = mysqli_query($conexion_destino, $sql_provee);
+
+                                $data = mysqli_fetch_assoc($query_provee);
+                                $proveedor = $data['tienda'];
+                            } else {
+                                echo "Error al copiar el archivo";
                             }
-                            $conexion_a_proveedor = mysqli_connect('localhost', $prove_temp, $pass_temp, $prove_temp);
-                            $proveedor = mysqli_query($conexion_a_proveedor, $sql_provee);
-                            $proveedor = mysqli_fetch_array($proveedor);
-                            $proveedor = $proveedor['tienda'];
+
                             break;
 
                         case 4:
                             $tipo_venta_m = 'LOCAL';
-
+                            $proveedor = $tienda;
                             break;
 
                         default:
@@ -237,7 +242,7 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com" || 
                         <td class="text-center align-middle"><span><?php echo $año; ?></span> <br><span><?php echo $hora . " " . $apm; ?> </span></td>
                         <td class="align-middle"> <button class="btn btn-sm btn-outline-primary"> Ver detalle</button> </td>
 
-                        <td style="max-width: 220px;" class="text-center align-middle fs-xs"><span> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo $telefono; ?></span></td>
+                        <td style="max-width: 220px;" class="text-center align-middle fs-7"><span class="text-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
                         <td class="text-center align-middle"><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
                         <td class="text-center align-middle"><?php echo $tienda; ?></td>
                         <td class="text-center align-middle"><?php echo $proveedor; ?></td>
