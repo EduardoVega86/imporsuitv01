@@ -28,10 +28,14 @@ print_r($rw);
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Detalles de factura</h4>
             </div>
-            <div class="modal-body">
-                <div>
+            <div class="modal-body relative">
+                <div class="fs-7">
                     <span>Orden para: <?php echo $rw["nombre"] ?></span> <br>
                     <span>Dirección: <?php echo $rw["c_principal"] . " " . $rw["c_secundaria"] . " - " . $provincia  ?></span>
+                    <span>Teléfono: <?php echo $rw["telefono"] ?></span>
+                </div>
+                <div class="absolute rigth-0">
+                    <span># Orden: <?php echo $rw["numero_factura"] ?></span>
                 </div>
             </div>
             <div class="modal-footer">

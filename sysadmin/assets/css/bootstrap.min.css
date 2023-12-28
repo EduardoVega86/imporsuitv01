@@ -6814,6 +6814,25 @@ button.close {
     }
 }
 
+
+.top-0 {
+    top: 0;
+}
+
+.right-0 {
+    right: 0;
+}
+
+.bottom-0 {
+    bottom: 0;
+}
+
+.left-0 {
+    left: 0;
+}
+
+
+
 .tooltip {
     position: absolute;
     z-index: 1070;
@@ -7119,6 +7138,14 @@ button.close {
     position: relative;
     width: 100%;
     overflow: hidden
+}
+
+.relative {
+    position: relative !important
+}
+
+.absolute {
+    position: absolute !important
 }
 
 .carousel-item {
