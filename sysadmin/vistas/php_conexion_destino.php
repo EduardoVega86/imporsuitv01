@@ -1,7 +1,7 @@
 <?php
 # conectare la base de datos
 //echo 'asd';
- $cadena_json = file_get_contents('sysadmin/vistas/db_destino.php');
+$cadena_json = file_get_contents('sysadmin/vistas/db_destino.php');
 $info = json_decode($cadena_json, true);
 // Verifica si la decodificación fue exitosa
 if ($info !== null) {
@@ -11,14 +11,12 @@ if ($info !== null) {
     $DB_PASS = $info['DB_PASS'];
     $DB_NAME = $info['DB_NAME'];
     //echo $DB_NAME;
-    $host_d=$DB_HOST;
-    $user_d=$DB_USER;
-    $pass_d=$DB_PASS;
-    $base_d=$DB_NAME;
+    $host_d = $DB_HOST;
+    $user_d = $DB_USER;
+    $pass_d = $DB_PASS;
+    $base_d = $DB_NAME;
 } else {
     echo "Error al decodificar el JSON.";
-    
-  
 }
 
 $conexion_destino = @mysqli_connect($host_d, $user_d, $pass_d, $base_d);
