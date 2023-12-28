@@ -58,7 +58,7 @@ if ($action == 'ajax') {
         }
     }
 
-
+            
     $datos_pastel = array(
         array('Estado', 'Cantidad'),
         array('Por recolectar', $por_recolectar),
