@@ -64,11 +64,11 @@ if ($action == 'ajax') {
         array('Por recolectar', $por_recolectar),
         array('Recolectado', $recolectado),
         array('En bodega', $en_bodega),
-        array('En tr谩nsito', $en_transito),
+        array('En tránsito', $en_transito),
         array('Zona de entrega', $zona_entrega),
         array('Entregado', $entregado),
         array('Anulado', $anulado),
-        array('Devoluci贸n', $devolucion),
+        array('Devolución', $devolucion),
         array('Facturado', $facturado),
         array('Novedad', $novedad),
     );
