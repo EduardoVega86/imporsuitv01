@@ -1240,8 +1240,11 @@ mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_pro
 mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Atalaya ','2502',2); ");
 mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Padre Abad ','2503',2); ");
 mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Purús','2504',2); ");
- 
-    
+
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `impreso` TINYINT NULL AFTER `id_factura_origen`;");
+mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `id_transporte` INT NOT NULL DEFAULT '1' AFTER `estado_guia`;");
+
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
