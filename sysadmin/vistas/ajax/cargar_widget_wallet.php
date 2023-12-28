@@ -12,7 +12,7 @@ include "../permisos.php";
 //Archivo de funciones PHP
 require_once "../funciones.php";
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
-$valor_total_tienda_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente, SUM(subquery.total_cobrado) as total_cobrado FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente, MAX(valor_cobrado) as total_cobrado FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' GROUP BY numero_factura ) as subquery;";
+$valor_total_tienda_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente, SUM(subquery.total_cobrado) as total_cobrado FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente, MAX(valor_cobrado) as total_cobrado FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' AND visto = '1' GROUP BY numero_factura ) as subquery;";
 $valor_total_tienda_query = mysqli_query($conexion, $valor_total_tienda_sql);
 
 $valor_total_tienda_SQL = mysqli_fetch_array($valor_total_tienda_query);
