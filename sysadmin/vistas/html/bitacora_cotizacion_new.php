@@ -104,6 +104,7 @@ $ventas = 1;
                                             </div>
                                             <div class="col-md-4">
                                                 <span id="loader"></span>
+                                                <span id="modal_cot"></span>
                                             </div>
 
                                         </div>
