@@ -18,13 +18,13 @@ $modulo = "Wallets";
 permisos($modulo, $cadena_permisos);
 // Construye la consulta SQL con los filtros
 if ($estado == 0 && $fechaInicio != "" && $fechaFin != "") {
-    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE fecha BETWEEN '$fechaInicio' AND '$fechaFin'";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE fecha BETWEEN '$fechaInicio' AND '$fechaFin' AND tienda = '$dominio_completo'";
 } else if ($estado != 0 && $fechaInicio != "" && $fechaFin != "") {
-    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE fecha BETWEEN '$fechaInicio' AND '$fechaFin' AND estado_pedido = '$estado'";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE fecha BETWEEN '$fechaInicio' AND '$fechaFin' AND estado_pedido = '$estado' AND tienda = '$dominio_completo'";
 } else if ($estado != 0 && $fechaInicio == "" && $fechaFin == "") {
-    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE estado_pedido = '$estado'";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE estado_pedido = '$estado' AND tienda = '$dominio_completo'";
 } else if ($estado == 0 && $fechaInicio == "" && $fechaFin == "") {
-    $sql = "SELECT * FROM cabecera_cuenta_pagar";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo'";
 }
 
 include 'pagination.php'; //include pagination file
@@ -76,10 +76,8 @@ while ($row = mysqli_fetch_assoc($resultados)) {
     $valor_pendiente = $row['valor_pendiente'];
     $id_factura_origen = $row['id_factura_origen'];
 
-    $guia_laar = "select guia_laar from guia_laar where tienda_venta ='$dominio_completo' AND id_pedido = '$id_factura_origen'";
-    $guia_laar_query = mysqli_query($marketplace_serverPlace, $guia_laar);
-    $guia_laar_sql = mysqli_fetch_array($guia_laar_query);
-    $guia_laar = $guia_laar_sql['guia_laar'];
+    $guia_laar = $row['guia_laar'];
+
 
     if ($estado_factura == 1) {
         $text_estado = "INGRESADA";
