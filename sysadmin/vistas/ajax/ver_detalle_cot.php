@@ -16,6 +16,19 @@ $query = mysqli_query($conexion, $sql);
 $rw = mysqli_fetch_array($query);
 $provincia = get_row("provincia_laar", "provincia", "codigo_provincia", $rw["provincia"]);
 print_r($rw);
+if (
+    isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+) {
+    $protocol = 'https://';
+} else {
+    $protocol = 'http://';
+}
+$dominio_actual = $protocol . $_SERVER['HTTP_HOST'];
+echo $dominio_actual;
+
 ?>
 
 
@@ -34,8 +47,25 @@ print_r($rw);
                     <span>Dirección: <?php echo $rw["c_principal"] . " " . $rw["c_secundaria"] . " - " . $provincia  ?></span>
                     <span>Teléfono: <?php echo $rw["telefono"] ?></span>
                 </div>
-                <div class="absolute rigth-0">
+                <div class="absolute right-1 top-1">
                     <span># Orden: <?php echo $rw["numero_factura"] ?></span>
+                    <span>Fecha: <?php echo $rw["fecha_factura"] ?></span>
+                    <?php if ($rw["guia_enviada"] == 1) {
+                        if ($dominio_actual == "https://marketplace.imporsuit.com") {
+                            $transportista = get_row("guia_laar", "id_transporte", "tienda ='" . $rw["tienda"] . "' and id_factura", $rw["id_factura_origen"]);
+                        } else {
+                            $transportista = get_row("guia_laar", "id_transporte", "tienda ='" . $rw["tienda"] . "' and id_factura", $rw["id_factura"]);
+                        }
+
+                        if ($transportista == 1) {
+                            $transportista = "Laar Courier";
+                        } else {
+                            $transportista = "Motorizado";
+                        }
+                    ?>
+                        <span>Compañia de envío: <?php echo $transportista ?></span>
+
+                    <?php } ?>
                 </div>
             </div>
             <div class="modal-footer">
