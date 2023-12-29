@@ -7776,6 +7776,13 @@ a.bg-inverse:hover {
     }
 }
 
+.flex {
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important
+}
+
 .flex-first {
     -webkit-box-ordinal-group: 0;
     -webkit-order: -1;
