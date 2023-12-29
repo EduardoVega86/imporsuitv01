@@ -1,5 +1,20 @@
 <?php
+function actualizar_stock_tienda($id_producto, $cantidad)
+{
+           if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $conexion_destino = new mysqli('localhost', 'root', '', 'master');
+} else {
+    $conexion_destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+}
 
+   // echo "select $row from $table where $id='$equal'";
+   $sql2    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_producto . "'");
+   $rw      = mysqli_fetch_array($sql2);
+        $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
+        $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
+        $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
+        
+}
 
 function get_row($table, $row, $id, $equal)
 {

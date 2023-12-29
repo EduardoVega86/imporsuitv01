@@ -218,9 +218,15 @@ if ($image_path == null) {
            echo 'VUELVA A IMPORTAR EL PRODUCTO';
        }
     }else{
-        
+      if($drogshipin==3){
+          
+      }else{  
      echo stock($stock_producto);
     }
+    }
+    
+        
+    
                     ?></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($costo_producto, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_mayoreo, 2); ?></span></td>
@@ -243,7 +249,15 @@ if ($image_path == null) {
                    <?php
                     
                         
-                    }?>
+                    }else{
+                        if ($tienda=='enviado'){
+                            
+                         ?>  
+                     <a class="" href="../ajax/actualizar_market.php?id=<?php echo $id_producto; ?>&stock=<?php echo $stock_producto; ?>"  > <img style="width: 40px" src="../../img_sistema/actualizar_nube.png" alt=""/></a>   
+                          <?php
+                        }
+                    }
+?>
                     </td>
                     <?php
                     
