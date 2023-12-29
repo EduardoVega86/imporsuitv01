@@ -26,7 +26,7 @@ $valor_total_monto_recibir = $valor_total_tienda_SQL['monto_recibir'];
 <div class="col-lg-12 col-md-6">
     <div class="card-box widget-icon">
         <div>
-            <i class="mdi mdi-briefcase-check text-primary"></i>
+            <i class="mdi mdi-basket-check-outline text-primary"></i>
             <div class="wid-icon-info text-right">
                 <p class="text-muted m-b-5 font-13 font-bold text-uppercase">MONTO DE VENTA</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($valor_total_tienda, 2); ?></h4>
