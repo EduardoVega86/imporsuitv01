@@ -168,10 +168,14 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         //loop through fetched data
 
-        $total_pendiente_a_la_tienda_sql = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' and visto = '1'";
+        $total_pendiente_a_la_tienda_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente, SUM(subquery.total_cobrado) as total_cobrado, SUM(subquery.monto_recibir) as monto_recibir FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente, MAX(valor_cobrado) as total_cobrado, MAX(monto_recibir) as monto_recibir FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' AND visto = '1' GROUP BY numero_factura ) as subquery;";
         $query_total_pendiente_a_la_tienda = mysqli_query($conexion_db, $total_pendiente_a_la_tienda_sql);
         $row_total_pendiente_a_la_tienda = mysqli_fetch_array($query_total_pendiente_a_la_tienda);
-        $total_pendiente_a_la_tienda = $row_total_pendiente_a_la_tienda['total_pendiente_a_la_tienda'];
+
+        $valor_total_tienda = $row_total_pendiente_a_la_tienda['total_ventas'];
+        $total_valor_cobrado = $row_total_pendiente_a_la_tienda['total_cobrado'];
+        $total_valor_pendiente = $row_total_pendiente_a_la_tienda['total_pendiente'];
+        $total_monto_recibir = $row_total_pendiente_a_la_tienda['monto_recibir'];
 
         if ($numrows > 0) { {
             ?>
@@ -192,6 +196,40 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
                     <button class="btn btn-outline-primary" type="button" onclick="filterData()">Filtrar</button>
                 </form>
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-basket text-primary"></i>
+                            <div class="wid-icon-info text-right">
+                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">MONTO DE VENTA</p>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($valor_total_tienda, 2); ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-briefcase-check text-primary"></i>
+                            <div class="wid-icon-info text-right">
+                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($total_monto_recibir, 2); ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-cash-multiple text-success"></i>
+                            <div class="wid-icon-info text-right">
+                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($total_valor_cobrado, 2); ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-lg-12 col-md-6">
                     <div class="card-box widget-icon">
@@ -199,7 +237,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             <i class="mdi mdi-store text-danger "></i>
                             <div class="wid-icon-info text-right">
                                 <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
-                                <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_pendiente_a_la_tienda, 2); ?></h4>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_valor_pendiente, 2); ?></h4>
                             </div>
                         </div>
                     </div>
