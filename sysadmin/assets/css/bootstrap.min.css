@@ -7998,29 +7998,13 @@ a.bg-inverse:hover {
     align-self: stretch !important
 }
 
-.flex {
-    display: flex;
+.grid-cot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-content: space-between;
+    gap: 2em;
 }
 
-.flex-shrink {
-    flex-shrink: 1;
-}
-
-.flex-grow {
-    flex-grow: 1;
-}
-
-.flex-row {
-    flex-direction: row;
-}
-
-.flex-row-reverse {
-    flex-direction: row-reverse;
-}
-
-.flex-col {
-    flex-direction: column;
-}
 
 .flex-col-reverse {
     flex-direction: column-reverse;
