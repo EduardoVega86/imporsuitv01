@@ -41,20 +41,22 @@ echo $dominio_actual;
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Detalles de factura</h4>
             </div>
-            <div class="modal-body relative">
+            <div class="modal-body flex-row">
                 <div class="fs-7">
                     <span>Orden para: <?php echo $rw["nombre"] ?></span> <br>
                     <span>Dirección: <?php echo $rw["c_principal"] . " " . $rw["c_secundaria"] . " - " . $provincia  ?></span>
                     <span>Teléfono: <?php echo $rw["telefono"] ?></span>
                 </div>
-                <div class="absolute right-1 top-1">
-                    <span># Orden: <?php echo $rw["numero_factura"] ?></span>
-                    <span>Fecha: <?php echo $rw["fecha_factura"] ?></span>
+                <div class="">
+                    <span># Orden: <?php echo $rw["numero_factura"] ?></span> <br>
+                    <span>Fecha: <?php echo $rw["fecha_factura"] ?></span> <br>
                     <?php if ($rw["guia_enviada"] == 1) {
                         if ($dominio_actual == "https://marketplace.imporsuit.com") {
-                            $transportista = get_row("guia_laar", "id_transporte", "tienda ='" . $rw["tienda"] . "' and id_factura", $rw["id_factura_origen"]);
+                            $transportista = get_row("guia_laar", "id_transporte", "tienda_venta ='" . $rw["tienda"] . "' and id_pedido", $rw["id_factura_origen"]);
+                            $cod = get_row("guia_laar", "cod", "tienda_venta ='" . $rw["tienda"] . "' and id_pedido", $rw["id_factura_origen"]);
                         } else {
-                            $transportista = get_row("guia_laar", "id_transporte", "tienda ='" . $rw["tienda"] . "' and id_factura", $rw["id_factura"]);
+                            $transportista = get_row("guia_laar", "id_transporte", "tienda_venta ='" . $dominio_actual . "' and id_pedido", $rw["id_factura"]);
+                            $cod = get_row("guia_laar", "cod", "tienda_venta ='" . $dominio_actual . "' and id_pedido", $rw["id_factura"]);
                         }
 
                         if ($transportista == 1) {
@@ -63,9 +65,18 @@ echo $dominio_actual;
                             $transportista = "Motorizado";
                         }
                     ?>
-                        <span>Compañia de envío: <?php echo $transportista ?></span>
+                        <span>Compañia de envío: <?php echo $transportista ?></span> <br>
 
-                    <?php } ?>
+                        <span>Tipo de envio: <?php if ($cod == 1) {
+                                                    echo "Con recaudo";
+                                                } else {
+                                                    echo "Sin recaudo";
+                                                } ?> </span>
+                    <?php } else {
+                        echo "<span>Compañia de envío: Guia no enviada</span> <br>";
+                        echo "<span>Tipo de envio: Guia no enviada</span>";
+                    } ?>
+
                 </div>
             </div>
             <div class="modal-footer">
