@@ -7999,10 +7999,11 @@ a.bg-inverse:hover {
 }
 
 .grid-cot {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    place-content: space-between;
+    display: flex;
     gap: 2em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
 }
 
 

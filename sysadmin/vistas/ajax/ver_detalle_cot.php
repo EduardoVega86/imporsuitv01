@@ -10,7 +10,7 @@ require_once "../php_conexion.php";
 require_once "../funciones.php";
 
 $numero_factura = $datos['numero_factura'];
-$sql = "SELECT * from facturas_cot fc inner join detalle_fact_cot dc on fc.id_factura = dc.id_factura where fc.numero_factura = '$numero_factura'";
+$sql = "SELECT * from facturas_cot fc inner join detalle_fact_cot dc on fc.id_factura = dc.id_factura INNER join productos p on p.id_producto = dc.id_producto where fc.numero_factura = '$numero_factura'";
 
 $query = mysqli_query($conexion, $sql);
 $rw = mysqli_fetch_array($query);
@@ -41,13 +41,13 @@ echo $dominio_actual;
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Detalles de factura</h4>
             </div>
-            <div class="modal-body flex-row">
+            <div class="modal-body grid-cot">
                 <div class="fs-7">
                     <span>Orden para: <?php echo $rw["nombre"] ?></span> <br>
-                    <span>Dirección: <?php echo $rw["c_principal"] . " " . $rw["c_secundaria"] . " - " . $provincia  ?></span>
+                    <span>Dirección: <?php echo $rw["c_principal"] . " " . $rw["c_secundaria"] . " - " . $provincia  ?></span> <br>
                     <span>Teléfono: <?php echo $rw["telefono"] ?></span>
                 </div>
-                <div class="">
+                <div class="text-right">
                     <span># Orden: <?php echo $rw["numero_factura"] ?></span> <br>
                     <span>Fecha: <?php echo $rw["fecha_factura"] ?></span> <br>
                     <?php if ($rw["guia_enviada"] == 1) {
@@ -77,6 +77,28 @@ echo $dominio_actual;
                         echo "<span>Tipo de envio: Guia no enviada</span>";
                     } ?>
 
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Factura</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><?php echo $rw["numero_factura"] ?></td>
+                                <td><?php echo $rw["nombre_producto"] ?></td>
+                                <td><?php echo number_format(floatval($rw["cantidad"]), 2) ?></td>
+                                <td><?php echo number_format(floatval($rw["precio_venta"]), 2) ?></td>
+                                <td><?php echo number_format(floatval($rw["cantidad"] * $rw["precio_venta"]), 2) ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">
