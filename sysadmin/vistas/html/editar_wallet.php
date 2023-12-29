@@ -238,7 +238,7 @@ if (isset($_GET['id_factura'])) {
                                                             <label for="total_ventas">
                                                                 Costo
                                                             </label>
-                                                            <input type="text" name="costo" id="costo" class="form-control" value="<?php echo $costo; ?>">
+                                                            <input type="text" name="costoa" id="costoa" class="form-control" value="<?php echo $costo; ?>">
                                                         </div>
                                                         <div class="mb-3">
 
