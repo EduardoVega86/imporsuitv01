@@ -228,7 +228,31 @@ if ($image_path == null) {
         
     
                     ?></td>
-                    <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($costo_producto, 2); ?></span></td>
+                    <td><span class='pull-left'><?php
+                  
+                    if($drogshipin==1){
+                         $id_marketplace      = $row['id_marketplace'];
+                         if(isset($id_marketplace)){
+        $sql2    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_marketplace . "'");
+        $rw      = mysqli_fetch_array($sql2);
+       
+        $costo_market = $rw['costo_producto']; //Cantidad encontrada en el inventario
+       echo $costo_market;
+       }else{
+           echo 'VUELVA A IMPORTAR EL PRODUCTO';
+       }
+    }else{
+      if($drogshipin==3){
+          
+      }else{  
+      echo $simbolo_moneda . '' . number_format($costo_producto, 2);
+    }
+    }
+    
+        
+    
+                    ?>
+                   </span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_mayoreo, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_especial, 2); ?></span></td>
                     <td><span class='pull-left'><?php echo $simbolo_moneda . '' . number_format($precio_normal, 2); ?></span></td>
