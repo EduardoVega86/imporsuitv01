@@ -19,12 +19,14 @@ if (empty($_POST['quantity'])) {
     $tipo      = 1;
     guardar_historial($id_producto, $user_id, $fecha, $nota, $reference, $quantity, $tipo, $motivo);
     $update = agregar_stock($id_producto, $quantity);
+    
 
     //GURDAMOS LAS ENTRADAS EN EL KARDEX
     //$costo_producto = get_row('productos', 'moneda', 'id_perfil', 1);
     $sql_kardex  = mysqli_query($conexion, "select * from kardex where producto_kardex='" . $id_producto . "' order by id_kardex DESC LIMIT 1");
     $rww         = mysqli_fetch_array($sql_kardex);
     $costo       = $rww['costo_saldo'];
+    $tienda      = get_row('productos', 'tienda', 'id_producto', $id_producto);
     $saldo_total = $quantity * $costo;
     $cant_saldo  = $rww['cant_saldo'] + $quantity;
     //$nueva_cantidad = $cant_saldo - $cantidad;
@@ -32,6 +34,31 @@ if (empty($_POST['quantity'])) {
     $saldo_full     = ($rww['total_saldo'] + $saldo_total);
     $costo_promedio = ($rww['total_saldo'] + $saldo_total) / $cant_saldo;
     $tip            = 3;
+    
+    
+    if($tienda=='enviado'){
+     if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+) {
+    $protocol = 'https://';
+} else {
+    $protocol = 'http://';
+}
+$server_url = $protocol . $_SERVER['HTTP_HOST'];   
+
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $destino = new mysqli('localhost', 'root', '', 'master');
+} else {
+    $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+}
+
+$stock= get_row('productos', 'stock_producto', 'id_producto', $id_producto);
+ $update  = mysqli_query($destino, "update productos set stock_producto='$stock' where id_producto_origen='$id_producto' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
+                    
+    }
+    
     guardar_entradas($fecha, $id_producto, $quantity, $costo, $saldo_total, $cant_saldo, $costo_promedio, $saldo_full, $fecha, $user_id, $tip);
     if ($update) {
         $messages[] = "El Stock  ha sido ingresado satisfactoriamente.";
