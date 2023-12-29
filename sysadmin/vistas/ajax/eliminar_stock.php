@@ -52,7 +52,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
 }
 
 $stock= get_row('productos', 'stock_producto', 'id_producto', $id_producto);
- $update  = mysqli_query($destino, "update productos set stock_producto='$stock' where id_producto_origen='$id_producto' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
+ $update  = mysqli_query($destino, "update productos set stock_producto='$stock' where id_producto_origen='$id_producto' and tienda='$server_url' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
                     
     }
     
