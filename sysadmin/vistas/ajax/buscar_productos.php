@@ -237,7 +237,7 @@ if ($image_path == null) {
         $rw      = mysqli_fetch_array($sql2);
        
         $costo_market = $rw['costo_producto']; //Cantidad encontrada en el inventario
-       echo $costo_market;
+       echo $costo_market; 
        }else{
            echo 'VUELVA A IMPORTAR EL PRODUCTO';
        }
