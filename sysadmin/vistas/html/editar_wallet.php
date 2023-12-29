@@ -54,6 +54,8 @@ if (isset($_GET['id_factura'])) {
         $monto_recibir = $rw_factura['monto_recibir'];
         $fecha = $rw_factura['fecha'];
 
+
+
         if ($estado_factura == 1) {
             $text_estado = "INGRESADA";
             $label_class = 'badge-success';
@@ -233,6 +235,12 @@ if (isset($_GET['id_factura'])) {
                                                             <input type="text" name="total_ventas" id="total_ventas" class="form-control" value="<?php echo $total_ventass; ?>">
                                                         </div>
                                                         <div class="mb-3">
+                                                            <label for="total_ventas">
+                                                                Costo
+                                                            </label>
+                                                            <input type="text" name="total_ventas" id="total_ventas" class="form-control" value="<?php echo $costo; ?>">
+                                                        </div>
+                                                        <div class="mb-3">
 
                                                             <label for="precio">
                                                                 Precio de Envio
@@ -359,6 +367,7 @@ if (isset($_GET['id_factura'])) {
         e.preventDefault();
         var precio = $("#precio").val();
         var total_ventas = $("#total_ventas").val();
+        var costo = $("#costo").val();
         var id_factura = '<?php echo $id_factura; ?>';
         $.ajax({
             url: '../ajax/cambiar_precio.php',
@@ -366,6 +375,7 @@ if (isset($_GET['id_factura'])) {
             data: {
                 venta: total_ventas,
                 precio: precio,
+                costo: costo,
                 id_factura: id_factura
             },
             dataType: 'text',
