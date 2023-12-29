@@ -7,8 +7,10 @@ if (empty($_GET['id'])) {
     /* Connect To Database*/
     require_once "../db.php";
     require_once "../php_conexion.php";
+     require_once "../funciones.php";
     $id      = $_GET['id'];
     $stock     = $_GET['stock'];
+    $precio_mayor     = get_row('productos', 'valor2_producto', 'id_producto', $id);
     if (isset($_SERVER['HTTPS']) &&
     ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
     isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
@@ -34,7 +36,7 @@ $query_check_user_name = mysqli_query($conexion, $sql);
     $query_check_user      = mysqli_num_rows($query_check_user_name);
     if ($query_check_user == true) {
         while ($fila = $query_check_user_name->fetch_assoc()) { 
-                    $update  = mysqli_query($destino, "UPDATE productos SET stock_producto='" . $stock . "' WHERE id_producto_origen='" . $id . "' and inv_producto=0 and tienda='$server_url'"); //Actualizo la nueva cantidad en el inventario
+                    $update  = mysqli_query($destino, "UPDATE productos SET stock_producto='" . $stock . "', costo_producto='$precio_mayor' WHERE id_producto_origen='" . $id . "' and inv_producto=0 and tienda='$server_url'"); //Actualizo la nueva cantidad en el inventario
 header("Location: ../html/productos.php", TRUE, 301);
 exit;
         }

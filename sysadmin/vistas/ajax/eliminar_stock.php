@@ -28,10 +28,34 @@ if (empty($_POST['quantity_remove'])) {
     $id_producto = $rww['producto_kardex'];
     $costo_saldo = $rww['costo_saldo'];
     $cant_saldo  = $rww['cant_saldo'] - $quantity;
+    $tienda      = get_row('productos', 'tienda', 'id_producto', $id_producto);
     //$nueva_cantidad = $cant_saldo - $cantidad;
     $nuevo_saldo = $cant_saldo * $costo;
     $tip         = 4;
 
+     if($tienda=='enviado'){
+     if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+) {
+    $protocol = 'https://';
+} else {
+    $protocol = 'http://';
+}
+$server_url = $protocol . $_SERVER['HTTP_HOST'];   
+
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $destino = new mysqli('localhost', 'root', '', 'master');
+} else {
+    $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+}
+
+$stock= get_row('productos', 'stock_producto', 'id_producto', $id_producto);
+ $update  = mysqli_query($destino, "update productos set stock_producto='$stock' where id_producto_origen='$id_producto' and tienda='$server_url' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
+                    
+    }
+    
     guardar_salidas($fecha, $id_producto, $quantity, $costo, $saldo_total, $cant_saldo, $costo_saldo, $nuevo_saldo, $fecha, $user_id, $tip);
 // FIN
 

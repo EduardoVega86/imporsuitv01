@@ -39,6 +39,7 @@ if (empty($_POST['mod_id'])) {
     /* Connect To Database*/
     require_once "../db.php";
     require_once "../php_conexion.php";
+    require_once "../funciones.php";
     // escaping, additionally removing everything that could be (html/javascript-) code
     $codigo      = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_codigo"], ENT_QUOTES)));
     $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_nombre"], ENT_QUOTES)));
@@ -86,6 +87,30 @@ if (empty($_POST['mod_id'])) {
     $query_update = mysqli_query($conexion, $sql);
     if ($query_update) {
         $messages[] = "Producto ha sido actualizado satisfactoriamente.";
+         $tienda      = get_row('productos', 'tienda', 'id_producto', $id_producto);
+         if($tienda=='enviado'){
+     if (isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+) {
+    $protocol = 'https://';
+} else {
+    $protocol = 'http://';
+}
+$server_url = $protocol . $_SERVER['HTTP_HOST'];   
+
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+    $destino = new mysqli('localhost', 'root', '', 'master');
+} else {
+    $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+}
+
+$stock= get_row('productos', 'stock_producto', 'id_producto', $id_producto);
+ $update  = mysqli_query($destino, "update productos set stock_producto='$stock',costo_producto='$precio_mayoreo'  where id_producto_origen='$id_producto' and tienda='$server_url' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
+                    
+    }
+    
     } else {
         $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion);
     }
