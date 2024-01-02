@@ -84,7 +84,7 @@ $ventas = 1;
                                                         <?php
 
                                                         //echo "select * from estado_guia";
-                                                        $query_categoria = mysqli_query($conexion, "select * from estado_courier");
+                                                        $query_categoria = mysqli_query($conexion, "select * from estado_courier where codigo IN (1,2,3,4,5,6,7,8,9,10,14)");
                                                         while ($rw = mysqli_fetch_array($query_categoria)) {
                                                         ?>
                                                             <option value="<?php echo $rw['codigo']; ?>"><?php echo $rw['alias']; ?></option>
@@ -189,7 +189,9 @@ $ventas = 1;
             type: "POST",
             data: {
                 "guia": resultado["noGuia"],
-                "estado": resultado["estado_codigo"]
+                "estado": resultado["estado_codigo"],
+                "cot": cot
+
             },
         })
         let url_descarga = "https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=" + guia;
