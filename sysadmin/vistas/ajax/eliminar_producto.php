@@ -22,7 +22,7 @@ if (empty($_POST['id_producto'])) {
 ) {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $id_producto = intval($_POST['id_producto']);
-    $query       = mysqli_query($conexion, "select * from detalle_fact_ventas where id_producto='" . $id_producto . "'");
+    $query       = mysqli_query($conexion, "select * from detalle_fact_cot where id_producto='" . $id_producto . "'");
     $count       = mysqli_num_rows($query);
     if ($count == 0) {
         if ($delete1 = mysqli_query($conexion, "DELETE FROM productos WHERE id_producto='" . $id_producto . "'")) {
