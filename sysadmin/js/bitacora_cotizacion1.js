@@ -40,7 +40,7 @@ function load(page) {
 
   if (tienda != 0) {
     url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
@@ -50,7 +50,7 @@ function load(page) {
       numero;
   } else if (estado != 0) {
     url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
@@ -60,7 +60,7 @@ function load(page) {
       numero;
   } else if (tienda != 0 && estado != 0) {
     url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
@@ -72,7 +72,7 @@ function load(page) {
       numero;
   } else {
     url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
@@ -113,7 +113,7 @@ function buscar(tienda) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
       page +
       "&tienda=" +
       tienda +
@@ -154,7 +154,7 @@ function buscar_estado(estado) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
       page +
       "&estado=" +
       estado +
@@ -311,7 +311,7 @@ function buscar_numero(numero) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
       page +
       "&numero=" +
       numero +

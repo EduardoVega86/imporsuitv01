@@ -15,7 +15,7 @@ $sql = "SELECT * from facturas_cot fc inner join detalle_fact_cot dc on fc.id_fa
 $query = mysqli_query($conexion, $sql);
 $rw = mysqli_fetch_array($query);
 $provincia = get_row("provincia_laar", "provincia", "codigo_provincia", $rw["provincia"]);
-print_r($rw);
+
 if (
     isset($_SERVER['HTTPS']) &&
     ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
@@ -27,7 +27,7 @@ if (
     $protocol = 'http://';
 }
 $dominio_actual = $protocol . $_SERVER['HTTP_HOST'];
-echo $dominio_actual;
+
 
 ?>
 
