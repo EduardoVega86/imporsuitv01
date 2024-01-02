@@ -1,39 +1,56 @@
 <?php
 function actualizar_stock_tienda($id_producto, $cantidad)
 {
-           if ($_SERVER['HTTP_HOST'] == 'localhost') {
-    $conexion_destino = new mysqli('localhost', 'root', '', 'master');
-} else {
-    $conexion_destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
-}
+    if ($_SERVER['HTTP_HOST'] == 'localhost') {
+        $conexion_destino = new mysqli('localhost', 'root', '', 'master');
+    } else {
+        $conexion_destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+    }
 
-   // echo "select $row from $table where $id='$equal'";
-   $sql2    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_producto . "'");
-   $rw      = mysqli_fetch_array($sql2);
-        $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
-        $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
-        $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
-        
+    // echo "select $row from $table where $id='$equal'";
+    $sql2    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_producto . "'");
+    $rw      = mysqli_fetch_array($sql2);
+    $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
+    $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
+    $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
+
 }
 
 function get_row($table, $row, $id, $equal)
 {
     global $conexion;
-   // echo "select $row from $table where $id='$equal'";
-    $query = mysqli_query($conexion, "select $row from $table where $id='$equal'");
-    $rw    = mysqli_fetch_array($query);
-    $value = $rw[$row];
-    return $value;
+    // echo "select $row from $table where $id='$equal'";
+    try {
+
+        $query = mysqli_query($conexion, "select $row from $table where $id='$equal'");
+        $rw    = mysqli_fetch_array($query);
+        if ($rw == null) {
+            $value = 0;
+        } else {
+            $value = $rw[$row];
+        }
+        return $value;
+    } catch (Exception $e) {
+        echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+    }
 }
 
 function get_row_guia($table, $row, $id, $equal)
 {
-    global $conexion;
-    //echo "select $row from $table where $id=$equal";
-    $query = mysqli_query($conexion, "select $row from $table where $id=$equal");
-    $rw    = mysqli_fetch_array($query);
-    $value = $rw[$row];
-    return $value;
+    try {
+        global $conexion;
+        //echo "select $row from $table where $id=$equal";
+        $query = mysqli_query($conexion, "select $row from $table where $id=$equal");
+        $rw    = mysqli_fetch_array($query);
+        if ($rw == null) {
+            $value = 0;
+        } else {
+            $value = $rw[$row];
+        }
+        return $value;
+    } catch (Exception $e) {
+        echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+    }
 }
 
 function condicion($tipo)
@@ -152,7 +169,7 @@ function total_visitas()
 
 function total_pedidos()
 {
-     $id_moneda    = get_row('perfil', 'moneda', 'id_perfil', 1);
+    $id_moneda    = get_row('perfil', 'moneda', 'id_perfil', 1);
     $fecha_actual = date('Y-m-d');
     global $conexion;
     //---------------------------------------------------------------------------------------
@@ -250,13 +267,13 @@ function latest_order()
         list($Y, $m, $d)   = explode("-", $date);
         $fecha             = $d . "-" . $m . "-" . $Y;
         $total             = number_format($rw['monto_factura'], 2);
-        ?>
+?>
         <tr>
             <td><a href="editar_venta.php?id_factura=<?php echo $id_factura; ?>" data-toggle="tooltip" title="Ver Factura"><label class='badge badge-primary'><?php echo $numero_factura; ?></label></a></td>
             <td><?php echo $fecha; ?></td>
             <td class='text-left'><b><?php echo $id_moneda . '' . $total; ?></b></td>
         </tr>
-        <?php
+    <?php
 
     }
 }
@@ -266,31 +283,31 @@ function visitas()
     global $conexion;
     $id_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
-    $sql="select count(id) valor, pagina, fecha_hora from registros_visitas where pagina <> 'PRODUCTO' group by pagina UNION
+    $sql = "select count(id) valor, pagina, fecha_hora from registros_visitas where pagina <> 'PRODUCTO' group by pagina UNION
 select count(id) valor, productos.nombre_producto, fecha_hora from registros_visitas, productos where registros_visitas.id_producto=productos.id_producto and registros_visitas.id_producto <> 0 group by registros_visitas.ID_PRODUCTO
-order by valor desc"; 
+order by valor desc";
     //echo $sql;
     $sql = mysqli_query($conexion, "$sql");
     while ($rw = mysqli_fetch_array($sql)) {
         //$id_factura     = $rw['id'];
-      //  $numero_factura = $rw['numero_factura'];
+        //  $numero_factura = $rw['numero_factura'];
 
-       // $supplier_id       = $rw['id_cliente'];
-     //   $sql_s             = mysqli_query($conexion, "select nombre_cliente from clientes where id_cliente='" . $supplier_id . "'");
-     //   $rw_s              = mysqli_fetch_array($sql_s);
+        // $supplier_id       = $rw['id_cliente'];
+        //   $sql_s             = mysqli_query($conexion, "select nombre_cliente from clientes where id_cliente='" . $supplier_id . "'");
+        //   $rw_s              = mysqli_fetch_array($sql_s);
         $pagina     = $rw['pagina'];
         $date_added        = $rw['fecha_hora'];
         list($date, $hora) = explode(" ", $date_added);
         list($Y, $m, $d)   = explode("-", $date);
         $fecha             = $d . "-" . $m . "-" . $Y;
         $total             = $rw['valor'];
-        ?>
+    ?>
         <tr>
             <td><a href="#" data-toggle="tooltip" title=""><label class='badge badge-primary'><?php echo strtoupper($pagina); ?></label></a></td>
-           
+
             <td class='text-right'><b><?php echo $total; ?></b></td>
         </tr>
-        <?php
+    <?php
 
     }
 }
@@ -314,13 +331,13 @@ function ultimos_pedidos()
         list($Y, $m, $d)   = explode("-", $date);
         $fecha             = $d . "-" . $m . "-" . $Y;
         $total             = number_format($rw['monto_factura'], 2);
-        ?>
+    ?>
         <tr>
             <td><a href="editar_venta.php?id_factura=<?php echo $id_factura; ?>" data-toggle="tooltip" title="Ver Factura"><label class='badge badge-primary'><?php echo $numero_factura; ?></label></a></td>
             <td><?php echo $fecha; ?></td>
             <td class='text-left'><b><?php echo $id_moneda . '' . $total; ?></b></td>
         </tr>
-        <?php
+<?php
 
     }
 }
@@ -362,7 +379,6 @@ function guardar_historial($id_producto, $user_id, $fecha, $nota, $reference, $q
     $sql = "INSERT INTO historial_productos (id_historial, id_producto, id_users, fecha_historial, nota_historial, referencia_historial, cantidad_historial, tipo_historial)
   VALUES (NULL, '$id_producto', '$user_id', '$fecha', '$nota', '$reference', '$quantity','$tipo');";
     $query = mysqli_query($conexion, $sql);
-
 }
 function agregar_stock($id_producto, $quantity)
 {
@@ -373,7 +389,6 @@ function agregar_stock($id_producto, $quantity)
     } else {
         return 0;
     }
-
 }
 function eliminar_stock($id_producto, $quantity)
 {
@@ -384,7 +399,6 @@ function eliminar_stock($id_producto, $quantity)
     } else {
         return 0;
     }
-
 }
 /*--------------------------------------------------------------*/
 /* Control de KARDEX
@@ -395,17 +409,15 @@ function guardar_salidas($fecha, $id_producto, $cant_salida, $costo_salida, $tot
     $sql = "INSERT INTO kardex (fecha_kardex, producto_kardex, cant_salida, costo_salida, total_salida, cant_saldo, costo_saldo, total_saldo, added_kardex, users_kardex, tipo_movimiento)
   VALUES ('$fecha','$id_producto','$cant_salida','$costo_salida','$total_salida', '$cant_saldo','$costo_saldo','$total_saldo','$fecha_added','$users','$tipo');";
     $query = mysqli_query($conexion, $sql);
-
 }
 function guardar_entradas($fecha, $id_producto, $cant_entrada, $costo_entrada, $total_entrada, $cant_saldo, $costo_promedio, $total_saldo, $fecha_added, $users, $tipo)
 {
     global $conexion;
-    
+
     $sql = "INSERT INTO kardex (fecha_kardex, producto_kardex, cant_entrada, costo_entrada, total_entrada, cant_saldo, costo_saldo, total_saldo, added_kardex, users_kardex, tipo_movimiento)
   VALUES ('$fecha','$id_producto','$cant_entrada','$costo_entrada','$total_entrada', '$cant_saldo','$costo_promedio','$total_saldo','$fecha_added','$users','$tipo');";
-//echo $sql;
+    //echo $sql;
     $query = mysqli_query($conexion, $sql);
-
 }
 function formato($valor)
 {
@@ -420,7 +432,8 @@ function iva($sin_iva)
     return $con_iva;
 }
 
-function validar_clave2($clave) {
+function validar_clave2($clave)
+{
 
     if ($clave == "") {
         $verificado = false;
@@ -459,8 +472,9 @@ function validar_clave2($clave) {
 
     return $digito;
 }
-function generax($id){
-    
+function generax($id)
+{
+
     global $conexion;
     $id_factura = intval($id);
     $sql_count  = mysqli_query($conexion, "select * from facturas_ventas where id_factura='" . $id_factura . "'");
@@ -470,8 +484,8 @@ function generax($id){
         echo "<script>window.close();</script>";
         exit;
     }
-   // echo 'generax';
-   // echo $id;
+    // echo 'generax';
+    // echo $id;
     $sql_factura    = mysqli_query($conexion, "select * from facturas_ventas where id_factura='" . $id_factura . "'");
     $rw_factura     = mysqli_fetch_array($sql_factura);
     $xml_detalles = '<detalles>';
@@ -491,21 +505,21 @@ function generax($id){
     $totalesconimpuestos = 0;
     $totalessinimpuestos = 0;
     while ($data_productos = $query->fetch_assoc()) {
-        if($data_productos["iva"] == 1){
+        if ($data_productos["iva"] == 1) {
             $totalFactura = $data_productos['precioUnitario'] * $data_productos['cantidad'];
-            $totaliva += (($totalFactura / 1.12) * 12 ) / 100;
-            $iva = (($totalFactura / 1.12) * 12 ) / 100;
-            
+            $totaliva += (($totalFactura / 1.12) * 12) / 100;
+            $iva = (($totalFactura / 1.12) * 12) / 100;
+
             $codigoporcentaje = 2;
             $tarifa = 12.00;
             $baseimponible = $totalFactura - $iva;
-            $baseimponible = number_format($baseimponible,2);
+            $baseimponible = number_format($baseimponible, 2);
             $baseimponible = str_replace(',', '', $baseimponible);
             $totalesconimpuestos += $baseimponible;
-            $preciounitario = $data_productos['precioUnitario'] - (($data_productos['precioUnitario'] / 1.12) * 12 ) / 100;
-            $preciounitario = number_format($preciounitario,4);
+            $preciounitario = $data_productos['precioUnitario'] - (($data_productos['precioUnitario'] / 1.12) * 12) / 100;
+            $preciounitario = number_format($preciounitario, 4);
             $preciounitario = str_replace(',', '', $preciounitario);
-        }else{
+        } else {
             $iva = 0.00;
             $codigoporcentaje = 0;
             $tarifa = 0;
@@ -516,25 +530,25 @@ function generax($id){
             $valor =  number_format($data_productos['precioUnitario'], 2);
             $totalessinimpuestos += $baseimponible;
         }
-        if($data_productos["descripcion"] == ''){
+        if ($data_productos["descripcion"] == '') {
             $descripcion = 'sin descripcion';
-        }else{
+        } else {
             $descripcion = $data_productos["descripcion"];
         }
 
-        $iva = number_format($iva,2);
+        $iva = number_format($iva, 2);
         $iva = str_replace(',', '', $iva);
         $xml_detalles .= '<detalle>
         <codigoPrincipal>' . $data_productos["codigo"] . '</codigoPrincipal>
-        <codigoAuxiliar>' .$data_productos["codigo"]. '</codigoAuxiliar>
-        <descripcion>' .$descripcion . '</descripcion>
+        <codigoAuxiliar>' . $data_productos["codigo"] . '</codigoAuxiliar>
+        <descripcion>' . $descripcion . '</descripcion>
         <cantidad>' . $data_productos['cantidad'] . '</cantidad>
         <precioUnitario>' . $preciounitario . '</precioUnitario>            
         <descuento>0</descuento>
         <precioTotalSinImpuesto>' . $baseimponible  . '</precioTotalSinImpuesto>';
         $xml_detalles .= '<impuestos>';
-                
-                    $xml_detalles .= '
+
+        $xml_detalles .= '
                 <impuesto>
                     <codigo>2</codigo>
                     <codigoPorcentaje>' . $codigoporcentaje . '</codigoPorcentaje>
@@ -558,7 +572,7 @@ function generax($id){
     $totaliva = number_format($totaliva, 2);
     $totaliva = str_replace(',', '', $totaliva);
 
-    if($totaliva > 0 && $totalessinimpuestos > 0 ){
+    if ($totaliva > 0 && $totalessinimpuestos > 0) {
         $xml_totalconimpuestos = '<totalImpuesto>
                                     <codigo>2</codigo>
                                     <codigoPorcentaje>2</codigoPorcentaje>
@@ -571,14 +585,14 @@ function generax($id){
                                     <baseImponible>' . $totalessinimpuestos . '</baseImponible>
                                     <valor>0.00</valor>
                                  </totalImpuesto>';
-    }elseif($totaliva > 0){
+    } elseif ($totaliva > 0) {
         $xml_totalconimpuestos = '<totalImpuesto>
                                     <codigo>2</codigo>
                                     <codigoPorcentaje>2</codigoPorcentaje>
                                     <baseImponible>' . $totalesconimpuestos . '</baseImponible>
-                                    <valor>' . $totaliva. '</valor>
+                                    <valor>' . $totaliva . '</valor>
                                  </totalImpuesto>';
-    }else{
+    } else {
         $xml_totalconimpuestos = '<totalImpuesto>
                                     <codigo>2</codigo>
                                     <codigoPorcentaje>0</codigoPorcentaje>
@@ -588,10 +602,10 @@ function generax($id){
     }
     // Datos para el Encabezado del XML
     $query = mysqli_query($conexion, "SELECT * from perfil ORDER BY id_perfil DESC")
-    or die('error: ' . mysqli_error($conexion));
+        or die('error: ' . mysqli_error($conexion));
     $dataperfil = mysqli_fetch_assoc($query);
     //datos del cliente
-    $id_tipo_ambiente= $dataperfil['ambiente'];
+    $id_tipo_ambiente = $dataperfil['ambiente'];
     //$id_tipo_emision = $dataperfil['tipoEmision'];
     $id_tipo_emision = 1;
     $razon_social_empresa = $dataperfil['giro_empresa'];
@@ -633,7 +647,7 @@ function generax($id){
     //Cliente
     $id_cliente = $rw_factura['id_cliente'];
     $querycliente = mysqli_query($conexion, "SELECT * from clientes where id_cliente='" . $id_cliente . "'")
-    or die('error: ' . mysqli_error($conexion));
+        or die('error: ' . mysqli_error($conexion));
     $datacliente = mysqli_fetch_assoc($querycliente);
 
     $nombre_cliente = $datacliente['nombre_cliente'];
@@ -644,7 +658,7 @@ function generax($id){
     $clave = "" . date('dmY', strtotime($fecha_emision)) . "" . '01' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_factura, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision . "";
     $digito_verificador_clave = validar_clave2($clave);
     $clave_acceso = "" . date('dmY', strtotime($fecha_emision)) . "" . '01' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_factura, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision  . "" . $digito_verificador_clave . "";
-    
+
 
     $xml = '<?xml version="1.0" encoding="UTF-8"?>
     <factura id="comprobante" version="1.1.0">
@@ -666,22 +680,22 @@ function generax($id){
             <dirEstablecimiento>' . $direccion_sucursal . '</dirEstablecimiento>
             <obligadoContabilidad>NO</obligadoContabilidad>       
             <tipoIdentificacionComprador>' . $id_tipo_documento . '</tipoIdentificacionComprador>
-            <razonSocialComprador>'.$nombre_cliente.'</razonSocialComprador>
+            <razonSocialComprador>' . $nombre_cliente . '</razonSocialComprador>
             <identificacionComprador>0490041877001</identificacionComprador>
-            <direccionComprador>'.$direccion_cliente.'</direccionComprador>';
-            $xml.='<totalSinImpuestos>' . $valortotal . '</totalSinImpuestos>';
-            $xml .= '<totalDescuento>0</totalDescuento>';
-            
-            $xml .= '<totalConImpuestos> ';
-            $xml .= $xml_totalconimpuestos;
+            <direccionComprador>' . $direccion_cliente . '</direccionComprador>';
+    $xml .= '<totalSinImpuestos>' . $valortotal . '</totalSinImpuestos>';
+    $xml .= '<totalDescuento>0</totalDescuento>';
 
-            $xml .='</totalConImpuestos>        
+    $xml .= '<totalConImpuestos> ';
+    $xml .= $xml_totalconimpuestos;
+
+    $xml .= '</totalConImpuestos>        
             <propina>0.00</propina>        
             <importeTotal>' . $importetotal . '</importeTotal>
             <moneda>DOLAR</moneda>
             <pagos>
                 <pago>
-                    <formaPago>'.$formaPago.'</formaPago>
+                    <formaPago>' . $formaPago . '</formaPago>
                     <total>' . $importetotal . '</total>
                     <plazo>' . $plazoDias . '</plazo>
                     <unidadTiempo>Dias</unidadTiempo>
@@ -690,20 +704,21 @@ function generax($id){
             <valorRetIva>0.00</valorRetIva>
             <valorRetRenta>0.00</valorRetRenta>
         </infoFactura>';
-        $xml_detalles .= '</detalles>
+    $xml_detalles .= '</detalles>
         <infoAdicional>
-            <campoAdicional nombre="Direccion">'.$direccion_cliente.'</campoAdicional>
-            <campoAdicional nombre="Telefono">'.$telefono_cliente.'</campoAdicional>		
-            <campoAdicional nombre="Email">'.$email_cliente.'</campoAdicional>
+            <campoAdicional nombre="Direccion">' . $direccion_cliente . '</campoAdicional>
+            <campoAdicional nombre="Telefono">' . $telefono_cliente . '</campoAdicional>		
+            <campoAdicional nombre="Email">' . $email_cliente . '</campoAdicional>
         </infoAdicional>
     </factura>';
-    
+
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
-    fwrite($file, $xml.$xml_detalles);
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
+    fwrite($file, $xml . $xml_detalles);
 }
 
-function generaxmlliquidacion($id){
+function generaxmlliquidacion($id)
+{
     global $conexion;
     $id_liquidacion = intval($id);
     $sql_count  = mysqli_query($conexion, "select * from liquidacioncompra where id_factura='" . $id_liquidacion . "'");
@@ -726,41 +741,41 @@ function generaxmlliquidacion($id){
     $detallesProductos = array();
     $totalSinImpuestos = 0;
     while ($data_productos = $query->fetch_assoc()) {
-        if($data_productos["descripcion"] == ''){
+        if ($data_productos["descripcion"] == '') {
             $descripcion = 'sin descripcion';
-        }else{
+        } else {
             $descripcion = $data_productos["descripcion"];
         }
         $xml_detalles .= '<detalle>
-        <codigoPrincipal>' .$data_productos["codigo"]. '</codigoPrincipal>
-        <codigoAuxiliar>' .$data_productos["codigo"]. '</codigoAuxiliar>
-        <descripcion>' .$descripcion . '</descripcion>
+        <codigoPrincipal>' . $data_productos["codigo"] . '</codigoPrincipal>
+        <codigoAuxiliar>' . $data_productos["codigo"] . '</codigoAuxiliar>
+        <descripcion>' . $descripcion . '</descripcion>
         <cantidad>' . $data_productos['cantidad'] . '</cantidad>
-        <precioUnitario>' .number_format( $data_productos['precioUnitario'], 2) . '</precioUnitario>            
+        <precioUnitario>' . number_format($data_productos['precioUnitario'], 2) . '</precioUnitario>            
         <descuento>0.00</descuento>
         <precioTotalSinImpuesto>' . number_format($data_productos['precioUnitario'], 2)  . '</precioTotalSinImpuesto>';
         $xml_detalles .= '<impuestos>';
-                
-                      $xml_detalles .= '
+
+        $xml_detalles .= '
                   <impuesto>
                       <codigo>2</codigo>
                       <codigoPorcentaje>0</codigoPorcentaje>
                       <tarifa>0</tarifa>
-                      <baseImponible>' .number_format( $data_productos['precioUnitario'], 2)  . '</baseImponible>
+                      <baseImponible>' . number_format($data_productos['precioUnitario'], 2)  . '</baseImponible>
                       <valor>0</valor>
                   </impuesto></impuestos></detalle>
               ';
         $totalSinImpuestos +=  $data_productos['precioUnitario'];
-        
+
         //$totalSinImpuestostotal +=  $dataCitas['valortotal'];
     }
     $xml_detalles .= '</detalles>';
 
     // Datos para el Encabezado del XML
     $query = mysqli_query($conexion, "SELECT * from perfil ORDER BY id_perfil DESC")
-    or die('error: ' . mysqli_error($conexion));
+        or die('error: ' . mysqli_error($conexion));
     $dataperfil = mysqli_fetch_assoc($query);
-    $id_tipo_ambiente= $dataperfil['ambiente'];
+    $id_tipo_ambiente = $dataperfil['ambiente'];
     $id_tipo_emision = 1;
     $razon_social_empresa = $dataperfil['giro_empresa'];
     $nombre_comercial_empresa = $dataperfil['nombre_empresa'];
@@ -771,7 +786,7 @@ function generaxmlliquidacion($id){
     $codigo_establecimiento = $dataperfil['codigo_establecimiento'];
     $codigo_punto_emision = $dataperfil['codigo_punto_emision'];
     //$secuencial = $id_factura;
-    $secuencial = $id_liquidacion;   
+    $secuencial = $id_liquidacion;
     $direccion_empresa = $dataperfil['direccion'];
     //$fecha_emision = date('m/d/Y h:i:s a', time());
     $fecha_emision = date('m/d/Y h:i:s a', time());
@@ -787,7 +802,7 @@ function generaxmlliquidacion($id){
     $clave = "" . date('dmY', strtotime($fecha_emision)) . "" . '03' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_liquidacion, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision . "";
     $digito_verificador_clave = validar_clave2($clave);
     $clave_acceso = "" . date('dmY', strtotime($fecha_emision)) . "" . '03' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_liquidacion, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision  . "" . $digito_verificador_clave . "";
-    
+
     $xml = '<?xml version="1.0" encoding="UTF-8"?>
         <liquidacionCompra id="comprobante" version="1.0.0">
             <infoTributaria>
@@ -811,16 +826,16 @@ function generaxmlliquidacion($id){
                 <razonSocialProveedor>Alexandra</razonSocialProveedor>
                 <identificacionProveedor>0490041877001</identificacionProveedor>
                 <direccionProveedor>Call123</direccionProveedor>';
-                $xml.='<totalSinImpuestos>' . number_format($valortotal, 2) . '</totalSinImpuestos>
+    $xml .= '<totalSinImpuestos>' . number_format($valortotal, 2) . '</totalSinImpuestos>
                 <totalDescuento>0.00</totalDescuento>';
-                $xml .='<totalConImpuestos>
+    $xml .= '<totalConImpuestos>
                     <totalImpuesto>
                         <codigo>2</codigo>
                         <codigoPorcentaje>0</codigoPorcentaje>
                         <baseImponible>' . number_format($totalSinImpuestos, 2) . '</baseImponible>
                         <valor>0.00</valor>
                     </totalImpuesto>';
-                $xml .='</totalConImpuestos>
+    $xml .= '</totalConImpuestos>
                 <importeTotal>' . number_format($totalSinImpuestos, 2) . '</importeTotal>
                 <moneda>DOLAR</moneda>
                 <pagos>
@@ -830,20 +845,21 @@ function generaxmlliquidacion($id){
                     </pago>
                 </pagos>
             </infoLiquidacionCompra>';
-            $xml_detalles .= '
+    $xml_detalles .= '
             <infoAdicional>
                 <campoAdicional nombre="Direccion">direccion</campoAdicional>
                 <campoAdicional nombre="Telefono">telefono</campoAdicional>		
                 <campoAdicional nombre="Email">email</campoAdicional>
             </infoAdicional>
         </liquidacionCompra>';
-    
+
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
-    fwrite($file, $xml.$xml_detalles);
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
+    fwrite($file, $xml . $xml_detalles);
 }
 
-function generaxmlcredito($id){
+function generaxmlcredito($id)
+{
     global $conexion;
     $id_credito = intval($id);
     $sql_count  = mysqli_query($conexion, "select * from notacredito where id_factura='" . $id_credito . "'");
@@ -868,41 +884,41 @@ function generaxmlcredito($id){
     $totalSinImpuestos = 0;
 
     while ($data_productos = $query->fetch_assoc()) {
-        
-        if($data_productos["descripcion"] == ''){
+
+        if ($data_productos["descripcion"] == '') {
             $descripcion = 'sin descripcion';
-        }else{
+        } else {
             $descripcion = $data_productos["descripcion"];
         }
         $xml_detalles .= '<detalle>
         <codigoInterno>01</codigoInterno>
-        <descripcion>' .$descripcion . '</descripcion>
+        <descripcion>' . $descripcion . '</descripcion>
         <cantidad>' . $data_productos['cantidad'] . '</cantidad>
-        <precioUnitario>' .number_format( $data_productos['precioUnitario'], 2) . '</precioUnitario>            
+        <precioUnitario>' . number_format($data_productos['precioUnitario'], 2) . '</precioUnitario>            
         <descuento>0.00</descuento>
         <precioTotalSinImpuesto>' . number_format($data_productos['precioUnitario'], 2)  . '</precioTotalSinImpuesto>';
         $xml_detalles .= '<impuestos>';
-                
-                    $xml_detalles .= '
+
+        $xml_detalles .= '
                 <impuesto>
                     <codigo>2</codigo>
                     <codigoPorcentaje>0</codigoPorcentaje>
                     <tarifa>0</tarifa>
-                    <baseImponible>' .number_format( $data_productos['precioUnitario'], 2)  . '</baseImponible>
+                    <baseImponible>' . number_format($data_productos['precioUnitario'], 2)  . '</baseImponible>
                     <valor>0</valor>
                 </impuesto></impuestos></detalle>
             ';
         $totalSinImpuestos +=  $data_productos['precioUnitario'];
-        
+
         //$totalSinImpuestostotal +=  $dataCitas['valortotal'];
     }
     $xml_detalles .= '</detalles>';
 
     // Datos para el Encabezado del XML
     $query = mysqli_query($conexion, "SELECT * from perfil ORDER BY id_perfil DESC")
-    or die('error: ' . mysqli_error($conexion));
+        or die('error: ' . mysqli_error($conexion));
     $dataperfil = mysqli_fetch_assoc($query);
-    $id_tipo_ambiente= $dataperfil['ambiente'];
+    $id_tipo_ambiente = $dataperfil['ambiente'];
     $id_tipo_emision = $dataperfil['tipoEmision'];
     $razon_social_empresa = $dataperfil['giro_empresa'];
     $nombre_comercial_empresa = $dataperfil['nombre_empresa'];
@@ -914,7 +930,7 @@ function generaxmlcredito($id){
     $codigo_establecimiento = $dataperfil['codigo_establecimiento'];
     $codigo_punto_emision = $dataperfil['codigo_punto_emision'];
     //$secuencial = $id_factura;
-    $secuencial = $id_credito;   
+    $secuencial = $id_credito;
     $direccion_empresa = $dataperfil['direccion'];
     //$fecha_emision = date('m/d/Y h:i:s a', time());
     $fecha_emision = date('m/d/Y h:i:s a', time());
@@ -934,7 +950,7 @@ function generaxmlcredito($id){
     $clave = "" . date('dmY', strtotime($fecha_emision)) . "" . '04' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_credito, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision . "";
     $digito_verificador_clave = validar_clave2($clave);
     $clave_acceso = "" . date('dmY', strtotime($fecha_emision)) . "" . '04' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_credito, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision  . "" . $digito_verificador_clave . "";
-    
+
     $xml = '<?xml version="1.0" encoding="UTF-8"?>
         <notaCredito id="comprobante" version="1.0.0">
             <infoTributaria>
@@ -958,36 +974,37 @@ function generaxmlcredito($id){
                 <identificacionComprador>0490041877001</identificacionComprador>
                 <obligadoContabilidad>NO</obligadoContabilidad>
                 <codDocModificado>01</codDocModificado>
-                <numDocModificado>'.$numdocmod.'</numDocModificado>
-                <fechaEmisionDocSustento>'. $fechaemisiondocmodulo . '</fechaEmisionDocSustento>';
-                $xml.='<totalSinImpuestos>' . number_format($valortotal, 2) . '</totalSinImpuestos>';
-                $xml .= '<valorModificacion>' . number_format($valortotal, 2) . '</valorModificacion>
+                <numDocModificado>' . $numdocmod . '</numDocModificado>
+                <fechaEmisionDocSustento>' . $fechaemisiondocmodulo . '</fechaEmisionDocSustento>';
+    $xml .= '<totalSinImpuestos>' . number_format($valortotal, 2) . '</totalSinImpuestos>';
+    $xml .= '<valorModificacion>' . number_format($valortotal, 2) . '</valorModificacion>
                 <moneda>DOLAR</moneda>';
-                $xml .='<totalConImpuestos>
+    $xml .= '<totalConImpuestos>
                     <totalImpuesto>
                         <codigo>2</codigo>
                         <codigoPorcentaje>0</codigoPorcentaje>
                         <baseImponible>' . number_format($totalSinImpuestos, 2) . '</baseImponible>
                         <valor>0.00</valor>
                     </totalImpuesto>';
-                $xml .='</totalConImpuestos>        
+    $xml .= '</totalConImpuestos>        
                 <motivo>motivo</motivo>
             </infoNotaCredito>';
-            $xml_detalles .= '
+    $xml_detalles .= '
             <infoAdicional>
                 <campoAdicional nombre="Direccion">direccion</campoAdicional>
                 <campoAdicional nombre="Telefono">telefono</campoAdicional>		
                 <campoAdicional nombre="Email">email</campoAdicional>
             </infoAdicional>
         </notaCredito>';
-    
-    
+
+
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/NC_" . $id_credito . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysamin/vistas/xml/comprobantes/NC_" . $id_credito . ".xml", "w+");
-    fwrite($file, $xml.$xml_detalles);
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysamin/vistas/xml/comprobantes/NC_" . $id_credito . ".xml", "w+");
+    fwrite($file, $xml . $xml_detalles);
 }
 
-function generaxmldebito($id){
+function generaxmldebito($id)
+{
     global $conexion;
     $id_debito = intval($id);
     $sql_count  = mysqli_query($conexion, "select * from notadebito20 where id_factura='" . $id_debito . "'");
@@ -1008,43 +1025,43 @@ function generaxmldebito($id){
     $detallesProductos = array();
     $totalSinImpuestos = 0;
     $xml_impuestos = '';
-        $xml_impuestosfinal = '';
-        $xml_pagos = '';
-        $xml_motivos = '';
-        $vartot = 0;
-        $base = 0;
-        $res = 0;
-        while ($data_productos = $query->fetch_assoc()) {
-    
-            $base +=  $data_productos['precio_venta'];
-                $res = floatval($data_productos['precio_venta'] * 0.12);
-                $vartot += $res;
-                $temp = floatval($res + $data_productos['precio_venta']);
-                $xml_impuestos .= '<impuesto>
+    $xml_impuestosfinal = '';
+    $xml_pagos = '';
+    $xml_motivos = '';
+    $vartot = 0;
+    $base = 0;
+    $res = 0;
+    while ($data_productos = $query->fetch_assoc()) {
+
+        $base +=  $data_productos['precio_venta'];
+        $res = floatval($data_productos['precio_venta'] * 0.12);
+        $vartot += $res;
+        $temp = floatval($res + $data_productos['precio_venta']);
+        $xml_impuestos .= '<impuesto>
                                     <codigo>2</codigo>
                                     <codigoPorcentaje>2</codigoPorcentaje>
                                     <tarifa>12</tarifa>
-                                    <baseImponible>' . $data_productos['precio_venta'] .'</baseImponible>
-                                    <valor>' . $res .'</valor>
+                                    <baseImponible>' . $data_productos['precio_venta'] . '</baseImponible>
+                                    <valor>' . $res . '</valor>
                                 </impuesto>';
-                $xml_pagos .= '<pago>
+        $xml_pagos .= '<pago>
                                 <formaPago>01</formaPago>
                                 <total>' . $temp . '</total>
                                 <plazo>12</plazo>
                                 <unidadTiempo>Dias</unidadTiempo>
                             </pago>';
-                $xml_motivos .= '<motivo>
+        $xml_motivos .= '<motivo>
                                     <razon>' . $data_productos['descripcion_venta'] . '</razon>
                                     <valor>' . $data_productos['precio_venta'] . '</valor>
                                 </motivo>';
-        }
+    }
     //$xml_detalles .= '</detalles>';
 
     // Datos para el Encabezado del XML
     $query = mysqli_query($conexion, "SELECT * from perfil ORDER BY id_perfil DESC")
-    or die('error: ' . mysqli_error($conexion));
+        or die('error: ' . mysqli_error($conexion));
     $dataperfil = mysqli_fetch_assoc($query);
-    $id_tipo_ambiente= $dataperfil['ambiente'];
+    $id_tipo_ambiente = $dataperfil['ambiente'];
     $id_tipo_emision = $dataperfil['tipoEmision'];
     $razon_social_empresa = $dataperfil['giro_empresa'];
     $nombre_comercial_empresa = $dataperfil['nombre_empresa'];
@@ -1101,34 +1118,35 @@ function generaxmldebito($id){
             <codDocModificado>01</codDocModificado>
             <numDocModificado>' . $num_doc_modificado . '</numDocModificado>
             <fechaEmisionDocSustento>' . $fechaemisiondocmodulo . '</fechaEmisionDocSustento>';
-            $xml.='<totalSinImpuestos>' . number_format($total_sin_impuestos, 2) . '</totalSinImpuestos>
+    $xml .= '<totalSinImpuestos>' . number_format($total_sin_impuestos, 2) . '</totalSinImpuestos>
             <impuestos>';
 
-            $xml .= $xml_impuestos;
-            $total =  floatval($base + $res);
-            $xml .= '</impuestos>
+    $xml .= $xml_impuestos;
+    $total =  floatval($base + $res);
+    $xml .= '</impuestos>
             <valorTotal>' . $total . '</valorTotal>
             <pagos>';
-                $xml .= $xml_pagos;
-                $xml .= '</pagos>
+    $xml .= $xml_pagos;
+    $xml .= '</pagos>
         </infoNotaDebito>
         <motivos>';
-        $xml .= $xml_motivos;
-        $xml .= '</motivos>
+    $xml .= $xml_motivos;
+    $xml .= '</motivos>
         <infoAdicional>
             <campoAdicional nombre="Direccion">PRUEBAS </campoAdicional>
             <campoAdicional nombre="Telefono">pruebas@hotmail.com</campoAdicional>		
             <campoAdicional nombre="Email">022070995</campoAdicional>
         </infoAdicional>
     </notaDebito>';
-        
-        
+
+
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/ND_" . $id_debito . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/ND_" . $id_debito . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/ND_" . $id_debito . ".xml", "w+");
     fwrite($file, $xml);
 }
 
-function generaxmlguia($id){
+function generaxmlguia($id)
+{
     global $conexion;
     $id_guia = intval($id);
     $sql_count  = mysqli_query($conexion, "select * from guia where id_factura='" . $id_guia . "'");
@@ -1151,19 +1169,19 @@ function generaxmlguia($id){
     $detallesProductos = array();
     $totalSinImpuestos = 0;
     while ($data_productos = $query->fetch_assoc()) {
-    
-        if($data_productos["descripcion"] == ''){
+
+        if ($data_productos["descripcion"] == '') {
             $descripcion = 'sin descripcion';
-        }else{
+        } else {
             $descripcion = $data_productos["descripcion"];
         }
-        
+
         $xml_detalles .= '<detalle>
                                 <codigoInterno>Ccv</codigoInterno>
-                                <descripcion>' .$descripcion . '</descripcion>
+                                <descripcion>' . $descripcion . '</descripcion>
                                 <cantidad>' . $data_productos['cantidad'] . '</cantidad>
                         </detalle>';
-    
+
         //<precioUnitario>' .number_format( $data_productos['precioUnitario'], 2) . '</precioUnitario>            
         //<descuento>0.00</descuento>
         //<precioTotalSinImpuesto>' . number_format($data_productos['precioUnitario'], 2)  . '</precioTotalSinImpuesto>';
@@ -1179,16 +1197,16 @@ function generaxmlguia($id){
                   </impuesto></impuestos></detalle>
               ';
         $totalSinImpuestos +=  $data_productos['precioUnitario'];*/
-        
+
         //$totalSinImpuestostotal +=  $dataCitas['valortotal'];
     }
     $xml_detalles .= '</detalles>';
 
     // Datos para el Encabezado del XML
     $query = mysqli_query($conexion, "SELECT * from perfil ORDER BY id_perfil DESC")
-    or die('error: ' . mysqli_error($conexion));
+        or die('error: ' . mysqli_error($conexion));
     $dataperfil = mysqli_fetch_assoc($query);
-    $id_tipo_ambiente= $dataperfil['ambiente'];
+    $id_tipo_ambiente = $dataperfil['ambiente'];
     $id_tipo_emision = $dataperfil['tipoEmision'];
     $razon_social_empresa = $dataperfil['giro_empresa'];
     $nombre_comercial_empresa = $dataperfil['nombre_empresa'];
@@ -1197,8 +1215,8 @@ function generaxmlguia($id){
 
     //destinatario
     $id_cliente = $rw_factura['id_cliente'];
-    $querycliente = mysqli_query($conexion, "SELECT * from clientes where id_cliente='".$id_cliente."'")
-    or die('error: ' . mysqli_error($conexion));
+    $querycliente = mysqli_query($conexion, "SELECT * from clientes where id_cliente='" . $id_cliente . "'")
+        or die('error: ' . mysqli_error($conexion));
     $datacliente = mysqli_fetch_assoc($querycliente);
 
     $identificacionDestinatario = '0707061214';
@@ -1209,7 +1227,7 @@ function generaxmlguia($id){
     $codigo_establecimiento = $dataperfil['codigo_establecimiento'];
     $codigo_punto_emision = $dataperfil['codigo_punto_emision'];
     //$secuencial = $id_factura;
-    $secuencial = $id_guia;   
+    $secuencial = $id_guia;
     $direccion_empresa = $dataperfil['direccion'];
     //$fecha_emision = date('m/d/Y h:i:s a', time());
     $fecha_emision = date('m/d/Y h:i:s a', time());
@@ -1235,7 +1253,7 @@ function generaxmlguia($id){
     $clave = "" . date('dmY', strtotime($fecha_emision)) . "" . '06' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_guia, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision . "";
     $digito_verificador_clave = validar_clave2($clave);
     $clave_acceso = "" . date('dmY', strtotime($fecha_emision)) . "" . '06' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_guia, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision  . "" . $digito_verificador_clave . "";
-    
+
     $xml = '<?xml version="1.0" encoding="UTF-8"?>
     <guiaRemision id="comprobante" version="1.0.0">
         <infoTributaria>
@@ -1262,14 +1280,14 @@ function generaxmlguia($id){
             <fechaFinTransporte>' . $fechaFinTransporte . '</fechaFinTransporte>  
             <placa>' . $placa . '</placa>  
         </infoGuiaRemision>';
-        $xml.='<destinatarios>
+    $xml .= '<destinatarios>
                 <destinatario>
-                    <identificacionDestinatario>'.$identificacionDestinatario.'</identificacionDestinatario>
-                    <razonSocialDestinatario>'.$razonSocialDestinatario.'</razonSocialDestinatario>
-                    <dirDestinatario>'.$direccion_cliente.'</dirDestinatario>
-                    <motivoTraslado>'.$motivoTraslado.'</motivoTraslado>';
-                    $xml_detalles .=
-                '</destinatario>
+                    <identificacionDestinatario>' . $identificacionDestinatario . '</identificacionDestinatario>
+                    <razonSocialDestinatario>' . $razonSocialDestinatario . '</razonSocialDestinatario>
+                    <dirDestinatario>' . $direccion_cliente . '</dirDestinatario>
+                    <motivoTraslado>' . $motivoTraslado . '</motivoTraslado>';
+    $xml_detalles .=
+        '</destinatario>
         </destinatarios>
         <infoAdicional>
             <campoAdicional nombre="Direccion">direccion</campoAdicional>
@@ -1277,12 +1295,13 @@ function generaxmlguia($id){
             <campoAdicional nombre="Email">email</campoAdicional>
         </infoAdicional>
     </guiaRemision>';
-    
+
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/GR_" . $id_guia . ".xml", "w+");
-    fwrite($file, $xml.$xml_detalles);
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/GR_" . $id_guia . ".xml", "w+");
+    fwrite($file, $xml . $xml_detalles);
 }
-function generaxmlretencion($id){
+function generaxmlretencion($id)
+{
     global $conexion;
     $id_retencion = intval($id);
     $sql_count  = mysqli_query($conexion, "select * from retencion20 where id_factura='" . $id_retencion . "'");
@@ -1303,32 +1322,31 @@ function generaxmlretencion($id){
     $detallesProductos = array();
     $totalSinImpuestos = 0;
     $xml_impuestos = '';
-        $xml_impuestosfinal = '';
-        $xml_pagos = '';
-        $xml_motivos = '';
-        $vartot = 0;
-        $base = 0;
+    $xml_impuestosfinal = '';
+    $xml_pagos = '';
+    $xml_motivos = '';
+    $vartot = 0;
+    $base = 0;
     while ($data_productos = $query->fetch_assoc()) {
-        
+
         $xml_impuestos .= '<impuesto>
             <codigo>' . $data_productos['codigo'] . '</codigo>
             <codigoRetencion>' . $data_productos['codigoretencion'] . '</codigoRetencion>
-            <baseImponible>' . $data_productos['baseimponible'] .'</baseImponible>
-            <porcentajeRetener>' . $data_productos['porcentajeretener'] .'</porcentajeRetener>
-            <valorRetenido>' . $data_productos['valorretenido'] .'</valorRetenido>
-            <codDocSustento>' . $data_productos['coddocsustento'] .'</codDocSustento>
-            <numDocSustento>' . $data_productos['numdocsustento'] .'</numDocSustento>
+            <baseImponible>' . $data_productos['baseimponible'] . '</baseImponible>
+            <porcentajeRetener>' . $data_productos['porcentajeretener'] . '</porcentajeRetener>
+            <valorRetenido>' . $data_productos['valorretenido'] . '</valorRetenido>
+            <codDocSustento>' . $data_productos['coddocsustento'] . '</codDocSustento>
+            <numDocSustento>' . $data_productos['numdocsustento'] . '</numDocSustento>
             <fechaEmisionDocSustento>' . date("d/m/Y", strtotime($data_productos['fechaemisiondocsustento'])) . '</fechaEmisionDocSustento>
         </impuesto>';
-        
     }
     //$xml_detalles .= '</detalles>';
 
     // Datos para el Encabezado del XML
     $query = mysqli_query($conexion, "SELECT * from perfil ORDER BY id_perfil DESC")
-    or die('error: ' . mysqli_error($conexion));
+        or die('error: ' . mysqli_error($conexion));
     $dataperfil = mysqli_fetch_assoc($query);
-    $id_tipo_ambiente= $dataperfil['ambiente'];
+    $id_tipo_ambiente = $dataperfil['ambiente'];
     $id_tipo_emision = $dataperfil['tipoEmision'];
     $razon_social_empresa = $dataperfil['giro_empresa'];
     $nombre_comercial_empresa = $dataperfil['nombre_empresa'];
@@ -1337,8 +1355,8 @@ function generaxmlretencion($id){
 
     //destinatario
     $id_cliente = $rw_factura['id_cliente'];
-    $querycliente = mysqli_query($conexion, "SELECT * from clientes where id_cliente='".$id_cliente."'")
-    or die('error: ' . mysqli_error($conexion));
+    $querycliente = mysqli_query($conexion, "SELECT * from clientes where id_cliente='" . $id_cliente . "'")
+        or die('error: ' . mysqli_error($conexion));
     $datacliente = mysqli_fetch_assoc($querycliente);
     $identificacionDestinatario = '0707061214';
     $razonSocialDestinatario = $datacliente['razon_social'];
@@ -1389,22 +1407,21 @@ function generaxmlretencion($id){
                 <fechaEmision>' . date("d/m/Y", strtotime($fecha_emision)) . '</fechaEmision>
                 <dirEstablecimiento>' . $direccion_sucursal . '</dirEstablecimiento>
                 <obligadoContabilidad>NO</obligadoContabilidad>      
-                <tipoIdentificacionSujetoRetenido>'.$id_tipo_documento.'</tipoIdentificacionSujetoRetenido>
-                <razonSocialSujetoRetenido>'.$razonSocialDestinatario.'</razonSocialSujetoRetenido>
+                <tipoIdentificacionSujetoRetenido>' . $id_tipo_documento . '</tipoIdentificacionSujetoRetenido>
+                <razonSocialSujetoRetenido>' . $razonSocialDestinatario . '</razonSocialSujetoRetenido>
                 <identificacionSujetoRetenido>' . $identificacionDestinatario . '</identificacionSujetoRetenido>            
                 <periodoFiscal>' . $periodoFiscal . '</periodoFiscal>            
             </infoCompRetencion>
             <impuestos>';
-            $xml .= $xml_impuestos;
-            $xml .= '</impuestos>
+    $xml .= $xml_impuestos;
+    $xml .= '</impuestos>
             <infoAdicional>
                 <campoAdicional nombre="Direccion">PRUEBAS </campoAdicional>
                 <campoAdicional nombre="Telefono">pruebas@hotmail.com</campoAdicional>		
                 <campoAdicional nombre="Email">022070995</campoAdicional>
             </infoAdicional>
         </comprobanteRetencion>';
-        
-    $file = fopen($_SERVER['DOCUMENT_ROOT']."/sysadmin/vistas/xml/comprobantes/RC_" . $id_retencion . ".xml", "w+");
+
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/RC_" . $id_retencion . ".xml", "w+");
     fwrite($file, $xml);
-    
 }

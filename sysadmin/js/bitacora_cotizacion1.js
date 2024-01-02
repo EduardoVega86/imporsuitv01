@@ -35,37 +35,49 @@ function load(page) {
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
   var estado = $("#estado_q").val();
-  console.log(estado);
+  var numero = $("#numero_q").val();
   var url = "";
 
   if (tienda != 0) {
     url =
-      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
       "&tienda=" +
-      tienda;
+      tienda +
+      "&numero=" +
+      numero;
   } else if (estado != 0) {
     url =
-      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
       "&estado=" +
-      estado;
+      estado +
+      "&numero=" +
+      numero;
   } else if (tienda != 0 && estado != 0) {
     url =
-      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
       page +
       "&q=" +
       q +
       "&tienda=" +
       tienda +
       "&estado=" +
-      estado;
+      estado +
+      "&numero=" +
+      numero;
   } else {
-    url = "../ajax/buscar_cotizacion1.php?action=ajax&page=" + page + "&q=" + q;
+    url =
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&numero=" +
+      numero;
   }
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -87,24 +99,30 @@ function buscar(tienda) {
   // alert(tienda)
   var q = $("#q").val();
   var estado = $("#estado_q").val();
+  var numero = $("#numero_q").val();
   if (tienda == 0) {
     tienda = "";
   }
   if (estado == 0) {
     estado = "";
   }
+  if (numero == 0) {
+    numero = "";
+  }
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
       page +
       "&tienda=" +
       tienda +
       "&q=" +
       q +
       "&estado=" +
-      estado,
+      estado +
+      "&numero=" +
+      numero,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -122,24 +140,30 @@ function buscar_estado(estado) {
   // alert(tienda)
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
+  var numero = $("#numero_q").val();
   if (tienda == 0) {
     tienda = "";
   }
   if (estado == 0) {
     estado = "";
   }
+  if (numero == 0) {
+    numero = "";
+  }
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_cotizacion1.php?action=ajax&page=" +
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
       page +
       "&estado=" +
       estado +
       "&q=" +
       q +
       "&tienda=" +
-      tienda,
+      tienda +
+      "&numero=" +
+      numero,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -267,3 +291,69 @@ function obtener_datos(id) {
 }
 
 function guia_importar(numero_factura) {}
+
+function buscar_numero(numero) {
+  // alert(tienda)
+  var q = $("#q").val();
+  var tienda = $("#tienda_q").val();
+  var estado = $("#estado_q").val();
+  if (tienda == 0) {
+    tienda = "";
+  }
+  if (numero == 0) {
+    numero = "";
+  }
+  if (estado == 0) {
+    estado = "";
+  }
+
+  page = 1;
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url:
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&numero=" +
+      numero +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda +
+      "&estado=" +
+      estado,
+
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
+}
+
+function ver_detalle_cot(numero_factura) {
+  // alert(numero_factura)
+  var parametros = {
+    action: "ajax",
+    numero_factura: numero_factura,
+  };
+  $.ajax({
+    type: "POST",
+    url: "../ajax/ver_detalle_cot.php",
+
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $("#loader").html("");
+      $("#modal_cot").html(data);
+      $("#Modal").modal("show");
+      $;
+    },
+  });
+}
