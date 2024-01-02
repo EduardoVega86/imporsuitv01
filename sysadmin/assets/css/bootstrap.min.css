@@ -3716,6 +3716,11 @@ select.form-control-lg:not([size]):not([multiple]) {
     }
 }
 
+.text-black {
+    color: #000000 !important;
+
+}
+
 .btn {
     display: inline-block;
     font-weight: 400;
@@ -4283,6 +4288,12 @@ tbody.collapse.show {
 
 .dropdown-toggle:focus {
     outline: 0
+}
+
+
+
+.w-35 {
+    width: 35em;
 }
 
 .dropup .dropdown-toggle::after {
@@ -8003,6 +8014,13 @@ a.bg-inverse:hover {
     gap: 2em;
     flex-wrap: wrap;
     justify-content: space-between;
+
+}
+
+@media(max-width:991px) {
+    .grid-cot {
+        justify-content: flex-end;
+    }
 
 }
 

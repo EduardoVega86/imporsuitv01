@@ -10,10 +10,37 @@ require_once "../php_conexion.php";
 require_once "../funciones.php";
 
 $numero_factura = $datos['numero_factura'];
-$sql = "SELECT * from facturas_cot fc inner join detalle_fact_cot dc on fc.id_factura = dc.id_factura INNER join productos p on p.id_producto = dc.id_producto where fc.numero_factura = '$numero_factura'";
 
-$query = mysqli_query($conexion, $sql);
-$rw = mysqli_fetch_array($query);
+$esDrop = get_row("facturas_cot", "drogshipin", "numero_factura", $numero_factura);
+if ($esDrop == 3) {
+    $sql = "SELECT * from facturas_cot fc inner join detalle_fact_cot dc on fc.numero_factura = dc.numero_factura INNER join productos p on p.id_producto = dc.id_producto where fc.numero_factura = '$numero_factura'";
+    $query = mysqli_query($conexion, $sql);
+    $rw = mysqli_fetch_array($query);
+} else {
+    $prove_temp = get_row("facturas_cot", "tienda", "numero_factura", $numero_factura);
+    $id_factura_origen = get_row("facturas_cot", "id_factura_origen", "numero_factura", $numero_factura);
+    $archivo_tienda = $prove_temp . '/sysadmin/vistas/db1.php';
+    $archivo_destino_tienda = "../db_destino_guia.php";
+    $contenido_tienda = file_get_contents($archivo_tienda);
+    $get_data = json_decode($contenido_tienda, true);
+    $host_d = $get_data['DB_HOST'];
+    $user_d = $get_data['DB_USER'];
+    $pass_d = $get_data['DB_PASS'];
+    $base_d = $get_data['DB_NAME'];
+    echo $host_d;
+    echo $user_d;
+    echo $pass_d;
+    echo $base_d;
+
+
+    $conexionAX = mysqli_connect($host_d, $user_d, $pass_d, $base_d);
+    $sql = "SELECT * from facturas_cot fc inner join detalle_fact_cot dc on fc.numero_factura = dc.numero_factura INNER join productos p on p.id_producto = dc.id_producto where fc.id_factura = '$id_factura_origen'";
+    echo $sql;
+    $query = mysqli_query($conexionAX, $sql);
+    $rw = mysqli_fetch_array($query);
+}
+
+
 $provincia = get_row("provincia_laar", "provincia", "codigo_provincia", $rw["provincia"]);
 
 if (
@@ -42,7 +69,7 @@ $dominio_actual = $protocol . $_SERVER['HTTP_HOST'];
                 <h4 class="modal-title">Detalles de factura</h4>
             </div>
             <div class="modal-body grid-cot">
-                <div class="fs-7">
+                <div class="fs-7 w-35">
                     <span>Orden para: <?php echo $rw["nombre"] ?></span> <br>
                     <span>Dirección: <?php echo $rw["c_principal"] . " " . $rw["c_secundaria"] . " - " . $provincia  ?></span> <br>
                     <span>Teléfono: <?php echo $rw["telefono"] ?></span>

@@ -450,7 +450,7 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com" || 
 
                             <?php
                                                                                                                 } else {
-                                                                                                                    echo 'GUIA NO ENVIADA';
+                                                                                                                    echo '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
                                                                                                                 }
                             ?>
                         </td>
@@ -490,24 +490,17 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com" || 
                                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <?php if ($permisos_editar == 1) { ?>
-                                        <a class="dropdown-item" target="blank" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
+                                        <a class="dropdown-item" target="blank" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> <?php if ($drogshipin == 3) {
+                                                                                                                                                                                    echo "Ver";
+                                                                                                                                                                                } else {
+                                                                                                                                                                                    echo "Editar";
+                                                                                                                                                                                } ?> </a>
                                         <!--a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir</a-->
                                     <?php }
                                     if ($permisos_eliminar == 1) { ?>
                                         <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                     <?php } ?>
-                                    <?php
 
-                                    if ($drogshipin == 3) {
-                                        if ($guia_numero = 'NO ENVIADA') {
-                                        } else {
-                                        }
-                                    ?>
-
-                                        <button class="dropdown-item" onclick="guia_importar('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Importar Guia</button>
-                                    <?php
-                                    }
-                                    ?>
 
                                 </div>
                             </div>

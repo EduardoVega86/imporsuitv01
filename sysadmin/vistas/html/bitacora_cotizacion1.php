@@ -42,7 +42,7 @@ $ventas = 1;
                         <div class="portlet">
                             <div class="portlet-heading bg-primary">
                                 <h3 class="portlet-title">
-                                    Bítacora de Cotización
+                                    Historial de pedidos
                                 </h3>
                                 <div class="portlet-widgets">
                                     <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
