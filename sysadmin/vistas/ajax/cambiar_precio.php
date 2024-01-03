@@ -24,7 +24,7 @@ if ($estado_guia == 9) {
     $actualizada = $precio + ($precio * 0.25);
     $actualizada *= -1;
 } else {
-    $actualizada = $total_venta - $costo - $precio;
+    $actualizada = $total_ventassss - $costo - $precio;
 }
 
 
