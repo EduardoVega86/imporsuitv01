@@ -40,7 +40,7 @@ $pacientes = 1;
 					<div class="portlet">
 						<div class="portlet-heading bg-primary">
 							<h3 class="portlet-title">
-								Caracteristicas de la tienda en la venta 
+                                                                    Caracteristicas de la tienda en la venta 
 							</h3>
 							<div class="portlet-widgets">
 								<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
