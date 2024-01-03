@@ -6,6 +6,22 @@ class ShopifyModel extends Query
         parent::__construct();
     }
 
+    public function testing($tienda)
+    {
+        echo $tienda;
+        $send = "testing";
+        $protocolo = 'https://';
+        $archivo_tienda = $protocolo . $tienda . '/sysadmin/vistas/db1.php';
+        $archivo_destino_tienda = "../../vistas/db_destino_guia.php";
+        $contenido_tienda = file_get_contents($archivo_tienda);
+        $get_data = json_decode($contenido_tienda, true);
+        if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+            echo "Archivo copiado correctamente";
+        } else {
+            echo "Error al copiar el archivo";
+        }
+    }
+
     public function getJson($json)
     {
         $sql = "INSERT INTO shopify (json) VALUES (?)";

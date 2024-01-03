@@ -877,21 +877,19 @@ while ($r = $query->fetch_object()) {
         cantidad_total = $('#cantidad_total').val();
         valor_total = $('#valor_total_').val();
         costo_total = $('#costo_total').val();
-
+        
         numerocasa = $('#numerocasa').val();
         valor_envio = $('#valor_total_').val();
         valorasegurado = $('#valorasegurado').val();
 
         id_pedido_cot = $('#id_pedido_cot').val();
         costo_envio = $('#valor_envio2').val();
-
-        //alert(costo_envio);
-
-
+        var utilidad=valor_envio-costo_total-costo_envio;
+       
 
 
         id_factura = 1;
-        if (id_factura = 1) {
+        if (utilidad > 0) {
             $.ajax({
                 url: '../ajax/enviar_laar.php',
                 type: 'post',
@@ -943,7 +941,15 @@ while ($r = $query->fetch_object()) {
                 } // /success function
 
             }); // /ajax function to fetch the printable order
-        } // /if orderId
+        } else{
+                    Swal.fire({
+                            title: "¡El monto a recibir es menor a 0! Por favor verifique los valores",
+                            icon: "error",
+                            confirmButtonText: "¡Aceptar!",
+                        }).then(() => {
+                           // window.location.reload();
+                        });
+        }
     }
 
     function anular_guia(guia, id) {

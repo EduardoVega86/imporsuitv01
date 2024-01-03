@@ -164,6 +164,9 @@ $ventas = 1;
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script>
     async function validar_laar(guia, cot) {
+        if (guia == 0) {
+            return false;
+        }
         let data = await fetch('https://api.laarcourier.com:9727/guias/' + guia, {
             method: 'GET',
         })
