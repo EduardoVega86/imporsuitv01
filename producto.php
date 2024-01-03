@@ -516,9 +516,10 @@ include 'includes/head_producto.php'
                       echo 'style= display:none';
                     } ?> class="emoji-benefits-container">
                  <?php   
-                 $sql_car = "select * from caracteristicas_tienda";
+              $sql_car = "select * from caracteristicas_tienda";
               $query_car = mysqli_query($conexion, $sql_car);
             
+              if($query_car){
               $rowcount = mysqli_num_rows($query_car);
               
             
@@ -528,6 +529,7 @@ include 'includes/head_producto.php'
               
                 <p>- <?php  echo $row_car['texto']; ?></p>
                 <?php
+               }
                }
                 ?>
               </div>
