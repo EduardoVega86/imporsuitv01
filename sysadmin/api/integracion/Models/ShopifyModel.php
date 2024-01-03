@@ -10,7 +10,7 @@ class ShopifyModel extends Query
     {
         $send = "testing";
         $protocolo = 'https://';
-        $archivo_tienda = $protocolo . $tienda . '/sysadmin/vistas/db1.php';
+        $archivo_tienda =  $tienda . '/sysadmin/vistas/db1.php';
         $archivo_destino_tienda = "../../vistas/db_destino_guia.php";
         $contenido_tienda = file_get_contents($archivo_tienda);
         $get_data = json_decode($contenido_tienda, true);
@@ -52,7 +52,8 @@ class ShopifyModel extends Query
 
         $ciudad = $this->select($ciudad_sql);
         $ciudad = $ciudad[0]['codigo'];
-
+        $protocolo = 'https://';
+        $tienda =  $protocolo . $_SERVER['HTTP_HOST'];
 
 
         $provincia = strtoupper($provincia);
@@ -90,7 +91,9 @@ class ShopifyModel extends Query
         $sql_factura_cot = "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES (?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         $factura_data = array($nueva_factura_numero_formateada, $fecha_actual, "1", "1", '1', $total, "1", "1", "3", "1", $nombre . ' ' . $apellido, $telefono, $provincia, $principal, $ciudad, $secundaria, " ", " ", "0", NULL, NULL, NULL, "0", "0", $drogshiping, $tienda_provenencia, "1", "Shopify");
-
+        $ultima_factura_local_sql = "SELECT MAX(id_factura) AS factura FROM facturas_cot;";
+        $ultima_factura_local = $this->select($ultima_factura_local_sql);
+        $ultima_factura_local_numero = $ultima_factura_local[0]['factura'];
 
         $query_factura_cot = $this->insert($sql_factura_cot, $factura_data);
         foreach ($line_items as $key => $value) {
@@ -126,8 +129,8 @@ class ShopifyModel extends Query
                 $nuevo_numero_marketplace = $numero_actual_marketplace + 1;
                 $nueva_factura_numero_formateada_marketplace = sprintf("COT-%06d", $nuevo_numero_marketplace);
 
-                $this->insertarFacturaProveedor($nueva_factura_numero_formateada_proveedor, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES ('$nueva_factura_numero_formateada_proveedor', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '$drogshiping', '$tienda_provenencia', '1', 'Shopify');", $conexion_proveedor);
-                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada_marketplace, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES ('$nueva_factura_numero_formateada_marketplace', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '3','$tienda_provenencia' , '1', 'Shopify');", $conexion_marketplace);
+                $this->insertarFacturaProveedor($nueva_factura_numero_formateada_proveedor, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`, `id_factura_origen`) VALUES ('$nueva_factura_numero_formateada_proveedor', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '$drogshiping', '$tienda', '1', 'Shopify', '$ultima_factura_local_numero');", $conexion_proveedor);
+                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada_marketplace, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`, `id_factura_origen`) VALUES ('$nueva_factura_numero_formateada_marketplace', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '3','$tienda' , '1', 'Shopify', '$ultima_factura_local_numero');", $conexion_marketplace);
                 $this->insertarPedidoMarketplace($nueva_factura_numero_formateada_marketplace, $cantidad, $precio, $sku, $conexion_marketplace);
                 $this->insertarPedidoProveedor($nueva_factura_numero_formateada_proveedor, $cantidad, $precio, $sku, $conexion_proveedor);
             } else {
@@ -139,7 +142,7 @@ class ShopifyModel extends Query
                 $nuevo_numero_marketplace = $numero_actual_marketplace + 1;
                 $nueva_factura_numero_formateada_marketplace = sprintf("COT-%06d", $nuevo_numero_marketplace);
                 $producto_proveedor = $this->obtenerProveedor($sku);
-                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada_marketplace, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES ('$nueva_factura_numero_formateada_marketplace', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '4','$tienda_provenencia' , '1', 'Shopify');", $conexion_marketplace);
+                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada_marketplace, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`, `ìd_factura_origen`) VALUES ('$nueva_factura_numero_formateada_marketplace', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '4','$tienda' , '1', 'Shopify', '$ultima_factura_local_numero');", $conexion_marketplace);
                 $this->insertarPedidoMarketplace($nueva_factura_numero_formateada_marketplace, $cantidad, $precio, $sku, $conexion_marketplace);
             }
 
