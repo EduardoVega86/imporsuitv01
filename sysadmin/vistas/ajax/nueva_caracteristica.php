@@ -17,7 +17,7 @@ if (empty($_POST['nombre'])) {
    
     $users       = intval($_SESSION['id_users']);
     // check if user or email address already exists
-    $sql                   = "SELECT * FROM caracteristica_tienda WHERE  texto ='" . $nombre . "';";
+    $sql                   = "SELECT * FROM caracteristicas_tienda WHERE  texto ='" . $nombre . "';";
     
     $query_check_user_name = mysqli_query($conexion, $sql);
     @$query_check_user      = mysqli_num_rows($query_check_user_name);
