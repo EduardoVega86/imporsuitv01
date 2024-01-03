@@ -207,6 +207,19 @@
                                                             badge = "badge badge-warning";
                                                         }
 
+                                                        if(status.nombre === "Entregado" && status.fecha === null){
+                                                            continue;
+                                                        }
+                                                        
+                                                        if(status.nombre === "Anulado" && status.fecha === null){
+                                                            continue;
+                                                        }
+
+                                                        if(status.nombre ==="Con Novedad" && status.fecha === null){
+                                                            status.fecha = data.novedades[0].fechaNovedad;
+                                                        }
+
+
                                                         if(status.fecha === null){
                                                             status.fecha = "Sin fecha";
                                                         }
@@ -224,9 +237,14 @@
                                             .catch(error => console.log(error));
                                     }
                                 </script>
-                                    
-                                <script> cargar_estado("' . $rw['guia'] . '") </script>
-                                ' ?>
+                                    ';
+                                    if (isset($rw['guia'])) {
+
+                                        echo '
+                                        <script> cargar_estado("' . $rw['guia'] . '") </script>
+                                        ';
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

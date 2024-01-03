@@ -19,7 +19,8 @@ class ShopifyModel extends Query
             $user_d = $get_data['DB_USER'];
             $pass_d = $get_data['DB_PASS'];
             $base_d = $get_data['DB_NAME'];
-
+            // Conexión a la base de datos de la tienda, establece la hora -5 GTM
+            date_default_timezone_set('America/Guayaquil');
             $conexion = mysqli_connect($host_d, $user_d, $pass_d, $base_d);
             if (!$conexion) {
                 die("Connection failed: " . mysqli_connect_error());
@@ -87,25 +88,27 @@ class ShopifyModel extends Query
             $tienda_provenencia = $protocolo . $_SERVER['HTTP_HOST'];
         }
 
-        #$sql_factura_cot = "INSERT INTO facturas_cot ('numero_factura','fecha_factura','id_cliente','id_vendedor','condiciones','monto_factura','estado_factura','id_users_factura','validez','id_sucursal','nombre','telefono','provincia','c_principal','ciudad_cot','c_secundaria','referencia','observacion','guia_enviada','transporte','identificacion','celular','cod','valor_seguro','drogshipin','tienda') VALUES ('$nueva_factura_numero_formateada',NOW(),0,0,'$nueva_factura_numero_formateada','$total','Pendiente',0,'30 días',0,'$nombre $apellido','$telefono','$provincia','$principal','$ciudad','$secundaria','','$email','','','','','','','');";
+        #$sql_factura_cot = "INSERT INTO facturas_cot ('numero_factura','fecha_factura','id_cliente','id_vendedor','condiciones','monto_factura','estado_factura','id_users_factura','validez','id_sucursal','nombre','telefono','provincia','c_principal','ciudad_cot','c_secundaria','referencia','observacion','guia_enviada','transporte','identificacion','celular','cod','valor_seguro','drogshipin','tienda') VALUES ('$nueva_factura_numero_formateada',$fecha_actual,0,0,'$nueva_factura_numero_formateada','$total','Pendiente',0,'30 días',0,'$nombre $apellido','$telefono','$provincia','$principal','$ciudad','$secundaria','','$email','','','','','','','');";
         $sql_factura_cot = "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`) VALUES (?,?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         $factura_data = array($nueva_factura_numero_formateada, $fecha_actual, "1", "1", '1', $total, "1", "1", "3", "1", $nombre . ' ' . $apellido, $telefono, $provincia, $principal, $ciudad, $secundaria, " ", " ", "0", NULL, NULL, NULL, "0", "0", $drogshiping, $tienda_provenencia, "1", "Shopify");
         $ultima_factura_local_sql = "SELECT MAX(id_factura) AS factura FROM facturas_cot;";
         $ultima_factura_local = $this->select($ultima_factura_local_sql);
         $ultima_factura_local_numero = $ultima_factura_local[0]['factura'];
-
+        $ultima_factura_local_numero = $ultima_factura_local_numero + 1;
+        echo "debug";
         $query_factura_cot = $this->insert($sql_factura_cot, $factura_data);
         foreach ($line_items as $key => $value) {
 
             $es_drogshipin = $this->buscarProducto($value['sku']);
             $es_drogshipin = $es_drogshipin[0]['drogshipin'];
-            echo $es_drogshipin;
+
             $nombre_producto = $value['name'];
             $cantidad = $value['quantity'];
             $precio = $value['price'];
             $sku = $value['sku'];
-
+            echo "debug2";
+            echo $es_drogshipin;
             if ($es_drogshipin == 1) {
                 // se obtiene el proveedor
                 $proveedor_server = $this->buscarProveedor($sku);
@@ -114,7 +117,7 @@ class ShopifyModel extends Query
                     $conexion_marketplace = $this->obtener_conexion('https://marketplace.imporsuit.com');
                     $proveedor_server = $this->conseguirUltimaFactura($conexion_proveedor);
                 }
-
+                echo "net";
                 // se obtiene la ultima factura del marketplace
                 $marketplace_server = $this->conseguirUltimaFactura($conexion_marketplace);
 
@@ -128,24 +131,31 @@ class ShopifyModel extends Query
                 $numero_actual_marketplace = (int)$matches[1];
                 $nuevo_numero_marketplace = $numero_actual_marketplace + 1;
                 $nueva_factura_numero_formateada_marketplace = sprintf("COT-%06d", $nuevo_numero_marketplace);
+                echo "debug3";
+                $this->insertarFacturaProveedor($nueva_factura_numero_formateada_proveedor, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`, `id_factura_origen`) VALUES ('$nueva_factura_numero_formateada_proveedor', '$fecha_actual', '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '3', '$tienda', '1', 'Shopify', '$ultima_factura_local_numero');", $conexion_proveedor);
+                echo "cd";
+                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada_marketplace, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`, `id_factura_origen`) VALUES ('$nueva_factura_numero_formateada_marketplace', '$fecha_actual', '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '3','$tienda' , '1', 'Shopify', '$ultima_factura_local_numero');", $conexion_marketplace);
+                echo "debug4c";
+                //$this->insertarPedidoMarketplace($nueva_factura_numero_formateada_marketplace, $cantidad, $precio, $sku, $conexion_marketplace);
+                //$this->insertarPedidoProveedor($nueva_factura_numero_formateada_proveedor, $cantidad, $precio, $sku, $conexion_proveedor);
 
-                $this->insertarFacturaProveedor($nueva_factura_numero_formateada_proveedor, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`, `id_factura_origen`) VALUES ('$nueva_factura_numero_formateada_proveedor', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '3', '$tienda', '1', 'Shopify', '$ultima_factura_local_numero');", $conexion_proveedor);
-                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada_marketplace, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`, `id_factura_origen`) VALUES ('$nueva_factura_numero_formateada_marketplace', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '3','$tienda' , '1', 'Shopify', '$ultima_factura_local_numero');", $conexion_marketplace);
-                $this->insertarPedidoMarketplace($nueva_factura_numero_formateada_marketplace, $cantidad, $precio, $sku, $conexion_marketplace);
-                $this->insertarPedidoProveedor($nueva_factura_numero_formateada_proveedor, $cantidad, $precio, $sku, $conexion_proveedor);
+                echo "a";
             } else {
+                echo "debug33";
 
                 $conexion_marketplace = $this->obtener_conexion('https://marketplace.imporsuit.com');
                 $marketplace_server = $this->conseguirUltimaFactura($conexion_marketplace);
                 preg_match('/^COT-(\d+)$/', $marketplace_server, $matches);
+                echo "debug44";
                 $numero_actual_marketplace = (int)$matches[1];
                 $nuevo_numero_marketplace = $numero_actual_marketplace + 1;
                 $nueva_factura_numero_formateada_marketplace = sprintf("COT-%06d", $nuevo_numero_marketplace);
-                $producto_proveedor = $this->obtenerProveedor($sku);
-                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada_marketplace, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`, `ìd_factura_origen`) VALUES ('$nueva_factura_numero_formateada_marketplace', NOW(), '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '4','$tienda' , '1', 'Shopify', '$ultima_factura_local_numero');", $conexion_marketplace);
-                $this->insertarPedidoMarketplace($nueva_factura_numero_formateada_marketplace, $cantidad, $precio, $sku, $conexion_marketplace);
-            }
+                $this->insertarFacturaMarketplace($nueva_factura_numero_formateada_marketplace, "INSERT INTO `facturas_cot` (`numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `identificacion`, `celular`, `cod`, `valor_seguro`, `drogshipin`, `tienda`, `importado`, `plataforma_importa`, `id_factura_origen`) VALUES ('$nueva_factura_numero_formateada_marketplace', $fecha_actual, '1', '1', '1', '$total', '1', '1', '3', '1', '$nombre $apellido', '$telefono', '$provincia', '$principal', '$ciudad', '$secundaria', ' ', ' ', '0', NULL, NULL, NULL, '0', '0', '4','$tienda' , '1', 'Shopify', '$ultima_factura_local_numero');", $conexion_marketplace);
+                //$this->insertarPedidoMarketplace($nueva_factura_numero_formateada_marketplace, $cantidad, $precio, $sku, $conexion_marketplace);
 
+                echo "b";
+            }
+            echo "debug5";
             $this->insertarDetalleFactura_local($nueva_factura_numero_formateada, $cantidad, $precio, $sku);
         }
         return array($query_factura_cot);
@@ -157,6 +167,7 @@ class ShopifyModel extends Query
         $ultima_factura_numero = $ultima_factura[0]['factura'];
         $id_producto = $this->select("SELECT id_producto FROM productos WHERE codigo_producto = '$sku';");
         $id_producto = $id_producto[0]['id_producto'];
+        echo $id_producto;
 
         $sql_detalle_factura_cot = "INSERT INTO `detalle_fact_cot` ( `id_factura`, `numero_factura`, `id_producto`, `cantidad`, `desc_venta`, `precio_venta`, `drogshipin_tmp`, `id_producto_origen`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);";
         $detalle_fac_data = array($ultima_factura_numero, $numero_factura, $id_producto, $cantidad, NULL, $precio, 1, $id_producto);
