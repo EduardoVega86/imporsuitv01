@@ -1,7 +1,11 @@
 <?php
 # conectare la base de datos
 //echo 'asd';
-$cadena_json = file_get_contents('../db_destino_guia.php');
+if (isset($send)) {
+    $cadena_json = file_get_contents('../../vistas/db_destino.php');
+} else {
+    $cadena_json = file_get_contents('../db_destino_guia.php');
+}
 $info = json_decode($cadena_json, true);
 // Verifica si la decodificación fue exitosa
 if ($info !== null) {

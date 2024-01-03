@@ -36,8 +36,6 @@ $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
 if (isset($_POST['estado'])) {
     $XD = $_POST['estado'];
-
-    echo $XD;
 }
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
@@ -405,7 +403,7 @@ if ($action == 'ajax') {
                                     <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
                                 <?php
                                                                                                 } else {
-                                                                                                    echo $guia_numero;
+                                                                                                    echo "GUIA NO ENVIADA";
                                                                                                 }
                                 ?>
 

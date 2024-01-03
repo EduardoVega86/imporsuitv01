@@ -1,6 +1,8 @@
 <?php
 # conectare la base de datos
 //echo 'asd';
+
+
 $cadena_json = file_get_contents('sysadmin/vistas/db_destino.php');
 $info = json_decode($cadena_json, true);
 // Verifica si la decodificación fue exitosa

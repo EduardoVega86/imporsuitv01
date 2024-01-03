@@ -32,4 +32,9 @@ class Shopify extends Controller
         $json = file_get_contents('php://input');
         $this->model->getJson($json);
     }
+
+    public function testing($tienda)
+    {
+        $this->model->testing($tienda);
+    }
 }
