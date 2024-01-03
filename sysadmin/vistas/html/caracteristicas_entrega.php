@@ -36,6 +36,7 @@ $pacientes = 1;
 			<div class="container">
 <?php if ($permisos_ver == 1) {
     ?>
+                            
 				<div class="col-lg-12">
 					<div class="portlet">
 						<div class="portlet-heading bg-primary">
