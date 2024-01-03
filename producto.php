@@ -515,8 +515,23 @@ include 'includes/head_producto.php'
               <div <?php if ($formato == 2) {
                       echo 'style= display:none';
                     } ?> class="emoji-benefits-container">
-                <p>🔒 Pago seguro al Recibir</p>
-                <p>📦 Envío 24-48 horas</p>
+                 <?php   
+              $sql_car = "select * from caracteristicas_tienda";
+              $query_car = mysqli_query($conexion, $sql_car);
+            
+              if($query_car){
+              $rowcount = mysqli_num_rows($query_car);
+              
+            
+             // $i = 1;
+              while ($row_car = mysqli_fetch_array($query_car)) {
+                  ?>
+              
+                <p>- <?php  echo $row_car['texto']; ?></p>
+                <?php
+               }
+               }
+                ?>
               </div>
 
 
