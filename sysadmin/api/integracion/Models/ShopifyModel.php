@@ -19,7 +19,8 @@ class ShopifyModel extends Query
             $user_d = $get_data['DB_USER'];
             $pass_d = $get_data['DB_PASS'];
             $base_d = $get_data['DB_NAME'];
-
+            // Conexión a la base de datos de la tienda, establece la hora -5 GTM
+            date_default_timezone_set('America/Guayaquil');
             $conexion = mysqli_connect($host_d, $user_d, $pass_d, $base_d);
             if (!$conexion) {
                 die("Connection failed: " . mysqli_connect_error());
