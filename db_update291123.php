@@ -1243,7 +1243,7 @@ mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_pro
 
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `impreso` TINYINT NULL AFTER `id_factura_origen`;");
 mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `id_transporte` INT NOT NULL DEFAULT '1' AFTER `estado_guia`;");
-
+mysqli_query($conexion, "CREATE TABLE `caracteristicas_tienda` (  `id` int(11) NOT NULL AUTO_INCREMENT,   `id_producto` int(11) DEFAULT 0,  `texto` varchar(255) DEFAULT NULL,  PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
