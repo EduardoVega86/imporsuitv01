@@ -322,13 +322,48 @@ $ventas = 1;
             })
             return false;
         }
+
         let impresiones = [];
-        checks.forEach(element => {
+        if (checks.length === 1) {
+
+            checks.forEach(element => {
+                $.ajax({
+                    url: "../ajax/impresiones.php",
+                    type: "POST",
+                    data: {
+                        "factura": element.id,
+                        "tipo": "simple"
+                    },
+                    beforeSend: function(objeto) {
+                        Swal.fire({
+                                title: 'Generando PDF',
+                                html: 'Por favor espere un momento',
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                },
+                            }
+
+                        )
+                    },
+                    onSuccess: function(data) {
+                        impresiones.push(data);
+                    }
+                }).done(function(data) {
+                    console.log(data);
+                });
+            })
+        } else {
+            let checks_array = [];
+            checks.forEach(element => {
+                checks_array.push(element.id);
+            });
             $.ajax({
                 url: "../ajax/impresiones.php",
                 type: "POST",
                 data: {
-                    "factura": element.id
+                    "factura": checks_array,
+                    "tipo": "multiple"
                 },
                 beforeSend: function(objeto) {
                     Swal.fire({
@@ -341,11 +376,17 @@ $ventas = 1;
                         }
 
                     )
+                },
+                onSuccess: function(data) {
+                    impresiones.push(data);
                 }
             }).done(function(data) {
                 console.log(data);
             });
-        })
+
+
+
+        }
 
         //generatePDF();
 
