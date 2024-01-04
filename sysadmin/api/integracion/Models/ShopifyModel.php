@@ -80,7 +80,14 @@ class ShopifyModel extends Query
 
         $tienda_provenencia = "";
         if ($proviene) {
-            $tienda_provenencia = $proviene;
+            if ($proviene == "enviado") {
+                $protocolo = 'https://';
+
+                $proviene =  $protocolo . $_SERVER['HTTP_HOST'];
+                $tienda_provenencia = $proviene;
+            } else {
+                $tienda_provenencia = $proviene;
+            }
             $drogshiping = 1;
         } else {
             $protocolo = 'https://';
