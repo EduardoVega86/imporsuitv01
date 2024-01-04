@@ -235,7 +235,7 @@ if (isset($_GET['id_factura'])) {
                                                             <input type="text" name="total_ventas" id="total_ventas" class="form-control" value="<?php echo $total_ventass; ?>">
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="total_ventas">
+                                                            <label for="costoa">
                                                                 Costo
                                                             </label>
                                                             <input type="text" name="costoa" id="costoa" class="form-control" value="<?php echo $costo; ?>">
@@ -367,7 +367,7 @@ if (isset($_GET['id_factura'])) {
         e.preventDefault();
         var precio = $("#precio").val();
         var total_ventas = $("#total_ventas").val();
-        var costo = $("#costo").val();
+        var costo = $("#costoa").val();
         var id_factura = '<?php echo $id_factura; ?>';
         $.ajax({
             url: '../ajax/cambiar_precio.php',

@@ -98,7 +98,7 @@ $ventas = 1;
                                                             <span class="fa fa-search"></span></button>
                                                     </span>
 
-                                                    <button class="btn btn-outline-danger" onclick="pdf()">Generar Impresiones</button>
+                                                    <button class="btn btn-outline-danger" onclick="pdf(event)">Generar Impresiones</button>
                                                 </div>
 
                                             </div>
@@ -304,14 +304,30 @@ $ventas = 1;
 <script>
     function generatePDF(factura) {
         // Choose the element that our invoice is rendered in.
-        const element = document.getElementById("invoice");
+        let opt = {
+            margin: 1,
+            filename: 'myfile.pdf',
+            image: {
+                type: 'jpeg',
+                quality: 0.98
+            },
+            html2canvas: {
+                scale: 2
+            },
+            jsPDF: {
+                unit: 'in',
+                format: 'letter',
+                orientation: 'portrait'
+            }
+        };
         // Choose the element and save the PDF for our user.
         html2pdf()
-            .from(element)
+            .from(factura)
             .save();
     }
 
-    function pdf() {
+    function pdf(e) {
+        e.preventDefault();
         let manifiesto_html = `
         <!DOCTYPE html>
 <html lang="en">
@@ -382,6 +398,49 @@ $ventas = 1;
     .grid-container-simple>article:last-child {
         padding-bottom: 2em;
     }
+
+    .table {
+        padding: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table tr th {
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        border-spacing: 0px;
+        text-align: start;
+        padding: 0% 30px 0px 5px;
+    }
+
+    table tr td {
+        width: 100%;
+        border-spacing: 0px;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding: 0px 30px 0px 5px;
+    }
+
+    .grid-container-title {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        padding: 10px;
+
+    }
+
+    .grid-container-title>article {
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding-top: 1em;
+    }
+
+    .grid-container-title>article:nth-child(even) {
+        border-left: none;
+    }
+
+    .grid-container-title>article:first-child {
+        padding-right: 2em;
+    }
 </style>
 
 <body>
@@ -421,11 +480,20 @@ $ventas = 1;
                         )
                     },
                     onSuccess: function(data) {
-                        impresiones.push(data);
-                        console.log(impresiones);
+
                     }
                 }).done(function(data) {
-                    console.log(data);
+                    let datos = JSON.parse(data);
+                    console.log(datos);
+                    manifiesto_html += datos["manifiesto"];
+                    manifiesto_html += datos["producto"];
+                    manifiesto_html += `</main>
+                    
+            </body>
+            </html>
+            
+                `;
+                    generatePDF(manifiesto_html);
                 });
             })
         } else {
@@ -456,7 +524,15 @@ $ventas = 1;
                     impresiones.push(data);
                 }
             }).done(function(data) {
-                console.log(data);
+                let datos = JSON.parse(data);
+                console.log(datos);
+                manifiesto_html += datos["manifiesto"];
+                manifiesto_html += `</main>
+            </body>
+            </html>
+            
+                `;
+                generatePDF(manifiesto_html);
             });
 
 

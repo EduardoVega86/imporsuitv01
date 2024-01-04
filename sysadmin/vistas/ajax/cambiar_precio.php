@@ -7,7 +7,7 @@ $id_factura = $datos['id_factura'];
 
 $precio = $datos['precio'];
 $total_ventassss = $datos['venta'];
-$costo = $datos['costo'];
+$costoss = $datos['costo'];
 
 $marketplace = 'imporsuit_marketplace';
 $conexion_marketplace = mysqli_connect('localhost', $marketplace, $marketplace, $marketplace);
@@ -24,11 +24,11 @@ if ($estado_guia == 9) {
     $actualizada = $precio + ($precio * 0.25);
     $actualizada *= -1;
 } else {
-    $actualizada = $total_ventassss - $costo - $precio;
+    $actualizada = $total_ventassss - $costoss - $precio;
 }
 
 
-$sql = "UPDATE `cabecera_cuenta_pagar` SET `precio_envio`=$precio, `monto_recibir`='$actualizada', `valor_pendiente`='$actualizada',`total_venta`='$total_ventassss',`costo`='$costo'  WHERE `numero_factura`='$id_factura'";
+$sql = "UPDATE `cabecera_cuenta_pagar` SET `precio_envio`=$precio, `monto_recibir`='$actualizada', `valor_pendiente`='$actualizada',`total_venta`='$total_ventassss',`costo`='$costoss'  WHERE `numero_factura`='$id_factura'";
 $resultado = mysqli_query($conexion_marketplace, $sql);
 
 if ($resultado) {

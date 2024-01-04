@@ -5,7 +5,7 @@ ini_set('display_errors', '1');
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
-include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
+
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
@@ -13,10 +13,7 @@ require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de 
 require_once "../funciones.php";
 require_once "../funciones_destino.php";
 //Inicia Control de Permisos
-include "../permisos.php";
-$user_id = $_SESSION['id_users'];
-get_cadena($user_id);
-$modulo = "Ventas";
+
 
 
 if (isset($_POST['factura']) && isset($_POST['tipo'])) {
@@ -123,6 +120,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
 
 
             $productoT .= "
+            <div class='html2pdf__page-break'></div>
             <section class='grid-container-title'>
             <article>
             Productos
@@ -153,7 +151,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 'manifiesto' => $manifiestoT,
                 'producto' => $productoT
             );
-            print_r($devolucion);
+            echo json_encode($devolucion);
         } else {
             print_r('Error al copiar el archivo');
         }
@@ -298,7 +296,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 'producto' => $productoT
             );
 
-            print_r($devolucion);
+            echo json_encode($devolucion);
 
             // print_r($manifiesto);
         }
