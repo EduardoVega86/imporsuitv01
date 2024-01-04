@@ -289,6 +289,46 @@ $ventas = 1;
 
     }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    function checkall() {
+        const checks = document.querySelectorAll("[name='item']")
+        checks.forEach(element => {
+            element.checked = !element.checked;
+        });
+    }
+</script>
+
+<script>
+    function generatePDF(factura) {
+        // Choose the element that our invoice is rendered in.
+        const element = document.getElementById("invoice");
+        // Choose the element and save the PDF for our user.
+        html2pdf()
+            .from(element)
+            .save();
+    }
+
+    function pdf() {
+
+        let checks = document.querySelectorAll("[name='item']:checked");
+        let impresiones = [];
+        checks.forEach(element => {
+            $.ajax({
+                url: "../ajax/impresiones.php",
+                type: "POST",
+                data: {
+                    "factura": element.id
+                },
+
+
+            });
+        })
+
+        generatePDF();
+
+    }
+</script>
 <script type="text/javascript" src="../../js/bitacora_cotizacion1.js"></script>
 <script src="../ajax/js/wallet.js"></script>
 <?php require 'includes/footer_end.php'
