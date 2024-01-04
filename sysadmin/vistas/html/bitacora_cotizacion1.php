@@ -97,6 +97,8 @@ $ventas = 1;
                                                         <button type="button" class="btn btn-info waves-effect waves-light" onclick='load(1);'>
                                                             <span class="fa fa-search"></span></button>
                                                     </span>
+
+                                                    <button class="btn btn-outline-danger" onclick="pdf()">Generar Impresiones</button>
                                                 </div>
 
                                             </div>
@@ -312,6 +314,14 @@ $ventas = 1;
     function pdf() {
 
         let checks = document.querySelectorAll("[name='item']:checked");
+        if (checks.length == 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Debe seleccionar al menos una factura',
+            })
+            return false;
+        }
         let impresiones = [];
         checks.forEach(element => {
             $.ajax({
@@ -320,12 +330,24 @@ $ventas = 1;
                 data: {
                     "factura": element.id
                 },
+                beforeSend: function(objeto) {
+                    Swal.fire({
+                            title: 'Generando PDF',
+                            html: 'Por favor espere un momento',
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading()
+                            },
+                        }
 
-
+                    )
+                }
+            }).done(function(data) {
+                console.log(data);
             });
         })
 
-        generatePDF();
+        //generatePDF();
 
     }
 </script>
