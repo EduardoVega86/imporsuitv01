@@ -291,6 +291,8 @@ $ventas = 1;
 
     }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     function checkall() {
@@ -305,7 +307,7 @@ $ventas = 1;
     function generatePDF(factura) {
         // Choose the element that our invoice is rendered in.
         let opt = {
-            margin: 1,
+            margin: 10,
             filename: 'myfile.pdf',
             image: {
                 type: 'jpeg',
@@ -323,6 +325,10 @@ $ventas = 1;
         // Choose the element and save the PDF for our user.
         html2pdf()
             .from(factura)
+            .set(opt)
+            .outputPdf(pdf => {
+
+            })
             .save();
     }
 
@@ -336,7 +342,7 @@ $ventas = 1;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guia Impresas</title>
-</head>
+
 <style>
     * {
         margin: 0;
@@ -442,7 +448,7 @@ $ventas = 1;
         padding-right: 2em;
     }
 </style>
-
+</head>
 <body>
     <main>
         `;
@@ -484,7 +490,7 @@ $ventas = 1;
                     }
                 }).done(function(data) {
                     let datos = JSON.parse(data);
-                    console.log(datos);
+
                     manifiesto_html += datos["manifiesto"];
                     manifiesto_html += datos["producto"];
                     manifiesto_html += `</main>
@@ -493,7 +499,22 @@ $ventas = 1;
             </html>
             
                 `;
-                    generatePDF(manifiesto_html);
+                    let buffers = [];
+                    let guias = datos["guias"];
+                    const descargarPDF = () => {
+                        guias.forEach(async (element) => {
+                            let pdfUrl = 'https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=';
+                            pdfUrl += element;
+                            const response = await fetch(pdfUrl);
+                            const blob = await response.blob();
+                            const arrayBuffer = await blob.arrayBuffer();
+                            buffers.push(arrayBuffer);
+                        });
+
+                        // Llamar a la función para generar el PDF con el contenido HTML y el PDF descargado
+                        generatePDF(manifiesto_html, buffers);
+                    };
+                    descargarPDF();
                 });
             })
         } else {
@@ -532,7 +553,22 @@ $ventas = 1;
             </html>
             
                 `;
-                generatePDF(manifiesto_html);
+                let buffers = [];
+                let guias = datos["guias"];
+                const descargarPDF = () => {
+                    guias.forEach(async (element) => {
+                        let pdfUrl = 'https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=';
+                        pdfUrl += element;
+                        const response = await fetch(pdfUrl);
+                        const blob = await response.blob();
+                        const arrayBuffer = await blob.arrayBuffer();
+                        buffers.push(arrayBuffer);
+                    });
+
+                    // Llamar a la función para generar el PDF con el contenido HTML y el PDF descargado
+                    generatePDF(manifiesto_html, buffers);
+                };
+                descargarPDF();
             });
 
 
