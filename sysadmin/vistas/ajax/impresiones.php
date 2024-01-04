@@ -33,6 +33,8 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
         $archivo_destino_tienda = '../db_destino_guia.php';
         $contenido_tienda = file_get_contents($archivo_tienda);
         $get_data =  json_decode($contenido_tienda, true);
+        $guias_impresas = array();
+
         if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
             $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_PASS']);
             if ($conexion_destino->connect_errno) {
@@ -52,6 +54,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             $fecha_actual = date("d-m-Y");
             while ($row = mysqli_fetch_array($result)) {
                 $guia_laar = $row['guia_laar'];
+                $guias_impresas = array_push($guias_impresas, $guia_laar);
                 $ciudad = $row['ciudadD'];
                 $ciudad_destino = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad);
                 $costo_producto = $row['costo_producto'];
@@ -149,7 +152,8 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
 
             $devolucion = array(
                 'manifiesto' => $manifiestoT,
-                'producto' => $productoT
+                'producto' => $productoT,
+                'guias' => $guias_impresas
             );
             echo json_encode($devolucion);
         } else {
@@ -168,6 +172,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
 
             $transporte = '';
             $fecha_actual = date("d-m-Y");
+            $guias_impresas = array();
             while ($factura = current($facturas)) {
                 $sql_command = "SELECT * FROM facturas_cot WHERE numero_factura = '" . $factura . "'";
                 $result = mysqli_query($conexion, $sql_command);
@@ -190,9 +195,9 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                     }
                     $sql_command = "SELECT * FROM guia_laar g inner join facturas_cot f on g.id_pedido = f.id_factura inner join detalle_fact_cot dt on f.numero_factura = dt.numero_factura inner join productos p on p.id_producto = dt.id_producto WHERE g.id_pedido = '" . $id_factura_origen . "'";
                     $result = mysqli_query($conexion_destino, $sql_command);
-
                     while ($row = mysqli_fetch_array($result)) {
                         $guia_laar = $row['guia_laar'];
+                        $guias_impresas = array_push($guias_impresas, $guia_laar);
                         $ciudad = $row['ciudadD'];
                         $ciudad_destino = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad);
                         $costo_producto = $row['costo_producto'];
@@ -293,7 +298,8 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
 
             $devolucion = array(
                 'manifiesto' => $manifiestoT,
-                'producto' => $productoT
+                'producto' => $productoT,
+                'guias' => $guias_impresas
             );
 
             echo json_encode($devolucion);
