@@ -312,7 +312,81 @@ $ventas = 1;
     }
 
     function pdf() {
+        let manifiesto_html = `
+        <!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Impresas</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        padding: 10px;
+    }
+
+    .grid-container>article {
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding-top: 1em;
+    }
+
+    .grid-container>article:nth-child(even) {
+        border-left: none;
+    }
+
+    .grid-container-multiple {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        padding: 0px 10px;
+    }
+
+    .grid-container-multiple>article {
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding-top: 1em;
+    }
+
+    .grid-container-multiple>article:nth-child(even) {
+        border-left: none;
+    }
+
+    .grid-container-multiple>article:nth-child(2) {
+        border-right: none;
+    }
+
+    .grid-container-multiple>article:nth-child(4) {
+        border-right: none;
+    }
+
+    .grid-container-simple {
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .grid-container-simple>article {
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        padding-top: 1em;
+    }
+
+    /*  al ultimo ponle padding-buttom */
+    .grid-container-simple>article:last-child {
+        padding-bottom: 2em;
+    }
+</style>
+
+<body>
+    <main>
+        `;
         let checks = document.querySelectorAll("[name='item']:checked");
         if (checks.length == 0) {
             Swal.fire({
@@ -348,6 +422,7 @@ $ventas = 1;
                     },
                     onSuccess: function(data) {
                         impresiones.push(data);
+                        console.log(impresiones);
                     }
                 }).done(function(data) {
                     console.log(data);
