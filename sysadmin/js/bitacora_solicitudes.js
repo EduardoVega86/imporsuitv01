@@ -195,3 +195,15 @@ function eliminar_solicitud(id) {
     }
   });
 }
+
+function visto(id) {
+  $.ajax({
+    url: "../ajax/visto_solicitud.php",
+    type: "POST",
+    dataType: "html",
+    data: { id: id },
+    success: function (data) {
+      load(1);
+    },
+  });
+}
