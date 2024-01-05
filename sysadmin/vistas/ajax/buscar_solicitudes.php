@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
@@ -48,12 +47,12 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com") {
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "solicitudes_pago, datos_banco_usuarios";
     $sWhere = "";
-    $sWhere .= " where cantidad !=0";
+    $sWhere .= " where cantidad !=0 and solicitudes_pago.id_cuenta = datos_banco_usuarios.id_cuenta";
     if ($_GET['q'] != "") {
-        $sWhere .= " and and id_cuenta = (SELECT id_cuenta from datos_banco_usuarios where tienda like '%$q%') and solicitudes_pago.id_cuenta = datos_banco_usuarios.id_cuenta order by fecha desc; )";
+        $sWhere .= " and solicitudes_pago.id_cuenta = (SELECT id_cuenta from datos_banco_usuarios where tienda like '%$q%') and solicitudes_pago.id_cuenta = datos_banco_usuarios.id_cuenta";
     }
 
-    $sWhere .= " order by fecha desc";
+    $sWhere .= " ORDER BY `solicitudes_pago`.`visto` ASC, `solicitudes_pago`.`fecha` DESC";
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
@@ -65,6 +64,7 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com") {
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
+
     $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
     $row         = mysqli_fetch_array($count_query);
     $numrows     = $row['numrows'];
@@ -93,6 +93,10 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com") {
                     <th class="text-center">Telefono</th>
                     <th class="text-center">Correo</th>
                     <th class="text-center">Cantidad</th>
+                    <th class="text-center">Ir a Wallet</th>
+                    <th class="text-center">¿Borrar?</th>
+
+
 
                 </tr>
                 <?php
@@ -109,13 +113,16 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com") {
                     $correo = $row['correo'];
                     $cantidad = $row['cantidad'];
                     $nombre = $row['nombre'];
+                    $visto = $row['visto'];
 
                     $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 ?>
-                    <input type="hidden" value="<?php echo $id_cuenta; ?>" id="estado<?php echo $id_cuenta; ?>">
+                    <input type="hidden" value="<?php echo $id_cuenta; ?>" id="estado<?php echo $id_cuenta; ?>" />
 
                     <tr class="align-middle">
-                        <td class="align-middle"><input type="checkbox" name="item" id="<?php echo $id_solicitud; ?>"></td>
+                        <td class="align-middle"><input type="checkbox" name="item" id="<?php echo $id_solicitud; ?>" <?php if ($visto == 1) {
+                                                                                                                            echo "checked disabled";
+                                                                                                                        } ?>></td>
                         <td class="text-center align-middle"><span><?php echo $fecha; ?></span></td>
                         <td class="align-middle text-center"><label class='badge badge-purple'><?php echo $nombre; ?></label></td>
                         <td class="text-center align-middle"><span><?php echo $tienda; ?></span></td>
@@ -126,7 +133,8 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com") {
                         <td class="text-center align-middle"><span><?php echo $telefono; ?></span></td>
                         <td class="text-center align-middle"><span><?php echo $correo; ?></span></td>
                         <td class="text-center align-middle"><span><?php echo $simbolo_moneda . '' . number_format($cantidad, 2); ?></span></td>
-
+                        <td class="text-center align-middle"><a href="pagar_wallet.php?id_factura=&tienda=<?php echo $tienda; ?>" class="btn btn-sm btn-success"><i class="ti ti-wallet"></i></a></td>
+                        <td class="text-center align-middle"><button onclick="eliminar_solicitud('<?php echo $id_solicitud; ?>')"> <i class="ti ti-trash"></i> </button> </td>
                     </tr>
                 <?php
                 }

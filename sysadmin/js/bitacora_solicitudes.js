@@ -163,3 +163,35 @@ function buscar_numero(numero) {
     },
   });
 }
+
+function eliminar_solicitud(id) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "¡No podrás revertir esto!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+
+    confirmButtonText: "Si, eliminar!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        url: "../ajax/eliminar_solicitud.php",
+        type: "POST",
+        dataType: "html",
+        data: { id: id },
+        success: function (data) {
+          Swal.fire({
+            title: "Eliminado!",
+            text: "La solicitud ha sido eliminada.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          load(1);
+        },
+      });
+    }
+  });
+}
