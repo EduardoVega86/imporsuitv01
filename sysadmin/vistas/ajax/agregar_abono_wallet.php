@@ -1,9 +1,9 @@
 <?php
-include 'is_logged.php';
+
 
 $tienda = $_SESSION['tienda'];
 require_once "../db.php";
-
+$cantidad = 0;
 if (empty($_POST['abono'])) {
     $errors[] = "Cantidad vacía";
 } elseif (!empty($_POST['abono'])) {
@@ -11,6 +11,7 @@ if (empty($_POST['abono'])) {
     require_once "../funciones.php";
 
     $abono = floatval($_POST['abono']);
+    $cantidad = $abono;
     $total_abonado = $abono;
     $forma_pago = $_POST["forma_pago"];
 
@@ -87,6 +88,58 @@ if (empty($_POST['abono'])) {
     }
 } else {
     $errors[] = "Error desconocido.";
+}
+
+require_once '../../PHPMailer/PHPMailer.php';
+require_once '../../PHPMailer/SMTP.php';
+require_once '../../PHPMailer/Exception.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+$correo = "SELECT * FROM datos_banco_usuarios WHERE tienda = '$tienda'";
+$resultado_correo = mysqli_query($marketplace_conexionquery, $correo);
+$datos_correo = mysqli_fetch_assoc($resultado_correo);
+
+$correo = $datos_correo['correo'];
+$nombre = $datos_correo['nombre'];
+$banco = $datos_correo['banco'];
+$tipo_cuenta = $datos_correo['tipo_cuenta'];
+$numero_cuenta = $datos_correo['numero_cuenta'];
+$cedula = $datos_correo['cedula'];
+$telefono = $datos_correo['telefono'];
+
+include '../../PHPMailer/Mail_pago.php';
+
+$mail = new PHPMailer(true);
+try {
+    //Server settings
+
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->SMTPDebug = $smtp_debug;
+    $mail->Host = $smtp_host;
+    $mail->SMTPAuth = true;
+    $mail->Username = $smtp_user;
+    $mail->Password = $smtp_pass;
+    $mail->Port = 465;
+    $mail->SMTPSecure = $smtp_secure;
+
+    $mail->isHTML(true);
+    $mail->CharSet = 'UTF-8';
+    $mail->setFrom($smtp_from, $smtp_from_name);
+    $mail->addAddress('contabilidadimporfactory@gmail.com');
+    $mail->Subject = 'Solicitud de pago ' . $tienda;
+    $mail->Body = $message_body3;
+
+
+    if ($mail->send()) {
+    } else {
+        echo $mail->ErrorInfo;
+    }
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
 
 if (isset($errors)) {
