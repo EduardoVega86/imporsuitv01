@@ -78,9 +78,32 @@ try {
     $sql_insertar = "INSERT INTO `solicitudes_pago`(`cantidad`, `id_cuenta`) VALUES ('$cantidad', (SELECT id_cuenta FROM datos_banco_usuarios where tienda ='$tienda') );";
     $resultado_insertar = mysqli_query($marketplace_conexionquery, $sql_insertar);
     if ($mail->send()) {
-        echo "enviado";
     } else {
         echo $mail->ErrorInfo;
+    }
+
+    // mail al solicitante
+    $mail2 = new PHPMailer();
+    $mail2->isSMTP();
+    $mail2->SMTPDebug = $smtp_debug;
+    $mail2->Host = $smtp_host;
+    $mail2->SMTPAuth = true;
+    $mail2->Username = $smtp_user;
+    $mail2->Password = $smtp_pass;
+    $mail2->Port = 465;
+    $mail2->SMTPSecure = $smtp_secure;
+
+    $mail2->isHTML(true);
+    $mail2->CharSet = 'UTF-8';
+    $mail2->setFrom($smtp_from, $smtp_from_name);
+    $mail2->addAddress($correo);
+    $mail2->Subject = 'Solicitud de pago ' . $tienda;
+    $mail2->Body = $message_body2;
+
+    if ($mail2->send()) {
+        echo "enviado";
+    } else {
+        echo $mail2->ErrorInfo;
     }
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
