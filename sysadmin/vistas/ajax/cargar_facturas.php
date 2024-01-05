@@ -54,7 +54,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
                                                                 if (get_row('facturas_cot', 'drogshipin', 'numero_factura', $numero_factura) == 0 || get_row('facturas_cot', 'drogshipin', 'numero_factura', $numero_factura) == 4) {
                                                                     echo 'LOCAL';
                                                                 } else {
-                                                                    echo 'DROGSHIPIN';
+                                                                    echo 'DROPSHIPIN';
                                                                 } ?></td>
                 <td><?php echo $rws['fecha']; ?></td>
                 <td><?php echo $rws['cliente']; ?></td>
