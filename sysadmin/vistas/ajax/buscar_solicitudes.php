@@ -58,7 +58,7 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com") {
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $per_page  = 10; //how much records you want to show
-    if ($_GET["numero"]) {
+    if (isset($_GET["numero"])) {
         $per_page  = $_GET["numero"]; //how much records you want to show
 
     }
