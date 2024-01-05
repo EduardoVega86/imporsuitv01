@@ -7,6 +7,7 @@ $tienda = $_SESSION['tienda'];
 /* Connect To Database*/
 require_once "../db.php";
 require_once "../php_conexion.php";
+require_once "../funciones.php";
 
 $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda';");
 $rw = mysqli_fetch_array($consultar);
@@ -47,8 +48,14 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             }
         ?>
             <tr class="<?php echo $color_row ?>">
-                <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked" ?> onclick="visto('<?php echo $rws['id_cabecera'] ?>')"></td>
-                <td><?php echo $rws['numero_factura']; ?></td>
+                <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked disabled" ?> onclick="visto('<?php echo $rws['id_cabecera'] ?>')"></td>
+                <td><?php echo $rws['numero_factura']; ?></br><?php
+                                                                $numero_factura = $rws['numero_factura'];
+                                                                if (get_row('facturas_cot', 'drogshipin', 'numero_factura', $numero_factura) == 0 || get_row('facturas_cot', 'drogshipin', 'numero_factura', $numero_factura) == 4) {
+                                                                    echo 'LOCAL';
+                                                                } else {
+                                                                    echo 'DROGSHIPIN';
+                                                                } ?></td>
                 <td><?php echo $rws['fecha']; ?></td>
                 <td><?php echo $rws['cliente']; ?></td>
                 <td><?php echo $rws['tienda']; ?></td>

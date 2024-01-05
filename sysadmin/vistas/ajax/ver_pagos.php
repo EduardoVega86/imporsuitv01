@@ -17,15 +17,7 @@ if ($action == 'ajax') {
     $tables = "pagos";
     $campos = "*";
     $sWhere = "tienda='" . $tienda . "'";
-    if (!empty($daterange)) {
-        list($f_inicio, $f_final) = explode(" - ", $daterange); //Extrae la fecha inicial y la fecha final en formato espa?ol
-        list($dia_inicio, $mes_inicio, $anio_inicio) = explode("/", $f_inicio); //Extrae fecha inicial
-        $fecha_inicial = "$anio_inicio-$mes_inicio-$dia_inicio 00:00:00"; //Fecha inicial formato ingles
-        list($dia_fin, $mes_fin, $anio_fin) = explode("/", $f_final); //Extrae la fecha final
-        $fecha_final = "$anio_fin-$mes_fin-$dia_fin 23:59:59";
 
-        $sWhere .= " and fecha between '$fecha_inicial' and '$fecha_final' ";
-    }
     $sWhere .= " order by id_pago DESC";
 
     include 'pagination.php'; //include pagination file

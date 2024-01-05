@@ -101,16 +101,7 @@ $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_f
                                                     <form class="form-horizontal" role="form" id="datos_cotizacion">
                                                         <div class="form-group row">
                                                             <div class="col-xs-4">
-                                                                <div class="input-group">
-                                                                    <div class="input-group-addon">
-                                                                        <i class="fa fa-calendar"></i>
-                                                                    </div>
-                                                                    <input type="calendar" class="form-control daterange pull-right" value="<?php echo "01" . date('/m/Y') . ' - ' . date('d/m/Y'); ?>" id="range">
-                                                                    <span class="input-group-btn">
-                                                                        <button class="btn btn-info waves-effect waves-light" type="button" onclick='load(1);'><i class='fa fa-search'></i></button>
-                                                                    </span>
 
-                                                                </div><!-- /input-group -->
                                                             </div>
                                                             <div class="col-xs-3">
                                                                 <div id="loader" class="text-left"></div>

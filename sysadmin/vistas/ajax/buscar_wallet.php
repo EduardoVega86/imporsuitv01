@@ -38,7 +38,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $sWhere = "";
         $sWhere .= " WHERE cabecera_cuenta_pagar.numero_factura=facturas_cot.numero_factura";
         if ($_GET['q'] != "") {
-            $sWhere .= "";
+            $sWhere .= " and cabecera_cuenta_pagar.tienda like '%$q%'";
         }
         $sWhere .= "";
 
