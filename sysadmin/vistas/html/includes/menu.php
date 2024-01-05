@@ -249,7 +249,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 						<li><a href="../html/info_web.php">Tienda On Line</a></li>
 						<li><a href="../html/politicas.php">Politicas de Privacidad</a></li>
 						<li><a href="../html/pixel.php">Pixele Seg</a></li>
-                                                <li><a href="../html/caracteristicas_entrega.php">Caracteristicas Entrega</a></li>
+						<li><a href="../html/caracteristicas_entrega.php">Caracteristicas Entrega</a></li>
 						<li><a href="../html/gracias.php">Pagina de Gracias</a></li>
 						<li><a href="../html/horizontal.php">Texto Flotante</a></li>
 						<li><a href="../html/testimonios.php">Testimonios</a></li>
@@ -273,6 +273,10 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 					<ul class="list-unstyled">
 						<li><a href="../html/wallet.php">Detalles</a></li>
 						<li><a href="../html/datos_banco.php">Datos bancarios</a></li>
+						<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
+							<li><a href="../html/solicitudes.php">Solicitudes de Pago</a></li>
+
+						<?php } ?>
 					</ul>
 				</li>
 
