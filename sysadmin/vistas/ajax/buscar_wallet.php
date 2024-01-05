@@ -342,12 +342,25 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 } else {
                                     $color_row = "table-warning";
                                 }
+
+                                $url_laar = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . $guia_laar;
+                                $drogshipin_sql = "SELECT * FROM facturas_cot WHERE numero_factura = '$id_factura'";
+                                $query_drogshipin = mysqli_query($conexion_db, $drogshipin_sql);
+                                $row_drogshipin = mysqli_fetch_array($query_drogshipin);
+                                $drogshipin = $row_drogshipin['drogshipin'];
                             ?>
                                 <input type="hidden" value="<?php echo $estado_factura; ?>" id="estado<?php echo $id_factura; ?>">
 
                                 <tr class="<?php echo $color_row ?>">
                                     <td class="text-center"><label class="badge badge-purple"> <?php echo $id_factura; ?></label></td>
-                                    <td class="text-center"><label class="badge badge-pink"> <?php echo $guia_laar; ?></label></td>
+                                    <td class="text-center"><a href="<?php echo $url_laar; ?>" class="badge badge-pink"> <?php echo $guia_laar; ?> </a> <br> <?php
+                                                                                                                                                                $numero_factura = $row['numero_factura'];
+
+                                                                                                                                                                if ($drogshipin == 0 || $drogshipin == 4) {
+                                                                                                                                                                    echo '<span class="badge badge-purple">LOCAL</span>';
+                                                                                                                                                                } else {
+                                                                                                                                                                    echo ' <span class="badge badge-purple">DROPSHIPIN</span>';
+                                                                                                                                                                } ?> </td>
                                     <td class="text-center"><?php echo $fecha; ?></td>
                                     <td class="text-center"><?php echo $nombre_cliente; ?></td>
                                     <td class="text-center"><?php echo $tienda; ?></td>

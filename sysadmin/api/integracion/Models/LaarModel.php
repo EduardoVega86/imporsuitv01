@@ -136,6 +136,7 @@ class LaarModel extends Query
     public function pedidoEntragado($no_guia, $estado_actual_codigo)
     {
         $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
+        print_r($numero_factura_verificar);
         $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
         $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
         $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
@@ -154,8 +155,9 @@ class LaarModel extends Query
         $id_pedido = $query[0]['id_pedido'];
         $tienda_venta = $query[0]['tienda_venta'];
         $query = "SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'";
-        $query = $this->select($query);
 
+        $query = $this->select($query);
+        print_r($query);
         $numero_factura = $query[0]['numero_factura'];
         $fecha = $query[0]['fecha_factura'];
         $nombre_cliente = $query[0]['nombre'];
