@@ -120,9 +120,9 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com") {
                     <input type="hidden" value="<?php echo $id_cuenta; ?>" id="estado<?php echo $id_cuenta; ?>" />
 
                     <tr class="align-middle">
-                        <td class="align-middle"><input type="checkbox" name="item" id="<?php echo $id_solicitud; ?>" <?php if ($visto == 1) {
-                                                                                                                            echo "checked disabled";
-                                                                                                                        } ?>></td>
+                        <td class="align-middle"><input onchange="visto('<?php echo $id_solicitud; ?>')" type="checkbox" name="item" id="<?php echo $id_solicitud; ?>" <?php if ($visto == 1) {
+                                                                                                                                                                            echo "checked disabled";
+                                                                                                                                                                        } ?>></td>
                         <td class="text-center align-middle"><span><?php echo $fecha; ?></span></td>
                         <td class="align-middle text-center"><label class='badge badge-purple'><?php echo $nombre; ?></label></td>
                         <td class="text-center align-middle"><span><?php echo $tienda; ?></span></td>
@@ -134,7 +134,7 @@ if ($action == 'ajax' and $server_url == "https://marketplace.imporsuit.com") {
                         <td class="text-center align-middle"><span><?php echo $correo; ?></span></td>
                         <td class="text-center align-middle"><span><?php echo $simbolo_moneda . '' . number_format($cantidad, 2); ?></span></td>
                         <td class="text-center align-middle"><a href="pagar_wallet.php?id_factura=&tienda=<?php echo $tienda; ?>" class="btn btn-sm btn-success"><i class="ti ti-wallet"></i></a></td>
-                        <td class="text-center align-middle"><button onclick="eliminar_solicitud('<?php echo $id_solicitud; ?>')"> <i class="ti ti-trash"></i> </button> </td>
+                        <td class="text-center align-middle"><button class="btn btn-sm btn-danger" onclick="eliminar_solicitud('<?php echo $id_solicitud; ?>')"> <i class="ti ti-trash"></i> </button> </td>
                     </tr>
                 <?php
                 }
