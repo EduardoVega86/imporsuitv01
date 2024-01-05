@@ -79,6 +79,14 @@ try {
     } else {
         echo $mail->ErrorInfo;
     }
+
+    $sql_insertar = "INSERT INTO `solicitudes_pago`(`cantidad`, `id_cuenta`) VALUES ('$cantidad', (SELECT id_cuenta FROM datos_banco_usuarios where tienda ='$tienda') );";
+    $resultado_insertar = mysqli_query($marketplace_conexionquery, $sql_insertar);
+    if ($resultado_insertar) {
+        echo "insertado";
+    } else {
+        echo "error";
+    }
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
