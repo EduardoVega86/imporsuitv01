@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+include 'is_logged.php';
 
 
 $tienda = $_SESSION['tienda'];
@@ -28,7 +31,7 @@ if (empty($_POST['abono'])) {
     $fecha    = date("Y-m-d H:i:s");
 
     $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` WHERE tienda ='$tienda' AND `valor_pendiente` != 0 AND visto ='1' ORDER by monto_recibir ASC;");
-
+    $i = 0;
     while ($rws = mysqli_fetch_assoc($consultar)) {
         if ($abono > 0) {
             $bct = 0;
@@ -99,7 +102,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 $correo = "SELECT * FROM datos_banco_usuarios WHERE tienda = '$tienda'";
-$resultado_correo = mysqli_query($marketplace_conexionquery, $correo);
+$resultado_correo = mysqli_query($conexion, $correo);
 $datos_correo = mysqli_fetch_assoc($resultado_correo);
 
 $correo = $datos_correo['correo'];
@@ -129,7 +132,7 @@ try {
     $mail->isHTML(true);
     $mail->CharSet = 'UTF-8';
     $mail->setFrom($smtp_from, $smtp_from_name);
-    $mail->addAddress('contabilidadimporfactory@gmail.com');
+    $mail->addAddress($correo);
     $mail->Subject = 'Solicitud de pago ' . $tienda;
     $mail->Body = $message_body3;
 
