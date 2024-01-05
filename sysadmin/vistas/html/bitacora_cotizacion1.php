@@ -304,7 +304,7 @@ $ventas = 1;
 </script>
 
 <script>
-    function generatePDF(factura) {
+    function generatePDF(factura, pdfs) {
         // Choose the element that our invoice is rendered in.
         let opt = {
             margin: 10,
@@ -327,9 +327,20 @@ $ventas = 1;
             .from(factura)
             .set(opt)
             .outputPdf(pdf => {
+                const pdfDescargadoInstance = new jsPDF();
+                pdfs.forEach((element) => {
+                    pdfDescargadoInstance.load(element)
+                    pdf.addPage();
+                    pdf.appendPdf(pdfDescargadoInstance);
+                    pdfDescargadoInstance.save();
+                });
 
+                console.log(pdfs);
+
+                pdf.save('myfile.pdf');
             })
             .save();
+
     }
 
     function pdf(e) {
@@ -501,17 +512,18 @@ $ventas = 1;
                 `;
                     let buffers = [];
                     let guias = datos["guias"];
-                    const descargarPDF = () => {
-                        guias.forEach(async (element) => {
-                            let pdfUrl = 'https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=';
-                            pdfUrl += element;
+                    const descargarPDF = async () => {
+                        const descargas = guias.map(async (element) => {
+                            let pdfUrl = 'https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=' + element;
                             const response = await fetch(pdfUrl);
                             const blob = await response.blob();
-                            const arrayBuffer = await blob.arrayBuffer();
-                            buffers.push(arrayBuffer);
+                            return blob.arrayBuffer();
                         });
 
-                        // Llamar a la función para generar el PDF con el contenido HTML y el PDF descargado
+                        // Esperar a que todas las descargas se completen
+                        const buffers = await Promise.all(descargas);
+
+                        // Llamar a la función para generar el PDF con el contenido HTML y los PDFs descargados
                         generatePDF(manifiesto_html, buffers);
                     };
                     descargarPDF();
@@ -555,17 +567,19 @@ $ventas = 1;
                 `;
                 let buffers = [];
                 let guias = datos["guias"];
-                const descargarPDF = () => {
-                    guias.forEach(async (element) => {
-                        let pdfUrl = 'https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=';
-                        pdfUrl += element;
-                        const response = await fetch(pdfUrl);
-                        const blob = await response.blob();
-                        const arrayBuffer = await blob.arrayBuffer();
-                        buffers.push(arrayBuffer);
+                const descargarPDF = async () => {
+                    const descargas = guias.map(async (element) => {
+                        let pdfUrl = 'https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=' + element;
+                        const response = await fetch(pdfUrl).then(response => response.blob()).then(blob => {
+                            return blob.arrayBuffer();
+                        });
+
                     });
 
-                    // Llamar a la función para generar el PDF con el contenido HTML y el PDF descargado
+                    // Esperar a que todas las descargas se completen
+                    const buffers = await Promise.all(descargas);
+
+                    // Llamar a la función para generar el PDF con el contenido HTML y los PDFs descargados
                     generatePDF(manifiesto_html, buffers);
                 };
                 descargarPDF();
