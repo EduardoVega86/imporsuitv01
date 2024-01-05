@@ -49,13 +49,13 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
         ?>
             <tr class="<?php echo $color_row ?>">
                 <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked disabled" ?> onclick="visto('<?php echo $rws['id_cabecera'] ?>')"></td>
-                <td><?php echo $rws['numero_factura']; ?></br><?php
-                                                                $numero_factura = $rws['numero_factura'];
-                                                                if (get_row('facturas_cot', 'drogshipin', 'numero_factura', $numero_factura) == 0 || get_row('facturas_cot', 'drogshipin', 'numero_factura', $numero_factura) == 4) {
-                                                                    echo 'LOCAL';
-                                                                } else {
-                                                                    echo 'DROPSHIPIN';
-                                                                } ?></td>
+                <td class="text-center"><?php echo $rws['numero_factura']; ?></br><?php
+                                                                                    $numero_factura = $rws['numero_factura'];
+                                                                                    if (get_row('facturas_cot', 'drogshipin', 'numero_factura', $numero_factura) == 0 || get_row('facturas_cot', 'drogshipin', 'numero_factura', $numero_factura) == 4) {
+                                                                                        echo '<span class="badge badge-purple">LOCAL</span>';
+                                                                                    } else {
+                                                                                        echo ' <span class="badge badge-purple">DROPSHIPIN</span>';
+                                                                                    } ?></td>
                 <td><?php echo $rws['fecha']; ?></td>
                 <td><?php echo $rws['cliente']; ?></td>
                 <td><?php echo $rws['tienda']; ?></td>
