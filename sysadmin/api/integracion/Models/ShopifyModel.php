@@ -44,6 +44,16 @@ class ShopifyModel extends Query
 
         date_default_timezone_set('America/Guayaquil');
 
+        //verifica si existe el producto
+        $sku = $line_items[0]['sku'];
+        $sql = "SELECT * FROM productos WHERE codigo_producto = '$sku';";
+        $query = $this->select($sql);
+        if (empty($query)) {
+            // si no existe sale del programa
+            echo "no existe";
+            return false;
+        }
+
 
         $ultima_factura_sql = "SELECT MAX(numero_factura) AS factura FROM facturas_cot;";
         $ultima_factura = $this->select($ultima_factura_sql);

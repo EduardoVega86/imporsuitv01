@@ -35,7 +35,7 @@ function load(page) {
   var q = $("#q").val();
   $("#loader").fadeIn("slow");
   $.ajax({
-    url: "../ajax/buscar_wallet.php?action=ajax&page=" + page + "&q=" + q,
+    url: "../ajax/ç.php?action=ajax&page=" + page + "&q=" + q,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },

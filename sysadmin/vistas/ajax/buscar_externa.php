@@ -42,14 +42,10 @@ $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUES
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-    $sTable = "facturas_cot, clientes, users";
+    $sTable = "facturas_cot";
     $sWhere = "";
-    $sWhere .= " WHERE facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
-    if ($server_url == "https://yapando.imporsuit.com") {
-        $sTable .= ", detalle_fact_cot";
-        $sWhere = "";
-        $sWhere .= " and detalle_fact_cot.numero_factura = facturas_cot.numero_factura";
-    }
+    $sWhere .= " LEFT JOIN detalle_fact_cot ON facturas_cot.numero_factura = detalle_fact_cot.numero_factura WHERE detalle_fact_cot.numero_factura IS NULL";
+
     if ($_GET['q'] != "") {
         $sWhere .= " and  (facturas_cot.nombre like '%$q%' or facturas_cot.numero_factura like '%$q%')";
     }
