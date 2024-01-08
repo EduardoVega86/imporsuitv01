@@ -134,7 +134,7 @@ $ventas = 1;
                     <section class="content">
                         <div class="alert alert-danger" align="center">
                             <h3>Acceso denegado! </h3>
-                            <p>No cuentas con los permisos necesario para acceder a este módulo.</p>
+                            <p>No cuentas con los permisos necesario para acceder a este m贸dulo.</p>
                         </div>
                     </section>
                 <?php
@@ -306,15 +306,15 @@ $ventas = 1;
 <script>
     function generatePDF(factura, pdfs) {
         // Choose the element that our invoice is rendered in.
-        let opt = {
-            margin: 10,
-            filename: 'myfile.pdf',
+        var opt = {
+            margin: 0.5,
+            filename: 'myfiles.pdf',
             image: {
                 type: 'jpeg',
                 quality: 0.98
             },
             html2canvas: {
-                scale: 2
+                scale: 1
             },
             jsPDF: {
                 unit: 'in',
@@ -322,6 +322,31 @@ $ventas = 1;
                 orientation: 'portrait'
             }
         };
+
+        $.ajax({
+            url: "../ajax/pdf.php",
+            type: "POST",
+            data: {
+                "factura": factura,
+                "pdf": pdfs
+            },
+            beforeSend: function(objeto) {
+                Swal.fire({
+                        title: 'Generando PDF',
+                        html: 'Por favor espere un momento',
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                    }
+
+                )
+            },
+            onSuccess: function(data) {
+                impresiones.push(data);
+            }
+        })
+
         // Choose the element and save the PDF for our user.
         html2pdf()
             .from(factura)
@@ -336,8 +361,9 @@ $ventas = 1;
                 });
 
                 console.log(pdfs);
+                console.log("XXD")
 
-                pdf.save('myfile.pdf');
+                pdf.save('myfiles.pdf');
             })
             .save();
 
@@ -523,7 +549,7 @@ $ventas = 1;
                         // Esperar a que todas las descargas se completen
                         const buffers = await Promise.all(descargas);
 
-                        // Llamar a la función para generar el PDF con el contenido HTML y los PDFs descargados
+                        // Llamar a la funci贸n para generar el PDF con el contenido HTML y los PDFs descargados
                         generatePDF(manifiesto_html, buffers);
                     };
                     descargarPDF();
@@ -579,7 +605,7 @@ $ventas = 1;
                     // Esperar a que todas las descargas se completen
                     const buffers = await Promise.all(descargas);
 
-                    // Llamar a la función para generar el PDF con el contenido HTML y los PDFs descargados
+                    // Llamar a la funci贸n para generar el PDF con el contenido HTML y los PDFs descargados
                     generatePDF(manifiesto_html, buffers);
                 };
                 descargarPDF();
