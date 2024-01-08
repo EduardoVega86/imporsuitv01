@@ -47,7 +47,6 @@ if ($action == 'ajax') {
     $sWhere .= " WHERE facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
     if ($server_url == "https://yapando.imporsuit.com") {
         $sTable .= ", detalle_fact_cot";
-        $sWhere = "";
         $sWhere .= " and detalle_fact_cot.numero_factura = facturas_cot.numero_factura";
     }
     if ($_GET['q'] != "") {

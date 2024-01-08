@@ -191,6 +191,12 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 						<?php
 						} ?>
 
+						<?php if ($dominio_completo == 'https://yapando.imporsuit.com') { ?>
+							<li><a href="../html/bitacora_externa.php">Pedidos Externos</a></li>
+
+						<?php } ?>
+
+
 
 					</ul>
 				</li>
