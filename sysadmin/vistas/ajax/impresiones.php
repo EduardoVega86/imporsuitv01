@@ -15,24 +15,44 @@ require_once "../funciones_destino.php";
 //Inicia Control de Permisos
 
 
-
+$msg = [];
 if (isset($_POST['factura']) && isset($_POST['tipo'])) {
     if ($_POST['tipo'] == "simple") {
-
-        $sql_command = "SELECT * FROM facturas_cot WHERE numero_factura = '" . $_POST['factura'] . "'";
-        $result = mysqli_query($conexion, $sql_command);
-        $row = mysqli_fetch_array($result);
-        $tienda = $row['tienda'];
-        $id_factura_origen = $row['id_factura_origen'];
-        $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
-        $result = mysqli_query($conexion, $sql_command);
-        $row = mysqli_fetch_array($result);
-
-        $id_transporte = $row['id_transporte'];
         $archivo_tienda = $tienda . '/sysadmin/vistas/db1.php';
         $archivo_destino_tienda = '../db_destino_guia.php';
         $contenido_tienda = file_get_contents($archivo_tienda);
         $get_data =  json_decode($contenido_tienda, true);
+
+        $sql_command = "SELECT * FROM facturas_cot WHERE numero_factura = '" . $_POST['factura'] . "'";
+        $result = mysqli_query($conexion, $sql_command);
+        $row = mysqli_fetch_array($result);
+        $drogshipin = $row['drogshipin'];
+        $tienda = $row['tienda'];
+        $id_factura_origen = $row['id_factura_origen'];
+        if ($drogshipin == 0 || $drogshipin == 2 || $drogshipin == 4) {
+            $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
+            $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_PASS']);
+            if ($conexion_destino->connect_errno) {
+                echo "Fallo al conectar a MySQL: (" . $conexion_destino->connect_errno . ") " . $conexion_destino->connect_error;
+            }
+            $result = mysqli_query($conexion_destino, $sql_command);
+            $row2 = mysqli_fetch_array($result);
+            if (empty($row2)) {
+                array_push($msg, "noexisteguia");
+                exit;
+            }
+            $id_transporte = $row2['id_transporte'];
+        } else {
+
+            $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
+            $result = mysqli_query($conexion, $sql_command);
+            $row = mysqli_fetch_array($result);
+            if (empty($row)) {
+                array_push($msg, "noexisteguia");
+                exit;
+            }
+            $id_transporte = $row['id_transporte'];
+        }
         $guias_impresas = array();
 
         if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
@@ -42,6 +62,12 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             }
             $sql_command = "SELECT * FROM guia_laar g inner join facturas_cot f on g.id_pedido = f.id_factura inner join detalle_fact_cot dt on f.numero_factura = dt.numero_factura inner join productos p on p.id_producto = dt.id_producto WHERE g.id_pedido = '" . $id_factura_origen . "'";
             $result = mysqli_query($conexion_destino, $sql_command);
+
+            if ($result == false) {
+                echo "Error en la consulta";
+                exit;
+            }
+
             $contador = 1;
 
             $manifiestoT = '';
@@ -190,6 +216,11 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
                 $result = mysqli_query($conexion, $sql_command);
                 $row = mysqli_fetch_array($result);
+                if (empty($row)) {
+                    array_push($msg, "noexisteguia");
+                    next($facturas);
+                }
+
 
                 $id_transporte = $row['id_transporte'];
                 $archivo_tienda = $tienda . '/sysadmin/vistas/db1.php';
@@ -315,7 +346,8 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             $devolucion = array(
                 'manifiesto' => $manifiestoT,
                 'producto' => $productoT,
-                'guias' => $guias_impresas
+                'guias' => $guias_impresas,
+                'msgs' => $msg
             );
 
             echo json_encode($devolucion);

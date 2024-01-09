@@ -322,7 +322,6 @@ $ventas = 1;
                 orientation: 'portrait'
             }
         };
-        console.log(factura);
 
         $.ajax({
             url: "../ajax/pdf.php",
@@ -345,8 +344,9 @@ $ventas = 1;
             },
             success: function(data) {
                 //descargar el pdf generado
-
-                let url = '../ajax/' + data;
+                let new_name = data.split("/");
+                let name = new_name[new_name.length - 2] + '/' + new_name[new_name.length - 1];
+                let url = '../ajax/' + name;
                 Swal.fire({
                     title: 'Descargar PDF',
                     html: 'Por favor espere un momento',
@@ -492,8 +492,15 @@ $ventas = 1;
 
                         )
                     },
-                    onSuccess: function(data) {
-
+                    success: function(data) {
+                        if (data === "noexisteguia") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Una de las facturas seleccionadas no tiene guia',
+                            })
+                            return false;
+                        }
                     }
                 }).done(function(data) {
                     let datos = JSON.parse(data);
@@ -538,13 +545,21 @@ $ventas = 1;
 
                     )
                 },
-                onSuccess: function(data) {
-                    impresiones.push(data);
+                success: function(data) {
+                    if (data === "noexisteguia") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Una de las facturas seleccionadas no tiene guia',
+                        })
+                        return false;
+                    }
                 }
             }).done(function(data) {
                 let datos = JSON.parse(data);
                 console.log(datos);
                 manifiesto_html += datos["manifiesto"];
+                manifiesto_html += datos["producto"];
                 manifiesto_html += `</main>
             </body>
             </html>
