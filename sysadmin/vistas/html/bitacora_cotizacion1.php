@@ -322,6 +322,7 @@ $ventas = 1;
                 orientation: 'portrait'
             }
         };
+        console.log(factura);
 
         $.ajax({
             url: "../ajax/pdf.php",
@@ -398,77 +399,61 @@ $ventas = 1;
 
 <style>
 * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
 
-    .table {
-        padding: 10px;
-    }
-
-    .table {
-        border-collapse: collapse;
-    }
-
-    .products {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .table .tr .th {
-        width: 100%;
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        border-spacing: 0px;
-        text-align: start;
-        padding: 0% 30px 0px 5px;
-    }
-
-    .table .tr .td {
-        width: 100%;
-        border-spacing: 0px;
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        padding: 0px 30px 0px 5px;
-    }
-
-    .products .ptr .ptd {
-        width: 100%;
-        border-spacing: 0px;
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        padding: 0px 30px 0px 5px;
-    }
-
-    .products .ptr .pth {
-        width: 25%;
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        border-spacing: 0px;
-        text-align: start;
-        padding: 0% 30px 0px 5px;
-    }
-    table {
+        .section1-table,
+        .section2-table,
+        .section3-table,
+        .products-table,
+        .products-table-inv {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .section1-table td,
+        .section2-table td,
+        .section3-table td {
+            border: 1px solid black;
             padding: 10px;
         }
 
-        .article {
-            padding-top: 1em;
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 0.5em;
+        .products-table th,
+        .products-table td {
+            border: 1px solid black;
+            padding: 10px;
             text-align: left;
         }
 
-        .section1 {
-            padding-bottom: 1em;
-            margin-bottom: 2em;
+        .products-table th {
+            width: 25%;
         }
 
-        .section2 {
-            margin-bottom: 2em;
+        .products-table th:last-child {
+            width: 75%;
         }
+
+        .products-table-inv th,
+        .products-table-inv td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .products-table-inv th {
+            width: 75%;
+        }
+
+        .products-table-inv th:last-child {
+            width: 25%;
+        }
+
         .page-break {
-        page-break-before: always;
-    }
+            page-break-before: always;
+        }
 </style>
 </head>
 <body>

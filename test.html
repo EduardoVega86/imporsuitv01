@@ -3,185 +3,126 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guia Impresas</title>
-
     <style>
         * {
             margin: 0;
-            padding: 0;
+            padding: 10px;
             box-sizing: border-box;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-
-            padding: 10px;
-        }
-
-        .grid-container>article {
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding-top: 1em;
-        }
-
-        .grid-container>article:nth-child(even) {
-            border-left: none;
-        }
-
-        .grid-container-multiple {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            padding: 0px 10px;
-        }
-
-        .grid-container-multiple>article {
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding-top: 1em;
-        }
-
-        .grid-container-multiple>article:nth-child(even) {
-            border-left: none;
-        }
-
-        .grid-container-multiple>article:nth-child(2) {
-            border-right: none;
-        }
-
-        .grid-container-multiple>article:nth-child(4) {
-            border-right: none;
-        }
-
-        .grid-container-simple {
-            display: grid;
-            grid-template-columns: 1fr;
-            padding: 10px;
-        }
-
-        .grid-container-simple>article {
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding-top: 1em;
-        }
-
-        /*  al ultimo ponle padding-buttom */
-        .grid-container-simple>article:last-child {
-            padding-bottom: 2em;
-        }
-
-        .table {
-            padding: 10px;
-        }
-
-        table {
+        .section1-table,
+        .section2-table,
+        .section3-table,
+        .products-table,
+        .products-table-inv {
+            width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
         }
 
-        table tr th {
-            width: 100%;
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            border-spacing: 0px;
-            text-align: start;
-            padding: 0% 30px 0px 5px;
-        }
-
-        table tr td {
-            width: 100%;
-            border-spacing: 0px;
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 0px 30px 0px 5px;
-        }
-
-        .grid-container-title {
-            display: grid;
-            grid-template-columns: auto 1fr;
+        .section1-table td,
+        .section2-table td,
+        .section3-table td {
+            border: 1px solid black;
             padding: 10px;
-
         }
 
-        .grid-container-title>article {
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding-top: 1em;
+        .products-table th,
+        .products-table td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
         }
 
-        .grid-container-title>article:nth-child(even) {
-            border-left: none;
+        .products-table th {
+            width: 25%;
         }
 
-        .grid-container-title>article:first-child {
-            padding-right: 2em;
+        .products-table th:last-child {
+            width: 75%;
+        }
+
+        .products-table-inv th,
+        .products-table-inv td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .products-table-inv th {
+            width: 75%;
+        }
+
+        .products-table-inv th:last-child {
+            width: 25%;
+        }
+
+        .page-break {
+            page-break-before: always;
         }
     </style>
 </head>
 
 <body>
     <main>
+        <table class="section1-table">
+            <tr>
+                <td>Transportadora</td>
+                <td>TRANSPORTADORA: Laar Courier</td>
+            </tr>
+            <tr>
+                <td>RELACION DE GUIAS IMPRESAS</td>
+                <td>FECHA MANIFIESTO (DD/MM/YYYY): 09-01-2024</td>
+            </tr>
+        </table>
 
-        <section class='grid-container'>
-            <article>
-                Transportadora
-            </article>
-            <article>
-                TRANSPORTADORA: Laar Courier
-            </article>
-            <article>
-                RELACION DE GU脥AS IMPRESAS
-            </article>
-            <article>
-                FECHA MANIFIESTO (DD/MM/YYYY): 09-01-2024
-            </article>
-        </section>
+        <table class="section2-table">
+            <tr>
+                <td>Nro: 1</td>
+                <td>Guia: IMP21986</td>
+                <td>Ciudad Destino: GUAYAQUIL</td>
+                <td>Valor de Recaudo: 61</td>
+                <td>Tipo de logistica: CON RECAUDO</td>
+            </tr>
+            <!-- Repite filas según sea necesario -->
+        </table>
 
+        <table class="section3-table">
+            <tr>
+                <td>NOMBRE DE AUXILIAR:</td>
+                <td>PLACA DEL VEHICULO:</td>
+                <td>FIRMA DEL AUXILIAR:</td>
+            </tr>
+            <!-- Repite filas según sea necesario -->
+        </table>
 
-        <section class='grid-container-multiple'>
-            <article>
-                Nro: 1
-            </article>
-            <article>
-                Guia: IMP21987
-            </article>
-            <article>
-                Ciudad Destino: AMBATO
-            </article>
-            <article>
-                Valor de Recaudo: 55
-            </article>
-            <article>
-                Tipo de logistica: CON RECAUDO
-            </article>
-        </section>
+        <div class="page-break"></div>
 
-        <div class='html2pdf__page-break'></div>
-        <section class='grid-container-title'>
-            <article>
-                Productos
-            </article>
-            <article>
-                FECHA MANIFIESTO (DD/MM/YYYY): 09-01-2024
-            </article>
+        <table class="products-table">
 
-        </section>
+            <tr>
+                <th>Productos</th>
+                <th>FECHA MANIFIESTO (DD/MM/YYYY) 09-01-2024</th>
+            </tr>
 
-        <section class='table'>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan='3'>Nombre</th>
-                        <th>Cantidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr>
-                        <td colspan='3'>(ID: 564 ) - (SKU: 10055) - CARRO ACRÓBATICO 0KM STUNT TWINST CAR</td>
-                        <td> 1</td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </section>
+        </table>
+        <table class="products-table-inv">
+            <thead>
+                <tr>
+                    <th>Productos</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>(ID: 536 ) - (SKU: 10019) - DRON AERO JET 306°</td>
+                    <td>1</td>
+                </tr>
+                <!-- Repite filas de productos según sea necesario -->
+            </tbody>
+        </table>
     </main>
-
 </body>
 
 </html>

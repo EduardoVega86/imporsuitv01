@@ -13,7 +13,7 @@ $html = file_get_contents("./test.html"); // Simula el HTML recibido
 // Convertir HTML a PDF
 $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
-$dompdf->setPaper('A4', 'landscape');
+$dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 $output = $dompdf->output();
 

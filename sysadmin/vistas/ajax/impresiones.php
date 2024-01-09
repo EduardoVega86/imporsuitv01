@@ -77,56 +77,56 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
 
                 $manifiesto .= "
                 <tr>
-                <td class='article'Nro: " . $contador . "</td>
-                <td class='article'>Guia: " . $guia_laar . " </td>
-                <td class='article'>Ciudad Destino: " . $ciudad_destino . " </td>
-                <td class='article'>Valor de Recaudo: " . $costo_producto . "</td>
-                <td class='article'>Tipo de logistica: " . $cod . "</td>
+                    <td>Nro: " . $contador . "</td>
+                    <td>Guia: " . $guia_laar . " </td>
+                    <td>Ciudad Destino: " . $ciudad_destino . " </td>
+                    <td>Valor de Recaudo: " . $costo_producto . "</td>
+                    <td>Tipo de logistica: " . $cod . "</td>
                 </tr>
                 ";
 
                 $producto .= "
-                <tr class='tr'>
-                    <td class='td' colspan='3'>(ID: " . $id_producto . " ) - (SKU: " . $codigo_producto . ") - " . $nombre_producto . "</td>
-                    <td class='td'> " . $cantidad . "</td>
+                <tr>
+                    <td> ( ID: " . $id_producto . " ) - ( SKU: " . $codigo_producto . " ) - " . $nombre_producto . " </td>
+                    <td> " . $cantidad . "</td>
                 </tr>
                 ";
                 $contador++;
             }
             $manifiestoT = "
-            <table class='section1'>
+            <table class='section1-table'>
                 <tr>
-                    <td class='article'>
+                    <td>
                     TRANSPORTADORA
                     </td>
-                    <td class='article'>
+                    <td>
                     TRANSPORTADORA: " . $transporte . "
                     </td>
                 </tr>
                 <tr>
-                    <td class='article'>
+                    <td>
                     RELACION DE GUIAS IMPRESAS
                     </td>
-                    <td class='article'>
+                    <td>
                     FECHA MANIFIESTO (DD/MM/YYYY): " . $fecha_actual . "
                     </td>
                 </tr>
             </table>
-            <table class='section2'>
+            <table class='section2-table'>
             " . $manifiesto
                 . "
             </table>
             "
                 . "
-                <table class='section3'>
+                <table class='section3-table'>
             <tr>
-                <td class='article'>NOMBRE DE AUXILIAR:</td>
+                <td>NOMBRE DE AUXILIAR:</td>
             </tr>
             <tr>
-                <td class='article'>PLACA DEL VEHICULO:</td>
+                <td>PLACA DEL VEHICULO:</td>
             </tr>
             <tr>
-                <td class='article'>FIRMA DEL AUXILIAR:</td>
+                <td>FIRMA DEL AUXILIAR:</td>
             </tr>
         </table>";
 
@@ -134,29 +134,26 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             $productoT .= "
             <div class='page-break'></div>
 
-            <section class='table'>
-                <table class='products'>
-                    <thead>
-                        <tr class='ptr'>
-                            <th class='pth'>Productos</th>
-                            <th class='pth'>FECHA MANIFIESTO (DD/MM/YYYY) " . $fecha_actual . "
-                            </th>
-                        </tr>
-                    </thead>
+                <table class='products-table'>
+                    
+                    <tr>
+                        <th>Productos</th>
+                        <th>FECHA MANIFIESTO (DD/MM/YYYY) " . $fecha_actual . "
+                        </th>
+                    </tr>
+                    
                 </table>
-            </section>
             
-            <section class='table'>
-            <table class='table'>
+            <table class='products-table-inv'>
                 <thead>
-                    <tr class='tr'>
-                        <th class='th' colspan='3'>Nombre</th>
-                        <th class='th'>Cantidad</th>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
                     </tr>
                 </thead>
-            <tbody>
-            " . $producto . "
-            </tbody>
+                <tbody>
+                " . $producto . "
+                </tbody>
             </table>
             </section>
             ";
@@ -230,83 +227,91 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                         $cantidad = $row['cantidad'];
 
                         $manifiesto .= "
-                        <section class='grid-container-multiple'>
-                        <article>
-                        Nro: " . $contador . "
-                        </article>
-                        <article>
-                        Guia: " . $guia_laar . "
-                        </article>
-                        <article>
-                        Ciudad Destino: " . $ciudad_destino . "
-                        </article>
-                        <article>
-                        Valor de Recaudo: " . $costo_producto . "
-                        </article>
-                        <article>
-                        Tipo de logistica: " . $cod . "
-                        </article>
-                        </section>
-                        ";
+                            <tr>
+                                <td>Nro: " . $contador . "</td>
+                                <td>Guia: " . $guia_laar . " </td>
+                                <td>Ciudad Destino: " . $ciudad_destino . " </td>
+                                <td>Valor de Recaudo: " . $costo_producto . "</td>
+                                <td>Tipo de logistica: " . $cod . "</td>
+                            </tr>
+                            ";
 
                         $producto .= "
-                        <tr>
-                        <td colspan='3'>(ID: " . $id_producto . " ) - (SKU: " . $codigo_producto . ") - " . $nombre_producto . "</td>
-                        <td> " . $cantidad . "</td>
-                        </tr>
-                        ";
+                <tr>
+                    <td> ( ID: " . $id_producto . " ) - ( SKU: " . $codigo_producto . " ) - " . $nombre_producto . " </td>
+                    <td> " . $cantidad . "</td>
+                </tr>
+                ";
                     }
                     $contador++;
                 }
                 next($facturas);
             }
             $manifiestoT = "
-            <section class='grid-container'>
-            <article>
-            Transportadora
-            </article>
-            <article>
-            TRANSPORTADORA: " . $transporte . "
-            </article>
-            <article>
-            RELACION DE GU脥AS IMPRESAS
-            </article>
-            <article>
-            FECHA MANIFIESTO (DD/MM/YYYY): " . $fecha_actual . "
-            </article>
-            </section>
-
-            " . $manifiesto;
+            <table class='section1-table'>
+                <tr>
+                    <td>
+                    TRANSPORTADORA
+                    </td>
+                    <td>
+                    TRANSPORTADORA: " . $transporte . "
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    RELACION DE GUIAS IMPRESAS
+                    </td>
+                    <td>
+                    FECHA MANIFIESTO (DD/MM/YYYY): " . $fecha_actual . "
+                    </td>
+                </tr>
+            </table>
+            <table class='section2-table'>
+            " . $manifiesto
+                . "
+            </table>
+            "
+                . "
+                <table class='section3-table'>
+            <tr>
+                <td>NOMBRE DE AUXILIAR:</td>
+            </tr>
+            <tr>
+                <td>PLACA DEL VEHICULO:</td>
+            </tr>
+            <tr>
+                <td>FIRMA DEL AUXILIAR:</td>
+            </tr>
+        </table>";
 
 
 
             $productoT .= "
-            <section class='grid-container-title'>
-            <article>
-            Productos
-            </article>
-            <article>
-            FECHA MANIFIESTO (DD/MM/YYYY): " . $fecha_actual . "
-            </article>
+        <div class='page-break'></div>
 
-            </section>
-
-            <section class='table'>
-
-            <table>
+            <table class='products-table'>
+                
+                <tr>
+                    <th>Productos</th>
+                    <th>FECHA MANIFIESTO (DD/MM/YYYY) " . $fecha_actual . "
+                    </th>
+                </tr>
+                
+            </table>
+        
+        <table class='products-table-inv'>
             <thead>
-            <tr>
-            <th colspan='3'>Nombre</th>
-            <th>Cantidad</th>
-            </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                </tr>
             </thead>
             <tbody>
             " . $producto . "
             </tbody>
-            </table>
-            </section>
-            ";
-
+        </table>
+        </section>
+        ";
             $devolucion = array(
                 'manifiesto' => $manifiestoT,
                 'producto' => $productoT,
