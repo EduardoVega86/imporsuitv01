@@ -7,7 +7,7 @@ use Dompdf\Dompdf;
 use setasign\Fpdi\Fpdi;
 
 // Cargar el contenido HTML y PDF
-$pdfContent = file_get_contents("./test.pdf"); // Simula el PDF recibido
+$pdfContent = file_get_contents("https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=IMP21897"); // Simula el PDF recibido
 $html = file_get_contents("./test.html"); // Simula el HTML recibido
 
 // Convertir HTML a PDF
@@ -33,7 +33,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
 }
 
 // Añadir el PDF original
-$pageCount = $pdf->setSourceFile("./test.pdf");
+$pageCount = $pdf->setSourceFile($pdfContent);
 for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     $templateId = $pdf->importPage($pageNo);
     $size = $pdf->getTemplateSize($templateId);
