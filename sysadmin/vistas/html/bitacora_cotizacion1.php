@@ -342,13 +342,28 @@ $ventas = 1;
 
                 )
             },
-            onSuccess: function(data) {
-                impresiones.push(data);
+            success: function(data) {
+                //descargar el pdf generado
+
+                let url = '../ajax/' + data;
+                Swal.fire({
+                    title: 'Descargar PDF',
+                    html: 'Por favor espere un momento',
+                    timerProgressBar: true,
+                    timer: 2000,
+                    showConfirmButton: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(url, '_blank');
+                    }
+                })
+
+
             }
         })
 
         // Choose the element and save the PDF for our user.
-        html2pdf()
+        /*html2pdf()
             .from(factura)
             .set(opt)
             .outputPdf(pdf => {
@@ -366,6 +381,8 @@ $ventas = 1;
                 pdf.save('myfiles.pdf');
             })
             .save();
+
+            */
 
     }
 
@@ -538,21 +555,10 @@ $ventas = 1;
                 `;
                     let buffers = [];
                     let guias = datos["guias"];
-                    const descargarPDF = async () => {
-                        const descargas = guias.map(async (element) => {
-                            let pdfUrl = 'https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=' + element;
-                            const response = await fetch(pdfUrl);
-                            const blob = await response.blob();
-                            return blob.arrayBuffer();
-                        });
 
-                        // Esperar a que todas las descargas se completen
-                        const buffers = await Promise.all(descargas);
+                    generatePDF(manifiesto_html, guias);
 
-                        // Llamar a la funci贸n para generar el PDF con el contenido HTML y los PDFs descargados
-                        generatePDF(manifiesto_html, buffers);
-                    };
-                    descargarPDF();
+
                 });
             })
         } else {
@@ -593,22 +599,9 @@ $ventas = 1;
                 `;
                 let buffers = [];
                 let guias = datos["guias"];
-                const descargarPDF = async () => {
-                    const descargas = guias.map(async (element) => {
-                        let pdfUrl = 'https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=' + element;
-                        const response = await fetch(pdfUrl).then(response => response.blob()).then(blob => {
-                            return blob.arrayBuffer();
-                        });
 
-                    });
+                generatePDF(manifiesto_html, guias);
 
-                    // Esperar a que todas las descargas se completen
-                    const buffers = await Promise.all(descargas);
-
-                    // Llamar a la funci贸n para generar el PDF con el contenido HTML y los PDFs descargados
-                    generatePDF(manifiesto_html, buffers);
-                };
-                descargarPDF();
             });
 
 

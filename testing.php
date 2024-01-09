@@ -19,7 +19,8 @@ $output = $dompdf->output();
 
 // Guardar el HTML convertido a PDF temporalmente
 file_put_contents('combined.pdf', $output);
-
+$temp_pdf = "./temp.pdf";
+file_put_contents($temp_pdf, $pdfContent);
 // Inicializar FPDI
 $pdf = new Fpdi();
 
@@ -33,7 +34,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
 }
 
 // Añadir el PDF original
-$pageCount = $pdf->setSourceFile($pdfContent);
+$pageCount = $pdf->setSourceFile($temp_pdf);
 for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     $templateId = $pdf->importPage($pageNo);
     $size = $pdf->getTemplateSize($templateId);
