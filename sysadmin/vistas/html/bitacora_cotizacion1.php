@@ -398,76 +398,26 @@ $ventas = 1;
     <title>Guia Impresas</title>
 
 <style>
-    * {
+* {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-    }
-
-    .grid-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-
-        padding: 10px;
-    }
-
-    .grid-container>article {
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        padding-top: 1em;
-    }
-
-    .grid-container>article:nth-child(even) {
-        border-left: none;
-    }
-
-    .grid-container-multiple {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        padding: 0px 10px;
-    }
-
-    .grid-container-multiple>article {
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        padding-top: 1em;
-    }
-
-    .grid-container-multiple>article:nth-child(even) {
-        border-left: none;
-    }
-
-    .grid-container-multiple>article:nth-child(2) {
-        border-right: none;
-    }
-
-    .grid-container-multiple>article:nth-child(4) {
-        border-right: none;
-    }
-
-    .grid-container-simple {
-        display: grid;
-        grid-template-columns: 1fr;
-        padding: 10px;
-    }
-
-    .grid-container-simple>article {
-        border: 1px solid rgba(0, 0, 0, 0.8);
-        padding-top: 1em;
-    }
-
-    /*  al ultimo ponle padding-buttom */
-    .grid-container-simple>article:last-child {
-        padding-bottom: 2em;
     }
 
     .table {
         padding: 10px;
     }
 
-    table {
+    .table {
         border-collapse: collapse;
     }
 
-    table tr th {
+    .products {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table .tr .th {
         width: 100%;
         border: 1px solid rgba(0, 0, 0, 0.8);
         border-spacing: 0px;
@@ -475,31 +425,50 @@ $ventas = 1;
         padding: 0% 30px 0px 5px;
     }
 
-    table tr td {
+    .table .tr .td {
         width: 100%;
         border-spacing: 0px;
         border: 1px solid rgba(0, 0, 0, 0.8);
         padding: 0px 30px 0px 5px;
     }
 
-    .grid-container-title {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        padding: 10px;
-
-    }
-
-    .grid-container-title>article {
+    .products .ptr .ptd {
+        width: 100%;
+        border-spacing: 0px;
         border: 1px solid rgba(0, 0, 0, 0.8);
-        padding-top: 1em;
+        padding: 0px 30px 0px 5px;
     }
 
-    .grid-container-title>article:nth-child(even) {
-        border-left: none;
+    .products .ptr .pth {
+        width: 25%;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        border-spacing: 0px;
+        text-align: start;
+        padding: 0% 30px 0px 5px;
     }
+    table {
+            width: 100%;
+            border-collapse: collapse;
+            padding: 10px;
+        }
 
-    .grid-container-title>article:first-child {
-        padding-right: 2em;
+        .article {
+            padding-top: 1em;
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        .section1 {
+            padding-bottom: 1em;
+            margin-bottom: 2em;
+        }
+
+        .section2 {
+            margin-bottom: 2em;
+        }
+        .page-break {
+        page-break-before: always;
     }
 </style>
 </head>
