@@ -86,9 +86,9 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 ";
 
                 $producto .= "
-                <tr>
-                <td class='th' colspan='3'>(ID: " . $id_producto . " ) - (SKU: " . $codigo_producto . ") - " . $nombre_producto . "</td>
-                <td class='th'> " . $cantidad . "</td>
+                <tr class='tr'>
+                    <td class='td' colspan='3'>(ID: " . $id_producto . " ) - (SKU: " . $codigo_producto . ") - " . $nombre_producto . "</td>
+                    <td class='td'> " . $cantidad . "</td>
                 </tr>
                 ";
                 $contador++;
@@ -97,7 +97,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             <table class='section1'>
                 <tr>
                     <td class='article'>
-                    Transportadora
+                    TRANSPORTADORA
                     </td>
                     <td class='article'>
                     TRANSPORTADORA: " . $transporte . "
@@ -105,7 +105,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 </tr>
                 <tr>
                     <td class='article'>
-                    RELACION DE GU脥AS IMPRESAS
+                    RELACION DE GUIAS IMPRESAS
                     </td>
                     <td class='article'>
                     FECHA MANIFIESTO (DD/MM/YYYY): " . $fecha_actual . "

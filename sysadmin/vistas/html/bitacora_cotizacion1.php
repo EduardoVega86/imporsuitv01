@@ -353,9 +353,8 @@ $ventas = 1;
                     timer: 2000,
                     showConfirmButton: false,
                 }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.open(url, '_blank');
-                    }
+                    window.open(url, '_blank');
+
                 })
 
 

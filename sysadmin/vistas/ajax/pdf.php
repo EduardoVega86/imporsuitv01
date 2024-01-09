@@ -23,7 +23,7 @@ use setasign\Fpdi\Fpdi;
 // Convertir HTML a PDF y guardarlo
 $dompdf = new Dompdf();
 $dompdf->loadHtml($factura);
-$dompdf->setPaper('A4', 'landscape');
+$dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 $output = $dompdf->output();
 file_put_contents('./combined.pdf', $output);
