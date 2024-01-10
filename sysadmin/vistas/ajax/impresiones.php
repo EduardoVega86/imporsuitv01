@@ -18,20 +18,30 @@ require_once "../funciones_destino.php";
 $msg = [];
 if (isset($_POST['factura']) && isset($_POST['tipo'])) {
     if ($_POST['tipo'] == "simple") {
-        $archivo_tienda = $tienda . '/sysadmin/vistas/db1.php';
-        $archivo_destino_tienda = '../db_destino_guia.php';
-        $contenido_tienda = file_get_contents($archivo_tienda);
-        $get_data =  json_decode($contenido_tienda, true);
 
         $sql_command = "SELECT * FROM facturas_cot WHERE numero_factura = '" . $_POST['factura'] . "'";
         $result = mysqli_query($conexion, $sql_command);
         $row = mysqli_fetch_array($result);
         $drogshipin = $row['drogshipin'];
         $tienda = $row['tienda'];
+        $impreso = $row['impreso'];
+        $estado_guia_sistema = $row['estado_guia_sistema'];
+
+        if ($estado_guia_sistema == 8) {
+            array_push($msg, "guiaanulada");
+            echo json_encode($msg);
+            exit;
+        }
+
+        $archivo_tienda = $tienda . '/sysadmin/vistas/db1.php';
+        $archivo_destino_tienda = '../db_destino_guia.php';
+        $contenido_tienda = file_get_contents($archivo_tienda);
+        $get_data =  json_decode($contenido_tienda, true);
+
         $id_factura_origen = $row['id_factura_origen'];
         if ($drogshipin == 0 || $drogshipin == 2 || $drogshipin == 4) {
             $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
-            $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_PASS']);
+            $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_NAME']);
             if ($conexion_destino->connect_errno) {
                 echo "Fallo al conectar a MySQL: (" . $conexion_destino->connect_errno . ") " . $conexion_destino->connect_error;
             }
@@ -39,6 +49,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             $row2 = mysqli_fetch_array($result);
             if (empty($row2)) {
                 array_push($msg, "noexisteguia");
+                echo json_encode($msg);
                 exit;
             }
             $id_transporte = $row2['id_transporte'];
@@ -49,6 +60,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             $row = mysqli_fetch_array($result);
             if (empty($row)) {
                 array_push($msg, "noexisteguia");
+                echo json_encode($msg);
                 exit;
             }
             $id_transporte = $row['id_transporte'];
@@ -56,7 +68,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
         $guias_impresas = array();
 
         if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
-            $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_PASS']);
+            $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_NAME']);
             if ($conexion_destino->connect_errno) {
                 echo "Fallo al conectar a MySQL: (" . $conexion_destino->connect_errno . ") " . $conexion_destino->connect_error;
             }
@@ -184,11 +196,30 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             </section>
             ";
 
-            $devolucion = array(
-                'manifiesto' => $manifiestoT,
-                'producto' => $productoT,
-                'guias' => $guias_impresas
-            );
+            if ($impreso != 1) {
+
+                $sql_update = "UPDATE facturas_cot SET impreso = 1 WHERE numero_factura = '" . $_POST['factura'] . "'";
+                $result = mysqli_query($conexion, $sql_update);
+                if ($result == false) {
+                    echo "Error en la consulta";
+                    exit;
+                }
+                $devolucion = array(
+                    'manifiesto' => $manifiestoT,
+                    'producto' => $productoT,
+                    'guias' => $guias_impresas,
+                    'impreso' => 0,
+                );
+            } else {
+
+                $devolucion = array(
+                    'manifiesto' => $manifiestoT,
+                    'producto' => $productoT,
+                    'guias' => $guias_impresas,
+                    'impreso' => $impreso,
+                );
+            }
+
             echo json_encode($devolucion);
         } else {
             print_r('Error al copiar el archivo');
@@ -207,28 +238,56 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             $transporte = '';
             $fecha_actual = date("d-m-Y");
             $guias_impresas = array();
-            while ($factura = current($facturas)) {
+
+            $impresas = array();
+            foreach ($facturas as $factura) {
+
                 $sql_command = "SELECT * FROM facturas_cot WHERE numero_factura = '" . $factura . "'";
                 $result = mysqli_query($conexion, $sql_command);
                 $row = mysqli_fetch_array($result);
+                $drogshipin = $row['drogshipin'];
                 $tienda = $row['tienda'];
-                $id_factura_origen = $row['id_factura_origen'];
-                $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
-                $result = mysqli_query($conexion, $sql_command);
-                $row = mysqli_fetch_array($result);
-                if (empty($row)) {
-                    array_push($msg, "noexisteguia");
-                    next($facturas);
+                $impreso = $row['impreso'];
+                $estado_guia_sistema = $row['estado_guia_sistema'];
+                if ($estado_guia_sistema == 8) {
+                    array_push($msg, "guiaanulada");
+                    continue;
                 }
 
-
-                $id_transporte = $row['id_transporte'];
                 $archivo_tienda = $tienda . '/sysadmin/vistas/db1.php';
                 $archivo_destino_tienda = '../db_destino_guia.php';
                 $contenido_tienda = file_get_contents($archivo_tienda);
                 $get_data =  json_decode($contenido_tienda, true);
+
+                $id_factura_origen = $row['id_factura_origen'];
+                if ($drogshipin == 0 || $drogshipin == 2 || $drogshipin == 4) {
+                    $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
+                    $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_NAME']);
+                    if ($conexion_destino->connect_errno) {
+                        echo "Fallo al conectar a MySQL: (" . $conexion_destino->connect_errno . ") " . $conexion_destino->connect_error;
+                    }
+                    $result = mysqli_query($conexion_destino, $sql_command);
+                    $row2 = mysqli_fetch_array($result);
+                    if (empty($row2)) {
+                        array_push($msg, "noexisteguia");
+                        mysqli_close($conexion_destino);
+                        continue;
+                    } else {
+                        $id_transporte = $row2['id_transporte'];
+                    }
+                } else {
+
+                    $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
+                    $result = mysqli_query($conexion, $sql_command);
+                    $row = mysqli_fetch_array($result);
+                    if (empty($row)) {
+                        array_push($msg, "noexisteguia");
+                        continue;
+                    }
+                    $id_transporte = $row['id_transporte'];
+                }
                 if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
-                    $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_PASS']);
+                    $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_NAME']);
                     if ($conexion_destino->connect_errno) {
                         echo "Fallo al conectar a MySQL: (" . $conexion_destino->connect_errno . ") " . $conexion_destino->connect_error;
                     }
@@ -276,7 +335,17 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                     }
                     $contador++;
                 }
-                next($facturas);
+                if ($impreso != 1) {
+                    $sql_update = "UPDATE facturas_cot SET impreso = 1 WHERE numero_factura = '" . $factura . "'";
+                    $result = mysqli_query($conexion, $sql_update);
+                    if ($result == false) {
+                        echo "Error en la consulta";
+                        exit;
+                    }
+                    array_push($impresas, 0);
+                } else {
+                    array_push($impresas, 1);
+                }
             }
             $manifiestoT = "
             <table class='section1-table'>
@@ -343,11 +412,14 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
         </table>
         </section>
         ";
+
+
             $devolucion = array(
                 'manifiesto' => $manifiestoT,
                 'producto' => $productoT,
                 'guias' => $guias_impresas,
-                'msgs' => $msg
+                'msgs' => $msg,
+                'impreso' => $impresas,
             );
 
             echo json_encode($devolucion);
