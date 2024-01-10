@@ -7,8 +7,8 @@ require_once "../funciones.php";
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-	<meta name="author" content="Coderthemes">
+	<meta name="description" content="Constructor Imporsuit">
+	<meta name="author" content="Imporsuit">
 
 	<link rel="shortcut icon" href="<?php
 									if (get_row('perfil', 'favicon', 'id_perfil', '1') == "") {
