@@ -306,6 +306,7 @@ $ventas = 1;
 <script>
     function generatePDF(factura, pdfs, msg, impreso) {
         // Choose the element that our invoice is rendered in.
+        console.log(impreso)
         var opt = {
             margin: 0.5,
             filename: 'myfiles.pdf',
@@ -360,40 +361,147 @@ $ventas = 1;
                     tempLink.click();
                 })
                 if (msg != undefined) {
-
                     if (msg.length > 0) {
-                        let cantidad = msg.length;
-                        let msg_error = "Tiene " + cantidad + " facturas sin guias";
-                        Swal.fire({
-                            title: 'Atercion',
-                            text: msg_error,
-                            icon: 'warning',
-                            confirmButtonText: 'Ok'
-                        }).then(() => {
-                            if (isArray(impreso)) {
+                        let cantidad_guia = 0;
+                        let cantidad_anulada = 0;
+                        msg.forEach(element => {
+                            if (element == "noexisteguia") {
+                                cantidad_guia++;
+                            }
+                            if (element == "guiaanulada") {
+                                cantidad_anulada++;
+                            }
 
-                                if (impreso.length > 0) {
-                                    let msg_impreso = "Tiene " + impreso.length + " facturas ya impresas";
+                        });
+                        let msg_error_guia = "Tiene " + cantidad_guia + " facturas sin guias";
+                        let msg_error_anulada = "Tiene " + cantidad_anulada + " facturas con guias anuladas";
+                        if (cantidad_guia > 0) {
+                            Swal.fire({
+                                title: 'Atención',
+                                text: msg_error_guia,
+                                icon: 'warning',
+                                confirmButtonText: 'Ok'
+                            }).then(() => {
+                                if (cantidad_anulada > 0) {
                                     Swal.fire({
-                                        title: 'Atercion',
+                                        title: 'Atención',
+                                        text: msg_error_anulada,
+                                        icon: 'warning',
+                                        confirmButtonText: 'Ok'
+                                    }).then(() => {
+                                        if (Array.isArray(impreso)) {
+
+                                            if (impreso.length > 0) {
+                                                let guia_impreso = 0;
+                                                impreso.forEach(element => {
+                                                    if (element == 1) {
+                                                        guia_impreso++;
+                                                    }
+                                                });
+                                                let msg_impreso = "Tiene " + guia_impreso + " facturas ya impresas";
+
+                                                if (guia_impreso > 0) {
+                                                    Swal.fire({
+                                                        title: 'Atención',
+                                                        text: msg_impreso,
+                                                        icon: 'warning',
+                                                        confirmButtonText: 'Ok'
+                                                    })
+                                                }
+                                            }
+                                        } else {
+                                            if (impreso == 1) {
+                                                Swal.fire({
+                                                    title: 'Atención',
+                                                    text: "Esta factura ya fue impresa",
+                                                    icon: 'warning',
+                                                    confirmButtonText: 'Ok'
+                                                })
+                                            }
+                                        }
+                                    })
+                                }
+                            })
+                        } else {
+
+                            if (cantidad_anulada > 0) {
+                                Swal.fire({
+                                    title: 'Atención',
+                                    text: msg_error_anulada,
+                                    icon: 'warning',
+                                    confirmButtonText: 'Ok'
+                                }).then(() => {
+                                    if (Array.isArray(impreso)) {
+
+                                        if (impreso.length > 0) {
+                                            let guia_impreso = 0;
+                                            impreso.forEach(element => {
+                                                if (element == 1) {
+                                                    guia_impreso++;
+                                                }
+                                            });
+                                            let msg_impreso = "Tiene " + guia_impreso + " facturas ya impresas";
+
+                                            if (guia_impreso > 0) {
+                                                Swal.fire({
+                                                    title: 'Atención',
+                                                    text: msg_impreso,
+                                                    icon: 'warning',
+                                                    confirmButtonText: 'Ok'
+                                                })
+                                            }
+                                        }
+                                    } else {
+                                        if (impreso == 1) {
+                                            Swal.fire({
+                                                title: 'Atención',
+                                                text: "Esta factura ya fue impresa",
+                                                icon: 'warning',
+                                                confirmButtonText: 'Ok'
+                                            })
+                                        }
+                                    }
+                                })
+                            }
+                        }
+
+                    }
+                } else if (msg.length == 0) {
+
+                    if (Array.isArray(impreso)) {
+
+                        if (impreso.length > 0) {
+                            if (impreso.length > 0) {
+                                let guia_impreso = 0;
+                                impreso.forEach(element => {
+                                    if (element == 1) {
+                                        guia_impreso++;
+                                    }
+                                });
+                                let msg_impreso = "Tiene " + guia_impreso + " facturas ya impresas";
+
+                                if (guia_impreso > 0) {
+                                    Swal.fire({
+                                        title: 'Atención',
                                         text: msg_impreso,
                                         icon: 'warning',
                                         confirmButtonText: 'Ok'
                                     })
                                 }
-                            } else {
-                                if (impreso == 1) {
-                                    Swal.fire({
-                                        title: 'Atercion',
-                                        text: "Esta factura ya fue impresa",
-                                        icon: 'warning',
-                                        confirmButtonText: 'Ok'
-                                    })
-                                }
                             }
-                        })
+                        }
+                    } else {
+                        if (impreso == 1) {
+                            Swal.fire({
+                                title: 'Atención',
+                                text: "Esta factura ya fue impresa",
+                                icon: 'warning',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
                     }
                 }
+
 
 
                 load(1);
@@ -549,6 +657,14 @@ $ventas = 1;
                         })
                         return false;
                     }
+                    if (data[0] == "guiaanulada") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Una de las facturas seleccionadas tiene la guia anulada',
+                        })
+                        return false;
+                    }
 
                     manifiesto_html += data["manifiesto"];
                     manifiesto_html += data["producto"];
@@ -598,6 +714,14 @@ $ventas = 1;
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Una de las facturas seleccionadas no tiene guia',
+                        })
+                        return false;
+                    }
+                    if (data === "guiaanulada") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Una de las facturas seleccionadas tiene la guia anulada',
                         })
                         return false;
                     }

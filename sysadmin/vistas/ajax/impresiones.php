@@ -25,6 +25,13 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
         $drogshipin = $row['drogshipin'];
         $tienda = $row['tienda'];
         $impreso = $row['impreso'];
+        $estado_guia_sistema = $row['estado_guia_sistema'];
+
+        if ($estado_guia_sistema == 8) {
+            array_push($msg, "guiaanulada");
+            echo json_encode($msg);
+            exit;
+        }
 
         $archivo_tienda = $tienda . '/sysadmin/vistas/db1.php';
         $archivo_destino_tienda = '../db_destino_guia.php';
@@ -231,6 +238,8 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
             $transporte = '';
             $fecha_actual = date("d-m-Y");
             $guias_impresas = array();
+
+            $impresas = array();
             foreach ($facturas as $factura) {
 
                 $sql_command = "SELECT * FROM facturas_cot WHERE numero_factura = '" . $factura . "'";
@@ -239,6 +248,11 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 $drogshipin = $row['drogshipin'];
                 $tienda = $row['tienda'];
                 $impreso = $row['impreso'];
+                $estado_guia_sistema = $row['estado_guia_sistema'];
+                if ($estado_guia_sistema == 8) {
+                    array_push($msg, "guiaanulada");
+                    continue;
+                }
 
                 $archivo_tienda = $tienda . '/sysadmin/vistas/db1.php';
                 $archivo_destino_tienda = '../db_destino_guia.php';
@@ -321,6 +335,17 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                     }
                     $contador++;
                 }
+                if ($impreso != 1) {
+                    $sql_update = "UPDATE facturas_cot SET impreso = 1 WHERE numero_factura = '" . $factura . "'";
+                    $result = mysqli_query($conexion, $sql_update);
+                    if ($result == false) {
+                        echo "Error en la consulta";
+                        exit;
+                    }
+                    array_push($impresas, 0);
+                } else {
+                    array_push($impresas, 1);
+                }
             }
             $manifiestoT = "
             <table class='section1-table'>
@@ -387,11 +412,14 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
         </table>
         </section>
         ";
+
+
             $devolucion = array(
                 'manifiesto' => $manifiestoT,
                 'producto' => $productoT,
                 'guias' => $guias_impresas,
-                'msgs' => $msg
+                'msgs' => $msg,
+                'impreso' => $impresas,
             );
 
             echo json_encode($devolucion);
