@@ -708,12 +708,15 @@ $ventas = 1;
                     )
                 },
                 success: function(data) {
-
-                    if (data === "noexisteguia") {
+                    data = JSON.parse(data);
+                    console.log(data);
+                    let verificar_guias = data.guias.length;
+                    console.log(verificar_guias);
+                    if (verificar_guias == 0) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Una de las facturas seleccionadas no tiene guia',
+                            text: 'Las facturas seleccionadas no tienen guia',
                         })
                         return false;
                     }
@@ -728,7 +731,16 @@ $ventas = 1;
                 }
             }).done(function(data) {
                 let datos = JSON.parse(data);
-
+                let verificar_guias = datos.guias.length;
+                console.log(verificar_guias);
+                if (verificar_guias == 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Las facturas seleccionadas no tienen guia',
+                    })
+                    return false;
+                }
                 console.log(datos);
                 manifiesto_html += datos["manifiesto"];
                 manifiesto_html += datos["producto"];
