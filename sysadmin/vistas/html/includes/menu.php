@@ -209,10 +209,10 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 					</ul>
 				</li> -->
 
-				<li class="has_sub">
+				<!--li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-files"></i><span> Reportes </span> <span class="menu-arrow"></span></a>
 					<ul class="list-unstyled">
-						<!--<li><a href="../html/rep_producto.php">Reporte Productos</a></li>-->
+						
 						<li><a href="../html/rep_ventas.php">Reporte de Ventas</a></li>
 						<li><a href="../html/rep_ventas_clientes.php">Ventas por Cliente</a></li>
 						<li><a href="../html/rep_compras.php">Reporte de Compras</a></li>
@@ -220,7 +220,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 						<li><a href="../html/rep_caja_general.php">Corte de Caja General</a></li>
 						<li><a href="../html/rep_financiero.php">Reporte Financiero</a></li>
 					</ul>
-				</li>
+				</li-->
 
 				<!--li class="has_sub">
 												<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-files"></i><span> Reportes Facturaci&oacute;n </span> <span class="menu-arrow"></span></a>
