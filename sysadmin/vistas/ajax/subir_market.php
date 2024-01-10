@@ -11,6 +11,7 @@ if (empty($_GET['id'])) {
     
     //$contenido      = $_POST['contenido'];
     $id      = $_GET['id'];
+    $id_categoria      = $_GET['id_cat'];
    
     // check if user or email address already exists
  // Nombre de la tabla que deseas copiar
@@ -116,7 +117,7 @@ $image_path=$server_url.$carpeta.'/'.$image_path;
                 . "`url_a2`, `url_a3`, `url_a4`, "
                 . "`url_a5`, `valor4_producto`, `tienda`, "
                 . "`drogshipin`, `id_producto_origen`) VALUES (NULL, '$codigo_producto', '$nombre_producto', "
-                . "'$descripcion_producto', '$id_linea_producto', 0, "
+                . "'$descripcion_producto', '$id_categoria', 0, "
                 . "'$id_proveedor', '$inv_producto', '$iva_producto', "
                 . "'$estado_producto', '$costo_producto', '$utilidad_producto', "
                 . " '$valor1_producto', '$valor2_producto', "
@@ -158,7 +159,7 @@ $query_landing = mysqli_query($conexion, $sql_landing);
 $sql = "UPDATE productos SET tienda = 'enviado' WHERE id_producto = $id";
 
 if ($conexion->query($sql) === TRUE) {
-   header("Location: ../html/productos.php", TRUE, 301);
+    echo 'ok';
 } else {
     echo "Error en la actualización: " . $conexion->error;
 }
@@ -170,12 +171,12 @@ if ($conexion->query($sql) === TRUE) {
  $sql = "UPDATE productos SET tienda = 'enviado' WHERE id_producto = $id";
 
 if ($conexion->query($sql) === TRUE) {
-   header("Location: ../html/productos.php", TRUE, 301);
+  echo 'ok';
 } else {
     echo "Error en la actualización: " . $conexion->error;
 }
 
-header("Location: ../html/productos.php", TRUE, 301);
+
 
         }
     }
