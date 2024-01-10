@@ -62,6 +62,7 @@ while ($r = $query->fetch_object()) {$impuesto[] = $r;}
 									<?php
 if ($permisos_editar == 1) {
         include '../modal/registro_producto.php';
+        include '../modal/subir_producto.php';
         include "../modal/editar_producto.php";
         include "../modal/editar_producto_2.php";
         include "../modal/eliminar_producto.php";
@@ -491,6 +492,60 @@ function reporte(){
 		var categoria=$("#categoria").val();
 		VentanaCentrada('../pdf/documentos/rep_productos.php?daterange='+daterange+"&categoria="+categoria,'Reporte','','800','600','true');
 	}
+        
+        function asignar_id_producto(id){
+           $("#producto_subir").val(id);
+        }
+    function subir_market(){
+ var id_producto = $("#producto_subir").val(); // Debes implementar la función obtenerIdProducto() según tu lógica
+var id_categoria = $("#mod_linea_subir").val();
+
+var url = '../ajax/subir_market.php?id=' + encodeURIComponent(id_producto)+'&id_cat='+id_categoria;
+// Crear una nueva instancia de XMLHttpRequest
+
+var xhr = new XMLHttpRequest();
+// Configurar la solicitud
+xhr.open('GET', url, true);
+// Configurar el manejo de la respuesta
+xhr.onload = function() {
+  if (xhr.status >= 200 && xhr.status < 400) {
+    // La solicitud fue exitosa
+    var data =xhr.responseText;
+    if (data == 'ok') {
+                        Swal.fire({
+                            title: "¡Producto subido correctamente!",
+                            icon: "success",
+                            confirmButtonText: "¡Aceptar!",
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    } else {
+                        //  let objetoJSON = JSON.parse(response);
+                        Swal.fire({
+                            title: "Oops...",
+                            text: "¡Hubo un problema por favor comuniquese Imporsuit!",
+                            icon: "error",
+                            confirmButtonText: "¡Aceptar!",
+                        }).then(() => {
+                            window.location.reload();
+                        });
+
+                    }
+  } else {
+    // Hubo un error en la solicitud
+    console.error('Error:', xhr.statusText);
+  }
+};
+
+// Manejar errores de red
+xhr.onerror = function() {
+  console.error('Error de red');
+};
+
+// Enviar la solicitud
+xhr.send();
+     
+}
 </script>
 <?php require 'includes/footer_end.php'
 ?>
