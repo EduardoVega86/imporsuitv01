@@ -462,52 +462,81 @@ $ventas = 1;
                                         }
                                     }
                                 })
+                            } else {
+                                if (Array.isArray(impreso)) {
+
+                                    if (impreso.length > 0) {
+                                        let guia_impreso = 0;
+                                        impreso.forEach(element => {
+                                            if (element == 1) {
+                                                guia_impreso++;
+                                            }
+                                        });
+                                        let msg_impreso = "Tiene " + guia_impreso + " facturas ya impresas";
+
+                                        if (guia_impreso > 0) {
+                                            Swal.fire({
+                                                title: 'Atención',
+                                                text: msg_impreso,
+                                                icon: 'warning',
+                                                confirmButtonText: 'Ok'
+                                            })
+                                        }
+                                    }
+                                } else {
+                                    if (impreso == 1) {
+                                        Swal.fire({
+                                            title: 'Atención',
+                                            text: "Esta factura ya fue impresa",
+                                            icon: 'warning',
+                                            confirmButtonText: 'Ok'
+                                        })
+                                    }
+                                }
+
                             }
                         }
+                    } else if (msg.length == 0) {
 
-                    }
-                } else if (msg.length == 0) {
+                        if (Array.isArray(impreso)) {
 
-                    if (Array.isArray(impreso)) {
-
-                        if (impreso.length > 0) {
                             if (impreso.length > 0) {
-                                let guia_impreso = 0;
-                                impreso.forEach(element => {
-                                    if (element == 1) {
-                                        guia_impreso++;
-                                    }
-                                });
-                                let msg_impreso = "Tiene " + guia_impreso + " facturas ya impresas";
+                                if (impreso.length > 0) {
+                                    let guia_impreso = 0;
+                                    impreso.forEach(element => {
+                                        if (element == 1) {
+                                            guia_impreso++;
+                                        }
+                                    });
+                                    let msg_impreso = "Tiene " + guia_impreso + " facturas ya impresas";
 
-                                if (guia_impreso > 0) {
-                                    Swal.fire({
-                                        title: 'Atención',
-                                        text: msg_impreso,
-                                        icon: 'warning',
-                                        confirmButtonText: 'Ok'
-                                    })
+                                    if (guia_impreso > 0) {
+                                        Swal.fire({
+                                            title: 'Atención',
+                                            text: msg_impreso,
+                                            icon: 'warning',
+                                            confirmButtonText: 'Ok'
+                                        })
+                                    }
                                 }
                             }
-                        }
-                    } else {
-                        if (impreso == 1) {
-                            Swal.fire({
-                                title: 'Atención',
-                                text: "Esta factura ya fue impresa",
-                                icon: 'warning',
-                                confirmButtonText: 'Ok'
-                            })
+                        } else {
+                            if (impreso == 1) {
+                                Swal.fire({
+                                    title: 'Atención',
+                                    text: "Esta factura ya fue impresa",
+                                    icon: 'warning',
+                                    confirmButtonText: 'Ok'
+                                })
+                            }
                         }
                     }
+
+
+
+                    load(1);
+
                 }
-
-
-
-                load(1);
-
-
-
             }
         })
 

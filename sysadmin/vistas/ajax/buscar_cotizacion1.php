@@ -97,8 +97,9 @@ if ($action == 'ajax') {
                     <th class="text-center">Cliente</th>
                     <th class="text-center">Localidad</th>
                     <th class="text-center">Tienda</th>
-                    <th class="text-center">Proveedor</th>
-
+                    <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
+                        <th class="text-center">Proveedor</th>
+                    <?php } ?>
                     <th colspan="2" style="text-align: center;">Estado</th>
 
                     <th class='text-center'>Impreso</th>
@@ -281,8 +282,10 @@ if ($action == 'ajax') {
                         <td style="max-width: 220px;" class="text-center align-middle fs-7"><span class="font-weight-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
                         <td class="text-center align-middle"><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
                         <td class="text-center align-middle"><a href="<?php echo $tienda_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $tienda; ?></a></td>
-                        <td class="text-center align-middle"><a href="<?php echo $proveedor_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $proveedor; ?></a></td>
 
+                        <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
+                            <td class="text-center align-middle"><a href="<?php echo $proveedor_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $proveedor; ?></a></td>
+                        <?php } ?>
                         <td class="text-center align-middle" id="estados_laar_<?php echo $numero_factura ?>"><?php
                                                                                                                 // echo $drogshipin;
                                                                                                                 switch ($drogshipin) {
