@@ -12,6 +12,7 @@ function generateUniqueFilename($prefix, $directory = '.')
 {
     $tempFile = tempnam($directory, $prefix);
     unlink($tempFile); // Eliminar el archivo temporal creado por tempnam
+
     return $tempFile . '.pdf'; // Devolver el nombre de archivo con extensión .pdf
 }
 
@@ -32,7 +33,26 @@ function combinePdfs($pdfPaths, $outputPath)
 
 $factura = $_POST['factura'];
 $pdfs = $_POST['pdf'];
-$combinedPdfPath = generateUniqueFilename('combined_', __DIR__ . '/save'); // Ruta al directorio donde guardar los archivos
+$combinedPdfPath = generateUniqueFilename('IMPORSUIT-GUIAS-', __DIR__ . '/save'); // Ruta al directorio donde guardar los archivo
+// modificar la ultima parte de aleatorio por numero 1000 e ir aumentando
+$temp_name = explode('-', $combinedPdfPath);
+
+//obtener el ultimo numero de archivo
+$temp_name[0] = str_replace(__DIR__ . '/save/', '', $temp_name[0]);
+$ultimo_numero_archivo = glob(__DIR__ . '/save/' . $temp_name[0] . '-' . $temp_name[1] . '-*');
+if (count($ultimo_numero_archivo) > 0) {
+    $ultimo_numero_archivo = explode('-', $ultimo_numero_archivo[count($ultimo_numero_archivo) - 1]);
+    $ultimo_numero_archivo = explode('.', $ultimo_numero_archivo[count($ultimo_numero_archivo) - 1]);
+    $ultimo_numero_archivo = $ultimo_numero_archivo[0];
+} else {
+    $ultimo_numero_archivo = 1000;
+}
+$aleatorio = $ultimo_numero_archivo + 1;
+$temp_name[0] = __DIR__ . '/save/' . $temp_name[0];
+$combinedPdfPath = $temp_name[0] . '-' . $temp_name[1] . '-' . $aleatorio . '.pdf';
+
+
+
 
 // Convertir HTML a PDF
 $dompdf = new Dompdf();
