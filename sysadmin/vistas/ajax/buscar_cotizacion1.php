@@ -435,7 +435,7 @@ if ($action == 'ajax') {
                                                                                                                         $traking = '';
                                                                                                                     }
                                                                                                                 }
-                                                                                                                if ($estado_guia_for) {
+                                                                                                                if (isset($estado_guia_for)) {
                                                                                                                     if ($traking != '') {
                                                                                                                 ?>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
