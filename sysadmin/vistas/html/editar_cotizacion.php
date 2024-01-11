@@ -942,6 +942,59 @@ while ($r = $query->fetch_object()) {
 
             }); // /ajax function to fetch the printable order
         } else{
+            if(cod==1){
+                $.ajax({
+                url: '../ajax/enviar_laar.php',
+                type: 'post',
+                data: {
+                    nombre_destino: nombre_destino,
+                    ciudad: ciudad,
+                    direccion: direccion_destino,
+                    referencia: referencia,
+                    telefono: telefono,
+                    celular: celular,
+                    observacion: observacion,
+                    cod: cod,
+                    seguro: seguro,
+                    productos_guia: productos_guia,
+                    cantidad_total: cantidad_total,
+                    valor_total: valor_total,
+                    numerocasa: numerocasa,
+                    id_pedido_cot: id_pedido_cot,
+                    identificacion: identificacion,
+                    costo_total: costo_total,
+                    valorasegurado: valorasegurado,
+                    costo_envio: costo_envio,
+
+                },
+                dataType: 'text',
+                success: function(response) {
+
+                    if (response == 'ok') {
+                        Swal.fire({
+                            title: "¡Generación de guía exitosa!",
+                            icon: "success",
+                            confirmButtonText: "¡Aceptar!",
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    } else {
+                        //  let objetoJSON = JSON.parse(response);
+                        Swal.fire({
+                            title: "Oops...",
+                            text: response,
+                            icon: "error",
+                            confirmButtonText: "¡Aceptar!",
+                        }).then(() => {
+                            window.location.reload();
+                        });
+
+                    }
+
+                } // /success function
+
+            }); // /ajax function to fetch the printable order
+            }else{
                     Swal.fire({
                             title: "¡El monto a recibir es menor a 0! Por favor verifique los valores",
                             icon: "error",
@@ -949,6 +1002,7 @@ while ($r = $query->fetch_object()) {
                         }).then(() => {
                            // window.location.reload();
                         });
+        }
         }
     }
 
