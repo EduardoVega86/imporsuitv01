@@ -17,6 +17,8 @@ $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 $output = $dompdf->output();
 
+
+
 // Guardar el HTML convertido a PDF temporalmente
 file_put_contents('combined.pdf', $output);
 $temp_pdf = "./temp.pdf";

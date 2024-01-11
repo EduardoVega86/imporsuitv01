@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
@@ -36,7 +37,10 @@ $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
 if (isset($_POST['estado'])) {
     $XD = $_POST['estado'];
+
+    echo $XD;
 }
+
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
@@ -45,16 +49,16 @@ if ($action == 'ajax') {
     $sTable = "facturas_cot, clientes, users";
     $sWhere = "";
     $sWhere .= " WHERE facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
-    if ($server_url == "https://yapando.imporsuit.com") {
-        $sTable .= ", detalle_fact_cot";
-        $sWhere .= " and detalle_fact_cot.numero_factura = facturas_cot.numero_factura";
-    }
     if ($_GET['q'] != "") {
         $sWhere .= " and  (facturas_cot.nombre like '%$q%' or facturas_cot.numero_factura like '%$q%')";
     }
     if (@$_GET['tienda'] != "") {
         $tienda    = $_REQUEST['tienda'];
         $sWhere .= " and  tienda='$tienda'";
+    }
+    if (@$_GET['estado'] != "") {
+        $estado    = $_REQUEST['estado'];
+        $sWhere .= " and  estado_guia_sistema='$estado'";
     }
 
     $sWhere .= " order by facturas_cot.id_factura desc";
@@ -84,20 +88,21 @@ if ($action == 'ajax') {
         echo mysqli_error($conexion);
 ?>
         <div class="table-responsive">
-            <table class="table table-sm table-striped">
+            <table class="table table-sm table-striped align-middle">
                 <tr class="info">
-                    <th># Orden</th>
-                    <th>Fecha</th>
-                    <th>Cliente</th>
-                    <th>TIPO</th>
-                    <th>TIENDA</th>
-                    <th>Telefono</th>
-                    <th>Localidad</th>
-                    <th>Direccion</th>
-
+                    <th class="text-center"><input type="checkbox" onchange="checkall()" name="todos" id="todos"></th>
+                    <th class="text-center"># Orden</th>
+                    <th class="text-center">Fecha</th>
+                    <th class="text-center">Detalle</th>
+                    <th class="text-center">Cliente</th>
+                    <th class="text-center">Localidad</th>
+                    <th class="text-center">Tienda</th>
+                    <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
+                        <th class="text-center">Proveedor</th>
+                    <?php } ?>
                     <th colspan="2" style="text-align: center;">Estado</th>
 
-                    <th class='text-center'>Total</th>
+                    <th class='text-center'>Impreso</th>
                     <th></th>
                     <th></th>
 
@@ -139,7 +144,7 @@ if ($action == 'ajax') {
                     $existe_guia = mysqli_num_rows($existe_guia_query);
                     //echo $existe_guia;
                     $guia_numero = '';
-
+                    $impreso = $row['impreso'];
                     $estado_guia = '';
 
                     $estado_actual_guia_X = '';
@@ -189,216 +194,250 @@ if ($action == 'ajax') {
                     $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 ?>
                     <input type="hidden" value="<?php echo $estado_factura; ?>" id="estado<?php echo $id_factura; ?>">
+                    <?php
+                    $sql_provee = "";
+                    switch ($drogshipin) {
+                        case 0:
+                            $tipo_venta_m = 'LOCAL';
+                            break;
+                        case 1:
+                            $tipo_venta_m = 'DROPSHIPPING';
+                            break;
 
-                    <tr>
-                        <td><label class='badge badge-purple'><?php echo $numero_factura; ?></label></td>
-                        <td><?php echo $fecha; ?></td>
-                        <td><?php echo $nombre; ?></td>
-                        <td><?php
-                            switch ($drogshipin) {
-                                case 0:
-                                    $tipo_venta_m = 'LOCAL';
-                                    break;
-                                case 1:
-                                    $tipo_venta_m = 'DROPSHIPPING';
-                                    break;
+                        case 2:
+                            $tipo_venta_m = 'LOCAL';
+                            break;
 
-                                case 2:
-                                    $tipo_venta_m = 'LOCAL';
-                                    break;
+                        case 3:
+                            $tipo_venta_m = 'DROPSHIPPING';
+                            $prove_temp = $tienda;
+                            $archivo_tienda = $prove_temp . '/sysadmin/vistas/db1.php';
+                            $archivo_destino_tienda = "../db_destino_guia.php";
+                            $contenido_tienda = file_get_contents($archivo_tienda);
+                            $get_data = json_decode($contenido_tienda, true);
+                            if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+                                $sql_provee = "SELECT tienda FROM facturas_cot WHERE id_factura='" . $id_factura_origen . "'";
+                                require_once "../php_conexion_destino_guia.php";
+                                if ($conexion_destino) {
+                                    cerrar_conexion($conexion_destino);
+                                }
+                                $host_d = $get_data['DB_HOST'];
+                                $user_d = $get_data['DB_USER'];
+                                $pass_d = $get_data['DB_PASS'];
+                                $base_d = $get_data['DB_NAME'];
 
-                                case 3:
-                                    $tipo_venta_m = 'DROPSHIPPING';
-                                    break;
+                                $conexion_destino = abrir_conexion($host_d, $user_d, $pass_d, $base_d);
 
-                                case 4:
-                                    $tipo_venta_m = 'LOCAL';
+                                $query_provee = mysqli_query($conexion_destino, $sql_provee);
+                                $data = mysqli_fetch_array($query_provee);
 
-                                    break;
 
-                                default:
-                                    echo "Estado no reconocido";
-                            }
-                            echo $tipo_venta_m;
-                            ?></td>
-                        <td><?php
-                            // echo 'sa';
-                            switch ($drogshipin) {
-                                case 0:
-                                    $tipo_ped = $tienda;
-                                    break;
-                                case 1:
-                                    $tipo_ped = $tienda;
-                                    break;
+                                echo mysqli_error($conexion_destino);
+                                if (isset($data[0])) {
 
-                                case 2:
-                                    $tipo_ped = $tienda;
-                                    break;
-
-                                case 3:
-                                    $tipo_ped = $tienda;
-                                    break;
-
-                                case 4:
-                                    $tipo_ped = $tienda;
-
-                                    break;
-
-                                default:
-                                    echo "Estado no reconocido";
+                                    $proveedor = $data[0];
+                                    $proveedor_url = $proveedor;
+                                    $proveedor = str_replace('https://', '', $proveedor);
+                                    $proveedor = str_replace('http://', '', $proveedor);
+                                    $proveedor = str_replace('.imporsuit.com', '', $proveedor);
+                                    $proveedor = strtoupper($proveedor);
+                                } else {
+                                    $proveedor = "NO ENCONTRADO BUG";
+                                }
+                            } else {
+                                echo "Error al copiar el archivo";
                             }
 
-                            echo $tipo_ped; ?></td>
-                        <td><?php echo $telefono; ?></td>
 
-                        <td><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
-                        <td style="max-width: 220px;"><?php echo $direccion; ?></td>
+                            break;
 
-                        <td id="estados_laar_<?php echo $numero_factura ?>" align="center"><?php
-                                                                                            // echo $drogshipin;
-                                                                                            switch ($drogshipin) {
-                                                                                                case 0:
-                                                                                                    if ($guia_enviada == 1) {
+                        case 4:
+                            $tipo_venta_m = 'LOCAL';
+                            $proveedor = $tienda;
+                            $proveedor_url = $proveedor;
+                            $proveedor = str_replace('https://', '', $proveedor);
+                            $proveedor = str_replace('http://', '', $proveedor);
+                            $proveedor = str_replace('.imporsuit.com', '', $proveedor);
+                            $proveedor = strtoupper($proveedor);
 
-                                                                                                        $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
-                                                                                                        $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-                                                                                                    } else {
-                                                                                                        $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
-                                                                                                        $url = ''; // O asignar un valor específico para el caso sin guía
-                                                                                                    }
+                            break;
 
-                                                                                                    break;
-                                                                                                case 1:
-                                                                                                    if ($guia_enviada == 1) {
+                        default:
+                            echo "Estado no reconocido";
+                    }
+                    list($año, $hora, $apm) = explode(" ", $fecha);
+                    $tienda_url = $tienda;
+                    $tienda = str_replace('https://', '', $tienda);
+                    $tienda = str_replace('http://', '', $tienda);
+                    $tienda = str_replace('.imporsuit.com', '', $tienda);
+                    $tienda = strtoupper($tienda);
 
-                                                                                                        $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
-                                                                                                        $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                    ?>
+                    <tr class="align-middle">
+                        <td class="align-middle"><input type="checkbox" name="item" id="<?php echo $numero_factura; ?>"></td>
+                        <td class="align-middle text-center"><label class='badge badge-purple'><?php echo $numero_factura; ?></label><br><span class="fs-xs"><?php echo $tipo_venta_m; ?></span> </td>
+                        <td class="text-center align-middle"><span><?php echo $año; ?></span> <br><span><?php echo $hora . " " . $apm; ?> </span></td>
+                        <td class="align-middle"> <button onclick="ver_detalle_cot('<?php echo $numero_factura ?>')" class="btn btn-sm btn-outline-primary"> Ver detalle</button> </td>
 
-                                                                                                        // echo $url;
-                                                                                                    } else {
-                                                                                                        $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
-                                                                                                        $url = ''; // O asignar un valor específico para el caso sin guía
-                                                                                                    }
+                        <td style="max-width: 220px;" class="text-center align-middle fs-7"><span class="font-weight-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
+                        <td class="text-center align-middle"><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
+                        <td class="text-center align-middle"><a href="<?php echo $tienda_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $tienda; ?></a></td>
 
-                                                                                                    break;
-                                                                                                case 3:
+                        <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
+                            <td class="text-center align-middle"><a href="<?php echo $proveedor_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $proveedor; ?></a></td>
+                        <?php } ?>
+                        <td class="text-center align-middle" id="estados_laar_<?php echo $numero_factura ?>"><?php
+                                                                                                                // echo $drogshipin;
+                                                                                                                switch ($drogshipin) {
+                                                                                                                    case 0:
+                                                                                                                        if ($guia_enviada == 1) {
 
+                                                                                                                            $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                                                                                            $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                                                                                                        } else {
+                                                                                                                            $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
+                                                                                                                            $url = ''; // O asignar un valor específico para el caso sin guía
+                                                                                                                        }
 
-                                                                                                    $validar = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
-                                                                                                    if ($validar != '') {
-                                                                                                        $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
-                                                                                                        $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-                                                                                                    } else {
-                                                                                                        $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
-                                                                                                        $url = ''; // O asignar un valor específico para el caso sin guía
-                                                                                                    }
+                                                                                                                        break;
+                                                                                                                    case 1:
+                                                                                                                        if ($guia_enviada == 1) {
 
-                                                                                                    break;
-                                                                                                case 4:
+                                                                                                                            $guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                                                                                            $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
 
-                                                                                                    $validar = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
-                                                                                                    if ($validar != '') {
-                                                                                                        $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
-                                                                                                        $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-                                                                                                    } else {
-                                                                                                        $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
-                                                                                                        $url = ''; // O asignar un valor específico para el caso sin guía
-                                                                                                    }
+                                                                                                                            // echo $url;
+                                                                                                                        } else {
+                                                                                                                            $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
+                                                                                                                            $url = ''; // O asignar un valor específico para el caso sin guía
+                                                                                                                        }
 
-                                                                                                    break;
+                                                                                                                        break;
+                                                                                                                    case 3:
+                                                                                                                        try {
+                                                                                                                            $validar = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
 
-                                                                                                default:
-                                                                                                    echo "Estado no reconocido";
-                                                                                            }
-                                                                                            if ($guia_numero != '') {
-                                                                                                echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "', '" . $guia_numero . "')</script>";
+                                                                                                                            if ($validar != '') {
+                                                                                                                                $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
+                                                                                                                                $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                                                                                                            } else {
+                                                                                                                                $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
+                                                                                                                                $url = ''; // O asignar un valor específico para el caso sin guía
+                                                                                                                            }
+                                                                                                                        } catch (Exception $e) {
+                                                                                                                        }
 
-                                                                                                if ($drogshipin == 3 || $drogshipin == 4) {
-                                                                                                    $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
+                                                                                                                        break;
+                                                                                                                    case 4:
+                                                                                                                        try {
 
-                                                                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta='" . $tienda . "'");
-                                                                                                } else {
-                                                                                                    $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
+                                                                                                                            $validar = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
+                                                                                                                            if ($validar != '') {
+                                                                                                                                $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
+                                                                                                                                $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
+                                                                                                                            } else {
+                                                                                                                                $guia_numero = ''; // Puedes omitir esta línea si no necesitas asignar un valor específico
+                                                                                                                                $url = ''; // O asignar un valor específico para el caso sin guía
+                                                                                                                            }
+                                                                                                                        } catch (Exception $e) {
+                                                                                                                        }
+                                                                                                                        break;
 
-                                                                                                    //$url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                                                                                                                    default:
+                                                                                                                        echo "Estado no reconocido";
+                                                                                                                }
+                                                                                                                if ($guia_numero != '') {
 
-                                                                                                    $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta='" . $server_url . "'");
-                                                                                                }
-                                                                                                $estado_guia_for = get_row('guia_laar', 'estado_guia', 'guia_laar', $guia_numero);
-                                                                                                switch ($estado_guia_for) {
-                                                                                                    case '1':
+                                                                                                                    echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
 
-                                                                                                        $span_estado = 'badge-danger';
-                                                                                                        $estado_guia = 'Anulado';
-                                                                                                        break;
-                                                                                                    case '2':
-                                                                                                        $span_estado = 'badge-purple';
-                                                                                                        $estado_guia = 'Por recolectar';
-                                                                                                        break;
-                                                                                                    case '3':
-                                                                                                        $span_estado = 'badge-purple';
-                                                                                                        $estado_guia = 'Por recolectar';
-                                                                                                        break;
-                                                                                                    case '4':
-                                                                                                        $span_estado = 'badge-purple';
-                                                                                                        $estado_guia = 'Por recolectar';
-                                                                                                        break;
-                                                                                                    case '5':
-                                                                                                        $span_estado = 'badge-warning';
-                                                                                                        $estado_guia = 'En Transito';
-                                                                                                        break;
-                                                                                                    case '6':
-                                                                                                        $span_estado = 'badge-purple';
-                                                                                                        $estado_guia = 'Por recolectar';
-                                                                                                        break;
-                                                                                                    case '7':
-                                                                                                        $span_estado = 'badge-purple';
-                                                                                                        $estado_guia = 'Entregado';
-                                                                                                        break;
-                                                                                                    case '8':
-                                                                                                        $span_estado = 'badge-danger';
-                                                                                                        $estado_guia = 'Anulada';
-                                                                                                        break;
-                                                                                                    case '11':
-                                                                                                        $span_estado = 'badge-warning';
-                                                                                                        $estado_guia = 'En Transito';
+                                                                                                                    if ($drogshipin == 3 || $drogshipin == 4) {
+                                                                                                                        $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
 
-                                                                                                        break;
-                                                                                                    case '12':
-                                                                                                        $span_estado = 'badge-warning';
-                                                                                                        $estado_guia = "En Transito";
-                                                                                                        break;
+                                                                                                                        $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
+                                                                                                                    } else {
+                                                                                                                        $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura . " and tienda_venta like '%" . $server_url . "%'");
 
-                                                                                                    case '14':
-                                                                                                        $estado_guia = "Con novedad";
-                                                                                                        $span_estado = 'badge-danger';
-                                                                                                        //$estado_guia = 'Anulada';
-                                                                                                        break;
-                                                                                                    case '16':
-                                                                                                        $span_estado = 'badge-danger';
-                                                                                                        //$estado_guia = 'Anulada';
-                                                                                                        break;
-                                                                                                    case '29':
-                                                                                                        $span_estado = 'badge-danger';
-                                                                                                        //$estado_guia = 'Anulada';
-                                                                                                        break;
-                                                                                                    case '48':
-                                                                                                        $span_estado = 'badge-danger';
-                                                                                                        //$estado_guia = 'Anulada';
-                                                                                                        break;
-                                                                                                    case '9':
-                                                                                                        $span_estado = 'badge-danger';
-                                                                                                        $estado_guia = 'Devuelto';
-                                                                                                        break;
-                                                                                                }
-                                                                                                if ($estado_guia_for) {
-                                                                                                    if ($traking != '') {
-                                                                                                    } else {
-                                                                                                        $guia_numero = 'GUIA NO ENVIADA';
-                                                                                                        $traking = '';
-                                                                                                    }
-                                                                                            ?>
+                                                                                                                        //$url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
 
+                                                                                                                        $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta like '%" . $server_url . "%'");
+                                                                                                                    }
+                                                                                                                    $estado_guia_for = get_row('guia_laar', 'estado_guia', 'guia_laar', $guia_numero);
+                                                                                                                    if ($estado_guia_for != "") {
+
+                                                                                                                        switch ($estado_guia_for) {
+                                                                                                                            case '1':
+
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulado';
+                                                                                                                                break;
+                                                                                                                            case '2':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Por recolectar';
+                                                                                                                                break;
+                                                                                                                            case '3':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Por recolectar';
+                                                                                                                                break;
+                                                                                                                            case '4':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Por recolectar';
+                                                                                                                                break;
+                                                                                                                            case '5':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'En Transito';
+                                                                                                                                break;
+                                                                                                                            case '6':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Por recolectar';
+                                                                                                                                break;
+                                                                                                                            case '7':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '8':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulada';
+                                                                                                                                break;
+                                                                                                                            case '11':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'En Transito';
+
+                                                                                                                                break;
+                                                                                                                            case '12':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = "En Transito";
+                                                                                                                                break;
+
+                                                                                                                            case '14':
+                                                                                                                                $estado_guia = "Con novedad";
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                //$estado_guia = 'Anulada';
+                                                                                                                                break;
+                                                                                                                            case '16':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                //$estado_guia = 'Anulada';
+                                                                                                                                break;
+                                                                                                                            case '29':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                //$estado_guia = 'Anulada';
+                                                                                                                                break;
+                                                                                                                            case '48':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                //$estado_guia = 'Anulada';
+                                                                                                                                break;
+                                                                                                                            case '9':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Devuelto';
+                                                                                                                                break;
+                                                                                                                        }
+                                                                                                                    } else {
+                                                                                                                        $guia_numero = 'GUIA NO ENVIADA';
+                                                                                                                        $traking = '';
+                                                                                                                    }
+                                                                                                                }
+                                                                                                                if (isset($estado_guia_for)) {
+                                                                                                                    if ($traking != '') {
+                                                                                                                ?>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
                                     <?php
@@ -406,19 +445,19 @@ if ($action == 'ajax') {
                                     ?>
                                     <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
                                 <?php
-                                                                                                } else {
-                                                                                                    echo "GUIA NO ENVIADA";
-                                                                                                }
+                                                                                                                    } else {
+                                                                                                                        echo $guia_numero;
+                                                                                                                    }
                                 ?>
 
 
                             <?php
-                                                                                            } else {
-                                                                                                echo 'GUIA NO ENVIADA';
-                                                                                            }
+                                                                                                                } else {
+                                                                                                                    echo '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
+                                                                                                                }
                             ?>
                         </td>
-                        <td>
+                        <td class="text-center align-middle">
                             <?php if ($drogshipin == 3 || $drogshipin == 4) {
 
                             ?>
@@ -446,32 +485,25 @@ if ($action == 'ajax') {
                             ?>
 
                         </td>
-                        <td class='text-left'><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
+                        <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
 
 
-                        <td class="text-center">
+                        <td class="text-center align-middle">
                             <div class="btn-group dropdown">
                                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <?php if ($permisos_editar == 1) { ?>
-                                        <a class="dropdown-item" target="blank" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> Editar</a>
+                                        <a class="dropdown-item" target="blank" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> <?php if ($drogshipin == 3) {
+                                                                                                                                                                                    echo "Ver";
+                                                                                                                                                                                } else {
+                                                                                                                                                                                    echo "Editar";
+                                                                                                                                                                                } ?> </a>
                                         <!--a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir</a-->
                                     <?php }
                                     if ($permisos_eliminar == 1) { ?>
                                         <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                     <?php } ?>
-                                    <?php
 
-                                    if ($drogshipin == 3) {
-                                        if ($guia_numero = 'NO ENVIADA') {
-                                        } else {
-                                        }
-                                    ?>
-
-                                        <button class="dropdown-item" onclick="guia_importar('<?php echo $numero_factura ?>')" type="button"><i class="ti-wallet"></i> Importar Guia</button>
-                                    <?php
-                                    }
-                                    ?>
 
                                 </div>
                             </div>
@@ -492,9 +524,7 @@ if ($action == 'ajax') {
 
         </div>
     <?php
-    }
-    //Este else Fue agregado de Prueba de prodria Quitar
-    else {
+    } else {
     ?>
         <div class="alert alert-warning alert-dismissible" role="alert" align="center">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -505,4 +535,3 @@ if ($action == 'ajax') {
     }
     // fin else
 }
-?>

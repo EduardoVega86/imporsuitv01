@@ -140,11 +140,15 @@ function buscar_estado(estado) {
   // alert(tienda)
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
+  var numero = $("#numero_q").val();
   if (tienda == 0) {
     tienda = "";
   }
   if (estado == 0) {
     estado = "";
+  }
+  if (numero == 0) {
+    numero = "";
   }
   page = 1;
   $("#loader").fadeIn("slow");
@@ -157,7 +161,9 @@ function buscar_estado(estado) {
       "&q=" +
       q +
       "&tienda=" +
-      tienda,
+      tienda +
+      "&numero=" +
+      numero,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
