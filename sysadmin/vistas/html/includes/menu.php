@@ -60,11 +60,19 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 					<i class="mdi mdi-crop-free noti-icon"></i>
 				</a>
 			</li>
-			<li class="list-inline-item notification-list hide-phone">
+			<?php if ($dominio_completo === "https://yapando.imporsuit.com" || $dominio_completo === "https://onlytap.imporsuit.com") {
+				echo '
+				
+				';
+			} else {
+				echo '<li class="list-inline-item notification-list hide-phone">
+				
 				<a class="nav-link waves-light waves-effect" onclick="actualizar()" id="">
-					<i class="mdi mdi-radar noti-icon"></i>
+				<i class="mdi mdi-radar noti-icon"></i>
 				</a>
-			</li>
+				</li>
+				';
+			} ?>
 
 			<li class="list-inline-item dropdown notification-list">
 				<a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">

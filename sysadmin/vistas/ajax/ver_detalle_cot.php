@@ -21,6 +21,9 @@ $numero_factura = $datos['numero_factura'];
 $nf = $numero_factura;
 
 $prove_temp = get_row("facturas_cot", "tienda", "numero_factura", $numero_factura);
+if ($prove_temp == null) {
+    $prove_temp = $server_url;
+}
 $id_factura_origen = get_row("facturas_cot", "id_factura_origen", "numero_factura", $numero_factura);
 if ($server_url != "https://marketplace.imporsuit.com") $id_factura_origen = get_row("facturas_cot", "id_factura", "numero_factura", $numero_factura);
 $archivo_tienda = $prove_temp . '/sysadmin/vistas/db1.php';
