@@ -270,7 +270,7 @@ if ($image_path == null) {
                         <?php
                 if ($tienda==""){?>
                         <!--a class="" href="#" data-toggle="modal" data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> <img style="width: 30px" src="../../img/landing.png" alt=""/></a-->
-                   <a class="" href="../ajax/subir_market.php?id=<?php echo $id_producto; ?>"  > <img style="width: 30px" src="../../img/subir_producto.png" alt=""/></a>
+                   
                    <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#subirProducto" onclick="asignar_id_producto('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');"><img style="width: 30px" src="../../img/subir_producto.png" alt=""/></a>
                             <?php
                     
