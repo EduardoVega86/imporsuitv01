@@ -63,7 +63,7 @@ $ventas = 1;
 
                                     <form class="form-horizontal" role="form" id="datos_cotizacion">
                                         <div class="form-group row">
-                                            <div class="col-md-5">
+                                            <div class="col">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" id="q" placeholder="Nombre del cliente o # factura" onkeyup='load(1);'>
                                                     <select onchange="buscar(this.value)" id="tienda_q" class="form-control">
