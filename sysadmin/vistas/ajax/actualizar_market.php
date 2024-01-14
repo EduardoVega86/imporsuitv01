@@ -10,6 +10,7 @@ if (empty($_GET['id'])) {
      require_once "../funciones.php";
     $id      = $_GET['id'];
     $stock     = $_GET['stock'];
+    $nombre     = get_row('productos', 'nombre_producto', 'id_producto', $id);
     $precio_mayor     = get_row('productos', 'valor2_producto', 'id_producto', $id);
     if (isset($_SERVER['HTTPS']) &&
     ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
@@ -36,7 +37,8 @@ $query_check_user_name = mysqli_query($conexion, $sql);
     $query_check_user      = mysqli_num_rows($query_check_user_name);
     if ($query_check_user == true) {
         while ($fila = $query_check_user_name->fetch_assoc()) { 
-                    $update  = mysqli_query($destino, "UPDATE productos SET stock_producto='" . $stock . "', costo_producto='$precio_mayor' WHERE id_producto_origen='" . $id . "' and inv_producto=0 and tienda='$server_url'"); //Actualizo la nueva cantidad en el inventario
+            //echo "UPDATE productos SET nombre_producto='" . $nombre . "', stock_producto='" . $stock . "', costo_producto='$precio_mayor' WHERE id_producto_origen='" . $id . "' and inv_producto=0 and tienda='$server_url'";
+                    $update  = mysqli_query($destino, "UPDATE productos SET nombre_producto='" . $nombre . "', stock_producto='" . $stock . "', costo_producto='$precio_mayor' WHERE id_producto_origen='" . $id . "' and inv_producto=0 and tienda='$server_url'"); //Actualizo la nueva cantidad en el inventario
 header("Location: ../html/productos.php", TRUE, 301);
 exit;
         }
