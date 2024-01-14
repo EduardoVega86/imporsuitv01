@@ -44,7 +44,7 @@ else {
     $id_categoria = intval($_REQUEST['categoria']);
     $aColumns     = array('codigo_producto', 'nombre_producto'); //Columnas de busqueda
     $sTable       = "productos";
-    $sWhere       = "where estado =1 ";
+    $sWhere       = "where estado_producto =1 ";
     
     if ($id_categoria > 0) {
         $sWhere .= " and id_linea_producto = '" . $id_categoria . "' ";
