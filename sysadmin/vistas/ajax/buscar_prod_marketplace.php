@@ -76,7 +76,7 @@ else {
     $reload      = '../html/productos.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere ";
-    echo $sql;
+   // echo $sql;
     $query = mysqli_query($destino, $sql);
     //loop through fetched data
     if ($numrows > 0) {
@@ -164,7 +164,7 @@ if ($image_path == null) {
            
   
  <a  data-toggle="modal" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');" class="btn btn-warning">Descripcion</a>
-  </div><br> <br>  <?php if(tienda <>'$server_url'){
+  </div><br> <br>  <?php if($tienda <>$server_url){
       ?>
   
   <a class='btn btn-primary'  style="width: 100%" href="../ajax/importar.php?id=<?php echo $id_producto; ?>" title="Importar" onclick="recibir(<?php echo $id_producto ?>)">
