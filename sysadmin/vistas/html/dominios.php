@@ -46,7 +46,7 @@ while ($r = $query->fetch_object()) {
                     <div class="col ">
                         <div>
                             <a href="" class=""></a>
-                            <a href="#" class='bx bx-play-circle youtube '><span class="texto">ver video</span></a>
+                            <a href="https://www.youtube.com/watch?v=xTL5WQDhBOM" target="_blank" class='bx bx-play-circle youtube '><span class="texto">ver video</span></a>
                         </div>
                         <div class="row d-flex justify-content-center">
                             <div class="bg-white p-5">

@@ -49,6 +49,10 @@ if ($action == 'ajax') {
     $sTable = "facturas_cot, clientes, users";
     $sWhere = "";
     $sWhere .= " WHERE facturas_cot.id_cliente=clientes.id_cliente and facturas_cot.id_vendedor=users.id_users";
+    if ($server_url == "https://yapando.imporsuit.com" || $server_url == "https://onlytap.imporsuit.com") {
+        $sTable .= ", detalle_fact_cot";
+        $sWhere .= " and detalle_fact_cot.numero_factura = facturas_cot.numero_factura";
+    }
     if ($_GET['q'] != "") {
         $sWhere .= " and  (facturas_cot.nombre like '%$q%' or facturas_cot.numero_factura like '%$q%')";
     }
@@ -283,7 +287,7 @@ if ($action == 'ajax') {
                         <td class="text-center align-middle"><span><?php echo $año; ?></span> <br><span><?php echo $hora . " " . $apm; ?> </span></td>
                         <td class="align-middle"> <button onclick="ver_detalle_cot('<?php echo $numero_factura ?>')" class="btn btn-sm btn-outline-primary"> Ver detalle</button> </td>
 
-                        <td style="max-width: 220px;" class="text-center align-middle fs-7"><span class="font-weight-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
+                        <td class="text-center align-middle fs-7"><span class="font-weight-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
                         <td class="text-center align-middle"><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
                         <td class="text-center align-middle"><a href="<?php echo $tienda_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $tienda; ?></a></td>
 
