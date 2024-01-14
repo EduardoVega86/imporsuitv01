@@ -46,7 +46,7 @@
 		    event.preventDefault();
 		})
 		$("#editar_producto1").submit(function(event) {
-                    alert()
+                    //alert()
 		    $('#actualizar_datos').attr("disabled", true);
 		    var parametros = $(this).serialize();
 		    $.ajax({
