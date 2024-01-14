@@ -139,7 +139,7 @@ while ($row = mysqli_fetch_array($query)) {
             }
             ?>
           
-<div  class="col-3" >
+<div  class="col-md-3" >
 <div  style="padding:10px"  align="center" class="card" >
          <?php
 if ($image_path == null) {
