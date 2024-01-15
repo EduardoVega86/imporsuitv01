@@ -261,6 +261,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 $row = mysqli_fetch_array($result);
                 $drogshipin = $row['drogshipin'];
                 $tienda = $row['tienda'];
+                if ($tienda == "") $tienda = $server_url;
                 $impreso = $row['impreso'];
                 $estado_guia_sistema = $row['estado_guia_sistema'];
                 if ($estado_guia_sistema == 8) {
