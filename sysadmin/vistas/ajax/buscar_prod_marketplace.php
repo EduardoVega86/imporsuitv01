@@ -44,7 +44,7 @@ else {
     $id_categoria = intval($_REQUEST['categoria']);
     $aColumns     = array('codigo_producto', 'nombre_producto'); //Columnas de busqueda
     $sTable       = "productos";
-    $sWhere       = "where tienda <>'$server_url'";
+    $sWhere       = "where estado_producto =1 ";
     
     if ($id_categoria > 0) {
         $sWhere .= " and id_linea_producto = '" . $id_categoria . "' ";
@@ -139,7 +139,7 @@ while ($row = mysqli_fetch_array($query)) {
             }
             ?>
           
-<div  class="col-3" >
+<div  class="col-md-3" >
 <div  style="padding:10px"  align="center" class="card" >
          <?php
 if ($image_path == null) {
@@ -164,9 +164,14 @@ if ($image_path == null) {
            
   
  <a  data-toggle="modal" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');" class="btn btn-warning">Descripcion</a>
-  </div><br> <br> <a class='btn btn-primary'  style="width: 100%" href="../ajax/importar.php?id=<?php echo $id_producto; ?>" title="Importar" onclick="recibir(<?php echo $id_producto ?>)">
+  </div><br> <br>  <?php if($tienda <>$server_url){
+      ?>
+  
+  <a class='btn btn-primary'  style="width: 100%" href="../ajax/importar.php?id=<?php echo $id_producto; ?>" title="Importar" onclick="recibir(<?php echo $id_producto ?>)">
       Importar
                         </a>
+  <?php }
+      ?>
 
   </div>
 </div>

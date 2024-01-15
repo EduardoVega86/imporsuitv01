@@ -45,7 +45,8 @@
 		    });
 		    event.preventDefault();
 		})
-		$("#editar_producto").submit(function(event) {
+		$("#editar_producto1").submit(function(event) {
+                    //alert()
 		    $('#actualizar_datos').attr("disabled", true);
 		    var parametros = $(this).serialize();
 		    $.ajax({
