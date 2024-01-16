@@ -328,7 +328,7 @@ if ($action == 'ajax') {
                                                                                                                         try {
                                                                                                                             $validar = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
 
-                                                                                                                            if ($validar != '') {
+                                                                                                                            if ($validar != '0') {
                                                                                                                                 $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
                                                                                                                                 $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
                                                                                                                             } else {
@@ -343,7 +343,7 @@ if ($action == 'ajax') {
                                                                                                                         try {
 
                                                                                                                             $validar = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
-                                                                                                                            if ($validar != '') {
+                                                                                                                            if ($validar != '0') {
                                                                                                                                 $guia_numero = get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
                                                                                                                                 $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
                                                                                                                             } else {
@@ -441,7 +441,7 @@ if ($action == 'ajax') {
                                                                                                                                 break;
                                                                                                                         }
                                                                                                                     } else {
-                                                                                                                        $guia_numero = 'GUIA NO ENVIADA';
+                                                                                                                        $guia_numero = '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
                                                                                                                         $traking = '';
                                                                                                                     }
                                                                                                                 }
