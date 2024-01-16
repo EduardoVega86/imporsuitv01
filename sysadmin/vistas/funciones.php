@@ -167,13 +167,25 @@ function total_visitas()
     echo '' . '' . $total_abono . '';*/
 }
 
-function total_pedidos()
+function total_pedidos($fecha, $fecha2)
 {
+    //echo $fecha;
+    $fechaObj1 = DateTime::createFromFormat('d/m/Y', $fecha);
+    $fechaFormateada1 = $fechaObj1->format('Y-m-d');
+    
+    $fechaObj2 = DateTime::createFromFormat('d/m/Y', $fecha2);
+    $fechaFormateada2 = $fechaObj2->format('Y-m-d');
+
+
+
+    //$fechaFormateada = str_replace('/', '-', $fecha);
     $id_moneda    = get_row('perfil', 'moneda', 'id_perfil', 1);
     $fecha_actual = date('Y-m-d');
+    
     global $conexion;
     //---------------------------------------------------------------------------------------
-    $abonoSql    = "SELECT * FROM facturas_cot where date(fecha_factura) = '$fecha_actual'";
+    $abonoSql    = "SELECT * FROM facturas_cot where date(fecha_factura)  BETWEEN '$fechaFormateada1' and '$fechaFormateada2'";
+    //echo $abonoSql;
     $abonoQuery  = $conexion->query($abonoSql);
     $total_abono = 0;
     while ($abonoResult = $abonoQuery->fetch_assoc()) {
@@ -181,6 +193,31 @@ function total_pedidos()
     }
 
     echo '' . $id_moneda . '' . number_format($total_abono, 2) . '';
+    
+}
+function total_pedidos_fecha($fecha)
+{
+   // echo $fecha;
+    $fechaObj = DateTime::createFromFormat('d/m/Y', $fecha);
+    $fechaFormateada = $fechaObj->format('Y-m-d');
+
+
+    //$fechaFormateada = str_replace('/', '-', $fecha);
+    $id_moneda    = get_row('perfil', 'moneda', 'id_perfil', 1);
+    $fecha_actual = date('Y-m-d');
+    
+    global $conexion;
+    //---------------------------------------------------------------------------------------
+    $abonoSql    = "SELECT * FROM facturas_cot where date(fecha_factura)  BETWEEN '$fechaFormateada' and '$fechaFormateada'";
+    echo $abonoSql;
+    $abonoQuery  = $conexion->query($abonoSql);
+    $total_abono = 0;
+    while ($abonoResult = $abonoQuery->fetch_assoc()) {
+        $total_abono += $abonoResult['monto_factura'];
+    }
+
+    echo '' . $id_moneda . '' . number_format($total_abono, 2) . '';
+    
 }
 /*--------------------------------------------------------------*/
 /* Funcion para obtener el total de Abonos a proveedores
