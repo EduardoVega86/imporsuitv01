@@ -19,7 +19,7 @@ if (isset($conexion)) {
 
 
 						<div class="tab-content">
-							<div class="tab-pane fade show active" id="mod_info">
+							<div class="tab-pane fade show active" id="mod_info1">
 
 
 								<div class="row">
