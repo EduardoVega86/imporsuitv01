@@ -4,7 +4,7 @@
 		});
 
 		function load(page) {
-                     alert();
+                    // alert();
 		    var q = $("#q").val();
 		    $("#loader").fadeIn('slow');
 		    $.ajax({
