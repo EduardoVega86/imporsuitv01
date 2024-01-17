@@ -6,9 +6,10 @@
 		function load(page) {
                     // alert();
 		    var q = $("#q").val();
+                    var q2 = $("#q2").val();
 		    $("#loader").fadeIn('slow');
 		    $.ajax({
-		        url: 'ajax/buscar_proveedor_marketplace.php?action=ajax&page=' + page + '&q=' + q,
+		        url: 'ajax/buscar_proveedor_marketplace.php?action=ajax&page=' + page + '&q=' + q+ '&q2=' + q2,
 		        beforeSend: function(objeto) {
 		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
 		        },
