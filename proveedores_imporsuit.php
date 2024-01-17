@@ -47,6 +47,14 @@ require_once "sysadmin/vistas/funciones.php";
   
 											<div class="input-group">
 												<input type="text" class="form-control" id="q" placeholder="Buscar por NOMBRE, CATEGORÍA O PAÍS" onkeyup='load(1);' autocomplete="off">
+                                                                                                <select class="form-control" id="q2" name="q2" onchange="load()">
+                                                                                                    <option value="">Seleccione País</option>
+                                                                                                    <option value="ECUADOR">ECUADOR</option>
+                                                                                                    <option value="COLOMBIA">COLOMBIA</option>
+                                                                                                    <option value="PERÚ">PERÚ</option>
+                                                                                                    <option value="CHILE">CHILE</option>
+                                                                                                </select>
+                                                                                                
 										
 												</div>
 											
