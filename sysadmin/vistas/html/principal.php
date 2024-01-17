@@ -51,6 +51,18 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
         <?php if ($permisos_ver == 1) {
         ?>
           <div class="row">
+            <div class="col-xs-3">
+												<div class="input-group">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+                                                                                                    <input type="text" onchange="cambiar()" class="form-control daterange pull-right" value="<?php echo  date('d/m/Y') . ' - ' . date('d/m/Y'); ?>" id="range" readonly>
+
+												</div><!-- /input-group -->
+											</div>  
+          </div>
+          <br>
+          <div class="row">
 
             <div class="col-lg-6 col-xl-3">
               <a href="cxp.php">
@@ -59,7 +71,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                     <i class="ti-calendar text-success"></i>
                   </div>
                   <div class="text-right">
-                    <h5 class="text-dark text-center"><b class="counter text-success"><?php total_pedidos(); ?></b></h5>
+                    <h5 class="text-dark text-center"><b id="total_pedido_filtro" class="counter text-success"><?php total_pedidos(date('d/m/Y'),date('d/m/Y')); ?></b></h5>
                     <p class="text-muted mb-0">Total Pedidos</p>
                   </div>
                   <div class="clearfix"></div>
@@ -362,6 +374,76 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script>
+	
+	$(function() {
+		load(1);
+
+//Date range picker
+$('.daterange').daterangepicker({
+	buttonClasses: ['btn', 'btn-sm'],
+	applyClass: 'btn-success',
+	cancelClass: 'btn-default',
+	locale: {
+		format: "DD/MM/YYYY",
+		separator: " - ",
+		applyLabel: "Aplicar",
+		cancelLabel: "Cancelar",
+		fromLabel: "Desde",
+		toLabel: "Hasta",
+		customRangeLabel: "Custom",
+		daysOfWeek: [
+		"Do",
+		"Lu",
+		"Ma",
+		"Mi",
+		"Ju",
+		"Vi",
+		"Sa"
+		],
+		monthNames: [
+		"Enero",
+		"Febrero",
+		"Marzo",
+		"Abril",
+		"Mayo",
+		"Junio",
+		"Julio",
+		"Agosto",
+		"Septiembre",
+		"Octubre",
+		"Noviembre",
+		"Diciembre"
+		],
+		firstDay: 1
+	},
+	opens: "right"
+
+});
+});
+	function load(){
+	}
+        
+        function cambiar(){
+       //alert($("#range").val());
+       var range=$("#range").val();
+       var parametros = {"action":"ajax",'range':range};
+		$("#loader").fadeIn('slow');
+		$.ajax({
+			url:'../ajax/rep_principal.php',
+			data: parametros,
+			beforeSend: function(objeto){
+				$("#loader").html("<img src='../../img/ajax-loader.gif'>");
+			},
+			success:function(data){
+				//$(".outer_div").html(data).fadeIn('slow');
+				$("#total_pedido_filtro").html(data);
+			}
+		})
+                
+        }
+</script>
+<script>
+    
   google.charts.load('current', {
     'packages': ['corechart']
   });
