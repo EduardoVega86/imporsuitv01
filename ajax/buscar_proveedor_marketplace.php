@@ -21,14 +21,21 @@ if ($action == 'ajax') {
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $aColumns = array('nombre', 'categoria'); //Columnas de busqueda
     $sTable   = "proveedor_marketplace";
-    $sWhere   = "";
+    $sWhere   = "where id_proveedor>0";
     if ($_GET['q'] != "") {
-        $sWhere = "WHERE (";
+        $sWhere .= " and (";
         for ($i = 0; $i < count($aColumns); $i++) {
             $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
         }
         $sWhere = substr_replace($sWhere, "", -3);
         $sWhere .= ')';
+    }
+     if ($_GET['q2'] != "") {
+         $pais=$_GET['q2'];
+         //echo $pais; 
+        $sWhere .= " and pais='$pais'";
+        
+       
     }
     $sWhere .= " order by nombre";
     include '../sysadmin/vistas/ajax/pagination.php'; //include pagination file
@@ -36,7 +43,7 @@ if ($action == 'ajax') {
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
     $per_page  = 10; //how much records you want to show
     $adjacents = 4; //gap between pages after number of adjacents
-    $offset    = ($page - 1) * $per_page;
+    //$offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
     $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
     $row         = mysqli_fetch_array($count_query);
@@ -98,7 +105,7 @@ while ($row = mysqli_fetch_array($query)) {
                     <td><?php echo $pais; ?></td>
                     <td><?php echo $categoria; ?></td>
                     <td><?php echo $telefono; ?></td>
-                    <td><a href="<?php echo $telegram; ?>"><img width="40px" src="sysadmin/img_sistema/telegram.png" alt=""/></a></td>
+                    <td><a href="<?php echo $telegram; ?>" target="blank"><img width="40px" src="sysadmin/img_sistema/telegram.png" alt=""/></a></td>
                     
 
                     <td >
