@@ -46,10 +46,10 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
         $get_data =  json_decode($contenido_tienda, true);
 
         $id_factura_origen = $row['id_factura_origen'];
-        if ($server_url != "https://marketplace.imporsuit.com") {
+        if ($tienda == "https://imporshop.imporsuit.com" || $tienda == $server_url) {
             $id_factura_origen = $row['id_factura'];
         }
-        if ($drogshipin == 4) {
+        if ($drogshipin == 4 || $drogshipin == 0) {
             $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
             $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_NAME']);
             if ($conexion_destino->connect_errno) {
@@ -83,7 +83,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 echo "Fallo al conectar a MySQL: (" . $conexion_destino->connect_errno . ") " . $conexion_destino->connect_error;
             }
             $sql_command = "SELECT * FROM guia_laar g inner join facturas_cot f on g.id_pedido = f.id_factura inner join detalle_fact_cot dt on f.numero_factura = dt.numero_factura inner join productos p on p.id_producto = dt.id_producto WHERE g.id_pedido = '" . $id_factura_origen . "'";
-            if ($server_url != "https://marketplace.imporsuit.com") {
+            if ($tienda == "https://imporshop.imporsuit.com" || $tienda == $server_url) {
                 $result = mysqli_query($conexion, $sql_command);
             } else {
 
@@ -275,7 +275,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 $get_data =  json_decode($contenido_tienda, true);
 
                 $id_factura_origen = $row['id_factura_origen'];
-                if ($server_url != "https://marketplace.imporsuit.com") {
+                if ($tienda == "https://imporshop.imporsuit.com" || $tienda == $server_url) {
                     $id_factura_origen = $row['id_factura'];
                 }
                 if ($drogshipin == 4) {
@@ -310,7 +310,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                         echo "Fallo al conectar a MySQL: (" . $conexion_destino->connect_errno . ") " . $conexion_destino->connect_error;
                     }
                     $sql_command = "SELECT * FROM guia_laar g inner join facturas_cot f on g.id_pedido = f.id_factura inner join detalle_fact_cot dt on f.numero_factura = dt.numero_factura inner join productos p on p.id_producto = dt.id_producto WHERE g.id_pedido = '" . $id_factura_origen . "'";
-                    if ($server_url != "https://marketplace.imporsuit.com") {
+                    if ($tienda == "https://imporshop.imporsuit.com" || $tienda == $server_url) {
                         $result = mysqli_query($conexion, $sql_command);
                     } else {
 
