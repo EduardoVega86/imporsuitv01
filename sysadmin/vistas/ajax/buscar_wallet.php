@@ -69,6 +69,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             <th class="text-center">Tienda </th>
                             <th class="text-center">Total Venta</th>
                             <th class="text-center">Total Utilidad</th>
+                            <th class="text-center">Guías Pendientes</th>
                             <th colspan="3"></th>
                         </tr>
                     </thead>
@@ -91,12 +92,20 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             $total_pendiente = number_format($total_pendiente, 2);
 
                             $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
+
+                            $guias_faltantes = "SELECT COUNT(*) FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' AND (visto = 0 OR visto IS NULL)";
+                            $query_guias_faltantes = mysqli_query($conexion, $guias_faltantes);
+                            $row_guias_faltantes = mysqli_fetch_array($query_guias_faltantes);
+                            $guias_faltantes = $row_guias_faltantes[0];
+
+
                         ?>
 
                             <tr>
                                 <td class="text-center"><?php echo $tienda; ?></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_pendiente; ?></td>
+                                <td class="text-center"><?php echo $guias_faltantes; ?></td>
                                 <td class="text-center">
                                     <div class="btn-group dropdown">
                                         <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
@@ -177,15 +186,16 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $total_valor_pendiente = $row_total_pendiente_a_la_tienda['total_pendiente'];
         $total_monto_recibir = $row_total_pendiente_a_la_tienda['monto_recibir'];
 
+        $guias_faltantes = "SELECT COUNT(*) FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' AND (visto = 0 OR visto IS NULL)";
+        $query_guias_faltantes = mysqli_query($conexion_db, $guias_faltantes);
+        $row_guias_faltantes = mysqli_fetch_array($query_guias_faltantes);
+        $guias_faltantes = $row_guias_faltantes[0];
+
         if ($numrows > 0) { {
             ?>
-
-
-
                 <form id="filter-form">
                     <label for="fecha">Fecha:</label>
                     <input type="date" name="fecha" id="fecha">
-
                     <label for="estado">Estado de Pedido:</label>
                     <select name="estado" id="estado">
                         <option value="0">Todos</option>
@@ -193,7 +203,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         <option value="2">Pick y Pack</option>
                         <!-- Agrega más opciones según tus estados de pedido -->
                     </select>
-
                     <button class="btn btn-outline-primary" type="button" onclick="filterData()">Filtrar</button>
                 </form>
                 <div class="col-lg-12 col-md-6">
@@ -207,7 +216,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-12 col-md-6">
                     <div class="card-box widget-icon">
                         <div>
@@ -230,7 +238,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         </div>
                     </div>
                 </div>
-
                 <div class="col-lg-12 col-md-6">
                     <div class="card-box widget-icon">
                         <div>
@@ -242,7 +249,17 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         </div>
                     </div>
                 </div>
-
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-store text-danger "></i>
+                            <div class="wid-icon-info text-right">
+                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Guías pendiente de revision</p>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $guias_faltantes ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="thead-light">
@@ -260,11 +277,9 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <th class="text-center">Valor cobrado</th>
                                 <th class="text-center">Valor pendiente</th>
                                 <th class="text-center">Recibos</th>
-
                             </tr>
                         </thead>
                         <tbody id="resultados">
-
                             <?php
                             while ($row = mysqli_fetch_array($query)) {
                                 $id_factura = $row['numero_factura'];
@@ -278,18 +293,14 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 $precio_envio = $row['precio_envio'];
                                 $monto_recibir = $row['monto_recibir'];
                                 $estado_factura = $row['estado_pedido'];
-
                                 $guia_enviada   = $row['guia_enviada'];
                                 $valor_cobrado = $row['valor_cobrado'];
                                 $valor_pendiente = $row['valor_pendiente'];
                                 $id_factura_origen = $row['id_factura_origen'];
-
                                 $guia_laar = "select guia_laar from guia_laar where tienda_venta ='$dominio_completo' AND id_pedido = '$id_factura_origen'";
                                 $query_guia_laar = mysqli_query($conexion_db, $guia_laar);
                                 $row_guia_laar = mysqli_fetch_array($query_guia_laar);
-
                                 $guia_laar = $row_guia_laar['guia_laar'];
-
                                 switch ($estado_guia) {
                                     case 1:
                                         $guia_enviada = "Pendiente";
@@ -307,7 +318,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                         $guia_enviada = "En bodega";
                                         $label_class = 'badge-warning';
                                         break;
-
                                     case 5:
                                         $guia_enviada = "En transito";
                                         $label_class = 'badge-primary';
@@ -333,7 +343,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                         $label_class = 'badge-success';
                                         break;
                                 }
-
                                 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                 if ($valor_pendiente == 0) {
                                     $color_row = "table-success";
@@ -342,7 +351,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 } else {
                                     $color_row = "table-warning";
                                 }
-
                                 $url_laar = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . $guia_laar;
                                 $drogshipin_sql = "SELECT * FROM facturas_cot WHERE numero_factura = '$id_factura'";
                                 $query_drogshipin = mysqli_query($conexion_db, $drogshipin_sql);
@@ -364,7 +372,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     <td class="text-center"><?php echo $fecha; ?></td>
                                     <td class="text-center"><?php echo $nombre_cliente; ?></td>
                                     <td class="text-center"><?php echo $tienda; ?></td>
-
                                     <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $guia_enviada; ?></span></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
@@ -386,7 +393,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     echo paginate($reload, $page, $total_pages, $adjacents);
                                     ?></span></td>
                         </tr>
-
                     </table>
                 </div>
             <?php
@@ -401,8 +407,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         }
     }
 }
-
-
 ?>
 
 <script>
