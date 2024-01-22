@@ -467,4 +467,49 @@ class LaarModel extends Query
             echo json_encode('no_existe');
         }
     }
+    public function obtener_conexion($tienda)
+    {
+        $send = "testing";
+        $protocolo = 'https://';
+        $archivo_tienda =  $tienda . '/sysadmin/vistas/db1.php';
+        $archivo_destino_tienda = "../../vistas/db_destino_guia.php";
+        $contenido_tienda = file_get_contents($archivo_tienda);
+        $get_data = json_decode($contenido_tienda, true);
+        if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+            $host_d = $get_data['DB_HOST'];
+            $user_d = $get_data['DB_USER'];
+            $pass_d = $get_data['DB_PASS'];
+            $base_d = $get_data['DB_NAME'];
+            // Conexión a la base de datos de la tienda, establece la hora -5 GTM
+            date_default_timezone_set('America/Guayaquil');
+            $conexion = mysqli_connect($host_d, $user_d, $pass_d, $base_d);
+            if (!$conexion) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+            return $conexion;
+        } else {
+            echo "Error al copiar el archivo";
+        }
+    }
+
+    public function cambiarGuias($no_guia)
+    {
+        $nueva_guia = "M" . $no_guia;
+
+        $tienda_venta = $this->select("SELECT tienda_venta, tienda_proveedor FROM guia_laar WHERE guia_laar = '$no_guia'");
+        $tienda_venta = $tienda_venta[0]['tienda_venta'];
+        $tienda_proveedor = $tienda_venta[0]['tienda_proveedor'];
+
+
+        $obtener_conexion = $this->obtener_conexion($tienda_venta);
+        $obtener_conexion_proveedor = $this->obtener_conexion($tienda_proveedor);
+
+        $sql_marketplace = "UPDATE guia_laar SET guia_laar = '$nueva_guia'  WHERE guia_laar = ?";
+        $datos_marketplace = array($no_guia);
+        $query_marketplace = $this->update($sql_marketplace, $datos_marketplace);
+        $sql_tienda_venta = "UPDATE guia_laar SET guia_laar = '$nueva_guia'  WHERE guia_laar = '$no_guia'";
+        $query_tienda_venta = mysqli_query($obtener_conexion, $sql_tienda_venta);
+        $sql_proveedor = "UPDATE guia_laar SET guia_laar = '$nueva_guia'  WHERE guia_laar = '$no_guia'";
+        $query_proveedor = mysqli_query($obtener_conexion_proveedor, $sql_proveedor);
+    }
 }
