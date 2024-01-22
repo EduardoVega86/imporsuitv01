@@ -175,15 +175,15 @@ $ventas = 1;
         let result = await data.json();
         let resultado = [];
         if (result["novedades"].length > 0) {
-            result["novedades"].forEach(element => {
+            for (const element of result["novedades"]) {
                 if (element["codigoTipoNovedad"] == 42 || element["codigoTipoNovedad"] == 96) {
                     resultado["estado_codigo"] = 9;
                     //sale del ciclo
-                    return false;
+                    break;
                 } else {
                     resultado["estado_codigo"] = result["estadoActualCodigo"];
                 }
-            });
+            }
         } else {
             resultado["estado_codigo"] = result["estadoActualCodigo"];
         }
