@@ -68,6 +68,12 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
                 <td><?php echo number_format($rws['valor_pendiente'], 2); ?></td>
                 <td class="text-center">
                     <?php echo $rws['guia_laar']; ?>
+                    <br>
+                    <?php if ($rws['cod'] == 1) { ?>
+                        <span class="badge badge-purple">Con Recaudo</span>
+                    <?php } else { ?>
+                        <span class="badge badge-purple">Sin Recaudo</span>
+                    <?php } ?>
                 </td>
                 <td class="text-center">
                     <a href="<?php echo $url_guia . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>

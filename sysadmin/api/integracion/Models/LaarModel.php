@@ -208,15 +208,29 @@ class LaarModel extends Query
         $valor_total = $valor_total[0]['valor1_producto'];
 
         $drogshipin = $this->select("SELECT drogshipin FROM facturas_cot WHERE tienda ='$tienda_venta' AND id_factura_origen = '$id_pedido_origen'");
-        if ($drogshipin[0]['drogshipin'] == 4 || $drogshipin[0]['drogshipin'] == 0) {
-            $monto_recibir = $total_guia - $valor_base;
-        } else {
-            $monto_recibir = $total_guia - $valor_base - $costo_guia;
-        }
 
+        $cod = $this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
+        $cod = $cod[0]['cod'];
+
+        if ($cod == 1) {
+            if ($drogshipin[0]['drogshipin'] == 4 || $drogshipin[0]['drogshipin'] == 0) {
+                $monto_recibir = $total_guia - $valor_base;
+            } else {
+                $monto_recibir = $total_guia - $valor_base - $costo_guia;
+            }
+        } else {
+            if ($drogshipin[0]['drogshipin'] == 4 || $drogshipin[0]['drogshipin'] == 0) {
+                $total_guia = 0;
+                $costo_guia = 0;
+                $monto_recibir = 0 - $valor_base;
+            } else {
+                $total_guia = 0;
+                $monto_recibir = $total_guia - $valor_base - $costo_guia;
+            }
+        }
         $monto_recibir = number_format($monto_recibir, 2);
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia);
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`,'cod') VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
         if ($query_insertar_cc) {
