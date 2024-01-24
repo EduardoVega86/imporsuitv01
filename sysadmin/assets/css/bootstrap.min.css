@@ -3093,6 +3093,22 @@ pre code {
     background-color: #ebcccc
 }
 
+.table-tomato,
+.table-tomato>td,
+.table-tomato>th {
+    background-color: #ff6347
+}
+
+.table-hover .table-tomato:hover {
+    background-color: #f04f4f
+}
+
+.table-hover .table-tomato:hover>td,
+.table-hover .table-tomato:hover>th {
+    background-color: #f04f4f
+}
+
+
 .thead-inverse th {
     color: #fff;
     background-color: #292b2c
@@ -7500,6 +7516,15 @@ a.bg-warning:hover {
 a.bg-danger:focus,
 a.bg-danger:hover {
     background-color: #c9302c !important
+}
+
+.bg-tomato {
+    background-color: #ff6347 !important
+}
+
+a.bg-tomato:focus,
+a.bg-tomato:hover {
+    background-color: #ff4500 !important
 }
 
 .bg-inverse {

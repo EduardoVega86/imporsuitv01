@@ -41,11 +41,15 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             $finales++;
             if ($rws['valor_pendiente'] == 0) {
                 $color_row = 'table-success';
-            } elseif ($rws['valor_pendiente'] < 0) {
+            } elseif ($rws['estago_guia'] == 9) {
                 $color_row = 'table-danger';
+            } else if ($rws['cod'] == 0) {
+                $color_row = 'table-tomato';
             } else {
                 $color_row = 'table-warning';
             }
+
+
         ?>
             <tr class="<?php echo $color_row ?>">
                 <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked disabled" ?> onclick="visto('<?php echo $rws['id_cabecera'] ?>')"></td>
