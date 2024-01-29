@@ -88,9 +88,8 @@ function generar_referido() {
   $.ajax({
     type: "POST",
     url: "../ajax/generar_referido.php",
-    data: {
-      dominio,
-    },
+    contentType: "application/json", // Asegúrate de incluir esta línea si envías JSON
+    data: JSON.stringify({ dominio: dominio }),
     success: function (data) {
       if (data == "ok") {
         Swal.fire({

@@ -148,6 +148,9 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     }
 } else {
     if ($action == "ajax") {
+
+
+
         // escaping, additionally removing everything that could be (html/javascript-) code
         $sDominio = 'imporsuit_marketplace';
         $conexion_db = mysqli_connect('localhost', $sDominio, $sDominio, $sDominio);
@@ -176,8 +179,54 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $query = mysqli_query($conexion_db, $sql);
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         //loop through fetched data
+        //verifica si es provvedor
+        $es_proveedor = "SELECT habilitar_proveedor from perfil;";
+        $query_es_proveedor = mysqli_query($conexion, $es_proveedor);
+        $row_es_proveedor = mysqli_fetch_array($query_es_proveedor);
+        $habilitar_proveedor = $row_es_proveedor['habilitar_proveedor'];
 
-        $total_pendiente_a_la_tienda_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente, SUM(subquery.total_cobrado) as total_cobrado, SUM(subquery.monto_recibir) as monto_recibir FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente, MAX(valor_cobrado) as total_cobrado, MAX(monto_recibir) as monto_recibir FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' AND visto = '1' GROUP BY numero_factura ) as subquery;";
+        //consulta si existe la cabecera de la cuenta por pagar de proveedor
+        $existe_cabecera = "SELECT COUNT(numero_factura) as num FROM cabecera_cuenta_pagar WHERE visto = '1' and numero_factura like 'Proveedor%'";
+        $query_existe_cabecera = mysqli_query($conexion_db, $existe_cabecera);
+        $row_existe_cabecera = mysqli_fetch_array($query_existe_cabecera);
+        $existe_cabecera = $row_existe_cabecera['num'];
+        $total_proveedores = $existe_cabecera + 1;
+        $num_fac_proveedor = "Proveedor" . $total_proveedores;
+
+        $sql_existe_cabecera_tienda = "SELECT * FROM cabecera_cuenta_pagar WHERE visto = '1' and tienda like '$dominio_completo%' and numero_factura like 'Proveedor%'";
+        $query_existe_cabecera_tienda = mysqli_query($conexion_db, $sql_existe_cabecera_tienda);
+        $row_existe_cabecera_tienda = mysqli_fetch_array($query_existe_cabecera_tienda);
+        $existe_cabecera_tienda = $row_existe_cabecera_tienda['numero_factura'];
+        if (empty($existe_cabecera_tienda) && $habilitar_proveedor == 1) {
+            $insertar_cabecera = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_pedido, estado_guia, total_venta, valor_pendiente, valor_cobrado, monto_recibir, visto, guia_laar) VALUES ('$num_fac_proveedor', NOW(), 'Proveedor', '$dominio_completo', '1', '7', '0', '0', '0', '0', '1','PROVEEDOR');";
+            $query_insertar_cabecera = mysqli_query($conexion_db, $insertar_cabecera);
+            $ganancias_proveedor = 0;
+            $pendiente_proveedor = 0;
+        } else {
+            $ganancias_proveedor = $row_existe_cabecera_tienda['monto_recibir'];
+            $pendiente_proveedor = $row_existe_cabecera_tienda['valor_pendiente'];
+        }
+
+
+
+
+        $total_pendiente_a_la_tienda_sql = "SELECT 
+        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
+        SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
+        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir
+    FROM (
+        SELECT 
+            numero_factura, 
+            MAX(total_venta) AS total_venta, 
+            MAX(valor_pendiente) AS total_pendiente, 
+            MAX(valor_cobrado) AS total_cobrado, 
+            MAX(monto_recibir) AS monto_recibir 
+        FROM cabecera_cuenta_pagar 
+        WHERE tienda = '$dominio_completo' 
+            AND visto = '1'
+        GROUP BY numero_factura
+    ) AS subquery;";
         $query_total_pendiente_a_la_tienda = mysqli_query($conexion_db, $total_pendiente_a_la_tienda_sql);
         $row_total_pendiente_a_la_tienda = mysqli_fetch_array($query_total_pendiente_a_la_tienda);
 
@@ -220,9 +269,19 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                     <div class="card-box widget-icon">
                         <div>
                             <i class="mdi mdi-briefcase-check text-primary"></i>
-                            <div class="wid-icon-info text-right">
-                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
-                                <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($total_monto_recibir, 2); ?></h4>
+                            <div class="wid-icon-info text-right d-flex justify-content-end gap-2">
+                                <div class="col-4">
+                                    &nbsp;
+                                </div>
+                                <div class="">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad como Proveedor</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . $ganancias_proveedor  ?></h4>
+                                </div>
+                                <div class="">
+
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($total_monto_recibir, 2); ?></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -242,9 +301,15 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                     <div class="card-box widget-icon">
                         <div>
                             <i class="mdi mdi-store text-danger "></i>
-                            <div class="wid-icon-info text-right">
-                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
-                                <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_valor_pendiente, 2); ?></h4>
+                            <div class="wid-icon-info text-right d-flex justify-content-end gap-2">
+                                <div class="col-4">
+                                    &nbsp;
+                                </div>
+
+                                <div class="">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_valor_pendiente, 2); ?></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -252,14 +317,15 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                 <div class="col-lg-12 col-md-6">
                     <div class="card-box widget-icon">
                         <div>
-                            <i class="mdi mdi-store text-danger "></i>
+                            <i class="mdi mdi-receipt text-warnihg "></i>
                             <div class="wid-icon-info text-right">
                                 <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Guías pendiente de revision</p>
-                                <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $guias_faltantes ?></h4>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-warnihg"><?php echo $guias_faltantes ?></h4>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="thead-light">
