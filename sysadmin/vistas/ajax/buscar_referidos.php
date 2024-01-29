@@ -37,7 +37,11 @@ $referido = $row_validar_referido['referido'];
 if ($referido == 0 || $referido == '' || $referido == NULL) {
     echo '<div class="alert alert-warning alert-dismissible" role="alert" align="center">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Aviso!</strong> No hay Registro de Referidos
+    <strong>Aviso!</strong> Aún no tienes un enlace de referido
+    
+    <br>
+    <button class="btn btn-sm btn-success" onclick="generar_referido()">Generar enlace</button>
+
 </div>';
     exit;
 }
@@ -161,3 +165,43 @@ if ($action == "ajax") {
 <?php
     }
 }
+
+?>
+<script>
+    function generar_referido() {
+        var dominio = '<?php echo $dominio_actual ?>';
+
+        $.ajax({
+            type: "POST",
+            url: "generar_referido.php",
+            data: {
+                dominio: dominio
+            },
+            success: function(data) {
+                if (data == 'ok') {
+                    swal({
+                        title: "Enlace generado",
+                        text: "El enlace de referido se ha generado correctamente",
+                        type: "success",
+                        confirmButtonClass: "btn-success",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: false
+                    }, function() {
+                        location.reload();
+                    });
+                } else {
+                    swal({
+                        title: "Error",
+                        text: "Ha ocurrido un error al generar el enlace de referido",
+                        type: "error",
+                        confirmButtonClass: "btn-danger",
+                        confirmButtonText: "Ok",
+                        closeOnConfirm: false
+                    }, function() {
+                        location.reload();
+                    });
+                }
+            }
+        });
+    }
+</script>
