@@ -162,6 +162,13 @@ if (empty($_GET['id'])) {
                         }
                     }
                 }
+                $sql = "UPDATE productos SET tienda = 'enviado' WHERE id_producto = $id";
+
+                if ($conexion->query($sql) === TRUE) {
+                    echo 'ok';
+                } else {
+                    echo "Error en la actualización: " . $conexion->error;
+                }
             }
         }
     } else {
