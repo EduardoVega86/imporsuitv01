@@ -1,8 +1,10 @@
 <?php
 
 $get_data = file_get_contents("php://input");
+$get_data = file_get_contents("php://input");
+$request = json_decode($get_data, true); // Convertir JSON a array
+$dominio = $request['dominio'];
 
-$dominio = $get_data['dominio'];
 
 $token = bin2hex(openssl_random_pseudo_bytes(20));
 

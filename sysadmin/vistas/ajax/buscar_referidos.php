@@ -30,10 +30,11 @@ $dominio_actual = str_replace('.net', '', $dominio_actual);
 $conexion_market = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
 
 // validar si tiene enlace referido
-$validar_referido = "SELECT referido FROM plataformas WHERE url_imporsuit = '$dominio_actual'";
+$validar_referido = "SELECT referido, token_referido FROM plataformas WHERE url_imporsuit = '$dominio_completo'";
 $query_validar_referido = mysqli_query($conexion_market, $validar_referido);
 $row_validar_referido = mysqli_fetch_array($query_validar_referido);
 $referido = $row_validar_referido['referido'];
+$token = $row_validar_referido['token_referido'];
 if ($referido == 0 || $referido == '' || $referido == NULL) {
     echo '<div class="alert alert-warning alert-dismissible" role="alert" align="center">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -46,18 +47,25 @@ if ($referido == 0 || $referido == '' || $referido == NULL) {
     exit;
 }
 
+$enlace_referido = "https://registro.imporsuit.com/registro_referidos.php?premium=3&referido=$token";
+echo '
+<div class="alert alert-success alert-dismissible" role="alert" align="center">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"></span></button>
+    <strong>Enlace de referido:</strong> <a href="' . $enlace_referido . '" target="_blank">' . $enlace_referido . '</a>
+</div>
+';
 permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != NULL) ? $_REQUEST['action'] : '';
 
 if ($action == "ajax") {
     // escaping, additionally removing everything that could be (html/javascript-) code
-    $q = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
+    $q = mysqli_real_escape_string($conexion_market, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "plataformas";
     $sWhere = "";
-    $sWhere .= " WHERE tienda = '$dominio_completo'";
+    $sWhere .= " WHERE refiere = '$token'";
     if ($_GET['q'] != "") {
-        $sWhere .= " and cabecera_cuenta_pagar.tienda like '%$q%'";
+        $sWhere .= " and nombre_tienda like '%$q%'";
     }
     $sWhere .= "";
 
@@ -69,78 +77,53 @@ if ($action == "ajax") {
     $adjacents  = 4; //gap between pages after number of adjacents
     $offset = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
-    $count_query   = mysqli_query($conexion, "SELECT count(DISTINCT cabecera_cuenta_pagar.tienda) AS numrows FROM $sTable  $sWhere");
+    $count_query   = mysqli_query($conexion_market, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
     $row = mysqli_fetch_array($count_query);
     $numrows = $row['numrows'];
     $total_pages = ceil($numrows / $per_page);
     $reload = '../reportes/wallet.php';
     //main query to fetch the data
-    $sql = "SELECT DISTINCT cabecera_cuenta_pagar.tienda FROM  $sTable $sWhere order by cabecera_cuenta_pagar.tienda asc LIMIT $offset,$per_page ";
-    $query = mysqli_query($conexion, $sql);
+    $sql = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    $query = mysqli_query($conexion_market, $sql);
     $query = mysqli_fetch_all($query);
 
-    if ($numrows > 0 && $dominio_actual == 'marketplace.imporsuit') {
+    if ($numrows > 0) {
 ?>
+
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead class="thead-light">
                     <tr class="info">
-                        <th class="text-center">Tienda </th>
-                        <th class="text-center">Total Venta</th>
-                        <th class="text-center">Total Utilidad</th>
-                        <th class="text-center">Guías Pendientes</th>
-                        <th colspan="3"></th>
+                        <th class="text-center">Nombre de Tienda</th>
+                        <th class="text-center">Dueño</th>
+                        <th class="text-center">Contacto</th>
+                        <th class="text-center">Fecha ingreso</th>
+                        <th class="text-center">Fecha Caduca</th>
+                        <th class="text-center">Enlace</th>
                     </tr>
                 </thead>
                 <tbody id="resultados">
 
                     <?php
                     foreach ($query as $row) {
-                        $tienda = $row[0];
-
-                        $total_venta_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' and visto = '1' GROUP BY numero_factura ) as subquery;";
-
-                        $query_total_venta = mysqli_query($conexion, $total_venta_sql);
-                        $row_total_venta = mysqli_fetch_array($query_total_venta);
-
-
-                        $total_venta = $row_total_venta['total_ventas'];
-                        $total_pendiente = $row_total_venta['total_pendiente'];
-
-                        $total_venta = number_format($total_venta, 2);
-                        $total_pendiente = number_format($total_pendiente, 2);
-
-                        $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
-
-                        $guias_faltantes = "SELECT COUNT(*) FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' AND (visto = 0 OR visto IS NULL)";
-                        $query_guias_faltantes = mysqli_query($conexion, $guias_faltantes);
-                        $row_guias_faltantes = mysqli_fetch_array($query_guias_faltantes);
-                        $guias_faltantes = $row_guias_faltantes[0];
-
+                        $id_plataforma = $row[0];
+                        $nombre_tienda = $row[1];
+                        $contacto = $row[2];
+                        $whatsapp = $row[3];
+                        $fecha_ingreso = $row[4];
+                        $fecha_actualza = $row[5];
+                        $fecha_caduca = $row[6];
+                        $url_imporsuit = $row[8];
 
                     ?>
 
                         <tr>
-                            <td class="text-center"><?php echo $tienda; ?></td>
-                            <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
-                            <td class="text-center"><?php echo $simbolo_moneda . $total_pendiente; ?></td>
-                            <td class="text-center"><?php echo $guias_faltantes; ?></td>
-                            <td class="text-center">
-                                <div class="btn-group dropdown">
-                                    <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-
-                                        <?php
-                                        if ($permisos_eliminar == 1) { ?>
-                                            <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
-                                        <?php } ?>
-                                        <a href="pagar_wallet.php?id_factura=<?php echo $id_factura ?>&tienda=<?php echo $tienda ?>" class="dropdown-item"> <i class="ti-wallet"></i> Pagar </a>
-
-                                    </div>
-
-                                </div>
-
-                            </td>
+                            <td class="text-center"><?php echo $nombre_tienda; ?></td>
+                            <td class="text-center"><?php echo $contacto; ?></td>
+                            <td class="text-center"><?php echo $whatsapp; ?></td>
+                            <td class="text-center"><?php echo $fecha_ingreso; ?></td>
+                            <td class="text-center"><?php echo $fecha_caduca; ?></td>
+                            <td class="text-center"><a href="<?php echo $url_imporsuit; ?>" target="_blank"><?php echo $url_imporsuit; ?></a></td>
                         </tr>
                     <?php
                     }
@@ -160,7 +143,7 @@ if ($action == "ajax") {
     ?>
         <div class="alert alert-warning alert-dismissible" role="alert" align="center">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Aviso!</strong> No hay Registro de Referidos
+            <strong>Aviso!</strong> No hay tiendas registradas a tu enlace de referido
         </div>
 <?php
     }

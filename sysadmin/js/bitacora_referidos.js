@@ -82,43 +82,34 @@ $("#eliminarDatos").submit(function (event) {
 });
 
 function generar_referido() {
-  var dominio = "<?php echo $dominio_actual ?>";
+  var dominio = location.origin;
+  dominio = String(dominio);
 
   $.ajax({
     type: "POST",
-    url: "generar_referido.php",
+    url: "../ajax/generar_referido.php",
     data: {
-      dominio: dominio,
+      dominio,
     },
     success: function (data) {
       if (data == "ok") {
-        swal(
-          {
-            title: "Enlace generado",
-            text: "El enlace de referido se ha generado correctamente",
-            type: "success",
-            confirmButtonClass: "btn-success",
-            confirmButtonText: "Ok",
-            closeOnConfirm: false,
-          },
-          function () {
-            location.reload();
-          }
-        );
+        Swal.fire({
+          title: "Enlace generado",
+          text: "El enlace de referido se ha generado correctamente",
+          type: "success",
+          confirmButtonClass: "btn-success",
+          confirmButtonText: "Ok",
+          closeOnConfirm: false,
+        });
       } else {
-        swal(
-          {
-            title: "Error",
-            text: "Ha ocurrido un error al generar el enlace de referido",
-            type: "error",
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Ok",
-            closeOnConfirm: false,
-          },
-          function () {
-            location.reload();
-          }
-        );
+        Swal.fire({
+          title: "Error",
+          text: "Ha ocurrido un error al generar el enlace de referido",
+          type: "error",
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Ok",
+          closeOnConfirm: false,
+        });
       }
     },
   });
