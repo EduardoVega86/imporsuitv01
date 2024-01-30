@@ -13,19 +13,20 @@ $resultado = mysqli_query($conexion, $sql);
 $rw = mysqli_fetch_array($resultado);
 
 if (empty($rw)) {
-    $sql_insert = "INSERT INTO pixel (nombre, codigo) VALUES ('FACEBOOK', '$pixel')";
+    $sql_insert = "INSERT INTO pixel (nombre, pixel) VALUES ('FACEBOOK', '$pixel')";
     $resultado_insert = mysqli_query($conexion, $sql_insert);
     if ($resultado_insert) {
-        echo "oki";
+        echo json_encode("oki");
     } else {
-        echo "errori";
+        echo json_encode("errori");
     }
 } else {
-    $sql_update = "UPDATE pixel SET codigo = '$pixel' WHERE nombre = 'FACEBOOK'";
+    $sql_update = "UPDATE pixel SET pixel = '$pixel' WHERE nombre = 'FACEBOOK'";
     $resultado_update = mysqli_query($conexion, $sql_update);
     if ($resultado_update) {
-        echo "oku";
+        echo json_encode("oku");
     } else {
         echo "erroru";
     }
 }
+echo mysqli_error($conexion);

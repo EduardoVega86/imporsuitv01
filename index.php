@@ -532,6 +532,7 @@ include 'includes/head.php'
       // Función para generar el enlace de WhatsApp
       function generarEnlace() {
          // Número de teléfono (debe incluir el código de país sin el signo +)
+         fbq('track', 'Lead');
          var numeroTelefono = "<?php
                                  echo get_row('perfil', 'whatsapp', 'id_perfil', '1');
                                  ?>";
@@ -552,6 +553,10 @@ include 'includes/head.php'
       // Asociar la función al botón
       var botonGenerarEnlace = document.getElementById("generarEnlace");
       botonGenerarEnlace.addEventListener("click", generarEnlace);
+   </script>
+
+   <script>
+
    </script>
 </body>
 

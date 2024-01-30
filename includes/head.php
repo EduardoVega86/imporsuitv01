@@ -78,13 +78,8 @@ $base_url = $protocol . '://' . $domain;
          s.parentNode.insertBefore(t, s)
       }(window, document, 'script',
          'https://connect.facebook.net/en_US/fbevents.js');
-
       //track imporsuit
       fbq('init', '1868724866850222');
-      fbq('track', 'PageView');
-      fbq('track', 'ViewContent');
-
-      //track user pixel
       fbq('init', '<?php echo $row['pixel'] ?>');
       fbq('track', 'PageView');
       fbq('track', 'ViewContent');
