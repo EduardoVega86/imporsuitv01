@@ -88,7 +88,7 @@ while ($r = $query->fetch_object()) {
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form class="mb-3">
+                                            <form class="mb-3" onsubmit="conectar_pixel(event)">
 
                                                 <span class="mb-5">
                                                     Introduce tu ID de píxel de Facebook para hacer un seguimiento de las acciones que tus clientes realizan mientras visitan tu sitio web
@@ -96,45 +96,22 @@ while ($r = $query->fetch_object()) {
                                                 <span class="mb-5 font-bold"> <br> Facebook Pixel ID</span>
                                                 <div class="form-group mb-3">
 
-                                                    <input type="text" class="form-control" placeholder="ID de píxel de Facebook">
+                                                    <input type="text" id="pixel" name="pixel" class="form-control" placeholder="ID de píxel de Facebook">
                                                 </div>
+                                                <span class="mb-2">
+                                                    <a href="https://www.facebook.com/business/help/952192354843755?id=1205376682832142" target="_blank">¿Dónde puedo encontrar mi ID de píxel de Facebook?</a>
 
-                                                <div class="form-group px-5">
-                                                    <input class="form-check-input" type="checkbox" name="habilitar_api" id="habilitar_api">
-                                                    <label class="form-label" for="habilitar_api">Habilitar conversiones API <br>
-                                                        <span class="fs-xs">Recomendado, envia eventos directamente desde nuestros servidores.</span>
-                                                    </label>
-                                                </div>
-
-                                                <span class="font-bold">
-                                                    Token de acceso a la API de conversiones <br>
                                                 </span>
-                                                <span class="mb-5">
-                                                    Introduce tu token de acceso de Facebook para hacer un seguimiento de las acciones que tus clientes realizan mientras visitan tu sitio web
-                                                </span>
-                                                <div class="form-group mb-3">
-                                                    <input type="text" class="form-control" placeholder="Token de acceso de Facebook">
-                                                </div>
-
-                                                <span class="font-bold">
-                                                    Probar la API de conversiones <br>
-                                                </span>
-                                                <span class="mb-5">
-                                                    Para probar los eventos del servidor, copia y pega aquí tu código de prueba de Facebook y haz clic en el botón "Guardar y probar", si todo está bien, verás un evento de prueba en el registro de eventos de tu píxel.
+                                                <span class="mb-5 d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-success mt-5">
+                                                        Conectar
+                                                    </button>
                                                 </span>
 
-                                                <div class="form-group">
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                                </div>
-
-                                                <div class="d-flex justify-content-center">
-                                                    <button type="button">Desconectar</button>
-                                                    <button type="button" class="btn btn-outline-primary">Guardar y probar</button>
-                                                </div>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -201,6 +178,48 @@ while ($r = $query->fetch_object()) {
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-
+<script>
+    function conectar_pixel(e) {
+        e.preventDefault();
+        const pixel_id = document.getElementById('pixel').value;
+        if (pixel_id == '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Debes ingresar un ID de pixel',
+            })
+            return false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '../ajax/conectar_pixel.php',
+            data: JSON.stringify({
+                pixel: pixel_id
+            }),
+            success: function(response) {
+                if (response == 'oki') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Conectado',
+                        text: 'Se ha conectado correctamente',
+                    })
+                }
+                if (response == "oku") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Conectado',
+                        text: 'Se ha actualizado correctamente',
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'errori',
+                        title: 'Oops...',
+                        text: 'Ha ocurrido un error al conectar',
+                    })
+                }
+            }
+        });
+    }
+</script>
 <?php require 'includes/footer_end.php'
 ?>
