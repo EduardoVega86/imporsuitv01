@@ -53,6 +53,7 @@ require_once "sysadmin/vistas/funciones.php";
                                                                                                     <option value="COLOMBIA">COLOMBIA</option>
                                                                                                     <option value="PERÚ">PERÚ</option>
                                                                                                     <option value="CHILE">CHILE</option>
+                                                                                                    <option value="CHINA">CHINA</option>
                                                                                                 </select>
                                                                                                 
 										
