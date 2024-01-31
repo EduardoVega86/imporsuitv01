@@ -1246,6 +1246,7 @@ mysqli_query($conexion, "ALTER TABLE `guia_laar` ADD `id_transporte` INT NOT NUL
 mysqli_query($conexion, "CREATE TABLE `caracteristicas_tienda` (  `id` int(11) NOT NULL AUTO_INCREMENT,   `id_producto` int(11) DEFAULT 0,  `texto` varchar(255) DEFAULT NULL,  PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci");
 
 mysqli_query($conexion, "UPDATE `user_group` SET `permission` = 'Inicio,1,1,1;Productos,1,1,1;Proveedores,1,1,1;Clientes,1,1,1;Reportes,1,1,1;Configuracion,1,1,1;Usuarios,1,1,1;Permisos,1,1,1;Categorias,1,1,1;Ventas,1,1,1;Compras,1,1,1;Pedidos,1,1,1;Integraciones,1,1,1;Dominios,1,1,1;Wallets,1,1,1;Datos,1,1,1;Referidos,1,1,1;' WHERE `user_group`.`user_group_id` = 1;");
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `nodevolucion` TINYINT NOT NULL DEFAULT '0'");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 

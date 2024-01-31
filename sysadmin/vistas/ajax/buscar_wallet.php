@@ -193,6 +193,13 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $total_proveedores = $existe_cabecera + 1;
         $num_fac_proveedor = "Proveedor" . $total_proveedores;
 
+        $existe_cabecera_referido = "SELECT COUNT(numero_factura) as num FROM cabecera_cuenta_pagar WHERE visto = '1' and numero_factura like 'Referido%'";
+        $query_existe_cabecera_referido = mysqli_query($conexion_db, $existe_cabecera_referido);
+        $row_existe_cabecera_referido = mysqli_fetch_array($query_existe_cabecera_referido);
+        $existe_cabecera_referido = $row_existe_cabecera_referido['num'];
+        $total_referidos = $existe_cabecera_referido + 1;
+        $num_fac_referido = "Referido" . $total_referidos;
+
         $sql_existe_cabecera_tienda = "SELECT * FROM cabecera_cuenta_pagar WHERE visto = '1' and tienda like '$dominio_completo%' and numero_factura like 'Proveedor%'";
         $query_existe_cabecera_tienda = mysqli_query($conexion_db, $sql_existe_cabecera_tienda);
         $row_existe_cabecera_tienda = mysqli_fetch_array($query_existe_cabecera_tienda);
@@ -207,14 +214,43 @@ if ($dominio_actual == 'marketplace.imporsuit') {
             $pendiente_proveedor = $row_existe_cabecera_tienda['valor_pendiente'];
         }
 
+        $sql_existe_referido = "SELECT * FROM cabecera_cuenta_pagar WHERE visto = '1' and tienda like '$dominio_completo%' and numero_factura like 'Referido%'";
+        $query_existe_referido = mysqli_query($conexion_db, $sql_existe_referido);
+        $row_existe_referido = mysqli_fetch_array($query_existe_referido);
+        $existe_referido = $row_existe_referido['numero_factura'];
+        if (empty($existe_referido)) {
+            $num_fac_referido = "Referido" . $total_referidos;
+            $insertar_cabecera = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_pedido, estado_guia, total_venta, valor_pendiente, valor_cobrado, monto_recibir, visto, guia_laar) VALUES ('$total_referidos', NOW(), 'Referido', '$dominio_completo', '1', '7', '0', '0', '0', '0', '1','REFERIDO');";
+            $query_insertar_cabecera = mysqli_query($conexion_db, $insertar_cabecera);
+            $ganancias_referido = 0;
+            $pendiente_referido = 0;
+        } else {
+            $ganancias_referido = $row_existe_referido['monto_recibir'];
+            $pendiente_referido = $row_existe_referido['valor_pendiente'];
+        }
 
+        //consulta si es un referido 
+        $es_referido = "SELECT * FROM plataformas where url_imporsuit like '$dominio_completo%' and refiere is not null";
+        $query_es_referido = mysqli_query($conexion_db, $es_referido);
+        $row_es_referido = mysqli_fetch_array($query_es_referido);
+        $es_referido = $row_es_referido['refiere'];
+        if ($es_referido != null) {
+            $es_referidos = 1;
+        } else {
+            $es_referidos = 0;
+        }
+
+        if ($es_referidos == 1) {
+            $ganancias_proveedor = 0;
+            $pendiente_proveedor = 0;
+        }
 
 
         $total_pendiente_a_la_tienda_sql = "SELECT 
-        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
+        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
         SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
-        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
-        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir
+        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir
     FROM (
         SELECT 
             numero_factura, 
@@ -270,12 +306,13 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         <div>
                             <i class="mdi mdi-briefcase-check text-primary"></i>
                             <div class="wid-icon-info text-right d-flex justify-content-end gap-2">
-                                <div class="col-4">
-                                    &nbsp;
+                                <div class="">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad como Referido</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($ganancias_referido, 2)  ?></h4>
                                 </div>
                                 <div class="">
                                     <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad como Proveedor</p>
-                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . $ganancias_proveedor  ?></h4>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($ganancias_proveedor, 2)  ?></h4>
                                 </div>
                                 <div class="">
 
@@ -305,6 +342,8 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <div class="col-4">
                                     &nbsp;
                                 </div>
+
+
 
                                 <div class="">
                                     <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>

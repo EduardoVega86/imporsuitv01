@@ -272,6 +272,7 @@ class LaarModel extends Query
         $ciudad_cot = $query[0]['ciudad_cot'];
         $id_factura = $query[0]['id_factura'];
         $id_pedido_origen = $query[0]['id_factura_origen'];
+        $cod = $query[0]['cod'];
 
         $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'";
         $tieneGuias_query = $this->select($tieneGuias_sql);
@@ -319,13 +320,25 @@ class LaarModel extends Query
         $costo_envio = $valor_base + ($valor_base * 0.25);
         $costo_envio = number_format($costo_envio, 2);
 
-        $monto_recibir = 0 - $costo_envio;
+        $conexion_proveedor = $this->obtener_conexion($tienda_venta);
+
+        $sql_nodevolucion = "SELECT nodevolucion FROM `perfil`; ";
+        $sql_nodevolucion_ = mysqli_query($conexion_proveedor, $sql_nodevolucion);
+        $sql_nodevolucion_ = mysqli_fetch_array($sql_nodevolucion_);
+        $sql_nodevolucion_ = $sql_nodevolucion_['nodevolucion'];
+
+        if ($sql_nodevolucion_ == 1) {
+            $monto_recibir = 0;
+        } else {
+
+            $monto_recibir = 0 - $costo_envio;
+        }
 
         $monto_recibir = number_format($monto_recibir, 2);
 
 
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia);
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`, `cod`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
 
