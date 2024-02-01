@@ -1,7 +1,9 @@
 <!doctype html>
 <?php
 session_start();
-require_once "sysadmin/PHPMailer/PHPMailer.php";
+
+use PHPMailer\PHPMailer\PHPMailer;
+
 require_once "sysadmin/vistas/db.php";
 //echo DB_HOST;
 require_once "sysadmin/vistas/php_conexion.php";
@@ -519,7 +521,7 @@ GROUP BY tienda;";
 
     if ($correo === "root@admin.com") {
     } else {
-        require_once "sysadmin/PHPMailer/Mail.php";
+        require_once "sysadmin/PHPMailer/Mail_pedido.php";
         $mail = new PHPMailer();
         $mail->isSMTP();
         $mail->SMTPDebug = $smtp_debug;
