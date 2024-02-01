@@ -23,7 +23,7 @@ $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUES
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-    $aColumns = array('nombre_linea'); //Columnas de busqueda
+    $aColumns = array('nombre_tienda, contacto, email'); //Columnas de busqueda
     $sTable   = "plataformas";
     $sWhere   = "";
     if ($_GET['q'] != "") {
@@ -38,7 +38,7 @@ if ($action == 'ajax') {
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
-    $per_page  = 10; //how much records you want to show
+    $per_page  = 50; //how much records you want to show
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
@@ -49,6 +49,7 @@ if ($action == 'ajax') {
     $reload      = '../html/lineas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
