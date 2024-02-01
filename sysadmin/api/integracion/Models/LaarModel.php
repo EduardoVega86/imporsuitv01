@@ -92,6 +92,51 @@ class LaarModel extends Query
 
     public function actualizarMarketplace($no_guia, $estado_actual_codigo)
     {
+        if ($estado_actual_codigo == 6) {
+
+            $tienda_venta_sql = "SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
+            $tienda_venta = $this->select($tienda_venta_sql);
+            $tienda_venta = $tienda_venta[0]['tienda_venta'];
+
+
+            $conexion_proveedor = $this->obtener_conexion($tienda_venta);
+
+            $sql_correo = "SELECT * from users where id_users='1'";
+            $sql_correo = mysqli_query($conexion_proveedor, $sql_correo);
+            $sql_correo = mysqli_fetch_array($sql_correo);
+            $correo = $sql_correo['email_users'];
+
+            if ($correo === "root@mail.com") {
+            } else {
+                require_once '../../PHPMailer/Mail_devolucion.php';
+                $mail = new PHPMailer();
+                $mail->isSMTP();
+                $mail->SMTPDebug = $smtp_debug;
+                $mail->Host = $smtp_host;
+                $mail->SMTPAuth = true;
+                $mail->Username = $smtp_user;
+                $mail->Password = $smtp_pass;
+                $mail->Port = 465;
+                $mail->SMTPSecure = $smtp_secure;
+
+                $mail->isHTML(true);
+                $mail->CharSet = 'UTF-8';
+                $mail->setFrom($smtp_from, $smtp_from_name);
+                $mail->addAddress($correo);
+                $mail->Subject = 'Novedad Pedido';
+                $mail->Body = $message_body_pedido;
+
+
+                if ($mail->send()) {
+                    //echo "Correo enviado";
+                } else {
+                    echo "Error al enviar el correo: " . $mail->ErrorInfo;
+                }
+            }
+        }
+
+
+
         $marketplace = $this->conectarMarketplace();
         $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
         $result = mysqli_query($marketplace, $sql);
