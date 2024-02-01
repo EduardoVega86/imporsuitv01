@@ -146,6 +146,8 @@ $message_body_pedido = '<!DOCTYPE html>
             </article>
             <article>
                 <p>Estimado usuario, nos comunicamos con usted para darle a conocer que ha recibido una novedad sobre una guia de su tienda.</p>
+                <p>La guia es la siguiente: ' . $no_guia . ' </p>
+                
 
             </article>
         </section>
