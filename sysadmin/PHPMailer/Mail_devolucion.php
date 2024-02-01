@@ -142,11 +142,10 @@ $message_body_pedido = '<!DOCTYPE html>
                 <h1>ImporSuit</h1>
             </article>
             <article>
-                <h2>Nuevo pedido</h2>
+                <h2>Novedad de pedido</h2>
             </article>
             <article>
-                <p>Estimado usuario, nos comunicamos con usted para darle a conocer que ha recibido un nuevo pedido a su
-                    tienda.</p>
+                <p>Estimado usuario, nos comunicamos con usted para darle a conocer que ha recibido una novedad sobre una guia de su tienda.</p>
 
             </article>
         </section>

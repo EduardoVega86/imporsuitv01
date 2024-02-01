@@ -2,6 +2,10 @@
 <?php
 session_start();
 
+require_once "sysadmin/PHPMailer/PHPMailer.php";
+require_once "sysadmin/PHPMailer/SMTP.php";
+require_once "sysadmin/PHPMailer/Exception.php";
+
 use PHPMailer\PHPMailer\PHPMailer;
 
 require_once "sysadmin/vistas/db.php";
@@ -535,7 +539,7 @@ GROUP BY tienda;";
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->setFrom($smtp_from, $smtp_from_name);
-        $mail->addAddress($email_users);
+        $mail->addAddress($correo);
         $mail->Subject = 'Nuevo Pedido';
         $mail->Body = $message_body_pedido;
 

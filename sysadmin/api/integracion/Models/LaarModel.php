@@ -2,6 +2,13 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+require_once '../../PHPMailer/PHPMailer.php';
+require_once '../../PHPMailer/SMTP.php';
+require_once '../../PHPMailer/Exception.php';
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+
 class LaarModel extends Query
 {
     public function __construct()
@@ -341,6 +348,39 @@ class LaarModel extends Query
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
 
+        // enviar correo
+        $sql_correo = "SELECT * from users where id_users='1'";
+        $sql_correo = mysqli_query($conexion_proveedor, $sql_correo);
+        $sql_correo = mysqli_fetch_array($sql_correo);
+        $correo = $sql_correo['email_users'];
+
+        if ($correo === "root@mail.com") {
+        } else {
+            require_once '../../PHPMailer/Mail_devolucion.php';
+            $mail = new PHPMailer();
+            $mail->isSMTP();
+            $mail->SMTPDebug = $smtp_debug;
+            $mail->Host = $smtp_host;
+            $mail->SMTPAuth = true;
+            $mail->Username = $smtp_user;
+            $mail->Password = $smtp_pass;
+            $mail->Port = 465;
+            $mail->SMTPSecure = $smtp_secure;
+
+            $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';
+            $mail->setFrom($smtp_from, $smtp_from_name);
+            $mail->addAddress($correo);
+            $mail->Subject = 'Novedad Pedido';
+            $mail->Body = $message_body_pedido;
+
+
+            if ($mail->send()) {
+                //echo "Correo enviado";
+            } else {
+                echo "Error al enviar el correo: " . $mail->ErrorInfo;
+            }
+        }
 
 
         if ($query_insertar_cc) {
