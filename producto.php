@@ -140,8 +140,8 @@ include 'includes/head_producto.php'
                                                               } else {
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                      }
-                                                                        ?> alt="" loading="lazy" width="150" height="150">
+                                                                }
+                                                                  ?> alt="" loading="lazy" width="150" height="150">
 
                         </td>
 
@@ -162,7 +162,7 @@ include 'includes/head_producto.php'
                           </div>
 
                           <div class="cart-item__price-wrapper"><span class="price price--end">
-                               <?php echo get_row('perfil', 'moneda', 'id_perfil', 1).number_format($precio_especial, 2); ?>
+                              <?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?>
                             </span></div>
                         </td>
 
@@ -379,19 +379,19 @@ include 'includes/head_producto.php'
                                       } else {
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                      }
-                                                                        ?> alt="" srcset=" <?php
-                    $subcadena = "http";
+                                                                }
+                                                                  ?> alt="" srcset=" <?php
+                                                                                            $subcadena = "http";
 
-                    if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                    ?>
+                                                                                            if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                                                                                            ?>
     <?php echo  $image_path . '"'; ?>
     <?php
-                    } else {
+                                                                                            } else {
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                      }
-                                                                        ?> width="1946" height="1946" class="image-magnify-none" sizes="(min-width: 1400px) 715px, (min-width: 990px) calc(55.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)">
+                                                                                            }
+                                                                  ?> width="1946" height="1946" class="image-magnify-none" sizes="(min-width: 1400px) 715px, (min-width: 990px) calc(55.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)">
                         </div>
                         <button class="product__media-toggle quick-add-hidden product__media-zoom-none" type="button" aria-haspopup="dialog" data-media-id="34523778416921">
                           <span class="visually-hidden">
@@ -454,13 +454,13 @@ include 'includes/head_producto.php'
                     <div class="price__regular">
                       <span class="visually-hidden visually-hidden--inline">Regular price</span>
                       <span class="price-item price-item--regular">
-                        <?php echo get_row('perfil', 'moneda', 'id_perfil', 1).$precio_especial; ?>
+                        <?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_especial; ?>
                       </span>
                     </div>
                     <div class="price__sale ">
                       <span class="visually-hidden visually-hidden--inline regular-price-label">Sale price</span>
                       <span class="price-item price-item--sale price-item--last">
-                        <?php echo get_row('perfil', 'moneda', 'id_perfil', 1).$precio_especial; ?>
+                        <?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_especial; ?>
                       </span>
                       <span class="visually-hidden visually-hidden--inline compare-price-label">Regular price</span>
                       <?php
@@ -468,7 +468,7 @@ include 'includes/head_producto.php'
                       ?>
                         <span class="price__compare-price">
                           <s class="price-item price-item--regular">
-                            $<?php echo get_row('perfil', 'moneda', 'id_perfil', 1).$precio_normal; ?>
+                            $<?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_normal; ?>
                           </s>
                         <?php
                       }
@@ -515,22 +515,22 @@ include 'includes/head_producto.php'
               <div <?php if ($formato == 2) {
                       echo 'style= display:none';
                     } ?> class="emoji-benefits-container">
-                 <?php   
-              $sql_car = "select * from caracteristicas_tienda";
-              $query_car = mysqli_query($conexion, $sql_car);
-            
-              if($query_car){
-              $rowcount = mysqli_num_rows($query_car);
-              
-            
-             // $i = 1;
-              while ($row_car = mysqli_fetch_array($query_car)) {
-                  ?>
-              
-                <p>- <?php  echo $row_car['texto']; ?></p>
                 <?php
-               }
-               }
+                $sql_car = "select * from caracteristicas_tienda";
+                $query_car = mysqli_query($conexion, $sql_car);
+
+                if ($query_car) {
+                  $rowcount = mysqli_num_rows($query_car);
+
+
+                  // $i = 1;
+                  while ($row_car = mysqli_fetch_array($query_car)) {
+                ?>
+
+                    <p>- <?php echo $row_car['texto']; ?></p>
+                <?php
+                  }
+                }
                 ?>
               </div>
 
@@ -760,7 +760,7 @@ include 'includes/head_producto.php'
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                                                       }
-                                                                        ?> alt="Brand Logo"></a>
+                                                                  ?> alt="Brand Logo"></a>
                       <div class="rte">
                         <p><?php echo $testimonio; ?></p>
                       </div>

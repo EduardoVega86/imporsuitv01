@@ -1,7 +1,7 @@
 <!doctype html>
 <?php
 session_start();
-
+require_once "sysadmin/PHPMailer/PHPMailer.php";
 require_once "sysadmin/vistas/db.php";
 //echo DB_HOST;
 require_once "sysadmin/vistas/php_conexion.php";
@@ -511,8 +511,39 @@ GROUP BY tienda;";
     $delete        = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id='" . $session_id . "'");
     //header("Location: ../gracias.php");
     // SI TODO ESTA CORRECTO
+    // enviar correo
+    $correo_sql = "SELECT * FROM users where id_users='1'";
+    $correo_result = mysqli_query($conexion, $correo_sql);
+    $correo = mysqli_fetch_assoc($correo_result);
+    $correo = $correo['email_users'];
+
+    if ($correo === "root@admin.com") {
+    } else {
+        require_once "sysadmin/PHPMailer/Mail.php";
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->SMTPDebug = $smtp_debug;
+        $mail->Host = $smtp_host;
+        $mail->SMTPAuth = true;
+        $mail->Username = $smtp_user;
+        $mail->Password = $smtp_pass;
+        $mail->Port = 465;
+        $mail->SMTPSecure = $smtp_secure;
+
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+        $mail->setFrom($smtp_from, $smtp_from_name);
+        $mail->addAddress($email_users);
+        $mail->Subject = 'Nuevo Pedido';
+        $mail->Body = $message_body_pedido;
 
 
+        if ($mail->send()) {
+            //echo "Correo enviado";
+        } else {
+            echo "Error al enviar el correo: " . $mail->ErrorInfo;
+        }
+    }
 }
 
 ?>
