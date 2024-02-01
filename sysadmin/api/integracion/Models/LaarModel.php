@@ -92,7 +92,7 @@ class LaarModel extends Query
 
     public function actualizarMarketplace($no_guia, $estado_actual_codigo)
     {
-        if ($estado_actual_codigo == 6) {
+        if ($estado_actual_codigo == 14) {
 
             $tienda_venta_sql = "SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
             $tienda_venta = $this->select($tienda_venta_sql);
