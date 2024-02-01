@@ -44,7 +44,7 @@ $rw_perfil = mysqli_fetch_array($resultado_perfil);
 $nodevolucion = $rw_perfil['nodevolucion'];
 
 if ($nodevolucion == 1) {
-    $nuevo = 0;
+    $nuevo = 0 - $precio_envio;
 } else {
     $nuevo = 0 - $precio_envio - ($precio_envio * 0.25);
 }

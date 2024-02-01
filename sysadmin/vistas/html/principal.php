@@ -52,14 +52,14 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
         ?>
           <div class="row">
             <div class="col-xs-3">
-												<div class="input-group">
-													<div class="input-group-addon">
-														<i class="fa fa-calendar"></i>
-													</div>
-                                                                                                    <input type="text" onchange="cambiar()" class="form-control daterange pull-right" value="<?php echo  date('d/m/Y') . ' - ' . date('d/m/Y'); ?>" id="range" readonly>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" onchange="cambiar()" class="form-control daterange pull-right" value="<?php echo  date('d/m/Y') . ' - ' . date('d/m/Y'); ?>" id="range" readonly>
 
-												</div><!-- /input-group -->
-											</div>  
+              </div><!-- /input-group -->
+            </div>
           </div>
           <br>
           <div class="row">
@@ -71,7 +71,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                     <i class="ti-calendar text-success"></i>
                   </div>
                   <div class="text-right">
-                    <h5 class="text-dark text-center"><b id="total_pedido_filtro" class="counter text-success"><?php total_pedidos(date('d/m/Y'),date('d/m/Y')); ?></b></h5>
+                    <h5 class="text-dark text-center"><b id="total_pedido_filtro" class="counter text-success"><?php total_pedidos(date('d/m/Y'), date('d/m/Y')); ?></b></h5>
                     <p class="text-muted mb-0">Total Pedidos</p>
                   </div>
                   <div class="clearfix"></div>
@@ -338,7 +338,40 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 
 
 
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Launch static backdrop modal
+          </button>
 
+          <!-- Modal -->
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Cambio de correo'</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mb-3">
+                  <span class="text-muted">
+                    <p>Estimado usuario, estamos transicionando hacia una nueva version, por lo cual hemos detectado que el correo de acceso no ha sido modificado, recomandamos poner su correo de registro.</p>
+                  </span>
+                </div>
+                <form onsubmit="modificar_email(e)">
+                  <div class="mb-3">
+                    <label for="email">Correo</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3 d-flex flex-colums">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                  </div>
+                </form>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
         <?php
@@ -374,76 +407,77 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script>
-	
-	$(function() {
-		load(1);
+  $(function() {
+    load(1);
 
-//Date range picker
-$('.daterange').daterangepicker({
-	buttonClasses: ['btn', 'btn-sm'],
-	applyClass: 'btn-success',
-	cancelClass: 'btn-default',
-	locale: {
-		format: "DD/MM/YYYY",
-		separator: " - ",
-		applyLabel: "Aplicar",
-		cancelLabel: "Cancelar",
-		fromLabel: "Desde",
-		toLabel: "Hasta",
-		customRangeLabel: "Custom",
-		daysOfWeek: [
-		"Do",
-		"Lu",
-		"Ma",
-		"Mi",
-		"Ju",
-		"Vi",
-		"Sa"
-		],
-		monthNames: [
-		"Enero",
-		"Febrero",
-		"Marzo",
-		"Abril",
-		"Mayo",
-		"Junio",
-		"Julio",
-		"Agosto",
-		"Septiembre",
-		"Octubre",
-		"Noviembre",
-		"Diciembre"
-		],
-		firstDay: 1
-	},
-	opens: "right"
+    //Date range picker
+    $('.daterange').daterangepicker({
+      buttonClasses: ['btn', 'btn-sm'],
+      applyClass: 'btn-success',
+      cancelClass: 'btn-default',
+      locale: {
+        format: "DD/MM/YYYY",
+        separator: " - ",
+        applyLabel: "Aplicar",
+        cancelLabel: "Cancelar",
+        fromLabel: "Desde",
+        toLabel: "Hasta",
+        customRangeLabel: "Custom",
+        daysOfWeek: [
+          "Do",
+          "Lu",
+          "Ma",
+          "Mi",
+          "Ju",
+          "Vi",
+          "Sa"
+        ],
+        monthNames: [
+          "Enero",
+          "Febrero",
+          "Marzo",
+          "Abril",
+          "Mayo",
+          "Junio",
+          "Julio",
+          "Agosto",
+          "Septiembre",
+          "Octubre",
+          "Noviembre",
+          "Diciembre"
+        ],
+        firstDay: 1
+      },
+      opens: "right"
 
-});
-});
-	function load(){
-	}
-        
-        function cambiar(){
-       //alert($("#range").val());
-       var range=$("#range").val();
-       var parametros = {"action":"ajax",'range':range};
-		$("#loader").fadeIn('slow');
-		$.ajax({
-			url:'../ajax/rep_principal.php',
-			data: parametros,
-			beforeSend: function(objeto){
-				$("#loader").html("<img src='../../img/ajax-loader.gif'>");
-			},
-			success:function(data){
-				//$(".outer_div").html(data).fadeIn('slow');
-				$("#total_pedido_filtro").html(data);
-			}
-		})
-                
-        }
+    });
+  });
+
+  function load() {}
+
+  function cambiar() {
+    //alert($("#range").val());
+    var range = $("#range").val();
+    var parametros = {
+      "action": "ajax",
+      'range': range
+    };
+    $("#loader").fadeIn('slow');
+    $.ajax({
+      url: '../ajax/rep_principal.php',
+      data: parametros,
+      beforeSend: function(objeto) {
+        $("#loader").html("<img src='../../img/ajax-loader.gif'>");
+      },
+      success: function(data) {
+        //$(".outer_div").html(data).fadeIn('slow');
+        $("#total_pedido_filtro").html(data);
+      }
+    })
+
+  }
 </script>
 <script>
-    
   google.charts.load('current', {
     'packages': ['corechart']
   });
@@ -575,6 +609,62 @@ $('.daterange').daterangepicker({
   }
 
   drawVisualization3();
+</script>
+
+<script>
+  var item = localStorage.getItem('email');
+  if (item == null) {
+    $.ajax({
+      url: '../ajax/actualizar_email.php',
+      data: {
+        'action': 'ajax'
+      },
+      dataType: 'json',
+      async: false,
+      success: function(response) {
+        localStorage.setItem('email', response.email);
+        if (response.status == "cambio") {
+
+        }
+      }
+    })
+  }
+
+  function modificar_email(e) {
+    e.preventDefault();
+    var email = $("#email").val();
+    $.ajax({
+      url: '../ajax/actualizar_email.php',
+      data: {
+        'email': email,
+        'action': 'ajax'
+      },
+      dataType: 'json',
+      async: false,
+      success: function(response) {
+        if (response.status == "actualizado") {
+          localStorage.setItem('email', response.email);
+          Swal.fire({
+            title: "¡Correo actualizado!",
+            text: "Se ha actualizado correctamente, por favor inicia sesión nuevamente.",
+            icon: "success",
+            textConfirm: "Aceptar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              location.href = "../../login.php?logout";
+            }
+          })
+        } else {
+          Swal.fire({
+            title: "¡Error!",
+            text: "No se ha podido actualizar el correo, por favor intente nuevamente.",
+            icon: "error",
+            textConfirm: "Aceptar",
+          })
+        }
+      }
+    })
+  }
 </script>
 
 
