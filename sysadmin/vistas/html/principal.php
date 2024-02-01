@@ -351,21 +351,25 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                   <h1 class="modal-title fs-5" id="staticBackdropLabel">Cambio de correo'</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body mb-3">
+                <div class="modal-body mb-3 px-4">
                   <span class="text-muted">
-                    <p>Estimado usuario, estamos transicionando hacia una nueva version, por lo cual hemos detectado que el correo de acceso no ha sido modificado, recomandamos poner su correo de registro.</p>
+                    <p class="text-justify">Estimado usuario, estamos transicionando hacia una nueva version, por lo cual hemos detectado que el correo de acceso no ha sido modificado, recomandamos poner su correo de registro.</p>
                   </span>
                 </div>
-                <form onsubmit="modificar_email(e)">
-                  <div class="mb-3">
-                    <label for="email">Correo</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                  </div>
-                  <div class="mb-3 d-flex flex-colums">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                  </div>
-                </form>
+                <div class="px-3">
 
+                  <form class="" onsubmit="modificar_email(event)">
+                    <div class="mb-3">
+                      <label for="email">Correo</label>
+                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3 d-grid">
+                      <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                    </div>
+
+                  </form>
+
+                </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
@@ -624,7 +628,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
       success: function(response) {
         localStorage.setItem('email', response.email);
         if (response.status == "cambio") {
-
+          $('#staticBackdrop').modal('show');
         }
       }
     })
@@ -634,11 +638,13 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
     e.preventDefault();
     var email = $("#email").val();
     $.ajax({
+      type: 'POST',
       url: '../ajax/actualizar_email.php',
-      data: {
-        'email': email,
-        'action': 'ajax'
-      },
+      contentType: 'application/json', // Especifica el tipo de contenido
+      data: JSON.stringify({ // Convierte los datos a una cadena JSON
+        email: email,
+        action: 'ajax'
+      }),
       dataType: 'json',
       async: false,
       success: function(response) {

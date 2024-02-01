@@ -1,7 +1,9 @@
 <?php
+
 include("../db.php");
 include("../php_conexion.php");
 $get_datos = json_decode(file_get_contents('php://input'), true);
+
 if (!empty($get_datos)) {
     $email = $get_datos['email'];
     // Corrección en la consulta SQL, cerrando la comilla simple
