@@ -90,7 +90,23 @@ if ($action == 'ajax') {
     //loop through fetched data
     if ($numrows > 0) {
         echo mysqli_error($conexion);
-?>
+?><div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tiendaModalLabel">Información de la Tienda</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Aquí va el contenido que quieras mostrar en el modal -->
+                        <p id="modalContent">Aquí va la información de la tienda.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-sm table-striped align-middle">
                 <tr class="info">
@@ -289,7 +305,8 @@ if ($action == 'ajax') {
 
                         <td class="text-center align-middle fs-7"><span class="font-weight-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
                         <td class="text-center align-middle"><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
-                        <td class="text-center align-middle"><a href="<?php echo $tienda_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $tienda; ?></a></td>
+                        <td class="text-center align-middle"><a href="#" class="text-link" onclick="abrirModalTienda('<?php echo $tienda; ?>')" data-bs-toggle="modal" data-bs-target="#tiendaModal"> <?php echo $tienda; ?></a>
+                        </td>
 
                         <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
                             <td class="text-center align-middle"><a href="<?php echo $proveedor_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $proveedor; ?></a></td>
@@ -530,9 +547,12 @@ if ($action == 'ajax') {
                                                             ?></span></td>
                 </tr>
             </table>
+            <!-- Modal -->
+
 
 
         </div>
+
     <?php
     } else {
     ?>

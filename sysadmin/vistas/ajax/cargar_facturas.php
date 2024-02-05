@@ -33,6 +33,8 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             <th>Ver</th>
             <th>Editar</th>
             <th>Devolucion</th>
+            <th>Tipo Envio</th>
+            <th>Ganancia</th>
             <th>Eliminar</th>
         </tr>
         <?php
@@ -48,8 +50,71 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
             } else {
                 $color_row = 'table-warning';
             }
+            $direccionDestino = get_row('guia_laar', 'ciudadD', 'guia_laar', $rws['guia_laar']);
+            if ($tienda == 'https://yapando.imporsuit.com' || $tienda == 'https://merkatodoec.imporsuit.com') {
+                $prove_temp = $tienda;
+                $archivo_tienda = $prove_temp . '/sysadmin/vistas/db1.php';
+                $archivo_destino_tienda = "../db_destino_guia.php";
+                $contenido_tienda = file_get_contents($archivo_tienda);
+                $get_data = json_decode($contenido_tienda, true);
+                if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+                    $host_d = $get_data['DB_HOST'];
+                    $user_d = $get_data['DB_USER'];
+                    $pass_d = $get_data['DB_PASS'];
+                    $base_d = $get_data['DB_NAME'];
+                    $conexion_destino = mysqli_connect($host_d, $user_d, $pass_d, $base_d);
+                    $opcion_sql = "SELECT * FROM `ciudad_laar` WHERE `tipo` = '$direccionDestino'";
+                    $opcion_query = mysqli_query($conexion_destino, $opcion_sql);
+                    $opcions = mysqli_fetch_array($opcion_query);
+                    $opcion = $opcions['tipo'];
+                    $nombre_ciudad =  $opcions['nombre'];
+                    if ($nombre_ciudad == "QUITO") $opcion = "LOCAL";
+                } else {
+                    echo "Error al cargar la base de datos";
+                }
+            } else {
+                $opcion = get_row('ciudad_laar', 'tipo', 'codigo', $direccionDestino);
+                $nombre_ciudad = get_row('ciudad_laar', 'nombre', 'codigo', $direccionDestino);
+                if ($nombre_ciudad == "QUITO") $opcion = "LOCAL";
+            }
+            $ti = "";
+            switch ($opcion) {
+                case 'PRINCIPAL':
+                    $tarifa = 2.80;
+                    $ti = 'PRINCIPAL';
+                    break;
+                case 'SECUNDARIO':
+                    $tarifa = 2.80;
+                    $ti = 'SECUNDARIO';
 
+                    break;
+                case 'ESPECIAL':
+                    $tarifa = 3.50;
+                    $ti = 'ESPECIAL';
 
+                    break;
+                case 'ORIENTE':
+                    $tarifa = 3.50;
+                    $ti = 'ORIENTE';
+                    break;
+                case 'LOCAL':
+                    $tarifa = 2.25;
+                    $ti = 'LOCAL';
+                    break;
+            }
+            $prec = $tarifa * 1.12;
+            echo $prec;
+            $prec = $prec * 1.03;
+            echo $prec . '<br>';
+            echo $tarifa . '<br>';
+            echo $rws['precio_envio'];
+
+            $ganancias_imporsuit = $rws['precio_envio'] - (($tarifa * 1.12) * 1.03);
+            if ($ganancias_imporsuit > 0) {
+                $ganancias_label = "badge badge-success";
+            } else {
+                $ganancias_label = "badge badge-danger";
+            }
         ?>
             <tr class="<?php echo $color_row ?>">
                 <td><input type="checkbox" <?php if ($rws['visto'] == 1) echo "checked disabled" ?> onclick="visto('<?php echo $rws['id_cabecera'] ?>')"></td>
@@ -90,6 +155,15 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
                 </td>
                 <td class="text-center">
                     <button onclick="devolucion('<?php echo $rws['guia_laar']; ?>')" class="btn btn-warning btn-sm"><i class="fa fa-rotate-left"></i></button>
+                </td>
+                <td>
+                    <?php echo $ti; ?>
+                </td>
+                <td>
+                    <span class="<?php echo $ganancias_label ?>">
+
+                        <?php echo number_format($ganancias_imporsuit, 2); ?>
+                    </span>
                 </td>
                 <td class="text-center">
                     <button onclick="eliminar('<?php echo $rws['id_cabecera']; ?>')" class="btn btn-danger btn-sm"><i class="ti-brush-alt"></i></button>

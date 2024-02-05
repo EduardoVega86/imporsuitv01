@@ -72,7 +72,7 @@ while ($r = $query->fetch_object()) {
                                 <p>Manten actualizadas tus campañas con nuestra api.</p>
                                 <div class="d-flex flex-column gap-1">
                                     <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#facebook">
-                                        Proximamente
+                                        Conectar
                                     </button>
                                     <!-- <a href="#" class="btn btn-outline-danger">Ver Video</a> -->
                                 </div>

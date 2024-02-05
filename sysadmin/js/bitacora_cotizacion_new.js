@@ -357,3 +357,10 @@ function ver_detalle_cot(numero_factura) {
     },
   });
 }
+function abrirModalTienda(tienda) {
+  // Aquí puedes hacer una solicitud AJAX para obtener más información de la tienda si es necesario
+  $("#tiendaModal").modal("show");
+  document.getElementById("tiendaModalLabel").innerHTML =
+    "Información de " + tienda;
+  // El modal se abrirá automáticamente debido al data-bs-toggle y data-bs-target en el enlace
+}

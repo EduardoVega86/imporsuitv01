@@ -11318,4 +11318,28 @@ a.text-gray-dark:hover {
     }
 }
 
+
+.text-link {
+    color: #3b4180;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+    font-weight: 400;
+    cursor: pointer;
+    border-bottom: 1px solid #3b4180;
+    transition: all 0.3s ease;
+
+}
+
+.text-link:hover {
+    color: #171931;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+    font-weight: 400;
+    cursor: pointer;
+    border-bottom: 1px solid #3b4180;
+    transition: all 0.3s ease;
+}
+
 /*# sourceMappingURL=bootstrap.min.css.map */

@@ -13,7 +13,6 @@ function paginate($reload, $page, $tpages, $adjacents)
         $out .= "<li class='page-item'><a class='page-link' href='javascript:void(0);' onclick='load(1)'>$prevlabel</a></li>";
     } else {
         $out .= "<li class='page-item'><a class='page-link' href='javascript:void(0);' onclick='load(" . ($page - 1) . ")'>$prevlabel</a></li>";
-
     }
 
     // first label
@@ -48,7 +47,7 @@ function paginate($reload, $page, $tpages, $adjacents)
     // last
 
     if ($page < ($tpages - $adjacents)) {
-        $out .= "<li class='page-item'><a class='page-link' href='javascript:void(0);' onclick='load(1)'>$tpages</a></li>";
+        $out .= "<li class='page-item'><a class='page-link' href='javascript:void(0);' onclick='load($tpages)'>$tpages</a></li>";
     }
 
     // next
