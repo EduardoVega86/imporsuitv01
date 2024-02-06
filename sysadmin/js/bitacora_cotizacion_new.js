@@ -359,7 +359,10 @@ function ver_detalle_cot(numero_factura) {
 }
 async function abrirModalTienda(tienda) {
   // Aquí puedes hacer una solicitud AJAX para obtener más información de la tienda si es necesario
-  await fetch("../ajax/info_tienda.php?tienda=" + tienda)
+  await fetch("../ajax/info_tienda.php", {
+    method: "POST",
+    body: JSON.stringify({ tienda: tienda }),
+  })
     .then((response) => response.text())
     .then((data) => {
       $("#boody").html(data);
