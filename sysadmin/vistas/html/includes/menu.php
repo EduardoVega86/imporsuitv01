@@ -301,7 +301,16 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
 					</ul>
 				</li>
+				<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
 
+					<li>
+						<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-list"></i><span> Tiendas</span> <span class="menu-arrow"></span></a>
+						<ul class="list-unstyled">
+							<li><a href="../html/tiendas.php">Detalles</a></li>
+
+						</ul>
+					</li>
+				<?php } ?>
 
 				<!--li class="has_sub">
 										<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-import"></i><span> Carga Txt
