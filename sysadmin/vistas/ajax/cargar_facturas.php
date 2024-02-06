@@ -8,12 +8,22 @@ $tienda = $_SESSION['tienda'];
 require_once "../db.php";
 require_once "../php_conexion.php";
 require_once "../funciones.php";
-
-$consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda';");
+$filtro = $GET['filtro'];
+if ($filtro == 'mayor_menor') {
+    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente != 0;");
+} else if ($filtro == 'cero') {
+    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente = 0;");
+} else {
+    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda';");
+}
 $rw = mysqli_fetch_array($consultar);
 $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
 ?>
-
+<!-- Botones para filtrar registros -->
+<div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-primary" onclick="filtrarRegistros('mayor_menor')">Pendientes</button>
+    <button type="button" class="btn btn-secondary" onclick="filtrarRegistros('cero')">Pagados</button>
+</div>
 <div class="table-responsive">
     <table class="table table-sm table table-condensed table-hover table-striped ">
         <tr>
@@ -63,7 +73,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
                     $pass_d = $get_data['DB_PASS'];
                     $base_d = $get_data['DB_NAME'];
                     $conexion_destino = mysqli_connect($host_d, $user_d, $pass_d, $base_d);
-                    $opcion_sql = "SELECT * FROM `ciudad_laar` WHERE `tipo` = '$direccionDestino'";
+                    $opcion_sql = "SELECT * FROM `ciudad_laar` WHERE `codigo` = '$direccionDestino'";
                     $opcion_query = mysqli_query($conexion_destino, $opcion_sql);
                     $opcions = mysqli_fetch_array($opcion_query);
                     $opcion = $opcions['tipo'];
@@ -102,12 +112,7 @@ $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
                     $ti = 'LOCAL';
                     break;
             }
-            $prec = $tarifa * 1.12;
-            echo $prec;
-            $prec = $prec * 1.03;
-            echo $prec . '<br>';
-            echo $tarifa . '<br>';
-            echo $rws['precio_envio'];
+
 
             $ganancias_imporsuit = $rws['precio_envio'] - (($tarifa * 1.12) * 1.03);
             if ($ganancias_imporsuit > 0) {

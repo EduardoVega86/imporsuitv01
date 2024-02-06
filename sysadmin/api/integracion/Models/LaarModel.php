@@ -229,6 +229,8 @@ class LaarModel extends Query
             exit;
         }
 
+        $ciudadD = $tieneGuias_query[0]['ciudadD'];
+
         $producto_id = $this->select("SELECT id_producto FROM detalle_fact_cot WHERE id_factura = '$id_factura'");
 
         $producto_id = $producto_id[0]['id_producto'];
@@ -281,6 +283,13 @@ class LaarModel extends Query
             }
         }
         $monto_recibir = number_format($monto_recibir, 2);
+        if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
+            $conexion_tiend  = $this->obtener_conexion($tienda_venta);
+            $sql_tipo = "SELECT precio from ciudad_laar where codigo = '$ciudadD'";
+            $sql_tipo = mysqli_query($conexion_tiend, $sql_tipo);
+            $sql_tipo = mysqli_fetch_array($sql_tipo);
+            $valor_base = $sql_tipo['precio'];
+        }
         $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`,`cod`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
@@ -576,7 +585,15 @@ class LaarModel extends Query
                 echo json_encode('error');
             }
         } else {
-            echo json_encode('no_existe');
+            $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+            $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia);
+            $query_insertar_cc = $this->insert($sql_cc, $datos);
+
+            if ($query_insertar_cc) {
+                echo json_encode('ok');
+            } else {
+                echo json_encode('error');
+            }
         }
     }
     public function obtener_conexion($tienda)

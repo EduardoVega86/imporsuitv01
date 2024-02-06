@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $("#widgets").load("../ajax/cargar_widget_wallet.php");
-  $("#facturas").load("../ajax/cargar_facturas.php");
+  $("#facturas").load("../ajax/cargar_facturas?filtro=mas_menos.php");
   load(1);
 });
 function load(page) {
@@ -186,4 +186,22 @@ function eliminar(id_cabecera) {
       Swal.fire("¡Eliminado!", "Su archivo ha sido eliminado.", "success");
     }
   });
+}
+
+function filtrarRegistros(filtro) {
+  var url = "../ajax/buscar_cotizacion_new.php"; // Ajusta la URL según tu estructura de archivos
+  var parametros = { filtro: filtro };
+
+  fetch(url, {
+    method: "GET",
+    body: JSON.stringify(parametros),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.text())
+    .then((html) => {
+      document.getElementById("resultados").innerHTML = html;
+    })
+    .catch((error) => console.error("Error:", error));
 }

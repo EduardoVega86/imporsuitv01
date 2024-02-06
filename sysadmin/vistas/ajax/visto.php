@@ -14,7 +14,7 @@ $rw = mysqli_fetch_array($resultado);
 $visto = $rw['visto'];
 $cod = $rw['cod'];
 
-if ($cod == 3 || $cod == 1) {
+if ($cod == 0 || $cod == 3 || $cod == 1) {
     $es_proveedor = "SELECT * FROM cabecera_cuenta_pagar WHERE id_cabecera = '$id_cabecera'";
 
     $guia_laar = $rw['guia_laar'];
