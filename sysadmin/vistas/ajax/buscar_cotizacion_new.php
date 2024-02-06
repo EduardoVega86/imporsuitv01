@@ -97,7 +97,7 @@ if ($action == 'ajax') {
                         <h5 class="modal-title" id="tiendaModalLabel">Información de la Tienda</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="boody">
                         <!-- Aquí va el contenido que quieras mostrar en el modal -->
                         <p id="modalContent">Aquí va la información de la tienda.</p>
                     </div>
@@ -305,11 +305,11 @@ if ($action == 'ajax') {
 
                         <td class="text-center align-middle fs-7"><span class="font-weight-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
                         <td class="text-center align-middle"><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
-                        <td class="text-center align-middle"><a href="#" class="text-link" onclick="abrirModalTienda('<?php echo $tienda; ?>')" data-bs-toggle="modal" data-bs-target="#tiendaModal"> <?php echo $tienda; ?></a>
+                        <td class="text-center align-middle"><span class="text-link" onclick="abrirModalTienda('<?php echo $tienda; ?>')" data-bs-toggle="modal" data-bs-target="#tiendaModal"> <?php echo $tienda; ?></span>
                         </td>
 
                         <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
-                            <td class="text-center align-middle"><a href="<?php echo $proveedor_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $proveedor; ?></a></td>
+                            <td class="text-center align-middle"><b href="<?php echo $proveedor_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $proveedor; ?></b></td>
                         <?php } ?>
                         <td class="text-center align-middle" id="estados_laar_<?php echo $numero_factura ?>"><?php
                                                                                                                 // echo $drogshipin;

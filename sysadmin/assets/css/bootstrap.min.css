@@ -422,7 +422,6 @@ textarea {
 }
 
 [type=search] {
-    -webkit-appearance: textfield;
     outline-offset: -2px
 }
 
@@ -746,13 +745,6 @@ input[type=radio]:disabled {
     cursor: not-allowed
 }
 
-input[type=date],
-input[type=time],
-input[type=datetime-local],
-input[type=month] {
-    -webkit-appearance: listbox
-}
-
 textarea {
     resize: vertical
 }
@@ -773,9 +765,6 @@ legend {
     line-height: inherit
 }
 
-input[type=search] {
-    -webkit-appearance: none
-}
 
 output {
     display: inline-block
@@ -3324,7 +3313,6 @@ pre code {
     background-size: contain;
     border: var(--bs-border-width) solid var(--bs-border-color);
     -webkit-print-color-adjust: exact;
-    color-adjust: exact;
     print-color-adjust: exact
 }
 
@@ -4895,8 +4883,7 @@ tbody.collapse.show {
     background-size: 8px 10px;
     border: 1px solid rgba(0, 0, 0, .15);
     border-radius: .25rem;
-    -moz-appearance: none;
-    -webkit-appearance: none
+
 }
 
 .custom-select:focus {
@@ -6672,7 +6659,6 @@ button.close {
     cursor: pointer;
     background: 0 0;
     border: 0;
-    -webkit-appearance: none
 }
 
 .modal-open {
@@ -11320,7 +11306,7 @@ a.text-gray-dark:hover {
 
 
 .text-link {
-    color: #3b4180;
+    color: #4D54A3;
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
@@ -11341,5 +11327,3 @@ a.text-gray-dark:hover {
     border-bottom: 1px solid #3b4180;
     transition: all 0.3s ease;
 }
-
-/*# sourceMappingURL=bootstrap.min.css.map */

@@ -197,13 +197,14 @@ while ($r = $query->fetch_object()) {
                 pixel: pixel_id
             }),
             success: function(response) {
+                response = JSON.parse(response);
                 if (response == 'oki') {
                     Swal.fire({
                         icon: 'success',
                         title: 'Conectado',
                         text: 'Se ha conectado correctamente',
                     })
-                }
+                } else
                 if (response == "oku") {
                     Swal.fire({
                         icon: 'success',
@@ -212,7 +213,7 @@ while ($r = $query->fetch_object()) {
                     })
                 } else {
                     Swal.fire({
-                        icon: 'errori',
+                        icon: 'error',
                         title: 'Oops...',
                         text: 'Ha ocurrido un error al conectar',
                     })

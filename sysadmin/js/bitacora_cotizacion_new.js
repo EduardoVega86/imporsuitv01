@@ -357,10 +357,12 @@ function ver_detalle_cot(numero_factura) {
     },
   });
 }
-function abrirModalTienda(tienda) {
+async function abrirModalTienda(tienda) {
   // Aquí puedes hacer una solicitud AJAX para obtener más información de la tienda si es necesario
+  await fetch("../ajax/info_tienda.php?tienda=" + tienda)
+    .then((response) => response.text())
+    .then((data) => {
+      $("#boody").html(data);
+    });
   $("#tiendaModal").modal("show");
-  document.getElementById("tiendaModalLabel").innerHTML =
-    "Información de " + tienda;
-  // El modal se abrirá automáticamente debido al data-bs-toggle y data-bs-target en el enlace
 }
