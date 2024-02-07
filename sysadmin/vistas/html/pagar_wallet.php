@@ -36,6 +36,10 @@ $datos_query = mysqli_query($conexion, $datos);
 $rw = mysqli_fetch_array($datos_query);
 
 $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_factura', $id_factura);
+$tiendaN = str_replace('https://', '', $tiendaN);
+$tiendaN = str_replace('http://', '', $tiendaN);
+$tiendaN = str_replace('.imporsuit.com', '', $tiendaN);
+$tiendaN = strtoupper($tiendaN);
 
 ?>
 
@@ -51,6 +55,24 @@ $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_f
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
+
+    <div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tiendaModalLabel">Información de la Tienda</h5>
+                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="boody">
+                    <!-- Aquí va el contenido que quieras mostrar en el modal -->
+                    <p id="modalContent">Aquí va la información de la tienda.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="content-page">
         <!-- Start content -->
         <div class="content">
@@ -85,7 +107,7 @@ $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_f
                                                         <i class="ti-user text-purple"></i>
                                                     </div>
                                                     <div class="text-right">
-                                                        <h5 class="text-dark"><b class="counter"><?php echo $tienda; ?></b></h5>
+                                                        <h5 class="text-dark"><b class="counter"> <span class="text-link" onclick="abrirModalTienda('<?php echo $tiendaN; ?>')"> <?php echo $tienda; ?></span></b></h5>
                                                         <a class='btn btn-primary waves-effect waves-light btn-sm m-b-5' href="wallet.php" title="Regresar a la wallet"><i class="fa fa-reply"></i> Regresar
                                                         </a>
                                                     </div>

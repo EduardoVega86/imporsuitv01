@@ -1,6 +1,6 @@
 $(document).ready(function () {
   $("#widgets").load("../ajax/cargar_widget_wallet.php");
-  $("#facturas").load("../ajax/cargar_facturas?filtro=mas_menos.php");
+  $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
   load(1);
 });
 function load(page) {
@@ -149,7 +149,7 @@ function visto(id_cabecera) {
       $("#loader").html("");
       $("#outer_div").load("../ajax/ver_pagos.php");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
-      $("#facturas").load("../ajax/cargar_facturas.php");
+      $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
     },
   });
 }
@@ -189,19 +189,24 @@ function eliminar(id_cabecera) {
 }
 
 function filtrarRegistros(filtro) {
-  var url = "../ajax/buscar_cotizacion_new.php"; // Ajusta la URL según tu estructura de archivos
-  var parametros = { filtro: filtro };
+  var url = "../ajax/cargar_facturas.php";
+  url = url + "?filtro=" + filtro;
 
-  fetch(url, {
-    method: "GET",
-    body: JSON.stringify(parametros),
-    headers: {
-      "Content-Type": "application/json",
-    },
+  $("#facturas").load(url);
+}
+async function abrirModalTienda(tienda) {
+  // Aquí puedes hacer una solicitud AJAX para obtener más información de la tienda si es necesario
+  await fetch("../ajax/info_tienda.php", {
+    method: "POST",
+    body: JSON.stringify({ tienda: tienda }),
   })
     .then((response) => response.text())
-    .then((html) => {
-      document.getElementById("resultados").innerHTML = html;
-    })
-    .catch((error) => console.error("Error:", error));
+    .then((data) => {
+      $("#boody").html(data);
+    });
+  $("#tiendaModal").modal("show");
 }
+
+const cerrarModal = () => {
+  $("#tiendaModal").modal("hide");
+};

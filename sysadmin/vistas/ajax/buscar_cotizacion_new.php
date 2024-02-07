@@ -95,14 +95,14 @@ if ($action == 'ajax') {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="tiendaModalLabel">Información de la Tienda</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" onclick="cerrarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="boody">
                         <!-- Aquí va el contenido que quieras mostrar en el modal -->
                         <p id="modalContent">Aquí va la información de la tienda.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" onclick="cerrarModal()" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -309,7 +309,7 @@ if ($action == 'ajax') {
                         </td>
 
                         <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
-                            <td class="text-center align-middle"><b href="<?php echo $proveedor_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $proveedor; ?></b></td>
+                            <td class="text-center align-middle"><a href="<?php echo $proveedor_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $proveedor; ?></a></td>
                         <?php } ?>
                         <td class="text-center align-middle" id="estados_laar_<?php echo $numero_factura ?>"><?php
                                                                                                                 // echo $drogshipin;

@@ -8,21 +8,33 @@ $tienda = $_SESSION['tienda'];
 require_once "../db.php";
 require_once "../php_conexion.php";
 require_once "../funciones.php";
-$filtro = $GET['filtro'];
+//obtiene ?filtro=mayor_menor
+$filtro = $_GET['filtro'];
+//obtiene ?tienda=tienda
 if ($filtro == 'mayor_menor') {
-    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente != 0;");
+    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente != 0 ORDER BY visto asc;");
 } else if ($filtro == 'cero') {
-    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente = 0;");
+    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente = 0 ORDER BY visto asc;");
 } else {
-    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda';");
+    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' ORDER BY visto asc;");
 }
 $rw = mysqli_fetch_array($consultar);
-$url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia="
+$url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=";
+
+if ($filtro == 'mayor_menor') {
+    $band = "btn-primary";
+    $bandd = "btn-secondary";
+} else {
+    $band = "btn-secondary";
+    $bandd = "btn-primary";
+}
 ?>
+
+
 <!-- Botones para filtrar registros -->
 <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-primary" onclick="filtrarRegistros('mayor_menor')">Pendientes</button>
-    <button type="button" class="btn btn-secondary" onclick="filtrarRegistros('cero')">Pagados</button>
+    <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Pendientes</button>
+    <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Pagados</button>
 </div>
 <div class="table-responsive">
     <table class="table table-sm table table-condensed table-hover table-striped ">

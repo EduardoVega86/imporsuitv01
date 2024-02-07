@@ -369,3 +369,7 @@ async function abrirModalTienda(tienda) {
     });
   $("#tiendaModal").modal("show");
 }
+
+const cerrarModal = () => {
+  $("#tiendaModal").modal("hide");
+};
