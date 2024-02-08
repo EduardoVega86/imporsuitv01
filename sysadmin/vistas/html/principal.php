@@ -370,7 +370,6 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
               <div class="modal-content">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="modalDataLabel">Cambio de correo</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body mb-3 px-4">
                   <span class="text-muted">
@@ -455,6 +454,8 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 <!-- ============================================================== -->
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
+
+
 <script>
   $(function() {
     load(1);
@@ -670,6 +671,8 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
     chart.draw(data, options);
   }
 
+
+
   function drawVisualization3() {
     $.ajax({
       url: 'comparativa3.php',
@@ -724,30 +727,10 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
     })
   } else if (item === "root@admin.com") {
     localStorage.removeItem('email');
-    window.location.reload();
   }
-  if (localStorage.getItem('datos') == null || localStorage.getItem('datos') == "cambio") {
-    $.ajax({
-      url: '../ajax/info_tienda_existe.php',
-      data: {
-        'action': 'ajax'
-      },
-      dataType: 'json',
-      success: function(response) {
 
-        localStorage.setItem('datos', JSON.stringify(response));
-        var respuesta = JSON.parse(localStorage.getItem('datos'));
-        if (respuesta === "cambio") {
-          console.log("XD");
-          $('#modalData').modal({
-            backdrop: 'static',
-            keyboard: false,
-            show: true
-          });
-        }
-      }
-    })
-  }
+
+
   var maestro = localStorage.getItem('maestro');
   if (maestro == null) {
     $.ajax({
@@ -800,6 +783,32 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
         }
       }
     })
+  }
+</script>
+
+<script>
+  if (localStorage.getItem('datos') == null) {
+    fetch('../ajax/info_tienda_existe.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        action: 'ajax'
+      })
+    }).then(response => response.json()).then(data => {
+      if (data === "cambios") {
+
+        $('#modalData').modal({
+          backdrop: 'static',
+          keyboard: false,
+          show: true
+        });
+      } else {
+        localStorage.setItem('datos', "existe");
+      }
+    })
+
   }
 </script>
 

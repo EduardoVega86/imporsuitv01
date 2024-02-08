@@ -24,7 +24,7 @@ $query = mysqli_query($conexion_marketplace, $sql);
 $datos = mysqli_fetch_array($query);
 
 if (!$datos) {
-    echo "cambio";
+    echo json_encode("cambios");
     return;
 }
 
