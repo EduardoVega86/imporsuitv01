@@ -9,7 +9,9 @@ $url_imporsuit = $get_data['enlace'];
 $tienda = str_replace(' ', '', $url_imporsuit);
 $tienda = str_replace('www.', '', $tienda);
 $tienda = str_replace('.imporsuit.com', '', $tienda);
-
+$tienda = str_replace('http://', '', $tienda);
+$tienda = str_replace('https://', '', $tienda);
+$tienda = str_replace('/', '', $tienda);
 
 
 
