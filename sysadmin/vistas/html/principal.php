@@ -349,7 +349,6 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                   </span>
                 </div>
                 <div class="px-3">
-
                   <form class="" onsubmit="modificar_email(event)">
                     <div class="mb-3">
                       <label for="email">Correo</label>
@@ -360,6 +359,62 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                     </div>
 
                   </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="modalData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalDataLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="modalDataLabel">Cambio de correo</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mb-3 px-4">
+                  <span class="text-muted">
+                    <p class="text-justify">Estimado usuario, estamos transicionando hacia una nueva version, por lo cual hemos detectado que nos hace falta información de tu tienda.</p>
+                  </span>
+                </div>
+                <div class="px-3">
+                  <form class="" onsubmit="modificar_info(event)">
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="card-title">Información de la tienda</h5>
+                      </div>
+
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="nombre">Nombre</label>
+                              <input type="text" class="form-control" id="nombre">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="telefono">Teléfono</label>
+                              <input type="text" class="form-control" id="telefono">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="correo">Correo</label>
+                          <input type="text" class="form-control" id="correo">
+                        </div>
+                        <div class="form-group">
+                          <label for="enlace">Enlace</label>
+                          <input type="text" class="form-control" id="enlace">
+                        </div>
+                        <div class="d-grid">
+                          <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </form>
+
 
                 </div>
 
@@ -448,6 +503,66 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
   });
 
   function load() {}
+
+  if (localStorage.getItem('datos') == null || localStorage.getItem('datos') == "cambio") {
+    $.ajax({
+      url: '../ajax/info_tienda_existe.php',
+      data: {
+        'action': 'ajax'
+      },
+      dataType: 'json',
+      async: false,
+      success: function(response) {
+        localStorage.setItem('datos', JSON.stringify(response));
+        if (response.status == "cambio") {
+          $('#modalData').modal('show');
+        }
+      }
+    })
+  }
+
+  function modificar_info(e) {
+    e.preventDefault();
+    var nombre = $("#nombre").val();
+    var telefono = $("#telefono").val();
+    var correo = $("#correo").val();
+    var enlace = $("#enlace").val();
+    $.ajax({
+      type: 'POST',
+      url: '../ajax/actualizar_info_tienda.php',
+      contentType: 'application/json', // Especifica el tipo de contenido
+      data: JSON.stringify({ // Convierte los datos a una cadena JSON
+        nombre: nombre,
+        telefono: telefono,
+        correo: correo,
+        enlace: enlace,
+        action: 'ajax'
+      }),
+      dataType: 'json',
+      async: false,
+      success: function(response) {
+        if (response.status == "actualizado") {
+          Swal.fire({
+            title: "¡Datos actualizados!",
+            text: "Se ha actualizado correctamente, por favor inicia sesión nuevamente.",
+            icon: "success",
+            textConfirm: "Aceptar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              location.href = "../../login.php?logout";
+            }
+          })
+        } else {
+          Swal.fire({
+            title: "¡Error!",
+            text: "No se ha podido actualizar los datos, por favor intente nuevamente.",
+            icon: "error",
+            textConfirm: "Aceptar",
+          })
+        }
+      }
+    })
+  }
 
   function cambiar() {
     //alert($("#range").val());

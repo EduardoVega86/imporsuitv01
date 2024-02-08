@@ -81,7 +81,7 @@ if ($action == 'ajax') {
     //echo $sql;
     $query = mysqli_query($conexion, $sql);
 
-    //loop through fetched data
+    //loop through fetched data0
     if ($numrows > 0) {
         echo mysqli_error($conexion);
 ?><div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
@@ -303,7 +303,7 @@ if ($action == 'ajax') {
                         </td>
 
                         <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
-                            <td class="text-center align-middle"><a href="<?php echo $proveedor_url; ?>" target="_blank" rel="noopener noreferrer"> <?php echo $proveedor; ?></a></td>
+                            <td class="text-center align-middle"><span class="text-link" onclick="abrirModalTienda('<?php echo $proveedor; ?>')"> <?php echo $proveedor; ?></span></td>
                         <?php } ?>
                         <td class="text-center align-middle" id="estados_laar_<?php echo $numero_factura ?>"><?php
                                                                                                                 // echo $drogshipin;
