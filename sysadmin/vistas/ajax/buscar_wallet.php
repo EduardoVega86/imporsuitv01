@@ -60,7 +60,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $reload = '../reportes/wallet.php';
         //main query to fetch the data
         $sql = "SELECT DISTINCT ccp.tienda, (SELECT COUNT(*) FROM cabecera_cuenta_pagar ccp2 WHERE ccp2.tienda = ccp.tienda AND (ccp2.visto = 0 OR ccp2.visto IS NULL)) AS guias_pendientes FROM  $sTable $sWhere order by guias_pendientes DESC LIMIT $offset,$per_page ";
-        echo $sql;
         $query = mysqli_query($conexion, $sql);
         $query = mysqli_fetch_all($query);
 
