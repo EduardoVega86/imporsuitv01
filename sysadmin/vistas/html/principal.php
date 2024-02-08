@@ -504,22 +504,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 
   function load() {}
 
-  if (localStorage.getItem('datos') == null || localStorage.getItem('datos') == "cambio") {
-    $.ajax({
-      url: '../ajax/info_tienda_existe.php',
-      data: {
-        'action': 'ajax'
-      },
-      dataType: 'json',
-      async: false,
-      success: function(response) {
-        localStorage.setItem('datos', JSON.stringify(response));
-        if (response.status == "cambio") {
-          $('#modalData').modal('show');
-        }
-      }
-    })
-  }
+
 
   function modificar_info(e) {
     e.preventDefault();
@@ -740,6 +725,28 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
   } else if (item === "root@admin.com") {
     localStorage.removeItem('email');
     window.location.reload();
+  }
+  if (localStorage.getItem('datos') == null || localStorage.getItem('datos') == "cambio") {
+    $.ajax({
+      url: '../ajax/info_tienda_existe.php',
+      data: {
+        'action': 'ajax'
+      },
+      dataType: 'json',
+      success: function(response) {
+
+        localStorage.setItem('datos', JSON.stringify(response));
+        var respuesta = JSON.parse(localStorage.getItem('datos'));
+        if (respuesta === "cambio") {
+          console.log("XD");
+          $('#modalData').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+          });
+        }
+      }
+    })
   }
   var maestro = localStorage.getItem('maestro');
   if (maestro == null) {
