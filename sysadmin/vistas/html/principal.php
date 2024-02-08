@@ -622,7 +622,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
         }
       }
     })
-  } else {
+  } else if (item === "root@admin.com") {
     localStorage.removeItem('email');
     window.location.reload();
   }
