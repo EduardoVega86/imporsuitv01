@@ -33,9 +33,21 @@ $("#editar_linea").submit(function (event) {
 });
 function load(page) {
   var q = $("#q").val();
+  var numero = $("#numero_q").val();
+  if (numero != 0) {
+    var url =
+      "../ajax/buscar_wallet.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&numero=" +
+      numero;
+  } else {
+    var url = "../ajax/buscar_wallet.php?action=ajax&page=" + page + "&q=" + q;
+  }
   $("#loader").fadeIn("slow");
   $.ajax({
-    url: "../ajax/buscar_wallet.php?action=ajax&page=" + page + "&q=" + q,
+    url: url,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -80,3 +92,34 @@ $("#eliminarDatos").submit(function (event) {
   });
   event.preventDefault();
 });
+
+function buscar_numero(numero) {
+  // alert(tienda)
+  var q = $("#q").val();
+
+  if (numero == 0) {
+    numero = "";
+  }
+  page = 1;
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url:
+      "../ajax/buscar_wallet.php?action=ajax&page=" +
+      page +
+      "&numero=" +
+      numero +
+      "&q=" +
+      q,
+
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
+}

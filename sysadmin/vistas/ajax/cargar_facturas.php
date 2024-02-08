@@ -65,7 +65,7 @@ if ($filtro == 'mayor_menor') {
             $finales++;
             if ($rws['valor_pendiente'] == 0) {
                 $color_row = 'table-success';
-            } elseif ($rws['estago_guia'] == 9) {
+            } elseif ($rws['estado_guia'] == 9) {
                 $color_row = 'table-danger';
             } else if ($rws['cod'] == 0) {
                 $color_row = 'table-tomato';

@@ -35,12 +35,6 @@ if (
 }
 $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
-if (isset($_POST['estado'])) {
-    $XD = $_POST['estado'];
-
-    echo $XD;
-}
-
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {

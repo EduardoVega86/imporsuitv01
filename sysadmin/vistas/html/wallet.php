@@ -95,6 +95,16 @@ permisos($modulo, $cadena_permisos);
                                     </form>
                                     <div class="datos_ajax_delete"></div> <!-- Datos ajax Final -->
                                     <div class="outer_div"></div><!-- Datos ajax Final -->
+                                    <div class="col-md-4 input-group ">
+                                        <label for="numero_q">Numero de facturas a ver: </label>
+                                        <select onchange="buscar_numero(this.value)" name="numero_q" class="form-control" id="numero_q">
+                                            <option value="10"> 10 </option>
+                                            <option value="20"> 20 </option>
+                                            <option value="50"> 50 </option>
+                                            <option value="100"> 100 </option>
+
+                                        </select>
+                                    </div>
                                 </div>
 
                             </div>

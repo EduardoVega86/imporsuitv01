@@ -34,29 +34,33 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     if ($action == "ajax") {
         // escaping, additionally removing everything that could be (html/javascript-) code
         $q = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-        $sTable = "cabecera_cuenta_pagar, facturas_cot";
+        $sTable = "cabecera_cuenta_pagar ccp, facturas_cot fc";
         $sWhere = "";
-        $sWhere .= " WHERE cabecera_cuenta_pagar.numero_factura=facturas_cot.numero_factura";
+        $sWhere .= " WHERE ccp.numero_factura=fc.numero_factura";
         if ($_GET['q'] != "") {
-            $sWhere .= " and cabecera_cuenta_pagar.tienda like '%$q%'";
+            $sWhere .= " and ccp.tienda like '%$q%'";
         }
         $sWhere .= "";
-
 
         include 'pagination.php'; //include pagination file
         //pagination variables  
         $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
         $per_page = 10; //how much records you want to show
+        if ($_GET["numero"]) {
+            $per_page  = $_GET["numero"]; //how much records you want to show
+
+        }
         $adjacents  = 4; //gap between pages after number of adjacents
         $offset = ($page - 1) * $per_page;
         //Count the total number of row in your table*/
-        $count_query   = mysqli_query($conexion, "SELECT count(DISTINCT cabecera_cuenta_pagar.tienda) AS numrows FROM $sTable  $sWhere");
+        $count_query   = mysqli_query($conexion, "SELECT count(DISTINCT ccp.tienda) AS numrows FROM $sTable  $sWhere");
         $row = mysqli_fetch_array($count_query);
         $numrows = $row['numrows'];
         $total_pages = ceil($numrows / $per_page);
         $reload = '../reportes/wallet.php';
         //main query to fetch the data
-        $sql = "SELECT DISTINCT cabecera_cuenta_pagar.tienda FROM  $sTable $sWhere order by cabecera_cuenta_pagar.tienda asc LIMIT $offset,$per_page ";
+        $sql = "SELECT DISTINCT ccp.tienda, (SELECT COUNT(*) FROM cabecera_cuenta_pagar ccp2 WHERE ccp2.tienda = ccp.tienda AND (ccp2.visto = 0 OR ccp2.visto IS NULL)) AS guias_pendientes FROM  $sTable $sWhere order by guias_pendientes DESC LIMIT $offset,$per_page ";
+        echo $sql;
         $query = mysqli_query($conexion, $sql);
         $query = mysqli_fetch_all($query);
 
