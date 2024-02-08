@@ -622,45 +622,62 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
         }
       }
     })
+  } else {
+    localStorage.removeItem('email');
+    window.location.reload();
   }
-
-  function modificar_email(e) {
-    e.preventDefault();
-    var email = $("#email").val();
+  var maestro = localStorage.getItem('maestro');
+  if (maestro == null) {
     $.ajax({
-      type: 'POST',
-      url: '../ajax/actualizar_email.php',
-      contentType: 'application/json', // Especifica el tipo de contenido
-      data: JSON.stringify({ // Convierte los datos a una cadena JSON
-        email: email,
-        action: 'ajax'
-      }),
+      url: '../ajax/actualizar_maestro.php',
+      data: {
+        'action': 'ajax'
+      },
       dataType: 'json',
       async: false,
       success: function(response) {
-        if (response.status == "actualizado") {
-          localStorage.setItem('email', response.email);
-          Swal.fire({
-            title: "¡Correo actualizado!",
-            text: "Se ha actualizado correctamente, por favor inicia sesión nuevamente.",
-            icon: "success",
-            textConfirm: "Aceptar",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              location.href = "../../login.php?logout";
-            }
-          })
-        } else {
-          Swal.fire({
-            title: "¡Error!",
-            text: "No se ha podido actualizar el correo, por favor intente nuevamente.",
-            icon: "error",
-            textConfirm: "Aceptar",
-          })
-        }
+        localStorage.setItem('maestro', response.maestro);
+
       }
     })
-  }
+
+    function modificar_email(e) {
+      e.preventDefault();
+      var email = $("#email").val();
+      $.ajax({
+        type: 'POST',
+        url: '../ajax/actualizar_email.php',
+        contentType: 'application/json', // Especifica el tipo de contenido
+        data: JSON.stringify({ // Convierte los datos a una cadena JSON
+          email: email,
+          action: 'ajax'
+        }),
+        dataType: 'json',
+        async: false,
+        success: function(response) {
+          if (response.status == "actualizado") {
+            localStorage.setItem('email', response.email);
+            Swal.fire({
+              title: "¡Correo actualizado!",
+              text: "Se ha actualizado correctamente, por favor inicia sesión nuevamente.",
+              icon: "success",
+              textConfirm: "Aceptar",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.href = "../../login.php?logout";
+              }
+            })
+          } else {
+            Swal.fire({
+              title: "¡Error!",
+              text: "No se ha podido actualizar el correo, por favor intente nuevamente.",
+              icon: "error",
+              textConfirm: "Aceptar",
+            })
+          }
+        }
+      })
+    }
 </script>
 
 

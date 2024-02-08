@@ -140,7 +140,7 @@
         <div class="footer__content-bottom-wrapper page-width">
             <div class="footer__copyright caption">
                 <small class="copyright__content">&copy; 2024 Sitio Web desarrollado por</small>
-                <a href="www.imporsuit.com" title=""><small class="copyright__content">IMPORSUIT</small></a>
+                <a href="https://www.imporsuit.com" title=""><small class="copyright__content">IMPORSUIT</small></a>
                 <ul class="policies list-unstyled"></ul>
             </div>
         </div>

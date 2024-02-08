@@ -36,7 +36,7 @@ $datos_query = mysqli_query($conexion, $datos);
 $rw = mysqli_fetch_array($datos_query);
 
 $valor_pendiente = get_row('cabecera_cuenta_pagar', 'valor_pendiente', 'numero_factura', $id_factura);
-$tiendaN = str_replace('https://', '', $tiendaN);
+$tiendaN = str_replace('https://', '', $tienda);
 $tiendaN = str_replace('http://', '', $tiendaN);
 $tiendaN = str_replace('.imporsuit.com', '', $tiendaN);
 $tiendaN = strtoupper($tiendaN);
@@ -61,14 +61,14 @@ $tiendaN = strtoupper($tiendaN);
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tiendaModalLabel">Información de la Tienda</h5>
-                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" onclick="cerrarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="boody">
                     <!-- Aquí va el contenido que quieras mostrar en el modal -->
                     <p id="modalContent">Aquí va la información de la tienda.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary " onclick="cerrarModal()" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
