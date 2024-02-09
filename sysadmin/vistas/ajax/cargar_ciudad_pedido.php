@@ -6,9 +6,9 @@ Web: Imporsuit
 ---------------------------*/
 //include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
-require_once "../sysadmin/vistas/db.php";
-require_once "../sysadmin/vistas/php_conexion.php";
-require_once "../sysadmin/vistas/funciones.php";
+require_once "../db.php";
+require_once "../php_conexion.php";
+require_once "../funciones.php";
 //Inicia Control de Permisos
 //include "../permisos.php";
 //$user_id = $_SESSION['id_users'];
@@ -44,7 +44,7 @@ $id_provincia = $_POST['provinica'];
  <div class="input-group-prepend">
                 <span style="height: 45px" class="icon_datos input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                 </div>
-                <select  class="datos form-control" id="ciudad" name="ciudad" required>
+                <select  class="datos form-control" onchange="calcular_guia()" id="ciudad_entrega" name="ciudad_entrega" required>
                   <option value="">Ciudad *</option>
                   <?php
                            $sql2="select * from ciudad_laar where codigoProvincia= '$id_provincia'";
