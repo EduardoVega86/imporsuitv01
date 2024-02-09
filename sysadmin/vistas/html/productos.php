@@ -16,7 +16,16 @@ permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 $count      = mysqli_query($conexion, "select MAX(codigo_producto) as codigo from productos");
 $rw         = mysqli_fetch_array($count);
-$product_id = $rw['codigo'] + 1;
+//si tiene letras o caracteres especiales separarlos y sumarle 1
+$product_id = $rw['codigo'];
+$letras     = preg_replace('/[^A-Za-z]/', '', $product_id);
+$numero     = preg_replace('/[^0-9]/', '', $product_id);
+$numero++;
+$letras = strtoupper($letras);
+$letras = str_pad($letras, 3, "0", STR_PAD_RIGHT);
+$numero = str_pad($numero, 3, "0", STR_PAD_LEFT);
+$product_id = $letras . $numero;
+
 //consulta para elegir el impuesto en la modal
 $query    = $conexion->query("select * from impuestos");
 $impuesto = array();
