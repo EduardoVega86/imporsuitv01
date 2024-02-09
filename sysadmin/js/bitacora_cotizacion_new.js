@@ -1,6 +1,11 @@
 var filtroG = "todas";
 $(document).ready(function () {
   load(1);
+  /* $.ajax({
+    type: "POST",
+    url: "../ajax/verificar_guias_pendientes.php",
+    success: function (r) {},
+  }); */
 });
 $("#editar_linea").submit(function (event) {
   // alert();
@@ -327,7 +332,9 @@ function buscar_numero(numero) {
       "&tienda=" +
       tienda +
       "&estado=" +
-      estado,
+      estado +
+      "&filtro=" +
+      filtroG,
 
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
