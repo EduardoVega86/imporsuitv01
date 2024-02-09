@@ -4,18 +4,30 @@ require_once "../db.php";
     require_once "../php_conexion.php";
     require_once "../funciones.php";
     
-    $ciudad = $_POST['ciudad'];
+    @$ciudad = $_POST['ciudad'];
     $valor_total = $_POST['valor_total'];
     $cantidad_total = $_POST['cantidad_total'];
     $cod = $_POST['cod'];
     $seguro = $_POST['seguro'];
     $costo=$_POST['costo_total'];
+    
+    $transportadora=$_POST['transportadora'];
     //echo $costo;
     $valorasegurado=$_POST['valorasegurado'];
     //valorasegurado=$('#valorasegurado').val();
     
     //echo $valor_total;
+    if($transportadora==1){     
     $valor_base= get_row('ciudad_laar', 'precio', 'codigo', $ciudad);
+    }else{
+        if($ciudad==1){
+         $valor_base= 5.5;   
+        }else{
+          $valor_base= 6.5;    
+        }
+         
+    }
+    
     //echo $cod;
 if ($cod=="1"){
       $cod=$valor_total*0.03;  
@@ -33,9 +45,26 @@ if ($cod=="1"){
     $valor_texto="Precio de envío $".number_format($valor_envio,2);
     
 
+    
 ?>
 <table  class="table table-sm table-striped">
-    <tr> <th><img width="100px" src="../../img_sistema/logo-dark.png" alt=""/></th>
+    
+    <tr> <th>
+            <?php
+    if ($transportadora=="1"){
+        ?>
+   <img width="100px" src="../../img_sistema/logo-dark.png" alt=""/>
+    <?php
+      
+    }else{
+        ?>
+   <img width="100px" src="../../img_sistema/logo_ecom.webp" alt=""/>
+    <?php  
+    }
+    ?>
+           
+        
+        </th>
         <th>$<?php echo number_format($valor_envio,2)?></th>
     </tr>
      <tr> <th>Total Venta </th>
