@@ -259,6 +259,8 @@ function calcular_guia() {
     //alert();
      
 	nombre_destino=$('#nombredestino').val();//CIERRA LA MODAL
+        transportadora=$('#transportadora').val();
+       
         ciudad=$('#ciudad_entrega').val();;
        //alert(ciudad);
         direccion=$('#direccion').val();//CIERRA LA MODAL
@@ -278,7 +280,7 @@ function calcular_guia() {
         
           // alert('pasa');
     id_factura=1;
-	if (id_factura=1) {
+	if (id_factura=1 ) {
             
            // alert('pasa');
 		$.ajax({
@@ -299,6 +301,7 @@ function calcular_guia() {
                                 valor_total: valor_total,
                                 costo_total: costo_total,
                                 valorasegurado: valorasegurado,
+                                transportadora: transportadora,
                                 
 			},
 			dataType: 'text',
