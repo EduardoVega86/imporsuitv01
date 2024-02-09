@@ -111,6 +111,7 @@ $ventas = 1;
                                         </div>
                                     </form>
                                     <div class="datos_ajax_delete"></div><!-- Datos ajax Final -->
+
                                     <div class='outer_div'></div><!-- Carga los datos ajax -->
                                     <div class="col-md-4 input-group ">
                                         <label for="numero_q">Numero de facturas a ver: </label>

@@ -1,3 +1,4 @@
+var filtroG = "todas";
 $(document).ready(function () {
   load(1);
 });
@@ -79,6 +80,9 @@ function load(page) {
       "&numero=" +
       numero;
   }
+
+  url = url + "&filtro=" + filtroG;
+
   $("#loader").fadeIn("slow");
   $.ajax({
     url: url,
@@ -109,6 +113,7 @@ function buscar(tienda) {
   if (numero == 0) {
     numero = "";
   }
+
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -122,7 +127,9 @@ function buscar(tienda) {
       "&estado=" +
       estado +
       "&numero=" +
-      numero,
+      numero +
+      "&filtro=" +
+      filtroG,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -372,4 +379,37 @@ async function abrirModalTienda(tienda) {
 
 const cerrarModal = () => {
   $("#tiendaModal").modal("hide");
+};
+
+const filtrarRegistros = (filtro) => {
+  filtroG = filtro;
+  var q = $("#q").val();
+  var url = "../ajax/buscar_cotizacion_new.php?action=ajax&page=1&q=" + q;
+  var tienda = $("#tienda_q").val();
+  var estado = $("#estado_q").val();
+  var numero = $("#numero_q").val();
+  url = url + "&filtro=" + filtro;
+  if (tienda != 0) {
+    url = url + "&tienda=" + tienda;
+  }
+  if (estado != 0) {
+    url = url + "&estado=" + estado;
+  }
+  if (numero != 0) {
+    url = url + "&numero=" + numero;
+  }
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url: url,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
 };
