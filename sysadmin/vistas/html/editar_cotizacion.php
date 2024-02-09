@@ -438,7 +438,7 @@ if($drogshipin==1){
    $url_subdominio=$tienda;
 }else{
     $url_subdominio=$_SERVER['HTTP_HOST'];
-    $url_subdominio='https://imporshop.imporsuit.com';
+    //$url_subdominio='https://imporshop.imporsuit.com';
 }
 
 //echo 'ads'.$url_subdominio;
