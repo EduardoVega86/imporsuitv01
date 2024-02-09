@@ -53,8 +53,8 @@ if (isset($_GET['id_factura'])) {
 
         //calcular segun la ciudad
         $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
-        
-       // if()
+
+        // if()
         $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
 
 
@@ -249,7 +249,7 @@ while ($r = $query->fetch_object()) {
                                                     <form class="form-horizontal" role="form" id="barcode_form">
                                                         <input type="hidden" value="<?php echo $valor_base; ?>" id="costo_envio" name="costo_envio">
                                                         <?php if ($guia_enviada != 1) { ?>
-                                                        
+
                                                             <div class="form-group row">
                                                                 <label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
                                                                 <div class="col-md-2">
@@ -419,7 +419,7 @@ while ($r = $query->fetch_object()) {
                                                     <div class="row">
 
                                                     </div>
-                                            
+
                                                 <?php
                                                 }
                                             } else {
@@ -428,53 +428,53 @@ while ($r = $query->fetch_object()) {
                                                 <form role="form" id="datos_pedido">
 
 
-     <?php                                           if ($_SERVER['HTTP_HOST']=='localhost'){
-    $destino = new mysqli('localhost', 'root', '', 'master');
-}else{
-    $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');   
-}
+                                                    <?php if ($_SERVER['HTTP_HOST'] == 'localhost') {
+                                                        $destino = new mysqli('localhost', 'root', '', 'master');
+                                                    } else {
+                                                        $destino = mysqli_connect('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+                                                    }
 
-if($drogshipin==1){
-   $url_subdominio=$tienda;
-}else{
-    $url_subdominio=$_SERVER['HTTP_HOST'];
-    //$url_subdominio='https://imporshop.imporsuit.com';
-}
+                                                    if ($drogshipin == 1) {
+                                                        $url_subdominio = $tienda;
+                                                    } else {
+                                                        $url_subdominio = $_SERVER['HTTP_HOST'];
+                                                        //$url_subdominio='https://imporshop.imporsuit.com';
+                                                    }
 
-//echo 'ads'.$url_subdominio;
- @$full=get_row_destino($destino, 'plataformas', 'full_f', 'url_imporsuit', $url_subdominio);
- //if()
- //echo $full;  
-//
-?>
-     <?php  
-     if ($full==1){
-         ?>
-    <div class="row">
-     
-                                                        <div class="col-md-6">
-                                                            <span class="help-block">Tipo de Guia </span>
-                                                            
-                                                            <select onchange="tipo_transportadora()" class="datos form-control" id="transportadora" name="transportadora" required>
-                                                                <option value="">Seleccione transportadora</option>
-                                                                <option value="1">Transportadoa Laar</option>
-                                                                <option value="2">Same Day</option>
-                                                                
-                                                                
-                                                            </select>
+                                                    //echo 'ads'.$url_subdominio;
+                                                    @$full = get_row_destino($destino, 'plataformas', 'full_f', 'url_imporsuit', $url_subdominio);
+                                                    //if()
+                                                    //echo $full;  
+                                                    //
+                                                    ?>
+                                                    <?php
+                                                    if ($full == 1) {
+                                                    ?>
+                                                        <div class="row">
+
+                                                            <div class="col-md-6">
+                                                                <span class="help-block">Tipo de Guia </span>
+
+                                                                <select onchange="tipo_transportadora()" class="datos form-control" id="transportadora" name="transportadora" required>
+                                                                    <option value="">Seleccione transportadora</option>
+                                                                    <option value="1">Transportadoa Laar</option>
+                                                                    <option value="2">Same Day</option>
+
+
+                                                                </select>
+
+                                                            </div>
 
                                                         </div>
-    
-    </div>
-    <?php  
-  
-     }else{
-          ?>
-        <input type="hidden" id="transportadora" name="transportadora" value="1">
-         <?php  
-     }
-         ?>
-    
+                                                    <?php
+
+                                                    } else {
+                                                    ?>
+                                                        <input type="hidden" id="transportadora" name="transportadora" value="1">
+                                                    <?php
+                                                    }
+                                                    ?>
+
                                                     <div class="row">
 
                                                         <div class="col-md-6">
@@ -493,37 +493,37 @@ if($drogshipin==1){
                                                     <div class="row">
 
                                                         <div class="col-md-6">
-                                                             <div id="div_ciudad_local">
-                                                                 
-                                                                
-                                                            <span class="help-block">Provincia </span>
-                                                            <select onchange="cargar_provincia_pedido()" class="datos form-control" id="provinica" name="provinica" required>
-                                                                <option value="">Provincia *</option>
-                                                                <?php
-                                                                $sql2 = "select * from provincia_laar ";
-                                                                $query2 = mysqli_query($conexion, $sql2);
-
-                                                                while ($row2 = mysqli_fetch_array($query2)) {
-                                                                    $id_prov = $row2['id_prov'];
-                                                                    $provincia = $row2['provincia'];
-                                                                    $cod_provincia = $row2['codigo_provincia'];
-
-                                                                    // Obtener el valor almacenado en la tabla orgien_laar
-                                                                    $valor_seleccionado = $provinciadestino;
-
-                                                                    // Verificar si el valor actual coincide con el almacenado en la tabla
-                                                                    $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
-
-                                                                    // Imprimir la opción con la marca de "selected" si es el valor almacenado
-                                                                    echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
-                                                                }
-                                                                ?>
-                                                            </select>
+                                                            <div id="div_ciudad_local">
 
 
+                                                                <span class="help-block">Provincia </span>
+                                                                <select onchange="cargar_provincia_pedido()" class="datos form-control" id="provinica" name="provinica" required>
+                                                                    <option value="">Provincia *</option>
+                                                                    <?php
+                                                                    $sql2 = "select * from provincia_laar ";
+                                                                    $query2 = mysqli_query($conexion, $sql2);
 
+                                                                    while ($row2 = mysqli_fetch_array($query2)) {
+                                                                        $id_prov = $row2['id_prov'];
+                                                                        $provincia = $row2['provincia'];
+                                                                        $cod_provincia = $row2['codigo_provincia'];
+
+                                                                        // Obtener el valor almacenado en la tabla orgien_laar
+                                                                        $valor_seleccionado = $provinciadestino;
+
+                                                                        // Verificar si el valor actual coincide con el almacenado en la tabla
+                                                                        $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
+
+                                                                        // Imprimir la opción con la marca de "selected" si es el valor almacenado
+                                                                        echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
+                                                                    }
+                                                                    ?>
+                                                                </select>
+
+
+
+                                                            </div>
                                                         </div>
- </div>
                                                         <div class="col-md-6">
                                                             <span class="help-block">Ciudad </span>
                                                             <div id="div_ciudad">
@@ -632,23 +632,23 @@ if($drogshipin==1){
                                                     </div>
                                                     <div class="row">
                                                         <?php
-                                                             $pais= get_row('perfil', 'pais', 'id_perfil', 1);
-                                                             if($pais==1){
-                                                             ?>
-                                                        <div class="col-md-3">
-                                                            </br>
-                                                             
-                                                            <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn btn-danger" disabled>Generar Guía</button>
-                                                       
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            </br>
-                                                            <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Calcular</button>
-                                                        </div>
-                                                         <?php
-                                                            
-                                                             }
-                                                             ?>
+                                                        $pais = get_row('perfil', 'pais', 'id_perfil', 1);
+                                                        if ($pais == 1) {
+                                                        ?>
+                                                            <div class="col-md-3">
+                                                                </br>
+
+                                                                <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn btn-danger" disabled>Generar Guía</button>
+
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                </br>
+                                                                <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Calcular</button>
+                                                            </div>
+                                                        <?php
+
+                                                        }
+                                                        ?>
                                                         <div class="col-md-6">
                                                             </br>
 
@@ -885,17 +885,17 @@ if($drogshipin==1){
 <script>
     // print order function
     function tipo_transportadora() {
-//alert();
+        //alert();
         var transportadora = $('#transportadora').val();
-       // alert(transportadora)
+        // alert(transportadora)
         //var data = new FormData(formulario);
-        if (transportadora==2){
-          $('#seguro').val(0);
-          $('#valorasegurado').attr('disabled','disabled');
-           $('#seguro').attr('disabled','disabled');
-        }else{
-          $('#valorasegurado').removeAttr('disabled','disabled');
-          $('#seguro').removeAttr('disabled','disabled');
+        if (transportadora == 2) {
+            $('#seguro').val(0);
+            $('#valorasegurado').attr('disabled', 'disabled');
+            $('#seguro').attr('disabled', 'disabled');
+        } else {
+            $('#valorasegurado').removeAttr('disabled', 'disabled');
+            $('#seguro').removeAttr('disabled', 'disabled');
         }
 
         $.ajax({
@@ -913,14 +913,14 @@ if($drogshipin==1){
 
 
                 $('#div_ciudad_local').html(data);
-                 $('#div_ciudad').html('');
+                $('#div_ciudad').html('');
 
 
             }
         });
 
     }
-    
+
 
     function cargar_provincia_pedido() {
 
@@ -972,28 +972,28 @@ if($drogshipin==1){
         cantidad_total = $('#cantidad_total').val();
         valor_total = $('#valor_total_').val();
         costo_total = $('#costo_total').val();
-        
+
         numerocasa = $('#numerocasa').val();
         valor_envio = $('#valor_total_').val();
         valorasegurado = $('#valorasegurado').val();
 
         id_pedido_cot = $('#id_pedido_cot').val();
         costo_envio = $('#valor_envio2').val();
-        var utilidad=valor_envio-costo_total-costo_envio;
-       
+        var utilidad = valor_envio - costo_total - costo_envio;
+
 
 
         id_factura = 1;
-        
-         transportadora = $('#transportadora').val();
-         
-         
-         
+
+        transportadora = $('#transportadora').val();
+
+
+
         if (utilidad > 0) {
-            if(transportadora==1){
-               url= '../ajax/enviar_laar.php';
-            }else{
-               url= '../ajax/enviar_guia_local.php'; 
+            if (transportadora == 1) {
+                url = '../ajax/enviar_laar.php';
+            } else {
+                url = '../ajax/enviar_guia_local.php';
             }
             $.ajax({
                 url: url,
@@ -1046,68 +1046,68 @@ if($drogshipin==1){
                 } // /success function
 
             }); // /ajax function to fetch the printable order
-        } else{
-            if(cod==1){
+        } else {
+            if (cod == 1) {
                 $.ajax({
-                url: url,
-                type: 'post',
-                data: {
-                    nombre_destino: nombre_destino,
-                    ciudad: ciudad,
-                    direccion: direccion_destino,
-                    referencia: referencia,
-                    telefono: telefono,
-                    celular: celular,
-                    observacion: observacion,
-                    cod: cod,
-                    seguro: seguro,
-                    productos_guia: productos_guia,
-                    cantidad_total: cantidad_total,
-                    valor_total: valor_total,
-                    numerocasa: numerocasa,
-                    id_pedido_cot: id_pedido_cot,
-                    identificacion: identificacion,
-                    costo_total: costo_total,
-                    valorasegurado: valorasegurado,
-                    costo_envio: costo_envio,
+                    url: url,
+                    type: 'post',
+                    data: {
+                        nombre_destino: nombre_destino,
+                        ciudad: ciudad,
+                        direccion: direccion_destino,
+                        referencia: referencia,
+                        telefono: telefono,
+                        celular: celular,
+                        observacion: observacion,
+                        cod: cod,
+                        seguro: seguro,
+                        productos_guia: productos_guia,
+                        cantidad_total: cantidad_total,
+                        valor_total: valor_total,
+                        numerocasa: numerocasa,
+                        id_pedido_cot: id_pedido_cot,
+                        identificacion: identificacion,
+                        costo_total: costo_total,
+                        valorasegurado: valorasegurado,
+                        costo_envio: costo_envio,
 
-                },
-                dataType: 'text',
-                success: function(response) {
+                    },
+                    dataType: 'text',
+                    success: function(response) {
 
-                    if (response == 'ok') {
-                        Swal.fire({
-                            title: "¡Generación de guía exitosa!",
-                            icon: "success",
-                            confirmButtonText: "¡Aceptar!",
-                        }).then(() => {
-                            window.location.reload();
-                        });
-                    } else {
-                        //  let objetoJSON = JSON.parse(response);
-                        Swal.fire({
-                            title: "Oops...",
-                            text: response,
-                            icon: "error",
-                            confirmButtonText: "¡Aceptar!",
-                        }).then(() => {
-                            window.location.reload();
-                        });
+                        if (response == 'ok') {
+                            Swal.fire({
+                                title: "¡Generación de guía exitosa!",
+                                icon: "success",
+                                confirmButtonText: "¡Aceptar!",
+                            }).then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            //  let objetoJSON = JSON.parse(response);
+                            Swal.fire({
+                                title: "Oops...",
+                                text: response,
+                                icon: "error",
+                                confirmButtonText: "¡Aceptar!",
+                            }).then(() => {
+                                window.location.reload();
+                            });
 
-                    }
+                        }
 
-                } // /success function
+                    } // /success function
 
-            }); // /ajax function to fetch the printable order
-            }else{
-                    Swal.fire({
-                            title: "¡El monto a recibir es menor a 0! Por favor verifique los valores",
-                            icon: "error",
-                            confirmButtonText: "¡Aceptar!",
-                        }).then(() => {
-                           // window.location.reload();
-                        });
-        }
+                }); // /ajax function to fetch the printable order
+            } else {
+                Swal.fire({
+                    title: "¡El monto a recibir es menor a 0! Por favor verifique los valores",
+                    icon: "error",
+                    confirmButtonText: "¡Aceptar!",
+                }).then(() => {
+                    // window.location.reload();
+                });
+            }
         }
     }
 

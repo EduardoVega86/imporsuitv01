@@ -1,11 +1,11 @@
 var filtroG = "todas";
 $(document).ready(function () {
   load(1);
-  /* $.ajax({
+  $.ajax({
     type: "POST",
     url: "../ajax/verificar_guias_pendientes.php",
     success: function (r) {},
-  }); */
+  });
 });
 $("#editar_linea").submit(function (event) {
   // alert();

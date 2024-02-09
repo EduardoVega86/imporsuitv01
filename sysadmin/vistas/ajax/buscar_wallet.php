@@ -293,34 +293,37 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                     </select>
                     <button class="btn btn-outline-primary" type="button" onclick="filterData()">Filtrar</button>
                 </form>
-                <div class="col-lg-12 col-md-6">
-                    <div class="card-box widget-icon">
-                        <div>
-                            <i class="mdi mdi-basket text-primary"></i>
-                            <div class="wid-icon-info text-right">
-                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">MONTO DE VENTA</p>
-                                <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($valor_total_tienda, 2); ?></h4>
+                <div class="col-lg-4">
+
+                    <div class="col-lg-12 col-md-6">
+                        <div class="card-box widget-icon">
+                            <div>
+                                <i class="mdi mdi-basket text-primary"></i>
+                                <div class="wid-icon-info text-right">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">MONTO DE VENTA</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($valor_total_tienda, 2); ?></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12 col-md-6">
-                    <div class="card-box widget-icon">
-                        <div>
-                            <i class="mdi mdi-briefcase-check text-primary"></i>
-                            <div class="wid-icon-info text-right d-flex justify-content-end gap-2">
-                                <div class="">
-                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad como Referido</p>
-                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($ganancias_referido, 2)  ?></h4>
-                                </div>
-                                <div class="">
-                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad como Proveedor</p>
-                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($ganancias_proveedor, 2)  ?></h4>
-                                </div>
-                                <div class="">
+                    <div class="col-lg-12 col-md-6">
+                        <div class="card-box widget-icon">
+                            <div>
+                                <i class="mdi mdi-briefcase-check text-primary"></i>
+                                <div class="wid-icon-info text-right d-flex justify-content-end gap-2">
+                                    <div class="">
+                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad como Referido</p>
+                                        <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($ganancias_referido, 2)  ?></h4>
+                                    </div>
+                                    <div class="">
+                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad como Proveedor</p>
+                                        <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($ganancias_proveedor, 2)  ?></h4>
+                                    </div>
+                                    <div class="">
 
-                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
-                                    <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($total_monto_recibir, 2); ?></h4>
+                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
+                                        <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($total_monto_recibir, 2); ?></h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
