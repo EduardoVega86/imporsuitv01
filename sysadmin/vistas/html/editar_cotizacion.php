@@ -9,6 +9,7 @@ require_once "../db.php"; //Contiene las variables de configuracion para conecta
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
 //Archivo de funciones PHP
 require_once "../funciones.php";
+require_once "../funciones_destino.php";
 //Inicia Control de Permisos
 include "../permisos.php";
 $user_id = $_SESSION['id_users'];
@@ -22,7 +23,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
 if (isset($_GET['id_factura'])) {
     $id_factura  = intval($_GET['id_factura']);
-    $campos      = "clientes.id_cliente, clientes.nombre_cliente, clientes.fiscal_cliente, clientes.email_cliente, facturas_cot.id_vendedor, facturas_cot.fecha_factura, facturas_cot.condiciones, facturas_cot.validez, facturas_cot.numero_factura, facturas_cot.nombre,facturas_cot.telefono, facturas_cot.provincia,facturas_cot.c_principal,facturas_cot.c_secundaria,facturas_cot.referencia, facturas_cot.observacion, facturas_cot.ciudad_cot, facturas_cot.guia_enviada";
+    $campos      = "clientes.id_cliente, clientes.nombre_cliente, clientes.fiscal_cliente, clientes.email_cliente, facturas_cot.id_vendedor, facturas_cot.fecha_factura, facturas_cot.condiciones, facturas_cot.validez, facturas_cot.numero_factura, facturas_cot.nombre,facturas_cot.telefono, facturas_cot.provincia,facturas_cot.c_principal,facturas_cot.c_secundaria,facturas_cot.referencia, facturas_cot.observacion, facturas_cot.ciudad_cot, facturas_cot.guia_enviada, facturas_cot.drogshipin, facturas_cot.tienda";
     //echo "select $campos from facturas_cot, clientes where facturas_cot.id_cliente=clientes.id_cliente and id_factura='" . $id_factura . "'";
     $sql_factura = mysqli_query($conexion, "select $campos from facturas_cot, clientes where facturas_cot.id_cliente=clientes.id_cliente and id_factura='" . $id_factura . "'");
     $count       = mysqli_num_rows($sql_factura);
@@ -42,6 +43,8 @@ if (isset($_GET['id_factura'])) {
         $provinciadestino             = $rw_factura['provincia'];
         $ciudaddestino             = $rw_factura['ciudad_cot'];
         $guia_enviada             = $rw_factura['guia_enviada'];
+        $drogshipin             = $rw_factura['drogshipin'];
+        $tienda            = $rw_factura['tienda'];
 
         $direccion = $rw_factura['c_principal'] . ' ' . $rw_factura['c_secundaria'];
         $referencia = $rw_factura['referencia'];
@@ -49,6 +52,9 @@ if (isset($_GET['id_factura'])) {
         $observacion = $rw_factura['observacion'];
 
         //calcular segun la ciudad
+        $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
+        
+       // if()
         $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
 
 
@@ -243,6 +249,7 @@ while ($r = $query->fetch_object()) {
                                                     <form class="form-horizontal" role="form" id="barcode_form">
                                                         <input type="hidden" value="<?php echo $valor_base; ?>" id="costo_envio" name="costo_envio">
                                                         <?php if ($guia_enviada != 1) { ?>
+                                                        
                                                             <div class="form-group row">
                                                                 <label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
                                                                 <div class="col-md-2">
@@ -412,6 +419,7 @@ while ($r = $query->fetch_object()) {
                                                     <div class="row">
 
                                                     </div>
+                                            
                                                 <?php
                                                 }
                                             } else {
@@ -420,6 +428,53 @@ while ($r = $query->fetch_object()) {
                                                 <form role="form" id="datos_pedido">
 
 
+     <?php                                           if ($_SERVER['HTTP_HOST']=='localhost'){
+    $destino = new mysqli('localhost', 'root', '', 'master');
+}else{
+    $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');   
+}
+
+if($drogshipin==1){
+   $url_subdominio=$tienda;
+}else{
+    $url_subdominio=$_SERVER['HTTP_HOST'];
+    $url_subdominio='https://imporshop.imporsuit.com';
+}
+
+//echo 'ads'.$url_subdominio;
+ @$full=get_row_destino($destino, 'plataformas', 'full_f', 'url_imporsuit', $url_subdominio);
+ //if()
+ //echo $full;  
+//
+?>
+     <?php  
+     if ($full==1){
+         ?>
+    <div class="row">
+     
+                                                        <div class="col-md-6">
+                                                            <span class="help-block">Tipo de Guia </span>
+                                                            
+                                                            <select onchange="tipo_transportadora()" class="datos form-control" id="transportadora" name="transportadora" required>
+                                                                <option value="">Seleccione transportadora</option>
+                                                                <option value="1">Transportadoa Laar</option>
+                                                                <option value="2">Same Day</option>
+                                                                
+                                                                
+                                                            </select>
+
+                                                        </div>
+    
+    </div>
+    <?php  
+  
+     }else{
+          ?>
+        <input type="hidden" id="transportadora" name="transportadora" value="1">
+         <?php  
+     }
+         ?>
+    
                                                     <div class="row">
 
                                                         <div class="col-md-6">
@@ -438,6 +493,9 @@ while ($r = $query->fetch_object()) {
                                                     <div class="row">
 
                                                         <div class="col-md-6">
+                                                             <div id="div_ciudad_local">
+                                                                 
+                                                                
                                                             <span class="help-block">Provincia </span>
                                                             <select onchange="cargar_provincia_pedido()" class="datos form-control" id="provinica" name="provinica" required>
                                                                 <option value="">Provincia *</option>
@@ -465,7 +523,7 @@ while ($r = $query->fetch_object()) {
 
 
                                                         </div>
-
+ </div>
                                                         <div class="col-md-6">
                                                             <span class="help-block">Ciudad </span>
                                                             <div id="div_ciudad">
@@ -826,6 +884,43 @@ while ($r = $query->fetch_object()) {
 <!-- FIN -->
 <script>
     // print order function
+    function tipo_transportadora() {
+//alert();
+        var transportadora = $('#transportadora').val();
+       // alert(transportadora)
+        //var data = new FormData(formulario);
+        if (transportadora==2){
+          $('#seguro').val(0);
+          $('#valorasegurado').attr('disabled','disabled');
+           $('#seguro').attr('disabled','disabled');
+        }else{
+          $('#valorasegurado').removeAttr('disabled','disabled');
+          $('#seguro').removeAttr('disabled','disabled');
+        }
+
+        $.ajax({
+            url: "../ajax/cargar_ciudad_transportadora.php", // Url to which the request is send
+            type: "POST", // Type of request to be send, called as method
+            data: {
+                transportadora: transportadora,
+
+
+            }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+            dataType: 'text', // To send DOMDocument or non processed data file it is set to false
+            success: function(data) // A function to be called if request succeeds
+            {
+
+
+
+                $('#div_ciudad_local').html(data);
+                 $('#div_ciudad').html('');
+
+
+            }
+        });
+
+    }
+    
 
     function cargar_provincia_pedido() {
 
@@ -889,9 +984,19 @@ while ($r = $query->fetch_object()) {
 
 
         id_factura = 1;
+        
+         transportadora = $('#transportadora').val();
+         
+         
+         
         if (utilidad > 0) {
+            if(transportadora==1){
+               url= '../ajax/enviar_laar.php';
+            }else{
+               url= '../ajax/enviar_guia_local.php'; 
+            }
             $.ajax({
-                url: '../ajax/enviar_laar.php',
+                url: url,
                 type: 'post',
                 data: {
                     nombre_destino: nombre_destino,
@@ -944,7 +1049,7 @@ while ($r = $query->fetch_object()) {
         } else{
             if(cod==1){
                 $.ajax({
-                url: '../ajax/enviar_laar.php',
+                url: url,
                 type: 'post',
                 data: {
                     nombre_destino: nombre_destino,
