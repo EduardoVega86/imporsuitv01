@@ -76,6 +76,10 @@ if (file_put_contents($archivo_destino, $contenido) !== false) {
 require_once "../php_conexion_marketplace_guia.php";
 
 if ($tipo_origen == 1) {
+  
+    
+    
+    
     //echo'asddsa';
     //conexion a marketplace para guardar guia
 
@@ -229,7 +233,7 @@ $datos_destino = array(
 
     $id_pedido_cot = $_POST['id_pedido_cot'];
 
-
+    
 
     $guia = 'guia_local';
     $url = 'guia_local';
@@ -263,6 +267,7 @@ $datos_destino = array(
             . "'0','$observacion','$costo_total',2)";
         //echo $sql_insertar_guia;
         $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
+       
         /*
         // Grabar cabecera_cuenta_cobrar
         $id_factura = get_row('facturas_cot', 'id_factura', 'id_factura', $id_pedido_cot);
@@ -310,6 +315,7 @@ $datos_destino = array(
             . "'0','$observacion','$costo_total',2)";
         //echo $sql_insertar_guia_destino;
         //echo $tipo_origen;
+        
         if ($tipo_origen == 1) {
 
             //echo "origen";
@@ -344,6 +350,7 @@ $datos_destino = array(
             $sql = "UPDATE facturas_cot SET  estado_factura=2
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
             $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+           
         } else {
 
             // echo 'asd';
@@ -395,7 +402,7 @@ $datos_destino = array(
         //echo $query;
         // Realizar la consulta
         $resultado = mysqli_query($conexion, $query);
-
+  
         // Verificar si la consulta fue exitosa
         if ($resultado) {
             // Iterar sobre los resultados usando un bucle while
@@ -409,6 +416,7 @@ $datos_destino = array(
             if ($conexion->connect_error) {
                 die("Error de conexión: " . $conexion->connect_error);
             }
+            
             while ($fila = mysqli_fetch_assoc($resultado)) {
 
                 $id_producto = $fila['id_producto'];
@@ -417,20 +425,24 @@ $datos_destino = array(
                 $id_marketplace = get_row('productos', 'id_marketplace', 'id_producto', $id_producto);
                 $cantidad = $fila['cantidad'];
                 if ($drogshipin == 1) {
+                      //echo 'vale';
+                   
                     $sql2    = mysqli_query($conexion_marketplace, "select * from productos where id_producto='" . $id_marketplace . "'");
-                    echo $sql2;
+                 
                     $rw      = mysqli_fetch_array($sql2);
                     $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
                     $id_producto_origen= $rw['id_producto_origen'];
                     $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
                     $update  = mysqli_query($conexion_marketplace, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_marketplace . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
-                    
+                   
                     $sql_stock_proveedor    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_producto_origen . "'");
                     $rw_stock_proveedor      = mysqli_fetch_array($sql_stock_proveedor);
+                      
                     $old_qty_proveedor = $rw_stock_proveedor['stock_producto']; 
                     $new_qty_proveedor = $old_qty_proveedor - $cantidad;
+                  
                     $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty_proveedor . "' WHERE id_producto='" . $id_producto_origen . "' and inv_producto=0");
-                    
+                     echo 'ok';
                 } else {
                     
                     $sql2    = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
@@ -445,15 +457,16 @@ $datos_destino = array(
                     $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
                     $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto_origen='" . $id_producto . "' and tienda='$server_url' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario   
                     
-                    
+                     echo 'ok';
                     }
                 }
             }
 
             // Liberar el resultado
+              
             mysqli_free_result($resultado);
         } else {
             echo "Error en la consulta: " . mysqli_error($conexion);
         }
-        echo 'ok';
+   
     }
