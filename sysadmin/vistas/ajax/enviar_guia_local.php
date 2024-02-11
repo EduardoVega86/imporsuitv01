@@ -443,6 +443,7 @@ $datos_destino = array(
                   
                     $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty_proveedor . "' WHERE id_producto='" . $id_producto_origen . "' and inv_producto=0");
                      echo 'ok';
+                     
                 } else {
                     
                     $sql2    = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
