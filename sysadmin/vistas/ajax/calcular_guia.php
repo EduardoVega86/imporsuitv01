@@ -63,7 +63,7 @@ if ($cod=="1"){
       
     }else{
         ?>
-   <img width="100px" src="../../img_sistema/logo_ecom.webp" alt=""/>
+   <img width="100px" src="../../img_sistema/speed.jpg" alt=""/>
     <?php  
     }
     ?>
