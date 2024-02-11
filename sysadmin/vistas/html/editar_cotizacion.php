@@ -458,7 +458,7 @@ if($drogshipin==1){
                                                             <select onchange="tipo_transportadora()" class="datos form-control" id="transportadora" name="transportadora" required>
                                                                 <option value="">Seleccione transportadora</option>
                                                                 <option value="1" selected>Transportadoa Laar</option>
-                                                                <option value="2">Fast</option>
+                                                                <option value="2">Speed</option>
                                                                 
                                                                 
                                                             </select>
