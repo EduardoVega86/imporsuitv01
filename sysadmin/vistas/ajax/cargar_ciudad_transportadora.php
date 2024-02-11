@@ -73,7 +73,7 @@ if($transportadora==1){
                                                                <option value="2">Valle de los chillos </option>
                                                                <option value="2">Valle de Cumbaya </option>
                                                                <option value="2">Valle de Tumbaco </option>
-                                                               <option value="3">Guayaquil </option>
+                                                               
                                                             </select>
 <?php
 }
