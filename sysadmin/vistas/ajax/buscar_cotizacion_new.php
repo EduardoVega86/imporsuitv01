@@ -213,6 +213,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                         $tienda = $server_url;
                     }
                     $span_estado = '';
+                    //xd
 
                     $id_producto_origen = $row['id_factura_origen'];
                     $existe_guia_sql = "SELECT * FROM guia_laar WHERE id_pedido='" . $id_producto_origen . "'";

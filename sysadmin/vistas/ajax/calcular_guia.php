@@ -29,12 +29,17 @@ require_once "../db.php";
     }
     
     //echo $cod;
+    if($transportadora==1){
+        
+    
 if ($cod=="1"){
       $cod=$valor_total*0.03;  
     }else{
       $cod=0;  
     }
-
+}else{
+    $cod=0;
+}
     if ($seguro==1){
       $seguro=$valorasegurado*0.01;  
     }else{
@@ -58,7 +63,7 @@ if ($cod=="1"){
       
     }else{
         ?>
-   <img width="100px" src="../../img_sistema/logo_ecom.webp" alt=""/>
+   <img width="100px" src="../../img_sistema/speed.jpg" alt=""/>
     <?php  
     }
     ?>

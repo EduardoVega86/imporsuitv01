@@ -67,13 +67,13 @@ if($transportadora==1){
 }else{
     ?>
 <span class="help-block">Ciudad </span>
-    <select onchange="" class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" required>
+    <select onchange="calcular_guia()" class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" required>
                                                                 <option value="">Ciudad *</option>
                                                                <option value="1">Quito </option>
                                                                <option value="2">Valle de los chillos </option>
                                                                <option value="2">Valle de Cumbaya </option>
                                                                <option value="2">Valle de Tumbaco </option>
-                                                               <option value="3">Guayaquil </option>
+                                                               
                                                             </select>
 <?php
 }
