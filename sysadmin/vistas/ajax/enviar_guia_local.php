@@ -52,7 +52,6 @@ $query = mysqli_query($destino, $sql);
 
 $ultimoid_market = mysqli_insert_id($destino);
 $ultimoid = 'FAST' . $ultimoid_market;
-echo $ultimoid;
 $sql_update = "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_laar`.`id_guia` = $ultimoid_market";
 //echo $sql_update;
 
@@ -460,6 +459,6 @@ if (isset($guia)) {
         } else {
             echo "Error en la consulta: " . mysqli_error($conexion);
         }
-        echo 'ok';
     }
+    echo 'ok';
 }
