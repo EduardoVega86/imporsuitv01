@@ -23,7 +23,7 @@ $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUES
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-    $aColumns = array('nombre_tienda', 'contacto', 'email'); //Columnas de busqueda
+    $aColumns = array('nombre_tienda', 'contacto', 'email', 'url_imporsuit'); //Columnas de busqueda
     $sTable   = "plataformas";
     $sWhere   = "";
     if ($_GET['q'] != "") {

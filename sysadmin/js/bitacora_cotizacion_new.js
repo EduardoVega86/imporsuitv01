@@ -303,6 +303,15 @@ function obtener_datos(id) {
 
   $("#editar_linea").submit(); // Esto activará el envío del formulario con el ID "editar_linea"
 }
+function obtener_datos_local(id) {
+  var estado = $("#estado_sistema" + id).val();
+  // alert(estado);
+
+  $("#mod_estado").val(estado);
+  $("#mod_id").val(id);
+
+  $("#editar_linea").submit(); // Esto activará el envío del formulario con el ID "editar_linea"
+}
 
 function guia_importar(numero_factura) {}
 

@@ -1,9 +1,13 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+
+use Illuminate\Support\Str;
+
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
+
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
@@ -443,7 +447,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                         $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta like '%" . $server_url . "%'");
                                                                                                                     }
                                                                                                                     $estado_guia_for = get_row('guia_laar', 'estado_guia', 'guia_laar', $guia_numero);
-                                                                                                                    if ($estado_guia_for != "0") {
+                                                                                                                    if ($estado_guia_for != "0" && strpos($guia_numero, "IMP") === 0) {
 
                                                                                                                         switch ($estado_guia_for) {
                                                                                                                             case '1':
@@ -511,6 +515,25 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                                 $estado_guia = 'Devuelto';
                                                                                                                                 break;
                                                                                                                         }
+                                                                                                                    } else if ($estado_guia_for != "0" && strpos($guia_numero, "IMP") !== 0) {
+                                                                                                                        switch ($estado_guia_for) {
+                                                                                                                            case '1':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Por recolectar';
+                                                                                                                                break;
+                                                                                                                            case '2':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'En Transito';
+                                                                                                                                break;
+                                                                                                                            case '4':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entragado';
+                                                                                                                                break;
+                                                                                                                            case '4':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulado';
+                                                                                                                                break;
+                                                                                                                        }
                                                                                                                     } else {
                                                                                                                         $guia_numero = '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
                                                                                                                         $traking = '';
@@ -540,29 +563,54 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                         </td>
                         <td class="text-center align-middle">
                             <?php if ($drogshipin == 3 || $drogshipin == 4) {
-
+                                if (strpos($guia_numero, "IMP") === 0) {
                             ?>
-                                <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
-                                    <option value="">-- Selecciona --</option>
-                                    <?php
-                                    if ($data['estadoActualCodigo'] == 8) {
-                                        $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
+                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
+                                        <option value="">-- Selecciona --</option>
+                                        <?php
+                                        if ($data['estadoActualCodigo'] == 8) {
+                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
                                                                             WHERE id_factura='" . $id_factura . "'";
-                                        $query_anular = mysqli_query($conexion, $sql_anular);
-                                    }
-                                    //echo "select * from estado_guia";
-                                    $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
-                                    while ($rw = mysqli_fetch_array($query_categoria)) {
-                                        $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
-                                    ?>
-                                        <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-                            <?php
-                            }
+                                            $query_anular = mysqli_query($conexion, $sql_anular);
+                                        }
+                                        //echo "select * from estado_guia";
+                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
+                                        while ($rw = mysqli_fetch_array($query_categoria)) {
+                                            $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
+                                        ?>
+                                            <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                <?php
+                                } else {
 
+
+                                ?>
+
+                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado_local'>
+                                        <option value="">-- Selecciona --</option>
+                                        <?php
+                                        if ($data['estadoActualCodigo'] == 4) {
+                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=4
+                                                                            WHERE id_factura='" . $id_factura . "'";
+                                            $query_anular = mysqli_query($conexion, $sql_anular);
+                                        }
+                                        //echo "select * from estado_guia";
+                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema_local");
+                                        while ($rw = mysqli_fetch_array($query_categoria)) {
+                                            $selected = ($rw['id_estado_local'] == $estado_factura) ? 'selected' : '';
+                                        ?>
+                                            <option value="<?php echo $rw['id_estado_local']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                            <?php
+
+                                }
+                            }
                             ?>
 
                         </td>
@@ -972,7 +1020,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                     if ($guia_numero == "guia_local") {
                                                                                                                         $estado_guia_for = get_row('facturas_cot', 'estado_guia_sistema', 'numero_factura', $numero_factura);
                                                                                                                     }
-                                                                                                                    if ($estado_guia_for != "0") {
+                                                                                                                    if ($estado_guia_for != "0" && strpos($guia_numero, "IMP") === 0) {
 
                                                                                                                         switch ($estado_guia_for) {
                                                                                                                             case '1':
@@ -1038,6 +1086,25 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                             case '9':
                                                                                                                                 $span_estado = 'badge-danger';
                                                                                                                                 $estado_guia = 'Devuelto';
+                                                                                                                                break;
+                                                                                                                        }
+                                                                                                                    } else if ($estado_guia_for != "0" && strpos($guia_numero, "IMP") !== 0) {
+                                                                                                                        switch ($estado_guia_for) {
+                                                                                                                            case '1':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Por recolectar';
+                                                                                                                                break;
+                                                                                                                            case '2':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'En Transito';
+                                                                                                                                break;
+                                                                                                                            case '4':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entragado';
+                                                                                                                                break;
+                                                                                                                            case '4':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulado';
                                                                                                                                 break;
                                                                                                                         }
                                                                                                                     } else {
