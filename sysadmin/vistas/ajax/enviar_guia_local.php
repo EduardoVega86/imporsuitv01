@@ -45,7 +45,7 @@ $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
 $date_added = date("Y-m-d H:i:s");
 
-$sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`, `estado_guia`, 'id_transporte') "
+$sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`, `estado_guia`, `id_transporte`) "
     . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1',2, '2');";
 
 $query = mysqli_query($destino, $sql);
