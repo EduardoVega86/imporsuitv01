@@ -968,7 +968,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                         $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta like '%" . $server_url . "%'");
                                                                                                                     }
                                                                                                                     $estado_guia_for = get_row('guia_laar', 'estado_guia', 'guia_laar', $guia_numero);
-                                                                                                                    if ($numero_guia == "guia_local") {
+                                                                                                                    if ($guia_numero == "guia_local") {
                                                                                                                         $estado_guia_for = get_row('facturas_cot', 'estado_guia_sistema', 'numero_factura', $numero_factura);
                                                                                                                     }
                                                                                                                     if ($estado_guia_for != "0") {
