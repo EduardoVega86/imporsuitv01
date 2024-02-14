@@ -16,14 +16,18 @@ if ($count != 0) {
   // seprara el codigo de la factura para incrementar
 
   $codigo  = $data_id['codigo'];
+  if (preg_match('/[A-Za-z]/', $codigo)) {
 
-  $letra = preg_replace('/[^A-Za-z]+/', '', $codigo);
-  $numero = preg_replace('/[^0-9]+/', '', $codigo);
-  $numero = $numero + 1;
-  $letra = strtoupper($letra);
-  $letra = str_pad($letra, 3, "0", STR_PAD_RIGHT);
-  $numero = str_pad($numero, 3, "0", STR_PAD_LEFT);
-  $codigo = $letra . $numero;
+    $letra = preg_replace('/[^A-Za-z]+/', '', $codigo);
+    $numero = preg_replace('/[^0-9]+/', '', $codigo);
+    $numero = $numero + 1;
+    $letra = strtoupper($letra);
+    $letra = str_pad($letra, 3, "0", STR_PAD_RIGHT);
+    $numero = str_pad($numero, 3, "0", STR_PAD_LEFT);
+    $codigo = $letra . $numero;
+  } else {
+    $codigo = $codigo + 1;
+  }
 } else {
   $codigo = 1;
 }
