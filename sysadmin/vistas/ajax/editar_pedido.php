@@ -15,90 +15,122 @@ if (empty($_POST['mod_id'])) {
     //$descripcion = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_descripcion"], ENT_QUOTES)));
     $estado      = intval($_POST['mod_estado']);
     $id      = intval($_POST['mod_id']);
-    
 
-   
-    $sql = "UPDATE facturas_cot SET  estado_factura=" . $estado . "
+
+
+    $sql = "UPDATE facturas_cot SET  estado_factura=" . $estado . ", estado_guia_sistema= " . $estado . "
                                 WHERE id_factura='" . $id . "'";
-    $query_update = mysqli_query($conexion, $sql);
-    
-    if($estado==8){
-        $guia=get_row('guia_laar', 'guia_laar', 'id_pedido', $id );
-        $authData = array(
-    "username" => "import.uio.api",
-    "password" => "Imp@rt*23"
-);
 
-//echo $guia;
-// Convertir los datos de autenticación a formato JSON
-$authDataJSON = json_encode($authData);
-
-// URL y datos para la autenticación
-$authURL = 'https://api.laarcourier.com:9727/authenticate';
-$authHeaders = array(
-    'accept: application/json',
-    'Content-Type: application/json',
-);
-
-// Inicializar cURL para la autenticación
-$chAuth = curl_init($authURL);
-curl_setopt($chAuth, CURLOPT_CUSTOMREQUEST, 'POST');
-curl_setopt($chAuth, CURLOPT_POSTFIELDS, $authDataJSON);
-curl_setopt($chAuth, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($chAuth, CURLOPT_HTTPHEADER, $authHeaders);
-
-// Ejecutar la solicitud de autenticación y obtener la respuesta
-$authResponse = curl_exec($chAuth);
-
-// Verificar si la autenticación fue exitosa
-$httpCode = curl_getinfo($chAuth, CURLINFO_HTTP_CODE);
-if ($httpCode !== 200) {
-    echo 'Error en la autenticación. Código de estado: ' . $httpCode;
-    // Manejar el error apropiadamente
-} else {
-    // Decodificar la respuesta JSON de autenticación
-    $authResult = json_decode($authResponse, true);
-
-    // Obtener el token de autenticación
-    $token = $authResult['token'];
-
-    // URL para la solicitud DELETE
-    $deleteURL = 'https://api.laarcourier.com:9727/guias/anular/'.$guia;
-
-    // Inicializar cURL para la solicitud DELETE con la cabecera de autenticación
-    $chDelete = curl_init($deleteURL);
-    $deleteHeaders = array(
-        'Authorization: Bearer ' . $token,
-    );
-
-    curl_setopt($chDelete, CURLOPT_CUSTOMREQUEST, 'DELETE');
-    curl_setopt($chDelete, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($chDelete, CURLOPT_HTTPHEADER, $deleteHeaders);
-
-    // Ejecutar la solicitud DELETE y obtener la respuesta
-    $deleteResponse = curl_exec($chDelete);
-
-    // Verificar si la solicitud DELETE fue exitosa
-    $deleteHttpCode = curl_getinfo($chDelete, CURLINFO_HTTP_CODE);
-    if ($deleteHttpCode === 200) {
-        
-        echo 'ok';
+    if (
+        isset($_SERVER['HTTPS']) &&
+        ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+        isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+        $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+    ) {
+        $protocol = 'https://';
     } else {
-        echo 'Error al enviar la solicitud DELETE. Código de estado: ' . $deleteHttpCode;
-        // Manejar el error apropiadamente
+        $protocol = 'http://';
+    }
+    $server_url = $protocol . $_SERVER['HTTP_HOST'];
+
+    if ($server_url == "https://marketplace.imporsuit.com") {
+        $tienda_proveedor = get_row('facturas_cot', 'tienda', 'id_factura', $id);
+
+        $sql = "UPDATE facturas_cot SET  estado_factura=" . $estado . ", estado_guia_sistema= " . $estado . "
+                                WHERE id_factura='" . $id . "'";
+        $prove_temp = $tienda_proveedor;
+        $archivo_tienda = $prove_temp . '/sysadmin/vistas/db1.php';
+        $archivo_destino_tienda = "../db_destino_guia.php";
+        $contenido_tienda = file_get_contents($archivo_tienda);
+        $get_data = json_decode($contenido_tienda, true);
+        if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
+            $host_d = $get_data['DB_HOST'];
+            $user_d = $get_data['DB_USER'];
+            $pass_d = $get_data['DB_PASS'];
+            $base_d = $get_data['DB_NAME'];
+            $conexion_remota = mysqli_connect($host_d, $user_d, $pass_d, $base_d);
+            $query_update = mysqli_query($conexion_remota, $sql);
+        }
+    }
+    $query_update = mysqli_query($conexion, $sql);
+
+    if ($estado == 8) {
+        $guia = get_row('guia_laar', 'guia_laar', 'id_pedido', $id);
+        $authData = array(
+            "username" => "import.uio.api",
+            "password" => "Imp@rt*23"
+        );
+
+        //echo $guia;
+        // Convertir los datos de autenticación a formato JSON
+        $authDataJSON = json_encode($authData);
+
+        // URL y datos para la autenticación
+        $authURL = 'https://api.laarcourier.com:9727/authenticate';
+        $authHeaders = array(
+            'accept: application/json',
+            'Content-Type: application/json',
+        );
+
+        // Inicializar cURL para la autenticación
+        $chAuth = curl_init($authURL);
+        curl_setopt($chAuth, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($chAuth, CURLOPT_POSTFIELDS, $authDataJSON);
+        curl_setopt($chAuth, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chAuth, CURLOPT_HTTPHEADER, $authHeaders);
+
+        // Ejecutar la solicitud de autenticación y obtener la respuesta
+        $authResponse = curl_exec($chAuth);
+
+        // Verificar si la autenticación fue exitosa
+        $httpCode = curl_getinfo($chAuth, CURLINFO_HTTP_CODE);
+        if ($httpCode !== 200) {
+            echo 'Error en la autenticación. Código de estado: ' . $httpCode;
+            // Manejar el error apropiadamente
+        } else {
+            // Decodificar la respuesta JSON de autenticación
+            $authResult = json_decode($authResponse, true);
+
+            // Obtener el token de autenticación
+            $token = $authResult['token'];
+
+            // URL para la solicitud DELETE
+            $deleteURL = 'https://api.laarcourier.com:9727/guias/anular/' . $guia;
+
+            // Inicializar cURL para la solicitud DELETE con la cabecera de autenticación
+            $chDelete = curl_init($deleteURL);
+            $deleteHeaders = array(
+                'Authorization: Bearer ' . $token,
+            );
+
+            curl_setopt($chDelete, CURLOPT_CUSTOMREQUEST, 'DELETE');
+            curl_setopt($chDelete, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($chDelete, CURLOPT_HTTPHEADER, $deleteHeaders);
+
+            // Ejecutar la solicitud DELETE y obtener la respuesta
+            $deleteResponse = curl_exec($chDelete);
+
+            // Verificar si la solicitud DELETE fue exitosa
+            $deleteHttpCode = curl_getinfo($chDelete, CURLINFO_HTTP_CODE);
+            if ($deleteHttpCode === 200) {
+
+                echo 'ok';
+            } else {
+                echo 'Error al enviar la solicitud DELETE. Código de estado: ' . $deleteHttpCode;
+                // Manejar el error apropiadamente
+            }
+
+            // Cerrar las conexiones cURL
+            curl_close($chDelete);
+        }
+
+        // Cerrar la conexión cURL de autenticación
+        curl_close($chAuth);
     }
 
-    // Cerrar las conexiones cURL
-    curl_close($chDelete);
-}
 
-// Cerrar la conexión cURL de autenticación
-curl_close($chAuth);
-    }
-    
-    
-     //echo $sql; 
-     
+    //echo $sql; 
+
     if ($query_update) {
         $messages[] = "Linea ha sido actualizada con Exito.";
     } else {
@@ -110,29 +142,29 @@ curl_close($chAuth);
 
 if (isset($errors)) {
 
-    ?>
+?>
     <div class="alert alert-danger" role="alert">
         <strong>Error!</strong>
         <?php
-foreach ($errors as $error) {
-        echo $error;
-    }
-    ?>
+        foreach ($errors as $error) {
+            echo $error;
+        }
+        ?>
     </div>
-    <?php
+<?php
 }
 if (isset($messages)) {
 
-    ?>
+?>
     <div class="alert alert-success" role="alert">
         <strong>¡Bien hecho!</strong>
         <?php
-foreach ($messages as $message) {
-        echo $message;
-    }
-    ?>
+        foreach ($messages as $message) {
+            echo $message;
+        }
+        ?>
     </div>
-    <?php
+<?php
 }
 
 ?>

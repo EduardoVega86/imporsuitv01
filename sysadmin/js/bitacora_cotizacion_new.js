@@ -1,11 +1,11 @@
 var filtroG = "todas";
 $(document).ready(function () {
   load(1);
-  /* $.ajax({
+  $.ajax({
     type: "POST",
     url: "../ajax/verificar_guias_pendientes.php",
     success: function (r) {},
-  }); */
+  });
 });
 $("#editar_linea").submit(function (event) {
   // alert();
@@ -175,7 +175,9 @@ function buscar_estado(estado) {
       "&tienda=" +
       tienda +
       "&numero=" +
-      numero,
+      numero +
+      "&filtro=" +
+      filtroG,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -367,7 +369,6 @@ function ver_detalle_cot(numero_factura) {
       $("#loader").html("");
       $("#modal_cot").html(data);
       $("#Modal").modal("show");
-      $;
     },
   });
 }

@@ -14,7 +14,7 @@ $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
 $modulo = "Categorias";
 permisos($modulo, $cadena_permisos);
-//Finaliza Control de Permisos
+//Finaliza Control de Permisose
 //Archivo de funciones PHP
 require_once "../funciones.php";
 $id_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);

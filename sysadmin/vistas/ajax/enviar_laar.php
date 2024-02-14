@@ -68,7 +68,8 @@ if ($row_cnt > 0) {
 } else {
     $guia_sistema = "IMP1";
 }
-if (isset($_SERVER['HTTPS']) &&
+if (
+    isset($_SERVER['HTTPS']) &&
     ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
     isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
     $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
@@ -203,7 +204,7 @@ $valor_total = $_POST['valor_total'];
 
 $costo_total = $_POST['costo_total'];
 if ($tipo_origen == 0) {
-  $costo_total=0;  
+    $costo_total = 0;
 }
 // URL del servicio web al que deseas enviar los datos con el token
 $destino_url = "https://api.laarcourier.com:9727/guias/contado";
@@ -211,7 +212,7 @@ $destino_url = "https://api.laarcourier.com:9727/guias/contado";
 $cantidad_total_prducto = $cantidad_total;
 $cantidad_total = 1;
 $productos_guia =  $productos_guia;
-$observacion = $observacion.'-Por:'.$server_url; 
+$observacion = $observacion . '-Por:' . $server_url;
 $datos_destino = array(
     "origen" => array(
         "identificacionO" => "$identificacionO",
@@ -296,7 +297,7 @@ if ($response) {
         $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='LAAR' WHERE `id_factura` = $id_pedido_cot";
         //echo $sql_update;
         $query_update = mysqli_query($conexion, $sql_update);
-        
+
         $date_added = date("Y-m-d H:i:s");
         $sql_insertar_guia = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
             `identificacionO`,`ciudadO`, `nombreO`,
@@ -478,31 +479,30 @@ if ($response) {
                     $sql2    = mysqli_query($conexion_marketplace, "select * from productos where id_producto='" . $id_marketplace . "'");
                     $rw      = mysqli_fetch_array($sql2);
                     $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
-                    $id_producto_origen= $rw['id_producto_origen'];
+                    $id_producto_origen = $rw['id_producto_origen'];
                     $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
                     $update  = mysqli_query($conexion_marketplace, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_marketplace . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
-                    
+
                     $sql_stock_proveedor    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_producto_origen . "'");
                     $rw_stock_proveedor      = mysqli_fetch_array($sql_stock_proveedor);
-                    $old_qty_proveedor = $rw_stock_proveedor['stock_producto']; 
+                    $old_qty_proveedor = $rw_stock_proveedor['stock_producto'];
                     $new_qty_proveedor = $old_qty_proveedor - $cantidad;
                     $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty_proveedor . "' WHERE id_producto='" . $id_producto_origen . "' and inv_producto=0");
-                    
                 } else {
-                    
+
                     $sql2    = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
                     $rw      = mysqli_fetch_array($sql2);
                     $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
                     $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
                     $update  = mysqli_query($conexion, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
                     if ($tienda == 'enviado') {
-                     $sql2    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_marketplace . "'");
-                    $rw      = mysqli_fetch_array($sql2);
-                    $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
-                    $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
-                    $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto_origen='" . $id_producto . "' and tienda='$server_url' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario   
-                    
-                    
+                        $sql2    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_marketplace . "'");
+                        $rw      = mysqli_fetch_array($sql2);
+                        $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
+                        $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
+                        $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto_origen='" . $id_producto . "' and tienda='$server_url' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario   
+
+
                     }
                 }
             }
