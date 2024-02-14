@@ -431,14 +431,14 @@ while ($r = $query->fetch_object()) {
                                                     <?php if ($_SERVER['HTTP_HOST'] == 'localhost') {
                                                         $destino = new mysqli('localhost', 'root', '', 'master');
                                                     } else {
-                                                        $destino = mysqli_connect('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+                                                        $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
                                                     }
 
                                                     if ($drogshipin == 1) {
                                                         $url_subdominio = $tienda;
                                                     } else {
                                                         $url_subdominio = $_SERVER['HTTP_HOST'];
-                                                        //$url_subdominio='https://imporshop.imporsuit.com';
+                                                        $url_subdominio = 'https://imporshop.imporsuit.com';
                                                     }
 
                                                     //echo 'ads'.$url_subdominio;
@@ -457,8 +457,8 @@ while ($r = $query->fetch_object()) {
 
                                                                 <select onchange="tipo_transportadora()" class="datos form-control" id="transportadora" name="transportadora" required>
                                                                     <option value="">Seleccione transportadora</option>
-                                                                    <option value="1">Transportadoa Laar</option>
-                                                                    <option value="2">Same Day</option>
+                                                                    <option value="1" selected>Transportadoa Laar</option>
+                                                                    <option value="2">Speed</option>
 
 
                                                                 </select>
@@ -992,8 +992,10 @@ while ($r = $query->fetch_object()) {
         if (utilidad > 0) {
             if (transportadora == 1) {
                 url = '../ajax/enviar_laar.php';
+                regresar = 0;
             } else {
                 url = '../ajax/enviar_guia_local.php';
+                regresar = 1;
             }
             $.ajax({
                 url: url,
@@ -1028,7 +1030,11 @@ while ($r = $query->fetch_object()) {
                             icon: "success",
                             confirmButtonText: "¡Aceptar!",
                         }).then(() => {
-                            window.location.reload();
+                            if (regresar == 0) {
+                                window.location.reload();
+                            } else {
+                                window.location.href = 'bitacora_cotizacion_new.php';
+                            }
                         });
                     } else {
                         //  let objetoJSON = JSON.parse(response);
