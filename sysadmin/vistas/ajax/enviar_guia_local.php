@@ -169,7 +169,7 @@ if ($tipo_origen == 0) {
     $costo_total = 0;
 }
 // URL del servicio web al que deseas enviar los datos con el token
-$destino_url = "https://fast.imporsuit.com/generar_guia.php";
+$destino_url = "https://fast.imporsuit.com/GenerarGuia/nueva/";
 // Datos a enviar en formato JSON al servicio de destino
 $cantidad_total_prducto = $cantidad_total;
 $cantidad_total = 1;
@@ -211,11 +211,7 @@ $datos_destino = array(
     "tipocobro" => 0,
     "comentario" => "$observacion",
     "fechaPedido" => "$fechaActual",
-    "extras" => array(
-        "Campo1" => "",
-        "Campo2" => "",
-        "Campo3" => ""
-    )
+    "extras" => ""
 );
 
 // Configuración de la solicitud cURL para el servicio de destino
@@ -225,10 +221,22 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos_destino));
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     'Content-Type: application/json',
+    'X-Token-Guia: Zc46Um3cI8Eh9vce6hn9'
 ));
 
 
 // Realizar la solicitud cURL al servicio de destino
+
+$response = curl_exec($ch);
+
+
+// Verificar si hubo errores en la solicitud
+if (curl_errno($ch)) {
+    echo 'Error en la solicitud cURL para el servicio de destino: ' . curl_error($ch);
+}
+
+// Cerrar la conexión cURL
+curl_close($ch);
 
 
 
@@ -240,7 +248,7 @@ $id_pedido_cot = $_POST['id_pedido_cot'];
 
 
 $guia = $guia_sistema;
-$url = "https://fast.imporsuit.com/descargar_guia.php?guia=$guia";
+$url = "https://fast.imporsuit.com/GenerarGuia/descargar/" . $guia_sistema . "/";
 //$guia=1;
 if (isset($guia)) {
     $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='IMPORFAST'  WHERE `id_factura` = $id_pedido_cot";

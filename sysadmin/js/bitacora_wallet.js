@@ -1,3 +1,4 @@
+var filtroG = "mayor_menor";
 $(document).ready(function () {
   load(1);
 });
@@ -41,9 +42,17 @@ function load(page) {
       "&q=" +
       q +
       "&numero=" +
-      numero;
+      numero +
+      "&filtro=" +
+      filtroG;
   } else {
-    var url = "../ajax/buscar_wallet.php?action=ajax&page=" + page + "&q=" + q;
+    var url =
+      "../ajax/buscar_wallet.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&filtro=" +
+      filtroG;
   }
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -54,6 +63,8 @@ function load(page) {
     success: function (data) {
       $(".outer_div").html(data).fadeIn("slow");
       $("#loader").html("");
+      $("#outerpay").load("../ajax/ver_pagos.php");
+
       $('[data-toggle="tooltip"]').tooltip({
         html: true,
       });
@@ -109,13 +120,55 @@ function buscar_numero(numero) {
       "&numero=" +
       numero +
       "&q=" +
-      q,
+      q +
+      "&filtro=" +
+      filtroG,
 
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
     success: function (data) {
       $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
+}
+
+function filtrarRegistros(filtro) {
+  var q = $("#q").val();
+  var numero = $("#numero_q").val();
+  filtroG = filtro;
+  if (numero != 0) {
+    var url =
+      "../ajax/buscar_wallet.php?action=ajax&page=" +
+      "&q=" +
+      q +
+      "&numero=" +
+      numero +
+      "&filtro=" +
+      filtro;
+  } else {
+    var url =
+      "../ajax/buscar_wallet.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&filtro=" +
+      filtro;
+  }
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url: url,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#outerpay").load("../ajax/ver_pagos.php");
+
       $("#loader").html("");
       $('[data-toggle="tooltip"]').tooltip({
         html: true,
