@@ -3,126 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Guia Impresas</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .section1-table,
-        .section2-table,
-        .section3-table,
-        .products-table,
-        .products-table-inv {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        .section1-table td,
-        .section2-table td,
-        .section3-table td {
-            border: 1px solid black;
-            padding: 10px;
-        }
-
-        .products-table th,
-        .products-table td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: left;
-        }
-
-        .products-table th {
-            width: 25%;
-        }
-
-        .products-table th:last-child {
-            width: 75%;
-        }
-
-        .products-table-inv th,
-        .products-table-inv td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: left;
-        }
-
-        .products-table-inv th {
-            width: 75%;
-        }
-
-        .products-table-inv th:last-child {
-            width: 25%;
-        }
-
-        .page-break {
-            page-break-before: always;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
-    <main>
-        <table class="section1-table">
-            <tr>
-                <td>Transportadora</td>
-                <td>TRANSPORTADORA: Laar Courier</td>
-            </tr>
-            <tr>
-                <td>RELACION DE GUIAS IMPRESAS</td>
-                <td>FECHA MANIFIESTO (DD/MM/YYYY): 09-01-2024</td>
-            </tr>
-        </table>
+    <script>
+        fetch("http://localhost/guias/GenerarGuia/nueva/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Token-Guia": "Zc46Um3cI8Eh9vce6hn9"
+            },
+            body: JSON.stringify({
+                "id": 1,
+                "nombre": "Guia 1",
+                "descripcion": "Descripcion de la guia 1",
+                "fecha": "2020-10-10",
+                "id_usuario": 1
+            })
+        }).then(response => response.json()).then(data => console.log(data)).catch(error => console.log(error))
 
-        <table class="section2-table">
-            <tr>
-                <td>Nro: 1</td>
-                <td>Guia: IMP21986</td>
-                <td>Ciudad Destino: GUAYAQUIL</td>
-                <td>Valor de Recaudo: 61</td>
-                <td>Tipo de logistica: CON RECAUDO</td>
-            </tr>
-            <!-- Repite filas según sea necesario -->
-        </table>
-
-        <table class="section3-table">
-            <tr>
-                <td>NOMBRE DE AUXILIAR:</td>
-                <td>PLACA DEL VEHICULO:</td>
-                <td>FIRMA DEL AUXILIAR:</td>
-            </tr>
-            <!-- Repite filas según sea necesario -->
-        </table>
-
-        <div class="page-break"></div>
-
-        <table class="products-table">
-
-            <tr>
-                <th>Productos</th>
-                <th>FECHA MANIFIESTO (DD/MM/YYYY) 09-01-2024</th>
-            </tr>
-
-        </table>
-        <table class="products-table-inv">
-            <thead>
-                <tr>
-                    <th>Productos</th>
-                    <th>Cantidad</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>(ID: 536 ) - (SKU: 10019) - DRON AERO JET 306°</td>
-                    <td>1</td>
-                </tr>
-                <!-- Repite filas de productos según sea necesario -->
-            </tbody>
-        </table>
-    </main>
+    </script>
 </body>
 
 </html>

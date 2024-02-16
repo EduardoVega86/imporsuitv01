@@ -44,7 +44,12 @@ if (empty($_POST['abono'])) {
                 $saldo = 0;
                 $cobrado = $rws['monto_recibir'];
             } elseif ($saldo == 0) {
-                $cobrado = $rws['total_venta'] - $rws['costo'] - $rws['precio_envio'];
+                if ($rws['guia_laar'] == "PROVEEDOR" || $rws['guia_laar'] == "REFERIDO") {
+                    $cobrado = $rws['monto_recibir'];
+                } else {
+
+                    $cobrado = $rws['total_venta'] - $rws['costo'] - $rws['precio_envio'];
+                }
                 $bct = $abono;
                 $abono = 0;
             } else {

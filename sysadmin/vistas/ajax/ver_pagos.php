@@ -11,8 +11,13 @@ include "../permisos.php";
 require_once "../funciones.php";
 $user_id        = $_SESSION['id_users'];
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
+$dominio_actual = $_SERVER['HTTP_HOST'];
+
+$dominio_actual = str_replace('www.', '', $dominio_actual);
+$dominio_actual = str_replace('.com', '', $dominio_actual);
+$dominio_actual = str_replace('.net', '', $dominio_actual);
 $action         = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
-if ($action == 'ajax') {
+if ($action == 'ajax' && $dominio_actual == 'marketplace.imporsuit') {
     $daterange = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['range'], ENT_QUOTES)));
     $tables = "pagos";
     $campos = "*";
@@ -43,7 +48,7 @@ if ($action == 'ajax') {
 ?>
 
         <div class="table-responsive">
-            <table class="table table-sm table table-condensed table-hover table-striped ">
+            <table class="table-sm table table-condensed table-hover table-striped ">
                 <tr class="text-center">
                     <th>Numero documento</th>
                     <th>Fecha</th>
@@ -97,6 +102,8 @@ if ($action == 'ajax') {
 
 
 <?php
+    } else {
+        echo "No hay pagos registrados";
     }
 }
 ?>

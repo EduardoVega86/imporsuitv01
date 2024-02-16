@@ -27,6 +27,16 @@ $dominio_actual = str_replace('.com', '', $dominio_actual);
 $dominio_actual = str_replace('.net', '', $dominio_actual);
 
 permisos($modulo, $cadena_permisos);
+if ($_GET['filtro']) {
+    $filtro = $_GET['filtro'];
+    if ($filtro == 'mayor_menor') {
+        $band = "btn-primary";
+        $bandd = "btn-secondary";
+    } else {
+        $band = "btn-secondary";
+        $bandd = "btn-primary";
+    }
+}
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != NULL) ? $_REQUEST['action'] : '';
 if ($dominio_actual == 'marketplace.imporsuit') {
@@ -161,6 +171,17 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $sTable = "cabecera_cuenta_pagar, facturas_cot";
         $sWhere = "";
         $sWhere .= " WHERE  cabecera_cuenta_pagar.tienda = '$dominio_completo' and cabecera_cuenta_pagar.numero_factura=facturas_cot.numero_factura and visto ='1' ";
+        $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : 'todos';
+        //obtiene ?tienda=tienda
+        if ($filtro == 'mayor_menor') {
+            $sWhere .= " and valor_pendiente != 0";
+        } else if ($filtro == 'cero') {
+            $sWhere .= " and valor_pendiente = 0";
+        } else {
+            $sWhere .= "";
+        }
+
+
         if ($_GET['q'] != "") {
             $sWhere .= "";
         }
@@ -169,6 +190,9 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         //pagination variables  
         $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
         $per_page = 10; //how much records you want to show
+        if (isset($_GET["numero"])) {
+            $per_page  = $_GET["numero"]; //how much records you want to show
+        }
         $adjacents  = 4; //gap between pages after number of adjacents
         $offset = ($page - 1) * $per_page;
         //Count the total number of row in your table*/
@@ -328,49 +352,58 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12 col-md-6">
-                    <div class="card-box widget-icon">
-                        <div>
-                            <i class="mdi mdi-cash-multiple text-success"></i>
-                            <div class="wid-icon-info text-right">
-                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
-                                <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($total_valor_cobrado, 2); ?></h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-6">
-                    <div class="card-box widget-icon">
-                        <div>
-                            <i class="mdi mdi-store text-danger "></i>
-                            <div class="wid-icon-info text-right d-flex justify-content-end gap-2">
-                                <div class="col-4">
-                                    &nbsp;
-                                </div>
-
-
-
-                                <div class="">
-                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
-                                    <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_valor_pendiente, 2); ?></h4>
+                    <div class="col-lg-12 col-md-6">
+                        <div class="card-box widget-icon">
+                            <div>
+                                <i class="mdi mdi-cash-multiple text-success"></i>
+                                <div class="wid-icon-info text-right">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($total_valor_cobrado, 2); ?></h4>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12 col-md-6">
-                    <div class="card-box widget-icon">
-                        <div>
-                            <i class="mdi mdi-receipt text-warnihg "></i>
-                            <div class="wid-icon-info text-right">
-                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Guías pendiente de revision</p>
-                                <h4 class="m-t-0 m-b-5 counter font-bold text-warnihg"><?php echo $guias_faltantes ?></h4>
+                    <div class="col-lg-12 col-md-6">
+                        <div class="card-box widget-icon">
+                            <div>
+                                <i class="mdi mdi-store text-danger "></i>
+                                <div class="wid-icon-info text-right d-flex justify-content-end gap-2">
+                                    <div class="col-4">
+                                        &nbsp;
+                                    </div>
+
+
+
+                                    <div class="">
+                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
+                                        <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_valor_pendiente, 2); ?></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-6">
+                        <div class="card-box widget-icon">
+                            <div>
+                                <i class="mdi mdi-receipt text-warnihg "></i>
+                                <div class="wid-icon-info text-right">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Guías pendiente de revision</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-warnihg"><?php echo $guias_faltantes ?></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-8">
+                    <div id="outerpay">
 
+                    </div>
+                </div>
+                <!-- Botones para filtrar registros -->
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Pendientes</button>
+                    <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Pagados</button>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="thead-light">
@@ -509,7 +542,106 @@ if ($dominio_actual == 'marketplace.imporsuit') {
             <?php
             }
         } else {
-            ?>
+            ?><form id="filter-form">
+                <label for="fecha">Fecha:</label>
+                <input type="date" name="fecha" id="fecha">
+                <label for="estado">Estado de Pedido:</label>
+                <select name="estado" id="estado">
+                    <option value="0">Todos</option>
+                    <option value="1">Confirmar</option>
+                    <option value="2">Pick y Pack</option>
+                    <!-- Agrega más opciones según tus estados de pedido -->
+                </select>
+                <button class="btn btn-outline-primary" type="button" onclick="filterData()">Filtrar</button>
+            </form>
+            <div class="col-lg-4">
+
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-basket text-primary"></i>
+                            <div class="wid-icon-info text-right">
+                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">MONTO DE VENTA</p>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($valor_total_tienda, 2); ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-briefcase-check text-primary"></i>
+                            <div class="wid-icon-info text-right d-flex justify-content-end gap-2">
+                                <div class="">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad como Referido</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($ganancias_referido, 2)  ?></h4>
+                                </div>
+                                <div class="">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad como Proveedor</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($ganancias_proveedor, 2)  ?></h4>
+                                </div>
+                                <div class="">
+
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($total_monto_recibir, 2); ?></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-cash-multiple text-success"></i>
+                            <div class="wid-icon-info text-right">
+                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($total_valor_cobrado, 2); ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-store text-danger "></i>
+                            <div class="wid-icon-info text-right d-flex justify-content-end gap-2">
+                                <div class="col-4">
+                                    &nbsp;
+                                </div>
+
+
+
+                                <div class="">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_valor_pendiente, 2); ?></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-6">
+                    <div class="card-box widget-icon">
+                        <div>
+                            <i class="mdi mdi-receipt text-warnihg "></i>
+                            <div class="wid-icon-info text-right">
+                                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Guías pendiente de revision</p>
+                                <h4 class="m-t-0 m-b-5 counter font-bold text-warnihg"><?php echo $guias_faltantes ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div id="outerpay">
+
+                </div>
+            </div>
+
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Pendientes</button>
+                <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Pagados</button>
+            </div>
             <div class="alert alert-warning alert-dismissible" role="alert" align="center">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>Aviso!</strong> No hay Registro de Guias

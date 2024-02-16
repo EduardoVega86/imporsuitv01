@@ -1098,7 +1098,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                                 $span_estado = 'badge-warning';
                                                                                                                                 $estado_guia = 'En Transito';
                                                                                                                                 break;
-                                                                                                                            case '4':
+                                                                                                                            case '3':
                                                                                                                                 $span_estado = 'badge-success';
                                                                                                                                 $estado_guia = 'Entragado';
                                                                                                                                 break;
