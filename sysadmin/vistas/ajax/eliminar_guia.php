@@ -3,12 +3,65 @@
 require_once "../db.php";
 require_once "../php_conexion.php";
 $authData = array(
-     "username" => "import.uio.api",
+    "username" => "import.uio.api",
     "password" => "Imp@rt*23"
 );
 
 $guia = $_POST['guia'];
-$id=$_POST['id'];
+
+if (strpos($guia, "IMP") !== 0) {
+    $authUrl = "https://fast.imporsuit.com/GenerarGuia/anular/" . $guia;
+    $authHeaders = array(
+        'accept: application/json',
+        'Content-Type: application/json',
+        'X-Token-Guia: Zc46Um3cI8Eh9vce6hn9'
+    );
+
+    $chAuth = curl_init($authUrl);
+    curl_setopt($chAuth, CURLOPT_CUSTOMREQUEST, 'POST');
+    curl_setopt($chAuth, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($chAuth, CURLOPT_HTTPHEADER, $authHeaders);
+
+    $authResponse = curl_exec($chAuth);
+
+    $httpCode = curl_getinfo($chAuth, CURLINFO_HTTP_CODE);
+
+    if ($httpCode !== 200) {
+        echo 'Error en la autenticación. Código de estado: ' . $httpCode;
+    } else {
+        $authResult = json_decode($authResponse, true);
+        $token = $authResult['token'];
+        $deleteURL = 'https://fast.imporsuit.com/GenerarGuia/anular/' . $guia;
+        $chDelete = curl_init($deleteURL);
+        $deleteHeaders = array(
+            'X-Token-Guia: Zc46Um3cI8Eh9vce6hn9',
+            'Authorization: Bearer ' . $token,
+        );
+
+        curl_setopt($chDelete, CURLOPT_CUSTOMREQUEST, 'DELETE');
+        curl_setopt($chDelete, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chDelete, CURLOPT_HTTPHEADER, $deleteHeaders);
+
+        $deleteResponse = curl_exec($chDelete);
+
+        $deleteHttpCode = curl_getinfo($chDelete, CURLINFO_HTTP_CODE);
+        if ($deleteHttpCode === 200) {
+            $sql = "UPDATE facturas_cot SET  estado_factura=8
+                                WHERE id_factura='" . $id . "'";
+            $query_update = mysqli_query($conexion, $sql);
+            echo 'ok';
+        } else {
+            echo 'Error al enviar la solicitud DELETE. Código de estado: ' . $deleteHttpCode;
+        }
+
+        curl_close($chDelete);
+    }
+
+    curl_close($chAuth);
+    return;
+}
+
+$id = $_POST['id'];
 //echo $guia;
 // Convertir los datos de autenticación a formato JSON
 $authDataJSON = json_encode($authData);
@@ -43,7 +96,7 @@ if ($httpCode !== 200) {
     $token = $authResult['token'];
 
     // URL para la solicitud DELETE
-    $deleteURL = 'https://api.laarcourier.com:9727/guias/anular/'.$guia;
+    $deleteURL = 'https://api.laarcourier.com:9727/guias/anular/' . $guia;
 
     // Inicializar cURL para la solicitud DELETE con la cabecera de autenticación
     $chDelete = curl_init($deleteURL);
@@ -63,7 +116,7 @@ if ($httpCode !== 200) {
     if ($deleteHttpCode === 200) {
         $sql = "UPDATE facturas_cot SET  estado_factura=8
                                 WHERE id_factura='" . $id . "'";
-    $query_update = mysqli_query($conexion, $sql);
+        $query_update = mysqli_query($conexion, $sql);
         echo 'ok';
     } else {
         echo 'Error al enviar la solicitud DELETE. Código de estado: ' . $deleteHttpCode;
@@ -76,4 +129,3 @@ if ($httpCode !== 200) {
 
 // Cerrar la conexión cURL de autenticación
 curl_close($chAuth);
-?>
