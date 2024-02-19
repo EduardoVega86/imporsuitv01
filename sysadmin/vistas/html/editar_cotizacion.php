@@ -373,12 +373,75 @@ while ($r = $query->fetch_object()) {
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
-                                                <?php
+                                                    <?php
+                                                } else if (strpos($guia_numero, "FAST") === 0) {
+                                                    $estadoGuia  = get_row('guia_laar', 'estado_guia', 'id_pedido', $id_factura);
+                                                    if ($estadoGuia == 4) {
+                                                    ?>
+                                                        <div class="widget-bg-color-icon card-box">
+                                                            <div class="bg-icon bg-icon-danger pull-left">
+                                                                <i class="ti-dashboard text-danger"></i>
+                                                            </div>
+                                                            <div class="text-right">
+                                                                <h5 class="text-dark text-center"><b class=" text-danger">Guía Anulada</b></h5>
+
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    <?php
+                                                    } else {
+                                                        $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                                                        $traking = "https://fast.imporsuit.com/GenerarGuia/visor/" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                    ?>
+                                                        <form role="form" id="datos_pedido">
+                                                            <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="identificacion" name="identificacion" value="">
+                                                            <input type="hidden" id="provinica" name="provinica" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="ciudad_entrega" name="ciudad_entrega" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="direccion_destino" name="direccion_destino" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="referencia" name="referencia" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="telefono" name="telefono" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input id="celular" type="hidden" name="celular" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">
+                                                            <input id="cod" type="hidden" name="cod">
+                                                            <input id="seguro" type="hidden" name="seguro">
+                                                            <input id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
+                                                            <input type="hidden" id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">
+
+
+
+                                                        </form>
+                                                        <div class="row">
+                                                            <div align="center" class="col-md-4">
+                                                                </br>
+
+                                                                <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
+                                                            </div>
+                                                            <div align="center" class="col-md-4">
+                                                                </br>
+
+                                                                <button> <a style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/5.png" alt="" /><br>Ver estado</a></button>
+                                                            </div>
+                                                            <div align="center" class="col-md-4">
+                                                                </br>
+
+
+                                                                <button style="cursor: pointer;" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt="" /><br>Cancelar guia</button>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+
+                                                        </div>
+
+                                                    <?php
+
+                                                    }
                                                 } else {
 
                                                     $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
-                                                ?>
+                                                    ?>
                                                     <form role="form" id="datos_pedido">
                                                         <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                         <input type="hidden" id="identificacion" name="identificacion" value="">

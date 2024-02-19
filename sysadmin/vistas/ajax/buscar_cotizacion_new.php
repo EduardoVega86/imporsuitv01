@@ -433,7 +433,8 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                         echo "Estado no reconocido";
                                                                                                                 }
                                                                                                                 if ($guia_numero != '0') {
-                                                                                                                    echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
+                                                                                                                    if (strpos($guia_numero, "FAST") !== 0)
+                                                                                                                        echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
 
                                                                                                                     if ($drogshipin == 3 || $drogshipin == 4) {
                                                                                                                         $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
@@ -447,7 +448,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                         $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta like '%" . $server_url . "%'");
                                                                                                                     }
                                                                                                                     $estado_guia_for = get_row('guia_laar', 'estado_guia', 'guia_laar', $guia_numero);
-                                                                                                                    if ($estado_guia_for != "0" && strpos($guia_numero, "IMP") === 0) {
+                                                                                                                    if ($estado_guia_for != "0" && strpos($guia_numero, "FAST") !== 0) {
 
                                                                                                                         switch ($estado_guia_for) {
                                                                                                                             case '1':
@@ -525,7 +526,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                                 $span_estado = 'badge-warning';
                                                                                                                                 $estado_guia = 'En Transito';
                                                                                                                                 break;
-                                                                                                                            case '4':
+                                                                                                                            case '3':
                                                                                                                                 $span_estado = 'badge-success';
                                                                                                                                 $estado_guia = 'Entragado';
                                                                                                                                 break;
@@ -1002,7 +1003,9 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                         echo "Estado no reconocido";
                                                                                                                 }
                                                                                                                 if ($guia_numero != '0') {
-                                                                                                                    if ($guia_numero != "guia_local")
+
+
+                                                                                                                    if ($guia_numero != "guia_local" && strpos($guia_numero, "FAST") !== 0)
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
 
                                                                                                                     if ($drogshipin == 3 || $drogshipin == 4) {
