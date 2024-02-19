@@ -43,14 +43,13 @@ if (empty($_POST['mod_id'])) {
     }
     $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
-    if ($server_url == "https://marketplace.imporsuit.com") {
+    if ($server_url != $tienda_venta) {
         $tienda_proveedor = get_row('facturas_cot', 'tienda', 'id_factura', $id);
         $prove_temp = $tienda_proveedor;
         $sql = "UPDATE facturas_cot SET  estado_factura=" . $estado . ", estado_guia_sistema= " . $estado . "
                                 WHERE id_factura='" . $id . "'";
 
         $sql_update_guia = "UPDATE guia_laar SET  estado_guia=" . $estado . " WHERE id_pedido='" . $id_factura_origen . "'";
-        echo $sql_update_guia;
         $archivo_tienda = $prove_temp . '/sysadmin/vistas/db1.php';
         $archivo_destino_tienda = "../db_destino_guia.php";
         $contenido_tienda = file_get_contents($archivo_tienda);
@@ -168,17 +167,6 @@ if (isset($errors)) {
 <?php
 }
 if (isset($messages)) {
-
-?>
-    <div class="alert alert-success" role="alert">
-        <strong>¡Bien hecho!</strong>
-        <?php
-        foreach ($messages as $message) {
-            echo $message;
-        }
-        ?>
-    </div>
-<?php
+    echo json_encode($messages);
 }
-
 ?>

@@ -223,7 +223,7 @@ const solicitar_pago = (e) => {
         Swal.fire({
           icon: "success",
           title: "Correcto",
-          text: "Solicitud enviada correctamente, por favor antes de enviar otra solicitud espere a que el equipo de contabilidad le de respuesta",
+          text: "Solicitud enviada correctamente, por favor antes de enviar otra solicitud espere a que el equipo de contabilidad le de respuesta. \n Los pagos se realizan 24 horas laborales después de la solicitud.",
         }).then((result) => {
           if (result.isConfirmed) {
             location.reload();

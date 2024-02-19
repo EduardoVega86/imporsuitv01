@@ -24,15 +24,23 @@ $("#editar_linea").submit(function (event) {
       $("#resultados_ajax2").html(datos);
       $("#actualizar_datos").attr("disabled", false);
       //load(1);
-      $("#editarLinea").modal("hide");
-
-      window.setTimeout(function () {
-        $(".alert")
-          .fadeTo(200, 0)
-          .slideUp(200, function () {
-            $(this).remove();
-          });
-      }, 2000);
+      let msg = JSON.parse(datos);
+      if (msg[0] === "Linea ha sido actualizada con Exito.") {
+        $.Notification.autoHideNotify(
+          "success",
+          "top right",
+          "Linea ha sido actualizada con Exito.",
+          "Linea ha sido actualizada con Exito."
+        );
+        load(1);
+      } else {
+        $.Notification.autoHideNotify(
+          "error",
+          "top right",
+          "Error al actualizar la linea.",
+          "Comuniquese con Soporte."
+        );
+      }
     },
   });
   event.preventDefault();
