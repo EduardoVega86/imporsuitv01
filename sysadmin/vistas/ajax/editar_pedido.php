@@ -66,9 +66,16 @@ if (empty($_POST['mod_id'])) {
     }
     $query_update = mysqli_query($conexion, $sql);
     $query_update_guia = mysqli_query($conexion, $sql_guia);
-    if ($estado == 3) {
-        $guia = get_row('guia_laar', 'guia_laar', 'id_pedido', $id);
-        $data = array("noGuia" => $guia);
+    echo $estado;
+    if ($estado === 3) {
+        $guia = "select guia_laar from guia_laar where id_pedido = " . $id_factura_origen . " and tienda_venta = '" . $tienda_venta . "'";
+        echo $guia;
+        $guia = mysqli_query($conexion, $guia);
+        $guia = mysqli_fetch_array($guia);
+        $guia = $guia['guia_laar'];
+        echo $id;
+        echo $guia;
+        $data = array("noGuia" => $guia, "estadoActualCodigo" => "7", "novedades" => []);
         $data_string = json_encode($data);
         $ch = curl_init('https://marketplace.imporsuit.com/sysadmin/api/integracion/Laar/');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -79,10 +86,10 @@ if (empty($_POST['mod_id'])) {
             CURLOPT_HTTPHEADER,
             array(
                 'Content-Type: application/json',
-                'Content-Length: ' . strlen($data_string)
             )
         );
         $result = curl_exec($ch);
+        echo $result;
         curl_close($ch);
     }
 
