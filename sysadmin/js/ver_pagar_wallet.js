@@ -81,8 +81,8 @@ $("#add_abono").submit(function (event) {
   event.preventDefault();
 });
 
-$("remove_abono").submit(function (event) {
-  $("#guardar_datos").attr("disabled", true);
+$("#remove_abono").submit(function (event) {
+  $("#guardar_datos2").attr("disabled", true);
   var abono = $("#abono").val();
   //Inicia validacion
   if (isNaN(abono)) {
@@ -111,7 +111,7 @@ $("remove_abono").submit(function (event) {
     },
     success: function (datos) {
       $("#resultados_ajax").html(datos);
-      $("#guardar_datos").attr("disabled", false);
+      $("#guardar_datos2").attr("disabled", false);
       load(1);
       //resetea el formulario
       $("#remove_abono")[0].reset();
@@ -119,7 +119,7 @@ $("remove_abono").submit(function (event) {
       $("#outer_div").load("../ajax/ver_pagos.php");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
       $("#facturas").load("../ajax/cargar_facturas.php");
-      $("#add-stock").modal("hide");
+      $("#remove-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {
         $(".alert")

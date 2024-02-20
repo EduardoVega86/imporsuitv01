@@ -186,15 +186,33 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form class="mb-3" method="post" onsubmit="solicitar_pago(event)">
-                                    <input type="hidden" name="tienda" value="<?php echo $dominio_completo  ?>">
-                                    <div class="form-group">
-                                        <label for="dinero" class="form-label">Cantidad:</label>
-                                        <input type="text" class="form-control" id="dinero" placeholder="Cantidad" autofocus>
-                                    </div>
+                                <?php
+                                $sql_deudas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo'";
+                                $resultado_deudas = mysqli_query($conexion_db, $sql_deudas);
+                                $datos_deudas = mysqli_fetch_assoc($resultado_deudas);
+                                $total_pendiente_a_la_tienda = $datos_deudas['total_pendiente_a_la_tienda'];
+                                if ($total_pendiente_a_la_tienda == 0) {
+                                ?>
 
-                                    <input class="btn btn-outline-success w-100" type="submit" value="Solicitar pago">
-                                </form>
+                                    <form class="mb-3" method="post" onsubmit="solicitar_pago(event)">
+                                        <input type="hidden" name="tienda" value="<?php echo $dominio_completo  ?>">
+                                        <div class="form-group">
+                                            <label for="dinero" class="form-label">Cantidad:</label>
+                                            <input type="text" class="form-control" id="dinero" placeholder="Cantidad" autofocus>
+                                        </div>
+
+                                        <input class="btn btn-outline-success w-100" type="submit" value="Solicitar pago">
+                                    </form>
+                                <?php
+                                } else {
+                                ?>
+                                    <div class="alert alert-warning" role="alert">
+                                        <strong>Advertencia!</strong> No puedes solicitar un pago si tienes deudas pendientes.
+
+                                    </div>
+                                <?php
+                                }
+                                ?>
                             </div>
 
                         </div>
