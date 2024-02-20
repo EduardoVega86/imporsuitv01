@@ -81,6 +81,64 @@ $("#add_abono").submit(function (event) {
   event.preventDefault();
 });
 
+$("remove_abono").submit(function (event) {
+  $("#guardar_datos").attr("disabled", true);
+  var abono = $("#abono").val();
+  //Inicia validacion
+  if (isNaN(abono)) {
+    $.Notification.notify(
+      "error",
+      "bottom center",
+      "NOTIFICACIÓN",
+      "El ABONO NO ES UN DATO VALIDO, INTENTAR DE NUEVO"
+    );
+    $("#abono").focus();
+    $("#guardar_datos").attr("disabled", false);
+    return false;
+  }
+  //Fin validacion
+  var formData = new FormData(this);
+  $.ajax({
+    type: "POST",
+    url: "../ajax/eliminar_abono_wallet.php",
+    data: formData,
+    processData: false,
+    contentType: false,
+    beforeSend: function (objeto) {
+      $("#resultados_ajax").html(
+        '<img src="../../img/ajax-loader.gif"> Cargando...'
+      );
+    },
+    success: function (datos) {
+      $("#resultados_ajax").html(datos);
+      $("#guardar_datos").attr("disabled", false);
+      load(1);
+      //resetea el formulario
+      $("#remove_abono")[0].reset();
+      //cierra la Modal
+      $("#outer_div").load("../ajax/ver_pagos.php");
+      $("#widgets").load("../ajax/cargar_widget_wallet.php");
+      $("#facturas").load("../ajax/cargar_facturas.php");
+      $("#add-stock").modal("hide");
+      //desaparecer la alerta
+      window.setTimeout(function () {
+        $(".alert")
+          .fadeTo(500, 0)
+          .slideUp(500, function () {
+            $(this).remove();
+          });
+      }, 5000);
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(
+        "Error en la solicitud AJAX: " + textStatus + " - " + errorThrown
+      );
+      // Puedes mostrar un mensaje de error al usuario aquí
+    },
+  });
+  event.preventDefault();
+});
+
 function ver_detalles(id_cabecera) {
   var parametros = {
     id_cabecera: id_cabecera,
