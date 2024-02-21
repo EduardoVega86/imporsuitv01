@@ -363,6 +363,43 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 </div>
                             </div>
                         </div>
+                        <?php
+                        $url_ubicacion = $_SERVER["HTTP_HOST"];
+                        $sql_deuda = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `valor_pendiente` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                        $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
+                        $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
+                        $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(valor_pendiente)'];
+
+                        $sql_Ganancia = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                        $valor_total_Ganancia_query = mysqli_query($conexion_db, $sql_Ganancia);
+                        $valor_total_Ganancia_SQL = mysqli_fetch_array($valor_total_Ganancia_query);
+                        $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(valor_pendiente)'];
+
+                        ?>
+
+                        <div class="col-lg-12 col-md-6">
+                            <div class="card-box widget-icon">
+                                <div>
+                                    <i class="mdi mdi-cash-100 text-success "></i>
+                                    <div class="wid-icon-info text-right">
+                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Ganacia de Ventas</p>
+                                        <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_Ganancia, 2); ?></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-6">
+                            <div class="card-box widget-icon">
+                                <div>
+                                    <i class="mdi mdi-exclamation text-danger "></i>
+                                    <div class="wid-icon-info text-right">
+                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Deuda total</p>
+                                        <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente_deuda, 2); ?></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-12 col-md-6">
                             <div class="card-box widget-icon">
                                 <div>
@@ -599,6 +636,44 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <div class="wid-icon-info text-right">
                                     <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
                                     <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($total_valor_cobrado, 2); ?></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php
+                    $url_ubicacion = $_SERVER["HTTP_HOST"];
+                    $sql_deuda = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `valor_pendiente` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                    $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
+                    $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
+                    $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(valor_pendiente)'];
+
+                    $sql_Ganancia = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                    $valor_total_Ganancia_query = mysqli_query($conexion_db, $sql_Ganancia);
+                    $valor_total_Ganancia_SQL = mysqli_fetch_array($valor_total_Ganancia_query);
+                    $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(valor_pendiente)'];
+
+                    ?>
+
+                    <div class="col-lg-12 col-md-6">
+                        <div class="card-box widget-icon">
+                            <div>
+                                <i class="mdi mdi-cash-100 text-success "></i>
+                                <div class="wid-icon-info text-right">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Ganacia de Ventas</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_Ganancia, 2); ?></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-6">
+                        <div class="card-box widget-icon">
+                            <div>
+                                <i class="mdi mdi-exclamation text-danger "></i>
+                                <div class="wid-icon-info text-right">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Deuda total</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente_deuda, 2); ?></h4>
                                 </div>
                             </div>
                         </div>

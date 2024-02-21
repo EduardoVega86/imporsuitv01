@@ -195,6 +195,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
                                     <input class="btn btn-outline-success w-100" type="submit" value="Solicitar pago">
                                 </form>
+
                             </div>
 
                         </div>
