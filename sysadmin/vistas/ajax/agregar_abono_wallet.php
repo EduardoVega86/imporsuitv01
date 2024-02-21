@@ -30,7 +30,7 @@ if (empty($_POST['abono'])) {
     $user_id  = $_SESSION['id_users'];
     $fecha    = date("Y-m-d H:i:s");
 
-    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` WHERE tienda ='$tienda' AND `valor_pendiente` > 0 AND visto ='1' ORDER by monto_recibir ASC;");
+    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` WHERE tienda ='$tienda' AND `valor_pendiente` != 0 AND visto ='1' ORDER by monto_recibir ASC;");
     $i = 0;
     while ($rws = mysqli_fetch_assoc($consultar)) {
         if ($abono > 0) {
