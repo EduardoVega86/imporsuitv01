@@ -203,7 +203,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                 Editar <i class='bx bx-wrench'></i>
                             </a>
 
-                            <a href="#" data-target="#deleteModal" class="delete bg-danger px-2 py-1 text-white rounded" data-toggle="modal" data-id="<?php echo $id_trabajador; ?>">
+                            <a href="#" id="bo_<?php echo $id_trabajador ?>" data-target="#deleteModal" class="delete bg-danger px-2 py-1 text-white rounded" data-toggle="modal" data-id="<?php echo $id_trabajador; ?>">
                                 Borrar<i class='bx bx-trash'></i>
                             </a>
                         </td>
@@ -303,17 +303,13 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                 $(".modal-body #empresa").val(empresa);
             });
 
-            $(document).on("click", ".delete", function() {
-                var id = $(this).data('id');
-                $(".modal-body #id").val(id);
-            });
 
             $(document).on("click", ".nuevo", function() {
                 var id = $(this).data('id');
                 $(".modal-body #id").val(id);
             });
 
-            $("#delete_trabajador").submit(function(event) {
+            $(document).on("click", ".delete", function(event) {
                 Swal.fire({
                     title: '¿Estás seguro?',
                     text: "No podrás revertir esto!",
@@ -324,7 +320,11 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                     confirmButtonText: 'Si, borrar!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        var parametros = $(this).serialize();
+                        var id = $(this).data('id');
+
+                        var parametros = {
+                            "id": id
+                        };
                         $.ajax({
                             type: "POST",
                             url: "../ajax/borrar_trabajador.php",
