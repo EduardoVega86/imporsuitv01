@@ -528,11 +528,16 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                                 break;
                                                                                                                             case '3':
                                                                                                                                 $span_estado = 'badge-success';
-                                                                                                                                $estado_guia = 'Entragado';
+                                                                                                                                $estado_guia = 'Entregado';
                                                                                                                                 break;
                                                                                                                             case '4':
                                                                                                                                 $span_estado = 'badge-danger';
                                                                                                                                 $estado_guia = 'Anulado';
+                                                                                                                                break;
+
+                                                                                                                            case '7':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
                                                                                                                                 break;
                                                                                                                         }
                                                                                                                     } else {

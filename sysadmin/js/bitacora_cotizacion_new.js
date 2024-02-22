@@ -7,6 +7,10 @@ $(document).ready(function () {
     success: function (r) {},
   });
 });
+$("$tienda_q").select2({
+  placeholder: "Selecciona una tienda",
+  allowClear: true,
+});
 $("#editar_linea").submit(function (event) {
   // alert();
   $("#actualizar_datos").attr("disabled", true);
