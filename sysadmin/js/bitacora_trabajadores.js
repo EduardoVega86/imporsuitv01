@@ -98,9 +98,7 @@ function buscar_numero(numero) {
       "&q=" +
       q +
       "&estado=" +
-      estado +
-      "&filtro=" +
-      filtroG,
+      estado,
 
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
@@ -137,9 +135,7 @@ function buscar_estado(estado) {
       "&q=" +
       q +
       "&numero=" +
-      numero +
-      "&filtro=" +
-      filtroG,
+      numero,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
