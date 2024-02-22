@@ -56,7 +56,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
         $sWhere .= " and  trabajadores_envio.estado='$estado'";
     }
 
-    $sWhere .= " order by trabajadores_envio.id desc";
+    $sWhere .= " order by trabajadores_envio.id asc";
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
@@ -119,6 +119,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                 <label for="estado" class="col-sm-2 control-label">Estado</label>
                                 <div class="col-sm-10">
                                     <select class="form-control" id="estado" name="estado" required>
+                                        <option value="">-- Seleccione una opcion --</option>
                                         <option value="1">Activo</option>
                                         <option value="2">Inactivo</option>
                                     </select>
@@ -186,25 +187,30 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                     $empresa       = $row['emp_nombre'];
                     $id_empresa    = $row['emp_id'];
                     $estado        = ($estado == 1) ? "Activo" : "Inactivo";
-                    $badge         = ($estado == "Activo") ? "badge-success text-white rounded px-2 py-1" : "badge-danger";
+                    $estado_val   = ($estado == "Activo") ? 1 : 2;
+                    $badge         = ($estado == "Activo") ? "badge-success text-white rounded px-2 py-1" : "badge-danger text-white rounded px-2 py-1";
+
+                ?>
+                    <tr>
+                        <td class='text-center'><?php echo $id_trabajador; ?></td>
+                        <td class='text-center'><?php echo $empresa; ?></td>
+                        <td class='text-center'><?php echo $nombre; ?></td>
+                        <td class='text-center'><?php echo $contacto; ?></td>
+                        <td class='text-center'><?php echo $placa; ?></td>
+                        <td class='text-center'><span class="<?php echo $badge; ?>"><?php echo $estado; ?></span></td>
+                        <td class='text-center flex gap-2 justify-content-center'>
+                            <a href="#" data-target="#editModal" class="edit bg-warning px-2 py-1 text-white rounded" data-toggle="modal" data-id="<?php echo $id_trabajador; ?>" data-empresa="<?php echo $id_empresa; ?>" data-nombre="<?php echo $nombre; ?>" data-contacto="<?php echo $contacto; ?>" data-placa="<?php echo $placa; ?>" data-estado="<?php echo $estado_val; ?>">
+                                Editar <i class='bx bx-wrench'></i>
+                            </a>
+
+                            <a href="#" data-target="#deleteModal" class="delete bg-danger px-2 py-1 text-white rounded" data-toggle="modal" data-id="<?php echo $id_trabajador; ?>">
+                                Borrar<i class='bx bx-trash'></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php
                 }
                 ?>
-                <tr>
-                    <td class='text-center'><?php echo $id_trabajador; ?></td>
-                    <td class='text-center'><?php echo $empresa; ?></td>
-                    <td class='text-center'><?php echo $nombre; ?></td>
-                    <td class='text-center'><?php echo $contacto; ?></td>
-                    <td class='text-center'><?php echo $placa; ?></td>
-                    <td class='text-center'><span class="<?php echo $badge; ?>"><?php echo $estado; ?></span></td>
-                    <td class='text-center flex gap-2 justify-content-center'>
-                        <a href="#" data-target="#editModal" class="edit bg-warning px-2 py-1 text-white rounded" data-toggle="modal" data-id="<?php echo $id_trabajador; ?>" data-empresa="<?php echo $id_empresa; ?>" data-nombre="<?php echo $nombre; ?>" data-contacto="<?php echo $contacto; ?>" data-placa="<?php echo $placa; ?>" data-estado="<?php echo $estado; ?>">
-                            Editar <i class='bx bx-wrench'></i>
-                        </a>
-
-                        <a href="#" data-target="#deleteModal" class="delete bg-danger px-2 py-1 text-white rounded" data-toggle="modal" data-id="<?php echo $id_trabajador; ?>">
-                            Borrar<i class='bx bx-trash'></i>
-                        </a>
-                    </td>
             </table>
 
         </div>
@@ -219,34 +225,35 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <form class="form-horizontal" method="post" id="edit_trabajador" name="edit_trabajador">
-                        <input type="hidden" class="form-control" id="id" name="id">
                         <div class="modal-header">
                             <h5 class="modal-title" id="editModalLabel">Editar Trabajador</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <input type="hidden" class="form-control" id="id" name="id">
                             <div class="form-group">
                                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
-                                <div class="col-sm-10">
+                                <div class="col">
                                     <input type="text" class="form-control" id="nombre" name="nombre" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="contacto" class="col-sm-2 control-label">Contacto</label>
-                                <div class="col-sm-10">
+                                <div class="col">
                                     <input type="text" class="form-control" id="contacto" name="contacto" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="placa" class="col-sm-2 control-label">Placa</label>
-                                <div class="col-sm-10">
+                                <div class="col">
                                     <input type="text" class="form-control" id="placa" name="placa" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="estado" class="col-sm-2 control-label">Estado</label>
-                                <div class="col-sm-10">
+                                <div class="col">
                                     <select class="form-control" id="estado" name="estado" required>
+                                        <option value="">-- Seleccione una opcion --</option>
                                         <option value="1">Activo</option>
                                         <option value="2">Inactivo</option>
                                     </select>
@@ -254,7 +261,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                             </div>
                             <div class="form-group">
                                 <label for="empresa" class="col-sm-2 control-label">Empresa</label>
-                                <div class="col-sm-10">
+                                <div class="col">
                                     <select class="form-control" id="empresa" name="empresa" required>
                                         <option value="">-- Seleccione una empresa --</option>
                                         <?php
@@ -306,12 +313,42 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                 $(".modal-body #id").val(id);
             });
 
+            $("#delete_trabajador").submit(function(event) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, borrar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var parametros = $(this).serialize();
+                        $.ajax({
+                            type: "POST",
+                            url: "../ajax/borrar_trabajador.php",
+                            data: parametros,
+                            beforeSend: function(objeto) {
+                                $("#resultados").html("Mensaje: Cargando...");
+                            },
+                            success: function(datos) {
+                                $("#resultados").html(datos);
+                                $('#deleteModal').modal('hide');
+                                load(1);
+                            }
+                        });
+                    }
+                });
+            })
+
+
 
             $("#crear_trabajador").submit(function(event) {
                 var parametros = $(this).serialize();
                 $.ajax({
                     type: "POST",
-                    url: "ajax/crear_trabajador.php",
+                    url: "../ajax/crear_trabajador.php",
                     data: parametros,
                     beforeSend: function(objeto) {
                         $("#resultados").html("Mensaje: Cargando...");
@@ -319,6 +356,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                     success: function(datos) {
                         $("#resultados").html(datos);
                         $('#crearTrabajador').modal('hide');
+                        load(1);
                     }
                 });
                 event.preventDefault();
@@ -328,7 +366,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                 var parametros = $(this).serialize();
                 $.ajax({
                     type: "POST",
-                    url: "ajax/editar_trabajador.php",
+                    url: "../ajax/editar_trabajador.php",
                     data: parametros,
                     beforeSend: function(objeto) {
                         $("#resultados").html("Mensaje: Cargando...");
@@ -336,6 +374,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                     success: function(datos) {
                         $("#resultados").html(datos);
                         $('#editModal').modal('hide');
+                        load(1);
                     }
                 });
                 event.preventDefault();
