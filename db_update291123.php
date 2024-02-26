@@ -1253,6 +1253,42 @@ mysqli_query($conexion, "CREATE TABLE `trabajadores_envio` ( `id` int NOT NULL A
 
 mysqli_query($conexion, "INSERT INTO `empresa_envio` (`id`, `nombre`) VALUES (NULL, 'Laar Courier'), (NULL, 'Speed');");
 
+mysqli_query($conexion, "DELETE FROM `ciudad_laar` where pais=2");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Antioquia','5','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Boyacá','15','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Córdoba','23','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Chocó','27','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Nariño','52','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Santander','68','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Meta','50','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Atlántico','8','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Bolívar','13','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Caldas','17','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Caquetá','18','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Cauca','19','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Cesar','20','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Cundinamarca','25','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Huila','41','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('La Guajira','44','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Magdalena','47','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Quindío','63','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Risaralda','66','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Sucre','70','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Tolima','73','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Arauca','81','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Casanare','85','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Putumayo','86','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Amazonas','91','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Guainía','94','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Vaupés','97','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Vichada','99','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Guaviare','95','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Archipiélago de San Andrés, Providencia y Santa Catalina','88','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Bogotá D.C.','11','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Norte de Santander','54','3');");
+mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Valle del Cauca','76','3');");
+
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
