@@ -279,9 +279,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 					<ul class="list-unstyled">
 
 						<li><a href="../html/origen_laar.php">Configurar Origen Laar Courier</a></li>
-						<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
-							<li><a href="../html/bitacora_transportadoras.php">Configurar Transportadores</a></li>
-						<?php } ?>
+						<li><a href="../html/bitacora_transportadoras.php">Configurar Transportadores</a></li>
 
 
 					</ul>
