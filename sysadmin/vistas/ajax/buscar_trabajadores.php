@@ -140,7 +140,7 @@ if ($action == 'ajax') {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary cerrar" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                         </div>
                     </form>
@@ -274,7 +274,7 @@ if ($action == 'ajax') {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary cerrar" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                         </div>
                     </form>
@@ -374,6 +374,17 @@ if ($action == 'ajax') {
                 });
                 event.preventDefault();
             });
+
+
+
+            /*  $(document).on('click', '.cerrar', function() {
+                 $('#crearTrabajador').modal('hide');
+                 $('#editModal').modal('hide');
+             }); */
+
+            $(document).on('click', '.cerrar', function() {
+                $(this).closest('.modal').modal('hide');
+            });
         </script>
 
 
@@ -452,7 +463,7 @@ if ($action == 'ajax') {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary cerrar" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                         </div>
                     </form>
@@ -551,6 +562,9 @@ if ($action == 'ajax') {
                     }
                 });
                 event.preventDefault();
+            });
+            $(document).on('click', '.cerrar', function() {
+                $(this).closest('.modal').modal('hide');
             });
         </script>
 

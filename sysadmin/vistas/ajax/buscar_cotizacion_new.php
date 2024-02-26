@@ -1276,7 +1276,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                     <?php
                                                                                                                         } else {
                                     ?>
-                                        <a href="#" data-target="#motorizado" data-toggle="modal" data-guias="<?php echo $guia_numero; ?>" class="anadir badge badge-warning">Sin motorizado</a>
+                                        <a href="#" data-target="#motorizado" data-toggle="modal" class="anadir badge badge-warning">Sin motorizado</a>
                                 <?php
                                                                                                                         }
                                                                                                                     } else {
