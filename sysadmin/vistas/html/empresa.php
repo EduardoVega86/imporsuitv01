@@ -110,13 +110,23 @@ $row           = mysqli_fetch_array($query_empresa);
 																	?>
 																	<option value="1" selected>ECUADOR</option>
 																	<option value="2">PERÚ</option>
+                                                                                                                                        <option value="3">COLOMBIA</option>
 																	<?php
 																}else{
+                                                                                                                                    if($row["pais"] === '2'){
 																	?>
 																	<option value="1">ECUADOR</option>
 																	<option value="2" selected>PERÚ</option>
+                                                                                                                                        <option value="3" >COLOMBIA</option>
 																	<?php
-																}
+																}else{
+                                                                                                                                    ?>
+																	<option value="1">ECUADOR</option>
+																	<option value="2" >PERÚ</option>
+                                                                                                                                        <option value="3" selected>COLOMBIA</option>
+																	<?php
+                                                                                                                                }
+                                                                                                                                }
 															?>
 														</select>
 													</div>
