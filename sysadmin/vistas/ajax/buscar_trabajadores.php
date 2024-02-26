@@ -35,7 +35,7 @@ if (
 $server_url = $protocol . $_SERVER['HTTP_HOST'];
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
-if ($action == 'ajax' && $server_url == "https://marketplace.imporsuit.com") {
+if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "empresa_envio, trabajadores_envio";
