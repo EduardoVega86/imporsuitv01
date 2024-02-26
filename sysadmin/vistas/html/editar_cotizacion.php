@@ -417,11 +417,7 @@ while ($r = $query->fetch_object()) {
 
                                                                 <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
                                                             </div>
-                                                            <div align="center" class="col-md-4">
-                                                                </br>
 
-                                                                <button> <a style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/5.png" alt="" /><br>Ver estado</a></button>
-                                                            </div>
                                                             <div align="center" class="col-md-4">
                                                                 </br>
 

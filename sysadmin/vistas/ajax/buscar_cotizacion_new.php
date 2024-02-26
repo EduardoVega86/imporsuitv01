@@ -773,7 +773,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         <div class="modal fade" id="motorizado" tabindex="-1" role="dialog" aria-labelledby="motorizadoLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form class="form-horizontal" method="post" id="asignar_motorizadoss" name="asignar_motorizadoss">
+                    <form class="form-horizontal" onsubmit="asignar_motorizado(event)" method="post" id="asignar_motorizadoss" name="asignar_motorizadoss">
                         <div class="modal-header">
                             <h5 class="modal-title" id="motorizadoLabel">Asignar Motorizado</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1261,7 +1261,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                         $query_motorizado = mysqli_query($conexion, $sql_motorizado);
                                                                                                                         $data_motorizado = mysqli_fetch_array($query_motorizado);
                                                                                                                         if (!empty($data_motorizado)) {
-                                                                                                                            $sql_trabajador = "SELECT * FROM trabajadores_envio WHERE id='" . $data_motorizado['id_motorizado'] . "'";
+                                                                                                                            $sql_trabajador = "SELECT * FROM trabajadores_envio WHERE id='" . $data_motorizado['id'] . "'";
                                                                                                                             $query_trabajador = mysqli_query($conexion, $sql_trabajador);
                                                                                                                             $data_trabajador = mysqli_fetch_array($query_trabajador);
 
@@ -1271,7 +1271,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
 
                                     ?>
-                                        <a href="#" data-target="#motorizado_a" data-toggle="modal" data-guias="<?php echo $guia_numero; ?>" data-motorizado="<?php echo $data_trabajador['nombre']; ?>" data-telefono="<?php echo $data_trabajador['contacto']; ?>" data-placa="<?php echo $data_trabajador['placa']; ?>" data-empresa="<?php echo $data_empresa['nombre']; ?>" class="ver badge badge-success">Motorizado</a>
+                                        <a href="#" data-target="#motorizado_a" data-toggle="modal" data-guias="<?php echo $guia_numero; ?>" data-nombrem="<?php echo $data_trabajador['nombre']; ?>" data-telefono="<?php echo $data_trabajador['contacto']; ?>" data-placa="<?php echo $data_trabajador['placa']; ?>" data-empresa="<?php echo $data_empresa['nombre']; ?>" class="ver badge badge-success">Motorizado</a>
 
                                     <?php
                                                                                                                         } else {

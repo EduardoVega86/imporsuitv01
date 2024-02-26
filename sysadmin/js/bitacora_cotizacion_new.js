@@ -448,26 +448,34 @@ $(document).on("click", ".cerrarModal", function () {
   $("#motorizado").modal("hide");
 });
 
-$("#asignar_motorizadoss").submit(function (events) {
-  var parametros = $(this).serialize();
+function asignar_motorizado(event) {
+  event.preventDefault();
+  var guia_fast = $("#guia_fast").val();
+  var motorizado = $("#motorizado_s").val();
+  var parametros = {
+    guia_fast: guia_fast,
+    motorizado: motorizado,
+  };
   $.ajax({
     type: "POST",
     url: "../ajax/asignar_motorizado.php",
-    data: parametros,
+    data: JSON.stringify(parametros),
+    contentType: "application/json",
     beforeSend: function (objeto) {
-      $("#resultados").html("Mensaje: Cargando...");
+      $("#resultados_ajax").html(
+        '<img src="../../img/ajax-loader.gif"> Cargando...'
+      );
     },
     success: function (datos) {
-      $("#resultados").html(datos);
+      $("#resultados_ajax").html(datos);
       $("#motorizado").modal("hide");
       load(1);
     },
   });
-  events.preventDefault();
-});
+}
 
 $(document).on("click", ".ver", function () {
-  var nombre = $(this).data("nombre");
+  var nombre = $(this).data("nombrem");
   var telefono = $(this).data("telefono");
   var placa = $(this).data("placa");
   var empresa = $(this).data("empresa");
