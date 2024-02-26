@@ -1247,6 +1247,11 @@ mysqli_query($conexion, "CREATE TABLE `caracteristicas_tienda` (  `id` int(11) N
 
 mysqli_query($conexion, "UPDATE `user_group` SET `permission` = 'Inicio,1,1,1;Productos,1,1,1;Proveedores,1,1,1;Clientes,1,1,1;Reportes,1,1,1;Configuracion,1,1,1;Usuarios,1,1,1;Permisos,1,1,1;Categorias,1,1,1;Ventas,1,1,1;Compras,1,1,1;Pedidos,1,1,1;Integraciones,1,1,1;Dominios,1,1,1;Wallets,1,1,1;Datos,1,1,1;Referidos,1,1,1;' WHERE `user_group`.`user_group_id` = 1;");
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `nodevolucion` TINYINT NOT NULL DEFAULT '0'");
+mysqli_query($conexion, "CREATE TABLE motorizado_guia ( id int NOT NULL PRIMARY KEY AUTO_INCREMENT, empleado_id int NOT NULL, guia_fast varchar(400) NOT NULL );");
+mysqli_query($conexion, "CREATE TABLE `empresa_envio` (`id` int NOT NULL AUTO_INCREMENT, `nombre` varchar(20) DEFAULT NULL,  PRIMARY KEY (`id`)) ");
+mysqli_query($conexion, "CREATE TABLE `trabajadores_envio` ( `id` int NOT NULL AUTO_INCREMENT, `nombre` varchar(20) DEFAULT NULL, `contacto` varchar(13) DEFAULT NULL, `placa` varchar(10) DEFAULT NULL, `empresa` int NOT NULL, `estado` tinyint DEFAULT '1', PRIMARY KEY (`id`), KEY `empresa` (`empresa`), CONSTRAINT `trabajadores_envio_ibfk_1` FOREIGN KEY (`empresa`) REFERENCES `empresa_envio` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ");
+
+mysqli_query($conexion, "INSERT INTO `empresa_envio` (`id`, `nombre`) VALUES (NULL, 'Laar Courier'), (NULL, 'Speed');");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 

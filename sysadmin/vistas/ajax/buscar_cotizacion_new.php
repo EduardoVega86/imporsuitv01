@@ -40,7 +40,7 @@ if (
 $server_url = $protocol . $_SERVER['HTTP_HOST'];
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
-if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || $server_url == "https://einzas2.imporsuit.com")) {
+if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "facturas_cot, clientes, users";
@@ -97,6 +97,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+    $empresas = mysqli_query($conexion, "SELECT * FROM empresa_envio");
     //echo $sql;
     $query = mysqli_query($conexion, $sql);
     if ($filtro == 'enviado') {
@@ -145,6 +146,53 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
 
     ?>
         <!-- Botones para filtrar registros -->
+
+        <div class="modal fade" id="motorizado" tabindex="-1" role="dialog" aria-labelledby="motorizadoLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form class="form-horizontal" method="post" id="asignar_motorizado" name="asignar_motorizado">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="motorizadoLabel">Asignar Motorizado</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="nombre" class="col-sm-2 control-label">Guia FAST</label>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="guia_fast" name="guia_fast" disabled required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="empresa" class="col-sm-2 control-label">Motorizado</label>
+                                <div class="col">
+                                    <select class="form-control" id="motorizado_s" name="motorizado_s" required>
+                                        <option value="">-- Seleccione un motorizado --</option>
+                                        <?php
+                                        mysqli_data_seek($empresas, 0);
+                                        while ($row = mysqli_fetch_assoc($empresas)) {
+                                            $id_empresa = $row['id'];
+                                            $nombre     = $row['nombre'];
+                                        ?>
+                                            <option value="<?php echo $id_empresa; ?>"><?php echo $nombre; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
 
         <div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -546,16 +594,18 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                     }
                                                                                                                 }
                                                                                                                 if (isset($estado_guia_for)) {
-                                                                                                                    if ($traking != '') {
+                                                                                                                    if ($traking != '' && strpos($guia_numero, "IMP") === 0) {
                                                                                                                 ?>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
-                                    <?php
 
-                                    ?>
                                     <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
                                 <?php
-                                                                                                                    } else {
+                                                                                                                    } else if (strpos($guia_numero, "IMP") !== 0) {
+                                ?>
+                                    <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
+                                    <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
+                                <?php } else {
                                                                                                                         echo '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
                                                                                                                     }
                                 ?>
@@ -715,11 +765,85 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
     //echo $sql;
     $query = mysqli_query($conexion, $sql);
-
+    $empresas = mysqli_query($conexion, "SELECT * FROM trabajadores_envio where estado=1");
     //loop through fetched data0
     if ($numrows > 0) {
         echo mysqli_error($conexion);
-    ?><div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
+    ?>
+        <div class="modal fade" id="motorizado" tabindex="-1" role="dialog" aria-labelledby="motorizadoLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form class="form-horizontal" method="post" id="asignar_motorizado" name="asignar_motorizado">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="motorizadoLabel">Asignar Motorizado</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="nombre" class="col control-label">Guia FAST</label>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="guia_fast" name="guia_fast" disabled required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="empresa" class="col-sm-2 control-label">Motorizado</label>
+                                <div class="col">
+                                    <select class="form-control" id="motorizado_s" name="motorizado_s" required>
+                                        <option value="">-- Seleccione un motorizado --</option>
+                                        <?php
+                                        mysqli_data_seek($empresas, 0);
+                                        while ($row = mysqli_fetch_assoc($empresas)) {
+                                            $id_empresa = $row['id'];
+                                            $nombre     = $row['nombre'];
+                                        ?>
+                                            <option value="<?php echo $id_empresa; ?>"><?php echo $nombre; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary guardarModal">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="motorizado_a" tabindex="-1" role="dialog" aria-labelledby="motorizado_aLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="motorizado_aLabel">Motorizado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="empresa">Empresa</label>
+                            <input type="text" class="form-control" id="empresa" name="empresa" disabled required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" disabled required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Telefono</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" disabled required>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -1121,21 +1245,40 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
                                                                                                                     }
                                                                                                                 }
                                                                                                                 if (isset($estado_guia_for)) {
-                                                                                                                    if ($traking != '') {
+                                                                                                                    if ($traking != '' && strpos($guia_numero, "IMP") === 0) {
                                                                                                                 ?>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
-                                    <?php
 
-                                    ?>
                                     <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
                                 <?php
-                                                                                                                    } else if ($guia_numero == "guia_local") {
+                                                                                                                    } else if (strpos($guia_numero, "IMP") !== 0) {
                                 ?>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
-                                <?php
+                                    <?php
+                                                                                                                        $sql_motorizado = "SELECT * FROM motorizado_guia WHERE guia_fast='" . $guia_numero . "'";
+                                                                                                                        $query_motorizado = mysqli_query($conexion, $sql_motorizado);
+                                                                                                                        $data_motorizado = mysqli_fetch_array($query_motorizado);
+                                                                                                                        if (!empty($data_motorizado)) {
+                                                                                                                            $sql_trabajador = "SELECT * FROM trabajadores_envio WHERE id='" . $data_motorizado['id_motorizado'] . "'";
+                                                                                                                            $query_trabajador = mysqli_query($conexion, $sql_trabajador);
+                                                                                                                            $data_trabajador = mysqli_fetch_array($query_trabajador);
 
+                                                                                                                            $sql_empresa = "SELECT * FROM empresa_envio WHERE id='" . $data_trabajador['empresa'] . "'";
+                                                                                                                            $query_empresa = mysqli_query($conexion, $sql_empresa);
+                                                                                                                            $data_empresa = mysqli_fetch_array($query_empresa);
+
+
+                                    ?>
+                                        <a href="#" data-target="#motorizado_a" data-toggle="modal" data-guias="<?php echo $guia_numero; ?>" data-motorizado="<?php echo $data_trabajador['nombre']; ?>" data-telefono="<?php echo $data_trabajador['contacto']; ?>" data-placa="<?php echo $data_trabajador['placa']; ?>" data-empresa="<?php echo $data_empresa['nombre']; ?>" class="ver badge badge-success">Motorizado</a>
+
+                                    <?php
+                                                                                                                        } else {
+                                    ?>
+                                        <a href="#" data-target="#motorizado" data-toggle="modal" data-guias="<?php echo $guia_numero; ?>" class="anadir badge badge-warning">Sin motorizado</a>
+                                <?php
+                                                                                                                        }
                                                                                                                     } else {
                                                                                                                         echo '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
                                                                                                                     }

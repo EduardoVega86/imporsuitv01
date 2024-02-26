@@ -7,10 +7,6 @@ $(document).ready(function () {
     success: function (r) {},
   });
 });
-$("#tienda_q").select2({
-  placeholder: "Selecciona una tienda",
-  allowClear: true,
-});
 $("#editar_linea").submit(function (event) {
   // alert();
   $("#actualizar_datos").attr("disabled", true);
@@ -442,3 +438,42 @@ const filtrarRegistros = (filtro) => {
     },
   });
 };
+$(document).on("click", ".anadir", function () {
+  var guia_fast = $(this).data("guias");
+  $("#guia_fast").val(guia_fast);
+});
+
+$(document).on("click", ".cerrarModal", function () {
+  $("#guia_fast").val("");
+  $("#motorizado").modal("hide");
+});
+
+$("#asignar_motorizado").submit(function (event) {
+  var parametros = $(this).serialize();
+  $.ajax({
+    type: "POST",
+    url: "../ajax/asignar_motorizado.php",
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#resultados").html("Mensaje: Cargando...");
+    },
+    success: function (datos) {
+      $("#resultados").html(datos);
+      $("#motorizado").modal("hide");
+      load(1);
+    },
+  });
+  event.preventDefault();
+});
+
+$(document).on("click", ".ver", function () {
+  var nombre = $(this).data("nombre");
+  var telefono = $(this).data("telefono");
+  var placa = $(this).data("placa");
+  var empresa = $(this).data("empresa");
+
+  $("#nombre").val(nombre);
+  $("#telefono").val(telefono);
+  $("#placa").val(placa);
+  $("#empresa").val(empresa);
+});

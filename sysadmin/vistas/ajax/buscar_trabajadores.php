@@ -2,11 +2,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-use Illuminate\Support\Str;
-
-/*-------------------------
-Autor: Eduardo Vega
----------------------------*/
 
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
@@ -40,7 +35,7 @@ if (
 $server_url = $protocol . $_SERVER['HTTP_HOST'];
 //Finaliza Control de Permisos
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
-if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || $server_url == "https://einzas2.imporsuit.com")) {
+if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $sTable = "empresa_envio, trabajadores_envio";
@@ -382,8 +377,187 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com" || 
         </script>
 
 
-<?php
+    <?php
+
     } else {
-        echo "<div class='alert alert-warning'>No se encontraron datos</div>";
+    ?>
+
+
+
+
+
+        <div class="col-md-12">
+            <div class="text-right
+            ">
+                <a href="#" data-target="#crearTrabajador" class="nuevo bg-primary px-2 py-1 text-white rounded" data-toggle="modal" data-id="<?php echo $id_trabajador; ?>" data-empresa="<?php echo $id_empresa; ?>" data-nombre="<?php echo $nombre; ?>" data-contacto="<?php echo $contacto; ?>" data-placa="<?php echo $placa; ?>" data-estado="<?php echo $estado; ?>">
+                    <i class='bx bx-plus
+                    '></i> Nuevo
+                </a>
+            </div>
+        </div>
+        <div class="modal fade" id="crearTrabajador" tabindex="-1" role="dialog" aria-labelledby="crearTrabajadorLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form class="form-horizontal" method="post" id="crear_trabajador" name="crear_trabajador">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="crearTrabajadorLabel">Crear Trabajador</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="nombre" class="col-sm-2 control-label">Nombre</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="contacto" class="col-sm-2 control-label">Contacto</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="contacto" name="contacto" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="placa" class="col-sm-2 control-label">Placa</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="placa" name="placa" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="estado" class="col-sm-2 control-label">Estado</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="estado" name="estado" required>
+                                        <option value="">-- Seleccione una opcion --</option>
+                                        <option value="1">Activo</option>
+                                        <option value="2">Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="empresa" class="col-sm-2 control-label">Empresa</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" id="empresa" name="empresa" required>
+                                        <option value="">-- Seleccione una empresa --</option>
+
+                                        <?php
+                                        while ($row = mysqli_fetch_assoc($empresas)) {
+                                            $id_empresa = $row['id'];
+                                            $nombre     = $row['nombre'];
+                                        ?>
+                                            <option value="<?php echo $id_empresa; ?>"><?php echo $nombre; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).on("click", ".edit", function() {
+                var id = $(this).data('id');
+                var nombre = $(this).data('nombre');
+                var contacto = $(this).data('contacto');
+                var placa = $(this).data('placa');
+                var estado = $(this).data('estado');
+                var empresa = $(this).data('empresa');
+                $(".modal-body #id").val(id);
+                $(".modal-body #nombre").val(nombre);
+                $(".modal-body #contacto").val(contacto);
+                $(".modal-body #placa").val(placa);
+                $(".modal-body #estado").val(estado);
+                $(".modal-body #empresa").val(empresa);
+            });
+
+
+            $(document).on("click", ".nuevo", function() {
+                var id = $(this).data('id');
+                $(".modal-body #id").val(id);
+            });
+
+            $(document).on("click", ".delete", function(event) {
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "No podrás revertir esto!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, borrar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var id = $(this).data('id');
+
+                        var parametros = {
+                            "id": id
+                        };
+                        $.ajax({
+                            type: "POST",
+                            url: "../ajax/borrar_trabajador.php",
+                            data: parametros,
+                            beforeSend: function(objeto) {
+                                $("#resultados").html("Mensaje: Cargando...");
+                            },
+                            success: function(datos) {
+                                $("#resultados").html(datos);
+                                $('#deleteModal').modal('hide');
+                                load(1);
+                            }
+                        });
+                    }
+                });
+            })
+
+
+
+            $("#crear_trabajador").submit(function(event) {
+                var parametros = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/crear_trabajador.php",
+                    data: parametros,
+                    beforeSend: function(objeto) {
+                        $("#resultados").html("Mensaje: Cargando...");
+                    },
+                    success: function(datos) {
+                        $("#resultados").html(datos);
+                        $('#crearTrabajador').modal('hide');
+                        load(1);
+                    }
+                });
+                event.preventDefault();
+            });
+
+            $("#edit_trabajador").submit(function(event) {
+                var parametros = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/editar_trabajador.php",
+                    data: parametros,
+                    beforeSend: function(objeto) {
+                        $("#resultados").html("Mensaje: Cargando...");
+                    },
+                    success: function(datos) {
+                        $("#resultados").html(datos);
+                        $('#editModal').modal('hide');
+                        load(1);
+                    }
+                });
+                event.preventDefault();
+            });
+        </script>
+
+
+
+        <div class='alert alert-warning'>No se encontraron datos</div>
+
+<?php
     }
 }
