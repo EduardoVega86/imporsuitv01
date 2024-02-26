@@ -448,7 +448,7 @@ $(document).on("click", ".cerrarModal", function () {
   $("#motorizado").modal("hide");
 });
 
-$("#asignar_motorizado").submit(function (event) {
+$("#asignar_motorizadoss").submit(function (events) {
   var parametros = $(this).serialize();
   $.ajax({
     type: "POST",
@@ -463,7 +463,7 @@ $("#asignar_motorizado").submit(function (event) {
       load(1);
     },
   });
-  event.preventDefault();
+  events.preventDefault();
 });
 
 $(document).on("click", ".ver", function () {

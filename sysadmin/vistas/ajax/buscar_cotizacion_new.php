@@ -773,7 +773,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         <div class="modal fade" id="motorizado" tabindex="-1" role="dialog" aria-labelledby="motorizadoLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form class="form-horizontal" method="post" id="asignar_motorizado" name="asignar_motorizado">
+                    <form class="form-horizontal" method="post" id="asignar_motorizadoss" name="asignar_motorizadoss">
                         <div class="modal-header">
                             <h5 class="modal-title" id="motorizadoLabel">Asignar Motorizado</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
