@@ -770,13 +770,13 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     if ($numrows > 0) {
         echo mysqli_error($conexion);
     ?>
-        <div class="modal fade" id="motorizado" tabindex="-1" role="dialog" aria-labelledby="motorizadoLabel" aria-hidden="true">
+        <div class="modal fade" id="motorizado" tabindex="-1" data-dismiss="model" role="dialog" aria-labelledby="motorizadoLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <form class="form-horizontal" onsubmit="asignar_motorizado(event)" method="post" id="asignar_motorizadoss" name="asignar_motorizadoss">
                         <div class="modal-header">
                             <h5 class="modal-title" id="motorizadoLabel">Asignar Motorizado</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         </div>
                         <div class="modal-body">
 
@@ -814,12 +814,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="motorizado_a" tabindex="-1" role="dialog" aria-labelledby="motorizado_aLabel" aria-hidden="true">
+        <div class="modal fade" id="motorizado_a" tabindex="-1" data-dismiss="modal" role="dialog" aria-labelledby="motorizado_aLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="motorizado_aLabel">Motorizado</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
@@ -837,7 +837,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary cerrarModal" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>

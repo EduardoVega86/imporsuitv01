@@ -265,7 +265,13 @@ class LaarModel extends Query
 
         $cod = $this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $cod = $cod[0]['cod'];
-
+        if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
+            $conexion_tiend  = $this->obtener_conexion($tienda_venta);
+            $sql_tipo = "SELECT precio from ciudad_laar where codigo = '$ciudadD'";
+            $sql_tipo = mysqli_query($conexion_tiend, $sql_tipo);
+            $sql_tipo = mysqli_fetch_array($sql_tipo);
+            $valor_base = $sql_tipo['precio'];
+        }
         if ($cod == 1) {
             if ($drogshipin[0]['drogshipin'] == 4 || $drogshipin[0]['drogshipin'] == 0) {
                 $monto_recibir = $total_guia - $valor_base;
@@ -283,13 +289,7 @@ class LaarModel extends Query
             }
         }
         $monto_recibir = number_format($monto_recibir, 2);
-        if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
-            $conexion_tiend  = $this->obtener_conexion($tienda_venta);
-            $sql_tipo = "SELECT precio from ciudad_laar where codigo = '$ciudadD'";
-            $sql_tipo = mysqli_query($conexion_tiend, $sql_tipo);
-            $sql_tipo = mysqli_fetch_array($sql_tipo);
-            $valor_base = $sql_tipo['precio'];
-        }
+
         $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`,`cod`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
