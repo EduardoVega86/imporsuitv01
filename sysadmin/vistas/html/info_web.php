@@ -147,6 +147,60 @@ $favicon = $row['favicon'];
 															<textarea type="text" class="form-control " name="texto_contactos" value="<?php echo $row["texto_contactos"]; ?>" required autocomplete="off"><?php echo $row["texto_contactos"]; ?></textarea>
 														</div>
 													</div>
+                                                                                                        
+                                                                                                      
+                                                                                                            <div style="background-color: lightyellow" class="card-box">
+                                                                                                                <span class="help-block">Banner Principal </span><br><br><br>
+                                                                                                            <div class="row">
+                                                                                                             <div class="col-sm-6">
+                                                                                                                 <div class="form-group row">
+														<label for="inputPassword3" class="col-sm-2 col-form-label">Titulo</label>
+														<div class="col-sm-10">
+															<input type="text" class="form-control UpperCase" name="titulo_slider" value="<?php echo $row["titulo_slider"]; ?>"  autocomplete="off">
+														</div>
+													</div>
+                                                                                                                 
+                                                                                                                  <div class="form-group row">
+														<label for="inputPassword3" class="col-sm-2 col-form-label">Boton</label>
+														<div class="col-sm-10">
+															<input type="text" class="form-control UpperCase" name="texto_btn_slider" value="<?php echo $row["texto_btn_slider"]; ?>"  autocomplete="off">
+														</div>
+													</div>
+                                                                                                                 
+                                                                                                                  <div class="form-group row">
+														<label for="inputPassword3" class="col-sm-2 col-form-label">Titulo</label>
+														<div class="col-sm-10">
+															<input type="text" class="form-control UpperCase" name="enlace_btn_slider" value="<?php echo $row["enlace_btn_slider"]; ?>"  autocomplete="off">
+														</div>
+													</div>
+                                                                                                             
+                                                                                                             
+                                                                                                             
+														
+														</div>
+                                                                                                                <div class="col-sm-6">
+															<textarea type="text" class="form-control " name="texto_slider" value="<?php echo $row["texto_slider"]; ?>" required autocomplete="off"><?php echo $row["texto_slider"]; ?></textarea>
+                                                                                                                        <span class="help-block">Texto del slider </span>
+                                                                                                                        <div class="form-group row">
+														<label for="inputPassword3" class="col-sm-2 col-form-label">Alineacion</label>
+														<div class="col-sm-10">
+                                                                                                                    <?php $alineacion= $row["alineacion_slider"]; ?>
+                                                                                                                    <select class="form-control" name="alineacion_slider">	
+                                                                                                                        <option value="1" <?php if($alineacion==1 or $alineacion==0){
+                                                                                                                            echo 'selected'; }?>>Izquierda </option>
+                                                                                                                       
+                                                                                                                        <option value="2"  <?php if($alineacion==2){
+                                                                                                                            echo 'selected'; }?>>Centro </option>
+                                                                                                                        <option value="3"  <?php if($alineacion==3){
+                                                                                                                            echo 'selected'; }?>>Derecha </option>
+                                                                                                                        </select>
+														</div>
+													</div>
+                                                                                                                </div>
+                                                                                                                </div>
+                                                                                                           </div>
+													
+                                                                                                        </div>
 													<div class=" row">
 														<div class="col-sm-3">
 															<input type="color" name="color" value="<?php echo $row["color"]; ?>">
