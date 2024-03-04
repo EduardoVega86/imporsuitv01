@@ -6,6 +6,13 @@ $(document).ready(function () {
     url: "../ajax/verificar_guias_pendientes.php",
     success: function (r) {},
   });
+  $(document).ready(function () {
+    $("#miSelect").select2({
+      placeholder: "Selecciona una opción",
+      allowClear: true,
+      // Puedes añadir más opciones de configuración aquí
+    });
+  });
 });
 $("#editar_linea").submit(function (event) {
   // alert();
