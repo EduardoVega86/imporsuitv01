@@ -1288,6 +1288,12 @@ mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_pro
 mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Norte de Santander','54','3');");
 mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Valle del Cauca','76','3');");
 
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `texto_slider` TEXT  NULL AFTER `nodevolucion`;");
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `texto_btn_slider` TEXT NULL AFTER `texto_slider`;");
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `enlace_btn_slider` TEXT NOT NULL AFTER `texto_btn_slider`;");
+ 
+ 
+ 
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
