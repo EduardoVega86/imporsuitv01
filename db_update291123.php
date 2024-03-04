@@ -1291,6 +1291,8 @@ mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_pro
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `texto_slider` TEXT  NULL AFTER `nodevolucion`;");
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `texto_btn_slider` TEXT NULL AFTER `texto_slider`;");
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `enlace_btn_slider` TEXT NOT NULL AFTER `texto_btn_slider`;");
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `titulo_slider` TEXT NULL AFTER `enlace_btn_slider`;");
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `alineacion_slider` INT NOT NULL AFTER `titulo_slider`;");
  
  
  
