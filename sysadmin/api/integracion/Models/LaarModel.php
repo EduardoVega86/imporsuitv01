@@ -240,6 +240,13 @@ class LaarModel extends Query
 
         $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
         $valor_base = $valor_base[0]['precio'];
+        if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
+            $conexion_tiend  = $this->obtener_conexion($tienda_venta);
+            $sql_tipo = "SELECT precio from ciudad_laar where codigo = '$ciudadD'";
+            $sql_tipo = mysqli_query($conexion_tiend, $sql_tipo);
+            $sql_tipo = mysqli_fetch_array($sql_tipo);
+            $valor_base = $sql_tipo['precio'];
+        }
 
         $total_guia = $this->select("SELECT costoproducto FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $total_guia = $total_guia[0]['costoproducto'];
@@ -265,13 +272,7 @@ class LaarModel extends Query
 
         $cod = $this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $cod = $cod[0]['cod'];
-        if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
-            $conexion_tiend  = $this->obtener_conexion($tienda_venta);
-            $sql_tipo = "SELECT precio from ciudad_laar where codigo = '$ciudadD'";
-            $sql_tipo = mysqli_query($conexion_tiend, $sql_tipo);
-            $sql_tipo = mysqli_fetch_array($sql_tipo);
-            $valor_base = $sql_tipo['precio'];
-        }
+
         if ($cod == 1) {
             if ($drogshipin[0]['drogshipin'] == 4 || $drogshipin[0]['drogshipin'] == 0) {
                 $monto_recibir = $total_guia - $valor_base;

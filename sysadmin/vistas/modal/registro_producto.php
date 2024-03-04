@@ -1,6 +1,6 @@
 <?php
 if (isset($conexion)) {
-    ?>
+?>
 	<div id="nuevoProducto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -23,8 +23,8 @@ if (isset($conexion)) {
 									Precios y Stock
 								</a>
 							</li>
-							
-                                                        
+
+
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade show active" id="info">
@@ -46,7 +46,7 @@ if (isset($conexion)) {
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="descripcion" class="control-label">Descripción</label>
-											<textarea class="form-control UpperCase"  id="descripcion" name="descripcion" maxlength="255" autocomplete="off"></textarea>
+											<textarea class="form-control UpperCase" id="descripcion" name="descripcion" maxlength="255" autocomplete="off"></textarea>
 										</div>
 									</div>
 								</div>
@@ -58,14 +58,14 @@ if (isset($conexion)) {
 												<option value="">-- Selecciona --</option>
 												<?php
 
-    $query_categoria = mysqli_query($conexion, "select * from lineas order by nombre_linea");
-    while ($rw = mysqli_fetch_array($query_categoria)) {
-        
-        ?>
+												$query_categoria = mysqli_query($conexion, "select * from lineas order by nombre_linea");
+												while ($rw = mysqli_fetch_array($query_categoria)) {
+
+												?>
 													<option value="<?php echo $rw['id_linea']; ?>"><?php echo $rw['nombre_linea']; ?></option>
-													<?php
-}
-    ?>
+												<?php
+												}
+												?>
 											</select>
 										</div>
 									</div>
@@ -76,32 +76,33 @@ if (isset($conexion)) {
 												<option value="">-- Selecciona --</option>
 												<?php
 
-    $query_proveedor = mysqli_query($conexion, "select * from proveedores order by nombre_proveedor");
-    while ($rw = mysqli_fetch_array($query_proveedor)) {
-        ?>
+												$query_proveedor = mysqli_query($conexion, "select * from proveedores order by nombre_proveedor");
+												while ($rw = mysqli_fetch_array($query_proveedor)) {
+												?>
 													<option value="<?php echo $rw['id_proveedor']; ?>"><?php echo $rw['nombre_proveedor']; ?></option>
-													<?php
-}
-    ?>
+												<?php
+												}
+												?>
 											</select>
 										</div>
 									</div>
 								</div>
-                                                            
-                                                            <div class="row">
+
+								<div class="row">
 									<div class="col-md-12">
-                                                                            <img width="100%" src="../../img_sistema/formato_pro.jpg" alt=""/>
+										<img width="100%" src="../../img_sistema/formato_pro.jpg" alt="" />
 										<div class="form-group">
 											<label for="estado" class="control-label">Formato Pagina Productos:</label>
 											<select class="form-control" id="formato" name="formato" required>
 												<option value="" selected>-- Selecciona --</option>
-												<option value="1" >FORMATO 1</option>
+												<option value="1">FORMATO 1</option>
 												<option value="2">FORMATO 2</option>
+												<option value="3">DRAG AND DROP</option>
 											</select>
 										</div>
 									</div>
-							
-                                                                    
+
+
 								</div>
 								<div class="row">
 									<div class="col-md-4">
@@ -124,7 +125,7 @@ if (isset($conexion)) {
 											</select>
 										</div>
 									</div>
-                                                                    <div class="col-md-4">
+									<div class="col-md-4">
 										<div class="form-group">
 											<label for="impuesto" class="control-label">Online</label>
 											<select class="form-control" id="online" name="online" required>
@@ -140,14 +141,14 @@ if (isset($conexion)) {
 							<div class="tab-pane fade" id="precios">
 
 								<div class="row">
-								<!--<div class="col-md-5">
+									<!--<div class="col-md-5">
 										<div class="form-group">
 											<label for="id_imp" class="control-label">Impuesto:</label>
 											<select id = "id_imp" class = "form-control" name = "id_imp" required autocomplete="off">
 												<option value="">-SELECCIONE-</option>
-												<?php foreach ($impuesto as $i): ?>
+												<?php foreach ($impuesto as $i) : ?>
 													<option value="<?php echo $i->id_imp; ?>"><?php echo $i->nombre_imp; ?></option>
-												<?php endforeach;?>
+												<?php endforeach; ?>
 											</select>
 										</div>
 									</div>-->
@@ -160,7 +161,7 @@ if (isset($conexion)) {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="utilidad" class="control-label">Utilidad %:</label>
-											<input type="text" class="form-control" id="utilidad" name="utilidad" pattern="\d{1,4}"  maxlength="4" onkeyup="precio_venta();" >
+											<input type="text" class="form-control" id="utilidad" name="utilidad" pattern="\d{1,4}" maxlength="4" onkeyup="precio_venta();">
 										</div>
 									</div>
 								</div>
@@ -184,7 +185,7 @@ if (isset($conexion)) {
 											<input type="text" class="form-control" id="precioe" name="precioe" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
 										</div>
 									</div>
-                                                                    <div class="col-md-3">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label for="precioe" class="control-label">P Referencial:</label>
 											<input type="text" class="form-control" id="precion" name="precion" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
@@ -246,21 +247,21 @@ if (isset($conexion)) {
 								</div>
 
 							</div>
-                                                    
-                                                    
+
+
 
 						</div>
 
 
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
-						<button type="submit" class="btn btn-primary waves-effect waves-light" id="guardar_datos">Guardar</button>
-					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
+					<button type="submit" class="btn btn-primary waves-effect waves-light" id="guardar_datos">Guardar</button>
+				</div>
 				</form>
 			</div>
 		</div>
 	</div><!-- /.modal -->
-	<?php
+<?php
 }
 ?>

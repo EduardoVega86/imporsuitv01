@@ -67,6 +67,27 @@ include 'includes/head_producto.php'
 
 
 ?>
+<?php
+if ($formato == 3) {
+  $imporsuit_db = mysqli_connect("194.163.183.231", 'administrador', '69635201d674bcb6f0897604c7c97cf8', 'suit-imporcomex');
+  $url_site = $_SERVER['HTTP_HOST'];
+  $sql_usuario = "SELECT * FROM users WHERE url like '%" . $url_site . "%'";
+  $query_usuario = mysqli_query($imporsuit_db, $sql_usuario);
+  $rw_usuario = mysqli_fetch_array($query_usuario);
+  echo mysqli_error($imporsuit_db);
+  $users = $rw_usuario['id'];
+  $pagina = $nombre_producto . "_" . $users;
+
+
+  echo '
+<frameset>
+<frame src="https://drag.imporsuit.com/' . $pagina . '">
+</frameset>
+    
+';
+  exit;
+}
+?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><!-- comment -->
 <script id="sections-script" data-sections="header,footer" defer="defer" src="js/scripts.js?84"></script><!-- comment -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -314,6 +335,9 @@ include 'includes/head_producto.php'
   </div>
   <!-- END sections: header-group -->
 
+
+
+
   <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <script src="assets/js/bootstrap.bundle.min.js"></script>
@@ -376,21 +400,22 @@ include 'includes/head_producto.php'
                                       ?>
     <?php echo  $image_path . '"'; ?>
     <?php
+
                                       } else {
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                 }
                                                                   ?> alt="" srcset=" <?php
-                                                                                            $subcadena = "http";
+                                                                                      $subcadena = "http";
 
-                                                                                            if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                                                                                            ?>
+                                                                                      if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                                                                                      ?>
     <?php echo  $image_path . '"'; ?>
     <?php
-                                                                                            } else {
+                                                                                      } else {
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                                            }
+                                                                                      }
                                                                   ?> width="1946" height="1946" class="image-magnify-none" sizes="(min-width: 1400px) 715px, (min-width: 990px) calc(55.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)">
                         </div>
                         <button class="product__media-toggle quick-add-hidden product__media-zoom-none" type="button" aria-haspopup="dialog" data-media-id="34523778416921">
