@@ -312,7 +312,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 							<li><a href="../html/tiendas.php">Detalles</a></li>
 						<?php } ?>
 
-						<li><a href="../html/tiendas_clientes.php"></a></li>
+						<li><a href="../html/tiendas_clientes.php">Registro tiendas</a></li>
 
 					</ul>
 				</li>

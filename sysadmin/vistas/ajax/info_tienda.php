@@ -3,7 +3,7 @@
 $get_datos = json_decode(file_get_contents('php://input'), true);
 $tienda = $get_datos['tienda'];
 $conexion_marketplace = mysqli_connect('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
-$sql = "SELECT * FROM plataformas WHERE nombre_tienda = '$tienda' or url_imporsuit like '%$tienda%'";
+$sql = "SELECT * FROM plataformas WHERE nombre_tienda = '$tienda' or url_imporsuit like '%$tienda.%'";
 $query = mysqli_query($conexion_marketplace, $sql);
 $datos = mysqli_fetch_array($query);
 
