@@ -15,7 +15,16 @@ include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
 $modulo = "Tiendas";
-
+function generateRandomString($length = 10)
+{
+    $characters       = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString     = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 permisos($modulo, $cadena_permisos);
 // obtiene el dominio actual
 $dominio = $_SERVER['HTTP_HOST'];
@@ -37,10 +46,10 @@ $server_url = $protocol . $_SERVER['HTTP_HOST'];
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
-    $q      = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
+    $conexion = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
     $sTable = "plataformas";
     $sWhere = "";
-    $sWhere .= " WHERE url_imporsuit = '" . $dominio . "' ";
+    $sWhere .= " WHERE url_imporsuit like '%" . $dominio . "%' ";
 
     $sWhere .= " order by id_plataforma asc";
     include 'pagination.php'; //include pagination file
@@ -78,15 +87,21 @@ if ($action == 'ajax') {
                 while ($row = mysqli_fetch_assoc($query)) {
 
                     $token_pagina = $row['token_pagina'];
+                    $plan = $row['id_plan'];
 
-                    $buscar = "SELECT * FROM tiendas WHERE token_pagina = '$token_pagina'";
+                    if (empty($token_pagina)) {
+                        $token_pagina = generateRandomString(50);
+                        $sql = "UPDATE plataformas SET token_pagina = '$token_pagina' WHERE url_imporsuit like '%$dominio%'";
+                        $query = mysqli_query($conexion, $sql);
+                    }
+
+                    $buscar = "SELECT * FROM plataformas WHERE token_pagina = '$token_pagina'";
                     $result = mysqli_query($conexion, $buscar);
-                    $row2 = mysqli_fetch_assoc($result);
-                    $row3 = $row2;
+
                     while ($row2 = mysqli_fetch_assoc($result)) {
-                        $id_tienda = $row2['id_tienda'];
+                        $id_tienda = $row2['id_plataforma'];
                         $nombre_tienda = $row2['nombre_tienda'];
-                        $dominio_tienda = $row2['dominio_tienda'];
+                        $dominio_tienda = $row2['url_imporsuit'];
                 ?>
                         <tr>
                             <td class='text-center'><?php echo $id_tienda; ?></td>
@@ -96,12 +111,26 @@ if ($action == 'ajax') {
                 <?php
                     }
                 }
-                $plan = $row['plan'];
-                if (count($row2) != 3 && $plan = 3 || count($row2) != 9 && $plan = 4) {
+
+                $cantidad = mysqli_num_rows($query);
+                $row3 = false;
+                if (($cantidad != 3 && $plan == 3) || ($cantidad != 9 && $plan == 4)) {
+                    $row3 = true;
                 }
+
                 ?>
 
             </table>
+
+            <?php
+            if ($row3) {
+            ?>
+                <div class="alert alert-warning" role="alert">
+                    <strong>Advertencia!</strong> Aún no has creado tiendas todas las tiendas que puedes crear con tu plan.
+                </div>
+            <?php
+            }
+            ?>
 
         </div>
 
