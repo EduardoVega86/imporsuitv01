@@ -1293,7 +1293,16 @@ mysqli_query($conexion, "ALTER TABLE `perfil` ADD `texto_btn_slider` TEXT NULL A
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `enlace_btn_slider` TEXT NOT NULL AFTER `texto_btn_slider`;");
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `titulo_slider` TEXT NULL AFTER `enlace_btn_slider`;");
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `alineacion_slider` INT NOT NULL AFTER `titulo_slider`;");
- 
+mysqli_query($conexion, "CREATE TABLE `banner_adicional` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `fondo_banner` text DEFAULT NULL,
+  `titulo` text DEFAULT NULL,
+  `texto_banner` text DEFAULT NULL,
+  `texto_boton` text DEFAULT NULL,
+  `enlace_boton` text DEFAULT NULL,
+  `alineacion` int(11) DEFAULT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_c");
  
  
 
