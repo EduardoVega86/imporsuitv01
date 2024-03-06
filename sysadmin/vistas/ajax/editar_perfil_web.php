@@ -37,6 +37,14 @@ if (empty($_POST['nombre_empresa'])) {
     $texto_precio = $_POST["texto_precio"];
     $texto_contactos = $_POST["texto_contactos"];
     
+    $texto_btn_slider = $_POST["texto_btn_slider"];
+    $enlace_btn_slider = $_POST["enlace_btn_slider"];
+    $titulo_slider = $_POST["titulo_slider"];
+    $alineacion_slider = $_POST["alineacion_slider"];
+    $texto_slider = $_POST["texto_slider"];
+    
+    
+    
 
     $sql = "UPDATE perfil SET nombre_empresa='" . $nombre_empresa . "',
                                             giro_empresa='" . $giro . "',
@@ -59,6 +67,11 @@ if (empty($_POST['nombre_empresa'])) {
                                             whatsapp='" . $whatsapp . "',
                                             color_botones='" . $color_botones . "',
                                                 color_footer='" . $color_footer . "',
+                                                    texto_btn_slider='" . $texto_btn_slider . "',
+                                                    enlace_btn_slider='" . $enlace_btn_slider . "',
+                                                    titulo_slider='" . $titulo_slider . "',
+                                                    alineacion_slider='" . $alineacion_slider . "',
+                                                    texto_slider='" . $texto_slider . "',
                                             codigo_postal='$codigo_postal'
                                             WHERE id_perfil='1'";
     $query_update = mysqli_query($conexion, $sql);

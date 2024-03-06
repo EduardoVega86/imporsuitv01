@@ -1,21 +1,63 @@
 <?php
 session_start();
+if (!isset($_SESSION["comprar"])) {
+  $session_id = 'user_' . mt_rand();
+  $_SESSION["comprar"] = $session_id;
+} else {
+  $session_id = $_SESSION["comprar"];
+}
+if (isset($_GET['id_cat'])) {
+  $id_categoria = $_GET['id_cat'];
+}
+
 require_once "sysadmin/vistas/db.php";
 require_once "sysadmin/vistas/php_conexion.php";
 require_once "sysadmin/vistas/funciones.php";
-// echo 'sysadmin/vistas/ajax/banner/'.get_row('perfil', 'banner', 'id_perfil', 1);
-$id_producto = 0;
-$pagina = 'INICIO';
-//include './includes/style.php';
-include './includes/style.php';
 
+$id_producto = 0;
+$pagina = 'CATALOGO';
+include './auditoria.php';
+include './includes/style.php';
+if (isset($_GET['id_cat'])) {
+  $sql = "select * from lineas where online='1' and padre='$id_categoria'";
+//echo $sql;
+  $query = mysqli_query($conexion, $sql);
+  $categorias = '';
+  while ($row = mysqli_fetch_array($query)) {
+    $id_linea         = $row['id_linea'];
+    $nombre_linea     = $row['nombre_linea'];
+    $padre  = $row['padre'];
+    $categorias .= "'" . $row['id_linea'] . "',";
+  }
+}
 ?>
 <!doctype html>
 <html lang="es">
   <head>
-    
-   
+   <style> 
+   .card {
+  transition: transform .2s; /* Animación para el efecto de hover */
+}
 
+.card:hover {
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño de la tarjeta al pasar el ratón */
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-muted {
+  text-decoration: line-through; /* Efecto tachado para el precio anterior */
+}
+
+.text-price {
+  color: red;
+  font-weight: bold;
+}
+</style> 
 <?php
 include './includes/head_1.php';
 ?>
@@ -31,7 +73,9 @@ include './includes/head_1.php';
     
   </head>
   <body>
-    
+   <?php
+   include 'modal/comprar.php';
+  ?> 
 <header>
  <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
   <div class="container">
@@ -108,51 +152,7 @@ $resultadoAdicionales = $conexion->query("SELECT fondo_banner, texto_banner, tit
 
 ?>
    
-    <div id="myCarousel" style="margin-top: 52px" class="carousel slide" data-bs-ride="carousel">
-    <!-- Indicadores dinámicos -->
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <?php for($i = 1; $i <= $resultadoAdicionales->num_rows; $i++): ?>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="<?php echo $i; ?>" aria-label="Slide <?php echo $i + 1; ?>"></button>
-        <?php endfor; ?>
-    </div>
-    
-    <div class="carousel-inner">
-        <!-- Slide principal -->
-        <div class="carousel-item active" style="background-image: url('<?php echo 'sysadmin/vistas/ajax/' . $banner; ?>');">
-            <div class="container">
-                <div class="carousel-caption <?php echo $alineacion; ?>">
-                    <h1><?php echo $titulo_slider; ?></h1>
-                    <p><?php echo $texto_slider; ?></p>
-                    <p><a class="btn btn-lg btn-primary boton texto_boton"  href="<?php echo $enlace_btn_slider; ?>"><?php echo $text_btn_slider; ?></a></p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Slides adicionales -->
-        <?php while($slide = $resultadoAdicionales->fetch_assoc()): ?>
-        <div class="carousel-item" style="background-image: url('<?php echo 'sysadmin/vistas/ajax/'.$slide['fondo_banner']; ?>');">
-            <div class="container">
-                <div class="carousel-caption text-start">
-                    <h1><?php echo $slide['titulo']; ?></h1>
-                    <p><?php echo $slide['texto_banner']; ?></p>
-                    <p><a class="btn btn-lg btn-primary boton texto_boton" href="<?php echo $slide['enlace']; ?>"><?php echo $slide['texto_boton']; ?></a></p>
-                </div>
-            </div>
-        </div>
-        <?php endwhile; ?>
-    </div>
-    
-    <!-- Controles -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+   
 
     <?php 
 } ?>
@@ -182,24 +182,76 @@ $resultadoAdicionales = $conexion->query("SELECT fondo_banner, texto_banner, tit
   <div class="row">
     <!-- Categoría 1 -->
      <?php
-                     include './auditoria.php';
-                     $sql = "select * from lineas where tipo='1' and online=1";
-                     $query = mysqli_query($conexion, $sql);
-                     while ($row = mysqli_fetch_array($query)) {
-                        $id_linea        = $row['id_linea'];
-                        $nombre_linea      = $row['nombre_linea'];
+                     if (isset($_GET['id_cat'])) {
+                if (isset($categorias) and $categorias != '') {
+                  $lista_cat = substr($categorias, 0, -1);
+                  $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
+                } else {
+                  $lista_cat = "''";
+                  $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria";
+                }
+              } else {
+                $sql = "select * from productos where  pagina_web='1' and stock_producto > 0";
+              }
 
-                        $image_path           = $row['imagen'];
-                        //echo $image_path;
+              $query = mysqli_query($conexion, $sql);
+              $num_registros = mysqli_num_rows($query);
+              //echo $num_registros, ' Productos';
+              while ($row = mysqli_fetch_array($query)) {
+                $id_producto          = $row['id_producto'];
+                $codigo_producto      = $row['codigo_producto'];
+                $nombre_producto      = $row['nombre_producto'];
+                $descripcion_producto = $row['descripcion_producto'];
+                $linea_producto       = $row['id_linea_producto'];
+                $med_producto         = $row['id_med_producto'];
+                $id_proveedor         = $row['id_proveedor'];
+                $inv_producto         = $row['inv_producto'];
+                $impuesto_producto    = $row['iva_producto'];
+                $costo_producto       = $row['costo_producto'];
+                $utilidad_producto    = $row['utilidad_producto'];
+                $precio_producto      = $row['valor1_producto'];
+                $precio_mayoreo       = $row['valor2_producto'];
+                $precio_especial      = $row['valor3_producto'];
+                $precio_normal      = $row['valor4_producto'];
+                $stock_producto       = $row['stock_producto'];
+                $stock_min_producto   = $row['stock_min_producto'];
+                $online   = $row['pagina_web'];
+                $status_producto      = $row['estado_producto'];
+                $date_added           = date('d/m/Y', strtotime($row['date_added']));
+                $image_path           = $row['image_path'];
+                $id_imp_producto      = $row['id_imp_producto'];
+
+              ?>
 
 
-                     ?>
-    <div class="col-md-4">
-      <div class="category-card">
-        <div class="category-image" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path) ?>');"></div>
-        <a class="btn category-button boton texto_boton" href="categoria_1.php?id_cat=<?php echo  $id_linea ?>" role="button"><?php echo  $nombre_linea; ?></a>
+                     
+    
+   <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
+        <div class="img-container" style="aspect-ratio: 1 / 1; overflow: hidden;">
+          <img src="path-to-your-image.jpg" class="card-img-top" alt="Product Name" style="object-fit: cover; width: 100%; height: 100%;">
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Product Name</h5>
+          <p class="card-text flex-grow-1">Brief description of the product...</p>
+          <div class="product-footer mb-2">
+              <?php
+                            if ($precio_normal > 0) {
+                            ?>
+            <span class="text-muted">Before: $XX.XX</span>
+              <?php
+                            
+                                
+                            }
+                            ?>
+            <span class="text-price">$XX.XX</span>
+          </div>
+          <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
+        </div>
       </div>
     </div>
+ 
     <!-- Categoría 2 -->
     
     <!-- Categoría 3 -->
@@ -223,88 +275,10 @@ $resultadoAdicionales = $conexion->query("SELECT fondo_banner, texto_banner, tit
             </p>
     </div>
 </div>
-  <div  class="container mt-4 testimonios">
-
-  <h1 style="text-align: center">Testimonios</h1>
-   <br>
-  <?php
-// Consulta para obtener los testimonios
-$resultadoTestimonios = $conexion->query("SELECT * FROM testimonios");
-$testimonios = [];
-while($fila = $resultadoTestimonios->fetch_assoc()) {
-    $testimonios[] = $fila;
-}
-?>
   
-  <div id="testimonialsCarousel" class="carousel slide testimonios-carousel" data-ride="carousel">
-  <div class="carousel-inner">
-    <?php
-    $totalTestimonios = count($testimonios);
-    for($i = 0; $i < $totalTestimonios; $i+=3) {
-        $isActive = $i == 0 ? 'active' : '';
-        echo '<div class="carousel-item '.$isActive.'">';
-        echo '<div class="container"><div class="row">';
-        
-        for($j = 0; $j < 3; $j++) {
-            if(($i + $j) < $totalTestimonios) {
-                $testimonio = $testimonios[$i + $j];
-                echo '<div class="col-md-4">';
-                echo '<div class="testimonio-container" style="background-color: #fff;">';
-                // Ajusta los siguientes campos según tu estructura de base de datos
-                echo '<img class="testimonio-imagen" src="sysadmin/'.str_replace("../..", "", $testimonio['imagen']).'" alt="Autor">';
-                echo '<p class="testimonio-texto">"'.$testimonio['testimonio'].'"</p>';
-                echo '<p class="testimonio-autor">'.$testimonio['nombre'].'</p>';
-                echo '</div></div>';
-            }
-        }
-        
-        echo '</div></div></div>';
-    }
-    ?>
-  </div>
-  <a class="carousel-control-prev" href="#testimonialsCarousel" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Anterior</span>
-  </a>
-  <a class="carousel-control-next" href="#testimonialsCarousel" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Siguiente</span>
-  </a>
-</div>
-
-</div>
 
 
-  <div class="contact-section ">
-  <div class="container mt-4 contact-section ">
-        <h1 style="text-align: center">Contáctanos</h1>
-        <br>
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="contact-form">
-        
-          <form action="tu-script-de-envio.php" method="POST">
-            <div class="mb-3">
-              <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
-            </div>
-            <div class="mb-3">
-              <input type="email" class="form-control" name="email" placeholder="Email *" required>
-            </div>
-            <div class="mb-3">
-              <input type="tel" class="form-control" name="telefono" placeholder="Teléfono">
-            </div>
-            <div class="mb-3">
-              <textarea class="form-control" name="mensaje" rows="3" placeholder="Mensaje"></textarea>
-            </div>
-            <div class="text-end">
-              <button type="submit" class="btn btn-primary boton">Enviar Mensaje a Whatsapp</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  
   <!-- FOOTER -->
   <!-- Botón flotante para WhatsApp -->
 <a href="https://wa.me/tunúmero" class="whatsapp-float" target="_blank">
@@ -329,7 +303,8 @@ while($fila = $resultadoTestimonios->fetch_assoc()) {
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="js_nuevo/bootstrap.bundle.min.js" type="text/javascript"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="assets/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="assets/js/custom_1.js"></script>
        <script>
 window.onscroll = function() {
   var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
