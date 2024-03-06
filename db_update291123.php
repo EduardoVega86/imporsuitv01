@@ -1302,7 +1302,7 @@ mysqli_query($conexion, "CREATE TABLE `banner_adicional` (
   `enlace_boton` text DEFAULT NULL,
   `alineacion` int(11) DEFAULT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_c");
+) ENGINE=InnoDB DEFAULT CHARSET=latin1");
  
  
 
