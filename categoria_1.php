@@ -230,22 +230,40 @@ $resultadoAdicionales = $conexion->query("SELECT fondo_banner, texto_banner, tit
       <div class="card h-100">
         <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
         <div class="img-container" style="aspect-ratio: 1 / 1; overflow: hidden;">
-          <img src="path-to-your-image.jpg" class="card-img-top" alt="Product Name" style="object-fit: cover; width: 100%; height: 100%;">
+          <img src=" <?php
+                                          $subcadena = "http";
+
+                                          if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                                          ?>
+    <?php echo  $image_path . '"'; ?>
+    <?php
+                                          } else {
+    ?>
+    sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
+                                                                      }
+                                                                        ?> src="<?php
+                $subcadena = "http";
+
+                if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+        ?>
+    <?php echo  $image_path . '"'; ?>
+    <?php
+                } else {
+    ?>
+    sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
+                                                                      }
+                                                                        ?> class="card-img-top" alt="Product Name" style="object-fit: cover; width: 100%; height: 100%;">
         </div>
         <div class="card-body d-flex flex-column">
-          <h5 class="card-title">Product Name</h5>
-          <p class="card-text flex-grow-1">Brief description of the product...</p>
+          <a href="producto_1.php?id=<?php echo $id_producto ?>" ><h5 class="card-title"><?php echo $nombre_producto; ?></h5> </a>
+          <p class="card-text flex-grow-1"><?php echo $descripcion_producto ?></p>
           <div class="product-footer mb-2">
-              <?php
-                            if ($precio_normal > 0) {
-                            ?>
-            <span class="text-muted">Before: $XX.XX</span>
-              <?php
-                            
-                                
-                            }
-                            ?>
-            <span class="text-price">$XX.XX</span>
+             
+            <span class="text-muted"><?php if ($precio_normal > 0) {
+                                        echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_normal;
+                                      } ?></span>
+           
+            <span class="text-price"><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></span>
           </div>
           <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
         </div>
