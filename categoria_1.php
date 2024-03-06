@@ -255,7 +255,7 @@ $resultadoAdicionales = $conexion->query("SELECT fondo_banner, texto_banner, tit
                                                                         ?> class="card-img-top" alt="Product Name" style="object-fit: cover; width: 100%; height: 100%;">
         </div>
         <div class="card-body d-flex flex-column">
-          <a href="producto_1.php?id=<?php echo $id_producto ?>" ><h5 class="card-title"><?php echo $nombre_producto; ?></h5> </a>
+          <a href="producto.php?id=<?php echo $id_producto ?>" ><h5 class="card-title"><?php echo $nombre_producto; ?></h5> </a>
           <p class="card-text flex-grow-1"><?php echo $descripcion_producto ?></p>
           <div class="product-footer mb-2">
              
@@ -306,10 +306,9 @@ $resultadoAdicionales = $conexion->query("SELECT fondo_banner, texto_banner, tit
   <footer class="footer-container footer">
     <div class="container text-center">
         <h3 class="texto_footer">Contacto:</h3>
-        <p class="texto_footer">Los mejores productos en un solo lugar.</p>
-        <p class="texto_footer">AV. COLÓN Y DIEGO DE ALMAGRO</p>
+        <p class="texto_footer"><?php echo get_row('perfil', 'texto_contactos', 'id_perfil', '1'); ?></p>
         <hr class="texto_footer"> <!-- Línea divisoria -->
-        <p class="texto_footer">&copy; 2021 Sitio Web desarrollado por [TU_EMPRESA].</p>
+        <p class="texto_footer">&copy; 2024 Sitio Web desarrollado por IMPORSUIT.</p>
         <p ><a class="texto_footer" href="#">Política</a></p>
     </div>
 </footer>
