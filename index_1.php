@@ -314,10 +314,9 @@ while($fila = $resultadoTestimonios->fetch_assoc()) {
   <footer class="footer-container footer">
     <div class="container text-center">
         <h3 class="texto_footer">Contacto:</h3>
-        <p class="texto_footer">Los mejores productos en un solo lugar.</p>
-        <p class="texto_footer">AV. COLÓN Y DIEGO DE ALMAGRO</p>
+        <p class="texto_footer"><?php echo get_row('perfil', 'texto_contactos', 'id_perfil', '1'); ?></p>
         <hr class="texto_footer"> <!-- Línea divisoria -->
-        <p class="texto_footer">&copy; 2021 Sitio Web desarrollado por [TU_EMPRESA].</p>
+        <p class="texto_footer">&copy; 2024 Sitio Web desarrollado por IMPORSUIT.</p>
         <p ><a class="texto_footer" href="#">Política</a></p>
     </div>
 </footer>

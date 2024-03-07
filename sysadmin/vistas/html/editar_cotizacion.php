@@ -57,6 +57,10 @@ if (isset($_GET['id_factura'])) {
         // if()
         $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
 
+        if ($guia_enviada == 1) {
+            $valor_base = get_row('guia_laar', 'costoflete', 'id_pedido', $id_factura);
+        }
+
 
 
         $_SESSION['id_factura']     = $id_factura;
@@ -303,8 +307,11 @@ while ($r = $query->fetch_object()) {
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Precio de Envío </th>
-                                                                    <td>$<?php if (get_row('guia_laar', 'cod', 'id_pedido', $id_factura) == 1) {
+                                                                    <td>$<?php if (get_row('guia_laar', 'cod', 'id_pedido', $id_factura) == 1 && $guia_enviada != 1) {
                                                                                 $valor_base = $valor_base + ($total_guia * 0.03);
+                                                                            }
+                                                                            if (get_row('guia_laar', 'cod', 'id_pedido', $id_factura) == 1 && $guia_enviada == 1) {
+                                                                                $valor_base = $valor_base + (get_row('guia_laar', 'valorDeclarado', 'id_pedido', $id_factura) * 0.01);
                                                                             }
                                                                             if (get_row('guia_laar', 'valorDeclarado', 'id_pedido', $id_factura) > 1) {
                                                                                 $valor_base = $valor_base + (get_row('guia_laar', 'valorDeclarado', 'id_pedido', $id_factura) * 0.01);
