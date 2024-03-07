@@ -194,28 +194,30 @@ if ($login->isUserLoggedIn() == true) {
             // obtiene el item del localstorage 
             var item = localStorage.getItem('actualizacion');
             // si el item es null, entonces no se ha actualizado
-            if (item == null) {
-                // se crea el item en el localstorage
-                localStorage.setItem('actualizacion', 1);
-                // se redirecciona a la pagina de actualizacion
-                Swal.fire({
-                    title: '¡Actualización!',
-                    text: 'Se ha detectado una actualización, por favor espera mientras se actualiza.',
-                    icon: 'info',
-                    showConfirmButton: false,
-                    didOpen: async () => {
-                        Swal.showLoading()
-                        // se espera 3 segundos
-                        await fetch('../db_update291123.php').then(response => response.text()).then(data => {
-                            Swal.fire({
-                                title: "¡Actualización exitosa!",
-                                text: "Se ha actualizado correctamente, por favor inicia sesión nuevamente.",
-                                icon: "success",
-                                textConfirm: "Aceptar",
-                            })
-                        });
-                    }
-                })
+            if (window.location.origin != "https://yapando.imporsuit.com" && window.location.origin != "https://ecuashop.imporsuit.com" && window.location.origin != "https://onlytap.imporsuit.com") {
+                if (item == null) {
+                    // se crea el item en el localstorage
+                    localStorage.setItem('actualizacion', 1);
+                    // se redirecciona a la pagina de actualizacion
+                    Swal.fire({
+                        title: '¡Actualización!',
+                        text: 'Se ha detectado una actualización, por favor espera mientras se actualiza.',
+                        icon: 'info',
+                        showConfirmButton: false,
+                        didOpen: async () => {
+                            Swal.showLoading()
+                            // se espera 3 segundos
+                            await fetch('../db_update291123.php').then(response => response.text()).then(data => {
+                                Swal.fire({
+                                    title: "¡Actualización exitosa!",
+                                    text: "Se ha actualizado correctamente, por favor inicia sesión nuevamente.",
+                                    icon: "success",
+                                    textConfirm: "Aceptar",
+                                })
+                            });
+                        }
+                    })
+                }
             }
         </script>
     </body>

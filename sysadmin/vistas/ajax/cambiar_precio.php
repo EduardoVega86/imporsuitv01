@@ -19,9 +19,14 @@ $valor_pendiente = $datos['valor_pendiente'];
 $total_venta = $datos['total_venta'];
 $costo = $datos['costo'];
 $estado_guia = $datos['estado_guia'];
-
+$tienda = $datos['tienda'];
 if ($estado_guia == 9) {
-    $actualizada = $precio + ($precio * 0.25);
+    if ($tienda == "https://universalmarkethub.imporsuit.com" || $tienda == "https://yapando.imporsuit.com" || $tienda == "https://onlytap.imporsuit.com" || $tienda == "https://ecuashop.imporsuit.com") {
+        $actualizada = $precio;
+    } else {
+
+        $actualizada = $precio + ($precio * 0.25);
+    }
     $actualizada *= -1;
 } else {
     $actualizada = $total_ventassss - $costoss - $precio;

@@ -266,7 +266,7 @@ if (isset($guia)) {
             `tipoServicio`,`noPiezas`, `peso`,
             `valorDeclarado`, `contiene`,`cod` ,
             `costoflete`,`costoproducto`, `tipocobro`,
-            `comentario`,`valor_costo`, `estado_guia`) 
+            `comentario`,`valor_costo`, `estado_guia`, `id_transporte`) 
         VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$tienda','$url','$id_pedido_cot',"
         . "'$identificacionO','$ciudadO','$nombreO',"
         . "'$direccionO','$refenciaO','$numeroCasaO',"
@@ -276,7 +276,7 @@ if (isset($guia)) {
         . "'','$telefono','$celular',"
         . "'201202002002013','$cantidad_total','2',"
         . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-        . "'0','$observacion','$costo_total',1)";
+        . "'0','$observacion','$costo_total',1, '2')";
     //echo $sql_insertar_guia;
     $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
     /*
@@ -313,7 +313,7 @@ if (isset($guia)) {
             `tipoServicio`,`noPiezas`, `peso`,
             `valorDeclarado`, `contiene`,`cod` ,
             `costoflete`,`costoproducto`, `tipocobro`,
-            `comentario`,`valor_costo`, `estado_guia`) 
+            `comentario`,`valor_costo`, `estado_guia`, `id_transporte`) 
         VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$tienda','$url','$id_pedido_cot',"
         . "'$identificacionO','$ciudadO','$nombreO',"
         . "'$direccionO','$refenciaO','$numeroCasaO',"
@@ -323,7 +323,7 @@ if (isset($guia)) {
         . "'','$telefono','$celular',"
         . "'201202002002013','$cantidad_total','2',"
         . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-        . "'0','$observacion','$costo_total',1)";
+        . "'0','$observacion','$costo_total',1, '2')";
     //echo $sql_insertar_guia_destino;
     //echo $tipo_origen;
     if ($tipo_origen == 1) {
@@ -350,7 +350,7 @@ if (isset($guia)) {
       `tipoServicio`= '201202002002013',`noPiezas`= '$cantidad_total', `peso`= '2',
           `valorDeclarado`= '$valorasegurado', `contiene`= '$productos_guia',`cod` = '$cod_guia',
               `costoflete`= '$costo_envio',`costoproducto`= '$valor_total',
-                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '1'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
+                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '1', `id_transporte` ='2'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
 ";
         // echo $sql_insertar_guia;
         $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
@@ -374,7 +374,7 @@ if (isset($guia)) {
       `tipoServicio`= '201202002002013',`noPiezas`= '$cantidad_total', `peso`= '2',
           `valorDeclarado`= '$valorasegurado', `contiene`= '$productos_guia',`cod` = '$cod_guia',
               `costoflete`= '$costo_envio',`costoproducto`= '$valor_total',
-                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '1'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
+                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '1', `id_transporte` ='2'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
 ";
         //            $sql_insertar_guia_marketplace = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
         //            `identificacionO`,`ciudadO`, `nombreO`,

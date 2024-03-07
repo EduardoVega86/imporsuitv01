@@ -7,7 +7,7 @@ $(document).ready(function () {
     success: function (r) {},
   });
   $(document).ready(function () {
-    $("#miSelect").select2({
+    $("#tienda_q").select2({
       placeholder: "Selecciona una opción",
       allowClear: true,
       // Puedes añadir más opciones de configuración aquí

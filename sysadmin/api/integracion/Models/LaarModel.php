@@ -242,10 +242,16 @@ class LaarModel extends Query
         $valor_base = $valor_base[0]['precio'];
         if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
             $conexion_tiend  = $this->obtener_conexion($tienda_venta);
-            $sql_tipo = "SELECT precio from ciudad_laar where codigo = '$ciudadD'";
+            $sql_tipo = "SELECT * FROM `guia_laar` where guia_laar ='" . $no_guia . "'";
+
             $sql_tipo = mysqli_query($conexion_tiend, $sql_tipo);
             $sql_tipo = mysqli_fetch_array($sql_tipo);
-            $valor_base = $sql_tipo['precio'];
+            if (strpos($no_guia, 'FAST') === true) {
+                $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudadD'");
+                $valor_base = $valor_base[0]['precio'];
+            } else {
+                $valor_base = $sql_tipo['precio'];
+            }
         }
 
         $total_guia = $this->select("SELECT costoproducto FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
@@ -379,7 +385,18 @@ class LaarModel extends Query
 
         $valor_total = $valor_total[0]['valor1_producto'];
 
-        $costo_envio = $valor_base + ($valor_base * 0.25);
+        if ($tienda == "https://yapando.imporsuit.com" || $tienda == "https://onlytap.imporsuit.com" || $tienda == "https://ecuashop.imporsuit.com" || $tienda == "https://universalmarkethub.imporsuit.com") {
+            $conexion_tiend  = $this->obtener_conexion($tienda);
+            $sql_tipo = "SELECT precio from ciudad_laar where codigo = '$ciudad_cot'";
+            $sql_tipo = mysqli_query($conexion_tiend, $sql_tipo);
+            $sql_tipo = mysqli_fetch_array($sql_tipo);
+            $valor_base = $sql_tipo['precio'];
+            $costo_envio = $valor_base;
+        } else {
+
+
+            $costo_envio = $valor_base + ($valor_base * 0.25);
+        }
         $costo_envio = number_format($costo_envio, 2);
 
         $conexion_proveedor = $this->obtener_conexion($tienda_venta);
