@@ -102,11 +102,19 @@ if ($action == 'ajax') {
                         $id_tienda = $row2['id_plataforma'];
                         $nombre_tienda = $row2['nombre_tienda'];
                         $dominio_tienda = $row2['url_imporsuit'];
+                        $tieneDrag = $row2['tieneDrag'];
                 ?>
                         <tr>
                             <td class='text-center'><?php echo $id_tienda; ?></td>
                             <td class='text-center'><?php echo $nombre_tienda; ?></td>
                             <td class='text-center'><?php echo $dominio_tienda; ?></td>
+                            <td class="text-center"><?php
+                                                    if ($tieneDrag == 1) {
+                                                        echo "<input type='checkbox' checked disabled/>";
+                                                    } else {
+                                                        echo "<input  type='checkbox' onclick='drag($id_tienda)' />";
+                                                    }
+                                                    ?></td>
                         </tr>
                 <?php
                     }
@@ -121,7 +129,21 @@ if ($action == 'ajax') {
                 ?>
 
             </table>
-
+            <script>
+                function drag(id) {
+                    var url = "../ajax/drag.php";
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {
+                            id: id
+                        },
+                        success: function(data) {
+                            location.reload();
+                        }
+                    });
+                }
+            </script>
             <?php
             if ($row3) {
             ?>
