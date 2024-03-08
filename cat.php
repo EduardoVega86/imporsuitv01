@@ -101,6 +101,7 @@ h3 #_rsi-buy-now-button { display: none !important }
 <style>
   .drawer {
     visibility: hidden;
+    position: absolute;
   }
   
 </style>
