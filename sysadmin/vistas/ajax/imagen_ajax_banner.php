@@ -15,7 +15,7 @@
         // Allow certain file formats
         if (($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") and $imageFileZise > 0) {
             $errors[] = "<p>Lo sentimos, sólo se permiten archivos JPG , JPEG, PNG y GIF.</p>";
-        } else if ($imageFileZise > 1048576) {
+        } else if ($imageFileZise > 10048576) {
             //1048576 byte=1MB
             $errors[] = "<p>Lo sentimos, pero el archivo es demasiado grande. Selecciona logo de menos de 1MB</p>";
         } else {
