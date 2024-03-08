@@ -82,6 +82,7 @@ if ($action == 'ajax') {
                     <th class="text-center">N° Tienda</th>
                     <th class="text-center">Nombre de la Tienda</th>
                     <th class="text-center">Dominio</th>
+                    <th class="text-center">Drag</th>
                 </tr>
                 <?php
                 while ($row = mysqli_fetch_assoc($query)) {
@@ -139,7 +140,7 @@ if ($action == 'ajax') {
                             id: id
                         },
                         success: function(data) {
-                            location.reload();
+                            load(1)
                         }
                     });
                 }
