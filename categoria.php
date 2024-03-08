@@ -110,6 +110,7 @@ include 'includes/head.php'
   <style>
     .drawer {
       visibility: hidden;
+      position: absolute;
     }
   </style>
 
@@ -368,19 +369,19 @@ include 'includes/head.php'
                                           } else {
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                      }
-                                                                        ?> src="<?php
-                $subcadena = "http";
+                                                                }
+                                                                  ?> src="<?php
+                                                                                $subcadena = "http";
 
-                if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-        ?>
+                                                                                if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                                                                                ?>
     <?php echo  $image_path . '"'; ?>
     <?php
-                } else {
+                                                                                } else {
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                      }
-                                                                        ?> sizes="(min-width: 1400px) 317px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)" alt="" class="motion-reduce" width="1080" height="1080">
+                                                                                }
+                                                                  ?> sizes="(min-width: 1400px) 317px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)" alt="" class="motion-reduce" width="1080" height="1080">
 
                           </div>
                         </div>

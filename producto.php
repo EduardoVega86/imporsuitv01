@@ -105,6 +105,7 @@ if ($formato == 3) {
   <style>
     .drawer {
       visibility: hidden;
+      position: absolute;
     }
   </style>
 
