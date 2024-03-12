@@ -1251,7 +1251,7 @@ mysqli_query($conexion, "CREATE TABLE motorizado_guia ( id int NOT NULL PRIMARY 
 mysqli_query($conexion, "CREATE TABLE `empresa_envio` (`id` int NOT NULL AUTO_INCREMENT, `nombre` varchar(20) UNIQUE DEFAULT NULL,  PRIMARY KEY (`id`)) ");
 mysqli_query($conexion, "CREATE TABLE `trabajadores_envio` ( `id` int NOT NULL AUTO_INCREMENT, `nombre` varchar(20) DEFAULT NULL, `contacto` varchar(13) DEFAULT NULL, `placa` varchar(10) DEFAULT NULL, `empresa` int NOT NULL, `estado` tinyint DEFAULT '1', PRIMARY KEY (`id`), KEY `empresa` (`empresa`), CONSTRAINT `trabajadores_envio_ibfk_1` FOREIGN KEY (`empresa`) REFERENCES `empresa_envio` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) ");
 
-mysqli_query($conexion, "INSERT INTO `empresa_envio` (`id`, `nombre`) VALUES (NULL, 'Laar Courier'), (NULL, 'Speed');");
+mysqli_query($conexion, "INSERT INTO `empresa_envio` (`id`, `nombre`) VALUES (1, 'Laar Courier'), (2, 'Speed'), (3, 'Speed');");
 
 mysqli_query($conexion, "DELETE FROM `ciudad_laar` where pais=2");
 mysqli_query($conexion, "INSERT INTO `provincia_laar` (`provincia`,  `codigo_provincia`, `id_pais`) VALUES ('Antioquia','5','3');");
