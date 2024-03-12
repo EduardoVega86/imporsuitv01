@@ -666,7 +666,7 @@ while ($r = $query->fetch_object()) {
                                                             <span class="help-block">Recaudo </span>
                                                             <select onchange="calcular_guia()" id="cod" name="cod" class="form-control">
                                                                 <option value="0">Seleccionar</option>
-                                                                <option value="1">Con Recuado</option>
+                                                                <option value="1" selected>Con Recuado</option>
                                                                 <option value="0">Sin Recaudo </option>
                                                             </select>
 

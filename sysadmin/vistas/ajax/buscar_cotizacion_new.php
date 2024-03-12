@@ -923,7 +923,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     $guia_numero = '';
                     $impreso = $row['impreso'];
                     $estado_guia = '';
-
+                        $guia_laar_info = $row['guia_laar'];
                     $estado_actual_guia_X = '';
                     switch ($estado_factura) {
 
@@ -1292,8 +1292,10 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             ?>
                         </td>
                         <td class="text-center align-middle">
+
                             <?php if ($drogshipin == 3 || $drogshipin == 4) {
                                 if (strpos($guia_numero, "IMP") === 0) {
+
                             ?>
                                     <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
                                         <option value="">-- Selecciona --</option>

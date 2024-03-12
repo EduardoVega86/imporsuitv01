@@ -168,9 +168,9 @@ $favicon = $row['favicon'];
 													</div>
                                                                                                                  
                                                                                                                   <div class="form-group row">
-														<label for="inputPassword3" class="col-sm-2 col-form-label">Titulo</label>
+														<label for="inputPassword3" class="col-sm-2 col-form-label">Enlace Boton</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control UpperCase" name="enlace_btn_slider" value="<?php echo $row["enlace_btn_slider"]; ?>"  autocomplete="off">
+															<input type="text" class="form-control" name="enlace_btn_slider" value="<?php echo $row["enlace_btn_slider"]; ?>"  autocomplete="off">
 														</div>
 													</div>
                                                                                                              
@@ -179,7 +179,7 @@ $favicon = $row['favicon'];
 														
 														</div>
                                                                                                                 <div class="col-sm-6">
-															<textarea type="text" class="form-control " name="texto_slider" value="<?php echo $row["texto_slider"]; ?>" required autocomplete="off"><?php echo $row["texto_slider"]; ?></textarea>
+															<textarea type="text" class="form-control " name="texto_slider" value="<?php echo $row["texto_slider"]; ?>"  autocomplete="off"><?php echo $row["texto_slider"]; ?></textarea>
                                                                                                                         <span class="help-block">Texto del slider </span>
                                                                                                                         <div class="form-group row">
 														<label for="inputPassword3" class="col-sm-2 col-form-label">Alineacion</label>
