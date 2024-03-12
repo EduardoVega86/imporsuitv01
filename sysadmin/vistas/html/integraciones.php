@@ -77,6 +77,21 @@ while ($r = $query->fetch_object()) {
                                     <!-- <a href="#" class="btn btn-outline-danger">Ver Video</a> -->
                                 </div>
                             </div>
+                            <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                <div class="grid items-center">
+
+                                    <img src="../../img/dropi.jpeg" width="30px" alt="img">
+                                    <h3 class="text-left font-bold">Dropi
+                                </div>
+
+                                </h3>
+                                <p>Mantente informado y actualizado de tus productos en Dropi con nuestra api.</p>
+                                <div class="d-flex flex-column gap-1">
+                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Dropi">
+                                        Conectar
+                                    </button>
+                                </div>
+                            </div>
                             <!-- Modal -->
                             <div class="modal fade" id="facebook" tabindex="-1" role="dialog" aria-labelledby="facebookLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -140,87 +155,161 @@ while ($r = $query->fetch_object()) {
                                     </div>
                                 </div>
                             </div>
+                            <!-- Modal Dropi-->
+                            <div class="modal fade" id="Dropi" tabindex="-1" role="dialog" aria-labelledby="ShopifyLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row d-flex justify-content-center align-items-center">
+                                                <div class="col">
+                                                    <div class="card" style="border-radius: 1rem;">
+                                                        <div class="align-items-center">
+                                                            <div class="card-body p-4 p-lg-5 text-black">
+                                                                <form id="login_dropin">
+                                                                    <div class="d-flex justify-content-center mb-3 pb-1">
+                                                                        <img src="../../img/dropi.jpeg" width="50px" alt="img">
+                                                                        <span class="h1 fw-bold mb-0"> Dropi</span>
+                                                                    </div>
 
+                                                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Iniciar sesión</h5>
+
+                                                                    <div class="form-outline mb-4">
+                                                                        <label class="form-label" for="correo">Email</label>
+                                                                        <input type="email" id="correo" name="correo" class="form-control form-control-lg" />
+
+                                                                    </div>
+
+                                                                    <div class="form-outline mb-4">
+                                                                        <label class="form-label" for="contrasena">Contraseña</label>
+                                                                        <input type="password" id="contrasena" name="contrasena" class="form-control form-control-lg" />
+
+                                                                    </div>
+
+                                                                    <div class="pt-1 mb-4">
+                                                                        <button class="btn btn-dark btn-lg btn-block" type="submit">Iniciar</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Final Modal Dropi-->
+                            </div>
                         </div>
-                    </div>
-                <?php
+                    <?php
                 } else {
-                ?>
-                    <section class="content">
-                        <div class="alert alert-danger" align="center">
-                            <h3>Acceso denegado! </h3>
-                            <p>No cuentas con los permisos necesario para acceder a este módulo.</p>
-                        </div>
-                    </section>
-                <?php
+                    ?>
+                        <section class="content">
+                            <div class="alert alert-danger" align="center">
+                                <h3>Acceso denegado! </h3>
+                                <p>No cuentas con los permisos necesario para acceder a este módulo.</p>
+                            </div>
+                        </section>
+                    <?php
                 }
-                ?>
+                    ?>
 
+                    </div>
+                    <!-- end container -->
             </div>
-            <!-- end container -->
-        </div>
-        <!-- end content -->
+            <!-- end content -->
 
-        <?php require 'includes/pie.php'; ?>
+            <?php require 'includes/pie.php'; ?>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+
 
     </div>
+    <!-- END wrapper -->
+
+    <?php require 'includes/footer_start.php'
+    ?>
     <!-- ============================================================== -->
-    <!-- End Right content here -->
+    <!-- Todo el codigo js aqui-->
     <!-- ============================================================== -->
-
-
-</div>
-<!-- END wrapper -->
-
-<?php require 'includes/footer_start.php'
-?>
-<!-- ============================================================== -->
-<!-- Todo el codigo js aqui-->
-<!-- ============================================================== -->
-<script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-<script>
-    function conectar_pixel(e) {
-        e.preventDefault();
-        const pixel_id = document.getElementById('pixel').value;
-        if (pixel_id == '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Debes ingresar un ID de pixel',
-            })
-            return false;
-        }
-        $.ajax({
-            type: 'POST',
-            url: '../ajax/conectar_pixel.php',
-            data: JSON.stringify({
-                pixel: pixel_id
-            }),
-            success: function(response) {
-                response = JSON.parse(response);
-                if (response == 'oki') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Conectado',
-                        text: 'Se ha conectado correctamente',
-                    })
-                } else
-                if (response == "oku") {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Conectado',
-                        text: 'Se ha actualizado correctamente',
-                    })
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Ha ocurrido un error al conectar',
-                    })
-                }
+    <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
+    <script>
+        function conectar_pixel(e) {
+            e.preventDefault();
+            const pixel_id = document.getElementById('pixel').value;
+            if (pixel_id == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debes ingresar un ID de pixel',
+                })
+                return false;
             }
+            $.ajax({
+                type: 'POST',
+                url: '../ajax/conectar_pixel.php',
+                data: JSON.stringify({
+                    pixel: pixel_id
+                }),
+                success: function(response) {
+                    response = JSON.parse(response);
+                    if (response == 'oki') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Conectado',
+                            text: 'Se ha conectado correctamente',
+                        })
+                    } else
+                    if (response == "oku") {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Conectado',
+                            text: 'Se ha actualizado correctamente',
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Ha ocurrido un error al conectar',
+                        })
+                    }
+                }
+            });
+        }
+        $("#login_dropi").submit(function (event){
+            event.preventDefault();
+            var formdata=new FormData(this);
+            var url_tienda = location.origin + "/sysadmin/api/integracion/Dropi/login";
+
+            $.ajax({
+                url: $url_tienda,
+                type:"POST",
+                data:formdata,
+                success: function (data){
+                    if (data["status"] == false) {Swal.fire({
+                        icon: "error",
+                        title: "Fallo al logear",
+                        text: data["msg"]
+                    })}else if(data["status"] == false) {Swal.fire({
+                        icon: "success",
+                        title: "Usuario correcto",
+                        text: data["msg"]
+                    }).then((result)=>{
+                        if(result.isConfirmed == true){
+                            location.reload();
+                        }
+                    })
+                    }
+                }
+            })
         });
-    }
-</script>
-<?php require 'includes/footer_end.php'
-?>
+    </script>
+    <?php require 'includes/footer_end.php'
+    ?>
