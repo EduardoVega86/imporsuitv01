@@ -1303,8 +1303,9 @@ mysqli_query($conexion, "CREATE TABLE `banner_adicional` (
   `alineacion` int(11) DEFAULT NULL,
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1");
- 
- 
+
+mysqli_query($conexion, "UPDATE `perfil` SET `nodevolucion` = '1' WHERE `perfil`.`id_perfil` = 1;");
+
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
