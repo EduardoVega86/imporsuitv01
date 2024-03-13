@@ -18,34 +18,35 @@ class DropiModel extends Query
         }
     }
 
-    public function expiro_token($usuario){
+    public function expiro_token($usuario)
+    {
         $ultima_fecha = $this->select("SELECT update_at FROM dropi WHERE usuario = '$usuario'");
 
         date_default_timezone_set('America/Guayaquil');
         $fecha_actual = date('Y-m-d H:i:s');
-        $nueva_fecha = strtotime ( '+0 hour' , strtotime ($fecha_actual) ) ; 
-        $nueva_fecha = strtotime ( '+30 minute' , $nueva_fecha ) ;
-        $nueva_fecha = date ( 'Y-m-d H:i:s' , $nueva_fecha);
-        
-        if($ultima_fecha > $nueva_fecha){
+        $nueva_fecha = strtotime('+0 hour', strtotime($fecha_actual));
+        $nueva_fecha = strtotime('+30 minute', $nueva_fecha);
+        $nueva_fecha = date('Y-m-d H:i:s', $nueva_fecha);
+
+        if ($ultima_fecha > $nueva_fecha) {
             return true;
-        }else{
+        } else {
             return false;
         }
-        
     }
 
-    public function get_token($usuario){
+    public function get_token($usuario)
+    {
         $get_token = $this->select("SELECT token FROM dropi WHERE usuario = '$usuario'");
         return $get_token;
     }
 
     public function actualizar_token($usuario, $contrasena)
     {
-        $datos_login= array('email' => $usuario, 'password' => $contrasena, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de');
-        $response1 = $this -> central('login','POST', $datos_login);
+        $datos_login = array('email' => $usuario, 'password' => $contrasena, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de');
+        $response1 = $this->central('login', 'POST', $datos_login);
 
-        if ($response1['isSuccess'] == false){
+        if ($response1['isSuccess'] == false) {
             return false;
         }
         $token = $response1['token'];
@@ -65,10 +66,10 @@ class DropiModel extends Query
 
     public function guardar_usuario($usuario, $contrasena)
     {
-        $datos_login= array('email' => $usuario, 'password' => $contrasena, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de');
-        $response1 = $this -> central('login','POST', $datos_login);
+        $datos_login = array('email' => $usuario, 'password' => $contrasena, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de');
+        $response1 = $this->central('login', 'POST', $datos_login);
 
-        if(empty($response1['isSuccess'])){
+        if (empty($response1['isSuccess'])) {
             return false;
         }
 
@@ -88,48 +89,74 @@ class DropiModel extends Query
         }
     }
 
-    public function get_department($token){
-        $datos_login= array('token' => $token, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de');
-        $response = $this -> central('department','GET', $datos_login);
+    public function get_department($token)
+    {
+        $datos_login = array('token' => $token, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de');
+        $response = $this->central('department', 'GET', $datos_login);
         return $response;
     }
 
-    public function get_bycity($token, $departmen_id){
-        $datos_login= array('token' => $token, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de', 'department_id' => $departmen_id,'rate_type' => '');
-        $response = $this -> central('trajectory/bycity','POST', $datos_login);
+    public function get_bycity($token, $departmen_id)
+    {
+        $datos_login = array('token' => $token, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de', 'department_id' => $departmen_id, 'rate_type' => '');
+        $response = $this->central('trajectory/bycity', 'POST', $datos_login);
         return $response;
     }
 
-    public function get_categories($token){
-        $datos_login= array('token' => $token, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de');
-        $response = $this -> central('categories','GET', $datos_login);
+    public function get_categories($token)
+    {
+        $datos_login = array('token' => $token, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de');
+        $response = $this->central('categories', 'GET', $datos_login);
         return $response;
     }
 
-    public function get_products($token, $keywords){
-        $datos_login= array('token' => $token, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de', 'keywords' => $keywords);
-        $response = $this -> central('products/index','POST', $datos_login);
+    public function get_products($token, $keywords= null, $pageSize= null, $startData= null, $userVerified= null)
+    {
+        $adicional= "";
+        if(isset($keywords)){
+            $adicional .= "'keywords: ". $keywords. "', ";
+        }
+        if(isset($pageSize)){
+            $adicional .= "'pageSize: ". $pageSize. "', ";
+        }
+        if(isset($startData)){
+            $adicional .= "'startData: ". $startData. "', ";
+        }
+        if(isset($userVerified)){
+            $adicional .= "'userVerified: ". $userVerified. "' ";
+        }
+        $datos_login = array('token' => $token, 'white_brand_id' => 'df3e6b0bb66ceaadca4f84cbc371fd66e04d20fe51fc414da8d1b84d31d178de');
+        $response = $this->central('products/index', 'POST', $datos_login, $adicional);
         return $response;
     }
 
 
-    public function central($endpoint, $tipo, $datos){
+    public function central($endpoint, $tipo, $datos, $adicional = null)
+    {
         $destino_url = "https://api.dropi.ec/api/" . $endpoint;
         // Configuración de la solicitud cURL para el servicio de destino
         $ch = curl_init($destino_url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $tipo);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        if (isset($datos['token'])){
+        if (isset($datos['token'])) {
+            if (isset($adicional)) {
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Authorization: Bearer ' . $datos['token'],
+                    $adicional
+                ));
+            } else {
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Authorization: Bearer ' . $datos['token']
+                ));
+            }
+        } else {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json',
-                'Authorization: Bearer '. $datos['token']
+                'Content-Type: application/json'
             ));
-        }else{
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json'
-        ));
-    }
+        }
 
 
         // Realizar la solicitud cURL al servicio de destino

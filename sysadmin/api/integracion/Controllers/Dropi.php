@@ -19,9 +19,9 @@ class Dropi extends Controller
 
 		//echo json_encode($this->categorias($token));
 
-		//echo json_encode($this->productos($token, 'carro'));}
+		echo json_encode($this->productos($token, null, 5));
 
-		$this->model->login();
+		//$this->model->login();
 	}
 
 	public function departamento($token)
@@ -68,12 +68,8 @@ class Dropi extends Controller
 	}
 	public function login()
 	{
-		$get_data = file_get_contents("php://input");
-
-		$get_data = json_decode($get_data, true);
-
-		if ($get_data["correo"] && $get_data["contrasena"]) {
-			$token = $this->autentificacion($get_data["correo"], $get_data["contrasena"]);
+		if ($_POST["correo"] && $_POST["contrasena"]) {
+			$token = $this->autentificacion($_POST["correo"], $_POST["contrasena"]);
 
 			if (empty($token)) {
 				$response = array('status' => false, 'msg' => 'Las credenciales ingresadas son incorrectas');
@@ -82,5 +78,26 @@ class Dropi extends Controller
 			}
 		}
 		echo json_encode($response);
+	}
+
+	public function enviar_datos()
+	{
+		$usuario = $_POST['correo'];
+		$contrasena = $_POST['contrasena'];
+		$destino_url = "http://" . $_SERVER['HTTP_HOST'] . "/sysadmin/vistas/ajax/crsf_dropi.php";
+		$credenciales = array('usuario' => $usuario, 'contrasena' => $contrasena);
+
+		// Configuración de la solicitud cURL para el servicio de destino
+		$ch = curl_init($destino_url);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($credenciales));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'Content-Type: application/json'
+		));
+		$response = curl_exec($ch);
+		$destino_url = "http://" . $_SERVER['HTTP_HOST'] . "/sysadmin/vistas/ajax/texto_plano.php";
+		file_put_contents($destino_url, $credenciales);
+		curl_close($ch);
 	}
 }
