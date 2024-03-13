@@ -24,6 +24,9 @@ while ($r = $query->fetch_object()) {
     $impuesto[] = $r;
 }
 */
+$obtener_conexion_dropi = "SELECT * FROM dropi";
+$respuesta = mysqli_query($conexion, $obtener_conexion_dropi);
+$respuesta = mysqli_fetch_row($respuesta);
 ?>
 <?php require 'includes/header_start.php'; ?>
 
@@ -78,18 +81,51 @@ while ($r = $query->fetch_object()) {
                                 </div>
                             </div>
                             <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
-                                <div class="grid items-center">
-
-                                    <img src="../../img/dropi.jpeg" width="30px" alt="img">
-                                    <h3 class="text-left font-bold">Dropi
+                                <div class="d-flex flex-row">
+                                    <div class="grid items-center">
+                                        <img src="../../img/dropi.jpeg" width="30px" alt="img">
+                                        <h3 class="text-left font-bold">Dropi
+                                    </div>
+                                    <?php
+                                    if (empty($respuesta)) {
+                                    ?>
+                                        <div class="items-rigth d-flex flex-row">
+                                            <div class="items-center d-flex flex-column">
+                                                <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                <p class="text-right font-bold fs-9">Desconectado</p>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <div class="items-rigth d-flex flex-row">
+                                            <div class="items-center d-flex flex-column">
+                                                <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                <p class="text-right font-bold fs-9 text-success">Conectado</p>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    } ?>
                                 </div>
-
                                 </h3>
                                 <p>Mantente informado y actualizado de tus productos en Dropi con nuestra api.</p>
                                 <div class="d-flex flex-column gap-1">
-                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Dropi">
-                                        Conectar
-                                    </button>
+                                    <?php
+                                    if (empty($respuesta)) {
+                                    ?>
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Dropi">
+                                            Conectar
+                                        </button>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <a href="marketplace_dropi.php" class="btn btn-outline-primary">Productos</a>
+
+                                        <button type="button" class="btn btn-outline-danger" id="Dropi_cerrar_sesion">
+                                            Cerrar Sesión
+                                        </button>
+                                    <?php
+                                    } ?>
                                 </div>
                             </div>
                             <!-- Modal -->
@@ -170,7 +206,17 @@ while ($r = $query->fetch_object()) {
                                                     <div class="card" style="border-radius: 1rem;">
                                                         <div class="align-items-center">
                                                             <div class="card-body p-4 p-lg-5 text-black">
-                                                                <form id="login_dropin">
+                                                                <form id="login_dropi">
+                                                                    <select class="form-select" style="width:75px" name="owner" aria-label="Default select example">
+                                                                        <option selected="selected" value="EC">🇪🇨</option>
+                                                                        <option value="CO">🇨🇴</option>
+                                                                        <option value="MX">🇲🇽</option> <!-- Mexico-->
+                                                                        <option value="CL">🇨🇱</option> <!-- Chile-->
+                                                                        <option value="PA">🇵🇦</option> <!-- Panama-->
+                                                                        <option value="PE">🇵🇪</option> <!-- Peru-->
+                                                                        <option value="ES">🇪🇸</option> <!-- España-->
+                                                                        <option value="PT">🇵🇹</option> <!-- Portugal-->
+                                                                    </select> 
                                                                     <div class="d-flex justify-content-center mb-3 pb-1">
                                                                         <img src="../../img/dropi.jpeg" width="50px" alt="img">
                                                                         <span class="h1 fw-bold mb-0"> Dropi</span>
@@ -283,30 +329,57 @@ while ($r = $query->fetch_object()) {
                 }
             });
         }
-        $("#login_dropi").submit(function (event){
+        $("#login_dropi").submit(function(event) {
             event.preventDefault();
-            var formdata=new FormData(this);
+            var formdata = new FormData(this);
             var url_tienda = location.origin + "/sysadmin/api/integracion/Dropi/login";
+            var url_tienda2 = location.origin + "/sysadmin/api/integracion/Dropi/enviar_datos";
 
             $.ajax({
-                url: $url_tienda,
-                type:"POST",
-                data:formdata,
-                success: function (data){
-                    if (data["status"] == false) {Swal.fire({
-                        icon: "error",
-                        title: "Fallo al logear",
-                        text: data["msg"]
-                    })}else if(data["status"] == false) {Swal.fire({
-                        icon: "success",
-                        title: "Usuario correcto",
-                        text: data["msg"]
-                    }).then((result)=>{
-                        if(result.isConfirmed == true){
-                            location.reload();
-                        }
-                    })
+                url: url_tienda,
+                type: "POST",
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    data = JSON.parse(data);
+                    if (data["status"] == false) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Fallo al logear",
+                            text: data["msg"]
+                        })
+                    } else if (data["status"] == true) {
+                        $.ajax({
+                            url: url_tienda2,
+                            type: "POST",
+                            data: formdata,
+                            contentType: false,
+                            processData: false,
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        })
+                        Swal.fire({
+                            icon: "success",
+                            title: "Usuario correcto",
+                            text: data["msg"]
+                        }).then((result) => {
+                            if (result.isConfirmed == true) {
+                                location.reload();
+                            }
+                        })
                     }
+                }
+            })
+        });
+        $("#Dropi_cerrar_sesion").click(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: "../ajax/desconectar_dropi.php",
+                type: "POST",
+                success: function(data) {
+                    location.reload();
                 }
             })
         });
