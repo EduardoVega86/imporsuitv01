@@ -46,6 +46,9 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
     .image-bn:hover {
         filter: grayscale(0%);
     }
+    .formulario {
+    border-radius: 25px; /* O un valor alto para garantizar bordes completamente redondeados */
+}
 </style>
 <!-- Begin page -->
 <div id="wrapper" class="forced enlarged"> <!-- DESACTIVA EL MENU -->
@@ -92,21 +95,21 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                         <div class="form-group row">
                                                             <label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
                                                             <div class="col-md-2">
-                                                                <input type="text" class="form-control" id="barcode_qty" value="1" autocomplete="off">
+                                                                <input type="text" class="form-control formulario" id="barcode_qty" value="1" autocomplete="off">
                                                                 <input type="hidden" id="parametro" name="parametro" value="<?php echo $parametro; ?>">
                                                             </div>
 
                                                             <label for="condiciones" class="control-label">Codigo:</label>
                                                             <div class="col-md-5" align="left">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" id="barcode" autocomplete="off" tabindex="1" autofocus="true">
+                                                                    <input type="text" class="form-control formulario" id="barcode" autocomplete="off" tabindex="1" autofocus="true">
                                                                     <span class="input-group-btn">
                                                                         <button type="submit" class="btn btn-default"><span class="fa fa-barcode"></span></button>
                                                                     </span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2">
-                                                                <button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar">
+                                                                <button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light formulario" data-toggle="modal" data-target="#buscar">
                                                                     <span class="fa fa-search"></span> Buscar
                                                                 </button>
                                                             </div>
@@ -132,58 +135,31 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Nombre Destinatario </span>
 
-                                                                <input type="text" class="datos form-control" id="nombre" name="nombre" placeholder="Nombre y Apellido *" required>
+                                                                <input type="text" class="datos form-control formulario" id="nombre" name="nombre" placeholder="Nombre y Apellido *" required>
                                                                 <input type="hidden" class="form-control" id="session" name="session" value="<?php echo $session_id; ?>">
                                                                 <input type="hidden" class="form-control" id="cliente" name="cliente" value="1">
                                                             </div>
 
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Telefono </span>
-                                                                <input type="text" class="datos form-control" id="telefono" name="telefono" placeholder="Telefono *" required>
+                                                                <input type="text" class="datos form-control formulario" id="telefono" name="telefono" placeholder="Telefono *" required>
 
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Celular </span>
-                                                                <input id="celular" name="celular" class="form-control" placeholder="Celular" value="">
+                                                                <input id="celular" name="celular" class="form-control formulario" placeholder="Celular" value="">
 
                                                             </div>
 
                                                         </div>
                                                         <div class="row">
 
-                                                            <div class="col-md-4">
-                                                                <span class="help-block">Provincia </span>
-                                                                <select onchange="cargar_provincia_pedido()" class="datos form-control" id="provinica" name="provinica" required>
-                                                                    <option value="">Provincia *</option>
-                                                                    <?php
-                                                                    $sql2 = "select * from provincia_laar where id_pais=$pais";
-                                                                    $query2 = mysqli_query($conexion, $sql2);
-
-                                                                    while ($row2 = mysqli_fetch_array($query2)) {
-                                                                        $id_prov = $row2['id_prov'];
-                                                                        $provincia = $row2['provincia'];
-                                                                        $cod_provincia = $row2['codigo_provincia'];
-
-                                                                        // Obtener el valor almacenado en la tabla orgien_laar
-                                                                        $valor_seleccionado = $provinciadestino;
-
-                                                                        // Verificar si el valor actual coincide con el almacenado en la tabla
-                                                                        $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
-
-                                                                        // Imprimir la opción con la marca de "selected" si es el valor almacenado
-                                                                        echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
-                                                                    }
-                                                                    ?>
-                                                                </select>
-
-
-
-                                                            </div>
+                                                            
 
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Ciudad </span>
                                                                 <div id="div_ciudad">
-                                                                    <select class="datos form-control" onclick="" id="ciudad_entrega" name="ciudad_entrega" required>
+                                                                    <select class="datos form-control formulario" onclick="" id="ciudad_entrega" name="ciudad_entrega" required>
                                                                         <option value="">Ciudad *</option>
                                                                         <?php
                                                                         $sql2 = "select * from ciudad_laar ";
@@ -209,9 +185,37 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 </div>
 
                                                             </div>
+                                                            <div class="col-md-4">
+                                                                <span class="help-block">Provincia </span>
+                                                                <select onchange="cargar_provincia_pedido()" class="datos form-control formulario" id="provinica" name="provinica" required>
+                                                                    <option value="">Provincia *</option>
+                                                                    <?php
+                                                                    $sql2 = "select * from provincia_laar where id_pais=$pais";
+                                                                    $query2 = mysqli_query($conexion, $sql2);
+
+                                                                    while ($row2 = mysqli_fetch_array($query2)) {
+                                                                        $id_prov = $row2['id_prov'];
+                                                                        $provincia = $row2['provincia'];
+                                                                        $cod_provincia = $row2['codigo_provincia'];
+
+                                                                        // Obtener el valor almacenado en la tabla orgien_laar
+                                                                        $valor_seleccionado = $provinciadestino;
+
+                                                                        // Verificar si el valor actual coincide con el almacenado en la tabla
+                                                                        $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
+
+                                                                        // Imprimir la opción con la marca de "selected" si es el valor almacenado
+                                                                        echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
+                                                                    }
+                                                                    ?>
+                                                                </select>
+
+
+
+                                                            </div>
  <div class="col-md-4">
                                                                 <span class="help-block">Sector </span>
-                                                                <input type="text" class="datos form-control" id="sector" name="sector" placeholder="Sector">
+                                                                <input type="text" class="datos form-control rounded formulario" id="sector" name="sector" placeholder="Sector">
                                                                 </div>
                                                         </div>
 
@@ -219,18 +223,18 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Calle principal </span>
-                                                                <input type="text" class="datos form-control" id="calle_principal" name="calle_principal" placeholder="Calle Principal *" required>
+                                                                <input type="text" class="datos form-control formulario" id="calle_principal" name="calle_principal" placeholder="Calle Principal *" required>
 
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Calle secundaria </span>
-                                                                <input type="text" class="datos form-control" id="calle_secundaria" name="calle_secundaria" placeholder="Calle Secundaria *" required>
+                                                                <input type="text" class="datos form-control formulario" id="calle_secundaria" name="calle_secundaria" placeholder="Calle Secundaria *" required>
 
                                                             </div>
 
 <div class="col-md-4">
                                                                 <span class="help-block">Numero de casa </span>
-                                                                <input id="numerocasa" name="numerocasa" class="form-control" value="">
+                                                                <input id="numerocasa" name="numerocasa" class="form-control formulario" value="">
 
                                                             </div>
 
@@ -239,12 +243,12 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <span class="help-block">Referencia </span>
-                                                                <input type="text" class="datos form-control" id="referencia" name="referencia" placeholder="Referencia *" required>
+                                                                <input type="text" class="datos form-control formulario" id="referencia" name="referencia" placeholder="Referencia *" required>
 
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <span class="help-block">Observaciones para la entrega </span>
-                                                                <input type="text" class="datos form-control" id="observacion" name="observacion" placeholder="Referencias Adicionales (Opcional)">
+                                                                <input type="text" class="datos form-control formulario" id="observacion" name="observacion" placeholder="Referencias Adicionales (Opcional)">
                                                             </div>
                                                         </div>
 
@@ -261,33 +265,33 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                     <div class="row">
                                                                         <!-- Primera Columna -->
                                                                         <div class="col-md-2">
-                                                                            <div id="card3" onclick="seleccionar_transportadora(3)" class="card">
+                                                                            <div id="card3" onclick="seleccionar_transportadora(3)" class="card formulario">
 
-                                                                                <img style="width: 100%;" id="tr3" src="../../img_sistema/servi.png" class="card-img-top image-bn interactive-image" alt="Selecciona Laarcourrier">
-                                                                                <div class="card-body">
-
+                                                                                <img style="width: 100%;" id="tr3" src="../../img_sistema/servi.png" class="card-img-top  formulario image-bn interactive-image" alt="Selecciona Laarcourrier">
+                                                                                <div class="card-body" style="text-align: center;">
+                                                                                    <strong>$5.50</strong>
 
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <!-- Segunda Columna -->
                                                                         <div class="col-md-2">
-                                                                            <div id="card1" class="card">
+                                                                            <div id="card1" class="card formulario">
 
-                                                                                <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image"   alt="Selecciona Servientrega">
-                                                                                <div class="card-body">
+                                                                                <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario"   alt="Selecciona Servientrega">
+                                                                                <div class="card-body" style="text-align: center;">
 
-
+ <strong>$5.50</strong>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <!-- Tercera Columna -->
                                                                         <div class="col-md-2">
-                                                                            <div id="card2" class="card">
-                                                                                <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(2)" src="../../img_sistema/speed.png" class="card-img-top image-bn interactive-image" alt="Selecciona Guia Local">
-                                                                                <div class="card-body">
+                                                                            <div id="card2" class="card formulario">
+                                                                                <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(2)" src="../../img_sistema/speed.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
+                                                                                <div class="card-body" style="text-align: center;">
 
-
+ <strong>NO APLICA</strong>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -308,17 +312,21 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                     </div>
 
                                                                     <div class="col-md-3">
-                                                                        <span class="help-block">Seguro </span>
-                                                                        <select onchange="calcular_guia()" id="seguro" name="seguro" class="form-control">
-                                                                            <option value="">Deseas asegurar la mercadería </option>
-                                                                            <option value="1">SI</option>
-                                                                            <option value="0">NO </option>
-                                                                        </select>
+                                                                        
+                                                                        <div class="form-group">
+    <label for="asegurar_producto">
+        <input class="formulario" style="width: 20px; height: 20px; margin-top: 25px" type="checkbox" id="asegurar_producto"  name="asegurar_producto" value="1">
+        Deseo asegurar la mercadería
+    </label>
+</div>
+                                                                        </div>
+                                                                          <div class="col-md-3">
+                                                                              <span class="help-block">Valor a asegurar </span>
                                                                         <input id="valorasegurado" name="valorasegurado" class="form-control" value="" placeholder="Valor a aegurar">
 
+ </div>
 
-
-                                                                    </div>
+                                                                    
 
 
 

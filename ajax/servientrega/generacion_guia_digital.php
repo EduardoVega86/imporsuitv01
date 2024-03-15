@@ -1,7 +1,7 @@
 <?php
 
 // URL del servicio web
-$url = "https://181.39.87.158:7777/api/GuiaDigital/[180000085,'USUARIO','CONTRASEÑA']";
+$url = "https://181.39.87.158:7777/api/GuiaDigital/[31030,'impor.comex','123456']";
 
 // Inicializar cURL
 $ch = curl_init();
@@ -25,14 +25,18 @@ if (curl_errno($ch)) {
 // Cerrar la sesión cURL
 curl_close($ch);
 
-// La respuesta asumida es una cadena base64 de la imagen
-$base64String = $response;
+// Decodificar la respuesta JSON para obtener la cadena base64 de la imagen
+$responseData = json_decode($response, true);
+$base64String = $responseData['archivoEncriptado'];
 
-// Para visualizar la imagen, especificamos el tipo de contenido correcto.
-// Asegúrate de no tener ningún echo o var_dump antes de este punto para evitar errores de "headers already sent".
-header('Content-Type: image/png');
+echo '<img src="data:image/jpg;base64,' . $base64String . '" style="max-width: 100%; height: auto;">';
 
-// Decodificar la cadena base64 y mostrar la imagen
-echo base64_decode($base64String);
+echo $base64String;
+// Asegúrate de que tienes la cadena base64 de la imagen
+if ($base64String) {
+    // Mostrar la imagen
+    echo '<img src="data:image/jpg;base64,' . $base64String . '" />';
+} else {
+    echo 'No se pudo obtener la imagen.';
+}
 ?>
-
