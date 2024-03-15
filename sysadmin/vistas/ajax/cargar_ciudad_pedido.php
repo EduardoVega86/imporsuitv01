@@ -47,7 +47,7 @@ $id_provincia = $_POST['provinica'];
                 <select  class="datos form-control" onchange="calcular_guia()" id="ciudad_entrega" name="ciudad_entrega" required>
                   <option value="">Ciudad *</option>
                   <?php
-                           $sql2="select * from ciudad_laar where codigoProvincia= '$id_provincia'";
+                           $sql2="select * from ciudad_laar where codigoProvincia= '$id_provincia' and pais=1";
                           // echo $sql2;
                            $query2 = mysqli_query($conexion, $sql2);
                         
