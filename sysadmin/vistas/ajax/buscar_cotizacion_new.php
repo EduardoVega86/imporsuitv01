@@ -923,7 +923,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     $guia_numero = '';
                     $impreso = $row['impreso'];
                     $estado_guia = '';
-                        @$guia_laar_info = $row['guia_laar'];
+                    @$guia_laar_info = $row['guia_laar'];
                     $estado_actual_guia_X = '';
                     switch ($estado_factura) {
 
