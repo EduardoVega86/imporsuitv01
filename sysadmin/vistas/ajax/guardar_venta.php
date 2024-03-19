@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <head>
     <style>
         .loader {
@@ -94,7 +93,13 @@ if (empty($_POST['id_cliente'])) {
     //Seleccionamos el ultimo compo numero_fatura y aumentamos una
     $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_ventas order by id_factura desc limit 0,1 ");
     $rw         = mysqli_fetch_array($sql);
+    
+    
+       if ($rw && isset($rw['last'])) {
     $id_factura = $rw['last'] + 1;
+} else {
+    $id_factura = 1;
+}
     // finde la ultima fatura
     //Control de la  numero_fatura y aumentamos una
     /*$query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_ventas ORDER BY factura DESC LIMIT 1")

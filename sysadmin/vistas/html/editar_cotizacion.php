@@ -727,7 +727,7 @@ while ($r = $query->fetch_object()) {
                                             }
                                             ?>
                                         </div>
-                                        <!--div class="col-lg-4">
+                                        <div class="col-lg-4">
 											<div class="card-box">
 												<div class="widget-chart">
 												<div class="editar_factura" class='col-md-12' style="margin-top:10px"></div>
@@ -871,7 +871,7 @@ while ($r = $query->fetch_object()) {
 												</div>
 											</div>
 
-										</div-->
+										</div>
 
 
                                     </div>

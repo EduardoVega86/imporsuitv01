@@ -42,12 +42,23 @@ if (empty($_POST['nombre_empresa'])) {
         $archivo  = $_FILES['firma']['name'];
         $temp = $_FILES['firma']['tmp_name'];
         
-        if (move_uploaded_file($temp, $_SERVER['DOCUMENT_ROOT'].'/sysadmin/vistas/xml/firmas/'.$archivo)) {
-            chmod($_SERVER['DOCUMENT_ROOT'].'/sysadmin/vistas/xml/firmas/'.$archivo, 0777);
+        $currentUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+// URL base local (por ejemplo, localhost)
+$localBaseUrl = 'localhost'; // Puedes modificar esto según tu configuración
+// Comprobar si la URL actual contiene la URL base local
+if (strpos($currentUrl, $localBaseUrl) !== false) {
+    $sistema_url='/imporsuitv01';
+} else {
+   $sistema_url='';
+}
+
+        
+        if (move_uploaded_file($temp, $_SERVER['DOCUMENT_ROOT'].$sistema_url.'/sysadmin/vistas/xml/firmas/'.$archivo)) {
+            chmod($_SERVER['DOCUMENT_ROOT'].$sistema_url.'/sysadmin/vistas/xml/firmas/'.$archivo, 0777);
             
-            //echo '<div><b>Se ha subido correctamente la imagen.</b></div>';
+            echo '<div><b>Se ha subido correctamente la firma.</b></div>';
         }else{
-            //echo '<div><b>Ocurrió algún error al subir el fichero. No pudo guardarse.</b></div>';
+            echo '<div><b>Ocurrió algún error al subir el fichero. No pudo guardarse.</b></div>';
         }
     }
     $firma  = $archivo;
