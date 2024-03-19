@@ -66,6 +66,8 @@ include "../../php_conexion.php";
 //Archivo de funciones PHP
 include "../../funciones.php";
 
+
+
 function validar_clave($clave) {
 
     if ($clave == "") {
@@ -365,8 +367,13 @@ if (isset($_SERVER['HTTPS']) &&
 else {
   $protocol = 'http://';
 }
-$ruta_factura =  $protocol.$_SERVER['HTTP_HOST'].'/sysadmin/vistas/xml/comprobantes/factura_' . $id_factura . ".xml";
-$ruta =  $protocol.$_SERVER['HTTP_HOST'].'/sysadmin/vistas/xml/firmas/'.$ruta_firma;
+if (strpos($currentUrl, $localBaseUrl) !== false) {
+    $sistema_url='/imporsuitv01';
+} else {
+   $sistema_url='';
+}
+$ruta_factura =  $protocol.$_SERVER['HTTP_HOST'].$sistema_url.'/sysadmin/vistas/xml/comprobantes/factura_' . $id_factura . ".xml";
+$ruta =  $protocol.$_SERVER['HTTP_HOST'].$sistema_url.'/sysadmin/vistas/xml/firmas/'.$ruta_firma;
 $ruta_certificado =  $ruta;
 $pass = $pass_firma;
 $ruta_respuesta='';
