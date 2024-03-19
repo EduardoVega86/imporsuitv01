@@ -873,7 +873,9 @@ while ($r = $query->fetch_object()) {
 
 										</div-->
 
-
+<div class="col-md-6">
+   <button type="button" class="btn btn-primary waves-effect waves-light" id="btn_guardar"><span class="ti-shopping-cart-full"></span> Facturar</button>
+</div>
                                     </div>
                                     <!-- end row -->
 
