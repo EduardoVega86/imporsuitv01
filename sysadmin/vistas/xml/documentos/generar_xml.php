@@ -367,6 +367,10 @@ if (isset($_SERVER['HTTPS']) &&
 else {
   $protocol = 'http://';
 }
+
+$currentUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+// URL base local (por ejemplo, localhost)
+$localBaseUrl = 'localhost'; // Puedes modificar esto según tu configuración
 if (strpos($currentUrl, $localBaseUrl) !== false) {
     $sistema_url='/imporsuitv01';
 } else {

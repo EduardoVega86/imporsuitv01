@@ -43,10 +43,8 @@ if (empty($_POST['nombre_empresa'])) {
         $temp = $_FILES['firma']['tmp_name'];
         
         $currentUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-
 // URL base local (por ejemplo, localhost)
 $localBaseUrl = 'localhost'; // Puedes modificar esto según tu configuración
-
 // Comprobar si la URL actual contiene la URL base local
 if (strpos($currentUrl, $localBaseUrl) !== false) {
     $sistema_url='/imporsuitv01';
