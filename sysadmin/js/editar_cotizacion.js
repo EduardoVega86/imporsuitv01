@@ -195,6 +195,7 @@ $("#guardar_producto").submit(function(event) {
 //COVERTIMOS LA COTIZACION A VENTA
 $("#btn_guardar").off("click");
 $("#btn_guardar").on("click", function(e) {
+   
     $('#btn_guardar').attr("disabled", true);
     var id_cliente = $("#id_cliente").val();
     var cotizacion = $("#cotizacion").val();
@@ -208,6 +209,37 @@ $("#btn_guardar").on("click", function(e) {
     
     var condiciones = $("#condiciones").val();
     var resibido = $("#resibido").val();
+    
+    var identificacion=$("#identificacion").val();
+    var direccion_destino=$("#direccion_destino").val();
+    var nombredestino=$("#nombredestino").val();
+    
+    
+    //alert(identificacion)
+    parametro_cliente = {
+        'identificacion': identificacion,
+        'direccion_destino': direccion_destino,
+        'nombredestino': nombredestino
+        
+    };
+    $.ajax({
+        type: "POST",
+        url: "../ajax/validar_cliente.php",
+        data: parametro_cliente,
+        beforeSend: function(objeto) {
+            $("#resultados_ajaxf").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+        },
+        success: function(datos) {
+            $("#resultados_ajaxf").html(datos);
+            $('#btn_guardar').attr("disabled", false);
+            $("#resultados").load("../ajax/editar_tmp_cot.php"); // carga los datos nuevamente
+            $("#barcode").focus();
+            load(1);
+         
+        }
+    });
+    
+    
     if (id_cliente == "") {
         $.Notification.notify('error', 'bottom center', 'NOTIFICACIÓN', 'SELECCIONAR UN CLIENTE VALIDO')
         $("#nombre_cliente").focus();
