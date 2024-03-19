@@ -537,7 +537,7 @@ while ($r = $query->fetch_object()) {
 			if (xhr.status >= 200 && xhr.status < 400) {
 				// La solicitud fue exitosa
 				var data = xhr.responseText;
-				if (data == 'ok') {
+				if (data == 'ok' || data == 'okok') {
 					Swal.fire({
 						title: "¡Producto subido correctamente!",
 						icon: "success",
