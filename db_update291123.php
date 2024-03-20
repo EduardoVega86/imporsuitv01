@@ -1309,5 +1309,5 @@ mysqli_query($conexion, "UPDATE `perfil` SET `nodevolucion` = '1' WHERE `perfil`
 mysqli_query($conexion, "ALTER TABLE `clientes` DROP INDEX `codigo_producto`;");
   
 mysqli_close($conexion); // Cerramos la link con la base de datos
-
+ 
 echo json_encode("ok");
