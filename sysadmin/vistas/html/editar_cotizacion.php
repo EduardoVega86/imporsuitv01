@@ -245,6 +245,7 @@ while ($r = $query->fetch_object()) {
                                     include "../modal/caja.php";
                                     ?>
                                     <div class="row">
+                                        <input type="hidden" id="pedido_facturar" value="<?php echo $id_factura?>">
                                         <div class="col-lg-7">
                                             <div class="card-box">
 
@@ -282,6 +283,7 @@ while ($r = $query->fetch_object()) {
                                                         ?>
                                                     </form>
 
+                                                    
                                                     <div class="table-responsive">
                                                         <div id="resultados" class='col-md-12' style="margin-top:10px"></div>
                                                         <?php if ($guia_enviada == 1) {
@@ -356,6 +358,8 @@ while ($r = $query->fetch_object()) {
         </div> 
     </div>
 </div-->
+                                                        
+                                                        
                                                     </div>
 
                                                 </div>
@@ -434,7 +438,7 @@ while ($r = $query->fetch_object()) {
 
                                                         </div>
                                                         <div class="row">
-
+sdsada
                                                         </div>
 
                                                     <?php
@@ -482,9 +486,15 @@ while ($r = $query->fetch_object()) {
                                                         </div>
 
                                                     </div>
-                                                    <div class="row">
-
+                                            
+                                        <div style="margin-top: 10px" class="row">
+<div class="col-md-6">
+    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="agregar_datos_factura1()"><span class="ti-shopping-cart-full"></span> Facturar</button>
+															</div>
                                                     </div>
+                                            <div style="margin-top: 10px" id="factura_conguia" class="row">
+                                                
+                                            </div>
 
                                                 <?php
                                                 }
@@ -721,157 +731,17 @@ while ($r = $query->fetch_object()) {
 
                                                         </div>
                                                     </div>
+                                                        <div class="row">
+                                                            
+                                                            factura
+                                                        </div>
                                                 </form>
                                             <?php
 
                                             }
                                             ?>
                                         </div>
-                                        <div class="col-lg-4">
-											<div class="card-box">
-												<div class="widget-chart">
-												<div class="editar_factura" class='col-md-12' style="margin-top:10px"></div>
-													
-                                                                                                <form role="form" id="datos_factura">
-														<input id="id_vendedor" name="id_vendedor" type='hidden' value="<?php echo $id_vendedor_db; ?>">
-                                                                                                                
-                                                                                                                
-														<div class="form-group row">
-															<label class="col-2 col-form-label"></label>
-															<div class="col-12">
-																<div class="input-group">
-																	<input type="text" id="nombre_cliente" class="form-control" required value="<?php echo $nombre_cliente; ?>" tabindex="2">
-																	<span class="input-group-btn">
-																		<button type="button" class="btn waves-effect waves-light btn-success" data-toggle="modal" data-target="#nuevoCliente"><li class="fa fa-plus"></li></button>
-																	</span>
-																	<input id="id_cliente" name="id_cliente" type='hidden' value="<?php echo $id_cliente; ?>">
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="cotizacion">No. Cotización</label>
-																	<input type="text" class="form-control" autocomplete="off" id="cotizacion"  name="cotizacion" value="<?php echo $numero_factura; ?>" readonly>
-																</div>
-															</div>
-																<div class="col-md-6">
-																<div class="form-group">
-																	<label for="validez">Validez</label>
-																	<select class='form-control' id="validez" name="validez">
-																		<option value="1" <?php if ($validez == 1) {
-                                                                                                echo "selected";
-                                                                                            } ?>>5 días</option>
-																		<option value="2" <?php if ($validez == 2) {
-                                                                                                echo "selected";
-                                                                                            } ?>>10 días</option>
-																		<option value="3" <?php if ($validez == 3) {
-                                                                                                echo "selected";
-                                                                                            } ?>>15 días</option>
-																		<option value="4" <?php if ($validez == 4) {
-                                                                                                echo "selected";
-                                                                                            } ?>>30 días</option>
-																		<option value="5" <?php if ($validez == 5) {
-                                                                                                echo "selected";
-                                                                                            } ?>>60 días</option>
-																	</select>
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="fiscal">RNC/Cedula</label>
-																	<input type="text" class="form-control" autocomplete="off" id="rnc" name="rnc" disabled="true" value="<?php echo $fiscal_cliente; ?>">
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="id_comp" class="control-label">Comprobante:</label>
-																	<select id = "id_comp" class = "form-control" name = "id_comp" required autocomplete="off" onchange="getval(this);">
-																		<option value="">-SELECCIONE-</option>
-																		<?php foreach ($tipo as $c) : ?>
-																			<option value="<?php echo $c->id_comp; ?>"><?php echo $c->nombre_comp; ?></option>
-																		<?php endforeach; ?>
-																	</select>
-																</div>
-															</div>
-
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="fiscal">No. Comprobante</label>
-																	<div id="outer_comprobante"></div>
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<div id="resultados4"></div>
-																</div>
-																<div id="resultados5"></div>
-															</div>
-														</div>
-
-
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="condiciones">Pago</label>
-																	<select class="form-control input-sm condiciones" id="condiciones" name="condiciones" onchange="showDiv(this)">
-																		<option value="1">Efectivo</option>
-																		<option value="2">Cheque</option>
-																		<option value="3">Transferencia bancaria</option>
-																		<option value="4">Crédito</option>
-																	</select>
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<div id="resultados3"></div>
-																</div>
-															</div>
-														</div>
-                                                                                                                
-                                                                                                                <div class="row">
-															<div class="col-md-8">
-																<div class="form-group">
-																	<label for="condiciones">Forma de Pago</label>
-																	<select class="form-control" id="formaPago" name="formaPago" required="required">
-																		<option value="01">SIN UTILIZACION DEL SISTEMA FINANCIERO</option>
-																		<option value="15">COMPENSACIÓN DE DEUDAS</option>
-																		<option value="16">TARJETA DE DÉBITO</option>
-																		<option value="17">DINERO ELECTRÓNICO</option>
-																		<option value="18">TARJETA PREPAGO</option>
-																		<option value="19">TARJETA DE CRÉDITO</option>
-																		<option value="20">OTROS CON UTILIZACION DEL SISTEMA FINANCIERO</option>
-																		<option value="21">ENDOSO DE TÍTULOS</option>
-
-																	</select>
-																</div>
-															</div>
-															<div class="col-md-4">
-																<div class="form-group">
-																	<label for="condiciones">Plazo D&iacute;as</label>
-																	<input type="text" class="form-control" id="plazodias" name="plazodias" required="required">
-																</div>
-															</div>
-														</div>
-                                                                                                                
-														<div class="row">
-															<div class="col-md-6">
-																<button type="button" class="btn btn-danger waves-effect waves-light" aria-haspopup="true" aria-expanded="false" id="btn_actualizar"><span class="fa fa-refresh"></span> Actualizar</button>
-															</div>
-															<div class="col-md-6">
-																<button type="button" class="btn btn-primary waves-effect waves-light" id="btn_guardar"><span class="ti-shopping-cart-full"></span> Facturar</button>
-															</div>
-														</div>
-													</form>
-
-												</div>
-											</div>
-
-										</div>
+                                        
 
 
                                     </div>
@@ -1289,6 +1159,25 @@ while ($r = $query->fetch_object()) {
         }
     }
 
+function agregar_datos_factura1() {
+       
+//alert()
+id_pedido=$("#pedido_facturar").val();
+  $.ajax({
+                url: '../ajax/factura_guia.php',
+                type: 'post',
+                data: {
+                    id_factura: id_pedido
+                },
+                dataType: 'text',
+                success: function(response) {
+                    $("#factura_conguia").html(response);
+               //$("#load_img")
+                } // /success function
+
+            }); // /ajax function to fetch the printable order
+    }
+    
     function getval(sel) {
         $.Notification.notify('success', 'bottom center', 'NOTIFICACIÓN', 'CAMBIO DE COMPROBANTE')
         $("#outer_comprobante").load("../ajax/carga_correlativos.php?id_comp=" + sel.value);

@@ -195,8 +195,9 @@ $("#guardar_producto").submit(function(event) {
 //COVERTIMOS LA COTIZACION A VENTA
 $("#btn_guardar").off("click");
 $("#btn_guardar").on("click", function(e) {
+    alert()
     $('#btn_guardar').attr("disabled", true);
-    var id_cliente = $("#id_cliente").val();
+    var id_cliente = $("#id_cliente1").val();
     var cotizacion = $("#cotizacion").val();
     var factura = $("#factura").val();
     var id_comp = $("#id_comp").val();

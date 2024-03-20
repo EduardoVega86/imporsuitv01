@@ -1306,7 +1306,8 @@ mysqli_query($conexion, "CREATE TABLE `banner_adicional` (
 
 mysqli_query($conexion, "UPDATE `perfil` SET `nodevolucion` = '1' WHERE `perfil`.`id_perfil` = 1;");
 
-
+mysqli_query($conexion, "ALTER TABLE `clientes` DROP INDEX `codigo_producto`;");
+  
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
