@@ -1320,4 +1320,10 @@ mysqli_query($conexion, "ALTER TABLE `clientes` DROP INDEX `codigo_producto`;");
 
 mysqli_close($conexion_tienda);
 
+
+mysqli_query($conexion, "ALTER TABLE `productos` ADD `aplica_iva` INT NULL DEFAULT '0' AFTER `id_marketplace`;");
+
+
+mysqli_close($conexion); // Cerramos la link con la base de datos
+
 echo json_encode("ok");

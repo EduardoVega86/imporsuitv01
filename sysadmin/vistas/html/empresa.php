@@ -43,7 +43,7 @@ $row           = mysqli_fetch_array($query_empresa);
 					<div class="portlet">
 						<div class="portlet-heading bg-primary">
 							<h3 class="portlet-title">
-								Datos de Clínica
+								Datos del Negocio
 							</h3>
 							<div class="portlet-widgets">
 								<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
