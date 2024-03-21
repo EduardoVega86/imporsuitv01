@@ -320,6 +320,7 @@ GROUP BY tienda;";
                         $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
                         $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
                         $precio_total   = $precio_venta_r * $cantidad;
+
                         $final_items    = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
                         /*--------------------------------------------------------------------------------*/
                         $precio_total_f = number_format($final_items, 2); //Precio total formateado

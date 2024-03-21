@@ -23,7 +23,17 @@
                 "id_usuario": 1
             })
         }).then(response => response.json()).then(data => console.log(data)).catch(error => console.log(error))
-
+        fetch("http://192.168.100.22/sysadmin/vistas/ajax/crsf_dropi.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Token-Guia": "Zc46Um3cI8Eh9vce6hn9"
+            },
+            body: JSON.stringify({
+                "correo": "jeimy",
+                "contrasena": "cksamdalsdmas,mdlm!"
+            })
+        }).then(respuesta => console.log(respuesta))
     </script>
 </body>
 
