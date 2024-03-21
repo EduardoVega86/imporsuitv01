@@ -253,8 +253,18 @@ fwrite($file, $xml.$xml_detalles);
 
 /*$ruta_factura = 'http://localhost/punto_venta/vistas/xml/comprobantes/NC_' . $id_credito . ".xml";
 $ruta = 'http://localhost/punto_venta/vistas/xml/firmas/'.$ruta_firma;*/
-$ruta_factura = 'http://'.$_SERVER['HTTP_HOST'].'/vistas/xml/comprobantes/NC_' . $id_credito . ".xml";
-$ruta = 'http://'.$_SERVER['HTTP_HOST'].'/vistas/xml/firmas/'.$ruta_firma;
+  $currentUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+// URL base local (por ejemplo, localhost)
+$localBaseUrl = 'localhost'; // Puedes modificar esto según tu configuración
+// Comprobar si la URL actual contiene la URL base local
+if (strpos($currentUrl, $localBaseUrl) !== false) {
+    $sistema_url='/imporsuitv01';
+} else {
+   $sistema_url='';
+}
+
+$ruta_factura = 'http://'.$_SERVER['HTTP_HOST'].$sistema_url.'/vistas/xml/comprobantes/NC_' . $id_credito . ".xml";
+$ruta = 'http://'.$_SERVER['HTTP_HOST'].$sistema_url.'/vistas/xml/firmas/'.$ruta_firma;
 $ruta_certificado =  $ruta;
 $pass = $pass_firma;
 $ruta_respuesta='';
