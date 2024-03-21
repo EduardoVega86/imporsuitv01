@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 //echo 'funciona';
 include 'sysadmin/vistas/db.php';
 include 'sysadmin/vistas/php_conexion.php';
@@ -1306,11 +1307,32 @@ mysqli_query($conexion, "CREATE TABLE `banner_adicional` (
 
 mysqli_query($conexion, "UPDATE `perfil` SET `nodevolucion` = '1' WHERE `perfil`.`id_perfil` = 1;");
 
+
+$conexion_tienda  = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
+$url = $_SERVER['HTTP_HOST'];
+
+$data = mysqli_query($conexion_tienda, "SELECT * from plataformas where url_imporsuit like '%$url%' ");
+$plataforma = mysqli_fetch_assoc($data);
+$id = $plataforma["id_plataforma"];
+mysqli_query($conexion, "UPDATE `perfil` SET `id_plataforma` = '$id' WHERE `perfil`.`id_perfil` = 1;");
+
 mysqli_query($conexion, "ALTER TABLE `clientes` DROP INDEX `codigo_producto`;");
 
+mysqli_close($conexion_tienda);
+
+
 mysqli_query($conexion, "ALTER TABLE `productos` ADD `aplica_iva` INT NULL DEFAULT '0' AFTER `id_marketplace`;");
-   
-    
+
+mysqli_query($conexion, "create table dropi (
+	id_dropi int not null auto_increment primary key,
+	usuario varchar(200) not null unique,
+	contrasena_hash varchar(250) not null,
+	token text default null,
+	create_at datetime default current_timestamp(),
+	update_at datetime default current_timestamp(),
+	pais_id int not null
+);");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
- 
+
 echo json_encode("ok");

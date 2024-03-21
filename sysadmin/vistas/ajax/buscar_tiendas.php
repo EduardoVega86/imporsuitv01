@@ -111,7 +111,7 @@ if ($action == 'ajax') {
                             <td class='text-center'><?php echo $dominio_tienda; ?></td>
                             <td class="text-center"><?php
                                                     if ($tieneDrag == 1) {
-                                                        echo "<input type='checkbox' checked disabled/>";
+                                                        echo "<button type='button' class='btn btn-success' onclick='redirigir($id_tienda)'>Editar</button>";
                                                     } else {
                                                         echo "<input  type='checkbox' onclick='drag($id_tienda)' />";
                                                     }
@@ -143,6 +143,10 @@ if ($action == 'ajax') {
                             load(1)
                         }
                     });
+                }
+
+                function redirigir(id) {
+                    window.location.href = "plantillas_drag.php?id=" + id;
                 }
             </script>
             <?php

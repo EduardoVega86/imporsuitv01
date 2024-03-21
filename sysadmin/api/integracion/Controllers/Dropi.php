@@ -7,19 +7,12 @@ class Dropi extends Controller
 
 	public function index()
 	{
-		$usuario = 'danielbonilla522@gmail.com';
-		$contrasena = 'Mark2demasiado.';
-
-		$token = $this->autentificacion($usuario, $contrasena);
-
 
 		//echo json_encode($this->departamento($token));
 
 		//echo json_encode($this->ciudades($token, 53));
 
 		//echo json_encode($this->categorias($token));
-
-		echo json_encode($this->productos($token, null, 5));
 
 		//$this->model->login();
 	}
@@ -68,8 +61,10 @@ class Dropi extends Controller
 	}
 	public function login()
 	{
-		if ($_POST["correo"] && $_POST["contrasena"]) {
-			$token = $this->autentificacion($_POST["correo"], $_POST["contrasena"]);
+		$usuario = $_POST["correo"];
+		$contrasena = $_POST["contrasena"];
+		if ($usuario && $contrasena) {
+			$token = $this->autentificacion($usuario, $contrasena);
 
 			if (empty($token)) {
 				$response = array('status' => false, 'msg' => 'Las credenciales ingresadas son incorrectas');
@@ -84,20 +79,15 @@ class Dropi extends Controller
 	{
 		$usuario = $_POST['correo'];
 		$contrasena = $_POST['contrasena'];
-		$destino_url = "http://" . $_SERVER['HTTP_HOST'] . "/sysadmin/vistas/ajax/crsf_dropi.php";
-		$credenciales = array('usuario' => $usuario, 'contrasena' => $contrasena);
 
-		// Configuración de la solicitud cURL para el servicio de destino
-		$ch = curl_init($destino_url);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($credenciales));
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-			'Content-Type: application/json'
-		));
-		$response = curl_exec($ch);
-		$destino_url = "http://" . $_SERVER['HTTP_HOST'] . "/sysadmin/vistas/ajax/texto_plano.php";
+		$credenciales = "<?php\n";
+		$credenciales .= "include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado\n";
+		$credenciales .= "define('DB_USER', '".$usuario."');\n";
+		$credenciales .= "define('DB_PASS', '".$contrasena."');\n";
+		$credenciales .= "\$credenciales= array('usuario' => DB_USER, 'contrasena' => DB_PASS);\n";
+		$credenciales .= "echo json_encode(\$credenciales);";
+
+		$destino_url = "../../../sysadmin/vistas/ajax/texto_plano.php";
 		file_put_contents($destino_url, $credenciales);
-		curl_close($ch);
 	}
 }

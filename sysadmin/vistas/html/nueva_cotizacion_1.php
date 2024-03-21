@@ -40,15 +40,18 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <style>
     .image-bn {
         filter: grayscale(100%);
-        transition: filter 0.3s ease; /* Animación suave */
+        transition: filter 0.3s ease;
+        /* Animación suave */
     }
 
     .image-bn:hover {
         filter: grayscale(0%);
     }
+
     .formulario {
-    border-radius: 25px; /* O un valor alto para garantizar bordes completamente redondeados */
-}
+        border-radius: 25px;
+        /* O un valor alto para garantizar bordes completamente redondeados */
+    }
 </style>
 <!-- Begin page -->
 <div id="wrapper" class="forced enlarged"> <!-- DESACTIVA EL MENU -->
@@ -62,7 +65,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
         <div class="content">
             <div class="container">
                 <?php if ($permisos_ver == 1) {
-                    ?>
+                ?>
                     <div class="col-lg-12">
                         <div class="portlet">
                             <div class="portlet-heading bg-primary">
@@ -141,20 +144,20 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div>
 
                                                             <div class="col-md-4">
-                                                                <span class="help-block">Telefono </span>
-                                                                <input type="text" class="datos form-control formulario" id="telefono" name="telefono" placeholder="Telefono *" required>
+                                                                <span class="help-block">Cedula </span>
+                                                                <input type="text" class="datos form-control formulario" id="cedula" name="cedula" placeholder="cedula *" required>
 
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <span class="help-block">Celular </span>
-                                                                <input id="celular" name="celular" class="form-control formulario" placeholder="Celular" value="">
+                                                                <span class="help-block">Teléfono </span>
+                                                                <input id="telefono" name="telefono" class="form-control formulario" placeholder="telefono" value="">
 
                                                             </div>
 
                                                         </div>
                                                         <div class="row">
 
-                                                            
+
 
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Ciudad </span>
@@ -178,7 +181,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                                             // Imprimir la opción con la marca de "selected" si es el valor almacenado
                                                                             echo '<option value="' . $cod_ciudad . '" ' . $selected . '>' . $nombre . '</option>';
-                                                                            ?>
+                                                                        ?>
 
                                                                         <?php } ?>
                                                                     </select>
@@ -213,10 +216,10 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
 
                                                             </div>
- <div class="col-md-4">
+                                                            <div class="col-md-4">
                                                                 <span class="help-block">Sector </span>
                                                                 <input type="text" class="datos form-control rounded formulario" id="sector" name="sector" placeholder="Sector">
-                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         <div class="row">
@@ -232,14 +235,14 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                             </div>
 
-<div class="col-md-4">
+                                                            <div class="col-md-4">
                                                                 <span class="help-block">Numero de casa </span>
                                                                 <input id="numerocasa" name="numerocasa" class="form-control formulario" value="">
 
                                                             </div>
 
                                                         </div>
-                                                       
+
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <span class="help-block">Referencia </span>
@@ -259,7 +262,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
 
                                                         <div style="background-color: #e2e3e5" class="card-box">
-                                                            <div class="widget-chart">                                                
+                                                            <div class="widget-chart">
                                                                 <div class="row">
                                                                     <H5><strong>GENERAR GUÍA</strong></H5>
                                                                     <div class="row">
@@ -278,10 +281,10 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                         <div class="col-md-2">
                                                                             <div id="card1" class="card formulario">
 
-                                                                                <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario"   alt="Selecciona Servientrega">
+                                                                                <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Servientrega">
                                                                                 <div class="card-body" style="text-align: center;">
 
- <strong>$5.50</strong>
+                                                                                    <strong>$5.50</strong>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -291,7 +294,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                                 <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(2)" src="../../img_sistema/speed.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
                                                                                 <div class="card-body" style="text-align: center;">
 
- <strong>NO APLICA</strong>
+                                                                                    <strong>NO APLICA</strong>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -312,21 +315,21 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                     </div>
 
                                                                     <div class="col-md-3">
-                                                                        
+
                                                                         <div class="form-group">
-    <label for="asegurar_producto">
-        <input class="formulario" style="width: 20px; height: 20px; margin-top: 25px" type="checkbox" id="asegurar_producto"  name="asegurar_producto" value="1">
-        Deseo asegurar la mercadería
-    </label>
-</div>
+                                                                            <label for="asegurar_producto">
+                                                                                <input class="formulario" style="width: 20px; height: 20px; margin-top: 25px" type="checkbox" id="asegurar_producto" name="asegurar_producto" value="1">
+                                                                                Deseo asegurar la mercadería
+                                                                            </label>
                                                                         </div>
-                                                                          <div class="col-md-3">
-                                                                              <span class="help-block">Valor a asegurar </span>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <span class="help-block">Valor a asegurar </span>
                                                                         <input id="valorasegurado" name="valorasegurado" class="form-control" value="" placeholder="Valor a aegurar">
 
- </div>
+                                                                    </div>
 
-                                                                    
+
 
 
 
@@ -336,7 +339,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                     <?php
                                                                     $pais = get_row('perfil', 'pais', 'id_perfil', 1);
                                                                     if ($pais == 1) {
-                                                                        ?>
+                                                                    ?>
 
                                                                         <div class="row">
                                                                             <div class="col-md-6">
@@ -360,7 +363,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                             </br>
                                                                             <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Calcular</button>
                                                                         </div>
-                                                                        <?php
+                                                                    <?php
                                                                     }
                                                                     ?>
                                                                     <div class="col-md-6">
@@ -386,25 +389,25 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                             </div>
                         </div>
                     </div>
-    <?php
-} else {
-    ?>
+                <?php
+                } else {
+                ?>
                     <section class="content">
                         <div class="alert alert-danger" align="center">
                             <h3>Acceso denegado! </h3>
                             <p>No cuentas con los permisos necesario para acceder a este módulo.</p>
                         </div>
                     </section>
-    <?php
-}
-?>
+                <?php
+                }
+                ?>
 
             </div>
             <!-- end container -->
         </div>
         <!-- end content -->
 
-<?php require 'includes/pie.php'; ?>
+        <?php require 'includes/pie.php'; ?>
 
     </div>
     <!-- ============================================================== -->
@@ -425,56 +428,54 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
 <script>
-     $(document).ready(function () {
-    $("#provinica").select2({
-      placeholder: "Selecciona una opción",
-      allowClear: true,
-      // Puedes añadir más opciones de configuración aquí
+    $(document).ready(function() {
+        $("#provinica").select2({
+            placeholder: "Selecciona una opción",
+            allowClear: true,
+            // Puedes añadir más opciones de configuración aquí
+        });
+
+
     });
-   
-    
-  });
-  
-    $(document).ready(function () {
-    $("#ciudad_entrega").select2({
-      placeholder: "Selecciona una opción",
-      allowClear: true,
-      // Puedes añadir más opciones de configuración aquí
+
+    $(document).ready(function() {
+        $("#ciudad_entrega").select2({
+            placeholder: "Selecciona una opción",
+            allowClear: true,
+            // Puedes añadir más opciones de configuración aquí
+        });
+
+
     });
-   
-    
-  });
-  
-                                                                        $(function () {
-                                                                            $("#nombre_cliente").autocomplete({
-                                                                                source: "../ajax/autocomplete/clientes.php",
-                                                                                minLength: 2,
-                                                                                select: function (event, ui) {
-                                                                                    event.preventDefault();
-                                                                                    $('#id_cliente').val(ui.item.id_cliente);
-                                                                                    $('#nombre_cliente').val(ui.item.nombre_cliente);
-                                                                                    $('#tel1').val(ui.item.fiscal_cliente);
-                                                                                    $('#em').val(ui.item.email_cliente);
-                                                                                    $.Notification.notify('success', 'bottom right', 'EXITO!', 'CLIENTE AGREGADO CORRECTAMENTE')
-                                                                                }
-                                                                            });
-                                                                        });
 
-                                                                        $("#nombre_cliente").on("keydown", function (event) {
-                                                                            if (event.keyCode == $.ui.keyCode.LEFT || event.keyCode == $.ui.keyCode.RIGHT || event.keyCode == $.ui.keyCode.UP || event.keyCode == $.ui.keyCode.DOWN || event.keyCode == $.ui.keyCode.DELETE || event.keyCode == $.ui.keyCode.BACKSPACE) {
-                                                                                $("#id_cliente").val("");
-                                                                                $("#tel1").val("");
-                                                                                $("#em").val("");
-                                                                            }
-                                                                            if (event.keyCode == $.ui.keyCode.DELETE) {
-                                                                                $("#nombre_cliente").val("");
-                                                                                $("#id_cliente").val("");
-                                                                                $("#tel1").val("");
-                                                                                $("#em").val("");
-                                                                            }
-                                                                        });
+    $(function() {
+        $("#nombre_cliente").autocomplete({
+            source: "../ajax/autocomplete/clientes.php",
+            minLength: 2,
+            select: function(event, ui) {
+                event.preventDefault();
+                $('#id_cliente').val(ui.item.id_cliente);
+                $('#nombre_cliente').val(ui.item.nombre_cliente);
+                $('#tel1').val(ui.item.fiscal_cliente);
+                $('#em').val(ui.item.email_cliente);
+                $.Notification.notify('success', 'bottom right', 'EXITO!', 'CLIENTE AGREGADO CORRECTAMENTE')
+            }
+        });
+    });
 
-
+    $("#nombre_cliente").on("keydown", function(event) {
+        if (event.keyCode == $.ui.keyCode.LEFT || event.keyCode == $.ui.keyCode.RIGHT || event.keyCode == $.ui.keyCode.UP || event.keyCode == $.ui.keyCode.DOWN || event.keyCode == $.ui.keyCode.DELETE || event.keyCode == $.ui.keyCode.BACKSPACE) {
+            $("#id_cliente").val("");
+            $("#tel1").val("");
+            $("#em").val("");
+        }
+        if (event.keyCode == $.ui.keyCode.DELETE) {
+            $("#nombre_cliente").val("");
+            $("#id_cliente").val("");
+            $("#tel1").val("");
+            $("#em").val("");
+        }
+    });
 </script>
 <!-- FIN -->
 <script>
@@ -488,6 +489,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
         $('#card' + id).css('border', '2px solid #154289'); // Puedes cambiar el color del borde aquí
         $('#tr' + id).css('filter', 'none');
     }
+
     function printFactura(id_factura) {
         $('#modal_vuelto').modal('hide');
         if (id_factura) {
@@ -498,7 +500,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                     id_factura: id_factura
                 },
                 dataType: 'text',
-                success: function (response) {
+                success: function(response) {
                     var mywindow = window.open('', 'Stock Management System', 'height=400,width=600');
                     mywindow.document.write('<html><head><title>Facturación</title>');
                     mywindow.document.write('</head><body>');
@@ -542,35 +544,35 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
             }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
             dataType: 'text', // To send DOMDocument or non processed data file it is set to false
-            success: function (data) // A function to be called if request succeeds
+            success: function(data) // A function to be called if request succeeds
             {
 
 
                 $('#div_ciudad').html(data);
 
- actualizarSelect();
+                actualizarSelect();
             }
         });
-        
-     
+
+
 
     }
-    
+
     function actualizarSelect() {
-  //alert()
-  $('#ciudad_entrega').select2('destroy');
+        //alert()
+        $('#ciudad_entrega').select2('destroy');
 
-  // Luego actualiza el contenido del select aquí
-  // Puedes hacer una llamada AJAX y en el success actualizar el contenido y luego reinicializar
-  // ...
+        // Luego actualiza el contenido del select aquí
+        // Puedes hacer una llamada AJAX y en el success actualizar el contenido y luego reinicializar
+        // ...
 
-  // Después de actualizar el contenido, reinicializa Select2
-  $('#ciudad_entrega').select2({
-    placeholder: "Selecciona una opción",
-    allowClear: true
-    // Puedes añadir más opciones de configuración aquí
-  });
-}
+        // Después de actualizar el contenido, reinicializa Select2
+        $('#ciudad_entrega').select2({
+            placeholder: "Selecciona una opción",
+            allowClear: true
+            // Puedes añadir más opciones de configuración aquí
+        });
+    }
 </script>
 
 <?php require 'includes/footer_end.php'

@@ -24,6 +24,10 @@ while ($r = $query->fetch_object()) {
     $impuesto[] = $r;
 }
 */
+
+$query_empresa = mysqli_query($conexion, "select * from perfil where id_perfil=1");
+$row_perfil           = mysqli_fetch_array($query_empresa);
+
 $obtener_conexion_dropi = "SELECT * FROM dropi";
 $respuesta = mysqli_query($conexion, $obtener_conexion_dropi);
 $respuesta = mysqli_fetch_row($respuesta);
@@ -47,6 +51,7 @@ $respuesta = mysqli_fetch_row($respuesta);
                 <?php if ($permisos_ver == 1) {
                 ?>
                     <div class="col-lg-12">
+                        <div class="row">
                         <div class="row">
                             <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
                                 <div class="grid items-center">
@@ -127,6 +132,44 @@ $respuesta = mysqli_fetch_row($respuesta);
                                     <?php
                                     } ?>
                                 </div>
+                            </div>
+                            </div>
+                            <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                <div class="d-flex flex-row">
+                                    <div class="grid items-center">
+                                        <img src="https://www.gob.ec/sites/default/files/styles/medium/public/2023-05/logo.png?itok=PpIW0csl" width="65px" alt="img">
+                                        <h5 class="text-left font-bold">Facturación Electrónica
+                                    </div>
+                                    <?php
+                                    if ((empty($row_perfil[19]))) {
+                                    ?>
+                                        <div class="items-rigth d-flex flex-row">
+                                            <div class="items-center d-flex flex-column">
+                                                <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                <p class="text-right font-bold fs-9">Firma</p>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <div class="items-rigth d-flex flex-row">
+                                            <div class="items-center d-flex flex-column">
+                                                <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                <p class="text-right font-bold fs-9 text-success">Firma</p>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    } ?>
+                                </div>
+                                </h3>
+                                <p>Configura los datos de tu empresa para la facturación electrónica con el SRI.</p>
+                                <div class="d-flex flex-column gap-1">
+                                    <a href="../html/empresa.php" class="btn btn-outline-primary">Editar Perfil</a>
+                                </div>
+                            </div>
+                            <div class="col rounded-5 m-3 py-3 px-4">
+                            </div>
+                            <div class="col rounded-5 m-3 py-3 px-4">
                             </div>
                             <!-- Modal -->
                             <div class="modal fade" id="facebook" tabindex="-1" role="dialog" aria-labelledby="facebookLabel" aria-hidden="true">
