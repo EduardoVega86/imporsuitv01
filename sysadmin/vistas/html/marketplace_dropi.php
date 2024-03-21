@@ -90,7 +90,12 @@ while ($r = $query->fetch_object()) {
 										<div class="form-group row">
 											<div class="col-md-3">
 												<div class="input-group">
-													<input type="text" class="form-control" id="q" placeholder="Código o Nombre" onkeyup='load(1);'>
+													<input type="text" class="form-control" id="keyword" placeholder="Nombre o palabra clave" onkeyup='load(1);'>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="input-group">
+													<input type="text" class="form-control" id="id_producto_dropi" placeholder="ID del producto" onkeyup='load(1);'>
 												</div>
 											</div>
 											<div class="col-md-3">
@@ -101,19 +106,6 @@ while ($r = $query->fetch_object()) {
 													} else {
 														$destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 													} ?>
-													<select name='categoria' id='categoria' class="form-control" onchange="load(1);">
-														<option value="">-- Selecciona Linea --</option>
-														<option value="">Todos</option>
-														<?php
-
-														$query_categoria = mysqli_query($destino, "select * from lineas order by nombre_linea");
-														while ($rw = mysqli_fetch_array($query_categoria)) {
-														?>
-															<option value="<?php echo $rw['id_linea']; ?>"><?php echo $rw['nombre_linea']; ?></option>
-														<?php
-														}
-														?>
-													</select>
 													<span class="input-group-btn">
 														<button class="btn btn-outline-info btn-rounded waves-effect waves-light" type="button" onclick='load(1);'><i class='fa fa-search'></i></button>
 													</span>
