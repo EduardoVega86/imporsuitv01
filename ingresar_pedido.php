@@ -36,7 +36,6 @@
         $session_id     = $session;
         $nombre     = $_POST['nombre'];
         $telefono    = $_POST['telefono'];
-        $cedula   = $_POST['cedula'];
         $calle_principal    = $_POST['calle_principal'];
         $calle_secundaria    = $_POST['calle_secundaria'];
         $referencia    = $_POST['referencia'];
