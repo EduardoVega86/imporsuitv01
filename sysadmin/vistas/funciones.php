@@ -749,8 +749,17 @@ function generax($id)
         </infoAdicional>
     </factura>';
 
+           $currentUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+// URL base local (por ejemplo, localhost)
+$localBaseUrl = 'localhost'; // Puedes modificar esto según tu configuración
+// Comprobar si la URL actual contiene la URL base local
+if (strpos($currentUrl, $localBaseUrl) !== false) {
+    $sistema_url='/imporsuitv01';
+} else {
+   $sistema_url='';
+}
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] .$sistema_url. "/sysadmin/vistas/xml/comprobantes/factura_" . $id_factura . ".xml", "w+");
     fwrite($file, $xml . $xml_detalles);
 }
 
@@ -891,7 +900,7 @@ function generaxmlliquidacion($id)
         </liquidacionCompra>';
 
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] .$sistema_url."/sysadmin/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
     fwrite($file, $xml . $xml_detalles);
 }
 
@@ -1036,7 +1045,7 @@ function generaxmlcredito($id)
 
 
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/NC_" . $id_credito . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysamin/vistas/xml/comprobantes/NC_" . $id_credito . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] .$sistema_url."/sysamin/vistas/xml/comprobantes/NC_" . $id_credito . ".xml", "w+");
     fwrite($file, $xml . $xml_detalles);
 }
 
@@ -1178,7 +1187,7 @@ function generaxmldebito($id)
 
 
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/ND_" . $id_debito . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/ND_" . $id_debito . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] .$sistema_url."/sysadmin/vistas/xml/comprobantes/ND_" . $id_debito . ".xml", "w+");
     fwrite($file, $xml);
 }
 
@@ -1334,7 +1343,7 @@ function generaxmlguia($id)
     </guiaRemision>';
 
     //$file = fopen("C:/xampp/htdocs/punto_venta/vistas/xml/comprobantes/LC_" . $id_liquidacion . ".xml", "w+");
-    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/GR_" . $id_guia . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] .$sistema_url. "/sysadmin/vistas/xml/comprobantes/GR_" . $id_guia . ".xml", "w+");
     fwrite($file, $xml . $xml_detalles);
 }
 function generaxmlretencion($id)
@@ -1459,6 +1468,6 @@ function generaxmlretencion($id)
             </infoAdicional>
         </comprobanteRetencion>';
 
-    $file = fopen($_SERVER['DOCUMENT_ROOT'] . "/sysadmin/vistas/xml/comprobantes/RC_" . $id_retencion . ".xml", "w+");
+    $file = fopen($_SERVER['DOCUMENT_ROOT'] .$sistema_url."/sysadmin/vistas/xml/comprobantes/RC_" . $id_retencion . ".xml", "w+");
     fwrite($file, $xml);
 }

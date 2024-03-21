@@ -509,7 +509,7 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
               }); // /.alert
 		
         setTimeout(function(){
-			location.reload();
+			//location.reload();
 		}, 2000);
       }
     });

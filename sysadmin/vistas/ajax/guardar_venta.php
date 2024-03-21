@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <head>
     <style>
         .loader {
@@ -94,7 +93,13 @@ if (empty($_POST['id_cliente'])) {
     //Seleccionamos el ultimo compo numero_fatura y aumentamos una
     $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_ventas order by id_factura desc limit 0,1 ");
     $rw         = mysqli_fetch_array($sql);
+    
+    
+       if ($rw && isset($rw['last'])) {
     $id_factura = $rw['last'] + 1;
+} else {
+    $id_factura = 1;
+}
     // finde la ultima fatura
     //Control de la  numero_fatura y aumentamos una
     /*$query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_ventas ORDER BY factura DESC LIMIT 1")
@@ -310,8 +315,18 @@ foreach ($messages as $message) {
                 if($rwperfil['autofactura'] == 1 or $rwperfil['autofactura'] == '1'){
                     //echo '<script>window.location.href = "../xml/documentos/generar_xml.php?id_factura='.$id_factura.'";</script>';
                     //echo '<script>window.location.href = "../xml/documentos/generar_xml.php?id_factura='.$id_factura.'";</script>';
-                    $ruta_factura = 'https://'.$_SERVER['HTTP_HOST'].'/vistas/xml/comprobantes/factura_' . $id_factura . ".xml";
-                    $ruta = 'https://'.$_SERVER['HTTP_HOST'].'/vistas/xml/firmas/'.$ruta_firma;
+                           $currentUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+// URL base local (por ejemplo, localhost)
+$localBaseUrl = 'localhost'; // Puedes modificar esto según tu configuración
+// Comprobar si la URL actual contiene la URL base local
+if (strpos($currentUrl, $localBaseUrl) !== false) {
+    $sistema_url='/imporsuitv01';
+} else {
+   $sistema_url='';
+}
+
+                    $ruta_factura = 'https://'.$_SERVER['HTTP_HOST'].$sistema_url.'/vistas/xml/comprobantes/factura_' . $id_factura . ".xml";
+                    $ruta = 'https://'.$_SERVER['HTTP_HOST'].$sistema_url.'/vistas/xml/firmas/'.$ruta_firma;
                     $ruta_certificado =  $ruta;
                     $pass = $pass_firma;
                     $ruta_respuesta='';

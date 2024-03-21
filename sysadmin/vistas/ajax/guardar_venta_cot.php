@@ -35,13 +35,13 @@ if (empty($_POST['id_cliente']) or empty($_POST['factura'])) {
     //$secuencialfactura = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["secuencialfactura"], ENT_QUOTES)));
      
     $id_comp           = intval($_POST['id_comp']);
-    $tip_doc           = intval($_POST['tip_doc']);
-    $trans             = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["trans"], ENT_QUOTES)));
-    
+    @$tip_doc           = intval($_POST['tip_doc']);
+    //$trans             = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["trans"], ENT_QUOTES)));
+    $trans='.';
         $formaPago          = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["formaPago"], ENT_QUOTES)));
     $plazodias          = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["plazodias"], ENT_QUOTES)));
     
-    $resibido          = floatval($_POST['resibido']);
+    @$resibido          = floatval($_POST['resibido']);
     $date_added        = date("Y-m-d H:i:s");
     //Operacion de Creditos
     if ($condiciones == 4) {
@@ -52,8 +52,13 @@ if (empty($_POST['id_cliente']) or empty($_POST['factura'])) {
 //Seleccionamos el ultimo compo numero_fatura y aumentamos una
     $sql        = mysqli_query($conexion, "select LAST_INSERT_ID(id_factura) as last from facturas_ventas order by id_factura desc limit 0,1 ");
     $rw         = mysqli_fetch_array($sql);
+    if ($rw && isset($rw['last'])) {
     $id_factura = $rw['last'] + 1;
-    //echo $id_factura;
+} else {
+    $id_factura = 1;
+}
+   
+   
 // finde la ultima fatura
     //Control de la  numero_fatura y aumentamos una
     $query_id = mysqli_query($conexion, "SELECT RIGHT(numero_factura,6) as factura FROM facturas_ventas ORDER BY factura DESC LIMIT 1")
@@ -70,6 +75,7 @@ if (empty($_POST['id_cliente']) or empty($_POST['factura'])) {
 
     $buat_id = str_pad($factura, 6, "0", STR_PAD_LEFT);
     $factura = "CFF-$buat_id";
+    //echo $factura;
 // fin de numero de fatura
     // consulta principal
     $nums          = 1;
@@ -77,7 +83,9 @@ if (empty($_POST['id_cliente']) or empty($_POST['factura'])) {
     $sumador_total = 0;
     $sum_total     = 0;
     $t_iva         = 0;
-    $sql           = mysqli_query($conexion, "select * from productos, detalle_fact_cot where productos.id_producto=detalle_fact_cot.id_producto and detalle_fact_cot.numero_factura='" . $numero_cotizacion . "'");
+    //echo "select * from productos, detalle_fact_cot where productos.id_producto=detalle_fact_cot.id_producto and detalle_fact_cot.id_factura='" . $numero_cotizacion . "'";
+    $sql           = mysqli_query($conexion, "select * from productos, detalle_fact_cot where productos.id_producto=detalle_fact_cot.id_producto and detalle_fact_cot.id_factura='" . $numero_cotizacion . "'");
+    
     while ($row = mysqli_fetch_array($sql)) {
         $id_tmp          = $row["id_detalle"];
         $id_producto     = $row['id_producto'];
@@ -114,26 +122,18 @@ if (empty($_POST['id_cliente']) or empty($_POST['factura'])) {
         $sumador_total += $precio_total_r; //Sumador
         //Comprobamos que el dinero Resibido no sea menor al Totalde la factura
        // echo $resibido.'tptal'.$sumador_total.'cond'.$condiciones;
-        if ($resibido < $sumador_total and $condiciones != 4) {
-            echo "<script>
-            swal({
-              title: 'DINERO RECIBIDO ES MENOR AL MONTO TOTAL',
-              text: 'Intentar Nuevamente',
-              type: 'error',
-              confirmButtonText: 'ok'
-          })</script>";
-            exit;
-        }
-
+       
+      
         //Insert en la tabla detalle_factura
-        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_ventas VALUES (NULL,'$id_factura','$numero_factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$precio_total')");
+        echo "INSERT INTO detalle_fact_ventas VALUES (NULL,'$id_factura','$numero_factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$precio_total',0)";
+        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_ventas VALUES (NULL,'$id_factura','$numero_factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$precio_total',0)");
         //GURDAMOS LAS EN EL KARDEX
         $saldo_total = $cantidad * $costo_producto;
         $sql_kardex  = mysqli_query($conexion, "select * from kardex where producto_kardex='" . $id_producto . "' order by id_kardex DESC LIMIT 1");
         $rww         = mysqli_fetch_array($sql_kardex);
-        $id_producto = $rww['producto_kardex'];
-        $costo_saldo = $rww['costo_saldo'];
-        $cant_saldo  = $rww['cant_saldo'] - $cantidad;
+        @$id_producto = $rww['producto_kardex'];
+        @$costo_saldo = $rww['costo_saldo'];
+        @$cant_saldo  = $rww['cant_saldo'] - $cantidad;
         //$nueva_cantidad = $cant_saldo - $cantidad;
         $nuevo_saldo = $cant_saldo * $costo_producto;
         $tipo        = 2;
@@ -143,7 +143,7 @@ if (empty($_POST['id_cliente']) or empty($_POST['factura'])) {
         // ACTUALIZA EN EL STOCK
         $sql2    = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
         $rw      = mysqli_fetch_array($sql2);
-        $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
+        @$old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
         $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
         $update  = mysqli_query($conexion, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
 
@@ -231,27 +231,3 @@ foreach ($messages as $message) {
 
 ?>
 <!-- Modal -->
-<div class="modal fade" id="modal_vuelto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"><i class='fa fa-edit'></i> FACTURA: <?php echo $factura; ?></h4>
-            </div>
-            <div class="modal-body" align="center">
-                <strong><h3>CAMBIO</h3></strong>
-                <div class="alert alert-info" align="center">
-                    <strong><h1>
-                        <?php echo $simbolo_moneda . ' ' . $camb; ?>
-
-                    </h1></strong>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="imprimir" class="btn btn-primary btn-block btn-lg waves-effect waves-light" onclick="printOrder('1');" accesskey="t" ><span class="fa fa-print"></span> Ticket</button><br>
-                <button type="button" id="imprimir2" class="btn btn-success btn-block btn-lg waves-effect waves-light" onclick="printFactura('1');" accesskey="p"><span class="fa fa-print"></span> Factura</button>
-            </div>
-        </div>
-    </div>
-</div>
