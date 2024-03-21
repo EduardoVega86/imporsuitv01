@@ -157,13 +157,13 @@ if ($image_path == null) {
     <p class="card-text"><strong>Proveedor:</strong> <?php echo $tienda; ?></p>
     
     <br><br>
-   <div width="100%" class="btn-group">
-            <a class='btn btn-danger'  style="width: 100%"  title="Ver Landing" target="_blank" href="landing_market.php?id=<?php echo $id_producto; ?>"  data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> 
+   <div width="100%" class="d-flex gap-3 justify-content-center">
+            <a class='btn bg-info text-white'  title="Ver Landing" target="_blank" href="landing_market.php?id=<?php echo $id_producto; ?>"  data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> 
             Ver Landing           
             </a>
            
   
- <a  data-toggle="modal" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');" class="btn btn-warning">Descripcion</a>
+ <a  data-toggle="modal" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');" class="btn bg-info text-white">Descripcion</a>
   </div><br> <br>  <?php if($tienda <>$server_url){
       ?>
   

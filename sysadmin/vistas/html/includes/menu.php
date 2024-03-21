@@ -36,17 +36,17 @@ if ($total_venta == null) {
 $total_venta = number_format($total_venta, 2, '.', ',');
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 ?>
-<div class="topbar">
+<div class="topbar" style="background: #171931">
 
 	<!-- LOGO -->
-	<div class="topbar-left">
+	<div class="topbar-left" style="background: #171931">
 		<div class="text-center">
 			<a href="#" class="logo"> <span>IMPORSUIT</span></a>
 		</div>
 	</div>
 
 	<!-- Button mobile view to collapse sidebar menu -->
-	<nav class="navbar-custom">
+	<nav class="navbar-custom" style="background: #171931">
 
 		<ul class="list-inline float-right mb-0">
 
@@ -97,7 +97,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
 		<ul class="list-inline menu-left mb-0">
 			<li class="float-left">
-				<button class="button-menu-mobile open-left waves-light waves-effect">
+				<button class="button-menu-mobile open-left waves-light waves-effect" style="background: #171931">
 					<i class="mdi mdi-menu"></i>
 				</button>
 			</li>

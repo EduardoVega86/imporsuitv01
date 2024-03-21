@@ -60,7 +60,7 @@ while ($r = $query->fetch_object()) {
 				?>
 					<div class="col-lg-12">
 						<div class="portlet">
-							<div class="portlet-heading bg-primary">
+							<div class="portlet-heading" style="background: #171931"	>
 								<h3 class="portlet-title">
 									Productos
 								</h3>
