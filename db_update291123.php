@@ -1323,6 +1323,15 @@ mysqli_close($conexion_tienda);
 
 mysqli_query($conexion, "ALTER TABLE `productos` ADD `aplica_iva` INT NULL DEFAULT '0' AFTER `id_marketplace`;");
 
+mysqli_query($conexion, "create table dropi (
+	id_dropi int not null auto_increment primary key,
+	usuario varchar(200) not null unique,
+	contrasena_hash varchar(250) not null,
+	token text default null,
+	create_at datetime default current_timestamp(),
+	update_at datetime default current_timestamp(),
+	pais_id int not null
+);");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
