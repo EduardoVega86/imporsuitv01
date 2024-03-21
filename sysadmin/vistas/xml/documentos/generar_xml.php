@@ -369,6 +369,7 @@ else {
 }
 
 $currentUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+echo $currentUrl;
 // URL base local (por ejemplo, localhost)
 $localBaseUrl = 'localhost'; // Puedes modificar esto según tu configuración
 if (strpos($currentUrl, $localBaseUrl) !== false) {

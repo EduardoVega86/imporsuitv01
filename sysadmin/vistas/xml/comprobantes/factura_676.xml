@@ -1,65 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <factura id="comprobante" version="1.1.0">
         <infoTributaria>
-            <ambiente>1</ambiente>
+            <ambiente>2</ambiente>
             <tipoEmision>1</tipoEmision>
-            <razonSocial>DISTRIBUIDORA Y COMERCIALIZADORA</razonSocial>
-            <nombreComercial>BEAUTY BUSINESS</nombreComercial>
-            <ruc>1713683801001</ruc>
-            <claveAcceso>0409202301171368380100110020010000005550000067617</claveAcceso>
+            <razonSocial>IMPORTADORA</razonSocial>
+            <nombreComercial>RAZON SOCIAL</nombreComercial>
+            <ruc>1104623507001</ruc>
+            <claveAcceso>2003202401110462350700120011000000080120000067612</claveAcceso>
             <codDoc>01</codDoc>
-            <estab>002</estab>
-            <ptoEmi>001</ptoEmi>
-            <secuencial>000000555</secuencial>
-            <dirMatriz>BRACAMORO 100</dirMatriz>
+            <estab>001</estab>
+            <ptoEmi>100</ptoEmi>
+            <secuencial>000008012</secuencial>
+            <dirMatriz>AV COLON Y DIEGO DE ALMAGRO</dirMatriz>
         </infoTributaria>
         <infoFactura>
-            <fechaEmision>04/09/2023</fechaEmision>
-            <dirEstablecimiento>BRACAMORO 100</dirEstablecimiento>
+            <fechaEmision>20/03/2024</fechaEmision>
+            <dirEstablecimiento>AV COLON Y DIEGO DE ALMAGRO</dirEstablecimiento>
             <obligadoContabilidad>NO</obligadoContabilidad>       
             <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
-            <razonSocialComprador>MONICA FERNANDA SOPA  VIVANCO </razonSocialComprador>
+            <razonSocialComprador>Eduardo</razonSocialComprador>
             <identificacionComprador>0490041877001</identificacionComprador>
-            <direccionComprador>VERSALLES N30-13 Y ANDAGOYA </direccionComprador><totalSinImpuestos>20.00</totalSinImpuestos><totalDescuento>0</totalDescuento><totalConImpuestos>
-                <totalImpuesto>
-                    <codigo>2</codigo>
-                    <codigoPorcentaje>0</codigoPorcentaje>
-                    <baseImponible>20.00</baseImponible>
-                    <tarifa>0</tarifa>                
-                    <valor>0.00</valor>
-                </totalImpuesto></totalConImpuestos>        
+            <direccionComprador>soland rumichcaca</direccionComprador><totalSinImpuestos>100.00</totalSinImpuestos><totalDescuento>0</totalDescuento><totalConImpuestos> <totalImpuesto>
+                                <codigo>2</codigo>
+                                <codigoPorcentaje>0</codigoPorcentaje>
+                                <baseImponible>100.00</baseImponible>
+                                <valor>0.00</valor>
+                            </totalImpuesto></totalConImpuestos>        
             <propina>0.00</propina>        
-            <importeTotal>20.00</importeTotal>
+            <importeTotal>100.00</importeTotal>
             <moneda>DOLAR</moneda>
             <pagos>
                 <pago>
                     <formaPago>01</formaPago>
-                    <total>20.00</total>
-                    <plazo>1</plazo>
+                    <total>100.00</total>
+                    <plazo>12</plazo>
                     <unidadTiempo>Dias</unidadTiempo>
                 </pago>            
             </pagos>
             <valorRetIva>0.00</valorRetIva>
             <valorRetRenta>0.00</valorRetRenta>
         </infoFactura><detalles><detalle>
-    <codigoPrincipal>10001</codigoPrincipal>
-    <codigoAuxiliar>10001</codigoAuxiliar>
-    <descripcion>DESCRIP</descripcion>
-    <cantidad>1</cantidad>
-    <precioUnitario>20.00</precioUnitario>            
-    <descuento>0</descuento>
-    <precioTotalSinImpuesto>20.00</precioTotalSinImpuesto><impuestos>
-              <impuesto>
-                  <codigo>2</codigo>
-                  <codigoPorcentaje>0</codigoPorcentaje>
-                  <tarifa>0</tarifa>
-                  <baseImponible>20.00</baseImponible>
-                  <valor>0</valor>
-              </impuesto></impuestos></detalle>
-          </detalles>
+        <codigoPrincipal>10026</codigoPrincipal>
+        <codigoAuxiliar>10026</codigoAuxiliar>
+        <descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion>
+        <cantidad>4</cantidad>
+        <precioUnitario>25</precioUnitario>            
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>100.00</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>0</codigoPorcentaje>
+                    <tarifa>0</tarifa>
+                    <baseImponible>100.00</baseImponible>
+                    <valor>0.00</valor>
+                </impuesto></impuestos></detalle>
+            </detalles>
         <infoAdicional>
-            <campoAdicional nombre="Direccion">direccion</campoAdicional>
-            <campoAdicional nombre="Telefono">telefono</campoAdicional>		
-            <campoAdicional nombre="Email">email</campoAdicional>
+            <campoAdicional nombre="Direccion">soland rumichcaca</campoAdicional>
+            <campoAdicional nombre="Telefono">098765432</campoAdicional>		
+            <campoAdicional nombre="Email">.</campoAdicional>
         </infoAdicional>
     </factura>

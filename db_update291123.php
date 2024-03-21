@@ -1308,7 +1308,6 @@ mysqli_query($conexion, "CREATE TABLE `banner_adicional` (
 mysqli_query($conexion, "UPDATE `perfil` SET `nodevolucion` = '1' WHERE `perfil`.`id_perfil` = 1;");
 
 
-
 $conexion_tienda  = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
 $url = $_SERVER['HTTP_HOST'];
 
@@ -1317,5 +1316,8 @@ $plataforma = mysqli_fetch_assoc($data);
 $id = $plataforma["id_plataforma"];
 mysqli_query($conexion, "UPDATE `perfil` SET `id_plataforma` = '$id' WHERE `perfil`.`id_perfil` = 1;");
 
-mysqli_close($conexion); // Cerramos la link con la base de datos
+mysqli_query($conexion, "ALTER TABLE `clientes` DROP INDEX `codigo_producto`;");
+
+mysqli_close($conexion_tienda);
+
 echo json_encode("ok");
