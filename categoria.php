@@ -15,6 +15,7 @@ require_once "sysadmin/vistas/db.php";
 require_once "sysadmin/vistas/php_conexion.php";
 require_once "sysadmin/vistas/funciones.php";
 
+
 $id_producto = 0;
 $pagina = 'CATALOGO';
 include './auditoria.php';
@@ -371,16 +372,16 @@ include 'includes/head.php'
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                 }
                                                                   ?> src="<?php
-                                                                                $subcadena = "http";
+                                                                          $subcadena = "http";
 
-                                                                                if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                                                                                ?>
+                                                                          if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                                                                          ?>
     <?php echo  $image_path . '"'; ?>
     <?php
-                                                                                } else {
+                                                                          } else {
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                                }
+                                                                          }
                                                                   ?> sizes="(min-width: 1400px) 317px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)" alt="" class="motion-reduce" width="1080" height="1080">
 
                           </div>
