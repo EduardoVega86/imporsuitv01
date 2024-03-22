@@ -39,5 +39,5 @@ if (isset($_REQUEST['id_comp'])) {
     $formato = str_pad($factura, $long_comp, "0", STR_PAD_LEFT);
     $factura = $serie_comp . '' . $formato;
 
-    echo '<h2>FACTURA #:' . $factura . '<h2><input type="hidden" id="secuencialfactura" value="' . $secuencial . '"  name="secuencialfactura"><input type="hidden" id="factura" value="' . $factura . '"  name="factura">';
+    echo '<h4>FACTURA #:' . $factura . '<h4><input type="hidden" id="secuencialfactura" value="' . $secuencial . '"  name="secuencialfactura"><input type="hidden" id="factura" value="' . $factura . '"  name="factura">';
 }
