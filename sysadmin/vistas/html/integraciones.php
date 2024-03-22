@@ -88,7 +88,7 @@ $respuesta = mysqli_fetch_row($respuesta);
                             <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
                                 <div class="d-flex flex-row">
                                     <div class="grid items-center">
-                                        <img src="../../img/dropi.jpeg" width="30px" alt="img">
+                                        <img src="https://marketplace.imporsuit.com/sysadmin/img/dropi.jpeg" width="30px" alt="img">
                                         <h3 class="text-left font-bold">Dropi
                                     </div>
                                     <?php
