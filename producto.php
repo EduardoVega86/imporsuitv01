@@ -616,10 +616,8 @@ if ($formato == 3) {
 
 
               </div>
-              <style>
-                body {}
-              </style>
-              <div style="">
+
+              <div>
                 <?php
 
 
