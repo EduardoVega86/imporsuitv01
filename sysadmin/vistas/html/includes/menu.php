@@ -42,7 +42,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 	<div class="topbar-left" style="background: #171931">
 		<div class="text-center">
 			<!-- <a href="#" class="logo"> <span>IMPORSUIT</span></a> -->
-			<img src="../../../sysadmin/img/LOGOS-IMPORSUIT.png" width="100px" header="100px">
+			<img src="https://marketplace.imporsuit.com/sysadmin/img/LOGOS-IMPORSUIT.png" width="100px" header="100px">
 		</div>
 	</div>
 
