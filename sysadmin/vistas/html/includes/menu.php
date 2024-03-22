@@ -31,6 +31,7 @@ if ($total_venta == null) {
 } elseif ($total_venta > 0) {
 	$color = 'text-success';
 } else {
+
 	$color = 'text-danger';
 }
 $total_venta = number_format($total_venta, 2, '.', ',');
