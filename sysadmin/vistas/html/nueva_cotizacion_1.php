@@ -130,7 +130,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                             <div class="card-box">
                                                 <div class="widget-chart">
                                                     <H5><strong>DATOS DESTINATARIO</strong></H5>
-                                                    <form method="post" action="../../../ingresar_pedido.php" id="formulario">
+                                                    <form method="post" action="../../../ingresar_pedido_1.php" id="formulario">
 
 
                                                         <div class="row">
@@ -424,7 +424,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-<script type="text/javascript" src="../../js/cotizacion_nueva.js"></script>
+<script type="text/javascript" src="../../js/cotizacion_nueva_1.js"></script>
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
 <script>
