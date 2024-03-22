@@ -116,7 +116,6 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 		<!--- Divider -->
 		<div id="sidebar-menu">
 			<ul>
-				<li class="menu-title">Menu</li>
 
 				<li>
 					<a href="principal.php" class="waves-effect waves-primary"><i class="ti-home"></i><span> Inicio </span></a>
