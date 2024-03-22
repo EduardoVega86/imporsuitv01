@@ -11327,3 +11327,28 @@ a.text-gray-dark:hover {
     border-bottom: 1px solid #3b4180;
     transition: all 0.3s ease;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.back_paginator,
+.next_paginator{
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    color: #333;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.pagina-actual {
+    background-color: #0275d8 !important;
+    color: #f1f1f1 !important;
+}
