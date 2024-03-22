@@ -213,3 +213,37 @@ function obtener_datos_landing(id) {
   $("#mod_boton2").val(boton2);
   $("#mod_descripcion2").val(descripcion2);
 }
+
+function iva(id){
+    $.ajax({
+				url:'../ajax/producto_iva.php?id_notificacion='+id,
+				 beforeSend: function(objeto){
+				 //$('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
+			  },
+				success:function(data){
+             
+					
+				}
+			})
+    }
+    
+    $(document).on('click', '.estado-btn', function() {
+   
+        var userId = $(this).data('id');
+        //alert($(this).text().trim());
+        var newEstado = $(this).text().trim() === 'NO' ? 1 : 0;  // Cambia el estado
+//alert(newEstado);
+        $.ajax({
+            url: '../ajax/producto_iva.php?id_notificacion',  // Ruta al script PHP que cambiará el estado en la base de datos
+            type: 'POST',
+            data: {id: userId, estado: newEstado},
+            success: function(response){
+                // Actualizar el botón según la nueva respuesta de estado
+                if(response.trim() == '1'){
+                    $('button[data-id="' + userId + '"]').text('SI').removeClass('btn-danger').addClass('btn-success');
+                } else {
+                    $('button[data-id="' + userId + '"]').text('NO').removeClass('btn-success').addClass('btn-danger');
+                }
+            }
+        });
+});

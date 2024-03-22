@@ -77,7 +77,8 @@ if ($action == 'ajax') {
                 <th>ID</th>
                 <th></th>
                 <th>Código</th>
-                <th>Producto</th>
+                <th style="text-align: center" colspan="1">Producto</th>
+                <th style="text-align: center">APLICA IVA</th>               
                 <th>Online</th>
                 <th class='text-center'>Existencia</th>
                 <th class='text-left'>Costo</th>
@@ -123,7 +124,9 @@ while ($row = mysqli_fetch_array($query)) {
             $precio_normal        = $row['valor4_producto'];
             $stock_producto       = $row['stock_producto'];
             $stock_min_producto   = $row['stock_min_producto'];
+            $aplica_iva=$row['aplica_iva'];
             
+           
             
             $online   = $row['pagina_web'];
             $status_producto      = $row['estado_producto'];
@@ -139,17 +142,18 @@ while ($row = mysqli_fetch_array($query)) {
             $tienda      = $row['tienda'];
             $drogshipin      = $row['drogshipin'];
             
+            if ($status_producto == 1) {
+                $estado = "<span class='badge badge-success'>Activo</span>";
+            } else {
+                $estado = "<span class='badge badge-danger'>Inactivo</span>";
+            }
           //  $texto_boton1      = $row['texto_boton'];
            // $texto_boton2      = $row['texto_boton2'];
             
           //  $descripcion1      = $row['descripcion'];
            // $descripcion2      = $row['descripcion2'];
             
-            if ($status_producto == 1) {
-                $estado = "<span class='badge badge-success'>Activo</span>";
-            } else {
-                $estado = "<span class='badge badge-danger'>Inactivo</span>";
-            }
+           
             //echo $online;
              if ($online == 1) {
                 $estado_online = "<span class='badge badge-success'>SI</span>";
@@ -190,7 +194,9 @@ while ($row = mysqli_fetch_array($query)) {
                 <input type="hidden" value="<?php echo $texto_boton2; ?>" id="texto_boton2<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $descripcion2; ?>" id="descripcion2<?php echo $id_producto; ?>">
                 <tr>
-                    <td><span class="badge badge-purple"><?php echo $id_producto; ?></span></td>
+                    <td><span class="badge badge-purple"><?php echo $id_producto; ?></span>
+                       
+                    </td>
                     <td class='text-center'>
                         <?php
 if ($image_path == null) {
@@ -203,7 +209,14 @@ if ($image_path == null) {
                         <!--<img src="<?php echo $image_path; ?>" alt="Product Image" class='rounded-circle' width="60">-->
                     </td>
                     <td><?php echo $codigo_producto; ?></td>
+                    
                     <td ><?php echo $nombre_producto; ?></td>
+                    <td>
+                       <button style="font-size: 10px;" class="estado-btn btn-rounded btn-xs btn <?php echo $aplica_iva == 1 ? 'btn-success' : 'btn-danger'; ?>" data-id="<?php echo $id_producto; ?>">
+        <?php echo $aplica_iva == 1 ? 'SI' : 'NO'; ?>
+    </button>                         
+                                               
+                                           </td>
                     <td><?php echo $estado_online; ?></td>
                     <td class='text-center'><?php 
                     if($drogshipin==1){

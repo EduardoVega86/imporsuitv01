@@ -2,6 +2,7 @@
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /*Inicia validacion del lado del servidor*/
 if (empty($_POST['id_cliente']) or empty($_POST['factura'])) {
+    echo 'cliente'.$_POST['id_cliente'].'fac'.$_POST['factura'];
     $errors[] = "EL CLIENTE NO TIENE RUC O NO SE ESCOGIO UN DOCUMENTO PARA FACTURAR";
 } else if (!empty($_POST['id_cliente'])) {
     /* Connect To Database*/
@@ -34,7 +35,7 @@ if (empty($_POST['id_cliente']) or empty($_POST['factura'])) {
     
     //$secuencialfactura = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["secuencialfactura"], ENT_QUOTES)));
      
-    $id_comp           = intval($_POST['id_comp']);
+    $id_comp           = 1;
     @$tip_doc           = intval($_POST['tip_doc']);
     //$trans             = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST["trans"], ENT_QUOTES)));
     $trans='.';
@@ -165,7 +166,15 @@ if (empty($_POST['id_cliente']) or empty($_POST['factura'])) {
 $secuencialfactura= get_row('perfil', 'secuencialfactura', 'id_perfil', 1);
     $insert = mysqli_query($conexion, "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$formaPago','$secuencialfactura','$plazodias')");
     // SI TODO ESTA CORRECTO
-    
+    echo $id_factura;
+    if ($insert) {
+    // Obtener el ID del registro insertado
+    $id_factura = mysqli_insert_id($conexion);
+    //echo "El ID insertado es: $id_insertado";
+} else {
+    // Manejar el caso de error en la inserción
+    echo "Error al insertar el registro: " . mysqli_error($conexion);
+}
     generax($id_factura);
     //Actualizar secuencial factura
     $perfil        = mysqli_query($conexion, "select * from perfil");
