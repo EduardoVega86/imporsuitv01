@@ -10,7 +10,7 @@ $nuevoRNC = $_POST['rnc'];
 $id_cliente = $_POST['id_cliente'];
 
 // Realizar la actualización en la base de datos
-$sql_actualizar_rnc = "UPDATE clientes SET fiscal_cliente = '$nuevoRNC' WHERE id_cliente = $id_cliente"; // Cambia 'id = 1' por la condición que necesites
+$sql_actualizar_rnc = "UPDATE clientes SET email_cliente = '$nuevoRNC' WHERE id_cliente = $id_cliente"; // Cambia 'id = 1' por la condición que necesites
 $resultado = mysqli_query($conexion, $sql_actualizar_rnc);
 
 if ($resultado) {

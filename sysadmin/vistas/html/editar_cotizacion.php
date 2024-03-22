@@ -423,17 +423,23 @@ while ($r = $query->fetch_object()) {
 
                                                         </form>
                                                         <div class="row">
-                                                            <div align="center" class="col-md-4">
+                                                            <div align="center" class="col-md-3">
                                                                 </br>
 
                                                                 <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
                                                             </div>
 
-                                                            <div align="center" class="col-md-4">
+                                                            <div align="center" class="col-md-3">
                                                                 </br>
 
 
                                                                 <button style="cursor: pointer;" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt="" /><br>Cancelar guia</button>
+                                                            </div>
+                                                            <div align="center" class="col-md-3">
+                                                                </br>
+
+
+                                                                <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
                                                             </div>
 
                                                         </div>
@@ -468,30 +474,32 @@ sdsada
 
                                                     </form>
                                                     <div class="row">
-                                                        <div align="center" class="col-md-4">
+                                                        <div align="center" class="col-md-3">
                                                             </br>
 
                                                             <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
                                                         </div>
-                                                        <div align="center" class="col-md-4">
+                                                        <div align="center" class="col-md-3">
                                                             </br>
 
                                                             <button> <a style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/5.png" alt="" /><br>Ver estado</a></button>
                                                         </div>
-                                                        <div align="center" class="col-md-4">
+                                                        <div align="center" class="col-md-3">
                                                             </br>
 
 
                                                             <button style="cursor: pointer;" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt="" /><br>Cancelar guia</button>
                                                         </div>
+                                                        <div align="center" class="col-md-3">
+                                                            </br>
+
+
+                                                            <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
+                                                        </div>
 
                                                     </div>
                                             
-                                        <div style="margin-top: 10px" class="row">
-<div class="col-md-6">
-    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="agregar_datos_factura1()"><span class="ti-shopping-cart-full"></span> Facturar</button>
-															</div>
-                                                    </div>
+                                        
                                             <div style="margin-top: 10px" id="factura_conguia" class="row">
                                                 
                                             </div>
@@ -1172,6 +1180,7 @@ id_pedido=$("#pedido_facturar").val();
                 dataType: 'text',
                 success: function(response) {
                     $("#factura_conguia").html(response);
+                    getval(1)
                //$("#load_img")
                 } // /success function
 
@@ -1179,8 +1188,9 @@ id_pedido=$("#pedido_facturar").val();
     }
     
     function getval(sel) {
+       // alert(sel);
         $.Notification.notify('success', 'bottom center', 'NOTIFICACIÓN', 'CAMBIO DE COMPROBANTE')
-        $("#outer_comprobante").load("../ajax/carga_correlativos.php?id_comp=" + sel.value);
+        $("#outer_comprobante").load("../ajax/carga_correlativos.php?id_comp=" + sel);
 
     }
     $(document).ready(function() {

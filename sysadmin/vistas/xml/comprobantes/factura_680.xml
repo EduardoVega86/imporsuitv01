@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <factura id="comprobante" version="1.1.0">
+        <infoTributaria>
+            <ambiente>2</ambiente>
+            <tipoEmision>1</tipoEmision>
+            <razonSocial>IMPORTADORA</razonSocial>
+            <nombreComercial>RAZON SOCIAL</nombreComercial>
+            <ruc>1104623507001</ruc>
+            <claveAcceso>2203202401110462350700120011000000080150000068010</claveAcceso>
+            <codDoc>01</codDoc>
+            <estab>001</estab>
+            <ptoEmi>100</ptoEmi>
+            <secuencial>000008015</secuencial>
+            <dirMatriz>AV COLON Y DIEGO DE ALMAGRO</dirMatriz>
+        </infoTributaria>
+        <infoFactura>
+            <fechaEmision>22/03/2024</fechaEmision>
+            <dirEstablecimiento>AV COLON Y DIEGO DE ALMAGRO</dirEstablecimiento>
+            <obligadoContabilidad>NO</obligadoContabilidad>       
+            <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+            <razonSocialComprador>Eduardo Vega</razonSocialComprador>
+            <identificacionComprador>0490041877001</identificacionComprador>
+            <direccionComprador>Solanda Rumichca</direccionComprador><totalSinImpuestos>150.00</totalSinImpuestos><totalDescuento>0</totalDescuento><totalConImpuestos> <totalImpuesto>
+                                    <codigo>2</codigo>
+                                    <codigoPorcentaje>0</codigoPorcentaje>
+                                    <baseImponible>150.00</baseImponible>
+                                    <valor>0.00</valor>
+                                </totalImpuesto></totalConImpuestos>        
+            <propina>0.00</propina>        
+            <importeTotal>150.00</importeTotal>
+            <moneda>DOLAR</moneda>
+            <pagos>
+                <pago>
+                    <formaPago>01</formaPago>
+                    <total>150.00</total>
+                    <plazo>1</plazo>
+                    <unidadTiempo>Dias</unidadTiempo>
+                </pago>            
+            </pagos>
+            <valorRetIva>0.00</valorRetIva>
+            <valorRetRenta>0.00</valorRetRenta>
+        </infoFactura><detalles><detalle>
+        <codigoPrincipal>10026</codigoPrincipal>
+        <codigoAuxiliar>10026</codigoAuxiliar>
+        <descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>25</precioUnitario>            
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>25.00</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>0</codigoPorcentaje>
+                    <tarifa>0</tarifa>
+                    <baseImponible>25.00</baseImponible>
+                    <valor>0.00</valor>
+                </impuesto></impuestos></detalle>
+            <detalle>
+        <codigoPrincipal>10026</codigoPrincipal>
+        <codigoAuxiliar>10026</codigoAuxiliar>
+        <descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>25</precioUnitario>            
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>25.00</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>0</codigoPorcentaje>
+                    <tarifa>0</tarifa>
+                    <baseImponible>25.00</baseImponible>
+                    <valor>0.00</valor>
+                </impuesto></impuestos></detalle>
+            <detalle>
+        <codigoPrincipal>10026</codigoPrincipal>
+        <codigoAuxiliar>10026</codigoAuxiliar>
+        <descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>25</precioUnitario>            
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>25.00</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>0</codigoPorcentaje>
+                    <tarifa>0</tarifa>
+                    <baseImponible>25.00</baseImponible>
+                    <valor>0.00</valor>
+                </impuesto></impuestos></detalle>
+            <detalle>
+        <codigoPrincipal>10026</codigoPrincipal>
+        <codigoAuxiliar>10026</codigoAuxiliar>
+        <descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>25</precioUnitario>            
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>25.00</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>0</codigoPorcentaje>
+                    <tarifa>0</tarifa>
+                    <baseImponible>25.00</baseImponible>
+                    <valor>0.00</valor>
+                </impuesto></impuestos></detalle>
+            <detalle>
+        <codigoPrincipal>10026</codigoPrincipal>
+        <codigoAuxiliar>10026</codigoAuxiliar>
+        <descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>25</precioUnitario>            
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>25.00</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>0</codigoPorcentaje>
+                    <tarifa>0</tarifa>
+                    <baseImponible>25.00</baseImponible>
+                    <valor>0.00</valor>
+                </impuesto></impuestos></detalle>
+            <detalle>
+        <codigoPrincipal>10026</codigoPrincipal>
+        <codigoAuxiliar>10026</codigoAuxiliar>
+        <descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion>
+        <cantidad>1</cantidad>
+        <precioUnitario>25</precioUnitario>            
+        <descuento>0</descuento>
+        <precioTotalSinImpuesto>25.00</precioTotalSinImpuesto><impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>0</codigoPorcentaje>
+                    <tarifa>0</tarifa>
+                    <baseImponible>25.00</baseImponible>
+                    <valor>0.00</valor>
+                </impuesto></impuestos></detalle>
+            </detalles>
+        <infoAdicional>
+            <campoAdicional nombre="Direccion">Solanda Rumichca</campoAdicional>
+            <campoAdicional nombre="Telefono">0987654321</campoAdicional>		
+            <campoAdicional nombre="Email">.edu.vega86@gmail.com</campoAdicional>
+        </infoAdicional>
+    </factura>

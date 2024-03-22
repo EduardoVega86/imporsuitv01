@@ -456,7 +456,7 @@ include "../modal/buscar_productos_ventas.php";
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label for="fiscal">RNC/Cedula</label>
+																	<label for="fiscal">RUC/Cedula</label>
 																	<input type="text" class="form-control" autocomplete="off" id="rnc" name="rnc" disabled="true" value="<?php echo $fiscal_cliente; ?>">
 																</div>
 															</div>
