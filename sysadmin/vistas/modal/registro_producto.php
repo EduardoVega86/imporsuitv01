@@ -2,7 +2,7 @@
 if (isset($conexion)) {
 ?>
 	<div id="nuevoProducto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -167,19 +167,20 @@ if (isset($conexion)) {
 								</div>
 
 								<div class="row">
-									<div class="col-md-3">
+									<div class="col-md-6">
 										<div class="form-group">
 											<label for="precio" class="control-label">PVP:</label>
 											<input type="text" class="form-control" id="precio" name="precio" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
 										</div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-6">
 										<div class="form-group">
 											<label for="preciom" class="control-label">PxMayor:</label>
 											<input type="text" class="form-control" id="preciom" name="preciom" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
 										</div>
 									</div>
-									<div class="col-md-3">
+
+									<!-- 		<div class="col-md-3">
 										<div class="form-group">
 											<label for="precioe" class="control-label">PVP Online:</label>
 											<input type="text" class="form-control" id="precioe" name="precioe" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
@@ -187,10 +188,59 @@ if (isset($conexion)) {
 									</div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label for="precioe" class="control-label">P Referencial:</label>
+											<label for="precion" class="control-label">P Referencial:</label>
 											<input type="text" class="form-control" id="precion" name="precion" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
 										</div>
+									</div> -->
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="precioel" class="control-label">¿Precio en Linea?</label>
+											<input type="checkbox" name="precioech" id="precioech">
+											<div class="form-group">
+
+												<label for="precioe" id="precioell" class="control-label">PVP Online:</label>
+												<input type="text" class="form-control" id="precioe" name="precioe" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" value="0" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12" disabled>
+											</div>
+										</div>
 									</div>
+
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="precionla" class="control-label">¿Precio Referencial?</label>
+											<input type="checkbox" name="precioech" id="precionla">
+											<div class="form-group">
+
+												<label for="precion" class="control-label">P Referencial:</label>
+												<input type="text" class="form-control" id="precion" name="precion" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" value="0" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12" disabled>
+											</div>
+										</div>
+									</div>
+
+									<script>
+										const precioech = document.getElementById('precioech');
+										const precioe = document.getElementById('precioe');
+										const precioell = document.getElementById('precioell');
+										precioech.addEventListener('change', (e) => {
+											if (precioech.checked) {
+												precioe.disabled = false;
+											} else {
+												precioe.disabled = true;
+											}
+										});
+
+										const precionla = document.getElementById('precionla');
+										const precion = document.getElementById('precion');
+										precionla.addEventListener('change', (e) => {
+											if (precionla.checked) {
+												precion.disabled = false;
+											} else {
+												precion.disabled = true;
+											}
+										});
+									</script>
 								</div>
 
 								<div class="row">

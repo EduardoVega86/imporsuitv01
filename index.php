@@ -180,7 +180,7 @@ include 'includes/head.php'
                </style>
                <div class="slideshow__slide grid__item grid--1-col slider__slide" id="Slide-template--20805846597913__e6750b05-7703-4f69-ab7c-9ffb0acf18fb-1" role="group" aria-roledescription="Slide" aria-label="1 of 1" tabindex="-1">
                   <div class="slideshow__media banner__media media">
-                     <img src="<?php echo 'sysadmin/vistas/ajax/' . get_row('perfil', 'banner', 'id_perfil', 1) ?>?v=1693674398&amp;width=3840" alt="" srcset="" height="1000" loading="lazy" sizes="100vw">
+                     <img style="object-fit: fill;" src="<?php echo 'sysadmin/vistas/ajax/' . get_row('perfil', 'banner', 'id_perfil', 1) ?>?v=1693674398&amp;width=3840" alt="" srcset="" height="1000" loading="lazy" sizes="100vw">
                   </div>
                   <div class="slideshow__text-wrapper banner__content banner__content--middle-center page-width">
                   </div>
@@ -263,7 +263,7 @@ include 'includes/head.php'
                                  <div class="card__inner  ratio" style="--ratio-percent: 100.0%;">
                                     <div class="card__media">
                                        <div class="media media--transparent media--hover-effect">
-                                          <a href="categoria.php?id_cat=<?php echo  $id_linea ?>" id="" type="button"><img src="sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" sizes="(min-width: 1400px) 317px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)" alt="<?php echo  $nombre_linea; ?>" class="motion-reduce" width="1080" height="1080"></a>
+                                          <a href="categoria.php?id_cat=<?php echo  $id_linea ?>" id="" type="button"><img src="sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" style="object-fit: contain;" sizes="(min-width: 1400px) 317px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)" alt="<?php echo  $nombre_linea; ?>" class="motion-reduce" width="1080" height="1080"></a>
                                        </div>
                                     </div>
                                  </div>
