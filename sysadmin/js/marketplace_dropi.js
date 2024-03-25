@@ -1,5 +1,6 @@
 let indice=1;
 let limite=1;
+const paginasAMostrar = 5;
 let q = '';
 let id_producto_dropi = null;
 $(document).ready(function () {
@@ -73,7 +74,7 @@ function card_productos(q,numero_paginacion=1){
 
       
       var html= '<div class= "d-flex flex-column">\n';
-      var html= '<div class= "d-flex flex-wrap" style="gap:0px">\n';
+      html= '<div class= "d-flex flex-wrap" style="gap:0px">\n';
 
       var boton_inicio = 0;
       var boton_fin = datos.length;
@@ -107,7 +108,7 @@ function card_productos(q,numero_paginacion=1){
       html += '<p class="card-text"><strong>Proveedor:</strong>  '+ info_proveedor['name']+'</p>\n';
       html += '<div class= "d-flex flex-column" style="gap:10px">\n';
       html += '<button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#Descripcion_'+find_id+'">Descripción</button>\n';
-      html += '<a class="btn btn-primary" style="width: 100% gap:5px" title="Importar" onclick="importar('+find_id+')">Importar</a>\n';
+      html += '<a class="btn btn-primary" style="width: 100%; gap:5px; color: white;" title="Importar" onclick="importar('+find_id+')"><strong>Importar</strong></a>\n';
       html += '</div>\n';
       html += '</div>\n';
       html += '</div>\n';
@@ -131,7 +132,7 @@ function card_productos(q,numero_paginacion=1){
       filtro = Math.trunc(filtro / 20) ;
       limite = filtro-1;
       var html= '<div class= "d-flex flex-column">\n';
-      var html= '<div class= "d-flex flex-wrap" style="gap:0px">\n';
+      html += '<div class= "d-flex flex-wrap" style="gap:0px">\n';
 
       var boton_inicio = (numero_paginacion  * 20 ) - 20;
       var boton_fin = boton_inicio + 20;
@@ -164,7 +165,7 @@ function card_productos(q,numero_paginacion=1){
       html += '<p class="card-text"><strong>Proveedor:</strong>  '+ info_proveedor['name']+'</p>\n';
       html += '<div class= "d-flex flex-column" style="gap:10px">\n';
       html += '<button type="button" class="btn btn-light-blue btn-md" data-toggle="modal" data-target="#Descripcion_'+boton_inicio+'">Descripción</button>\n';
-      html += '<a class="btn btn-primary" style="width: 100% gap:5px" title="Importar" onclick="importar('+boton_inicio+')">Importar</a>\n';
+      html += '<a class="btn btn-primary" style="width: 100%; gap:5px; color: white;" title="Importar" onclick="importar('+boton_inicio+')"><strong>Importar</strong></a>\n';
       html += '</div>\n';
       html += '</div>\n';
       html += '</div>\n';
@@ -173,9 +174,10 @@ function card_productos(q,numero_paginacion=1){
       html = modal_producto_dropi(html,boton_inicio,respuesta,info_proveedor,url_img);
       //Fin Modal
     }
+    console.log()
     html += '</div>\n';
-
-    html += paginacion_productos_dropi(q,filtro,html);
+    console.log(filtro)
+    paginacion_productos_dropi(filtro);
 
     html += '</div>\n';
     
@@ -243,41 +245,67 @@ function modal_producto_dropi(html,boton_inicio,datos,info_proveedor,url_img){
       return html;
 }
 
-function paginacion_productos_dropi(q,filtro,html){
+function paginacion_productos_dropi(filtro){
+    // Determina las páginas a mostrar basadas en la página actual
+    const inicio = Math.max(0, indice - Math.ceil(paginasAMostrar / 2));
+    const fin = Math.min(filtro, inicio + paginasAMostrar);
+    let li_paginator = '';
+    let back_paginator = '';
+    let next_paginator = ''
     filtro+=1;
-    var numero_paginacion;
-    html += '<div class="d-flex justify-content-center">\n';
-    html += '<nav aria-label="Page navigation example">\n';
-    html += '<ul class="pagination">\n';
-    html += '<li class="page-item">\n';
-    html += '<a class="page-link" onclick="previus()" aria-label="Previous">\n';
-    html += '<span aria-hidden="true">&laquo;</span>\n';
-    html += '<span class="sr-only">Previous</span>\n';
-    html += '</a>\n';
-    html += '</li>\n';
+    const paginadorUl = document.querySelector('.pagination')
+    back_paginator += '<li class="page-item back_paginator" style="background: white">\n';
+    back_paginator += `<a class="page-link" onclick="previus('${filtro}')" aria-label="Previous">\n`;
+    back_paginator += '<span aria-hidden="true">&laquo;</span>\n';
+    back_paginator += '<span class="sr-only">Previous</span>\n';
+    back_paginator += '</a>\n';
+    back_paginator += '</li>\n';
+    $('.back_d').html(back_paginator);
+
+    console.log(filtro)
     for (var i=1; i<filtro;i++){
-      html += `<li class="page-item" onclick="card_productos('${q}',${i})"><a class="page-link">${i}</a></li>\n`;
+      console.log("i")
+      li_paginator += `<li class="page-item" onclick="card_productos('${q}',${i})"><a class="page-link">${i}</a></li>\n`;
     }
-    html += '<li class="page-item">\n';
-    html += '<a class="page-link" onclick="next()" aria-label="Next">\n';
-    html += '<span aria-hidden="true">&raquo;</span>\n';
-    html += '<span class="sr-only">Next</span>\n';
-    html += '</a>\n';
-    html += '</li>\n';
-    html += '</ul>\n';
-    html += '</nav>\n';
-    html += '</div>\n';
-    return html;
+    $('.pagination').html(li_paginator);
+
+    next_paginator += '<li class="page-item next_paginator" style="background: white">\n';
+    next_paginator += `<a class="page-link" onclick="next('${filtro}')" aria-label="Next">\n`;
+    next_paginator += '<span aria-hidden="true">&raquo;</span>\n';
+    next_paginator += '<span class="sr-only">Next</span>\n';
+    next_paginator += '</a>\n';
+    next_paginator += '</li>\n';
+    $('.next_d').html(next_paginator);
+
+    const flechaDerecha = document.querySelector('.next_paginator');
+    const flechaIzquierda = document.querySelector('.back_paginator');
+    // Oculta todas las páginas primero
+    Array.from(paginadorUl.children).forEach(li => li.style.display = 'none');
+
+    for (let i = inicio; i < fin; i++) {
+      paginadorUl.children[i].style.display = 'inline-block';
+    }
+    
+    // Ajuste de visibilidad de las flechas
+    flechaIzquierda.style.display = indice > 1 ? 'inline-block' : 'none';
+    flechaDerecha.style.display = indice < filtro-1 ? 'inline-block' : 'none';
+
+    // Resaltar la página actual
+    document.querySelectorAll('.pagination li a').forEach(a => a.classList.remove('pagina-actual'));
+    document.querySelector(`.pagination li:nth-child(${indice}) a`).classList.add('pagina-actual');
 }
 
 function previus(){
   if (indice != 1)
   card_productos(q,indice-1);
+  paginacion_productos_dropi();
+
 }
 
 function next(){
-  if (indice >= limite){
+  if (indice <= limite){
   card_productos(q,indice+1);
+  paginacion_productos_dropi()
   }
 }
 
@@ -329,9 +357,6 @@ function buscar_producto(){
   }
 }
 
-function buscar_keyword(key){
-  
-}
 
 function cargar_datos_storage(){
   var destino_url = "https://api.dropi.ec/api/products/index";

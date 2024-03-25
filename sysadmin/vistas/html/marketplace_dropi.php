@@ -60,7 +60,7 @@ while ($r = $query->fetch_object()) {
 				?>
 					<div class="col-lg-12">
 						<div class="portlet">
-							<div class="portlet-heading" style="background: #171931"	>
+							<div class="portlet-heading" style="background: #171931">
 								<h3 class="portlet-title">
 									Productos
 								</h3>
@@ -106,9 +106,9 @@ while ($r = $query->fetch_object()) {
 													} else {
 														$destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 													} ?>
-													<span class="input-group-btn">
-														<button class="btn btn-outline-info btn-rounded waves-effect waves-light" type="button" onclick='load(1);'><i class='fa fa-search'></i></button>
-													</span>
+													<!-- <span class="input-group-btn"> -->
+														<!-- <button class="btn btn-outline-info btn-rounded waves-effect waves-light" type="button" onclick='load(1);'><i class='fa fa-search'></i></button> -->
+													<!-- </span> -->
 												</div>
 											</div>
 											<div class="col-md-2">
@@ -127,7 +127,14 @@ while ($r = $query->fetch_object()) {
 									<div class="datos_ajax_delete"></div><!-- Datos ajax Final -->
 									<div class='outer_div'></div><!-- Carga los datos ajax -->
 
-
+									<div class="d-flex justify-content-center">
+										<nav class="d-flex">
+											<div class="back_d"></div>
+											<ul class="pagination">
+											</ul>
+											<div class="next_d"></div>
+										</nav>
+									</div>
 
 								</div>
 							</div>

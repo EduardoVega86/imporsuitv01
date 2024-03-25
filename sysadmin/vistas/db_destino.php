@@ -1,6 +1,6 @@
 {
     "DB_HOST": "localhost",
-    "DB_USER": "root",
-    "DB_PASS": "",
-    "DB_NAME": "proveedor"
+    "DB_USER": "imporsuit_imporshop",
+    "DB_PASS": "E?c7Iij&885Y",
+    "DB_NAME": "imporsuit_imporshop"
 }

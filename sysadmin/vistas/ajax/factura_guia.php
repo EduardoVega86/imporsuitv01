@@ -12,11 +12,11 @@ while ($row = mysqli_fetch_array($resultado)) {
     $identificacion = get_row('guia_laar', 'identificacionD', 'id_pedido', $id_pedido);
 
     $nombre_cliente = $row['nombre'];
-    $telefono = $row['telefono'];
-    $direccion = $row['c_principal'] . ' ' . $row['c_secundaria'];
+    $telefono_cliente = $row['telefono'];
+    $direccion_cliente = $row['c_principal'] . ' ' . $row['c_secundaria'];
 
     $sql_cliente = "select * from clientes where fiscal_cliente='$identificacion'";
-    echo $sql_cliente;
+    //echo $sql_cliente;
     $resultado_cliente = mysqli_query($conexion, $sql_cliente);
     if ($resultado_cliente) {
         $num_rows = mysqli_num_rows($resultado_cliente);
@@ -55,7 +55,7 @@ while ($row = mysqli_fetch_array($resultado)) {
     border-radius: 25px; /* O un valor alto para garantizar bordes completamente redondeados */
 }
 </style>
-<div class="card-box">
+<div style="background-color: #fdfdfe" class="card-box">
     <div class="widget-chart">
         <div class="editar_factura" class='col-md-12' style="margin-top:10px"></div>
 
@@ -105,6 +105,15 @@ while ($row = mysqli_fetch_array($resultado)) {
                 
 
             </div>
+                        <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="fiscal">Direccion</label>
+                        <input type="text" class="form-control formulario" autocomplete="off" id="direccion_cliente" name="direccion_cliente"   value="<?php echo $direccion_cliente; ?>">
+                        
+                    </div>
+                </div>
+            </div>
             
 
  
@@ -145,7 +154,7 @@ while ($row = mysqli_fetch_array($resultado)) {
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="condiciones">Plazo D&iacute;as</label>
-                        <input type="text" class="form-control formulario" id="plazodias" name="plazodias" required="required">
+                        <input type="number" class="form-control formulario" id="plazodias" name="plazodias" value="1" required="required">
                     </div>
                 </div>
             </div>
@@ -268,17 +277,9 @@ while ($row = mysqli_fetch_array($resultado)) {
             $("#resultados_ajaxf").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
         success: function(datos) {
-            $("#resultados_ajaxf").html(datos);
-            $('#btn_guardar').attr("disabled", false);
-            $("#resultados").load("../ajax/editar_tmp_cot.php"); // carga los datos nuevamente
-            $("#barcode").focus();
-            load(1);
-            //desaparecer la alerta
-            $(".alert-success").delay(400).show(10, function() {
-                $(this).delay(2000).hide(10, function() {
-                    $(this).remove();
-                });
-            }); // /.alert
+          setTimeout(function() {
+            window.location.href = 'bitacora_ventas.php';
+        }, 3000); // 3000 milisegundos = 3 segundos
         }
     });
     event.preventDefault();

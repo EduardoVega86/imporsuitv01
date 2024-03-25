@@ -27,7 +27,6 @@ if ($destino->connect_error) {
 $info = $_POST['info'];
 $info = json_decode($info, true);
 
-
 // Preparar la consulta SQL para insertar los datos en la tabla productos
 $stmt = $destino->prepare("INSERT INTO $tabla (codigo_producto, nombre_producto, descripcion_producto, id_linea_producto, id_proveedor, 
 inv_producto, iva_producto, estado_producto, costo_producto, utilidad_producto, valor1_producto, valor2_producto, valor3_producto, 
@@ -46,6 +45,8 @@ if($info['description'] === null){
 }else{
     $descripcion_producto = $info['description'];
 }
+
+$descripcion_producto = quitarEmojis($descripcion_producto);
 
 $id_linea_producto = 70; //no estoy seguro como funciona el id_linea_producto
 $id_proveedor = 6; // temporal hasta que tengamos el proveedor de dropi bien normalizado en la base de datos
@@ -94,3 +95,8 @@ $stmt->close();
 
 //print_r($info['gallery']);
 //echo $info['gallery'];
+
+function quitarEmojis($texto) {
+    $regexEmojis = '/([\x{1F600}-\x{1F64F}]|[\x{1F300}-\x{1F5FF}]|[\x{1F680}-\x{1F6FF}]|[\x{1F700}-\x{1F77F}]|[\x{1F780}-\x{1F7FF}]|[\x{1F800}-\x{1F8FF}]|[\x{1F900}-\x{1F9FF}]|[\x{1FA00}-\x{1FA6F}]|[\x{1FA70}-\x{1FAFF}]|[\x{2600}-\x{26FF}]|[\x{2700}-\x{27BF}]|[\x{2B50}])/ux';
+    return preg_replace($regexEmojis, '', $texto);
+}
