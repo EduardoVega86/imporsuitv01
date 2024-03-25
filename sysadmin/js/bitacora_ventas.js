@@ -78,12 +78,14 @@ function generarXML(id_factura) {
 	
 }*/
 function visualizarmensajesSRI(titulo,texto,numerofac) {
-	swal({
-		title: titulo,
-		text: 'Mensaje: ' + texto +' --- Numero de Factaura: ' + numerofac,
-		type: 'error',
-		confirmButtonText: 'ok'
-	})
+    //alert(texto);
+	  Swal.fire({
+  title: titulo,
+  text: 'Mensaje: ' + texto +' --- Numero de Factaura: ' + numerofac,
+  icon: 'error',
+  confirmButtonText: 'ok'
+});
+       // texto
 }
 
 

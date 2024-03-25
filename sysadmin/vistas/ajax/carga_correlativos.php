@@ -36,8 +36,16 @@ if (isset($_REQUEST['id_comp'])) {
     } else {
         $factura = $actual_comp;
     }
+    
+    $perfil        = mysqli_query($conexion, "select * from perfil");
+    $rwperfil         = mysqli_fetch_array($perfil);
+    $secuencial_factura = '';
+     if(isset($rwperfil["secuencialfactura"]) != null){
+        $secuencial_factura = $rwperfil['secuencialfactura'] + 1;
+    }
+    $numeroConCeros = str_pad($secuencial_factura, 9, "0", STR_PAD_LEFT);
     $formato = str_pad($factura, $long_comp, "0", STR_PAD_LEFT);
-    $factura = $serie_comp . '' . $formato;
+    $factura = $rwperfil["codigo_establecimiento"].'-'.$rwperfil["codigo_punto_emision"].'-'.$numeroConCeros;
 
     echo '<h4>FACTURA #:' . $factura . '<h4><input type="hidden" id="secuencialfactura" value="' . $secuencial . '"  name="secuencialfactura"><input type="hidden" id="factura" value="' . $factura . '"  name="factura">';
 }

@@ -2,6 +2,7 @@
 /sysadmin/vistas/db.php
 /sysadmin/vistas/xml/firmas
 /sysadmin/vistas/xml/comprobantes
+/sysadmin/vistas/assets/js/lib_firma_sri/errores
 /sysadmin/img/
 /uploads/
 /nbproject/
@@ -14,5 +15,5 @@ sysadmin/vistas/xml/firmas
 sysadmin/vistas/xml/comprobantes
 testeos/
 guias/
-
+sysadmin/vistas/assets/js/lib_firma_sri/errores
 update.sh

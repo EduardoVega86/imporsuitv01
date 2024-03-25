@@ -185,6 +185,7 @@ $secuencialfactura= get_row('perfil', 'secuencialfactura', 'id_perfil', 1);
     }
 
     $updateperfilsecuencialfatura  = mysqli_query($conexion, "UPDATE perfil SET secuencialfactura='" . $secuencial_factura . "' WHERE id_perfil='1'"); //Actualizo la nueva cantidad en el inventario
+    echo "UPDATE perfil SET secuencialfactura='" . $secuencial_factura . "' WHERE id_perfil='1'";
     $ruta_firma = $rwperfil['firma'];
     $pass_firma = $rwperfil['passFirma'];
     
