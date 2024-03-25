@@ -68,7 +68,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 ?>
                     <div class="col-lg-12">
                         <div class="portlet">
-                            <div class="portlet-heading bg-primary">
+                            <div class="portlet-heading" style="background-color: #171931;">
                                 <h3 class="portlet-title">
                                     Nueva Cotización
                                 </h3>
@@ -95,7 +95,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                 <div class="widget-chart">
                                                     <div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
                                                     <form class="form-horizontal" role="form" id="barcode_form">
-                                                        <div class="form-group row">
+                                                        <div class="form-group align-items-md-baseline row">
                                                             <label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
                                                             <div class="col-md-2">
                                                                 <input type="text" class="form-control formulario" id="barcode_qty" value="1" autocomplete="off">
@@ -261,158 +261,166 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
 
 
-                                                        <div style="background-color: #e2e3e5" class="card-box">
+                                                        <div style="background-color: #F6F6F6" class="card-box mt-3">
                                                             <div class="widget-chart">
-                                                                <div class="row">
-                                                                    <H5><strong>GENERAR GUÍA</strong></H5>
-                                                                    <div class="row">
-                                                                        <!-- Primera Columna -->
-                                                                        <div class="col-md-2">
-                                                                            <div id="card3" onclick="seleccionar_transportadora(3)" class="card formulario">
-
-                                                                                <img style="width: 100%;" id="tr3" src="../../img_sistema/servi.png" class="card-img-top  formulario image-bn interactive-image" alt="Selecciona Laarcourrier">
-                                                                                <div class="card-body" style="text-align: center;">
-                                                                                    <strong>$5.50</strong>
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Segunda Columna -->
-                                                                        <div class="col-md-2">
-                                                                            <div id="card1" class="card formulario">
-
-                                                                                <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Servientrega">
-                                                                                <div class="card-body" style="text-align: center;">
-
-                                                                                    <strong>$5.50</strong>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Tercera Columna -->
-                                                                        <div class="col-md-2">
-                                                                            <div id="card2" class="card formulario">
-                                                                                <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(2)" src="../../img_sistema/speed.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
-                                                                                <div class="card-body" style="text-align: center;">
-
-                                                                                    <strong>NO APLICA</strong>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
+                                                                <div class="text-center mb-4">
+                                                                    <span class="fs-4 font-bold">
+                                                                        Generar Guías
+                                                                    </span>
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-3">
-                                                                        <span class="help-block">Recaudo </span>
-                                                                        <select onchange="calcular_guia()" id="cod" name="cod" class="form-control">
-                                                                            <option value="0">Seleccionar</option>
-                                                                            <option value="1" selected>Con Recuado</option>
-                                                                            <option value="0">Sin Recaudo </option>
-                                                                        </select>
+                                                                <div class="d-flex justify-content-center">
+                                                                    <!-- Primera Columna -->
+                                                                    <div class="col-md-2">
 
+                                                                        <div id="card3" onclick="seleccionar_transportadora(3)" class="card formulario p-1">
 
-
-                                                                    </div>
-
-                                                                    <div class="col-md-3">
-
-                                                                        <div class="form-group">
-                                                                            <label for="asegurar_producto">
-                                                                                <input class="formulario" style="width: 20px; height: 20px; margin-top: 25px" type="checkbox" id="asegurar_producto" name="asegurar_producto" value="1">
-                                                                                Deseo asegurar la mercadería
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <span class="help-block">Valor a asegurar </span>
-                                                                        <input id="valorasegurado" name="valorasegurado" class="form-control" value="" placeholder="Valor a aegurar">
-
-                                                                    </div>
-
-
-
-
-
-                                                                </div>
-
-                                                                <div class="row">
-                                                                    <?php
-                                                                    $pais = get_row('perfil', 'pais', 'id_perfil', 1);
-                                                                    if ($pais == 1) {
-                                                                    ?>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                </br>
-                                                                                <button type="submit" style="width:100%; height: 40px; font-size: 20px" class="btn boton"><span class="texto_boton"> Completa tu compra</span></button>
-                                                                            </div>
-
-                                                                            <div class="col-md-6">
-                                                                                </br>
-
+                                                                            <img style="width: 100%;" id="tr3" src="../../img_sistema/servi.png" class="card-img-top  formulario image-bn interactive-image" alt="Selecciona Laarcourrier">
+                                                                            <div class="card-body" style="text-align: center;">
+                                                                                <strong>$5.50</strong>
 
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-md-3">
-                                                                            </br>
-
-                                                                            <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn btn-danger" disabled>Generar Guía</button>
-
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            </br>
-                                                                            <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Calcular</button>
-                                                                        </div>
-                                                                    <?php
-                                                                    }
-                                                                    ?>
-                                                                    <div class="col-md-6">
-                                                                        </br>
-
-
                                                                     </div>
+                                                                    <!-- Segunda Columna -->
+                                                                    <div class="col-md-2">
+                                                                        <div id="card1" class="card formulario p-1">
+
+                                                                            <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Servientrega">
+                                                                            <div class="card-body" style="text-align: center;">
+
+                                                                                <strong>$5.50</strong>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Tercera Columna -->
+                                                                    <div class="col-md-2">
+                                                                        <div id="card2" class="card formulario p-1">
+                                                                            <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(2)" src="../../img_sistema/speed.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
+                                                                            <div class="card-body" style="text-align: center;">
+
+                                                                                <strong>NO APLICA</strong>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div id="card4" class="card formulario p-1">
+                                                                            <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintracom.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
+                                                                            <div class="card-body" style="text-align: center;">
+
+                                                                                <strong>Proximamente</strong>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
                                                                 </div>
                                                             </div>
+                                                            <div class="d-flex justify-content-center flex-nowrap mt-4">
+                                                                <div class="col-md-3">
+                                                                    <span class="help-block">Recaudo </span>
+                                                                    <select onchange="calcular_guia()" id="cod" name="cod" class="form-control">
+                                                                        <option value="0">Seleccionar</option>
+                                                                        <option value="1" selected>Con Recuado</option>
+                                                                        <option value="0">Sin Recaudo </option>
+                                                                    </select>
 
-                                                    </form>
 
+
+                                                                </div>
+
+                                                                <div class="col-md-3">
+
+                                                                    <div class="form-group">
+                                                                        <label for="asegurar_producto">
+                                                                            <input class="formulario" style="width: 20px; height: 20px; margin-top: 25px" type="checkbox" id="asegurar_producto" name="asegurar_producto" value="1">
+                                                                            Deseo asegurar la mercadería
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <span class="help-block">Valor a asegurar </span>
+                                                                    <input id="valorasegurado" name="valorasegurado" class="form-control" value="" placeholder="Valor a aegurar">
+
+                                                                </div>
+
+
+
+
+
+                                                            </div>
+
+                                                            <div class="d-flex justify-content-center flex-wrap gap-3">
+                                                                <?php
+                                                                $pais = get_row('perfil', 'pais', 'id_perfil', 1);
+                                                                if ($pais == 1) {
+                                                                ?>
+
+                                                                    <div class="">
+                                                                        </br>
+                                                                        <button type="submit" style="width:100%; height: 40px; font-size: 20px" role="button" class="btn btn-success "><span class="texto_boton"> Completa tu compra</span></button>
+                                                                    </div>
+
+                                                                    <div class="">
+                                                                        </br>
+
+                                                                        <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn btn-danger" disabled>Generar Guía</button>
+
+                                                                    </div>
+                                                                    <div class="">
+                                                                        </br>
+                                                                        <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Facturar</button>
+                                                                    </div>
+                                                            </div>
+
+                                                        <?php
+                                                                }
+                                                        ?>
+                                                        <div class="col-md-6">
+                                                            </br>
+
+
+                                                        </div>
+                                                        </div>
                                                 </div>
-                                            </div>
 
+                                                </form>
+
+                                            </div>
                                         </div>
 
                                     </div>
-                                    <!-- end row -->
-
 
                                 </div>
+                                <!-- end row -->
+
+
                             </div>
                         </div>
                     </div>
-                <?php
-                } else {
-                ?>
-                    <section class="content">
-                        <div class="alert alert-danger" align="center">
-                            <h3>Acceso denegado! </h3>
-                            <p>No cuentas con los permisos necesario para acceder a este módulo.</p>
-                        </div>
-                    </section>
-                <?php
-                }
-                ?>
-
             </div>
-            <!-- end container -->
+        <?php
+                } else {
+        ?>
+            <section class="content">
+                <div class="alert alert-danger" align="center">
+                    <h3>Acceso denegado! </h3>
+                    <p>No cuentas con los permisos necesario para acceder a este módulo.</p>
+                </div>
+            </section>
+        <?php
+                }
+        ?>
+
         </div>
-        <!-- end content -->
-
-        <?php require 'includes/pie.php'; ?>
-
+        <!-- end container -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Right content here -->
-    <!-- ============================================================== -->
+    <!-- end content -->
+
+    <?php require 'includes/pie.php'; ?>
+
+</div>
+<!-- ============================================================== -->
+<!-- End Right content here -->
+<!-- ============================================================== -->
 
 
 </div>
