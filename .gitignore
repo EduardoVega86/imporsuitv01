@@ -1,5 +1,7 @@
 /nbproject/private/
 /sysadmin/vistas/db.php
+/sysadmin/vistas/xml/firmas
+/sysadmin/vistas/xml/comprobantes
 /sysadmin/img/
 /uploads/
 /nbproject/
@@ -8,6 +10,8 @@
 sysadmin/vistas/db.php
 sysadmin/vistas/db_destino_marketplace.php
 /sysadmin/vistas/db_destino_marketplace.php
+sysadmin/vistas/xml/firmas
+sysadmin/vistas/xml/comprobantes
 testeos/
 guias/
 
