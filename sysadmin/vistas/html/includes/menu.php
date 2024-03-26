@@ -43,7 +43,30 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 	<div class="topbar-left" style="background: #171931">
 		<div class="text-center d-flex justify-content-center pt-2">
 			<!-- <a href="#" class="logo"> <span>IMPORSUIT</span></a> -->
-			<img src="https://marketplace.imporsuit.com/sysadmin/img/LOGOS-IMPORSUIT.png" width="100px" header="100px">
+			<img src="https://marketplace.imporsuit.com/sysadmin/img/LOGOS-IMPORSUIT.png" id="mi-imagen" width="100px" header="100px">
+			<script>
+				// Función para cambiar la imagen según el tamaño de la ventana
+				function cambiarImagenPorTamaño() {
+					var imagen = document.getElementById('mi-imagen'); // Asegúrate de tener un elemento img con id="mi-imagen"
+
+					if (window.matchMedia("(max-width: 768px)").matches) {
+						// Si la pantalla es menor o igual a 768px de ancho, usa la imagen para móviles
+						imagen.src = 'https://marketplace.imporsuit.com/sysadmin/img/logo_imporsuit.png';
+						imagen.style.width = '40px'; // Establece el ancho deseado para móviles
+						imagen.style.height = '40px';
+					} else {
+						// Si la pantalla es mayor a 768px de ancho, usa la imagen para escritorio
+						imagen.src = 'https://marketplace.imporsuit.com/sysadmin/img/LOGOS-IMPORSUIT.png';
+						imagen.style.width = '100px';
+					}
+				}
+
+				// Escuchar el evento resize de la ventana
+				window.addEventListener('resize', cambiarImagenPorTamaño);
+
+				// También ejecuta la función al cargar la página para establecer la imagen inicial correcta
+				window.addEventListener('load', cambiarImagenPorTamaño);
+			</script>
 		</div>
 	</div>
 

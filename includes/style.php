@@ -10,7 +10,7 @@
   .boton {
     background-color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
     border-color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
-
+    
   }
 
   .comparison-table__row-name {
@@ -36,7 +36,7 @@
 
   .menu_activo {
     background-color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
-    // padding: 5px;
+    padding: 5px;
     border-radius: 5px;
 
 
@@ -259,11 +259,11 @@
 
     .navbar-brand {
       padding-top: 0;
-      // margin-top:-10px;
+      margin-top:-10px;
     }
 
     .navbarResponsive {
-      //margin-top:-11px;
+      margin-top:-11px;
     }
 
     /* Cambia el color de texto de los ítems del dropdown */
@@ -307,7 +307,7 @@
 
   @media (max-width: 768px) {
     #navbarLogo {
-      max-height: 40px; // Tamaño más pequeño para dispositivos móviles
+      max-height: 40px;
     }
   }
 </style>
@@ -338,7 +338,7 @@
   .footer-container hr {
     border-top: 1px solid #fff;
     /* Ajusta el color y el estilo de la línea divisoria */
-    // width: 80%; /* Ajusta el ancho según necesites */
+    width: 80%; /* Ajusta el ancho según necesites */
     margin-top: 20px;
     /* Espacio antes de la línea divisoria */
     margin-bottom: 20px;
@@ -395,7 +395,7 @@
 
   /* Asegúrate de que el contenido del carrusel se sitúe sobre el overlay */
   .carousel-caption {
-    //position: relative;
+    position: relative;
     z-index: 3;
   }
 
@@ -415,13 +415,13 @@
   }
 
   .category-image {
-    width: 100%;
-    height: 200px;
-    /* o la altura que prefieras */
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.5s ease;
-    /* Anima el cambio de escala */
+    width: 125px; /* Ancho del círculo */
+    height: 125px; /* Alto del círculo */
+    border-radius: 50%; /* Hace que el div sea un círculo */
+    background-position: center; /* Centra la imagen de fondo */
+    background-size: cover; /* Asegura que la imagen de fondo cubra completamente el círculo */
+    display: inline-block;; /* Cambia el tipo de display si es necesario */
+    margin-bottom: 10px; /* Centra el div si está dentro de un contenedor más grande */
   }
 
   .category-image:hover {
@@ -430,25 +430,50 @@
   }
 
   .category-button {
-    background-color: #D9534F;
-    /* Color de fondo del botón */
-    color: white;
-    /* Color del texto del botón */
+    display: inline-block; /* Cambia el display a inline-block */
+    width: auto; /* Cambia de width fijo a auto para adaptar al contenido */
+    padding: 5px 20px; /* Ajusta el relleno para controlar el tamaño */
+    margin: 0 auto; /* Centra el botón horizontalmente */
     border: none;
-    /* Sin bordes para el botón */
-    padding: 10px 20px;
-    /* Espaciado interior del botón */
-    margin-top: 10px;
-    /* Espacio superior del botón */
-    width: 100%;
-    /* El botón ocupa todo el ancho del 'div' */
-    text-align: center;
-    /* Centra el texto dentro del botón */
-    display: block;
-    /* Hace que el enlace se comporte como un bloque para llenar el contenedor */
-    text-decoration: none;
-    /* Elimina el subrayado del texto del enlace */
+    cursor: pointer;
+    text-align: center; /* Asegura que el texto del botón esté centrado */
   }
+  .category-container {
+  text-align: center; /* Asegura que el contenido interno esté centrado */
+  }
+
+  /* CSS para cambiar el diseño de flechas del carrucel de categorias */
+  .owl-carousel .owl-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+/* Ajustes adicionales para la posición y tamaño de los botones si es necesario */
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel .owl-nav button.owl-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Establecer un tamaño adecuado para el botón si estás utilizando un icono más grande */
+}
+
+.owl-carousel .owl-nav .owl-prev {
+  left: -2px; /* Ajusta según sea necesario */
+}
+
+.owl-carousel .owl-nav .owl-next {
+  right: -2px; /* Ajusta según sea necesario */
+}
+
+/* Estilos personalizados para aumentar el tamaño de las flechas */
+.owl-carousel .owl-nav button {
+  font-size: 10em; /* Aumenta el tamaño del icono */
+  color: #333; /* Cambia al color deseado */
+}
+
+/* fin de css para modificar carrusel de categorias*/
 </style>
 
 

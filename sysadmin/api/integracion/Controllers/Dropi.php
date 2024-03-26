@@ -63,6 +63,7 @@ class Dropi extends Controller
 	{
 		$usuario = $_POST["correo"];
 		$contrasena = $_POST["contrasena"];
+
 		if ($usuario && $contrasena) {
 			$token = $this->autentificacion($usuario, $contrasena);
 

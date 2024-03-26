@@ -114,6 +114,29 @@ while ($r = $query->fetch_object()) {
 														}
 														?>
 													</select>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="input-group">
+													<?php
+													if ($_SERVER['HTTP_HOST'] == 'localhost') {
+														$destino = new mysqli('localhost', 'root', '', 'prueba_imporsuit');
+													} else {
+														$destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+													} ?>
+													<select name='tienda_p' id='tienda_p' class="form-control" onchange="load(1);">
+														<option value="">-- Selecciona la tienda --</option>
+														<option value="">Todos</option>
+														<?php
+
+														$query_tienda = mysqli_query($destino, "select distinct tienda from productos order by tienda");
+														while ($rw = mysqli_fetch_array($query_tienda)) {
+														?>
+															<option value="<?php echo $rw['tienda']; ?>"><?php echo $rw['tienda']; ?></option>
+														<?php
+														}
+														?>
+													</select>
 													<span class="input-group-btn">
 														<button class="btn btn-outline-info btn-rounded waves-effect waves-light" type="button" onclick='load(1);'><i class='fa fa-search'></i></button>
 													</span>

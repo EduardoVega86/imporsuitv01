@@ -6,9 +6,10 @@
 		function load(page) {
 		    var q = $("#q").val();
 		    var categoria=$("#categoria").val();
+			var tienda=$("#tienda_p").val();
 		    $("#loader").fadeIn('slow');
 		    $.ajax({
-		        url: '../ajax/buscar_prod_marketplace.php?action=ajax&page=' + page + '&q=' + q + '&categoria=' + categoria,
+		        url: '../ajax/buscar_prod_marketplace.php?action=ajax&page=' + page + '&q=' + q + '&categoria=' + categoria + '&tienda='+ tienda,
 		        beforeSend: function(objeto) {
 		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
 		        },
