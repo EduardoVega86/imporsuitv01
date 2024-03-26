@@ -52,87 +52,87 @@ $respuesta = mysqli_fetch_row($respuesta);
                 ?>
                     <div class="col-lg-12">
                         <div class="row">
-                        <div class="row">
-                            <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
-                                <div class="grid items-center">
-
-                                    <img src="https://cdn.icon-icons.com/icons2/836/PNG/512/Shopify_icon-icons.com_66757.png" width="30px" alt="img">
-                                    <h3 class="text-left font-bold">Shopify
-                                </div>
-
-                                </h3>
-                                <p>Añade automaticamente tus pedidos de shopify con nuestra api.</p>
-                                <div class="d-flex flex-column gap-1">
-                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Shopify">
-                                        Conectar
-                                    </button>
-                                    <a href="https://www.youtube.com/watch?v=2jKBA8kjEvo" target="_blank" class="btn btn-outline-danger">Ver Video</a>
-                                </div>
-                            </div>
-                            <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
-                                <div class="grid items-center">
-
-                                    <img src="https://cdn.icon-icons.com/icons2/2429/PNG/512/facebook_logo_icon_147291.png" width="30px" alt="img">
-                                    <h3 class="text-left font-bold">Facebook
-                                </div>
-
-                                </h3>
-                                <p>Manten actualizadas tus campañas con nuestra api.</p>
-                                <div class="d-flex flex-column gap-1">
-                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#facebook">
-                                        Conectar
-                                    </button>
-                                    <!-- <a href="#" class="btn btn-outline-danger">Ver Video</a> -->
-                                </div>
-                            </div>
-                            <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
-                                <div class="d-flex flex-row">
+                            <div class="row">
+                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
                                     <div class="grid items-center">
-                                        <img src="https://marketplace.imporsuit.com/sysadmin/img/dropi.jpeg" width="30px" alt="img">
-                                        <h3 class="text-left font-bold">Dropi
+
+                                        <img src="https://cdn.icon-icons.com/icons2/836/PNG/512/Shopify_icon-icons.com_66757.png" width="30px" alt="img">
+                                        <h3 class="text-left font-bold">Shopify
                                     </div>
-                                    <?php
-                                    if (empty($respuesta)) {
-                                    ?>
-                                        <div class="items-rigth d-flex flex-row">
-                                            <div class="items-center d-flex flex-column">
-                                                <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
-                                                <p class="text-right font-bold fs-9">Desconectado</p>
-                                            </div>
-                                        </div>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <div class="items-rigth d-flex flex-row">
-                                            <div class="items-center d-flex flex-column">
-                                                <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
-                                                <p class="text-right font-bold fs-9 text-success">Conectado</p>
-                                            </div>
-                                        </div>
-                                    <?php
-                                    } ?>
-                                </div>
-                                </h3>
-                                <p>Mantente informado y actualizado de tus productos en Dropi con nuestra api.</p>
-                                <div class="d-flex flex-column gap-1">
-                                    <?php
-                                    if (empty($respuesta)) {
-                                    ?>
-                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Dropi">
+
+                                    </h3>
+                                    <p>Añade automaticamente tus pedidos de shopify con nuestra api.</p>
+                                    <div class="d-flex flex-column gap-1">
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Shopify">
                                             Conectar
                                         </button>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <a href="marketplace_dropi.php" class="btn btn-outline-primary">Productos</a>
-
-                                        <button type="button" class="btn btn-outline-danger" id="Dropi_cerrar_sesion">
-                                            Cerrar Sesión
-                                        </button>
-                                    <?php
-                                    } ?>
+                                        <a href="https://www.youtube.com/watch?v=2jKBA8kjEvo" target="_blank" class="btn btn-outline-danger">Ver Video</a>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                    <div class="grid items-center">
+
+                                        <img src="https://cdn.icon-icons.com/icons2/2429/PNG/512/facebook_logo_icon_147291.png" width="30px" alt="img">
+                                        <h3 class="text-left font-bold">Facebook
+                                    </div>
+
+                                    </h3>
+                                    <p>Manten actualizadas tus campañas con nuestra api.</p>
+                                    <div class="d-flex flex-column gap-1">
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#facebook">
+                                            Conectar
+                                        </button>
+                                        <!-- <a href="#" class="btn btn-outline-danger">Ver Video</a> -->
+                                    </div>
+                                </div>
+                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                    <div class="d-flex flex-row">
+                                        <div class="grid items-center">
+                                            <img src="https://marketplace.imporsuit.com/sysadmin/img/dropi.jpeg" width="30px" alt="img">
+                                            <h3 class="text-left font-bold">Dropi
+                                        </div>
+                                        <?php
+                                        if (empty($respuesta)) {
+                                        ?>
+                                            <div class="items-rigth d-flex flex-row">
+                                                <div class="items-center d-flex flex-column">
+                                                    <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                    <p class="text-right font-bold fs-9">Desconectado</p>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <div class="items-rigth d-flex flex-row">
+                                                <div class="items-center d-flex flex-column">
+                                                    <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                    <p class="text-right font-bold fs-9 text-success">Conectado</p>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                    </h3>
+                                    <p>Mantente informado y actualizado de tus productos en Dropi con nuestra api.</p>
+                                    <div class="d-flex flex-column gap-1">
+                                        <?php
+                                        if (empty($respuesta)) {
+                                        ?>
+                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#Dropi">
+                                                Conectar
+                                            </button>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <a href="marketplace_dropi.php" class="btn btn-outline-primary">Productos</a>
+
+                                            <button type="button" class="btn btn-outline-danger" id="Dropi_cerrar_sesion">
+                                                Cerrar Sesión
+                                            </button>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
                                 <div class="d-flex flex-row">
@@ -250,7 +250,7 @@ $respuesta = mysqli_fetch_row($respuesta);
                                                         <div class="align-items-center">
                                                             <div class="card-body p-4 p-lg-5 text-black">
                                                                 <form id="login_dropi">
-                                                                    <select class="form-select" style="width:75px" name="owner" aria-label="Default select example">
+                                                                    <select class="form-select" id="select_pais" style="width:75px" name="owner" aria-label="Default select example">
                                                                         <option selected="selected" value="EC">🇪🇨</option>
                                                                         <option value="CO">🇨🇴</option>
                                                                         <option value="MX">🇲🇽</option> <!-- Mexico-->
@@ -378,6 +378,11 @@ $respuesta = mysqli_fetch_row($respuesta);
             var url_tienda = location.origin + "/sysadmin/api/integracion/Dropi/login";
             var url_tienda2 = location.origin + "/sysadmin/api/integracion/Dropi/enviar_datos";
 
+            document.getElementById('select_pais').addEventListener('change', function() {
+                const selectedCountry = this.value;
+                // Ahora puedes llamar a cualquier función definida en tu archivo .js externo
+                console.log(selectedCountry)
+            });
             $.ajax({
                 url: url_tienda,
                 type: "POST",

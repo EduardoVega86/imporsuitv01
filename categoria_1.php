@@ -269,10 +269,6 @@ $resultadoAdicionales = $conexion->query("SELECT fondo_banner, texto_banner, tit
         </div>
       </div>
     </div>
- 
-    <!-- Categoría 2 -->
-    
-    <!-- Categoría 3 -->
      <?php
                      }
 

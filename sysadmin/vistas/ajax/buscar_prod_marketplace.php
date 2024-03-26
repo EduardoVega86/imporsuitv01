@@ -10,7 +10,7 @@ require_once "../php_conexion.php";
 
 // Configuracin de la base de datos de destino
 if ($_SERVER['HTTP_HOST']=='localhost'){
-    $destino = new mysqli('localhost', 'root', '', 'master');
+    $destino = new mysqli('localhost', 'root', '', 'prueba_imporsuit');
 }else{
  $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');   
 }
@@ -58,9 +58,11 @@ else {
         $sWhere .= ')';
 
     }
+    if ($_GET['tienda'] !== ""){
+        $sWhere .= " and tienda = '" . $_GET['tienda'] . "' ";
+    }
 
     $sWhere .= " order by nombre_producto asc";
-
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
