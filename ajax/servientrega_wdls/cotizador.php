@@ -1,5 +1,5 @@
 <?php
-
+$get_data = file_get_contents("php://input");
 $url = "https://servientrega-ecuador-prueba.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
 
 // Estructura del XML a enviar
