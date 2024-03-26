@@ -1314,6 +1314,10 @@ $url = $_SERVER['HTTP_HOST'];
 $data = mysqli_query($conexion_tienda, "SELECT * from plataformas where url_imporsuit like '%$url%' ");
 $plataforma = mysqli_fetch_assoc($data);
 $id = $plataforma["id_plataforma"];
+
+
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `id_plataforma` INT NULL AFTER `alineacion_slider`;");
+
 mysqli_query($conexion, "UPDATE `perfil` SET `id_plataforma` = '$id' WHERE `perfil`.`id_perfil` = 1;");
 
 mysqli_query($conexion, "ALTER TABLE `clientes` DROP INDEX `codigo_producto`;");
@@ -1336,7 +1340,7 @@ mysqli_query($conexion, "create table dropi (
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `facturada` INT NULL DEFAULT '0' AFTER `impreso`;");
 
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `factura_numero` INT NULL AFTER `facturada`;");
- 
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
