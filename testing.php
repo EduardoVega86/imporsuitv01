@@ -1,39 +1,62 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-$wsdl = "https://servientrega-ecuador-prueba.appsiscore.com/app/ws/server_ciudades.php?wsdl";
-$options = [
-    'trace' => 1,
-    'exceptions' => true,
-    'soap_version' => SOAP_1_1, // Especificando la versión de SOAP, basado en tu WSDL
-    'style' => SOAP_RPC, // Indicando el uso de RPC
-    'use' => SOAP_ENCODED, // Codificación usada
+$wsdl = "https://servientrega-ecuador-prueba.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
+
+// Construye el cuerpo del mensaje SOAP manualmente
+$soapRequest = <<<XML
+<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="https://servientrega-ecuador.appsiscore.com/app/ws/">
+<soapenv:Header/>
+<soapenv:Body>
+<ws:Consultar soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+<entidad xsi:type="xsd:string">PRUEBAS RECAUDOS</entidad>
+<producto xsi:type="xsd:string">MERCANCIA PREMIER</producto>
+<origen xsi:type="xsd:string">GUAYAQUIL</origen>
+<destino xsi:type="xsd:string">QUITO-PICHINCHA</destino>
+<valor_mercaderia xsi:type="xsd:string">200</valor_mercaderia>
+<piezas xsi:type="xsd:string">1</piezas>
+<peso xsi:type="xsd:string">3</peso>
+<alto xsi:type="xsd:string">1</alto>
+<ancho xsi:type="xsd:string">1</ancho>
+<largo xsi:type="xsd:string">1</largo>
+<tokn xsi:type="xsd:string">1593aaeeb60a560c156387989856db6be7edc8dc220f9feae3aea237da6a951d</tokn>
+<usu xsi:type="xsd:string">PRUEBA</usu>
+<pwd xsi:type="xsd:pwd">s12345ABCDe</pwd>
+</ws:Consultar>
+</soapenv:Body>
+</soapenv:Envelope>
+XML;
+
+$headers = [
+    "Content-type: text/xml;charset=\"utf-8\"",
+    "Accept: text/xml",
+    "Cache-Control: no-cache",
+    "Pragma: no-cache",
+    "SOAPAction: \"run\"",  // Asegúrate de ajustar esto según lo que requiera el servicio
+    "Content-length: " . strlen($soapRequest),
 ];
 
-try {
-    $client = new SoapClient($wsdl, $options);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+curl_setopt($ch, CURLOPT_URL, $wsdl);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $soapRequest); // La petición SOAP
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_VERBOSE, true);
+$verbose = fopen('php://temp', 'w+');
+curl_setopt($ch, CURLOPT_STDERR, $verbose);
 
-    $params = [
-        new SoapParam('impor.comex', 'usu'),
-        new SoapParam('123456', 'pwd'),
-        new SoapParam('1593aaeeb60a560c156387989856db6be7edc8dc220f9feae3aea237da6a951d', 'tokn'),
-        new SoapParam('MERCANCIA PREMIER', 'producto'),
-        new SoapParam('GUAYAQUIL', 'origen'),
-        new SoapParam('GUAYAQUIL', 'destino'),
-        new SoapParam('200', 'valor_mercaderia'),
-        new SoapParam('1', 'piezas'),
-        new SoapParam('3', 'peso'),
-        new SoapParam('1', 'alto'),
-        new SoapParam('1', 'ancho'),
-        new SoapParam('1', 'largo'),
-        new SoapParam('Servvi', 'entidad'),
-    ];
+// Envía la solicitud
+$response = curl_exec($ch);
 
-    // Llamada al método
-    $response = $client->__soapCall('getXML', $params);
-    echo "<pre>";
-    print_r($response);
-    echo "</pre>";
-} catch (SoapFault $fault) {
-    print_r($fault);
+// Comprueba si ocurrió un error
+if (curl_errno($ch)) {
+    $error_msg = curl_error($ch);
+    echo "cURL Error: $error_msg";
+} else {
+    echo "Respuesta: \n$response";
 }
+
+curl_close($ch);

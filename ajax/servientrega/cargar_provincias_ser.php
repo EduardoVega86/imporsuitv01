@@ -31,4 +31,3 @@ echo "Nuevos registros creados exitosamente";
 
 $stmt->close();
 $conn->close();
-?>

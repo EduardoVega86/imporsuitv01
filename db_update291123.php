@@ -1334,7 +1334,9 @@ mysqli_query($conexion, "create table dropi (
 );");
 
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `facturada` INT NULL DEFAULT '0' AFTER `impreso`;");
-     
+
+mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `factura_numero` INT NULL AFTER `facturada`;");
+ 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
