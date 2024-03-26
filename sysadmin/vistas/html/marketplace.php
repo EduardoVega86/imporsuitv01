@@ -132,7 +132,8 @@ while ($r = $query->fetch_object()) {
 														$query_tienda = mysqli_query($destino, "select distinct tienda from productos order by tienda");
 														while ($rw = mysqli_fetch_array($query_tienda)) {
 														?>
-															<option value="<?php echo $rw['tienda']; ?>"><?php echo $rw['tienda']; ?></option>
+															<option value="<?php echo $rw['tienda']; ?>"><?php $subdomain = str_replace(array('http://','https://', '.imporsuit.com'), '', $rw['tienda']);
+															echo strtoupper($subdomain); ?></option>
 														<?php
 														}
 														?>
@@ -200,7 +201,17 @@ while ($r = $query->fetch_object()) {
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/js_marketplace.js"></script>
+
 <script>
+	   $(document).ready(function() {
+        $("#tienda_p").select2({
+            placeholder: "Selecciona una opción",
+            allowClear: true,
+            // Puedes añadir más opciones de configuración aquí
+        });
+
+
+    });
 	function precio_venta() {
 		var profit = $("#utilidad").val();
 		var buying_price = $("#costo").val();
