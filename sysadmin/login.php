@@ -139,7 +139,7 @@ if ($login->isUserLoggedIn() == true) {
                             LOGIN
                         </h5>
                         <div class="input-group mb-3">
-                            <input class="form-control" type="text" name="usuario_users" required="" placeholder="Usuario" autocomplete="off" autofocus="">
+                            <input class="form-control" type="text" name="usuario_users" id="usuario_users" required="" placeholder="Usuario" autocomplete="off" autofocus="">
                         </div>
 
 
@@ -189,6 +189,12 @@ if ($login->isUserLoggedIn() == true) {
         <script src="assets/js/jquery.core.js"></script>
         <script src="assets/js/jquery.app.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            if (window.location.search != null) {
+                $("#usuario_users").val(window.location.search.split("=")[1])
+            }
+        </script>
 
         <script>
             // obtiene el item del localstorage 
