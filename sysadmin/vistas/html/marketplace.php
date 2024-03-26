@@ -152,27 +152,6 @@ while ($r = $query->fetch_object()) {
 												</div>
 
 											</div>
-											<div class="col-md-2">
-												<div class="btn-group pull-right">
-													<?php if ($permisos_editar == 1) { ?>
-														<div class="btn-group dropup">
-															<button aria-expanded="false" class="btn btn-outline-default btn-rounded waves-effect waves-light" data-toggle="dropdown" type="button">
-																<i class='fa fa-file-text'></i> Reporte
-																<span class="caret">
-																</span>
-															</button>
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#" onclick="reporte();">
-																	<i class='fa fa-file-pdf-o'></i> PDF
-																</a>
-																<a class="dropdown-item" href="#" onclick="reporte_excel();">
-																	<i class='fa fa-file-excel-o'></i> Excel
-																</a>
-															</div>
-														</div>
-													<?php } ?>
-												</div>
-											</div>
 
 										</div>
 									</form>
