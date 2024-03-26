@@ -74,7 +74,7 @@ while ($row = mysqli_fetch_array($resultado)) {
                 </div>
                 <div class="col-6">
                     <div class="form-group">
-                         <label for="fiscal">RUC/Cedula</label>
+                         <label for="fiscal">Nombre Cliente</label>
                         <input type="text" id="nombre_cliente" class="form-control formulario" required value="<?php echo $nombre_cliente; ?>" tabindex="2">
                         <!--span class="input-group-btn">
                                 <button type="button" class="btn waves-effect waves-light btn-success" data-toggle="modal" data-target="#nuevoCliente"><li class="fa fa-plus"></li></button>
@@ -201,6 +201,27 @@ while ($row = mysqli_fetch_array($resultado)) {
             // Enviar el nuevo RNC al servidor mediante AJAX
             $.ajax({
                 url: '../ajax/actualizar_correo_cliente.php', // Ruta del archivo PHP que procesará la actualización
+                type: 'POST',
+                data: { rnc: nuevoRNC, id_cliente:id_cliente, }, // Datos a enviar al servidor
+                success: function(response) {
+                    // Manejar la respuesta del servidor (puede ser un mensaje de éxito o error)
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    // Manejar errores de la petición AJAX
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+        
+        $('#direccion_cliente').on('input', function() {
+            // Obtener el valor del input
+            var nuevoRNC = $(this).val();
+            id_cliente=$('#id_cliente1').val();
+            //alert();
+            // Enviar el nuevo RNC al servidor mediante AJAX
+            $.ajax({
+                url: '../ajax/actualizar_direccion_cliente.php', // Ruta del archivo PHP que procesará la actualización
                 type: 'POST',
                 data: { rnc: nuevoRNC, id_cliente:id_cliente, }, // Datos a enviar al servidor
                 success: function(response) {

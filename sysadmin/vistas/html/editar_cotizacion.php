@@ -437,15 +437,30 @@ while ($r = $query->fetch_object()) {
                                                             </div>
                                                             <div align="center" class="col-md-3">
                                                                 </br>
+<?php
+if (get_row('facturas_cot','facturada', 'id_factura', $id_factura)==1){
+ 
+    ?>
+                                                           
+    <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class="btn form-control"> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
+    <?php  
+    
+}else{
+    
 
+?>
 
                                                                 <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
+                                                                <?php
+ 
+}
+?>
                                                             </div>
 
                                                         </div>
-                                                        <div class="row">
-sdsada
-                                                        </div>
+                                                        <div style="margin-top: 10px" id="factura_conguia" class="row">
+                                                
+                                            </div>
 
                                                     <?php
 
@@ -494,7 +509,23 @@ sdsada
                                                             </br>
 
 
-                                                            <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
+                                                            <?php
+if (get_row('facturas_cot','facturada', 'id_factura', $id_factura)==1){
+    
+  ?>
+                                                           
+    <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
+    <?php         
+}else{
+    
+
+?>
+
+                                                                <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
+                                                                <?php
+ 
+}
+?>
                                                         </div>
 
                                                     </div>
