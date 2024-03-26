@@ -1,62 +1,50 @@
 <?php
-$wsdl = "https://servientrega-ecuador-prueba.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
+// URL del WSDL
+$wsdl = "https://servientrega-ecuador-prueba.appsiscore.com:443/app/ws/cotizador_ser_recaudo.php?wsdl";
 
-// Construye el cuerpo del mensaje SOAP manualmente
-$soapRequest = <<<XML
-<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="https://servientrega-ecuador.appsiscore.com/app/ws/">
-<soapenv:Header/>
-<soapenv:Body>
-<ws:Consultar soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-<entidad xsi:type="xsd:string">PRUEBAS RECAUDOS</entidad>
-<producto xsi:type="xsd:string">MERCANCIA PREMIER</producto>
-<origen xsi:type="xsd:string">GUAYAQUIL</origen>
-<destino xsi:type="xsd:string">QUITO-PICHINCHA</destino>
-<valor_mercaderia xsi:type="xsd:string">200</valor_mercaderia>
-<piezas xsi:type="xsd:string">1</piezas>
-<peso xsi:type="xsd:string">3</peso>
-<alto xsi:type="xsd:string">1</alto>
-<ancho xsi:type="xsd:string">1</ancho>
-<largo xsi:type="xsd:string">1</largo>
-<tokn xsi:type="xsd:string">1593aaeeb60a560c156387989856db6be7edc8dc220f9feae3aea237da6a951d</tokn>
-<usu xsi:type="xsd:string">PRUEBA</usu>
-<pwd xsi:type="xsd:pwd">s12345ABCDe</pwd>
-</ws:Consultar>
-</soapenv:Body>
-</soapenv:Envelope>
-XML;
-
-$headers = [
-    "Content-type: text/xml;charset=\"utf-8\"",
-    "Accept: text/xml",
-    "Cache-Control: no-cache",
-    "Pragma: no-cache",
-    "SOAPAction: \"run\"",  // Asegúrate de ajustar esto según lo que requiera el servicio
-    "Content-length: " . strlen($soapRequest),
+// Opciones del cliente SOAP, si necesitas autenticación u otras configuraciones especiales
+$options = [
+    'producto' => 'PRUEBAS',
+    'origen' => 'GUAYAQUIL',
+    'destino' => 'QUITO-PICHINCHA',
+    'valor_mercaderia' => '100',
+    'piezas' => '1',
+    'peso' => '1',
+    'alto' => '1',
+    'ancho' => '1',
+    'largo' => '1',
+    'tokn' => '1593aaeeb60a560c156387989856db6be7edc8dc220f9feae3aea237da6a951d',
+    'usu' => 'PRUEBA',
+    'pwd' => 's12345ABCDe'
 ];
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
-curl_setopt($ch, CURLOPT_URL, $wsdl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $soapRequest); // La petición SOAP
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($ch, CURLOPT_VERBOSE, true);
-$verbose = fopen('php://temp', 'w+');
-curl_setopt($ch, CURLOPT_STDERR, $verbose);
+try {
+    // Crear el cliente SOAP
+    $client = new SoapClient($wsdl, $options);
 
-// Envía la solicitud
-$response = curl_exec($ch);
+    // Datos para enviar al método SOAP, ajusta estos según el servicio que estás consumiendo
+    $parametros = [
+        'producto' => 'PRUEBAS',
+        'origen' => 'GUAYAQUIL',
+        'destino' => 'QUITO-PICHINCHA',
+        'valor_mercaderia' => '100',
+        'piezas' => '1',
+        'peso' => '1',
+        'alto' => '1',
+        'ancho' => '1',
+        'largo' => '1',
+        'tokn' => '1593aaeeb60a560c156387989856db6be7edc8dc220f9feae3aea237da6a951d',
+        'usu' => 'PRUEBA',
+        'pwd' => 's12345ABCDe'
 
-// Comprueba si ocurrió un error
-if (curl_errno($ch)) {
-    $error_msg = curl_error($ch);
-    echo "cURL Error: $error_msg";
-} else {
-    echo "Respuesta: \n$response";
+    ];
+
+    // Reemplaza 'nombreMetodoSoap' con el nombre real del método que deseas invocar
+    $respuesta = $client->__soapCall("Consultar", $parametros);
+
+    // Procesar la respuesta
+    print_r($respuesta);
+} catch (SoapFault $e) {
+    // Manejo de errores
+    echo "Error SOAP: " . print_r($e, true);
 }
-
-curl_close($ch);
