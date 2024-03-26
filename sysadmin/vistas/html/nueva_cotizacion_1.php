@@ -162,7 +162,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Ciudad </span>
                                                                 <div id="div_ciudad">
-                                                                    <select class="datos form-control formulario" onclick="" id="ciudad_entrega" name="ciudad_entrega" required>
+                                                                    <select class="datos form-control formulario" onclick="" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required>
                                                                         <option value="">Ciudad *</option>
                                                                         <?php
                                                                         $sql2 = "select * from ciudad_laar ";
@@ -541,6 +541,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
     function cargar_provincia_pedido() {
 
         var id_provincia = $('#provinica').val();
+        console.log(id_provincia)
         //alert($('#provinica').val())
         //var data = new FormData(formulario);
 
@@ -581,6 +582,33 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             // Puedes añadir más opciones de configuración aquí
         });
     }
+</script>
+
+<script>
+    function seleccionarProvincia() {
+        var id_provincia = $('#ciudad_entrega').val();
+        console.log(id_provincia);
+        //alert($('#provinica').val())
+        //var data = new FormData(formulario);
+
+        $.ajax({
+            url: "../ajax/cargar_provincia_pedido.php", // Url to which the request is send
+            type: "POST", // Type of request to be send, called as method
+            data: {
+                ciudad: id_provincia,
+
+            }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+            dataType: 'text', // To send DOMDocument or non processed data file it is set to false
+            success: function(data) // A function to be called if request succeeds
+            {}
+        }) // /success function
+    }
+
+    $("#ciudad_entrega").select2({
+        placeholder: "Selecciona una opción",
+        allowClear: true,
+        // Puedes añadir más opciones de configuración aquí
+    });
 </script>
 
 <?php require 'includes/footer_end.php'
