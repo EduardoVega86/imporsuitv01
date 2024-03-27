@@ -9,7 +9,7 @@ require_once "../db.php"; //Contiene las variables de configuracion para conecta
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
 
 
-echo $_POST["ciudad"];
+
 
 $sql = "SELECT * FROM ciudad_laar WHERE codigo = " . $_POST["ciudad"] . ";";
 
