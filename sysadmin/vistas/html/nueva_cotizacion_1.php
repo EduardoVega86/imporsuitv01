@@ -587,10 +587,6 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <script>
     function seleccionarProvincia() {
         var id_provincia = $('#ciudad_entrega').val();
-        console.log(id_provincia);
-        //alert($('#provinica').val())
-        //var data = new FormData(formulario);
-
         $.ajax({
             url: "../ajax/cargar_provincia_pedido.php", // Url to which the request is send
             type: "POST", // Type of request to be send, called as method
@@ -600,7 +596,10 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
             dataType: 'text', // To send DOMDocument or non processed data file it is set to false
             success: function(data) // A function to be called if request succeeds
-            {}
+            {
+                console.log(data);
+                document.getElementById("provinica").value = data;
+            }
         }) // /success function
     }
 

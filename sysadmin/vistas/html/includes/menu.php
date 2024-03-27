@@ -328,18 +328,21 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 					</ul>
 				</li>
 
-				<!-- <li>
-					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-list"></i><span> Tiendas</span> <span class="menu-arrow"></span></a>
-					<ul class="list-unstyled">
-						<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?> 
- 
-							<li><a href="../html/tiendas.php">Detalles</a></li>
-						<?php } ?>
+				<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
+					<li>
+						<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-list"></i><span> Tiendas</span> <span class="menu-arrow"></span></a>
+						<ul class="list-unstyled">
+							<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
 
-						<li><a href="../html/tiendas_clientes.php">Registro tiendas</a></li>
+								<li><a href="../html/tiendas.php">Detalles</a></li>
+							<?php } ?>
 
-					</ul>
-				</li> -->
+							<li><a href="../html/tiendas_clientes.php">Registro tiendas</a></li>
+
+						</ul>
+					</li>
+
+				<?php } ?>
 
 
 				<!--li class="has_sub">

@@ -2,6 +2,8 @@
 
 $url = "https://servientrega-ecuador-prueba.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
 
+
+
 // Estructura del XML a enviar
 $xml = <<<XML
 <soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
