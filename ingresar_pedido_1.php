@@ -41,7 +41,7 @@
         $calle_secundaria    = $_POST['calle_secundaria'];
         $referencia    = $_POST['referencia'];
         $provincia     = $_POST['provinica'];
-        $ciudad     = $_POST['ciudad'];
+        $ciudad     = $_POST['ciudad_entrega'];
         $observacion     = $_POST['observacion'];
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         $contenido = '';
