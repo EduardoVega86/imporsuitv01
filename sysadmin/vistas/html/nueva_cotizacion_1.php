@@ -132,7 +132,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                     <H5><strong>DATOS DESTINATARIO</strong></H5>
                                                     <form method="post" action="../../../ingresar_pedido_1.php" id="formulario">
 
-
+                                                        <input type="hidden" id="transp" name="transp">
                                                         <div class="row">
 
                                                             <div class="col-md-4">
@@ -190,7 +190,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Provincia </span>
-                                                                <select onchange="cargar_provincia_pedido()" class="datos form-control formulario" id="provinica" name="provinica" required>
+                                                                <select class="datos form-control formulario" id="provinica" name="provinica" required>
                                                                     <option value="">Provincia *</option>
                                                                     <?php
                                                                     $sql2 = "select * from provincia_laar where id_pais=$pais";
@@ -276,7 +276,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                                             <img style="width: 100%;" id="tr3" src="../../img_sistema/servi.png" class="card-img-top  formulario image-bn interactive-image" alt="Selecciona Laarcourrier">
                                                                             <div class="card-body" style="text-align: center;">
-                                                                                <strong>$5.50</strong>
+                                                                                <strong>Proximamente</strong>
 
                                                                             </div>
                                                                         </div>
@@ -288,7 +288,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                             <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Servientrega">
                                                                             <div class="card-body" style="text-align: center;">
 
-                                                                                <strong>$5.50</strong>
+                                                                                <strong id="precio_laar">---</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -298,13 +298,13 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                             <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(2)" src="../../img_sistema/speed.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
                                                                             <div class="card-body" style="text-align: center;">
 
-                                                                                <strong>NO APLICA</strong>
+                                                                                <strong id="aplica">NO APLICA</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-2">
-                                                                        <div id="card4" class="card formulario p-1">
-                                                                            <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintracom.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
+                                                                        <div id="card4" class="card formulario p-1 ">
+                                                                            <img style="width: 50%;" id="tr2" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintracom.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
                                                                             <div class="card-body" style="text-align: center;">
 
                                                                                 <strong>Proximamente</strong>
@@ -487,6 +487,55 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 </script>
 <!-- FIN -->
 <script>
+    function generar_guia() {
+        let transportadora = $("#transp").val();
+        if (transportadora == "") {
+            $.Notification.notify('error', 'bottom right', 'ERROR!', 'Debes seleccionar una transportadora')
+
+        }
+        if (transportadora === "1") {
+            //obtienne el formulario
+            var formulario = document.getElementById('formulario');
+            //crea un objeto FormData
+            var data = new FormData(formulario);
+            data.append("nombre_destino", document.getElementById('nombre').value);
+            //crea un objeto XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            //abre la conexión
+            console.log("xd");
+            $.ajax({
+                url: "../ajax/enviar_laar.php",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    let [guia, precio] = response.split(',');
+                    $('#guia').val(guia);
+                    $('#precio').val(precio);
+                    $('#modal_vuelto').modal('show');
+                }
+            });
+        }
+    }
+
+
+    if (window.location.search != null) {
+        let search_tienda = window.location.search.split("=")[1]
+        fetch(`../ajax/verificar_fullfill.php?tienda=${search_tienda}`)
+            .then(response => response.text())
+            .then(html => {
+                if (html == 1) {
+                    document.getElementById("aplica").innerHTML = "---"
+                }
+            })
+    }
+
+    document
+
+
+
     // print order function
     function seleccionar_transportadora(id) {
         // Elimina el color y los bordes de todas las tarjetas e imágenes
@@ -496,6 +545,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
         // Añade el borde a la tarjeta seleccionada y el color a la imagen
         $('#card' + id).css('border', '2px solid #154289'); // Puedes cambiar el color del borde aquí
         $('#tr' + id).css('filter', 'none');
+        $('#transp').val(id);
     }
 
     function printFactura(id_factura) {
@@ -597,8 +647,15 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             dataType: 'text', // To send DOMDocument or non processed data file it is set to false
             success: function(data) // A function to be called if request succeeds
             {
-                console.log(data);
-                document.getElementById("provinica").value = data;
+                $('#provinica').val(data).trigger('change');
+                $('#provinica option[value=' + data + ']').attr({
+                    selected: true
+                });
+
+                //$('#provinica').attr('disabled', 'disabled');
+                let precio_total = $('#precio_total').val();
+                calcular_guia();
+
             }
         }) // /success function
     }
@@ -608,6 +665,21 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
         allowClear: true,
         // Puedes añadir más opciones de configuración aquí
     });
+
+    function calcular_guia() {
+        let precio_total = $('#valor_total_').val();
+        let provinica = $('#provinica').val();
+        let ciudad_entrega = $('#ciudad_entrega').val();
+        fetch(`../ajax/calcular_guia_new.php?precio_total=${precio_total}&provincia=${provinica}&ciudad_entrega=${ciudad_entrega}`)
+            .then(response => response.text())
+            .then(html => {
+                let [precio_laar, precio_servientrega] = html.split(',');
+                $('#precio_laar').text(`$${precio_laar}`);
+                $('#precio_servientrega').text(`$${precio_servientrega}`);
+            })
+
+        $('#generar_guia_btn').removeAttr('disabled');
+    }
 </script>
 
 <?php require 'includes/footer_end.php'
