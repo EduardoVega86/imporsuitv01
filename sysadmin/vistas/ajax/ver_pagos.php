@@ -1,6 +1,10 @@
     <?php
-    $tienda = $_SESSION['tienda'];
-    /* Connect To Database*/
+    $tienda = $_SERVER['HTTP_REFERER'];
+    //obtener &tienda=nombre_tienda
+    $tienda = explode('=', $tienda);
+    $tienda = $tienda[2];
+
+
     require_once "../db.php";
     require_once "../php_conexion.php";
     #require_once "../libraries/inventory.php"; //Contiene funcion que controla stock en el inventario
@@ -40,7 +44,6 @@
         $total_pages = ceil($numrows / $per_page);
         $reload = '../ver_cxc.php';
         //main query to fetch the data
-
         $query = mysqli_query($conexion, "SELECT $campos FROM  $tables where $sWhere LIMIT $offset,$per_page");
         //loop through fetched data
 

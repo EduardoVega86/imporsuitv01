@@ -138,7 +138,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Nombre Destinatario </span>
 
-                                                                <input type="text" class="datos form-control formulario" id="nombre" name="nombre" placeholder="Nombre y Apellido *" required>
+                                                                <input type="text" class="datos form-control formulario" id="nombred" name="nombre" placeholder="Nombre y Apellido *" required>
                                                                 <input type="hidden" class="form-control" id="session" name="session" value="<?php echo $session_id; ?>">
                                                                 <input type="hidden" class="form-control" id="cliente" name="cliente" value="1">
                                                             </div>
@@ -149,8 +149,8 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <span class="help-block">Teléfono </span>
-                                                                <input id="telefono" name="telefono" class="form-control formulario" placeholder="telefono" value="">
+                                                                <span class="help-block">Teléfsono </span>
+                                                                <input id="telefonod" name="telefono" class="form-control formulario" placeholder="telefono" value="">
 
                                                             </div>
 
@@ -498,13 +498,15 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             var formulario = document.getElementById('formulario');
             //crea un objeto FormData
             var data = new FormData(formulario);
-            data.append("nombre_destino", document.getElementById('nombre').value);
+            data.append("nombre_destino", document.getElementById('nombred').value);
+            data.append("celular", document.getElementById('telefonod').value);
+            data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
             //crea un objeto XMLHttpRequest
             var xhr = new XMLHttpRequest();
-            //abre la conexión
-            console.log("xd");
+
+            // generar el pedido
             $.ajax({
-                url: "../ajax/enviar_laar.php",
+                url: "../../../ingresar_pedido_1.php",
                 type: "POST",
                 data: data,
                 contentType: false,
@@ -517,6 +519,22 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                     $('#modal_vuelto').modal('show');
                 }
             });
+
+
+            /* $.ajax({
+                url: "../ajax/enviar_laar.php",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    let [guia, precio] = response.split(',');
+                    $('#guia').val(guia);
+                    $('#precio').val(precio);
+                    $('#modal_vuelto').modal('show');
+                }
+            }); */
         }
     }
 

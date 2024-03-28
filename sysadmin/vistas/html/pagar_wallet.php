@@ -2,6 +2,7 @@
 
 $tienda = $_GET['tienda'];
 
+
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
     header("location: ../../login.php");
@@ -25,6 +26,7 @@ include "../permisos.php";
 
 $user_id = $_SESSION['id_users'];
 $_SESSION['tienda'] = $tienda;
+
 get_cadena($user_id);
 $modulo = "Wallets";
 permisos($modulo, $cadena_permisos);
