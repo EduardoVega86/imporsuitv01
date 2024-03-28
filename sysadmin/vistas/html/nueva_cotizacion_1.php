@@ -244,6 +244,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                 <input id="numerocasa" name="numerocasa" class="form-control formulario" value="">
 
                                                             </div>
+                                                            <input type="hidden" id="costo_envio" name="costo_envio">
 
                                                         </div>
 
@@ -293,6 +294,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                             <div class="card-body" style="text-align: center;">
 
                                                                                 <strong id="precio_laar">---</strong>
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -523,7 +525,6 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             data.append("ciudad", document.getElementById('ciudad_entrega').value);
             data.append("productos_guia", document.getElementById('productos_guia').value);
             data.append("identificacion", document.getElementById('cedula').value);
-            data.append("costo_envio", document.getElementById('precio_laar').value);
             data.append("seguro", document.getElementById('asegurar_producto').value);
 
 
@@ -749,6 +750,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 let [precio_laar, precio_servientrega] = html.split(',');
                 $('#precio_laar').text(`$${precio_laar}`);
                 $('#precio_servientrega').text(`$${precio_servientrega}`);
+                $('#costo_envio').val(precio_laar);
             })
 
         $('#generar_guia_btn').removeAttr('disabled');
