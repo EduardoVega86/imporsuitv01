@@ -82,13 +82,14 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             $cantidad_total = 0;
             $productos_guia = '';
             while ($row = mysqli_fetch_array($sql)) {
+                print_r($row);
                 $id_tmp          = $row["id_tmp"];
                 $codigo_producto = $row['codigo_producto'];
                 $id_producto     = $row['id_producto'];
                 $cantidad        = $row['cantidad_tmp'];
                 $desc_tmp        = $row['desc_tmp'];
                 $desc_tmp        = $row['desc_tmp'];
-                $productos_guia = $productos_guia . '-' . $desc_tmp;
+                $productos_guia = $productos_guia . ' ' . $nombre_producto . 'x' . $cantidad;
                 $nombre_producto = $row['nombre_producto'];
 
                 $precio_venta   = $row['precio_tmp'];

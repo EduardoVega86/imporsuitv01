@@ -1,5 +1,26 @@
 <?php
 
+$ciudad_origen = $_POST['ciudad_origen'];
+$ciudad_destino = $_POST['ciudad_destino'];
+
+$razon_zocial_destinatario = "Entrega a Domicilio";
+$nombre_destinatario = $_POST['nombre_destinatario'];
+$apellido_destinatario = $_POST['apellido_destinatario'];
+$direccion_destinatario = $_POST['direccion_destinatario'];
+$telefono_destinatario = $_POST['telefono_destinatario'];
+
+$razon_social_remitente = "Servientrega Ecuador S.A.";
+$nombre_remitente = $_POST['nombre_remitente'];
+$apellido_remitente = $_POST['apellido_remitente'];
+$direccion_remitente = $_POST['direccion_remitente'];
+$telefono_remitente = $_POST['telefono_remitente'];
+
+$contenido = $_POST['contenido'];
+$valor_mercancia = $_POST['valor_mercancia'];
+$valor_asegurado = $_POST['valor_asegurado'];
+
+
+
 $url = 'https://181.39.87.158:8021/api/guiawebs/';
 
 // Los datos que vas a enviar en formato JSON
@@ -8,35 +29,35 @@ $data = array(
     "detalle_envio_1" => "",
     "detalle_envio_2" => "",
     "detalle_envio_3" => "",
-    "id_ciudad_origen" => 1,
-    "id_ciudad_destino" => 42,
+    "id_ciudad_origen" => $ciudad_origen,
+    "id_ciudad_destino" => $ciudad_destino,
     "id_destinatario_ne_cl" => "001dest",
-    "razon_social_desti_ne" => "prueba de api s.a",
-    "nombre_destinatario_ne" => "gustavo andres",
-    "apellido_destinatar_ne" => "tecnologia matriz",
-    "direccion1_destinat_ne" => "panama 306 y thomas y martinez",
+    "razon_social_desti_ne" =>  $razon_zocial_destinatario,
+    "nombre_destinatario_ne" => $nombre_destinatario,
+    "apellido_destinatar_ne" =>     $apellido_destinatario,
+    "direccion1_destinat_ne" => $direccion_destinatario,
     "sector_destinat_ne" => "",
-    "telefono1_destinat_ne" => "3732000 ext 4732",
+    "telefono1_destinat_ne" => $telefono_destinatario,
     "telefono2_destinat_ne" => "",
     "codigo_postal_dest_ne" => "",
     "id_remitente_cl" => "001remi",
-    "razon_social_remite" => "servientrega ecuador s.a",
-    "nombre_remitente" => "gustavo",
-    "apellido_remite" => "villalba lopez",
-    "direccion1_remite" => "panama 306 y thomas y martinez",
+    "razon_social_remite" => $razon_social_remitente,
+    "nombre_remitente" => $nombre_remitente,
+    "apellido_remite" =>    $apellido_remitente,
+    "direccion1_remite" => $direccion_remitente,
     "sector_remite" => "",
-    "telefono1_remite" => "123156",
+    "telefono1_remite" => $telefono_remitente,
     "telefono2_remite" => "",
     "codigo_postal_remi" => "",
     "id_producto" => 2,
-    "contenido" => "laptop",
+    "contenido" => $contenido,
     "numero_piezas" => 1,
-    "valor_mercancia" => 0,
-    "valor_asegurado" => 0,
-    "largo" => 0,
-    "ancho" => 0,
-    "alto" => 0,
-    "peso_fisico" => 0.5,
+    "valor_mercancia" => $valor_mercancia,
+    "valor_asegurado" => $valor_asegurado,
+    "largo" => 1,
+    "ancho" => 1,
+    "alto" => 1,
+    "peso_fisico" => 1,
     "login_creacion" => "impor.comex",
     "password" => "123456"
 );
@@ -64,7 +85,7 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 $response = curl_exec($ch);
 
 // Verificar si ocurrió algún error durante la solicitud
-if(curl_errno($ch)){
+if (curl_errno($ch)) {
     throw new Exception(curl_error($ch));
 }
 
@@ -73,5 +94,3 @@ curl_close($ch);
 
 // Mostrar la respuesta
 echo $response;
-
-?>

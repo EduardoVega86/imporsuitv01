@@ -583,6 +583,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                             $('#guia').val(guia);
                             $('#precio').val(precio);
                             $('#modal_vuelto').modal('show');
+                            window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
                         }
                     });
                 }
