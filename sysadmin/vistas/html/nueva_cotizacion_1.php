@@ -501,8 +501,6 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             data.append("nombre_destino", document.getElementById('nombred').value);
             data.append("celular", document.getElementById('telefonod').value);
             data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
-            //crea un objeto XMLHttpRequest
-            var xhr = new XMLHttpRequest();
 
             // generar el pedido
             $.ajax({
@@ -519,6 +517,19 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                     $('#modal_vuelto').modal('show');
                 }
             });
+
+            $.ajax({
+                url: "../ajax/ultimo_pedido.php",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+
+
 
 
             /* $.ajax({
