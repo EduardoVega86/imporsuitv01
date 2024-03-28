@@ -89,8 +89,8 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 $cantidad        = $row['cantidad_tmp'];
                 $desc_tmp        = $row['desc_tmp'];
                 $desc_tmp        = $row['desc_tmp'];
-                $productos_guia = $productos_guia . ' ' . $nombre_producto . 'x' . $cantidad;
                 $nombre_producto = $row['nombre_producto'];
+                $productos_guia = $productos_guia . ' ' . $nombre_producto . 'x' . $cantidad;
 
                 $precio_venta   = $row['precio_tmp'];
                 $precio_venta_f = $precio_venta; //Formateo variables
