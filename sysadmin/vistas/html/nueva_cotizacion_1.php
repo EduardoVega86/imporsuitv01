@@ -136,6 +136,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                     <form method="post" action="../../../ingresar_pedido_1.php" id="formulario">
 
                                                         <input type="hidden" id="transp" name="transp">
+                                                        <input type="hidden" id="transportadora" name="transportadora">
                                                         <div class="row">
 
                                                             <div class="col-md-4">
@@ -508,6 +509,10 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             //obtienne el formulario
             var formulario = document.getElementById('formulario');
             //crea un objeto FormData
+            if (document.querySelector("#valorasegurado").value === "") {
+                document.querySelector("#valorasegurado").value = 0;
+            }
+
             var data = new FormData(formulario);
             data.append("nombre_destino", document.getElementById('nombred').value);
             data.append("celular", document.getElementById('telefonod').value);
@@ -517,7 +522,9 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             data.append("costo_total", document.getElementById('costo_total').value);
             data.append("ciudad", document.getElementById('ciudad_entrega').value);
             data.append("productos_guia", document.getElementById('productos_guia').value);
-
+            data.append("identificacion", document.getElementById('cedula').value);
+            data.append("costo_envio", document.getElementById('precio_laar').value);
+            data.append("seguro", document.getElementById('asegurar_producto').value);
 
 
 
@@ -610,6 +617,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
         $('#card' + id).css('border', '2px solid #154289'); // Puedes cambiar el color del borde aquí
         $('#tr' + id).css('filter', 'none');
         $('#transp').val(id);
+        $('#transportadora').val(id);
     }
 
     function printFactura(id_factura) {
@@ -718,6 +726,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                 //$('#provinica').attr('disabled', 'disabled');
                 let precio_total = $('#precio_total').val();
+
                 calcular_guia();
 
             }

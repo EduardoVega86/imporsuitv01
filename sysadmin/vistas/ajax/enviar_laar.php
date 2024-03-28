@@ -297,7 +297,6 @@ if ($response) {
 
     @$guia = $data["guia"];
     @$url = $data["url"];
-    echo 'guia laar prueba' . $data["guia"];
     //$guia=1;
     if (isset($guia)) {
         $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='LAAR' WHERE `id_factura` = $id_pedido_cot";
