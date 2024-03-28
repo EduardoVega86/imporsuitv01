@@ -20,14 +20,16 @@ if (isset($_POST['cantidad'])) {
 if (isset($_POST['precio_venta'])) {
     $precio_venta = $_POST['precio_venta'];
 }
-
+$costo_total = 0;
+$id_pedido_cot = 0;
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     // consulta para comparar el stock con la cantidad resibida
-    $query = mysqli_query($conexion, "select stock_producto, inv_producto , drogshipin from productos where id_producto = '$id'");
+    $query = mysqli_query($conexion, "select stock_producto, inv_producto , drogshipin, costo_producto from productos where id_producto = '$id'");
     $rw    = mysqli_fetch_array($query);
     $stock = $rw['stock_producto'];
     $inv   = $rw['inv_producto'];
     $drogshipin_tmp   = $rw['drogshipin'];
+    $costo_producto = $rw['costo_producto'];
 
     //Comprobamos si agregamos un producto a la tabla tmp_compra
     $comprobar = mysqli_query($conexion, "select * from tmp_cotizacion, productos where productos.id_producto = tmp_cotizacion.id_producto and tmp_cotizacion.id_producto='" . $id . "' and tmp_cotizacion.session_id='" . $session_id . "'");
@@ -36,12 +38,13 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
         // condicion si el stock e menor que la cantidad requerida
         $sql          = "UPDATE tmp_cotizacion SET cantidad_tmp='" . $cant . "', precio_tmp='" . $precio_venta . "' WHERE id_producto='" . $id . "' and session_id='" . $session_id . "'";
         $query_update = mysqli_query($conexion, $sql);
+        $costo_temp = $costo_producto;
         echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
     } else {
+        $costo_temp = $costo_producto;
 
         //echo "INSERT INTO tmp_cotizacion (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id,drogshipin_tmp,id_origen,id_marketplace) VALUES ('$id','$cantidad','$precio_venta','0','$session_id')";
         $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_cotizacion (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id,drogshipin_tmp) VALUES ('$id','$cantidad','$precio_venta','0','$session_id', $drogshipin_tmp)");
-
         echo "<script> $.Notification.notify('success','bottom center','NOTIFICACIÓN', 'PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE')</script>";
     }
 }
@@ -71,15 +74,21 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             $nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
             $sumador_total  = 0;
             $total_iva      = 0;
+            $costo_producto    = $costo_temp;
+
             $total_impuesto = 0;
             $subtotal       = 0;
             $sql            = mysqli_query($conexion, "select * from productos, tmp_cotizacion where productos.id_producto=tmp_cotizacion.id_producto and tmp_cotizacion.session_id='" . $session_id . "'");
+            $cantidad_total = 0;
+            $productos_guia = '';
             while ($row = mysqli_fetch_array($sql)) {
                 $id_tmp          = $row["id_tmp"];
                 $codigo_producto = $row['codigo_producto'];
                 $id_producto     = $row['id_producto'];
                 $cantidad        = $row['cantidad_tmp'];
                 $desc_tmp        = $row['desc_tmp'];
+                $desc_tmp        = $row['desc_tmp'];
+                $productos_guia = $productos_guia . '-' . $desc_tmp;
                 $nombre_producto = $row['nombre_producto'];
 
                 $precio_venta   = $row['precio_tmp'];
@@ -112,6 +121,10 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
     }*/
                 //$total_impuesto += rebajas($subtotal, $desc_tmp) * $cantidad;
                 $total_impuesto = $total_impuesto + $impuesto_unitario;
+                $cantidad_total = $cantidad_total + $cantidad;
+
+                $costo_total = $costo_total + $costo_producto * ($cantidad);
+                //echo ($costo_total);
 
 
                 /*------------------------*/
@@ -167,6 +180,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             </tr>
         </tbody>
     </table>
+
     <input type="hidden" value="<?php echo $total_factura; ?>" id="valor_total_" name="valor_total">
     <input type="hidden" value="<?php echo $cantidad_total; ?>" id="cantidad_total" name="cantidad_total">
     <input type="hidden" value="<?php echo $productos_guia; ?>" id="productos_guia" name="productos_guia">

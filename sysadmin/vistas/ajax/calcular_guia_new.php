@@ -7,7 +7,7 @@ $precio_total = $_GET['precio_total'];
 $provincia = $_GET['provincia'];
 $ciudad_entrega = $_GET['ciudad_entrega'];
 
-$sql = "SELECT * FROM `ciudad_cotizacion` WHERE codigo_ciudad_laar  = '$ciudad_entrega' AND codigo_provincia_laar  = '$provincia'";
+$sql = "SELECT * FROM `ciudad_cotizacion` WHERE codigo_ciudad_laar  = '$ciudad_entrega'";
 $query = mysqli_query($conexion, $sql);
 
 
