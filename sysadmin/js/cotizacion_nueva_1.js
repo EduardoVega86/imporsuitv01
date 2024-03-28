@@ -31,6 +31,7 @@ function load(page) {
 }
 
 function agregar(id) {
+  //alert();
   var precio_venta = document.getElementById("precio_venta_" + id).value;
   var cantidad = document.getElementById("cantidad_" + id).value;
   //Inicia validacion
@@ -73,7 +74,9 @@ function agregar(id) {
       );
     },
     success: function (datos) {
+      //alert(datos);
       $("#resultados").html(datos);
+      //alert($("#valor_total_").val());
     },
   });
 }

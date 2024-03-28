@@ -119,8 +119,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                         </div>
                                                     </form>
 
-                                                    <div id="resultados" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
+                                                    <div class="table-responsive">
+                                                        <div id="resultados" class='col-md-12' style="margin-top:10px"></div>
 
+
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -324,7 +327,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                                     </select>
 
 
-
+                                                                    <input type="hidden" id="id_pedido_cot_" name="id_pedido_cot">
                                                                 </div>
 
                                                                 <div class="col-md-3">
@@ -487,7 +490,15 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 </script>
 <!-- FIN -->
 <script>
+    var sleepSetTimeout_ctrl;
+
+    function sleep(ms) {
+        clearInterval(sleepSetTimeout_ctrl);
+        return new Promise(resolve => sleepSetTimeout_ctrl = setTimeout(resolve, ms));
+    }
+
     function generar_guia() {
+        alert($("#cantidad_total").val());
         let transportadora = $("#transp").val();
         if (transportadora == "") {
             $.Notification.notify('error', 'bottom right', 'ERROR!', 'Debes seleccionar una transportadora')
@@ -501,6 +512,14 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             data.append("nombre_destino", document.getElementById('nombred').value);
             data.append("celular", document.getElementById('telefonod').value);
             data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
+            data.append("valor_total", document.getElementById('valor_total_').value);
+            data.append("cantidad_total", document.getElementById('cantidad_total').value);
+            data.append("costo_total", document.getElementById('costo_total').value);
+            data.append("ciudad", document.getElementById('ciudad_entrega').value);
+            data.append("productos_guia", document.getElementById('productos_guia').value);
+
+
+
 
             // generar el pedido
             $.ajax({
@@ -518,6 +537,23 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 }
             });
 
+
+
+
+            $.ajax({
+                url: '../ajax/calcular_guia.php',
+                type: 'post',
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    //alert(response)
+
+                    $('#resultados').html(response);
+                    $('#generar_guia_btn').prop('disabled', false);
+                } // /success function
+
+            });
             $.ajax({
                 url: "../ajax/ultimo_pedido.php",
                 type: "POST",
@@ -525,27 +561,26 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    console.log(response);
+                    $('#id_pedido_cot_').val(response);
+                    data.set('id_pedido_cot', response);
+                    $.ajax({
+                        url: "../ajax/enviar_laar.php",
+                        type: "POST",
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            console.log(response);
+                            let [guia, precio] = response.split(',');
+                            $('#guia').val(guia);
+                            $('#precio').val(precio);
+                            $('#modal_vuelto').modal('show');
+                        }
+                    });
                 }
             });
 
 
-
-
-            /* $.ajax({
-                url: "../ajax/enviar_laar.php",
-                type: "POST",
-                data: data,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    console.log(response);
-                    let [guia, precio] = response.split(',');
-                    $('#guia').val(guia);
-                    $('#precio').val(precio);
-                    $('#modal_vuelto').modal('show');
-                }
-            }); */
         }
     }
 

@@ -170,6 +170,8 @@ if ($tipo_origen == 1) {
 //echo $celularO;
 
 //destino
+
+
 $nombre_destino = $_POST['nombre_destino'];
 $ciudad_entrega = $_POST['ciudad'];
 $direccion = $_POST['direccion'];
@@ -206,6 +208,7 @@ $costo_total = $_POST['costo_total'];
 if ($tipo_origen == 0) {
     $costo_total = 0;
 }
+
 // URL del servicio web al que deseas enviar los datos con el token
 $destino_url = "https://api.laarcourier.com:9727/guias/contado";
 // Datos a enviar en formato JSON al servicio de destino
@@ -283,6 +286,8 @@ curl_close($ch);
 //$response=1;
 if ($response) {
     $data = json_decode($response, true);
+
+
     // Puedes trabajar con los datos de respuesta aquí
 
 
@@ -292,6 +297,7 @@ if ($response) {
 
     @$guia = $data["guia"];
     @$url = $data["url"];
+    echo 'guia laar prueba' . $data["guia"];
     //$guia=1;
     if (isset($guia)) {
         $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='LAAR' WHERE `id_factura` = $id_pedido_cot";

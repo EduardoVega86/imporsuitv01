@@ -245,7 +245,7 @@ while ($r = $query->fetch_object()) {
                                     include "../modal/caja.php";
                                     ?>
                                     <div class="row">
-                                        <input type="hidden" id="pedido_facturar" value="<?php echo $id_factura?>">
+                                        <input type="hidden" id="pedido_facturar" value="<?php echo $id_factura ?>">
                                         <div class="col-lg-7">
                                             <div class="card-box">
 
@@ -283,7 +283,7 @@ while ($r = $query->fetch_object()) {
                                                         ?>
                                                     </form>
 
-                                                    
+
                                                     <div class="table-responsive">
                                                         <div id="resultados" class='col-md-12' style="margin-top:10px"></div>
                                                         <?php if ($guia_enviada == 1) {
@@ -358,8 +358,8 @@ while ($r = $query->fetch_object()) {
         </div> 
     </div>
 </div-->
-                                                        
-                                                        
+
+
                                                     </div>
 
                                                 </div>
@@ -437,30 +437,30 @@ while ($r = $query->fetch_object()) {
                                                             </div>
                                                             <div align="center" class="col-md-3">
                                                                 </br>
-<?php
-if (get_row('facturas_cot','facturada', 'id_factura', $id_factura)==1){
- 
-    ?>
-                                                           
-    <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class="btn form-control"> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
-    <?php  
-    
-}else{
-    
-
-?>
-
-                                                                <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
                                                                 <?php
- 
-}
-?>
+                                                                if (get_row('facturas_cot', 'facturada', 'id_factura', $id_factura) == 1) {
+
+                                                                ?>
+
+                                                                    <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class="btn form-control"> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
+                                                                <?php
+
+                                                                } else {
+
+
+                                                                ?>
+
+                                                                    <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
+                                                                <?php
+
+                                                                }
+                                                                ?>
                                                             </div>
 
                                                         </div>
                                                         <div style="margin-top: 10px" id="factura_conguia" class="row">
-                                                
-                                            </div>
+
+                                                        </div>
 
                                                     <?php
 
@@ -510,30 +510,30 @@ if (get_row('facturas_cot','facturada', 'id_factura', $id_factura)==1){
 
 
                                                             <?php
-if (get_row('facturas_cot','facturada', 'id_factura', $id_factura)==1){
-    
-  ?>
-                                                           
-    <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
-    <?php         
-}else{
-    
+                                                            if (get_row('facturas_cot', 'facturada', 'id_factura', $id_factura) == 1) {
 
-?>
+                                                            ?>
+
+                                                                <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
+                                                            <?php
+                                                            } else {
+
+
+                                                            ?>
 
                                                                 <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
-                                                                <?php
- 
-}
-?>
+                                                            <?php
+
+                                                            }
+                                                            ?>
                                                         </div>
 
                                                     </div>
-                                            
-                                        
-                                            <div style="margin-top: 10px" id="factura_conguia" class="row">
-                                                
-                                            </div>
+
+
+                                                    <div style="margin-top: 10px" id="factura_conguia" class="row">
+
+                                                    </div>
 
                                                 <?php
                                                 }
@@ -770,17 +770,17 @@ if (get_row('facturas_cot','facturada', 'id_factura', $id_factura)==1){
 
                                                         </div>
                                                     </div>
-                                                        <div class="row">
-                                                            
-                                                            factura
-                                                        </div>
+                                                    <div class="row">
+
+                                                        factura
+                                                    </div>
                                                 </form>
                                             <?php
 
                                             }
                                             ?>
                                         </div>
-                                        
+
 
 
                                     </div>
@@ -1198,28 +1198,28 @@ if (get_row('facturas_cot','facturada', 'id_factura', $id_factura)==1){
         }
     }
 
-function agregar_datos_factura1() {
-       
-//alert()
-id_pedido=$("#pedido_facturar").val();
-  $.ajax({
-                url: '../ajax/factura_guia.php',
-                type: 'post',
-                data: {
-                    id_factura: id_pedido
-                },
-                dataType: 'text',
-                success: function(response) {
-                    $("#factura_conguia").html(response);
-                    getval(1)
-               //$("#load_img")
-                } // /success function
+    function agregar_datos_factura1() {
 
-            }); // /ajax function to fetch the printable order
+        //alert()
+        id_pedido = $("#pedido_facturar").val();
+        $.ajax({
+            url: '../ajax/factura_guia.php',
+            type: 'post',
+            data: {
+                id_factura: id_pedido
+            },
+            dataType: 'text',
+            success: function(response) {
+                $("#factura_conguia").html(response);
+                getval(1)
+                //$("#load_img")
+            } // /success function
+
+        }); // /ajax function to fetch the printable order
     }
-    
+
     function getval(sel) {
-       // alert(sel);
+        // alert(sel);
         $.Notification.notify('success', 'bottom center', 'NOTIFICACIÓN', 'CAMBIO DE COMPROBANTE')
         $("#outer_comprobante").load("../ajax/carga_correlativos.php?id_comp=" + sel);
 
