@@ -22,6 +22,7 @@
 		$("#guardar_linea").submit(function(event) {
 		    $('#guardar_datos').attr("disabled", true);
 		    var parametros = $(this).serialize();
+			
 		    $.ajax({
 		        type: "POST",
 		        url: "../ajax/nueva_caracteristica.php",
@@ -103,10 +104,16 @@
 
 		function obtener_datos(id) {
 		    var texto = $("#texto" + id).val();
+			var icono = $("#icono" + id).val();
+			var enlace_icon = $("#enlace_icon" + id).val();
+			var subtexto_icon = $("#subtexto_icon" + id).val();
                     //var posicion = $("#posicion" + id).val();
 		 
                 // alert(id)
-		    $("#mod_nombre").val(texto);
+		    $("#texto_icon").val(texto);
+			$("#icon_select").val(icono);
+			$("#enlace_icon").val(enlace_icon);
+			$("#subtexto_icon").val(subtexto_icon);
                     //$("#mod_posicion").val(posicion);
                      $("#mod_id").val(id);
 		 

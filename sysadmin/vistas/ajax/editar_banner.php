@@ -10,19 +10,21 @@ if (empty($_POST['mod_id'])) {
     require_once "../db.php";
     require_once "../php_conexion.php";
     // escaping, additionally removing everything that could be (html/javascript-) code
-    $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["texto_icon"], ENT_QUOTES)));
-    $subtexto_icon = $_POST["subtexto_icon"];
-    $enlace_icon = $_POST["enlace_icon"];
-    $icon_select = $_POST["icon_select"];
+    $titulo_slider2 = $_POST["titulo_slider2"];
+    $texto_btn_slider2 = $_POST["texto_btn_slider2"];
+    $enlace_btn_slider2 = $_POST["enlace_btn_slider2"];
+    $texto_slider2 = $_POST['texto_slider2'];
+    $alineacion = $_POST['alineacion'];
     $id = $_POST['mod_id'];
     @$posicion = $_POST['mod_posicion'];
 
     //$sql = "UPDATE caracteristicas_tienda SET texto='" . $nombre . "' where id=$id";
-    $sql = "UPDATE caracteristicas_tienda SET 
-            texto='$nombre', 
-            subtexto_icon='$subtexto_icon', 
-            enlace_icon='$enlace_icon', 
-            icon_text='$icon_select'
+    $sql = "UPDATE banner_adicional SET 
+            texto_banner='$texto_slider2', 
+            titulo='$titulo_slider2', 
+            texto_boton='$texto_btn_slider2', 
+            enlace_boton='$enlace_btn_slider2',
+            alineacion='$alineacion'
         WHERE id=$id";
     // echo $sql;                        
     $query_update = mysqli_query($conexion, $sql);

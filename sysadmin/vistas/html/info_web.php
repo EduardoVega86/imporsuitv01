@@ -89,12 +89,12 @@ $favicon = $row['favicon'];
 
 											<div class="col-md-9">
 												<div class="card-box">
-                                                                                                    <div style="background-color: lightyellow" class="card-box">
-                                                                                                            <a href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf"></a>
-                                                                                                            <label class="form-check-label" for="flexSwitchCheckChecked"><strong>Deseas ser proveedor de Imporsuit?</strong><br><a target="blank" href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf">Leer términos y condiciones</a> <br>Al marcar esta casilla, usted acepta y se compromete a cumplir con los Términos y Condiciones. </label>
-                                                                                                            <input style="width: 30px; height: 30px" class="" type="checkbox" role="switch" id="flotar" <?php if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1) == 1) { ?> checked<?php } ?> >
-                                                                                                            
-                                                                                                                
+													<div style="background-color: lightyellow" class="card-box">
+														<a href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf"></a>
+														<label class="form-check-label" for="flexSwitchCheckChecked"><strong>Deseas ser proveedor de Imporsuit?</strong><br><a target="blank" href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf">Leer términos y condiciones</a> <br>Al marcar esta casilla, usted acepta y se compromete a cumplir con los Términos y Condiciones. </label>
+														<input style="width: 30px; height: 30px" class="" type="checkbox" role="switch" id="flotar" <?php if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
+
+
 													</div><br>
 													<div class="form-group row">
 														<label for="inputPassword3" class="col-sm-3  col-form-label">Razón Social:</label>
@@ -147,159 +147,159 @@ $favicon = $row['favicon'];
 															<textarea type="text" class="form-control " name="texto_contactos" value="<?php echo $row["texto_contactos"]; ?>" required autocomplete="off"><?php echo $row["texto_contactos"]; ?></textarea>
 														</div>
 													</div>
-                                                                                                        
-                                                                                                      
-                                                                                                            <div style="background-color: lightyellow" class="card-box">
-                                                                                                                <span class="help-block">Banner Principal </span><br><br><br>
-                                                                                                            <div class="row">
-                                                                                                             <div class="col-sm-6">
-                                                                                                                 <div class="form-group row">
-														<label for="inputPassword3" class="col-sm-2 col-form-label">Titulo</label>
-														<div class="col-sm-10">
-															<input type="text" class="form-control UpperCase" name="titulo_slider" value="<?php echo $row["titulo_slider"]; ?>"  autocomplete="off">
-														</div>
-													</div>
-                                                                                                                 
-                                                                                                                  <div class="form-group row">
-														<label for="inputPassword3" class="col-sm-2 col-form-label">Boton</label>
-														<div class="col-sm-10">
-															<input type="text" class="form-control UpperCase" name="texto_btn_slider" value="<?php echo $row["texto_btn_slider"]; ?>"  autocomplete="off">
-														</div>
-													</div>
-                                                                                                                 
-                                                                                                                  <div class="form-group row">
-														<label for="inputPassword3" class="col-sm-2 col-form-label">Enlace Boton</label>
-														<div class="col-sm-10">
-															<input type="text" class="form-control" name="enlace_btn_slider" value="<?php echo $row["enlace_btn_slider"]; ?>"  autocomplete="off">
-														</div>
-													</div>
-                                                                                                             
-                                                                                                             
-                                                                                                             
-														
-														</div>
-                                                                                                                <div class="col-sm-6">
-															<textarea type="text" class="form-control " name="texto_slider" value="<?php echo $row["texto_slider"]; ?>"  autocomplete="off"><?php echo $row["texto_slider"]; ?></textarea>
-                                                                                                                        <span class="help-block">Texto del slider </span>
-                                                                                                                        <div class="form-group row">
-														<label for="inputPassword3" class="col-sm-2 col-form-label">Alineacion</label>
-														<div class="col-sm-10">
-                                                                                                                    <?php $alineacion= $row["alineacion_slider"]; ?>
-                                                                                                                    <select class="form-control" name="alineacion_slider">	
-                                                                                                                        <option value="1" <?php if($alineacion==1 or $alineacion==0){
-                                                                                                                            echo 'selected'; }?>>Izquierda </option>
-                                                                                                                       
-                                                                                                                        <option value="2"  <?php if($alineacion==2){
-                                                                                                                            echo 'selected'; }?>>Centro </option>
-                                                                                                                        <option value="3"  <?php if($alineacion==3){
-                                                                                                                            echo 'selected'; }?>>Derecha </option>
-                                                                                                                        </select>
-														</div>
-													</div>
-                                                                                                                </div>
-                                                                                                                </div>
-                                                                                                           </div>
-													
-                                                                                                        </div>
-													<div class=" row">
-														<div class="col-sm-3">
-															<input type="color" name="color" value="<?php echo $row["color"]; ?>">
-															<span class="help-block">Color Barra:</span>
-														</div>
-														<div class="col-sm-3">
-															<input type="color" name="color_footer" value="<?php echo $row["color_footer"]; ?>">
-															<span class="help-block">Color Footer:</span>
-														</div>
-														<div class="col-sm-3">
-															<input type="color" name="color_botones" value="<?php echo $row["color_botones"]; ?>">
-															<span class="help-block">Color Botones:</span>
-														</div>
-
-													</div>
-
-													</br>
 
 
+													<div style="background-color: lightyellow" class="card-box">
+														<span class="help-block">Banner Principal </span><br><br><br>
+														<div class="row">
+															<div class="col-sm-6">
+																<div class="form-group row">
+																	<label for="inputPassword3" class="col-sm-2 col-form-label">Titulo</label>
+																	<div class="col-sm-10">
+																		<input type="text" class="form-control UpperCase" name="titulo_slider" value="<?php echo $row["titulo_slider"]; ?>" autocomplete="off">
+																	</div>
+																</div>
 
-													<div class=" row">
-														<div class="col-sm-3">
-															<input type="color" name="texto_cabecera" value="<?php echo $row["texto_cabecera"]; ?>">
-															<span class="help-block">Texto Cabecera:</span>
-														</div>
+																<div class="form-group row">
+																	<label for="inputPassword3" class="col-sm-2 col-form-label">Boton</label>
+																	<div class="col-sm-10">
+																		<input type="text" class="form-control UpperCase" name="texto_btn_slider" value="<?php echo $row["texto_btn_slider"]; ?>" autocomplete="off">
+																	</div>
+																</div>
 
-														<div class="col-sm-3">
-															<input type="color" name="texto_boton" value="<?php echo $row["texto_boton"]; ?>">
-															<span class="help-block">Texto Botones:</span>
-														</div>
-														<div class="col-sm-3">
-															<input type="color" name="texto_footer" value="<?php echo $row["texto_footer"]; ?>">
-															<span class="help-block">Texto Footer:</span>
-														</div>
-														<div class="col-sm-3">
-															<input type="color" name="texto_precio" value="<?php echo $row["texto_precio"]; ?>">
-															<span class="help-block">Texto Precio:</span>
-														</div>
+																<div class="form-group row">
+																	<label for="inputPassword3" class="col-sm-2 col-form-label">Enlace Boton</label>
+																	<div class="col-sm-10">
+																		<input type="text" class="form-control" name="enlace_btn_slider" value="<?php echo $row["enlace_btn_slider"]; ?>" autocomplete="off">
+																	</div>
+																</div>
+															</div>
+															<div class="col-sm-6">
+																<textarea type="text" class="form-control " name="texto_slider" value="<?php echo $row["texto_slider"]; ?>" autocomplete="off"><?php echo $row["texto_slider"]; ?></textarea>
+																<span class="help-block">Texto del slider </span>
+																<div class="form-group row">
+																	<label for="inputPassword3" class="col-sm-2 col-form-label">Alineacion</label>
+																	<div class="col-sm-10">
+																		<?php $alineacion = $row["alineacion_slider"]; ?>
+																		<select class="form-control" name="alineacion_slider">
+																			<option value="1" <?php if ($alineacion == 1 or $alineacion == 0) {
+																									echo 'selected';
+																								} ?>>Izquierda </option>
 
-													</div>
-													</br>
-
-
-
-
-													<div class="form-group row">
-														<label for="inputPassword3" class="col-sm-3 col-form-label">Ciudad:</label>
-														<div class="col-sm-9">
-															<input type="text" class="form-control UpperCase" name="ciudad" value="<?php echo $row["ciudad"]; ?>">
-														</div>
-													</div>
-													<div class="form-group row">
-														<label for="inputPassword3" class="col-sm-3 col-form-label">Región/Provincia:</label>
-														<div class="col-sm-9">
-															<input type="text" class="form-control UpperCase" name="estado" value="<?php echo $row["estado"]; ?>">
-														</div>
-													</div>
-													<div class="form-group row">
-														<label for="inputPassword3" class="col-sm-3 col-form-label">Código postal:</label>
-														<div class="col-sm-4">
-															<input type="text" class="form-control UpperCase" name="codigo_postal" value="<?php echo $row["codigo_postal"]; ?>" autocomplete="off">
-														</div>
-													</div>
-													<div class="form-group row">
-														<label for="inputPassword3" class="col-sm-3 col-form-label">Facebook:</label>
-														<div class="col-sm-9">
-															<input type="text" class="form-control " name="facebook" value="<?php echo $row["facebook"]; ?>">
-														</div>
-													</div>
-													<div class="form-group row">
-														<label for="inputPassword3" class="col-sm-3 col-form-label">Instagram:</label>
-														<div class="col-sm-9">
-															<input type="text" class="form-control UpperCase" name="instagram" value="<?php echo $row["instagram"]; ?>">
-														</div>
-													</div>
-													<div class="form-group row">
-														<label for="inputPassword3" class="col-sm-3 col-form-label">Tiktok:</label>
-														<div class="col-sm-9">
-															<input type="text" class="form-control UpperCase" name="tiktok" value="<?php echo $row["tiktok"]; ?>">
-														</div>
-													</div>
-													<div class="form-group row">
-														<label for="inputPassword3" class="col-sm-3 col-form-label">Whastapp:</label>
-														<div class="col-sm-9">
-															<input type="text" class="form-control UpperCase" name="whatsapp" value="<?php echo $row["whatsapp"]; ?>">
-															<span class="help-block">Colocar el codigo postal mas el telefono (593995169770)</span>
+																			<option value="2" <?php if ($alineacion == 2) {
+																									echo 'selected';
+																								} ?>>Centro </option>
+																			<option value="3" <?php if ($alineacion == 3) {
+																									echo 'selected';
+																								} ?>>Derecha </option>
+																		</select>
+																	</div>
+																</div>
+															</div>
+															
 														</div>
 													</div>
 
-													<div class='col-md-12' id="resultados_ajax"></div><!-- Carga los datos ajax -->
-
-
-													<div class="form-group m-b-0 row">
-														<div class="offset-3 col-sm-9">
-															<button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-refresh"></i> Actualizar Datos</button>
-
-															<a type="button" href="../../../index.php" target="_blank" class="btn btn-danger">Vista Preliminar</a>
-														</div>
+												</div>
+												<div class=" row">
+													<div class="col-sm-3">
+														<input type="color" name="color" value="<?php echo $row["color"]; ?>">
+														<span class="help-block">Color Barra:</span>
 													</div>
+													<div class="col-sm-3">
+														<input type="color" name="color_footer" value="<?php echo $row["color_footer"]; ?>">
+														<span class="help-block">Color Footer:</span>
+													</div>
+													<div class="col-sm-3">
+														<input type="color" name="color_botones" value="<?php echo $row["color_botones"]; ?>">
+														<span class="help-block">Color Botones:</span>
+													</div>
+
+												</div>
+
+												</br>
+
+
+
+												<div class=" row">
+													<div class="col-sm-3">
+														<input type="color" name="texto_cabecera" value="<?php echo $row["texto_cabecera"]; ?>">
+														<span class="help-block">Texto Cabecera:</span>
+													</div>
+
+													<div class="col-sm-3">
+														<input type="color" name="texto_boton" value="<?php echo $row["texto_boton"]; ?>">
+														<span class="help-block">Texto Botones:</span>
+													</div>
+													<div class="col-sm-3">
+														<input type="color" name="texto_footer" value="<?php echo $row["texto_footer"]; ?>">
+														<span class="help-block">Texto Footer:</span>
+													</div>
+													<div class="col-sm-3">
+														<input type="color" name="texto_precio" value="<?php echo $row["texto_precio"]; ?>">
+														<span class="help-block">Texto Precio:</span>
+													</div>
+
+												</div>
+												</br>
+
+
+
+
+												<div class="form-group row">
+													<label for="inputPassword3" class="col-sm-3 col-form-label">Ciudad:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="ciudad" value="<?php echo $row["ciudad"]; ?>">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="inputPassword3" class="col-sm-3 col-form-label">Región/Provincia:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="estado" value="<?php echo $row["estado"]; ?>">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="inputPassword3" class="col-sm-3 col-form-label">Código postal:</label>
+													<div class="col-sm-4">
+														<input type="text" class="form-control UpperCase" name="codigo_postal" value="<?php echo $row["codigo_postal"]; ?>" autocomplete="off">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="inputPassword3" class="col-sm-3 col-form-label">Facebook:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control " name="facebook" value="<?php echo $row["facebook"]; ?>">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="inputPassword3" class="col-sm-3 col-form-label">Instagram:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="instagram" value="<?php echo $row["instagram"]; ?>">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="inputPassword3" class="col-sm-3 col-form-label">Tiktok:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="tiktok" value="<?php echo $row["tiktok"]; ?>">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label for="inputPassword3" class="col-sm-3 col-form-label">Whastapp:</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control UpperCase" name="whatsapp" value="<?php echo $row["whatsapp"]; ?>">
+														<span class="help-block">Colocar el codigo postal mas el telefono (593995169770)</span>
+													</div>
+												</div>
+
+												<div class='col-md-12' id="resultados_ajax"></div><!-- Carga los datos ajax -->
+
+
+												<div class="form-group m-b-0 row">
+													<div class="offset-3 col-sm-9">
+														<button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-refresh"></i> Actualizar Datos</button>
+
+														<a type="button" href="../../../index.php" target="_blank" class="btn btn-danger">Vista Preliminar</a>
+													</div>
+												</div>
 
 
 									</form>
@@ -439,7 +439,6 @@ $favicon = $row['favicon'];
 	}
 
 	function upload_image_banner() {
-
 		var inputFileImage = document.getElementById("imagefile2");
 		var file = inputFileImage.files[0];
 		if ((typeof file === "object") && (file !== null)) {

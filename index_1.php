@@ -240,6 +240,8 @@ include './includes/style.php';
 
     </div>
 
+    <div class="degraded-line"></div>
+
     <div class="container mt-4">
       <h1 style="text-align: center">Destacados</h1>
       <br>
@@ -247,7 +249,7 @@ include './includes/style.php';
       <!-- Productos -->
       <div class="owl-carousel owl-theme" style="margin-bottom: 50px">
         <?php
-        $sql = "SELECT * FROM productos ORDER BY stock_producto ASC LIMIT 10";
+        $sql = "SELECT * FROM productos WHERE destacado=1";
         $query = mysqli_query($conexion, $sql);
         $num_registros = mysqli_num_rows($query);
         //echo $num_registros, ' Productos';
@@ -276,11 +278,6 @@ include './includes/style.php';
           $id_imp_producto      = $row['id_imp_producto'];
 
         ?>
-
-
-
-
-
           <div class="item">
             <div class="grid-container">
               <div class="card" style="border-radius: 1rem;">
@@ -333,6 +330,124 @@ include './includes/style.php';
         $(document).ready(function() {
           $(".owl-carousel").owlCarousel({
             loop: false, // Establece a 'true' si quieres que el carrusel sea infinito
+            margin: 10, // Espacio entre elementos (tarjetas)
+            responsive: {
+              0: {
+                items: 1 // En pantallas muy pequeñas, muestra 1 elemento
+              },
+              576: { // Dispositivos extra pequeños (por ejemplo, teléfonos), se muestra 1 item
+                items: 2 // En pantallas medianas, muestra 2 elementos
+              },
+              768: { // Dispositivos pequeños (por ejemplo, tablets), se muestran 2 items
+                items: 2 // En pantallas medianas, muestra 2 elementos
+              },
+              992: { // Dispositivos medianos (por ejemplo, laptops), se muestran 3 items
+                items: 3 // En pantallas grandes, muestra 3 elementos
+              },
+              1200: { // Dispositivos grandes (por ejemplo, computadoras de escritorio), se muestran 4 items
+                items: 4 // Aquí le indicas que muestre 4 elementos
+              }
+            },
+            nav: true, // Para mostrar las flechas de navegación
+            navText: [
+              '<i class="fas fa-chevron-left"></i>',
+              '<i class="fas fa-chevron-right"></i>'
+            ] // Puedes personalizar el texto o el HTML de las flechas aquí
+          });
+        });
+      </script>
+      <!-- Fin Productos -->
+    </div>
+
+    <!-- Iconos -->
+    <div class="container" style="margin-bottom: 20px;">
+      <div class="row">
+        <?php
+        include './auditoria.php';
+        $sql = "SELECT * FROM caracteristicas_tienda WHERE accion=1 or accion=2 or accion=3";
+        $query = mysqli_query($conexion, $sql);
+        while ($row = mysqli_fetch_array($query)) {
+          $texto = $row['texto'];
+          $icon_text = $row['icon_text'];
+          $enlace_icon = $row['enlace_icon'];
+          $subtexto_icon = $row['subtexto_icon'];
+
+          if ($enlace_icon == ''){
+            $enlace_icon='';
+          }else{
+            $enlace_icon = 'href="'.$enlace_icon.'" target="_blank" style="text-decoration: none; color: inherit;"';
+          }
+          //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
+        ?>
+          <div class="col-md-4">
+          <a <?php echo $enlace_icon ?>>
+            <div class="card card_icon text-center">
+              <div class="card-body card-body_icon d-flex flex-row">
+                <div style="margin-right: 20px;">
+                  <i class="fas <?php echo $icon_text ?> fa-2x"></i> <!-- Cambia el icono según corresponda -->
+                </div>
+                <div>
+                  <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
+                  <p class="card-text card-text_icon"><?php echo $subtexto_icon ?></p>
+                </div>
+              </div>
+            </div>
+            </a>
+          </div>
+        <?php
+        }
+        ?>
+      </div>
+    </div>
+    <!-- Fin Iconos -->
+
+    <div class="marquee-container">
+      <div class="marquee">
+        <p>
+          <?php
+
+          $sql   = "SELECT * FROM  horizontal  where posicion=2";
+          $query = mysqli_query($conexion, $sql);
+          while ($row = mysqli_fetch_array($query)) {
+            $texto       = $row['texto'];
+            echo $texto . ' - ';
+          } ?>
+        </p>
+      </div>
+    </div>
+
+    <div class="container mt-4 testimonios">
+
+      <h1 style="text-align: center">Testimonios</h1>
+      <br>
+      <!-- Testimonios -->
+      <div class="owl-carousel owl-theme" style="margin-bottom: 50px">
+        <?php
+        include './auditoria.php';
+        $sql = "SELECT * FROM testimonios WHERE id_producto=-1";
+        $query = mysqli_query($conexion, $sql);
+        while ($row = mysqli_fetch_array($query)) {
+          $id_testimonio = $row['id_testimonio'];
+          $nombre_testimonio = $row['nombre'];
+          $testimonio = $row['testimonio'];
+          $image_path = $row['imagen'];
+          //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
+        ?>
+          <div class="item">
+            <div class="category-container d-flex flex-column align-items-center">
+              <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
+                                                                                      ?>');"></div> -->
+              <div class="category-image rounded-circle" style="background-image: url('<?php echo $image_path; ?>')"></div>
+              <p class="card-text flex-grow-1"><strong><?php echo $nombre_testimonio ?></strong></p>
+              <p class="card-text flex-grow-1"><?php echo $testimonio ?></p>
+            </div>
+          </div>
+        <?php } ?>
+      </div>
+      <script>
+        $(document).ready(function() {
+          $(".owl-carousel").owlCarousel({
+            loop: false, // Establece a 'true' si quieres que el carrusel sea infinito
             margin: 10,
             responsive: {
               0: {
@@ -353,74 +468,8 @@ include './includes/style.php';
           });
         });
       </script>
-      <!-- Fin Productos -->
+      <!-- Fin Testimonios -->
     </div>
-
-    <div class="marquee-container">
-      <div class="marquee">
-        <p>
-          <?php
-
-          $sql   = "SELECT * FROM  horizontal  where posicion=2";
-          $query = mysqli_query($conexion, $sql);
-          while ($row = mysqli_fetch_array($query)) {
-            $texto       = $row['texto'];
-            echo $texto . ' - ';
-          } ?>
-        </p>
-      </div>
-    </div>
-    <div class="container mt-4 testimonios">
-
-      <h1 style="text-align: center">Testimonios</h1>
-      <br>
-      <?php
-      // Consulta para obtener los testimonios
-      $resultadoTestimonios = $conexion->query("SELECT * FROM testimonios");
-      $testimonios = [];
-      while ($fila = $resultadoTestimonios->fetch_assoc()) {
-        $testimonios[] = $fila;
-      }
-      ?>
-
-      <div id="testimonialsCarousel" class="carousel slide testimonios-carousel" data-ride="carousel">
-        <div class="carousel-inner">
-          <?php
-          $totalTestimonios = count($testimonios);
-          for ($i = 0; $i < $totalTestimonios; $i += 3) {
-            $isActive = $i == 0 ? 'active' : '';
-            echo '<div class="carousel-item ' . $isActive . '">';
-            echo '<div class="container"><div class="row">';
-
-            for ($j = 0; $j < 3; $j++) {
-              if (($i + $j) < $totalTestimonios) {
-                $testimonio = $testimonios[$i + $j];
-                echo '<div class="col-md-4">';
-                echo '<div class="testimonio-container" style="background-color: #fff;">';
-                // Ajusta los siguientes campos según tu estructura de base de datos
-                echo '<img class="testimonio-imagen" src="sysadmin/' . str_replace("../..", "", $testimonio['imagen']) . '" alt="Autor">';
-                echo '<p class="testimonio-texto">"' . $testimonio['testimonio'] . '"</p>';
-                echo '<p class="testimonio-autor">' . $testimonio['nombre'] . '</p>';
-                echo '</div></div>';
-              }
-            }
-
-            echo '</div></div></div>';
-          }
-          ?>
-        </div>
-        <a class="carousel-control-prev" href="#testimonialsCarousel" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Anterior</span>
-        </a>
-        <a class="carousel-control-next" href="#testimonialsCarousel" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Siguiente</span>
-        </a>
-      </div>
-
-    </div>
-
 
     <div class="contact-section ">
       <div class="container mt-4 contact-section ">
@@ -479,6 +528,9 @@ include './includes/style.php';
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
   <!-- Fin librerias para el carrusel-->
+
+  <!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 
   <script>
     window.onscroll = function() {

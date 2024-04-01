@@ -1341,6 +1341,23 @@ mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `facturada` INT NULL DEF
 
 mysqli_query($conexion, "ALTER TABLE `facturas_cot` ADD `factura_numero` INT NULL AFTER `facturada`;");
 
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `caracteristicas_home` INT DEFAULT '0' NULL;");
+
+mysqli_query($conexion, "ALTER TABLE `productos` ADD `destacado` INT DEFAULT '0' NULL;");
+
+mysqli_query($conexion, "ALTER TABLE `caracteristicas_tienda` ADD `icon_text` varchar(100) NULL;");
+
+mysqli_query($conexion, "ALTER TABLE `caracteristicas_tienda` ADD `enlace_icon` varchar(100) NULL;");
+
+mysqli_query($conexion, "ALTER TABLE `caracteristicas_tienda` ADD `subtexto_icon` varchar(100) NULL;");
+
+mysqli_query($conexion, "ALTER TABLE `caracteristicas_tienda` ADD `accion` INT DEFAULT `0` NULL;");
+
+
+mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id_producto`,  `texto`, `icon_text`, `subtexto_icon`, `accion`) VALUES ('0','Envío Gratis a todo el País','fa-truck','Llegamos a todo el País','1');");
+mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id_producto`,  `texto`, `icon_text`, `subtexto_icon`, `accion`) VALUES ('0','Pago Contra Entrega','fa-lock','Paga cuando recibes el producto','2');");
+mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id_producto`,  `texto`, `icon_text`, `subtexto_icon`, `accion`) VALUES ('0','Atención al cliente','fa-headset','Soporte 100% garantizado','2');");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
