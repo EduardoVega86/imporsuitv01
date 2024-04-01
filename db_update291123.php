@@ -1351,7 +1351,7 @@ mysqli_query($conexion, "ALTER TABLE `caracteristicas_tienda` ADD `enlace_icon` 
 
 mysqli_query($conexion, "ALTER TABLE `caracteristicas_tienda` ADD `subtexto_icon` varchar(100) NULL;");
 
-mysqli_query($conexion, "ALTER TABLE `caracteristicas_tienda` ADD `accion` INT DEFAULT `0` NULL;");
+mysqli_query($conexion, "ALTER TABLE `caracteristicas_tienda` ADD `accion` INT DEFAULT 0 NULL;");
 
 
 mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id_producto`,  `texto`, `icon_text`, `subtexto_icon`, `accion`) VALUES ('0','Envío Gratis a todo el País','fa-truck','Llegamos a todo el País','1');");
