@@ -80,6 +80,7 @@ if ($action == 'ajax') {
                 <th style="text-align: center" colspan="1">Producto</th>
                 <th style="text-align: center">APLICA IVA</th>               
                 <th>Online</th>
+                <th class='text-center'>Destacado</th>
                 <th class='text-center'>Existencia</th>
                 <th class='text-left'>Costo</th>
                 <th class='text-left'>PxMayor</th>
@@ -125,6 +126,7 @@ while ($row = mysqli_fetch_array($query)) {
             $stock_producto       = $row['stock_producto'];
             $stock_min_producto   = $row['stock_min_producto'];
             $aplica_iva=$row['aplica_iva'];
+            $destacado=$row['destacado'];
             
            
             
@@ -218,6 +220,12 @@ if ($image_path == null) {
                                                
                                            </td>
                     <td><?php echo $estado_online; ?></td>
+                    <td>
+                       <button style="font-size: 10px;" class="estado-destacado btn-rounded btn-xs btn <?php echo $destacado == 1 ? 'btn-success' : 'btn-danger'; ?>" data-idd="<?php echo $id_producto; ?>">
+        <?php echo $destacado == 1 ? 'SI' : 'NO'; ?>
+    </button>                         
+                                               
+                                           </td>
                     <td class='text-center'><?php 
                     if($drogshipin==1){
                          $id_marketplace      = $row['id_marketplace'];

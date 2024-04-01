@@ -10,7 +10,7 @@
   .boton {
     background-color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
     border-color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
-    
+
   }
 
   .comparison-table__row-name {
@@ -259,11 +259,11 @@
 
     .navbar-brand {
       padding-top: 0;
-      margin-top:-10px;
+      margin-top: -10px;
     }
 
     .navbarResponsive {
-      margin-top:-11px;
+      margin-top: -11px;
     }
 
     /* Cambia el color de texto de los ítems del dropdown */
@@ -338,7 +338,8 @@
   .footer-container hr {
     border-top: 1px solid #fff;
     /* Ajusta el color y el estilo de la línea divisoria */
-    width: 80%; /* Ajusta el ancho según necesites */
+    width: 80%;
+    /* Ajusta el ancho según necesites */
     margin-top: 20px;
     /* Espacio antes de la línea divisoria */
     margin-bottom: 20px;
@@ -389,7 +390,7 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     /* Color negro con transparencia */
-    z-index: 2;
+    /*z-index: 2;*/
     /* Asegurándose de que se coloque sobre la imagen de fondo pero debajo del texto */
   }
 
@@ -401,11 +402,64 @@
 
   .carousel-control-prev,
   .carousel-control-next {
-    z-index: 3;
+    z-index: 1;
     /* Asegúrate de que este valor sea mayor que el de .carousel-item */
   }
 </style>
 <style>
+  /* Degradado delinea */
+  .degraded-line {
+    width: 100%;
+  height: 1px; /* Ajusta esto para tener una línea súper fina */
+  background: radial-gradient(circle, #000000 30%, transparent 90%);
+  }
+
+  /*inconos */
+  .card_icon {
+    width: 75% !important;
+    border-radius: 0.5rem !important;
+    /* Añade bordes redondeados a la tarjeta */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
+    /* Añade sombra a la tarjeta */
+  }
+
+  .card-body_icon i {
+    color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
+    /* Cambia el color de los íconos, ajusta según tu esquema de color */
+    margin-bottom: 15px !important;
+    /* Espacio debajo del ícono */
+  }
+
+  .card-title_icon {
+    font-size: 1rem !important;
+    /* Tamaño del título de la tarjeta */
+    color: #000 !important;
+    /* Color del título de la tarjeta */
+  }
+
+  .card-text_icon {
+    font-size: 0.9rem !important;
+    /* Tamaño del texto de la tarjeta */
+    color: #6c757d !important;
+    /* Color del texto de la tarjeta */
+  }
+
+  /*cards */
+  .card {
+    width: 80%;
+    /* Ajusta esto al tamaño que prefieras */
+    margin: auto;
+    /* Centra la tarjeta si es más pequeña que el contenedor */
+  }
+
+  /* Para un enfoque responsivo, puedes utilizar media queries */
+  @media (max-width: 768px) {
+    .card {
+      width: 100%;
+      /* Las tarjetas ocuparán más espacio en pantallas pequeñas */
+    }
+  }
+
   .category-card {
     overflow: hidden;
     /* Asegúrate de que cualquier parte de la imagen que se agrande no se salga de los límites del div */
@@ -415,13 +469,21 @@
   }
 
   .category-image {
-    width: 125px; /* Ancho del círculo */
-    height: 125px; /* Alto del círculo */
-    border-radius: 50%; /* Hace que el div sea un círculo */
-    background-position: center; /* Centra la imagen de fondo */
-    background-size: cover; /* Asegura que la imagen de fondo cubra completamente el círculo */
-    display: inline-block;; /* Cambia el tipo de display si es necesario */
-    margin-bottom: 10px; /* Centra el div si está dentro de un contenedor más grande */
+    width: 125px;
+    /* Ancho del círculo */
+    height: 125px;
+    /* Alto del círculo */
+    border-radius: 50%;
+    /* Hace que el div sea un círculo */
+    background-position: center;
+    /* Centra la imagen de fondo */
+    background-size: cover;
+    /* Asegura que la imagen de fondo cubra completamente el círculo */
+    display: inline-block;
+    ;
+    /* Cambia el tipo de display si es necesario */
+    margin-bottom: 10px;
+    /* Centra el div si está dentro de un contenedor más grande */
   }
 
   .category-image:hover {
@@ -430,50 +492,61 @@
   }
 
   .category-button {
-    display: inline-block; /* Cambia el display a inline-block */
-    width: auto; /* Cambia de width fijo a auto para adaptar al contenido */
-    padding: 5px 20px; /* Ajusta el relleno para controlar el tamaño */
-    margin: 0 auto; /* Centra el botón horizontalmente */
+    display: inline-block;
+    /* Cambia el display a inline-block */
+    width: auto;
+    /* Cambia de width fijo a auto para adaptar al contenido */
+    padding: 5px 20px;
+    /* Ajusta el relleno para controlar el tamaño */
+    margin: 0 auto;
+    /* Centra el botón horizontalmente */
     border: none;
     cursor: pointer;
-    text-align: center; /* Asegura que el texto del botón esté centrado */
+    text-align: center;
+    /* Asegura que el texto del botón esté centrado */
   }
+
   .category-container {
-  text-align: center; /* Asegura que el contenido interno esté centrado */
+    text-align: center;
+    /* Asegura que el contenido interno esté centrado */
   }
 
   /* CSS para cambiar el diseño de flechas del carrucel de categorias */
   .owl-carousel .owl-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-}
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+  }
 
-/* Ajustes adicionales para la posición y tamaño de los botones si es necesario */
-.owl-carousel .owl-nav button.owl-prev,
-.owl-carousel .owl-nav button.owl-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  /* Establecer un tamaño adecuado para el botón si estás utilizando un icono más grande */
-}
+  /* Ajustes adicionales para la posición y tamaño de los botones si es necesario */
+  .owl-carousel .owl-nav button.owl-prev,
+  .owl-carousel .owl-nav button.owl-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* Establecer un tamaño adecuado para el botón si estás utilizando un icono más grande */
+  }
 
-.owl-carousel .owl-nav .owl-prev {
-  left: -2px; /* Ajusta según sea necesario */
-}
+  .owl-carousel .owl-nav .owl-prev {
+    left: -2px;
+    /* Ajusta según sea necesario */
+  }
 
-.owl-carousel .owl-nav .owl-next {
-  right: -2px; /* Ajusta según sea necesario */
-}
+  .owl-carousel .owl-nav .owl-next {
+    right: -2px;
+    /* Ajusta según sea necesario */
+  }
 
-/* Estilos personalizados para aumentar el tamaño de las flechas */
-.owl-carousel .owl-nav button {
-  font-size: 10em; /* Aumenta el tamaño del icono */
-  color: #333; /* Cambia al color deseado */
-}
+  /* Estilos personalizados para aumentar el tamaño de las flechas */
+  .owl-carousel .owl-nav button {
+    font-size: 10em;
+    /* Aumenta el tamaño del icono */
+    color: #333;
+    /* Cambia al color deseado */
+  }
 
-/* fin de css para modificar carrusel de categorias*/
+  /* fin de css para modificar carrusel de categorias*/
 </style>
 
 

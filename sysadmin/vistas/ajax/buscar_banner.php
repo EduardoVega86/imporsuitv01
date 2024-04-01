@@ -24,8 +24,8 @@ $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUES
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-    $aColumns = array('texto'); //Columnas de busqueda
-    $sTable   = "caracteristicas_tienda";
+    $aColumns = array('titulo'); //Columnas de busqueda
+    $sTable   = "banner_adicional";
     $sWhere   = "";
     if ($_GET['q'] != "") {
         $sWhere = "WHERE (";
@@ -59,40 +59,43 @@ if ($action == 'ajax') {
         <div class="table-responsive">
             <table class="table table-sm table-striped">
                 <tr  class="info">
-                    <th>Id</th>
-                    <th>Id producto</th>
-                    <th>Nombre</th>
-                    <th>Icono</th>
-                    <th>Enlace</th>
-                    <th>Sub-texto Icono</th>
-                    <th>Acciones</th>
+                    <th>Fondo Banner</th>
+                    <th>Titulo</th>
+                    <th>Texto Banner</th>
+                    <th>Texto Boton</th>
+                    <th>Enlace Boton</th>
+                    <th>Alineacion</th>
+                    <th>Accion</th>
 
                 </tr>
                 <?php
 while ($row = mysqli_fetch_array($query)) {
-            $id     = $row['id'];
-            $id_producto     = $row['id_producto'];
-            $texto       = $row['texto'];
-            $icono       = $row['icon_text'];
-            $enlace       = $row['enlace_icon'];
-            $sub_texto       = $row['subtexto_icon'];
-            $accion_icon  = $row['accion'];
+            $id = $row['id'];
+            $fondo_banner     = $row['fondo_banner'];
+            $titulo       = $row['titulo'];
+            $texto_banner       = $row['texto_banner'];
+            $texto_boton       = $row['texto_boton'];
+            $enlace_boton       = $row['enlace_boton'];
+            $alineacion  = $row['alineacion'];
            
             ?>
 
-    <input type="hidden" value="<?php echo $texto; ?>" id="texto<?php echo $id; ?>">
-    <input type="hidden" value="<?php echo $icono; ?>" id="icono<?php echo $id; ?>">
-    <input type="hidden" value="<?php echo $enlace; ?>" id="enlace_icon<?php echo $id; ?>">
-    <input type="hidden" value="<?php echo $sub_texto; ?>" id="subtexto_icon<?php echo $id; ?>">
+    <input type="hidden" value="<?php echo $titulo; ?>" id="titulo<?php echo $id; ?>">
+    <input type="hidden" value="<?php echo $texto_banner; ?>" id="texto_banner<?php echo $id; ?>">
+    <input type="hidden" value="<?php echo $texto_boton; ?>" id="texto_boton<?php echo $id; ?>">
+    <input type="hidden" value="<?php echo $enlace_boton; ?>" id="enlace_boton<?php echo $id; ?>">
+    <input type="hidden" value="<?php echo $alineacion; ?>" id="alineacion<?php echo $id; ?>">
      
 
     <tr>
-        <td><span class="badge badge-purple"><?php echo $id; ?></span></td>
-        <td><?php echo $id_producto; ?></td>
-        <td><?php echo $texto; ?></td>
-        <td><?php echo $icono; ?></td>
-        <td><?php echo $enlace; ?></td>
-        <td><?php echo $sub_texto; ?></td>
+        <td>
+        <img src="<?php echo $fondo_banner; ?>" class="img-responsive" alt="profile-image" width="100px" height="100px">
+        </td>
+        <td><?php echo $titulo; ?></td>
+        <td><?php echo $texto_banner; ?></td>
+        <td><?php echo $texto_boton; ?></td>
+        <td><?php echo $enlace_boton; ?></td>
+        <td><?php echo $alineacion; ?></td>
         
        
         <td >
@@ -102,8 +105,8 @@ while ($row = mysqli_fetch_array($query)) {
                    <?php if ($permisos_editar == 1) {?>
                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos('<?php echo $id; ?>');"><i class='fa fa-edit'></i> Editar</a>
                    <?php }
-            if (($permisos_eliminar == 1) && ($accion_icon == 0)) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id; ?>"><i class='fa fa-trash'></i> Borrar</a>
+            if (($permisos_eliminar == 1)) {?>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete2" data-id="<?php echo $id; ?>" onclick="obtener_datos('<?php echo $id; ?>');"><i class='fa fa-trash'></i> Borrar</a>
                    <?php }
             ?>
 

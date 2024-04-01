@@ -10,7 +10,7 @@ require_once "../php_conexion.php";
 
 // Configuracin de la base de datos de destino
 if ($_SERVER['HTTP_HOST']=='localhost'){
-    $destino = new mysqli('localhost', 'root', '', 'prueba_imporsuit');
+    $destino = new mysqli('localhost', 'root', '', 'master');
 }else{
  $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');   
 }

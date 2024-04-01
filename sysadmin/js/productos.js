@@ -232,7 +232,7 @@ function iva(id){
         var userId = $(this).data('id');
         //alert($(this).text().trim());
         var newEstado = $(this).text().trim() === 'NO' ? 1 : 0;  // Cambia el estado
-//alert(newEstado);
+        //alert(newEstado);
         $.ajax({
             url: '../ajax/producto_iva.php?id_notificacion',  // Ruta al script PHP que cambiará el estado en la base de datos
             type: 'POST',
@@ -246,4 +246,25 @@ function iva(id){
                 }
             }
         });
+});
+
+$(document).on('click', '.estado-destacado', function() {
+   
+  var userId = $(this).data('idd');
+  //alert($(this).text().trim());
+  var newEstado = $(this).text().trim() === 'NO' ? 1 : 0;  // Cambia el estado
+  //alert(newEstado);
+  $.ajax({
+      url: '../ajax/producto_destacado.php?id_notificacion',  // Ruta al script PHP que cambiará el estado en la base de datos
+      type: 'POST',
+      data: {id: userId, estado: newEstado},
+      success: function(response){
+          // Actualizar el botón según la nueva respuesta de estado
+          if(response.trim() == '1'){
+              $('button[data-idd="' + userId + '"]').text('SI').removeClass('btn-danger').addClass('btn-success');
+          } else {
+              $('button[data-idd="' + userId + '"]').text('NO').removeClass('btn-success').addClass('btn-danger');
+          }
+      }
+  });
 });

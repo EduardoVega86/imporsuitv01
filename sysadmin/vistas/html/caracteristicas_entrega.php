@@ -18,6 +18,7 @@ $title     = "Categorias";
 $pacientes = 1;
 ?>
 
+
 <?php require 'includes/header_start.php';?>
 
 <?php require 'includes/header_end.php';?>

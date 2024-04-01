@@ -19,11 +19,24 @@ if (!empty($row)) {
 
     $query2 = mysqli_query($conexion, $sql2);
     $row2 = mysqli_fetch_assoc($query2);
+    $respuestas = [];
     if (!empty($row2)) {
         $precio = $row2['precio'];
         $pt = $precio_total * 0.03;
         $precio_total =  $pt + $precio;
         $precio_total = number_format($precio_total, 2, '.', '');
-        echo $precio_total;
+        $respuestas["laar"] = $precio_total;
     }
+    $trayecto_servientrega = $row['trayecto_servientrega'];
+    $sql3 = "SELECT * FROM `cobertura_servientrega` WHERE tipo_cobertura = '$trayecto_servientrega'";
+    $query3 = mysqli_query($conexion, $sql3);
+    $row3 = mysqli_fetch_assoc($query3);
+    if (!empty($row3)) {
+        $precio = $row3['precio'];
+        $pt = $precio_total * 0.03;
+        $precio_total =  $pt + $precio;
+        $precio_total = number_format($precio_total, 2, '.', '');
+        $respuestas["servientrega"] = $precio_total;
+    }
+    echo json_encode($respuestas);
 }
