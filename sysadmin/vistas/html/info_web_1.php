@@ -72,6 +72,21 @@ border-radius: 45px;
   bottom: 10px; /* Ajusta la distancia desde la parte inferior según necesites */
   z-index: 1000; /* Asegúrate de que esté sobre los otros elementos */
 }
+
+/* Define una animación para que el botón aparezca con un efecto de fade-in */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Agrega la animación al botón cuando tiene la clase 'visible' */
+.btn-visible {
+    animation: fadeIn 1s;
+}
+.formulario {
+    border-radius: 55px;
+}    
+
 </style>
 <!-- Begin page -->
 <div id="wrapper">
@@ -91,16 +106,16 @@ border-radius: 45px;
                                 <div class="fixed-buttons">
                                 <div class="form-group m-b-0 row">
 														<div class="col-sm-9">
-															<button type="submit" class="btn btn-info waves-effect waves-light"><i class="fa fa-refresh"></i> Actualizar Datos</button>
+                                                                                                                    <button type="submit" id="actualizarDatosBtn" style="display: none; font-size: 20px" class="btn btn-danger waves-effect waves-light"><i class="fa fa-refresh"></i> Actualizar Datos</button>
 
-															<a type="button" href="../../../index.php" target="_blank" class="btn btn-danger">Vista Preliminar</a>
+															<a type="button" style="display: none" href="../../../index.php" target="_blank" class="btn btn-danger">Vista Preliminar</a>
 														</div>
 													</div>
                                     </div>
                                 <div style="background-color: lightyellow" class="card-box">
                                                                                                             <a href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf"></a>
                                                                                                             <label class="form-check-label" for="flexSwitchCheckChecked"><strong>Deseas ser proveedor de Imporsuit?</strong><br><a target="blank" href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf">Leer términos y condiciones</a> <br>Al marcar esta casilla, usted acepta y se compromete a cumplir con los Términos y Condiciones. </label>
-                                                                                                            <input style="width: 30px; height: 30px" class="" type="checkbox" role="switch" id="flotar" <?php if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1) == 1) { ?> checked<?php } ?> >
+                                                                                                            <input style="width: 30px; height: 30px" class="" type="checkbox" role="switch" id="proveedor" <?php if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1) == 1) { ?> checked<?php } ?> >
                                                                                                             
                                                                                                                 
 													</div><br>
@@ -140,21 +155,21 @@ border-radius: 45px;
 														
 														<div class="col-sm-12">
                                                                                                                     <span class="help-block"style="font-size: 10px"> NOMBRE DE LA TIENDA</span>
-															<input type="text" class="form-control UpperCase" name="nombre_empresa" value="<?php echo $row['nombre_empresa'] ?>" required autocomplete="off">
+															<input type="text" class="form-control UpperCase input-change" name="nombre_empresa" value="<?php echo $row['nombre_empresa'] ?>" required autocomplete="off">
 														</div>
 													</div>
                   <div class=" row">
 														
 														<div class="col-sm-12">
                                                                                                                      <span class="help-block"style="font-size: 10px"> GIRO</span>
-															<input type="text" class="form-control UpperCase" name="giro" value="<?php echo $row['giro_empresa'] ?>" required autocomplete="off">
+															<input type="text" class="form-control UpperCase input-change" name="giro" value="<?php echo $row['giro_empresa'] ?>" required autocomplete="off">
 														</div>
 													</div>
                   <div class="row">
 														
 														<div class="col-sm-12">
                                                                                                                     <span class="help-block"style="font-size: 10px"> RUC </span>
-															<input type="text" class="form-control" required name="fiscal" value="<?php echo $row['fiscal_empresa'] ?>" autocomplete="off">
+															<input type="text" class="form-control input-change" required name="fiscal" value="<?php echo $row['fiscal_empresa'] ?>" autocomplete="off">
 														</div>
 													</div>
 													
@@ -185,6 +200,14 @@ border-radius: 45px;
 														</div>
 													</div>
               </div>
+              <div class="col-md-3">
+              <div class="">
+                                                                            <input class="" type="checkbox" role="switch" id="flotar" <?php if (get_row('perfil', 'flotante', 'id_perfil', 1)==1){ ?> checked<?php }?>>
+  <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar texto flotante</label>
+                                                                        </div><br>
+									<div class='outer_div_flotante'></div>
+                                                                        
+              </div>                                                          
               </div>
       </div>
     </div>
@@ -375,15 +398,18 @@ border-radius: 45px;
 														</div>
 													</div>
           <div  class="row">
-           <div class="form-group row">
-														<label for="inputPassword3" class="col-sm-3 col-form-label">Incrustar mapa:</label>
-														<div class="col-sm-9">
+              <div class="col-md-6">
+       
+														
+														<div class="col-sm-12">
+                                                                                                                    <span style="font-size: 10px" class="help-block">INCRUSTAR MAPA</span>
 															<textarea type="text" class="form-control " name="mapa" value="<?php echo $row["mapa"]; ?>" required autocomplete="off"><?php echo $row["mapa"]; ?></textarea>
 														</div>
 													</div>
-													<div class="form-group row">
-														<label for="inputPassword3" class="col-sm-3 col-form-label">Texto para footer</label>
-														<div class="col-sm-9">
+													 <div class="col-md-6">
+														
+														<div class="col-sm-12">
+                                                                                                                    <span style="font-size: 10px" class="help-block">TEXTO PARA FOOTER</span>
 															<textarea type="text" class="form-control " name="texto_contactos" value="<?php echo $row["texto_contactos"]; ?>" required autocomplete="off"><?php echo $row["texto_contactos"]; ?></textarea>
 														</div>
 													</div>   
@@ -503,6 +529,24 @@ border-radius: 45px;
 <!-- ============================================================== -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    		$(document).ready(function() {
+		    load_horizontal(1);
+		});
+    function handleChange(event) {
+  mostrarBotonActualizar();
+}
+
+function mostrarBotonActualizar() {
+    const boton = document.getElementById('actualizarDatosBtn');
+    boton.style.display = 'block'; // Hace visible el botón
+    boton.classList.add('btn-visible'); // Aplica la animación de fade-in
+}
+var inputs = document.querySelectorAll('.input-change');
+
+inputs.forEach(function(input) {
+  input.addEventListener('input', handleChange);
+});
+
  document.getElementById('toggleButton').addEventListener('click', function() {
   var buttons = document.getElementById('floatingButtons');
   buttons.classList.toggle('active');
@@ -544,7 +588,7 @@ border-radius: 45px;
 
 
 	$(document).on('change', 'input[type="checkbox"]', function(e) {
-		if (this.id == "flotar") {
+		if (this.id === "proveedor") {
 			if (this.checked) {
 				id = 1;
 			} else {
@@ -586,6 +630,27 @@ border-radius: 45px;
 			});
 
 		}
+                if(this.id==="flotar") {
+        if(this.checked){
+             id=1;
+        }
+           
+        else {
+           id=0; 
+        }
+           $.ajax({
+        type: "GET",
+        url: "../ajax/habilitaflotante.php",
+        data: "id=" + id,
+        beforeSend: function(objeto) {
+            $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+        },
+        success: function(datos) {
+            $("#resultados").html(datos);
+        }
+    });
+    
+    }
 
 	});
 </script>
@@ -683,6 +748,24 @@ border-radius: 45px;
 			}, 50);
 		})
 	})
+        
+        function load_horizontal(page) {
+		    var q = $("#q").val();
+		    $("#loader").fadeIn('slow');
+		    $.ajax({
+		        url: '../ajax/buscar_horizontal.php?action=ajax&page=' + page + '&q=' + q,
+		        beforeSend: function(objeto) {
+		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(data) {
+		            $(".outer_div_flotante").html(data).fadeIn('slow');
+		            $('#loader').html('');
+		            $('[data-toggle="tooltip"]').tooltip({
+		                html: true
+		            });
+		        }
+		    })
+		}
 </script>
 
 <?php require 'includes/footer_end.php'
