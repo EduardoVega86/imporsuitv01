@@ -54,10 +54,10 @@ $data = array(
     "numero_piezas" => 1,
     "valor_mercancia" => $valor_mercancia,
     "valor_asegurado" => $valor_asegurado,
-    "largo" => 1,
-    "ancho" => 1,
-    "alto" => 1,
-    "peso_fisico" => 1,
+    "largo" => 2,
+    "ancho" => 2,
+    "alto" => 2,
+    "peso_fisico" => 2,
     "login_creacion" => "impor.comex",
     "password" => "123456"
 );

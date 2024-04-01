@@ -1,6 +1,6 @@
 <?php
 
-$url = "https://servientrega-ecuador-prueba.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
+$url = "https://servientrega-ecuador.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
 
 $xml = <<<XML
 <soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="https://servientrega-ecuador.appsiscore.com/app/ws/">
@@ -9,16 +9,16 @@ $xml = <<<XML
       <ws:Consultar soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
          <producto xsi:type="xsd:string">MERCANCIA PREMIER</producto>
          <origen xsi:type="xsd:string">QUITO</origen>
-         <destino xsi:type="xsd:string">GUAYAQUIL-GUAYAS</destino>
+         <destino xsi:type="xsd:string">QUITO-PICHINCHA</destino>
          <valor_mercaderia xsi:type="xsd:string">100</valor_mercaderia>
          <piezas xsi:type="xsd:string">1</piezas>
-         <peso xsi:type="xsd:string">5</peso>
-         <alto xsi:type="xsd:string">1</alto>
-         <ancho xsi:type="xsd:string">2</ancho>
-         <largo xsi:type="xsd:string">1</largo>
+         <peso xsi:type="xsd:string">2</peso>
+         <alto xsi:type="xsd:string">10</alto>
+         <ancho xsi:type="xsd:string">50</ancho>
+         <largo xsi:type="xsd:string">50</largo>
          <tokn xsi:type="xsd:string">1593aaeeb60a560c156387989856db6be7edc8dc220f9feae3aea237da6a951d</tokn>
-         <usu xsi:type="xsd:string">PRUEBA</usu>
-         <pwd xsi:type="xsd:string">s12345ABCDe</pwd>
+         <usu xsi:type="xsd:string">IMPCOMEX</usu>
+         <pwd xsi:type="xsd:string">Rtcom-ex9912</pwd>
       </ws:Consultar>
    </soapenv:Body>
 </soapenv:Envelope>
