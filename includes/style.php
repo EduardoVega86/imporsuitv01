@@ -827,7 +827,9 @@
     margin: 5px 0;
     /* Margen para el título y párrafos */
   }
+  .semicolonexpected{
 
+  }
   .footer-container a {
     color: white;
     /* Color de los enlaces */
