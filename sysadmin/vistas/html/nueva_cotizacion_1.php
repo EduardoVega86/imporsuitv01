@@ -799,11 +799,12 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
     function seleccionarProvincia() {
         var id_provincia = $('#ciudad_entrega').val();
         let ciudadOrigen = ""
-
+        let tienda = window.location.search.split("=")[1];
         $.ajax({
             url: "../ajax/obtener_dato_envio_servi.php",
             type: "POST",
             data: {
+                tienda: tienda,
                 ciudad: id_provincia,
             },
             success: function(data) {

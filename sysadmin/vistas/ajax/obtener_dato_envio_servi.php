@@ -2,6 +2,7 @@
 
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
+$tienda = $_POST['tienda'];
 $archivo_tienda =  $tienda . '/sysadmin/vistas/db1.php';
 $archivo_destino_tienda = "../../vistas/db_destino_guia.php";
 $contenido_tienda = file_get_contents($archivo_tienda);
