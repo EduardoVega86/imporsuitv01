@@ -1,5 +1,12 @@
 <?php
 
+$ciudad_origen = $_POST['ciudad_origen'];
+$ciudad_destino = $_POST['ciudad_destino'];
+$provincia_destino = $_POST['provincia_destino'];
+
+$destino = Upper($ciudad_destino) . "-" . Upper($provincia_destino);
+
+
 $url = "https://servientrega-ecuador.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
 
 $xml = <<<XML
