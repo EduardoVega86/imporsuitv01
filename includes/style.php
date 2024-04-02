@@ -301,12 +301,14 @@
 
   .navbar-small .navbar-brand img {
     height: 50px;
+    width: 50px;
     /* Ajusta el tamaño del logo */
   }
 
   @media (max-width: 768px) {
     #navbarLogo {
-      max-height: 40px;
+      max-width: 100% !important; /* Ajusta el ancho al contenedor */
+    height: auto !important;  /* Ajusta la altura proporcionalmente */
     }
   }
 </style>
@@ -387,7 +389,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: <?php echo get_row('perfil', 'banner_color_filtro', 'id_perfil', '1') ?> !important;
+    opacity: <?php echo get_row('perfil', 'banner_opacidad', 'id_perfil', '1') ?> !important;
     /* Color negro con transparencia */
     /*z-index: 2;*/
     /* Asegurándose de que se coloque sobre la imagen de fondo pero debajo del texto */
@@ -810,7 +813,7 @@
     }
   }
 
-  .footer-contenedor {
+  owl-carousel .footer-contenedor {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     padding: 20px;
@@ -1002,5 +1005,17 @@
       right: 20px;
       /* Distancia desde el lado derecho para dispositivos móviles */
     }
+  }
+
+  .caja {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    padding-left: 240px !important;
+    padding-right: 240px !important;
+    border-radius: 25px;
+    -webkit-box-shadow: -2px 5px 5px 0px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
+    box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
+    background-color: white;
   }
 </style>

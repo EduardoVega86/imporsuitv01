@@ -49,13 +49,13 @@ $domain = $_SERVER['HTTP_HOST'];
     <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
       <div class="container">
         <!-- Logo en el centro para todas las vistas -->
-        <a class="navbar-brand" href="#"><a class="navbar-brand" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px;" src="<?php
-                                                                                                                                                          if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
-                                                                                                                                                            echo "assets/img/imporsuit.png";
-                                                                                                                                                          } else {
-                                                                                                                                                            echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
-                                                                                                                                                          }
-                                                                                                                                                          ?>" alt="Imagen" /></a></a>
+        <a class="navbar-brand" href="#"><a class="navbar-brand" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
+                                                                                                                                                                        if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
+                                                                                                                                                                          echo "assets/img/imporsuit.png";
+                                                                                                                                                                        } else {
+                                                                                                                                                                          echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
+                                                                                                                                                                        }
+                                                                                                                                                                        ?>" alt="Imagen" /></a></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars" style="color: #000; text-shadow: 0px 0px 3px #fff;"></i>
         </button>
@@ -73,7 +73,7 @@ $domain = $_SERVER['HTTP_HOST'];
           <!-- Elementos a la derecha -->
           <ul class="navbar-nav">
             <div class="search-box">
-              <input type="text" class="search-input" placeholder="Busca cualquier producto">
+              <input type="text" class="search-input" placeholder="Buscar">
               <button class="search-button">
                 <i class="fas fa-search"></i> <!-- Este es un icono de FontAwesome, asegúrate de incluir la librería -->
               </button>
@@ -185,7 +185,7 @@ $domain = $_SERVER['HTTP_HOST'];
       <br>
 
       <!-- Categoria -->
-      <div class="owl-carousel owl-theme" style="margin-bottom: 50px">
+      <div class="owl-carousel owl-theme caja" style="margin-bottom: 50px">
         <?php
         include './auditoria.php';
         $sql = "SELECT * FROM lineas WHERE tipo='1' AND online=1";
@@ -277,9 +277,9 @@ $domain = $_SERVER['HTTP_HOST'];
         ?>
           <div class="item">
             <div class="grid-container">
-              <div class="card" style="border-radius: 1rem;">
+              <div class="card" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
                 <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
-                <div class="img-container" style="aspect-ratio: 1 / 1; overflow: hidden; margin-bottom: -100px">
+                <div class="img-container" style="aspect-ratio: 1 / 1; overflow: hidden; margin-bottom: -120px">
                   <img src=" <?php
                               $subcadena = "http";
 
@@ -418,7 +418,7 @@ $domain = $_SERVER['HTTP_HOST'];
       <h1 style="text-align: center">Testimonios</h1>
       <br>
       <!-- Testimonios -->
-      <div class="owl-carousel owl-theme" style="margin-bottom: 50px">
+      <div class="owl-carousel owl-theme caja" style="margin-bottom: 50px">
         <?php
         include './auditoria.php';
         $sql = "SELECT * FROM testimonios WHERE id_producto=-1";
@@ -509,7 +509,7 @@ $domain = $_SERVER['HTTP_HOST'];
               $nombre_politica       = $row['nombre'];
               $id_politica       = $row['id_politica'];
             ?>
-              <li><a href="<?php echo $protocol?>://<?php echo $domain?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
+              <li><a href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
             <?php } ?>
           </ul>
         </div>
@@ -569,12 +569,14 @@ $domain = $_SERVER['HTTP_HOST'];
       var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
       var logo = document.getElementById("navbarLogo");
       logo.style.maxHeight = "60px"; // o el tamaño que desees para el logo
+      logo.style.maxWidth = "60px"; // o el tamaño que desees para el logo
       if (window.pageYOffset > 100) {
         nav.style.height = "70px";
         // Aquí también puedes cambiar otros estilos si es necesario, como el tamaño del logo o de la fuente
       } else {
         nav.style.height = "100px";
         logo.style.maxHeight = "100px"; // tamaño original del logo
+        logo.style.maxWidth = "100px"; // tamaño original del logo
         // Restablece los estilos si el usuario vuelve a la parte superior de la página
       }
     };
