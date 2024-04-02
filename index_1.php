@@ -9,6 +9,12 @@ $pagina = 'INICIO';
 //include './includes/style.php';
 include './includes/style.php';
 
+// Obtener el protocolo (http o https)
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+
+// Obtener el dominio (nombre de host)
+$domain = $_SERVER['HTTP_HOST'];
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -35,22 +41,6 @@ include './includes/style.php';
 
 
   <link href="css_nuevo/carousel.css" rel="stylesheet" type="text/css" />
-  <!-- Custom styles for this template -->
-  <style>
-    .footer-contenedor {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-
-    }
-
-    .footer-contenido {
-      width: max-content;
-      background-color: #f8f9fa;
-      padding: 20px;
-    }
-  </style>
 </head>
 
 <body>
@@ -485,14 +475,78 @@ include './includes/style.php';
       PODEMOS AYUDARTE
     </a>
 
-    <footer class="footer-container footer">
-      <div class="container text-center">
-        <h3 class="texto_footer">Contacto:</h3>
-        <p class="texto_footer"><?php echo get_row('perfil', 'texto_contactos', 'id_perfil', '1'); ?></p>
-        <hr class="texto_footer"> <!-- Línea divisoria -->
-        <p class="texto_footer">&copy; 2024 Sitio Web desarrollado por IMPORSUIT.</p>
-        <p><a class="texto_footer" href="#">Política</a></p>
-      </div>
+    <footer class="footer-contenedor">
+      <?php
+      $sql   = "SELECT * FROM  perfil  where id_perfil=1";
+      $query = mysqli_query($conexion, $sql);
+      while ($row = mysqli_fetch_array($query)) {
+        $nombre_empresa       = $row['nombre_empresa'];
+        $giro_empresa       = $row['giro_empresa'];
+        $telefono       = $row['telefono'];
+        $email       = $row['email'];
+        $logo_url       = $row['logo_url'];
+        $facebook       = $row['facebook'];
+        $instagram       = $row['instagram'];
+        $tiktok       = $row['tiktok'];
+
+      ?>
+        <div class="footer-contenido">
+          <h4>Acerca de <?php echo $nombre_empresa ?></h4>
+          <img id="navbarLogo" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
+                                              ?>">
+          <span class="descripcion">
+            <?php echo $giro_empresa ?>
+          </span>
+
+        </div>
+        <div class="footer-contenido">
+          <h5>Legal</h5>
+          <ul class="lista_legal">
+            <?php
+            $sql   = "SELECT * FROM  politicas_empresa";
+            $query = mysqli_query($conexion, $sql);
+            while ($row = mysqli_fetch_array($query)) {
+              $nombre_politica       = $row['nombre'];
+              $id_politica       = $row['id_politica'];
+            ?>
+              <li><a href="<?php echo $protocol?>://<?php echo $domain?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
+            <?php } ?>
+          </ul>
+        </div>
+        <div class="footer-contenido">
+          <h5>Siguenos</h5>
+          <div class="redes">
+            <?php if ($facebook  !== "") { ?>
+              <a class="icon-redes" href="<?php echo $facebook ?>">
+                <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="facebook">
+              </a>
+            <?php } ?>
+            <?php if ($instagram  !== "") { ?>
+              <a class="icon-redes" href="<?php echo $instagram ?>">
+                <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram">
+              </a>
+            <?php } ?>
+            <?php if ($tiktok  !== "") { ?>
+              <a class="icon-redes" href="<?php echo $tiktok ?>">
+                <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="tiktok">
+              </a>
+            <?php } ?>
+          </div>
+        </div>
+        <div class="footer-contenido">
+          <h5>
+            Información de contacto
+          </h5>
+          <span class="descripcion">
+            <span class="icons">
+              <i class='bx bxl-whatsapp ws'></i> <?php echo $telefono ?>
+            </span>
+            <span class="icons">
+              <i class='bx bx-mail-send send'></i><?php echo $email ?>
+            </span>
+          </span>
+        </div>
+      <?php } ?>
     </footer>
 
 
