@@ -25,6 +25,7 @@ include './includes/style.php';
   <!-- librerias para el carrusel-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
   <!-- Fin librerias para el carrusel-->
@@ -67,21 +68,12 @@ include './includes/style.php';
           </ul>
           <!-- Elementos a la derecha -->
           <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle texto_cabecera" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Políticas
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Política 1</a>
-                <a class="dropdown-item" href="#">Política 2</a>
-                <a class="dropdown-item" href="#">Política 3</a>
-              </div>
-            </li>
-
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar">
-
-            </form>
+            <div class="search-box">
+              <input type="text" class="search-input" placeholder="Busca cualquier producto">
+              <button class="search-button">
+                <i class="fas fa-search"></i> <!-- Este es un icono de FontAwesome, asegúrate de incluir la librería -->
+              </button>
+            </div>
 
           </ul>
         </div>
@@ -204,7 +196,8 @@ include './includes/style.php';
             <div class="category-container d-flex flex-column align-items-center">
               <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
                                                                                       ?>');"></div> -->
-              <div class="category-image rounded-circle" style="background-image: url('<?php echo $image_path; ?>')"></div>
+              <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path)
+                                                                                                ?>');"></div>
               <a class="btn category-button boton texto_boton" style="border-radius: 0.5rem;" href="categoria_1.php?id_cat=<?php echo $id_linea ?>" role="button">
                 <?php echo $nombre_linea; ?>
               </a>
@@ -372,26 +365,26 @@ include './includes/style.php';
           $enlace_icon = $row['enlace_icon'];
           $subtexto_icon = $row['subtexto_icon'];
 
-          if ($enlace_icon == ''){
-            $enlace_icon='';
-          }else{
-            $enlace_icon = 'href="'.$enlace_icon.'" target="_blank" style="text-decoration: none; color: inherit;"';
+          if ($enlace_icon == '') {
+            $enlace_icon = '';
+          } else {
+            $enlace_icon = 'href="' . $enlace_icon . '" target="_blank" style="text-decoration: none; color: inherit;"';
           }
           //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
         ?>
           <div class="col-md-4">
-          <a <?php echo $enlace_icon ?>>
-            <div class="card card_icon text-center">
-              <div class="card-body card-body_icon d-flex flex-row">
-                <div style="margin-right: 20px;">
-                  <i class="fas <?php echo $icon_text ?> fa-2x"></i> <!-- Cambia el icono según corresponda -->
-                </div>
-                <div>
-                  <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
-                  <p class="card-text card-text_icon"><?php echo $subtexto_icon ?></p>
+            <a <?php echo $enlace_icon ?>>
+              <div class="card card_icon text-center">
+                <div class="card-body card-body_icon d-flex flex-row">
+                  <div style="margin-right: 20px;">
+                    <i class="fas <?php echo $icon_text ?> fa-2x"></i> <!-- Cambia el icono según corresponda -->
+                  </div>
+                  <div>
+                    <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
+                    <p class="card-text card-text_icon"><?php echo $subtexto_icon ?></p>
+                  </div>
                 </div>
               </div>
-            </div>
             </a>
           </div>
         <?php
@@ -437,7 +430,8 @@ include './includes/style.php';
             <div class="category-container d-flex flex-column align-items-center">
               <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
                                                                                       ?>');"></div> -->
-              <div class="category-image rounded-circle" style="background-image: url('<?php echo $image_path; ?>')"></div>
+              <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path)
+                                                                                                ?>');"></div>
               <p class="card-text flex-grow-1"><strong><?php echo $nombre_testimonio ?></strong></p>
               <p class="card-text flex-grow-1"><?php echo $testimonio ?></p>
             </div>
@@ -471,50 +465,76 @@ include './includes/style.php';
       <!-- Fin Testimonios -->
     </div>
 
-    <div class="contact-section ">
-      <div class="container mt-4 contact-section ">
-        <h1 style="text-align: center">Contáctanos</h1>
-        <br>
-        <div class="row justify-content-center">
-          <div class="col-md-8">
-            <div class="contact-form">
-
-              <form action="tu-script-de-envio.php" method="POST">
-                <div class="mb-3">
-                  <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
-                </div>
-                <div class="mb-3">
-                  <input type="email" class="form-control" name="email" placeholder="Email *" required>
-                </div>
-                <div class="mb-3">
-                  <input type="tel" class="form-control" name="telefono" placeholder="Teléfono">
-                </div>
-                <div class="mb-3">
-                  <textarea class="form-control" name="mensaje" rows="3" placeholder="Mensaje"></textarea>
-                </div>
-                <div class="text-end">
-                  <button type="submit" class="btn btn-primary boton">Enviar Mensaje a Whatsapp</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- FOOTER -->
     <!-- Botón flotante para WhatsApp -->
     <a href="https://wa.me/tunúmero" class="whatsapp-float" target="_blank">
       PODEMOS AYUDARTE
     </a>
 
-    <footer class="footer-container footer">
-      <div class="container text-center">
-        <h3 class="texto_footer">Contacto:</h3>
-        <p class="texto_footer"><?php echo get_row('perfil', 'texto_contactos', 'id_perfil', '1'); ?></p>
-        <hr class="texto_footer"> <!-- Línea divisoria -->
-        <p class="texto_footer">&copy; 2024 Sitio Web desarrollado por IMPORSUIT.</p>
-        <p><a class="texto_footer" href="#">Política</a></p>
+    <footer class="footer-contenedor">
+      <div class="footer-contenido">
+        <?php
+
+        $sql   = "SELECT * FROM  perfil where id_perfil=1";
+        $query = mysqli_query($conexion, $sql);
+        while ($row = mysqli_fetch_array($query)) {
+          $id_perfil       = $row['id_perfil'];
+          $nombre_empresa = $row['nombre_empresa'];
+          $logo_url = $row['logo_url'];
+          $telefono = $row['telefono'];
+          $email = $row['email'];
+
+        ?>
+        <h4>Acerca de <?php echo $nombre_empresa ?></h4>
+        <img id="navbarLogo" class="" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
+                                                                                                ?>" alt="">
+        <span class="descripcion">
+          Somos una empresa virtual que se dedica a la venta de productos de calidad a precios accesibles.
+        </span>
+
       </div>
+      <div class="footer-contenido">
+        <h5>Legal</h5>
+        <ul class="lista_legal">
+          <li>Terminos y condiciones</li>
+          <li>Politicas de privacidad</li>
+          <li>Politicas de envio</li>
+          <li>Politicas de reembolso</li>
+        </ul>
+      </div>
+      <div class="footer-contenido">
+        <h5>Siguenos</h5>
+        <div class="redes">
+
+          <a class="icon-redes" href="#">
+            <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="facebook">
+          </a>
+          <a class="icon-redes" href="#">
+            <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram">
+          </a>
+          <a class="icon-redes" href="#">
+            <img src="https://img.icons8.com/color/48/000000/twitter.png" alt="twitter">
+          </a>
+          <a class="icon-redes" href="#">
+            <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="youtube">
+          </a>
+        </div>
+      </div>
+      <div class="footer-contenido">
+        <h5>
+          Información de contacto
+        </h5>
+        <span class="descripcion">
+          <span class="icons">
+            <i class='bx bxl-whatsapp ws'></i> <?php echo $telefono ?>
+          </span>
+          <span class="icons">
+            <i class='bx bx-mail-send send'></i><?php echo $email ?>
+          </span>
+        </span>
+      </div>
+      <?php } ?>
+
     </footer>
 
 
@@ -530,7 +550,7 @@ include './includes/style.php';
   <!-- Fin librerias para el carrusel-->
 
   <!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 
   <script>
     window.onscroll = function() {

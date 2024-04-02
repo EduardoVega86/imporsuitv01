@@ -47,7 +47,7 @@
 		    });
 		    event.preventDefault();
 		})
-		$("#editar_linea").submit(function(event) {
+		$("#editarIconos").submit(function(event) {
 		    $('#actualizar_datos').attr("disabled", true);
 		    var parametros = $(this).serialize();
 		    $.ajax({
