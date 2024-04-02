@@ -809,70 +809,72 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             },
             success: function(data) {
                 ciudadOrigen = data;
-            }
-        })
-        let ciudadDestino = ""
-        $.ajax({
-            url: "../ajax/obtener_dato_destino_servi.php",
-            type: "POST",
-            data: {
-                ciudad: id_provincia,
-            },
-            success: function(data) {
-                ciudadDestino = JSON.parse(data);
-                let destino = ciudadDestino["nombre"];
-                let origen = ciudadDestino["provincia"]
-                console.log(ciudadOrigen, destino, origen);
-
-                let precio_total = $('#valor_total_').val();
-
+                let ciudadDestino = ""
                 $.ajax({
-                    url: "../../../ajax/servientrega/cotizador1.php",
+                    url: "../ajax/obtener_dato_destino_servi.php",
                     type: "POST",
                     data: {
-                        ciudad_origen: ciudadOrigen,
-                        ciudad_destino: destino,
-                        provincia_destino: origen,
-                        precio_total: precio_total,
+                        ciudad: id_provincia,
                     },
                     success: function(data) {
-                        // Convertir caracteres especiales y parsear como XML
-                        let parser = new DOMParser();
-                        let xmlDoc = parser.parseFromString(data, "text/xml");
+                        ciudadDestino = JSON.parse(data);
+                        let destino = ciudadDestino["nombre"];
+                        let origen = ciudadDestino["provincia"]
+                        console.log(ciudadOrigen, destino, origen);
 
-                        // Extraer el contenido de <Result>
-                        let resultString = xmlDoc.getElementsByTagName("Result")[0].childNodes[0].nodeValue;
+                        let precio_total = $('#valor_total_').val();
 
-                        // Convertir el contenido de Result (que es un string de XML) a un objeto que se pueda manipular
-                        let resultDoc = parser.parseFromString(resultString, "text/xml");
+                        $.ajax({
+                            url: "../../../ajax/servientrega/cotizador1.php",
+                            type: "POST",
+                            data: {
+                                ciudad_origen: ciudadOrigen,
+                                ciudad_destino: destino,
+                                provincia_destino: origen,
+                                precio_total: precio_total,
+                            },
+                            success: function(data) {
+                                // Convertir caracteres especiales y parsear como XML
+                                let parser = new DOMParser();
+                                let xmlDoc = parser.parseFromString(data, "text/xml");
 
-                        function getNumericValueFromTag(tagName) {
-                            let tag = resultDoc.getElementsByTagName(tagName)[0];
-                            if (tag && tag.childNodes.length > 0) {
-                                // Convertir el valor del nodo a número y retornarlo
-                                return parseFloat(tag.childNodes[0].nodeValue);
-                            } else {
-                                // Si el elemento no se encuentra o no tiene un valor, retorna 0
-                                return 0;
+                                // Extraer el contenido de <Result>
+                                let resultString = xmlDoc.getElementsByTagName("Result")[0].childNodes[0].nodeValue;
+
+                                // Convertir el contenido de Result (que es un string de XML) a un objeto que se pueda manipular
+                                let resultDoc = parser.parseFromString(resultString, "text/xml");
+
+                                function getNumericValueFromTag(tagName) {
+                                    let tag = resultDoc.getElementsByTagName(tagName)[0];
+                                    if (tag && tag.childNodes.length > 0) {
+                                        // Convertir el valor del nodo a número y retornarlo
+                                        return parseFloat(tag.childNodes[0].nodeValue);
+                                    } else {
+                                        // Si el elemento no se encuentra o no tiene un valor, retorna 0
+                                        return 0;
+                                    }
+                                }
+
+                                // Extraer los valores numéricos de cada elemento relevante
+                                let flete = getNumericValueFromTag("flete");
+                                let seguro = getNumericValueFromTag("seguro");
+                                let valorComision = getNumericValueFromTag("valor_comision");
+                                let otros = getNumericValueFromTag("otros");
+                                let impuesto = getNumericValueFromTag("impuesto");
+
+                                // Sumar todos los valores para obtener el total
+                                let total = flete + seguro + valorComision + otros + impuesto;
+
+                                total = total.toFixed(2);
+                                $('#precio_servientrega').text(`$${total}`);
                             }
-                        }
 
-                        // Extraer los valores numéricos de cada elemento relevante
-                        let flete = getNumericValueFromTag("flete");
-                        let seguro = getNumericValueFromTag("seguro");
-                        let valorComision = getNumericValueFromTag("valor_comision");
-                        let otros = getNumericValueFromTag("otros");
-                        let impuesto = getNumericValueFromTag("impuesto");
-
-                        // Sumar todos los valores para obtener el total
-                        let total = flete + seguro + valorComision + otros + impuesto;
-
-                        console.log(total); // Imprimirá el valor t
+                        })
                     }
-
                 })
             }
         })
+
 
         $.ajax({
             url: "../ajax/cargar_provincia_pedido.php", // Url to which the request is send
@@ -909,11 +911,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
         let provinica = $('#provinica').val();
         let ciudad_entrega = $('#ciudad_entrega').val();
         fetch(`../ajax/calcular_guia_new.php?precio_total=${precio_total}&provincia=${provinica}&ciudad_entrega=${ciudad_entrega}`)
-            .then(response => response.text())
+            .then(response => response.json())
             .then(html => {
-                let [precio_laar, precio_servientrega] = html.split(',');
+                console.log(html);
+                let precio_laar = html["laar"];
                 $('#precio_laar').text(`$${precio_laar}`);
-                $('#precio_servientrega').text(`$${precio_servientrega}`);
                 $('#costo_envio').val(precio_laar);
             })
 
