@@ -82,7 +82,7 @@ while ($row = mysqli_fetch_array($query)) {
 
     <tr>
         <td>
-        <img src="<?php echo $fondo_banner; ?>" class="img-responsive" alt="profile-image" width="100px" height="100px">
+        <img src="<?php echo $fondo_banner; ?>" class="img-responsive" alt="profile-image" width="100px" >
         </td>
         <td><?php echo $titulo; ?></td>
         <td><?php echo $texto_banner; ?></td>
