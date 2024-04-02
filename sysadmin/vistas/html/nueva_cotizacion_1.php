@@ -822,14 +822,17 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 let destino = ciudadDestino["nombre"];
                 let origen = ciudadDestino["provincia"]
                 console.log(ciudadOrigen, destino, origen);
+
+                let precio_total = $('#valor_total_').val();
+
                 $.ajax({
                     url: "../../../ajax/servientrega/cotizador1.php",
                     type: "POST",
                     data: {
-                        ciudadOrigen: ciudadOrigen,
-                        ciudadDestino: ciudadDestino,
-                        peso: 1,
-                        valor: 1000
+                        ciudad_origen: ciudadOrigen,
+                        ciudad_destino: destino,
+                        provincia_destino: origen,
+                        precio_total: precio_total,
                     },
                     success: function(data) {
                         // Convertir caracteres especiales y parsear como XML
