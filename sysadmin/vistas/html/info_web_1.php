@@ -369,38 +369,46 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
     </div>
     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
       <div class="panel-body">
-        <div class=" row caja">
+          <div class="caja">
+              <h5><strong>ELEMENTOS</strong></h5>
+        <div class=" row ">
+             <div class="col-sm-1">
+                                                                                                                    <span style="font-size: 10px" class="help-block">Principal:</span>
+															<input class="colores input-change" type="color" name="color_botones" value="<?php echo $row["color_botones"]; ?>">
+															
+														</div>
             <div class="col-md-1 ">
 														
-                                                                                                                    <span style="font-size: 10px" class="help-block">Color Barra:</span>
+                                                                                                                    <span style="font-size: 10px" class="help-block">Barra Superior:</span>
                                                                                                                     <input class="colores input-change" type="color" name="color" value="<?php echo $row["color"]; ?>">
 															
 														
                 </div>
             <div class="col-md-1">
 														
-                                                                                                                    <span style="font-size: 10px" class="help-block">Color Footer:</span>
+                                                                                                                    <span style="font-size: 10px" class="help-block">Footer:</span>
 															<input class="colores input-change" type="color" name="color_footer" value="<?php echo $row["color_footer"]; ?>">
 															
 														</div>
             
-														<div class="col-sm-1">
-                                                                                                                    <span style="font-size: 10px" class="help-block">Color Botones:</span>
-															<input class="colores input-change" type="color" name="color_botones" value="<?php echo $row["color_botones"]; ?>">
-															
-														</div>
-            <div class="col-sm-1"><span style="font-size: 10px" class="help-block">Texto Cabecera:</span>
+														
+                 </div>
+              </div>
+              <div class="caja">
+                  <h5><strong>TEXTOS</strong></h5>
+                  <div class=" row ">
+            <div class="col-sm-1"><span style="font-size: 10px" class="help-block">Cabecera:</span>
 															<input class="colores input-change" type="color" name="texto_cabecera" value="<?php echo $row["texto_cabecera"]; ?>">
 															
 														</div>
 
 														<div class="col-sm-1">
-                                                                                                                    <span style="font-size: 10px" class="help-block">Texto Botones:</span>
+                                                                                                                    <span style="font-size: 10px" class="help-block">Botones:</span>
 															<input class="colores input-change" type="color" name="texto_boton" value="<?php echo $row["texto_boton"]; ?>">
 															
 														</div>
 														<div class="col-sm-1">
-                                                                                                                    <span style="font-size: 10px" class="help-block">Texto Footer:</span>
+                                                                                                                    <span style="font-size: 10px" class="help-block">Footer:</span>
 															<input class="colores input-change" type="color" name="texto_footer" value="<?php echo $row["texto_footer"]; ?>">
 															
 														</div>
@@ -409,7 +417,7 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
 															<input class="colores input-change" type="color" name="texto_precio" value="<?php echo $row["texto_precio"]; ?>">
 															
 														</div>
-
+</div>
 													</div>
       </div>
     </div>
