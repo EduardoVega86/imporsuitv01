@@ -31,8 +31,7 @@ if (isset($conexion)) {
 								<label for="nombre" class="control-label">Icono:</label>
 								<select id="icon_select" name="icon_select" style="width: 100%;"></select>
 
-								<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-								<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+								
 								<script>
 									document.addEventListener('DOMContentLoaded', function() {
 
