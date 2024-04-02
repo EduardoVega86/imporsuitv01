@@ -87,6 +87,12 @@ border-radius: 45px;
     border-radius: 55px;
 }    
 
+.panel-body{
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 80px;
+    padding-right: 80px;
+}
 </style>
 <!-- Begin page -->
 <div id="wrapper">
