@@ -101,6 +101,14 @@ border-radius: 45px;
 		<div class="content">
 			<div class="container">
 				<?php if ($permisos_ver == 1) {
+                                    include '../modal/registro_horizontal.php';
+                                    include '../modal/eliminar_horizontal.php';
+                                    include '../modal/registro_banner.php';
+                                    include '../modal/editar_banner.php';
+                                    include '../modal/editar_caracteristica.php';
+                                    include '../modal/editar_testimonio.php';
+                                     include "../modal/imagen_testimonio.php";
+                                     include "../modal/editar_horizontal.php";
 				?>
                             <form class="form-horizontal" role="form" id="perfil" enctype="multipart/form-data">
                                 <div class="fixed-buttons">
@@ -150,7 +158,7 @@ border-radius: 45px;
 													<input class="form-control" data-buttonText="Logo" type="file" name="imagefile3" id="imagefile3" onchange="upload_image_favicon();">
 												</div>
             </div>
-              <div style="" class="col-md-3">
+              <div style="" class="col-md-4">
               <div class=" row">
 														
 														<div class="col-sm-12">
@@ -173,20 +181,19 @@ border-radius: 45px;
 														</div>
 													</div>
 													
-              </div>
-              <div class="col-md-3">
+              
                 <div class="row">
 														
 														<div class="col-sm-12">
                                                                                                                     <span class="help-block"style="font-size: 10px"> TELEFONO</span>
-															<input type="text" class="form-control" name="telefono" value="<?php echo $row['telefono'] ?>" required autocomplete="off">
+															<input type="text" class="form-control input-change" name="telefono" value="<?php echo $row['telefono'] ?>" required autocomplete="off">
 														</div>
 													</div>  
                   <div class=" row">
 														
 														<div class="col-sm-12">
                                                                                                                     <span class="help-block"style="font-size: 10px"> EMAIL</span>
-															<input type="email" class="form-control" name="email" value="<?php echo $row['email'] ?>" autocomplete="off">
+															<input type="email" class="form-control input-change" name="email" value="<?php echo $row['email'] ?>" autocomplete="off">
 														</div>
 													</div>
 
@@ -196,15 +203,18 @@ border-radius: 45px;
 														
 														<div class="col-sm-12">
                                                                                                                     <span class="help-block"style="font-size: 10px"> DIRECCIÓN</span>
-															<input type="text" class="form-control UpperCase" name="direccion" value="<?php echo $row["direccion"]; ?>" required autocomplete="off">
+															<input type="text" class="form-control UpperCase input-change" name="direccion" value="<?php echo $row["direccion"]; ?>" required autocomplete="off">
 														</div>
 													</div>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-5">
               <div class="">
-                                                                            <input class="" type="checkbox" role="switch" id="flotar" <?php if (get_row('perfil', 'flotante', 'id_perfil', 1)==1){ ?> checked<?php }?>>
+                                                                            <input class="input-change" type="checkbox" role="switch" id="flotar" <?php if (get_row('perfil', 'flotante', 'id_perfil', 1)==1){ ?> checked<?php }?>>
   <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar texto flotante</label>
-                                                                        </div><br>
+                                                                        </div>
+                                                                        <div class="btn-group pull-right">
+												<button type="button" class="btn btn-success waves-effect waves-light formulario" data-toggle="modal" data-target="#nuevaFlotante"><i class="fa fa-plus"></i> </button>
+												</div>
 									<div class='outer_div_flotante'></div>
                                                                         
               </div>                                                          
@@ -216,7 +226,7 @@ border-radius: 45px;
     <div class="panel-heading" role="tab" id="headingTwo">
       <h4 class="panel-title">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-           <h1 style="color: white; font-size: 20px; font-weight: bold;"> BANNER PRINCIPAL </h1>
+           <h1 style="color: white; font-size: 20px; font-weight: bold;"> BANNER </h1>
         </a>
       </h4>
     </div>
@@ -233,7 +243,7 @@ border-radius: 45px;
 
 
 												<div class="form-group">
-													<input class="form-control" data-buttonText="Logo" type="file" name="imagefile2" id="imagefile2" onchange="upload_image_banner();">
+													<input class="form-control input-change" data-buttonText="Logo" type="file" name="imagefile2" id="imagefile2" onchange="upload_image_banner();">
 												</div>
 
 												
@@ -248,14 +258,14 @@ border-radius: 45px;
                                                                                                                  <div class="form-group row">
 														<label for="inputPassword3" class="col-sm-2 col-form-label">Titulo</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control UpperCase" name="titulo_slider" value="<?php echo $row["titulo_slider"]; ?>"  autocomplete="off">
+															<input type="text" class="form-control UpperCase input-change" name="titulo_slider" value="<?php echo $row["titulo_slider"]; ?>"  autocomplete="off">
 														</div>
 													</div>
                                                                                                                  
                                                                                                                   <div class="form-group row">
 														<label for="inputPassword3" class="col-sm-2 col-form-label">Boton</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control UpperCase" name="texto_btn_slider" value="<?php echo $row["texto_btn_slider"]; ?>"  autocomplete="off">
+															<input type="text" class="form-control UpperCase input-change" name="texto_btn_slider" value="<?php echo $row["texto_btn_slider"]; ?>"  autocomplete="off">
 														</div>
 													</div>
                                                                                                                  
@@ -272,7 +282,7 @@ border-radius: 45px;
 														</div>
                                                                                                                 <div class="col-sm-6">
 															<textarea type="text" class="form-control " name="texto_slider" value="<?php echo $row["texto_slider"]; ?>"  autocomplete="off"><?php echo $row["texto_slider"]; ?></textarea>
-                                                                                                                        <span class="help-block">Texto del slider </span>
+                                                                                                                        <span class="help-block">Subtitulo </span>
                                                                                                                         <div class="form-group row">
 														<label for="inputPassword3" class="col-sm-2 col-form-label">Alineacion</label>
 														<div class="col-sm-10">
@@ -290,9 +300,26 @@ border-radius: 45px;
 													</div>
                                                                                                                 </div>
                                                                                                                 </div>
-                                                                                                           </div>
+            <div class="btn-group pull-right">
+												<button type="button" class="btn btn-success waves-effect waves-light formulario" data-toggle="modal" data-target="#nuevoBanner"><i class="fa fa-plus"></i> </button>
+												</div>        
+            <div class='outer_div_banner'></div>                                                                                       </div>
                   </div>
               </div>
+      </div>
+    </div>
+  </div>
+                                <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSix">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          <h1 style="color: white; font-size: 20px; font-weight: bold;"> ICONOS </h1>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+      <div class="panel-body">
+        <div class='outer_div_iconos'></div>
       </div>
     </div>
   </div>
@@ -310,6 +337,8 @@ border-radius: 45px;
       </div>
     </div>
   </div>
+                                
+                                
                                 <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingFour">
       <h4 class="panel-title">
@@ -324,44 +353,58 @@ border-radius: 45px;
             <div class="col-md-1">
 														
                                                                                                                     <span style="font-size: 10px" class="help-block">Color Barra:</span>
-                                                                                                                    <input class="colores" type="color" name="color" value="<?php echo $row["color"]; ?>">
+                                                                                                                    <input class="colores input-change" type="color" name="color" value="<?php echo $row["color"]; ?>">
 															
 														
                 </div>
             <div class="col-md-1">
 														
                                                                                                                     <span style="font-size: 10px" class="help-block">Color Footer:</span>
-															<input class="colores" type="color" name="color_footer" value="<?php echo $row["color_footer"]; ?>">
+															<input class="colores input-change" type="color" name="color_footer" value="<?php echo $row["color_footer"]; ?>">
 															
 														</div>
             
 														<div class="col-sm-1">
                                                                                                                     <span style="font-size: 10px" class="help-block">Color Botones:</span>
-															<input class="colores" type="color" name="color_botones" value="<?php echo $row["color_botones"]; ?>">
+															<input class="colores input-change" type="color" name="color_botones" value="<?php echo $row["color_botones"]; ?>">
 															
 														</div>
             <div class="col-sm-1"><span style="font-size: 10px" class="help-block">Texto Cabecera:</span>
-															<input class="colores" type="color" name="texto_cabecera" value="<?php echo $row["texto_cabecera"]; ?>">
+															<input class="colores input-change" type="color" name="texto_cabecera" value="<?php echo $row["texto_cabecera"]; ?>">
 															
 														</div>
 
 														<div class="col-sm-1">
                                                                                                                     <span style="font-size: 10px" class="help-block">Texto Botones:</span>
-															<input class="colores" type="color" name="texto_boton" value="<?php echo $row["texto_boton"]; ?>">
+															<input class="colores input-change" type="color" name="texto_boton" value="<?php echo $row["texto_boton"]; ?>">
 															
 														</div>
 														<div class="col-sm-1">
                                                                                                                     <span style="font-size: 10px" class="help-block">Texto Footer:</span>
-															<input class="colores" type="color" name="texto_footer" value="<?php echo $row["texto_footer"]; ?>">
+															<input class="colores input-change" type="color" name="texto_footer" value="<?php echo $row["texto_footer"]; ?>">
 															
 														</div>
 														<div class="col-sm-1">
                                                                                                                     <span style="font-size: 10px" class="help-block">Texto Precio:</span>
-															<input class="colores" type="color" name="texto_precio" value="<?php echo $row["texto_precio"]; ?>">
+															<input class="colores input-change" type="color" name="texto_precio" value="<?php echo $row["texto_precio"]; ?>">
 															
 														</div>
 
 													</div>
+      </div>
+    </div>
+  </div>
+                                <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingSeven">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+          <h1 style="color: white; font-size: 20px; font-weight: bold;"> TESTIMONIOS </h1>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+      <div class="panel-body">
+        <div class='outer_div_testimoinio'></div>
       </div>
     </div>
   </div>
@@ -379,21 +422,21 @@ border-radius: 45px;
 														
 														<div class="col-md-3">
                                                                                                                     <span style="font-size: 10px" class="help-block">FACEBOOK:</span>
-															<input type="text" class="form-control " name="facebook" value="<?php echo $row["facebook"]; ?>">
+															<input type="text" class="form-control input-change" name="facebook" value="<?php echo $row["facebook"]; ?>">
 														</div>
 													<div class="col-md-3">
 													
                                                                                                                      <span style="font-size: 10px" class="help-block">INSTAGRAM:</span>
-															<input type="text" class="form-control UpperCase" name="instagram" value="<?php echo $row["instagram"]; ?>">
+															<input type="text" class="form-control  input-change" name="instagram" value="<?php echo $row["instagram"]; ?>">
                                                                                                                         </div>
            
                                                                                                     <div class="col-md-3">
                                                                                                                         <span style="font-size: 10px" class="help-block">TIKTOK:</span>
-                                                                                                                        <input type="text" class="form-control UpperCase" name="tiktok" value="<?php echo $row["tiktok"]; ?>">
+                                                                                                                        <input type="text" class="form-control input-change" name="tiktok" value="<?php echo $row["tiktok"]; ?>">
                                                                                                                         </div>
                                                                                                         <div class="col-md-3">
                                                                                                                         <span style="font-size: 10px" class="help-block">WHATSAPP:</span>
-                                                                                                                        <input type="text" class="form-control UpperCase" name="whatsapp" value="<?php echo $row["whatsapp"]; ?>">
+                                                                                                                        <input type="text" class="form-control input-change" name="whatsapp" value="<?php echo $row["whatsapp"]; ?>">
                                                                                                                         <span style="font-size: 10px" class="help-block">Colocar el codigo postal mas el telefono (593995169770)</span>
 														</div>
 													</div>
@@ -403,14 +446,14 @@ border-radius: 45px;
 														
 														<div class="col-sm-12">
                                                                                                                     <span style="font-size: 10px" class="help-block">INCRUSTAR MAPA</span>
-															<textarea type="text" class="form-control " name="mapa" value="<?php echo $row["mapa"]; ?>" required autocomplete="off"><?php echo $row["mapa"]; ?></textarea>
+															<textarea type="text" class="form-control input-change" name="mapa" value="<?php echo $row["mapa"]; ?>" required autocomplete="off"><?php echo $row["mapa"]; ?></textarea>
 														</div>
 													</div>
 													 <div class="col-md-6">
 														
 														<div class="col-sm-12">
                                                                                                                     <span style="font-size: 10px" class="help-block">TEXTO PARA FOOTER</span>
-															<textarea type="text" class="form-control " name="texto_contactos" value="<?php echo $row["texto_contactos"]; ?>" required autocomplete="off"><?php echo $row["texto_contactos"]; ?></textarea>
+															<textarea type="text" class="form-control input-change" name="texto_contactos" value="<?php echo $row["texto_contactos"]; ?>" required autocomplete="off"><?php echo $row["texto_contactos"]; ?></textarea>
 														</div>
 													</div>   
           </div>
@@ -437,7 +480,7 @@ border-radius: 45px;
         </button>
       </div>
       <div class="modal-body">
-        <iframe src="http://localhost/imporsuitv01/index_1.php" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+        <iframe id="miIframePc" src="http://localhost/imporsuitv01/index_1.php" style="width: 100%; height: 500px;" frameborder="0"></iframe>
       </div>
     </div>
   </div>
@@ -474,7 +517,7 @@ border-radius: 45px;
         </button>
       </div>
       <div class="modal-body">
-        <iframe src="http://localhost/imporsuitv01/index_1.php" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+        <iframe id="miIframeCelular" src="http://localhost/imporsuitv01/index_1.php" style="width: 100%; height: 500px;" frameborder="0"></iframe>
       </div>
     </div>
   </div>
@@ -531,6 +574,9 @@ border-radius: 45px;
 <script>
     		$(document).ready(function() {
 		    load_horizontal(1);
+                    load_banner(1);
+                    load_iconos(1);
+                    load_testimonios(1);
 		});
     function handleChange(event) {
   mostrarBotonActualizar();
@@ -574,6 +620,9 @@ inputs.forEach(function(input) {
 			success: function(datos) {
 				$("#resultados_ajax").html(datos);
 				$('.guardar_datos').attr("disabled", false);
+                                recargarIframe();
+                                 const boton = document.getElementById('actualizarDatosBtn');
+    boton.style.display = 'none'; // Hace visible el botón
 				//desaparecer la alerta
 				$(".alert-success").delay(400).show(10, function() {
 					$(this).delay(2000).hide(10, function() {
@@ -748,7 +797,23 @@ inputs.forEach(function(input) {
 			}, 50);
 		})
 	})
-        
+        function load_testimonios(page) {
+		    var q = $("#q").val();
+		    $("#loader").fadeIn('slow');
+		    $.ajax({
+		        url: '../ajax/buscar_testimonio.php?action=ajax&page=' + page + '&q=' + q,
+		        beforeSend: function(objeto) {
+		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(data) {
+		            $(".outer_div_testimoinio").html(data).fadeIn('slow');
+		            $('#loader').html('');
+		            $('[data-toggle="tooltip"]').tooltip({
+		                html: true
+		            });
+		        }
+		    })
+		}
         function load_horizontal(page) {
 		    var q = $("#q").val();
 		    $("#loader").fadeIn('slow');
@@ -766,6 +831,403 @@ inputs.forEach(function(input) {
 		        }
 		    })
 		}
+                
+                function load_banner(page) {
+		    var q = $("#q").val();
+		    $("#loader").fadeIn('slow');
+		    $.ajax({
+		        url: '../ajax/buscar_banner.php?action=ajax&page=' + page + '&q=' + q,
+		        beforeSend: function(objeto) {
+		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(data) {
+		            $(".outer_div_banner").html(data).fadeIn('slow');
+		            $('#loader').html('');
+		            $('[data-toggle="tooltip"]').tooltip({
+		                html: true
+		            });
+		        }
+		    })
+		}
+                function load_iconos(page) {
+		    var q = $("#q").val();
+		    $("#loader").fadeIn('slow');
+		    $.ajax({
+		        url: '../ajax/buscar_caracteristica.php?action=ajax&page=' + page + '&q=' + q,
+		        beforeSend: function(objeto) {
+		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(data) {
+		            $(".outer_div_iconos").html(data).fadeIn('slow');
+		            $('#loader').html('');
+		            $('[data-toggle="tooltip"]').tooltip({
+		                html: true
+		            });
+		        }
+		    })
+		}
+                
+                $("#guardar_horizontal").submit(function(event) {
+		    $('#guardar_datos_horizontal').attr("disabled", true);
+		    var parametros = $(this).serialize();
+		    $.ajax({
+		        type: "POST",
+		        url: "../ajax/nuevo_texto.php",
+		        data: parametros,
+		        beforeSend: function(objeto) {
+		            $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(datos) {
+		            $("#resultados_ajax_horizontal").html(datos);
+		            $('#guardar_datos_horizontal').attr("disabled", false);
+		            load_horizontal(1);
+		            //resetea el formulario
+		            $("#guardar_linea")[0].reset();
+		            $("#nombre").focus();
+		            //desaparecer la alerta
+		            window.setTimeout(function() {
+		                $(".alert").fadeTo(200, 0).slideUp(200, function() {
+		                    $(this).remove();
+		                });
+		            }, 2000);
+		        }
+		    });
+		    event.preventDefault();
+		})
+                function eliminar(id,tabla, campo_id){
+		    $('#id_eliminar').val(id);
+                   $('#tabla_eliminar').val(tabla);
+                   $('#campo_id').val(campo_id);
+                  // alert(campo_id);
+		}
+                $("#eliminarDatos").submit(function(event) {
+                   // alert($('#id_eliminar').val());
+		    var parametros = $(this).serialize();
+		    $.ajax({
+		        type: "POST",
+		        url: "../ajax/eliminar_registro.php",
+		        data: parametros,
+		        beforeSend: function(objeto) {
+		            $(".datos_ajax_delete").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(datos) {
+		            $(".datos_ajax_delete").html(datos);
+		           $('#dataDelete').hide(); // Oculta el modal
+$('.modal-backdrop').remove(); // Elimina el fondo modal
+$('body').removeClass('modal-open'); // Elimina la clase que mantiene el scroll fijo
+		            load_horizontal(1);
+                            load_banner(1);
+                            load_testimonios(1);
+                            
+		            //desaparecer la alerta
+		            window.setTimeout(function() {
+		                $(".alert").fadeTo(200, 0).slideUp(200, function() {
+		                    $(this).remove();
+		                });
+		            }, 2000);
+		        }
+		    });
+		    event.preventDefault();
+		});
+                
+                $("#guardar_banner").submit(function (event) {
+  $("#guardar_datos2").attr("disabled", true);
+  var parametros = $(this).serialize();
+  $.ajax({
+    type: "POST",
+    url: "../ajax/nuevo_banner.php",
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#resultados_ajax").html(
+        '<img src="../../img/ajax-loader.gif"> Cargando...'
+      );
+    },
+    success: function (datos) {
+      $("#resultados_ajax").html(datos);
+      $("#guardar_datos2").attr("disabled", false);
+      load_banner(1);
+      //resetea el formulario
+      $("#guardar_linea2")[0].reset();
+      //$("#nombre").focus();
+      //desaparecer la alerta
+      window.setTimeout(function () {
+        $(".alert")
+          .fadeTo(200, 0)
+          .slideUp(200, function () {
+            $(this).remove();
+          });
+      }, 2000);
+    },
+  });
+  event.preventDefault();
+});
+
+function obtener_datos_banner(id) {
+  var titulo = $("#titulo" + id).val();
+  var texto_banner = $("#texto_banner" + id).val();
+  
+  var texto_boton = $("#texto_boton" + id).val();
+  var enlace_boton = $("#enlace_boton" + id).val();
+  var alineacion = $("#alineacion" + id).val();
+  //var posicion = $("#posicion" + id).val();
+
+  // alert(id)
+
+  $("#titulo_slider2").val(titulo);
+ // alert(texto_banner)
+  $("#texto_slider_edit").val(texto_banner);
+  $("#texto_btn_slider2").val(texto_boton);
+  $("#enlace_btn_slider2").val(enlace_boton);
+  $("#alineacion").val(alineacion);
+  //$("#mod_posicion").val(posicion);
+  $("#mod_id").val(id);
+
+  // Preparar datos para enviar
+  var datosParaEnviar = {
+    id: id,
+    titulo: titulo,
+    texto_banner: texto_banner,
+    texto_boton: texto_boton,
+    enlace_boton: enlace_boton,
+    alineacion: alineacion
+};
+  // Llamada AJAX
+  $.ajax({
+    type: "POST",
+    url: "../ajax/editar_banner_modal.php", // Asegúrate de reemplazar 'tu_archivo_destino.php' por la ruta correcta a tu archivo PHP
+    data: datosParaEnviar,
+    success: function (response) {
+        $("#editar_linea").html(response);
+
+    },
+    error: function (xhr, status, error) {
+      // Aquí puedes manejar errores durante el envío.
+      console.error("Error al enviar los datos: ", error);
+    },
+  });
+}
+
+function upload_image_banner2() {
+
+        var inputFileImage = document.getElementById("imagefile4");
+        var file = inputFileImage.files[0];
+        if ((typeof file === "object") && (file !== null)) {
+            $("#load_img4").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            var data = new FormData();
+            data.append('imagefile4', file);
+            // Asegúrate de obtener el valor de mod_id y añadirlo a FormData
+            var modId = document.getElementById('mod_id').value; // Obtiene el valor
+            data.append('mod_id', modId); // Añade mod_id a FormData
+
+            $.ajax({
+                url: "../ajax/imagen_ajax_banner2.php", // Url to which the request is send
+                type: "POST", // Type of request to be send, called as method
+                data: data, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                contentType: false, // The content type used when sending data to the server.
+                cache: false, // To unable request pages to be cached
+                processData: false, // To send DOMDocument or non processed data file it is set to false
+                success: function(data) // A function to be called if request succeeds
+                {
+                    $("#load_img4").html(data);
+                    load_banner(1);
+
+                }
+            });
+        }
+    }
+    
+    $("#editar_linea").submit(function (event) {
+  $("#actualizar_datos").attr("disabled", true);
+  var parametros = $(this).serialize();
+  $.ajax({
+    type: "POST",
+    url: "../ajax/editar_banner.php",
+    data: parametros,
+    beforeSend: function (objeto) {
+      $("#resultados_ajax2").html(
+        '<img src="../../img/ajax-loader.gif"> Cargando...'
+      );
+    },
+    success: function (datos) {
+      $("#resultados_ajax2").html(datos);
+      $("#actualizar_datos").attr("disabled", false);
+      load_banner(1);
+      //desaparecer la alerta
+      window.setTimeout(function () {
+        $(".alert")
+          .fadeTo(200, 0)
+          .slideUp(200, function () {
+            $(this).remove();
+          });
+      }, 2000);
+    },
+  });
+  event.preventDefault();
+});
+
+function obtener_datos_icono(id) {
+		    var texto = $("#texto" + id).val();
+			var icono = $("#icono" + id).val();
+			var enlace_icon = $("#enlace_icon" + id).val();
+			var subtexto_icon = $("#subtexto_icon" + id).val();
+                    //var posicion = $("#posicion" + id).val();
+		 
+                // alert(id)
+		    $("#texto_icon").val(texto);
+			$("#icon_select").val(icono);
+			$("#enlace_icon").val(enlace_icon);
+			$("#subtexto_icon").val(subtexto_icon);
+                    //$("#mod_posicion").val(posicion);
+                     $("#mod_id").val(id);
+		 
+                    
+		}
+                
+                $("#editar_iconos").submit(function(event) {
+		    $('#actualizar_datos').attr("disabled", true);
+		    var parametros = $(this).serialize();
+		    $.ajax({
+		        type: "POST",
+		        url: "../ajax/editar_caracteristica.php",
+		        data: parametros,
+		        beforeSend: function(objeto) {
+		            $("#resultados_ajax2").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(datos) {
+		            $("#resultados_ajax2").html(datos);
+		            $('#actualizar_datos').attr("disabled", false);
+		            load_iconos(1);
+		            //desaparecer la alerta
+		            window.setTimeout(function() {
+		                $(".alert").fadeTo(200, 0).slideUp(200, function() {
+		                    $(this).remove();
+		                });
+		            }, 2000);
+		        }
+		    });
+		    event.preventDefault();
+		})
+                
+                function obtener_datos_testimonio(id) {
+		    var nombre = $("#nombre" + id).val();
+		    var descripcion = $("#descripcion" + id).val();
+		    var estado = $("#estado" + id).val();
+                    var producto = $("#producto" + id).val();
+                  
+                  //  alert(nombre)
+                    
+		    $("#mod_nombre").val(nombre);
+		    $("#mod_descripcion").val(descripcion);
+		    $("#mod_estado").val(estado);
+                     $("#mod_id_producto").val(producto);
+		    $("#mod_id_testimonio").val(id);
+                   
+                    
+		}
+                
+                $("#editar_testimonio").submit(function(event) {
+                    //alert($("#mod_id_testimonio").val())
+		    $('#actualizar_datos').attr("disabled", true);
+		    var parametros = $(this).serialize();
+		    $.ajax({
+		        type: "POST",
+		        url: "../ajax/editar_testimonio.php",
+		        data: parametros,
+		        beforeSend: function(objeto) {
+		            $("#resultados_ajax2").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(datos) {
+		            $("#resultados_ajax2").html(datos);
+		            $('#actualizar_datos').attr("disabled", false);
+		            load_testimonios(1);
+		            //desaparecer la alerta
+		            window.setTimeout(function() {
+		                $(".alert").fadeTo(200, 0).slideUp(200, function() {
+		                    $(this).remove();
+		                });
+		            }, 2000);
+		        }
+		    });
+		    event.preventDefault();
+		})
+                
+                   function carga_img_t(id_producto) {
+                     //alert(id_producto)
+			$(".outer_img").load("../ajax/img_testimonio.php?id_producto=" + id_producto);
+                        
+		}
+                
+                function upload_image_mod(id_producto){
+			$("#load_img_mod").text('Cargando...');
+			var inputFileImage = document.getElementById("imagefile_mod");
+			var file = inputFileImage.files[0];
+			var data = new FormData();
+			data.append('imagefile_mod',file);
+			data.append('id_producto',id_producto);
+
+
+
+			$.ajax({
+					url: "../ajax/imagen_testimonio.php",        // Url to which the request is send
+					type: "POST",             // Type of request to be send, called as method
+					data: data, 			  // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+					contentType: false,       // The content type used when sending data to the server.
+					cache: false,             // To unable request pages to be cached
+					processData:false,        // To send DOMDocument or non processed data file it is set to false
+					success: function(data)   // A function to be called if request succeeds
+					{
+						$("#load_img_mod").html(data);
+
+					}
+				});
+
+		}
+                
+                
+		function obtener_datos_horizontal(id) {
+		    var texto = $("#texto" + id).val();
+                    var posicion = $("#posicion" + id).val();
+		 
+                // alert(id)
+		    $("#mod_nombre_horizontal").val(texto);
+                    $("#mod_posicion").val(posicion);
+                     $("#mod_id_horizontal").val(id);
+		 
+                    
+		}
+                
+                $("#editar_horizontal").submit(function(event) {
+		    $('#actualizar_datos').attr("disabled", true);
+		    var parametros = $(this).serialize();
+		    $.ajax({
+		        type: "POST",
+		        url: "../ajax/editar_horizontal.php",
+		        data: parametros,
+		        beforeSend: function(objeto) {
+		            $("#resultados_ajax2").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(datos) {
+		            $("#resultados_ajax2").html(datos);
+		            $('#actualizar_datos').attr("disabled", false);
+		            load_horizontal(1);
+		            //desaparecer la alerta
+		            window.setTimeout(function() {
+		                $(".alert").fadeTo(200, 0).slideUp(200, function() {
+		                    $(this).remove();
+		                });
+		            }, 2000);
+		        }
+		    });
+		    event.preventDefault();
+		})
+                
+                function recargarIframe() {
+    var iframe = document.getElementById('miIframePc');
+    iframe.src = iframe.src;
+    var iframe = document.getElementById('miIframeCelular');
+    iframe.src = iframe.src;
+}
+
 </script>
 
 <?php require 'includes/footer_end.php'

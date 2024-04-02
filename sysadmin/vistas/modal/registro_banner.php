@@ -9,7 +9,7 @@ if (isset($conexion)) {
                     <h4 class="modal-title"><i class='fa fa-edit'></i> Nuevo Item </h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" method="post" id="guardar_linea2" name="guardar_linea2">
+                    <form class="form-horizontal" method="post" id="guardar_banner" name="guardar_linea2">
                         <div id="resultados_ajax"></div>
 
                         <div class="form-group d-flex flex-row">

@@ -1,7 +1,7 @@
 <?php
 if (isset($conexion)) {
     ?>
-	<div id="editarLinea" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div id="editarHorizontal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -9,15 +9,15 @@ if (isset($conexion)) {
 					<h4 class="modal-title"><i class='fa fa-edit'></i> Editar Linea</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" id="editar_linea" name="editar_linea">
+					<form class="form-horizontal" method="post" id="editar_horizontal" name="editar_linea">
 						<div id="resultados_ajax2"></div>
 
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="mod_nombre" class="control-label">Nombre:</label>
-									<input type="text" class="form-control UpperCase" id="mod_nombre" name="mod_nombre"  autocomplete="off" required>
-									<input id="mod_id" name="mod_id" type='hidden'>
+									<input type="text" class="form-control UpperCase" id="mod_nombre_horizontal" name="mod_nombre_horizontal"  autocomplete="off" required>
+									<input id="mod_id_horizontal" name="mod_id_horizontal" type='hidden'>
 								</div>
 							</div>
                                                     

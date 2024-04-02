@@ -1,7 +1,7 @@
 <?php
 if (isset($conexion)) {
     ?>
-	<div id="nuevaLinea" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div id="nuevaFlotante" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -9,8 +9,8 @@ if (isset($conexion)) {
 					<h4 class="modal-title"><i class='fa fa-edit'></i> Nuevo Texto</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" id="guardar_linea" name="guardar_linea">
-						<div id="resultados_ajax"></div>
+					<form class="form-horizontal" method="post" id="guardar_horizontal" name="guardar_horizontal">
+						<div id="resultados_ajax_horizontal"></div>
 
 						<div class="row">
 							<div class="col-md-6">
@@ -39,7 +39,7 @@ if (isset($conexion)) {
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
-						<button type="submit" class="btn btn-primary waves-effect waves-light" id="guardar_datos">Guardar</button>
+						<button type="submit" class="btn btn-primary waves-effect waves-light" id="guardar_datos_horizontal">Guardar</button>
 					</div>
 				</form>
 			</div>

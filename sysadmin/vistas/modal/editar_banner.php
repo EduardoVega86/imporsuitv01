@@ -16,7 +16,7 @@ if (isset($conexion)) {
                         <div id="resultados_ajax2"></div>
 
                         <div class="form-group d-flex flex-column">
-                            <input type="hidden" id="mod_id" name="mod_id">
+                            <input type="hidden" id="mod_id_banner" name="mod_id_banner">
                             <div class="d-flex flex-row">
                                 <!-- contenido modal -->
                                 <div class="col-sm-6">
@@ -42,8 +42,8 @@ if (isset($conexion)) {
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="help-block">Texto del slider </span>
-                                    <textarea type="text" class="form-control " name="texto_slider2" id="texto_slider2" autocomplete="off"></textarea>
+                                    <span class="help-block">Texto del slider dd</span>
+                                    <input type="text" class="form-control " name="texto_slider_edit" id="texto_slider_edit" >
 
                                     <div class="form-group row">
                                         <label for="inputPassword3" class="col-sm-2 col-form-label">Alineacion</label>
@@ -59,15 +59,9 @@ if (isset($conexion)) {
                             </div>
                             <div>
                                 <div>
-                                    <div id='load_img4'>
-                                        <?php
-                                        $modId = $_POST['mod_id'];
-                                        echo $modId;
-                                        $query_empresa = mysqli_query($conexion, "select * from banner_adicional where id=$modId");
-                                        $row           = mysqli_fetch_array($query_empresa);
-                                        ?>
-                                        <strong>BANNER HOME</strong>
-                                        <img src="<?php echo $row['fondo_banner']; ?>" class="img-responsive" alt="profile-image" width="200px" height="200px">
+                                    <div id="load_img4">
+                                        
+                                        
                                     </div>
 
                                     <div class="form-group">

@@ -1,18 +1,18 @@
 <?php
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /*Inicia validacion del lado del servidor*/
-if (empty($_POST['mod_id'])) {
+if (empty($_POST['mod_id_horizontal'])) {
     $errors[] = "ID vacío";
 } else if (
-    !empty($_POST['mod_id'])
+    !empty($_POST['mod_id_horizontal'])
 ) {
     /* Connect To Database*/
     require_once "../db.php";
     require_once "../php_conexion.php";
     // escaping, additionally removing everything that could be (html/javascript-) code
-    $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_nombre"], ENT_QUOTES)));
+    $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_nombre_horizontal"], ENT_QUOTES)));
     
-  $id=$_POST['mod_id'];
+  $id=$_POST['mod_id_horizontal'];
   $posicion=$_POST['mod_posicion'];
 
     $sql = "UPDATE horizontal SET estado=1, posicion=".$posicion.", texto='" . $nombre. "' where id_horizontal=$id";

@@ -1,10 +1,10 @@
 <?php
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /*Inicia validacion del lado del servidor*/
-if (empty($_POST['mod_id'])) {
+if (empty($_POST['mod_id_testimonio'])) {
     $errors[] = "ID vacío";
 } else if (
-    !empty($_POST['mod_id'])
+    !empty($_POST['mod_id_testimonio'])
 ) {
     /* Connect To Database*/
     require_once "../db.php";
@@ -14,7 +14,7 @@ if (empty($_POST['mod_id'])) {
     $descripcion = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_descripcion"], ENT_QUOTES)));
     $estado      = intval($_POST['mod_estado']);
     $id_producto      = intval($_POST['mod_id_producto']);
-    $id_tes    = intval($_POST['mod_id']);
+    $id_tes    = intval($_POST['mod_id_testimonio']);
 
     $sql = "UPDATE testimonios SET  nombre='" . $nombre . "',
                                 status='" . $estado . "',                                 

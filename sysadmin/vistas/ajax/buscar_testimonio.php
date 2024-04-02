@@ -26,14 +26,7 @@ if ($action == 'ajax') {
     $aColumns = array('nombre'); //Columnas de busqueda
     $sTable   = "testimonios";
     $sWhere   = "";
-    if ($_GET['q'] != "") {
-        $sWhere = "WHERE (";
-        for ($i = 0; $i < count($aColumns); $i++) {
-            $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
-        }
-        $sWhere = substr_replace($sWhere, "", -3);
-        $sWhere .= ')';
-    }
+    
     $sWhere .= " order by id_testimonio";
     include 'pagination.php'; //include pagination file
     //pagination variables
@@ -100,7 +93,7 @@ while ($row = mysqli_fetch_array($query)) {
          
           <td><?php echo $testimonio; ?></td>
           <td><?php if ($id_producto<0) {echo 'INICIO'; }else{  echo   get_row('productos', 'nombre_producto', 'id_producto', $id_producto);}?></td>
-          <td><a class="" href="#" data-toggle="modal" data-target="#imagenLinea" onclick="carga_img_t('<?php echo $id_testimonio; ?>')"><img style="width: 40px" src="../../img/3342177.png" alt=""/></a></td>
+          <td><img style="width: 40px" src="<?php echo $imagen; ?>"><a class="" href="#" data-toggle="modal" data-target="#imagenLinea" onclick="carga_img_t('<?php echo $id_testimonio; ?>')"><img style="width: 40px" src="../../img/3342177.png" alt=""/></a></td>
         <td><?php echo $estado_t; ?></td>
         
      
@@ -109,10 +102,10 @@ while ($row = mysqli_fetch_array($query)) {
                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                 <div class="dropdown-menu dropdown-menu-right">
                    <?php if ($permisos_editar == 1) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos('<?php echo $id_testimonio; ?>');"><i class='fa fa-edit'></i> Editar</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarTestimonio" onclick="obtener_datos_testimonio('<?php echo $id_testimonio; ?>');"><i class='fa fa-edit'></i> Editar</a>
                    <?php }
             if ($permisos_eliminar == 1) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_testimonio; ?>"><i class='fa fa-trash'></i> Borrar</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_testimonio; ?>" onclick="eliminar('<?php echo $id_testimonio; ?>','testimonios','id_testimonio');"><i class='fa fa-trash'></i> Borrar</a>
                    <?php }
             ?>
 
