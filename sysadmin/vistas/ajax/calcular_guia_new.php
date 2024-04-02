@@ -6,7 +6,7 @@ require_once "../php_conexion.php";
 $precio_total = $_GET['precio_total'];
 $provincia = $_GET['provincia'];
 $ciudad_entrega = $_GET['ciudad_entrega'];
-
+$recaudo = $_GET['recaudo'];
 $sql = "SELECT * FROM `ciudad_cotizacion` WHERE codigo_ciudad_laar  = '$ciudad_entrega'";
 $query = mysqli_query($conexion, $sql);
 
@@ -22,8 +22,13 @@ if (!empty($row)) {
     $respuestas = [];
     if (!empty($row2)) {
         $precio = $row2['precio'];
+
         $pt = $precio_total * 0.03;
-        $precio_total =  $pt + $precio;
+        if ($recaudo == 1) {
+            $precio_total =  $pt + $precio;
+        } else {
+            $precio_total =  $precio;
+        }
         $precio_total = number_format($precio_total, 2, '.', '');
         $respuestas["laar"] = $precio_total;
     }
