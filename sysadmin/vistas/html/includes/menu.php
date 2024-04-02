@@ -284,13 +284,10 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-desktop"></i><span> Tienda On Line </span> <span class="menu-arrow"></span></a>
 					<ul class="list-unstyled">
 
-						<li><a href="../html/info_web.php">Tienda On Line</a></li>
+						<li><a href="../html/info_web_1.php">Tienda On Line</a></li>
 						<li><a href="../html/politicas.php">Politicas de Privacidad</a></li>
 						<li><a href="../html/pixel.php">Pixele Seg</a></li>
-						<li><a href="../html/caracteristicas_entrega.php">Caracteristicas Entrega</a></li>
 						<li><a href="../html/gracias.php">Pagina de Gracias</a></li>
-						<li><a href="../html/horizontal.php">Texto Flotante</a></li>
-						<li><a href="../html/testimonios.php">Testimonios</a></li>
 						<li><a href="../html/integraciones.php">Integraciones</a></li>
 						<li><a href="../html/dominios.php">Dominio</a></li>
 
