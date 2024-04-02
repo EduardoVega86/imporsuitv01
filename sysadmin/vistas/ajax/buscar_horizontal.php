@@ -27,14 +27,7 @@ if ($action == 'ajax') {
     $aColumns = array('texto'); //Columnas de busqueda
     $sTable   = "horizontal";
     $sWhere   = "";
-    if ($_GET['q'] != "") {
-        $sWhere = "WHERE (";
-        for ($i = 0; $i < count($aColumns); $i++) {
-            $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
-        }
-        $sWhere = substr_replace($sWhere, "", -3);
-        $sWhere .= ')';
-    }
+   
     $sWhere .= " order by id_horizontal";
     include 'pagination.php'; //include pagination file
     //pagination variables
@@ -50,7 +43,7 @@ if ($action == 'ajax') {
     $reload      = '../html/lineas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-    // echo $sql;
+    //echo $sql;
     $query = mysqli_query($conexion, $sql);
     //loop through fetched data
     if ($numrows > 0) {
@@ -109,10 +102,10 @@ while ($row = mysqli_fetch_array($query)) {
                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                 <div class="dropdown-menu dropdown-menu-right">
                    <?php if ($permisos_editar == 1) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos('<?php echo $id_horizontal; ?>');"><i class='fa fa-edit'></i> Editar</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarHorizontal" onclick="obtener_datos_horizontal('<?php echo $id_horizontal; ?>');"><i class='fa fa-edit'></i> Editar</a>
                    <?php }
             if ($permisos_eliminar == 1) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_horizontal; ?>"><i class='fa fa-trash'></i> Borrar</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete"  onclick="eliminar('<?php echo $id_horizontal; ?>','horizontal', 'id_horizontal');"><i class='fa fa-trash'></i> Borrar</a>
                    <?php }
             ?>
 

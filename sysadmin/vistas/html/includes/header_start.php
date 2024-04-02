@@ -22,6 +22,10 @@ require_once "../funciones.php";
 	<link href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 	<!-- librerias para la busqueda de de autocomplete -->
 	<link type="text/css" href="../../js/jquery-ui.css" rel="stylesheet" />
+        
+       
+
+
 
 	<title>IMPORSUIT</title>
 

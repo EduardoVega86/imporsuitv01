@@ -58,7 +58,7 @@ echo '
                                 </div>
                                 <div class="col-sm-6">
                                     <span class="help-block">Texto del slider </span>
-                                    <textarea type="text" class="form-control" value="'.$_POST['texto_banner'].'" name="texto_slider2" id="texto_slider2" autocomplete="off"></textarea>
+                                    <input type="text" class="form-control" value="'.$_POST['texto_banner'].'" name="texto_slider2" id="texto_slider2" autocomplete="off">
                                     <br>
 
                                     <div class="form-group row">
