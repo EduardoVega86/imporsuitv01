@@ -42,6 +42,8 @@ if (empty($_POST['nombre_empresa'])) {
     $titulo_slider = $_POST["titulo_slider"];
     $alineacion_slider = $_POST["alineacion_slider"];
     $texto_slider = $_POST["texto_slider"];
+    $banner_opacidad = $_POST["banner_opacidad"];
+    $banner_color_filtro  = $_POST["banner_color_filtro "];
     
     
     
@@ -61,8 +63,10 @@ if (empty($_POST['nombre_empresa'])) {
                                             texto_cabecera='" . $texto_cabecera . "',
                                             texto_boton='" . $texto_boton . "',
                                             texto_footer='" . $texto_footer . "',
-                                             texto_precio='" . $texto_precio . "',
+                                            texto_precio='" . $texto_precio . "',
                                             instagram='" . $instagram . "',
+                                                banner_opacidad='" . $banner_opacidad . "',
+                                            banner_color_filtro='" . $banner_color_filtro . "',
                                             tiktok='" . $tiktok . "',
                                             whatsapp='" . $whatsapp . "',
                                             color_botones='" . $color_botones . "',
