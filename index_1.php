@@ -35,7 +35,21 @@ include './includes/style.php';
 
   <link href="css_nuevo/carousel.css" rel="stylesheet" type="text/css" />
   <!-- Custom styles for this template -->
+  <style>
+    .footer-contenedor {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
 
+    }
+
+    .footer-contenido {
+      width: max-content;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+  </style>
 </head>
 
 <body>
@@ -372,26 +386,26 @@ include './includes/style.php';
           $enlace_icon = $row['enlace_icon'];
           $subtexto_icon = $row['subtexto_icon'];
 
-          if ($enlace_icon == ''){
-            $enlace_icon='';
-          }else{
-            $enlace_icon = 'href="'.$enlace_icon.'" target="_blank" style="text-decoration: none; color: inherit;"';
+          if ($enlace_icon == '') {
+            $enlace_icon = '';
+          } else {
+            $enlace_icon = 'href="' . $enlace_icon . '" target="_blank" style="text-decoration: none; color: inherit;"';
           }
           //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
         ?>
           <div class="col-md-4">
-          <a <?php echo $enlace_icon ?>>
-            <div class="card card_icon text-center">
-              <div class="card-body card-body_icon d-flex flex-row">
-                <div style="margin-right: 20px;">
-                  <i class="fas <?php echo $icon_text ?> fa-2x"></i> <!-- Cambia el icono según corresponda -->
-                </div>
-                <div>
-                  <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
-                  <p class="card-text card-text_icon"><?php echo $subtexto_icon ?></p>
+            <a <?php echo $enlace_icon ?>>
+              <div class="card card_icon text-center">
+                <div class="card-body card-body_icon d-flex flex-row">
+                  <div style="margin-right: 20px;">
+                    <i class="fas <?php echo $icon_text ?> fa-2x"></i> <!-- Cambia el icono según corresponda -->
+                  </div>
+                  <div>
+                    <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
+                    <p class="card-text card-text_icon"><?php echo $subtexto_icon ?></p>
+                  </div>
                 </div>
               </div>
-            </div>
             </a>
           </div>
         <?php
@@ -507,14 +521,23 @@ include './includes/style.php';
       PODEMOS AYUDARTE
     </a>
 
-    <footer class="footer-container footer">
-      <div class="container text-center">
-        <h3 class="texto_footer">Contacto:</h3>
-        <p class="texto_footer"><?php echo get_row('perfil', 'texto_contactos', 'id_perfil', '1'); ?></p>
-        <hr class="texto_footer"> <!-- Línea divisoria -->
-        <p class="texto_footer">&copy; 2024 Sitio Web desarrollado por IMPORSUIT.</p>
-        <p><a class="texto_footer" href="#">Política</a></p>
+    <footer class="footer-contenedor">
+      <div class="footer-contenido">
+        <img id="navbarLogo" class="" src="<?php
+                                            if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
+                                              echo "assets/img/imporsuit.png";
+                                            } else {
+                                              echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
+                                            }
+                                            ?>" alt="Imagen" /></a></a>
+
       </div>
+      <div class="footer-contenido">b</div>
+      <div class="footer-contenido">c</div>
+      <div class="footer-contenido">d</div>
+
+
+
     </footer>
 
 
@@ -530,7 +553,7 @@ include './includes/style.php';
   <!-- Fin librerias para el carrusel-->
 
   <!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 
   <script>
     window.onscroll = function() {
