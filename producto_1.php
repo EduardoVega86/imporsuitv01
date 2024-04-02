@@ -313,16 +313,34 @@ if ($formato == 3) {
     <div class="container">
       <div class="left-column">
 
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+        <img src="image1_thumbnail.jpg" class="img-fluid">
+      </li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1">
+        <img src="image2_thumbnail.jpg" class="img-fluid">
+      </li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2">
+        <img src="image3_thumbnail.jpg" class="img-fluid">
+      </li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="image1_large.jpg" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="image2_large.jpg" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="image3_large.jpg" alt="Third slide">
+      </div>
+    </div>
+  </div>
 
-        <div class="col-md-4">
-          <div class="carousel-vertical owl-carousel owl-theme">
-            <!-- Imágenes del carrusel -->
-            <div class="item"><img src="imagen1.jpg" alt="Imagen 1" /></div>
-            <div class="item"><img src="imagen2.jpg" alt="Imagen 2" /></div>
-            <div class="item"><img src="imagen3.jpg" alt="Imagen 3" /></div>
-            <!-- Más imágenes... -->
-          </div>
-        </div>
+  <div class="main-image">
+    <img src="image1_large.jpg" id="main-image" class="img-fluid" alt="Responsive image">
+  </div>
 
         <img src="<?php
                   $subcadena = "http";
@@ -427,6 +445,14 @@ if ($formato == 3) {
     };
   </script>
 
+<script>
+$(document).ready(function(){
+  $('#carouselExampleIndicators').on('slide.bs.carousel', function (e) {
+    var nextHREF = $(e.relatedTarget).find('img').attr('src');
+    $('#main-image').attr('src', nextHREF);
+  });
+});
+</script>
 </body>
 
 </html>
