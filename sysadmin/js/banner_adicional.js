@@ -113,7 +113,7 @@ $("#eliminarDatos2").submit(function (event) {
   event.preventDefault();
 });
 
-function obtener_datos(id) {
+function obtener_datos_banner(id) {
   var titulo = $("#titulo" + id).val();
   var texto_banner = $("#texto_banner" + id).val();
   var texto_boton = $("#texto_boton" + id).val();
@@ -129,7 +129,7 @@ function obtener_datos(id) {
   $("#enlace_btn_slider2").val(enlace_boton);
   $("#alineacion").val(alineacion);
   //$("#mod_posicion").val(posicion);
-  $("#mod_id").val(id);
+  $("#mod_id_banner").val(id);
 
   // Preparar datos para enviar
   var datosParaEnviar = {

@@ -201,21 +201,7 @@ if ($permisos_editar == 1) {
   
 });
 
-function eliminar(id) {
-         sesion=$("#session").val()
-         //alert(sesion)
-    $.ajax({
-        type: "GET",
-        url: "ajax/eliminar_tmp.php",
-        data: "id=" + id+ "&sesion="+sesion,
-        beforeSend: function(objeto) {
-            $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
-        },
-        success: function(datos) {
-            $("#resultados").html(datos);
-        }
-    });
-}
+
       </script>
 	<?php require 'includes/footer_end.php'
 ?>

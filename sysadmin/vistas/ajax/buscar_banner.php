@@ -27,14 +27,7 @@ if ($action == 'ajax') {
     $aColumns = array('titulo'); //Columnas de busqueda
     $sTable   = "banner_adicional";
     $sWhere   = "";
-    if ($_GET['q'] != "") {
-        $sWhere = "WHERE (";
-        for ($i = 0; $i < count($aColumns); $i++) {
-            $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
-        }
-        $sWhere = substr_replace($sWhere, "", -3);
-        $sWhere .= ')';
-    }
+    
     $sWhere .= " order by id";
     include 'pagination.php'; //include pagination file
     //pagination variables
@@ -77,7 +70,7 @@ while ($row = mysqli_fetch_array($query)) {
             $texto_boton       = $row['texto_boton'];
             $enlace_boton       = $row['enlace_boton'];
             $alineacion  = $row['alineacion'];
-           
+           //echo 'asdasdasd'.$texto_banner;
             ?>
 
     <input type="hidden" value="<?php echo $titulo; ?>" id="titulo<?php echo $id; ?>">
@@ -103,10 +96,10 @@ while ($row = mysqli_fetch_array($query)) {
                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                 <div class="dropdown-menu dropdown-menu-right">
                    <?php if ($permisos_editar == 1) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos('<?php echo $id; ?>');"><i class='fa fa-edit'></i> Editar</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos_banner('<?php echo $id; ?>');"><i class='fa fa-edit'></i> Editar</a>
                    <?php }
             if (($permisos_eliminar == 1)) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete2" data-id="<?php echo $id; ?>"><i class='fa fa-trash'></i> Borrar</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete2" data-id="<?php echo $id; ?>" onclick="obtener_datos('<?php echo $id; ?>');"><i class='fa fa-trash'></i> Borrar</a>
                    <?php }
             ?>
 

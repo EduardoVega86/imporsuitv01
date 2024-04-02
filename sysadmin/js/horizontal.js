@@ -13,9 +13,7 @@
 		        success: function(data) {
 		            $(".outer_div").html(data).fadeIn('slow');
 		            $('#loader').html('');
-		            $('[data-toggle="tooltip"]').tooltip({
-		                html: true
-		            });
+		           
 		        }
 		    })
 		}
@@ -46,7 +44,7 @@
 		    });
 		    event.preventDefault();
 		})
-		$("#editar_linea").submit(function(event) {
+		$("#editar_horizontal").submit(function(event) {
 		    $('#actualizar_datos').attr("disabled", true);
 		    var parametros = $(this).serialize();
 		    $.ajax({
@@ -71,12 +69,10 @@
 		    event.preventDefault();
 		})
 
-		$('#dataDelete').on('show.bs.modal', function(event) {
-		    var button = $(event.relatedTarget) // Botón que activó el modal
-		    var id = button.data('id') // Extraer la información de atributos de datos
-		    var modal = $(this)
-		    modal.find('#id_linea').val(id)
-		})
+		function eliminar_horizontal(id){
+		    $('#id_linea').val(id)
+                   
+		}
 		$("#eliminarDatos").submit(function(event) {
 		    var parametros = $(this).serialize();
 		    $.ajax({
@@ -88,7 +84,7 @@
 		        },
 		        success: function(datos) {
 		            $(".datos_ajax_delete").html(datos);
-		            $('#dataDelete').modal('hide');
+		            $('#dataDelete').hide();
 		            load(1);
 		            //desaparecer la alerta
 		            window.setTimeout(function() {

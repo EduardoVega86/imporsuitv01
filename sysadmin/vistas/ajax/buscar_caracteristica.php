@@ -27,14 +27,7 @@ if ($action == 'ajax') {
     $aColumns = array('texto'); //Columnas de busqueda
     $sTable   = "caracteristicas_tienda";
     $sWhere   = "";
-    if ($_GET['q'] != "") {
-        $sWhere = "WHERE (";
-        for ($i = 0; $i < count($aColumns); $i++) {
-            $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
-        }
-        $sWhere = substr_replace($sWhere, "", -3);
-        $sWhere .= ')';
-    }
+  
     $sWhere .= " order by id";
     include 'pagination.php'; //include pagination file
     //pagination variables
@@ -60,7 +53,7 @@ if ($action == 'ajax') {
             <table class="table table-sm table-striped">
                 <tr  class="info">
                     <th>Id</th>
-                    <th>Id producto</th>
+                   
                     <th>Nombre</th>
                     <th>Icono</th>
                     <th>Enlace</th>
@@ -88,10 +81,10 @@ while ($row = mysqli_fetch_array($query)) {
 
     <tr>
         <td><span class="badge badge-purple"><?php echo $id; ?></span></td>
-        <td><?php echo $id_producto; ?></td>
+       
         <td><?php echo $texto; ?></td>
-        <td><?php echo $icono; ?></td>
-        <td><?php echo $enlace; ?></td>
+        <td><span style="font-size: 30px"><i class="fas <?php echo $icono; ?>"></i></td>
+        <td><?php if ($enlace!=""){?><a class="btn btn-warning" href="<?php echo $enlace; ?>" target="black">Ver Accion</a><?php }?></td>
         <td><?php echo $sub_texto; ?></td>
         
        
@@ -100,7 +93,7 @@ while ($row = mysqli_fetch_array($query)) {
                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                 <div class="dropdown-menu dropdown-menu-right">
                    <?php if ($permisos_editar == 1) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos('<?php echo $id; ?>');"><i class='fa fa-edit'></i> Editar</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarIconos" onclick="obtener_datos_icono('<?php echo $id; ?>');"><i class='fa fa-edit'></i> Editar</a>
                    <?php }
             if (($permisos_eliminar == 1) && ($accion_icon == 0)) {?>
                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id; ?>"><i class='fa fa-trash'></i> Borrar</a>
