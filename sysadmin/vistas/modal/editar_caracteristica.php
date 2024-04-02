@@ -9,7 +9,7 @@ if (isset($conexion)) {
 					<h4 class="modal-title"><i class='fa fa-edit'></i> Editar Item</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" id="editar_iconos" name="editar_iconos">
+					<form class="form-horizontal" method="post" id="editar_linea" name="editar_linea">
 						<div id="resultados_ajax2"></div>
 
 						<div class="form-group d-flex flex-column">
@@ -31,7 +31,8 @@ if (isset($conexion)) {
 								<label for="nombre" class="control-label">Icono:</label>
 								<select id="icon_select" name="icon_select" style="width: 100%;"></select>
 
-								
+								<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+								<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 								<script>
 									document.addEventListener('DOMContentLoaded', function() {
 
