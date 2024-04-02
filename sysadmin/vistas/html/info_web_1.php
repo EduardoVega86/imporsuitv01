@@ -295,6 +295,14 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
 															<input type="text" class="form-control" name="enlace_btn_slider" value="<?php echo $row["enlace_btn_slider"]; ?>"  autocomplete="off">
 														</div>
 													</div>
+                                                                                                                 
+                                                                                                                 <div class="form-group row">  
+                                                                                                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Filtro</label>
+                                                                                                                     <div class="col-sm-10">
+<input type="range" id="miRango" name="rango" min="0" max="1" step="0.1" value="0.5" oninput="valorRango.value = miRango.value">
+<output id="valorRango">0.5</output>
+</div>
+                                                                                                                     </div>
                                                                                                              
                                                                                                              
                                                                                                              
@@ -318,6 +326,12 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
                                                                                                                         </select>
 														</div>
 													</div>
+                                                                                                                        <div class="form-group row">  
+                                                                                                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Color</label>
+                                                                                                                     <div class="col-sm-10">
+                                                                                                                         <input style="width: 100px; height: 40px;" class="input-change" type="color" name="color_filtro" value="<?php echo $row["color_filtro"]; ?>">
+</div>
+                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                                 </div>
             <div class="btn-group pull-right">
