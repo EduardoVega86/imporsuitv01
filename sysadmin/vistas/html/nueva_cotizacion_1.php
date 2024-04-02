@@ -323,10 +323,10 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                             <div class="d-flex justify-content-center flex-nowrap mt-4">
                                                                 <div class="col-md-3">
                                                                     <span class="help-block">Recaudo </span>
-                                                                    <select onchange="calcular_guia()" id="cod" name="cod" class="form-control">
+                                                                    <select onchange="seleccionarProvincia()" id="cod" name="cod" class="form-control">
                                                                         <option value="0">Seleccionar</option>
                                                                         <option value="1" selected>Con Recuado</option>
-                                                                        <option value="0">Sin Recaudo </option>
+                                                                        <option value="2">Sin Recaudo </option>
                                                                     </select>
 
 
@@ -798,6 +798,41 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 <script>
     function seleccionarProvincia() {
         var id_provincia = $('#ciudad_entrega').val();
+        let recaudo = $('#cod').val();
+        calcular_servi(id_provincia, recaudo);
+
+
+        $.ajax({
+            url: "../ajax/cargar_provincia_pedido.php", // Url to which the request is send
+            type: "POST", // Type of request to be send, called as method
+            data: {
+                ciudad: id_provincia,
+
+            }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+            dataType: 'text', // To send DOMDocument or non processed data file it is set to false
+            success: function(data) // A function to be called if request succeeds
+            {
+                $('#provinica').val(data).trigger('change');
+                $('#provinica option[value=' + data + ']').attr({
+                    selected: true
+                });
+
+                //$('#provinica').attr('disabled', 'disabled');
+                let precio_total = $('#precio_total').val();
+
+                calcular_guia(recaudo);
+
+            }
+        }) // /success function
+    }
+
+    $("#ciudad_entrega").select2({
+        placeholder: "Selecciona una opción",
+        allowClear: true,
+        // Puedes añadir más opciones de configuración aquí
+    });
+
+    function calcular_servi(id_provincia, recaudo) {
         let ciudadOrigen = ""
         let tienda = window.location.search.split("=")[1];
         $.ajax({
@@ -863,7 +898,12 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                 let impuesto = getNumericValueFromTag("impuesto");
 
                                 // Sumar todos los valores para obtener el total
-                                let total = flete + seguro + valorComision + otros + impuesto;
+                                let total = 0;
+                                if (recaudo == 1) {
+                                    total = flete + seguro + valorComision + otros + impuesto;
+                                } else {
+                                    total = flete + seguro + otros + impuesto;
+                                }
 
                                 total = total.toFixed(2);
                                 $('#precio_servientrega').text(`$${total}`);
@@ -874,43 +914,14 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 })
             }
         })
-
-
-        $.ajax({
-            url: "../ajax/cargar_provincia_pedido.php", // Url to which the request is send
-            type: "POST", // Type of request to be send, called as method
-            data: {
-                ciudad: id_provincia,
-
-            }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-            dataType: 'text', // To send DOMDocument or non processed data file it is set to false
-            success: function(data) // A function to be called if request succeeds
-            {
-                $('#provinica').val(data).trigger('change');
-                $('#provinica option[value=' + data + ']').attr({
-                    selected: true
-                });
-
-                //$('#provinica').attr('disabled', 'disabled');
-                let precio_total = $('#precio_total').val();
-
-                calcular_guia();
-
-            }
-        }) // /success function
     }
 
-    $("#ciudad_entrega").select2({
-        placeholder: "Selecciona una opción",
-        allowClear: true,
-        // Puedes añadir más opciones de configuración aquí
-    });
+    function calcular_guia(recaudo) {
 
-    function calcular_guia() {
         let precio_total = $('#valor_total_').val();
         let provinica = $('#provinica').val();
         let ciudad_entrega = $('#ciudad_entrega').val();
-        fetch(`../ajax/calcular_guia_new.php?precio_total=${precio_total}&provincia=${provinica}&ciudad_entrega=${ciudad_entrega}`)
+        fetch(`../ajax/calcular_guia_new.php?precio_total=${precio_total}&provincia=${provinica}&ciudad_entrega=${ciudad_entrega}&recaudo=${recaudo}`)
             .then(response => response.json())
             .then(html => {
                 console.log(html);
