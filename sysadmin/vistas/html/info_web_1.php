@@ -299,8 +299,8 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
                                                                                                                  <div class="form-group row">  
                                                                                                                      <label for="inputPassword3" class="col-sm-2 col-form-label">Filtro</label>
                                                                                                                      <div class="col-sm-10">
-<input type="range" id="miRango" name="rango" min="0" max="1" step="0.1" value="0.5" oninput="valorRango.value = miRango.value">
-<output id="valorRango">0.5</output>
+                                                                                                                         <input type="range" class="input-change" id="banner_opacidad" name="banner_opacidad" min="0" max="1" step="0.1" value="<?php echo $row["banner_opacidad"]; ?>" oninput="valorRango.value = banner_opacidad.value">
+<output id="valorRango"><?php echo $row["banner_opacidad"]; ?></output>
 </div>
                                                                                                                      </div>
                                                                                                              
@@ -329,7 +329,7 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
                                                                                                                         <div class="form-group row">  
                                                                                                                      <label for="inputPassword3" class="col-sm-2 col-form-label">Color</label>
                                                                                                                      <div class="col-sm-10">
-                                                                                                                         <input style="width: 100px; height: 40px;" class="input-change" type="color" name="color_filtro" value="<?php echo $row["color_filtro"]; ?>">
+                                                                                                                         <input style="width: 100px; height: 40px;" class="input-change" type="color" name="banner_color_filtro" value="<?php echo $row["banner_color_filtro"]; ?>">
 </div>
                                                                                                                      </div>
                                                                                                                 </div>
