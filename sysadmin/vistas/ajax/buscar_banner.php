@@ -99,7 +99,7 @@ while ($row = mysqli_fetch_array($query)) {
                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos_banner('<?php echo $id; ?>');"><i class='fa fa-edit'></i> Editar</a>
                    <?php }
             if (($permisos_eliminar == 1)) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id; ?>" onclick="eliminar('<?php echo $id; ?>','banner_adicional','id');"><i class='fa fa-trash'></i> Borrar</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete2" data-id="<?php echo $id; ?>" onclick="obtener_datos('<?php echo $id; ?>');"><i class='fa fa-trash'></i> Borrar</a>
                    <?php }
             ?>
 

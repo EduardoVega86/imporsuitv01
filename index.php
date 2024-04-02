@@ -180,7 +180,7 @@ include 'includes/head.php'
                </style>
                <div class="slideshow__slide grid__item grid--1-col slider__slide" id="Slide-template--20805846597913__e6750b05-7703-4f69-ab7c-9ffb0acf18fb-1" role="group" aria-roledescription="Slide" aria-label="1 of 1" tabindex="-1">
                   <div class="slideshow__media banner__media media">
-                     <img style="object-fit: fill;" src="<?php echo 'sysadmin/vistas/ajax/' . get_row('perfil', 'banner', 'id_perfil', 1) ?>?v=1693674398&amp;width=3840" alt="" srcset="" height="1000" loading="lazy" sizes="100vw">
+                     <img style="object-fit: cover;" src="<?php echo 'sysadmin/vistas/ajax/' . get_row('perfil', 'banner', 'id_perfil', 1) ?>?v=1693674398&amp;width=3840" alt="" srcset="" height="1000" loading="lazy" sizes="100vw">
                   </div>
                   <div class="slideshow__text-wrapper banner__content banner__content--middle-center page-width">
                   </div>
