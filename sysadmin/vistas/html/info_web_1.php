@@ -87,6 +87,24 @@ border-radius: 45px;
     border-radius: 55px;
 }    
 
+.panel-body{
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 80px;
+    padding-right: 80px;
+    background-color: white; 
+    border-radius: 10px;
+    -webkit-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
+-moz-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
+box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
+}
+.caja{
+    padding: 20px !important;
+    border-radius: 25px;
+   -webkit-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
+-moz-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
+box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23); 
+}
 </style>
 <!-- Begin page -->
 <div id="wrapper">
@@ -136,13 +154,13 @@ border-radius: 45px;
         </a>
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
           <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 caja">
 												<div id='load_img' align="center">
-													<strong>LOGO DE LA EMPRESA</strong>
-													<img src="<?php echo $row['logo_url']; ?>" class="img-responsive" alt="profile-image" width="200px" height="200px">
+													<strong>LOGO DE LA EMPRESA</strong></br>
+													<img src="<?php echo $row['logo_url']; ?>" class="img-responsive" alt="profile-image" width="200px" >
 												</div>
             <div class="form-group">
 
@@ -150,15 +168,16 @@ border-radius: 45px;
 												</div>
             
             <div id="load_img2" class="text-center">
-													<strong>FAVICON</strong>
-													<img src="<?php echo $row['favicon']; ?>" class="img-responsive" alt="profile-image" width="200px" height="200px">
+													<strong>FAVICON</strong></br>
+													<img src="<?php echo $row['favicon']; ?>" class="img-responsive" alt="profile-image" width="200px" >
 												</div>
 
 												<div class="form-group">
 													<input class="form-control" data-buttonText="Logo" type="file" name="imagefile3" id="imagefile3" onchange="upload_image_favicon();">
 												</div>
             </div>
-              <div style="" class="col-md-4">
+              <div style="" class="col-md-4 caja">
+                
               <div class=" row">
 														
 														<div class="col-sm-12">
@@ -169,7 +188,7 @@ border-radius: 45px;
                   <div class=" row">
 														
 														<div class="col-sm-12">
-                                                                                                                     <span class="help-block"style="font-size: 10px"> GIRO</span>
+                                                                                                                     <span class="help-block"style="font-size: 10px"> DESCRIPCION</span>
 															<input type="text" class="form-control UpperCase input-change" name="giro" value="<?php echo $row['giro_empresa'] ?>" required autocomplete="off">
 														</div>
 													</div>
@@ -206,8 +225,9 @@ border-radius: 45px;
 															<input type="text" class="form-control UpperCase input-change" name="direccion" value="<?php echo $row["direccion"]; ?>" required autocomplete="off">
 														</div>
 													</div>
-              </div>
-              <div class="col-md-5">
+         
+                  </div>
+              <div class="col-md-5 caja">
               <div class="">
                                                                             <input class="input-change" type="checkbox" role="switch" id="flotar" <?php if (get_row('perfil', 'flotante', 'id_perfil', 1)==1){ ?> checked<?php }?>>
   <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar texto flotante</label>
@@ -233,12 +253,12 @@ border-radius: 45px;
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
       <div class="panel-body">
           <div class="row">
-         <div class="col-md-3">
+         <div class="col-md-3 caja">
 												
 												
 												<div id='load_img2' align="center">
 													<strong>BANNER HOME</strong>
-													<img src="<?php echo $row['banner']; ?>" class="img-responsive" alt="profile-image" width="200px" height="200px">
+													<img src="<?php echo $row['banner']; ?>" class="img-responsive" alt="profile-image" width="200px" >
 												</div>
 
 
@@ -251,9 +271,9 @@ border-radius: 45px;
 
 											</div>
               <div class="col-md-9">
-        <div style="background-color: lightyellow" class="card-box">
+        <div style="" class="card-box caja">
                                                                                                                 
-                                                                                                            <div class="row">
+                                                                                                            <div class="row ">
                                                                                                              <div class="col-sm-6">
                                                                                                                  <div class="form-group row">
 														<label for="inputPassword3" class="col-sm-2 col-form-label">Titulo</label>
@@ -319,11 +339,11 @@ border-radius: 45px;
     </div>
     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
       <div class="panel-body">
-        <div class='outer_div_iconos'></div>
+        <div class='outer_div_iconos caja'></div>
       </div>
     </div>
   </div>
-  <div class="panel panel-default">
+  <!--div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingThree">
       <h4 class="panel-title">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -336,7 +356,7 @@ border-radius: 45px;
         This is the third item's accordion body. It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables.
       </div>
     </div>
-  </div>
+  </div-->
                                 
                                 
                                 <div class="panel panel-default">
@@ -349,8 +369,8 @@ border-radius: 45px;
     </div>
     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
       <div class="panel-body">
-        <div class=" row">
-            <div class="col-md-1">
+        <div class=" row caja">
+            <div class="col-md-1 ">
 														
                                                                                                                     <span style="font-size: 10px" class="help-block">Color Barra:</span>
                                                                                                                     <input class="colores input-change" type="color" name="color" value="<?php echo $row["color"]; ?>">
@@ -404,7 +424,7 @@ border-radius: 45px;
     </div>
     <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
       <div class="panel-body">
-        <div class='outer_div_testimoinio'></div>
+        <div class='outer_div_testimoinio caja'></div>
       </div>
     </div>
   </div>
@@ -418,7 +438,8 @@ border-radius: 45px;
     </div>
     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
       <div style="" class="panel-body">
-       <div  class="row">
+          <div  class="caja ">
+       <div  class="row ">
 														
 														<div class="col-md-3">
                                                                                                                     <span style="font-size: 10px" class="help-block">FACEBOOK:</span>
@@ -458,7 +479,7 @@ border-radius: 45px;
 													</div>   
           </div>
 													
-													
+	</div>												
       </div>
     </div>
   </div>
@@ -1228,6 +1249,27 @@ function obtener_datos_icono(id) {
     iframe.src = iframe.src;
 }
 
+
+$(document).on('click', '.estado-btn-testimonio', function() {
+   
+        var userId = $(this).data('id');
+        //alert($(this).text().trim());
+        var newEstado = $(this).text().trim() === 'NO' ? 1 : 0;  // Cambia el estado
+        //alert(newEstado);
+        $.ajax({
+            url: '../ajax/habilita_testimonio.php?id_notificacion',  // Ruta al script PHP que cambiará el estado en la base de datos
+            type: 'POST',
+            data: {id: userId, estado: newEstado},
+            success: function(response){
+                // Actualizar el botón según la nueva respuesta de estado
+                if(response.trim() == '1'){
+                    $('button[data-id="' + userId + '"]').text('SI').removeClass('btn-danger').addClass('btn-success');
+                } else {
+                    $('button[data-id="' + userId + '"]').text('NO').removeClass('btn-success').addClass('btn-danger');
+                }
+            }
+        });
+});
 </script>
 
 <?php require 'includes/footer_end.php'

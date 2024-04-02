@@ -1,5 +1,12 @@
 <?php
 
+$ciudad_origen = $_POST['ciudad_origen'];
+$ciudad_destino = $_POST['ciudad_destino'];
+$provincia_destino = $_POST['provincia_destino'];
+$precio_total = $_POST['precio_total'];
+$destino = $ciudad_destino . "-" . $provincia_destino;
+
+
 $url = "https://servientrega-ecuador.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
 
 $xml = <<<XML
@@ -8,9 +15,9 @@ $xml = <<<XML
    <soapenv:Body>
       <ws:Consultar soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
          <producto xsi:type="xsd:string">MERCANCIA PREMIER</producto>
-         <origen xsi:type="xsd:string">QUITO</origen>
-         <destino xsi:type="xsd:string">QUITO-PICHINCHA</destino>
-         <valor_mercaderia xsi:type="xsd:string">100</valor_mercaderia>
+         <origen xsi:type="xsd:string">$ciudad_origen</origen>
+         <destino xsi:type="xsd:string">$destino</destino>
+         <valor_mercaderia xsi:type="xsd:string">$precio_total</valor_mercaderia>
          <piezas xsi:type="xsd:string">1</piezas>
          <peso xsi:type="xsd:string">2</peso>
          <alto xsi:type="xsd:string">10</alto>

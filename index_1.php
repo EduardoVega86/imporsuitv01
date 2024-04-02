@@ -36,7 +36,21 @@ include './includes/style.php';
 
   <link href="css_nuevo/carousel.css" rel="stylesheet" type="text/css" />
   <!-- Custom styles for this template -->
+  <style>
+    .footer-contenedor {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
 
+    }
+
+    .footer-contenido {
+      width: max-content;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+  </style>
 </head>
 
 <body>
@@ -471,70 +485,14 @@ include './includes/style.php';
       PODEMOS AYUDARTE
     </a>
 
-    <footer class="footer-contenedor">
-      <div class="footer-contenido">
-        <?php
-
-        $sql   = "SELECT * FROM  perfil where id_perfil=1";
-        $query = mysqli_query($conexion, $sql);
-        while ($row = mysqli_fetch_array($query)) {
-          $id_perfil       = $row['id_perfil'];
-          $nombre_empresa = $row['nombre_empresa'];
-          $logo_url = $row['logo_url'];
-          $telefono = $row['telefono'];
-          $email = $row['email'];
-
-        ?>
-        <h4>Acerca de <?php echo $nombre_empresa ?></h4>
-        <img id="navbarLogo" class="" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
-                                                                                                ?>" alt="">
-        <span class="descripcion">
-          Somos una empresa virtual que se dedica a la venta de productos de calidad a precios accesibles.
-        </span>
-
+    <footer class="footer-container footer">
+      <div class="container text-center">
+        <h3 class="texto_footer">Contacto:</h3>
+        <p class="texto_footer"><?php echo get_row('perfil', 'texto_contactos', 'id_perfil', '1'); ?></p>
+        <hr class="texto_footer"> <!-- Línea divisoria -->
+        <p class="texto_footer">&copy; 2024 Sitio Web desarrollado por IMPORSUIT.</p>
+        <p><a class="texto_footer" href="#">Política</a></p>
       </div>
-      <div class="footer-contenido">
-        <h5>Legal</h5>
-        <ul class="lista_legal">
-          <li>Terminos y condiciones</li>
-          <li>Politicas de privacidad</li>
-          <li>Politicas de envio</li>
-          <li>Politicas de reembolso</li>
-        </ul>
-      </div>
-      <div class="footer-contenido">
-        <h5>Siguenos</h5>
-        <div class="redes">
-
-          <a class="icon-redes" href="#">
-            <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="facebook">
-          </a>
-          <a class="icon-redes" href="#">
-            <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram">
-          </a>
-          <a class="icon-redes" href="#">
-            <img src="https://img.icons8.com/color/48/000000/twitter.png" alt="twitter">
-          </a>
-          <a class="icon-redes" href="#">
-            <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="youtube">
-          </a>
-        </div>
-      </div>
-      <div class="footer-contenido">
-        <h5>
-          Información de contacto
-        </h5>
-        <span class="descripcion">
-          <span class="icons">
-            <i class='bx bxl-whatsapp ws'></i> <?php echo $telefono ?>
-          </span>
-          <span class="icons">
-            <i class='bx bx-mail-send send'></i><?php echo $email ?>
-          </span>
-        </span>
-      </div>
-      <?php } ?>
-
     </footer>
 
 

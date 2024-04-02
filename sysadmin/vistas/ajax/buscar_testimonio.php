@@ -55,7 +55,7 @@ if ($action == 'ajax') {
                     <th>Testimonio</th>
                     <th>Pagina</th>
                     <th>Imagen</th>
-                    <th>Estado</th>
+                    <th>Mostrar</th>
                     
                     <th class='text-right'>Acciones</th>
 
@@ -94,7 +94,12 @@ while ($row = mysqli_fetch_array($query)) {
           <td><?php echo $testimonio; ?></td>
           <td><?php if ($id_producto<0) {echo 'INICIO'; }else{  echo   get_row('productos', 'nombre_producto', 'id_producto', $id_producto);}?></td>
           <td><img style="width: 40px" src="<?php echo $imagen; ?>"><a class="" href="#" data-toggle="modal" data-target="#imagenLinea" onclick="carga_img_t('<?php echo $id_testimonio; ?>')"><img style="width: 40px" src="../../img/3342177.png" alt=""/></a></td>
-        <td><?php echo $estado_t; ?></td>
+        <td>
+                       <button style="font-size: 10px;" class="estado-btn-testimonio btn-rounded btn-xs btn <?php echo $estado == 1 ? 'btn-success' : 'btn-danger'; ?>" data-id="<?php echo $id_testimonio; ?>">
+        <?php echo $estado == 1 ? 'SI' : 'NO'; ?>
+    </button>                         
+                                               
+                                           </td>
         
      
         <td >
