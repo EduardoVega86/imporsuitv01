@@ -1358,6 +1358,10 @@ mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id`,`id_producto
 mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id`,`id_producto`,  `texto`, `icon_text`, `subtexto_icon`, `accion`) VALUES (21,'0','Pago Contra Entrega','fa-lock','Paga cuando recibes el producto','2');");
 mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id`,`id_producto`,  `texto`, `icon_text`, `subtexto_icon`, `accion`) VALUES (22,'0','Atención al cliente','fa-headset','Soporte 100% garantizado','2');");
 
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `banner_opacidad` DOUBLE NULL DEFAULT '0.5' AFTER `caracteristicas_home`, ADD `banner_color_filtro` TEXT NULL AFTER `banner_opacidad`;");
+
+
+    
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
