@@ -19,9 +19,9 @@ if (empty($_POST['nombre_empresa'])) {
     $telefono       = mysqli_real_escape_string($conexion, (strip_tags($_POST["telefono"], ENT_QUOTES)));
     $email          = mysqli_real_escape_string($conexion, (strip_tags($_POST["email"], ENT_QUOTES)));
     $direccion      = mysqli_real_escape_string($conexion, (strip_tags($_POST["direccion"], ENT_QUOTES)));
-    $ciudad         = mysqli_real_escape_string($conexion, (strip_tags($_POST["ciudad"], ENT_QUOTES)));
-    $estado         = mysqli_real_escape_string($conexion, (strip_tags($_POST["estado"], ENT_QUOTES)));
-    $codigo_postal  = mysqli_real_escape_string($conexion, (strip_tags($_POST["codigo_postal"], ENT_QUOTES)));
+    //$ciudad         = mysqli_real_escape_string($conexion, (strip_tags($_POST["ciudad"], ENT_QUOTES)));
+    //$estado         = mysqli_real_escape_string($conexion, (strip_tags($_POST["estado"], ENT_QUOTES)));
+    //$codigo_postal  = mysqli_real_escape_string($conexion, (strip_tags($_POST["codigo_postal"], ENT_QUOTES)));
     $mapa  = $_POST["mapa"];
     $color = $_POST["color"];
     $color_botones = $_POST["color_botones"];
@@ -43,7 +43,7 @@ if (empty($_POST['nombre_empresa'])) {
     $alineacion_slider = $_POST["alineacion_slider"];
     $texto_slider = $_POST["texto_slider"];
     $banner_opacidad = $_POST["banner_opacidad"];
-    $banner_color_filtro  = $_POST["banner_color_filtro "];
+    $banner_color_filtro  = $_POST["banner_color_filtro"];
     
     
     
@@ -54,8 +54,6 @@ if (empty($_POST['nombre_empresa'])) {
                                             telefono='" . $telefono . "',
                                             email='" . $email . "',
                                             direccion='" . $direccion . "',
-                                            ciudad='" . $ciudad . "',
-                                            estado='" . $estado . "',
                                             color='" . $color . "',
                                             facebook='" . $facebook . "',
                                             mapa='" . $mapa . "',
@@ -65,7 +63,7 @@ if (empty($_POST['nombre_empresa'])) {
                                             texto_footer='" . $texto_footer . "',
                                             texto_precio='" . $texto_precio . "',
                                             instagram='" . $instagram . "',
-                                                banner_opacidad='" . $banner_opacidad . "',
+                                            banner_opacidad='" . $banner_opacidad . "',
                                             banner_color_filtro='" . $banner_color_filtro . "',
                                             tiktok='" . $tiktok . "',
                                             whatsapp='" . $whatsapp . "',
@@ -75,9 +73,9 @@ if (empty($_POST['nombre_empresa'])) {
                                                     enlace_btn_slider='" . $enlace_btn_slider . "',
                                                     titulo_slider='" . $titulo_slider . "',
                                                     alineacion_slider='" . $alineacion_slider . "',
-                                                    texto_slider='" . $texto_slider . "',
-                                            codigo_postal='$codigo_postal'
+                                                    texto_slider='" . $texto_slider . "'                                            
                                             WHERE id_perfil='1'";
+    //echo $sql;
     $query_update = mysqli_query($conexion, $sql);
     if ($query_update) {
         $messages[] = "Datos han sido actualizados satisfactoriamente.";
