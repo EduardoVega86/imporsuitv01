@@ -49,7 +49,7 @@ $domain = $_SERVER['HTTP_HOST'];
     <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
       <div class="container">
         <!-- Logo en el centro para todas las vistas -->
-        <a class="navbar-brand" href="#"><a class="navbar-brand" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px;" src="<?php
+        <a class="navbar-brand" href="#"><a class="navbar-brand" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
                                                                                                                                                           if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
                                                                                                                                                             echo "assets/img/imporsuit.png";
                                                                                                                                                           } else {
@@ -185,7 +185,7 @@ $domain = $_SERVER['HTTP_HOST'];
       <br>
 
       <!-- Categoria -->
-      <div class="owl-carousel owl-theme" style="margin-bottom: 50px">
+      <div class="owl-carousel owl-theme caja" style="margin-bottom: 50px">
         <?php
         include './auditoria.php';
         $sql = "SELECT * FROM lineas WHERE tipo='1' AND online=1";
@@ -277,9 +277,9 @@ $domain = $_SERVER['HTTP_HOST'];
         ?>
           <div class="item">
             <div class="grid-container">
-              <div class="card" style="border-radius: 1rem;">
+              <div class="card" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
                 <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
-                <div class="img-container" style="aspect-ratio: 1 / 1; overflow: hidden; margin-bottom: -100px">
+                <div class="img-container" style="aspect-ratio: 1 / 1; overflow: hidden; margin-bottom: -120px">
                   <img src=" <?php
                               $subcadena = "http";
 
@@ -418,7 +418,7 @@ $domain = $_SERVER['HTTP_HOST'];
       <h1 style="text-align: center">Testimonios</h1>
       <br>
       <!-- Testimonios -->
-      <div class="owl-carousel owl-theme" style="margin-bottom: 50px">
+      <div class="owl-carousel owl-theme caja" style="margin-bottom: 50px">
         <?php
         include './auditoria.php';
         $sql = "SELECT * FROM testimonios WHERE id_producto=-1";
