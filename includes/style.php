@@ -810,6 +810,132 @@
     }
   }
 
+  .footer-contenedor {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 20px;
+    justify-content: space-around;
+    place-content: center;
+    background-color: #f1f1f1;
+    flex-wrap: wrap;
+  }
+
+  .footer-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .descripcion {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .lista_legal {
+    list-style: none;
+    padding: 0;
+  }
+
+  .lista_legal li {
+    font-size: 12px;
+    margin: 5px;
+  }
+
+  #navbarLogo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .icon-redes {
+    margin: 5px;
+  }
+
+  .redes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .icon-redes img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icon-redes img:hover {
+    transform: scale(1.4);
+  }
+
+  .icon-redes img:active {
+    transform: scale(1);
+  }
+
+  .ws {
+    color: green;
+    font-size: 2em;
+  }
+
+  .send {
+    color: red;
+    font-size: 2em;
+  }
+
+  @keyframes sacudir {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    25% {
+      transform: rotate(10deg);
+    }
+
+    50% {
+      transform: rotate(-10deg);
+    }
+
+    75% {
+      transform: rotate(10deg);
+    }
+
+    100% {
+      transform: rotate(-10deg);
+    }
+  }
+
+  .icon-redes:hover {
+    animation: sacudir 0.5s;
+  }
+
+  .icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* Añadir media queries para responsividad */
+  @media (max-width: 768px) {
+    .footer-contenedor {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-contenedor {
+      grid-template-columns: 1fr;
+    }
+
+    .descripcion,
+    .lista_legal li {
+      font-size: 14px;
+      /* Hacer el texto más legible en pantallas pequeñas */
+    }
+
+    .icon-redes img {
+      width: 30px;
+      /* Ajustar el tamaño de los iconos para pantallas pequeñas */
+      height: 30px;
+    }
+  }
 
   .footer-container {
     background-color: #333;
@@ -827,9 +953,7 @@
     margin: 5px 0;
     /* Margen para el título y párrafos */
   }
-  .semicolonexpected{
 
-  }
   .footer-container a {
     color: white;
     /* Color de los enlaces */
