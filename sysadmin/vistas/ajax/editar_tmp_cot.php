@@ -151,6 +151,7 @@ while ($row = mysqli_fetch_array($sql)) {
     $subtotal = number_format($sumador_total, 2, '.', '');
     if ($row['iva_producto'] == 1) {
         $total_iva = iva($precio_venta);
+        $total_iva = 0;
     } else {
         $total_iva = 0;
     }
@@ -210,11 +211,11 @@ $update        = mysqli_query($conexion, "update facturas_cot set monto_factura=
     <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format(@$subtotal, 2); ?></b></td>
     <td></td>
 </tr>
-<tr>
+<!--tr>
     <td class='text-right' colspan=5><?php echo $nom_impuesto; ?> (<?php echo $impuesto; ?>)% </td>
     <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto, 2); ?></td>
     <td></td>
-</tr>
+</tr-->
 <tr>
     <td style="font-size: 14pt;" class='text-right' colspan=5><b>TOTAL <?php echo $simbolo_moneda; ?></b></td>
     <td style="font-size: 16pt;" class='text-right'><span class="label label-danger"><b><?php echo number_format($total_factura, 2); ?></b></span></td>
