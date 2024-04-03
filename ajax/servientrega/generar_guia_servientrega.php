@@ -1,13 +1,19 @@
 <?php
 
-$ciudad_origen = $_POST['ciudad_origen'];
-$ciudad_destino = $_POST['ciudad_destino'];
+$ciudad_origen = $_POST['codigo_origen'];
+$ciudad_destino = $_POST['codigo'];
 
 $razon_zocial_destinatario = "Entrega a Domicilio";
-$nombre_destinatario = $_POST['nombre_destinatario'];
-$apellido_destinatario = $_POST['apellido_destinatario'];
-$direccion_destinatario = $_POST['direccion_destinatario'];
-$telefono_destinatario = $_POST['telefono_destinatario'];
+$nombre_destinatario = $_POST['nombre_destino'];
+
+if (isset($_POST['apellido_destinatario'])) {
+    $apellido_destinatario = $_POST['apellido_destinatario'];
+} else {
+    $apellido_destinatario = " ";
+}
+
+$direccion_destinatario = $_POST['direccion'];
+$telefono_destinatario = $_POST['celular'];
 
 $razon_social_remitente = "Servientrega Ecuador S.A.";
 $nombre_remitente = $_POST['nombre_remitente'];
@@ -15,9 +21,9 @@ $apellido_remitente = $_POST['apellido_remitente'];
 $direccion_remitente = $_POST['direccion_remitente'];
 $telefono_remitente = $_POST['telefono_remitente'];
 
-$contenido = $_POST['contenido'];
-$valor_mercancia = $_POST['valor_mercancia'];
-$valor_asegurado = $_POST['valor_asegurado'];
+$contenido = $_POST['productos_guia'];
+$valor_mercancia = $_POST['valor_total'];
+$valor_asegurado = $_POST['valorasegurado'];
 
 
 
