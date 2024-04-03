@@ -360,6 +360,10 @@
       font-size: 3.5rem;
     }
   }
+  .div-alineado-izquierda {
+    align-items: flex-start !important;
+     padding-left: 50px;
+}
 </style>
 <style>
   .carousel-item {
