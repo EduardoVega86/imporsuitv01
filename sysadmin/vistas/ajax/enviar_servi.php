@@ -50,6 +50,7 @@ $sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `f
 
 $query = mysqli_query($destino, $sql);
 
+
 $ultimoid_market = mysqli_insert_id($destino);
 $ultimoid = $_POST["id_servi"];
 $sql_update = "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_laar`.`id_guia` = $ultimoid_market";
@@ -174,7 +175,44 @@ $cantidad_total = 1;
 $productos_guia =  $productos_guia;
 $observacion = $observacion . '-Por:' . $server_url;
 
-
+$datos_destino = array(
+    "origen" => array(
+        "identificacionO" => "$identificacionO",
+        "ciudadO" => "$ciudadO",
+        "nombreO" => "$nombreO",
+        "direccion" => "$direccionO",
+        "referencia" => "$refenciaO",
+        "numeroCasa" => "$numeroCasaO",
+        "postal" => "",
+        "telefono" => "$telefonoO",
+        "celular" => "$celularO"
+    ),
+    "destino" => array(
+        "identificacionD" => "$identificacion",
+        "ciudadD" => "$ciudad_entrega",
+        "nombreD" => "$nombre_destino",
+        "direccion" => "$direccion",
+        "referencia" => "$referencia",
+        "numeroCasa" => "$numerocasa",
+        "postal" => "",
+        "telefono" => "$telefono",
+        "celular" => "$celular"
+    ),
+    "numeroGuia" => "$guia_sistema",
+    "tipoServicio" => "201202002002013",
+    "noPiezas" => $cantidad_total,
+    "peso" => 2,
+    "valorDeclarado" => $valorasegurado,
+    "contiene" => "$productos_guia",
+    "tamanio" => "",
+    "cod" => $cod,
+    "costoflete" => 0,
+    "costoproducto" => $valor_total,
+    "tipocobro" => 0,
+    "comentario" => "$observacion",
+    "fechaPedido" => "$fechaActual",
+    "extras" => ""
+);
 $id_pedido_cot = $_POST['id_pedido_cot'];
 
 
