@@ -29,7 +29,7 @@ if (isset($conexion)) {
 						<div class="tab-content">
 							<div class="tab-pane fade show active" id="info">
 
-								<div class="row">
+								<div class="row ">
 									<div class="col-md-4">
 										<div class="form-group">
 											<label for="codigo" class="control-label">Código:</label>
@@ -89,9 +89,12 @@ if (isset($conexion)) {
 								</div>
 
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-md-6">
 										<img width="100%" src="../../img_sistema/formato_pro.jpg" alt="" />
-										<div class="form-group">
+										
+									</div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
 											<label for="estado" class="control-label">Formato Pagina Productos:</label>
 											<select class="form-control" id="formato" name="formato" required>
 												<option value="" selected>-- Selecciona --</option>
@@ -99,8 +102,8 @@ if (isset($conexion)) {
 												<option value="2">FORMATO 2</option>
 												<option value="3">DRAG AND DROP</option>
 											</select>
-										</div>
-									</div>
+                                                                        </div>
+                                                                        </div>
 
 
 								</div>
@@ -167,18 +170,19 @@ if (isset($conexion)) {
 								</div>
 
 								<div class="row">
-									<div class="col-md-6">
+                                                                    <div class="col-md-6">
 										<div class="form-group">
-											<label for="precio" class="control-label">PVP:</label>
-											<input type="text" class="form-control" id="precio" name="precio" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="preciom" class="control-label">PxMayor:</label>
+											<label for="preciom" class="control-label">Precio Proveedor:</label>
 											<input type="text" class="form-control" id="preciom" name="preciom" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
 										</div>
 									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="precio" class="control-label">Precio de Venta (Sugerido):</label>
+											<input type="text" class="form-control" id="precio" name="precio" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
+										</div>
+									</div>
+									
 
 									<!-- 		<div class="col-md-3">
 										<div class="form-group">
@@ -195,17 +199,7 @@ if (isset($conexion)) {
 								</div>
 
 								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="precioel" class="control-label">¿Precio en Linea?</label>
-											<input type="checkbox" name="precioech" id="precioech">
-											<div class="form-group">
-
-												<label for="precioe" id="precioell" class="control-label">PVP Online:</label>
-												<input type="text" class="form-control" id="precioe" name="precioe" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" value="0" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12" disabled>
-											</div>
-										</div>
-									</div>
+									
 
 									<div class="col-md-6">
 										<div class="form-group">
@@ -220,16 +214,8 @@ if (isset($conexion)) {
 									</div>
 
 									<script>
-										const precioech = document.getElementById('precioech');
-										const precioe = document.getElementById('precioe');
-										const precioell = document.getElementById('precioell');
-										precioech.addEventListener('change', (e) => {
-											if (precioech.checked) {
-												precioe.disabled = false;
-											} else {
-												precioe.disabled = true;
-											}
-										});
+										
+										
 
 										const precionla = document.getElementById('precionla');
 										const precion = document.getElementById('precion');

@@ -1,5 +1,5 @@
 <?php
-
+include 'is_logged.php';
 if (empty($_POST['codigo'])) {
     $errors[] = "Código vacío";
 } else if (empty($_POST['nombre'])) {
@@ -51,8 +51,8 @@ if (empty($_POST['codigo'])) {
     $utilidad         = floatval($_POST['utilidad']);
     $precio_venta     = floatval($_POST['precio']);
     $precio_mayoreo   = floatval($_POST['preciom']);
-    $precio_especial  = floatval($_POST['precioe']);
-    $precio_normal  = floatval($_POST['precion']);
+    $precio_especial  = floatval($_POST['precio']);
+    @$precio_normal  = floatval($_POST['precion']);
     $stock            = floatval($_POST['stock']);
     $online            = $_POST['online'];
     $stock_minimo     = floatval($_POST['minimo']);
@@ -88,7 +88,7 @@ if (empty($_POST['codigo'])) {
     } else {
         $sql              = "INSERT INTO productos (codigo_producto, nombre_producto, descripcion_producto, id_linea_producto, id_proveedor, inv_producto, iva_producto, estado_producto, costo_producto, utilidad_producto, valor1_producto,valor2_producto,valor3_producto, stock_producto,stock_min_producto, date_added,id_imp_producto, pagina_web, formato, valor4_producto) VALUES ('$codigo','$nombre','$descripcion','$linea','$proveedor','$inv','$impuesto','$estado','$costo','$utilidad','$precio_venta','$precio_mayoreo','$precio_especial','$stock','$stock_minimo','$date_added','0','$online','$formato', '$precio_normal')";
         //echo $sql;
-        echo $formato;
+        //echo $formato;
         if ($formato == 3) {
 
             $imporsuit_db = mysqli_connect("194.163.183.231", 'administrador', '69635201d674bcb6f0897604c7c97cf8', 'suit-imporcomex');
