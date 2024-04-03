@@ -1360,9 +1360,9 @@ mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id`,`id_producto
 
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `banner_opacidad` DOUBLE NULL DEFAULT '0.5' AFTER `caracteristicas_home`, ADD `banner_color_filtro` TEXT NULL AFTER `banner_opacidad`;");
 
-mysqli_query($conexion, "CREATE TABLE IF NOT EXISTS `ciudad_cotizacion`
+mysqli_query($conexion, "CREATE TABLE `ciudad_cotizacion`
   (
-  `id_cotizacion` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cotizacion` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `provincia` varchar(100) NOT NULL,
   `ciudad` varchar(100) NOT NULL,
   `cobertura_servientrega` tinyint(4) DEFAULT 0,
