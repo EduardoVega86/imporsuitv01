@@ -78,7 +78,7 @@ if ($action == 'ajax') {
                 <th></th>
                 <th>Código</th>
                 <th style="text-align: center" colspan="1">Producto</th>
-                <th style="text-align: center">APLICA IVA</th>               
+                <!--th style="text-align: center">APLICA IVA</th-->               
                 <th>Online</th>
                 <th class='text-center'>Destacado</th>
                 <th class='text-center'>Existencia</th>
@@ -213,12 +213,12 @@ if ($image_path == null) {
                     <td><?php echo $codigo_producto; ?></td>
                     
                     <td ><?php echo $nombre_producto; ?></td>
-                    <td>
+                    <!--td>
                        <button style="font-size: 10px;" class="estado-btn btn-rounded btn-xs btn <?php echo $aplica_iva == 1 ? 'btn-success' : 'btn-danger'; ?>" data-id="<?php echo $id_producto; ?>">
         <?php echo $aplica_iva == 1 ? 'SI' : 'NO'; ?>
     </button>                         
                                                
-                                           </td>
+                                           </td-->
                     <td><?php echo $estado_online; ?></td>
                     <td>
                        <button style="font-size: 10px;" class="estado-destacado btn-rounded btn-xs btn <?php echo $destacado == 1 ? 'btn-success' : 'btn-danger'; ?>" data-idd="<?php echo $id_producto; ?>">

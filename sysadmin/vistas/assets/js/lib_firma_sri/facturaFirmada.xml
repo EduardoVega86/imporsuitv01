@@ -1,31 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?><factura id="comprobante" version="1.1.0"><infoTributaria><ambiente>2</ambiente><tipoEmision>1</tipoEmision><razonSocial>IMPORTADORA</razonSocial><nombreComercial>RAZON SOCIAL</nombreComercial><ruc>1104623507001</ruc><claveAcceso>2603202401110462350700120011000000280350000070815</claveAcceso><codDoc>01</codDoc><estab>001</estab><ptoEmi>100</ptoEmi><secuencial>000028035</secuencial><dirMatriz>AV COLON Y DIEGO DE ALMAGRO</dirMatriz></infoTributaria><infoFactura><fechaEmision>26/03/2024</fechaEmision><dirEstablecimiento>AV COLON Y DIEGO DE ALMAGRO</dirEstablecimiento><obligadoContabilidad>NO</obligadoContabilidad><tipoIdentificacionComprador>04</tipoIdentificacionComprador><razonSocialComprador>Edurodo</razonSocialComprador><identificacionComprador>0490041877001</identificacionComprador><direccionComprador>Av rumichaca y solanda</direccionComprador><totalSinImpuestos>25.00</totalSinImpuestos><totalDescuento>0</totalDescuento><totalConImpuestos><totalImpuesto><codigo>2</codigo><codigoPorcentaje>0</codigoPorcentaje><baseImponible>25.00</baseImponible><valor>0.00</valor></totalImpuesto></totalConImpuestos><propina>0.00</propina><importeTotal>25.00</importeTotal><moneda>DOLAR</moneda><pagos><pago><formaPago>01</formaPago><total>25.00</total><plazo>1</plazo><unidadTiempo>Dias</unidadTiempo></pago></pagos><valorRetIva>0.00</valorRetIva><valorRetRenta>0.00</valorRetRenta></infoFactura><detalles><detalle><codigoPrincipal>10026</codigoPrincipal><codigoAuxiliar>10026</codigoAuxiliar><descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion><cantidad>1</cantidad><precioUnitario>25</precioUnitario><descuento>0</descuento><precioTotalSinImpuesto>25.00</precioTotalSinImpuesto><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>0</codigoPorcentaje><tarifa>0</tarifa><baseImponible>25.00</baseImponible><valor>0.00</valor></impuesto></impuestos></detalle></detalles><infoAdicional><campoAdicional nombre="Direccion">Av rumichaca y solanda</campoAdicional><campoAdicional nombre="Telefono">0876543</campoAdicional><campoAdicional nombre="Email">.edu.vega86@gmail.co</campoAdicional></infoAdicional><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature529833">
-<ds:SignedInfo Id="Signature-SignedInfo466274">
+<?xml version="1.0" encoding="UTF-8"?><factura id="comprobante" version="1.1.0"><infoTributaria><ambiente>2</ambiente><tipoEmision>1</tipoEmision><razonSocial>IMPORTADORA </razonSocial><nombreComercial>HJJV J S S</nombreComercial><ruc>1104623507001</ruc><claveAcceso>0204202401110462350700120011000000280390000071210</claveAcceso><codDoc>01</codDoc><estab>001</estab><ptoEmi>100</ptoEmi><secuencial>000028039</secuencial><dirMatriz>AV COLON Y DIEGO DE ALMAGRO</dirMatriz></infoTributaria><infoFactura><fechaEmision>02/04/2024</fechaEmision><dirEstablecimiento>AV COLON Y DIEGO DE ALMAGRO</dirEstablecimiento><obligadoContabilidad>NO</obligadoContabilidad><tipoIdentificacionComprador>04</tipoIdentificacionComprador><razonSocialComprador>eduardo</razonSocialComprador><identificacionComprador>0490041877001</identificacionComprador><direccionComprador>rumichcas solanda</direccionComprador><totalSinImpuestos>25.00</totalSinImpuestos><totalDescuento>0</totalDescuento><totalConImpuestos><totalImpuesto><codigo>2</codigo><codigoPorcentaje>0</codigoPorcentaje><baseImponible>25.00</baseImponible><valor>0.00</valor></totalImpuesto></totalConImpuestos><propina>0.00</propina><importeTotal>25.00</importeTotal><moneda>DOLAR</moneda><pagos><pago><formaPago>01</formaPago><total>25.00</total><plazo>1</plazo><unidadTiempo>Dias</unidadTiempo></pago></pagos><valorRetIva>0.00</valorRetIva><valorRetRenta>0.00</valorRetRenta></infoFactura><detalles><detalle><codigoPrincipal>10026</codigoPrincipal><codigoAuxiliar>10026</codigoAuxiliar><descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion><cantidad>1</cantidad><precioUnitario>25</precioUnitario><descuento>0</descuento><precioTotalSinImpuesto>25.00</precioTotalSinImpuesto><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>0</codigoPorcentaje><tarifa>0</tarifa><baseImponible>25.00</baseImponible><valor>0.00</valor></impuesto></impuestos></detalle></detalles><infoAdicional><campoAdicional nombre="Direccion">rumichcas solanda</campoAdicional><campoAdicional nombre="Telefono">0976</campoAdicional><campoAdicional nombre="Email">.edu.vega86@gmail.com</campoAdicional></infoAdicional><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature809878">
+<ds:SignedInfo Id="Signature-SignedInfo380105">
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
-<ds:Reference Id="SignedPropertiesID844437" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature529833-SignedProperties360651">
+<ds:Reference Id="SignedPropertiesID845777" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature809878-SignedProperties569722">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>Nsh5NDvmdlk0YEYQWgO9VL4gMKk=</ds:DigestValue>
+<ds:DigestValue>XanlWIx0jvqlFleaOriR6Lw/EVY=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference URI="#Certificate570061">
+<ds:Reference URI="#Certificate766450">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>HQPPB3mMTF06+QOvD4OfVOD0PQM=</ds:DigestValue>
+<ds:DigestValue>4lReu8r4oN1+MUWhcuMsmfrs7uA=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference Id="Reference-ID-57637" URI="#comprobante">
+<ds:Reference Id="Reference-ID-703219" URI="#comprobante">
 <ds:Transforms>
 <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
 </ds:Transforms>
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
-<ds:DigestValue>CBxBG/bu1K3vxu1PdS0KJYoWM7k=</ds:DigestValue>
+<ds:DigestValue>i5e6Pyr+neKNV66GQ5tSt5AGaNk=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
-<ds:SignatureValue Id="SignatureValue28542">
-ciwc6jYNYXWhOJoUzjbR09f7VDT8+cNcoCEVBXV9mkHFFkiIV/YB4D4WZZRS0BCSCS6QoMs0qYsx
-b69bIZLKYKYhSmER7SXoxLDo40qaYCX+/3cVv9WUiV0fGirf5vZcG8GFS+DloaC1W7RKL/eN5XnU
-Dak2zLjzWOWelYjKcS+3Vh2tuMonfmdMDcU3oEAW/7cCXRdik6H9FNLVD5/j43eeVeJtS1N0DkZm
-RT5oVv0jQceEquNp5kHUaidRHHu4aae2rPp2gEOigsRHrL9UpUIYqy1AhEF21MnIJTlQuMEe+qK5
-BIxLTTk8miZ7e2tXpefrHBp5Siik3RaBx/4mbg==
+<ds:SignatureValue Id="SignatureValue450520">
+MCIIum6YKz2T7gtE87UlAwzajqu0/FsCVUNLDRAuczVBn8AhBeix3Nk3QOgCSiJvcQAegHkLhwlW
+Ez8R8IJnT5YI7ZtOTrq926pWzQuGSUzqxTsgQd2qT9C05EmNaxvVhqibICUrHszCfgDd4tmqxk69
+IA/wmQqnpXuFvRj+5QGKVZlLlFW1Ac89H4HXlVGNyU0a5Y7/PGCh53usRyrZuBdLkyKcBXbfII6/
+9bBnWkAtKWct+bASl2woxpK4IiJSWNFW6dMiXGMqLblTtbCge5hmnTU0iGR5WSwDPXdnZb9B5/TS
+gJfsB1FEmENzjaXL0GLJ4j0DsHmNccTipb525g==
 </ds:SignatureValue>
-<ds:KeyInfo Id="Certificate570061">
+<ds:KeyInfo Id="Certificate766450">
 <ds:X509Data>
 <ds:X509Certificate>
 MIIL0DCCCbigAwIBAgIELd2vHTANBgkqhkiG9w0BAQsFADCBmTELMAkGA1UEBhMCRUMxHTAbBgNV
@@ -97,4 +97,4 @@ vC5g2g1M4ug2LIDEDDpB5ZWzPusyLk65H1YeARTrvUW4wX4MKx8GC/Obn/Q+dkdVyaEoNsz/rMwS
 </ds:RSAKeyValue>
 </ds:KeyValue>
 </ds:KeyInfo>
-<ds:Object Id="Signature529833-Object358084"><etsi:QualifyingProperties Target="#Signature529833"><etsi:SignedProperties Id="Signature529833-SignedProperties360651"><etsi:SignedSignatureProperties><etsi:SigningTime>2024-03-26T16:51:01-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>UV1/jKyXrVItEazXOMkOW5oTA4U=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AUTORIDAD DE CERTIFICACION SUBCA-2 SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A. 2,C=EC</ds:X509IssuerName><ds:X509SerialNumber>769503005</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-57637"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
+<ds:Object Id="Signature809878-Object240871"><etsi:QualifyingProperties Target="#Signature809878"><etsi:SignedProperties Id="Signature809878-SignedProperties569722"><etsi:SignedSignatureProperties><etsi:SigningTime>2024-04-02T22:32:54-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>UV1/jKyXrVItEazXOMkOW5oTA4U=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AUTORIDAD DE CERTIFICACION SUBCA-2 SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A. 2,C=EC</ds:X509IssuerName><ds:X509SerialNumber>769503005</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-703219"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>

@@ -66,6 +66,13 @@ $row           = mysqli_fetch_array($query_empresa);
 										<div class="form-group">
 											<input class="form-control" data-buttonText="Logo" type="file" name="imagefile" id="imagefile" onchange="upload_image();">
 										</div>
+                                                                            
+                                                                            <div align="center">
+											<img src="../assets/js/lib_firma_sri/src/services/uploads/Logo.jpg" alt="profile-image" width="200px" height="200px">
+										</div>
+										<div class="form-group">
+											<input class="form-control" data-buttonText="Logo" type="file" name="imagefilefactura" id="imagefilefactura" accept=".jpg, .jpeg" onchange="upload_image_factura();">
+										</div>
 
 									</div>
 									<!-- end col -->
@@ -541,7 +548,38 @@ $sql   = "select name, symbol from  currencies group by symbol order by name ";
             processData:false,        // To send DOMDocument or non processed data file it is set to false
             success: function(data)   // A function to be called if request succeeds
             {
-              $("#load_img").html(data);
+              window.location.href = window.location.href + "?nocache=" + Date.now();
+
+                    
+            }
+        });
+    }
+
+
+  }
+  
+  function upload_image_factura(){
+
+    var inputFileImage = document.getElementById("imagefilefactura");
+    var file = inputFileImage.files[0];
+    if( (typeof file === "object") && (file !== null) )
+    {
+      $("#load_img").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+      var data = new FormData();
+      data.append('imagefile',file);
+
+
+      	$.ajax({
+            url: "../ajax/imagen_ajax_factura.php",        // Url to which the request is send
+            type: "POST",             // Type of request to be send, called as method
+            data: data,         // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+            contentType: false,       // The content type used when sending data to the server.
+            cache: false,             // To unable request pages to be cached
+            processData:false,        // To send DOMDocument or non processed data file it is set to false
+            success: function(data)   // A function to be called if request succeeds
+            {
+              window.location.href = window.location.href + "?nocache=" + Date.now();
+
                     
             }
         });

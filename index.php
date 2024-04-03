@@ -63,10 +63,10 @@ $domain = $_SERVER['HTTP_HOST'];
           <!-- Elementos a la izquierda -->
           <ul class="navbar-nav mr-auto ">
             <li class="nav-item active">
-              <a class="nav-link texto_cabecera" href="#">Inicio <span class="sr-only">(current)</span></a>
+              <a class="nav-link texto_cabecera" href="<?php echo $protocol?>://<?php echo $domain?>">Inicio <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link texto_cabecera" href="#">Catálogo</a>
+              <a class="nav-link texto_cabecera" href="<?php echo $protocol?>://<?php echo $domain?>/categoria.php">Catálogo</a>
             </li>
 
           </ul>
@@ -490,14 +490,13 @@ $domain = $_SERVER['HTTP_HOST'];
         $tiktok       = $row['tiktok'];
 
       ?>
-        <div class="footer-contenido">
+        <div class="footer-contenido div-alineado-izquierda">
           <h4>Acerca de <?php echo $nombre_empresa ?></h4>
           <img id="navbarLogo" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
                                               ?>">
           <span class="descripcion">
             <?php echo $giro_empresa ?>
           </span>
-
         </div>
         <div class="footer-contenido">
           <h5>Legal</h5>
@@ -548,6 +547,8 @@ $domain = $_SERVER['HTTP_HOST'];
         </div>
       <?php } ?>
     </footer>
+    <div class="text-center p-4">© 2019 IMPORSUIT S.A. | Todos los derechos reservados.
+  </div>
 
 
   </main>
