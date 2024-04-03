@@ -544,7 +544,7 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
         </button>
       </div>
       <div class="modal-body">
-        <iframe id="miIframePc" src="http://localhost/imporsuitv01/index_1.php" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+        <iframe id="miIframePc" src="<?php echo $vista_previa; ?>" style="width: 100%; height: 500px;" frameborder="0"></iframe>
       </div>
     </div>
   </div>
@@ -581,7 +581,7 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
         </button>
       </div>
       <div class="modal-body">
-        <iframe id="miIframeCelular" src="http://localhost/imporsuitv01/index_1.php" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+        <iframe id="miIframeCelular" src="<?php echo $vista_previa; ?>" style="width: 100%; height: 500px;" frameborder="0"></iframe>
       </div>
     </div>
   </div>
