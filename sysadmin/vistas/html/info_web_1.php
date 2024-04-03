@@ -148,7 +148,9 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
                                     include '../modal/editar_testimonio.php';
                                      include "../modal/imagen_testimonio.php";
                                      include "../modal/editar_horizontal.php";
+                                     include "../modal/registro_testimonio.php";
 				?>
+                            
                             <form class="form-horizontal" role="form" id="perfil" enctype="multipart/form-data">
                                 <div class="fixed-buttons">
                                 <div class="form-group m-b-0 row">
@@ -166,6 +168,12 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
                                                                                                             <?php $vista_previa= $protocol .$_SERVER['HTTP_HOST'] .$sistema_url. "/index_1.php"; ?>
                                                                                                                 
 													</div><br>
+                                                                                                        <div class="row">
+    <div class="col d-flex justify-content-end">
+        <a href="../../../index.php" target="_blank" class="btn btn-danger formulario">Vista Preliminar</a>
+    </div>
+</div>
+
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
@@ -466,7 +474,11 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
       </h4>
     </div>
     <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
-      <div class="panel-body">
+      
+        <div class="panel-body">
+            <div class="btn-group pull-right">
+												<button type="button" class="btn btn-success waves-effect waves-light formulario" data-toggle="modal" data-target="#nuevoTestimonio"><i class="fa fa-plus"></i> </button>
+												</div>
         <div class='outer_div_testimoinio caja'></div>
       </div>
     </div>
@@ -942,9 +954,11 @@ inputs.forEach(function(input) {
 		            $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
 		        },
 		        success: function(datos) {
+                            
 		            $("#resultados_ajax_horizontal").html(datos);
 		            $('#guardar_datos_horizontal').attr("disabled", false);
 		            load_horizontal(1);
+                            recargarIframe();
 		            //resetea el formulario
 		            $("#guardar_linea")[0].reset();
 		            $("#nombre").focus();
@@ -959,6 +973,7 @@ inputs.forEach(function(input) {
 		    event.preventDefault();
 		})
                 function eliminar(id,tabla, campo_id){
+                //alert()
 		    $('#id_eliminar').val(id);
                    $('#tabla_eliminar').val(tabla);
                    $('#campo_id').val(campo_id);
@@ -982,7 +997,7 @@ $('body').removeClass('modal-open'); // Elimina la clase que mantiene el scroll 
 		            load_horizontal(1);
                             load_banner(1);
                             load_testimonios(1);
-                            
+                             recargarIframe();
 		            //desaparecer la alerta
 		            window.setTimeout(function() {
 		                $(".alert").fadeTo(200, 0).slideUp(200, function() {
@@ -1010,6 +1025,7 @@ $('body').removeClass('modal-open'); // Elimina la clase que mantiene el scroll 
       $("#resultados_ajax").html(datos);
       $("#guardar_datos2").attr("disabled", false);
       load_banner(1);
+      recargarIframe();
       //resetea el formulario
       $("#guardar_linea2")[0].reset();
       //$("#nombre").focus();
@@ -1094,7 +1110,7 @@ function upload_image_banner2() {
                 {
                     $("#load_img4").html(data);
                     load_banner(1);
-
+recargarIframe();
                 }
             });
         }
@@ -1116,6 +1132,7 @@ function upload_image_banner2() {
       $("#resultados_ajax2").html(datos);
       $("#actualizar_datos").attr("disabled", false);
       load_banner(1);
+      recargarIframe();
       //desaparecer la alerta
       window.setTimeout(function () {
         $(".alert")
@@ -1218,7 +1235,7 @@ function obtener_datos_icono(id) {
                    function carga_img_t(id_producto) {
                      //alert(id_producto)
 			$(".outer_img").load("../ajax/img_testimonio.php?id_producto=" + id_producto);
-                        
+                      recargarIframe();  
 		}
                 
                 function upload_image_mod(id_producto){
@@ -1241,7 +1258,7 @@ function obtener_datos_icono(id) {
 					success: function(data)   // A function to be called if request succeeds
 					{
 						$("#load_img_mod").html(data);
-
+recargarIframe();
 					}
 				});
 
@@ -1297,7 +1314,7 @@ $(document).on('click', '.estado-btn-testimonio', function() {
    
         var userId = $(this).data('id');
         //alert($(this).text().trim());
-        var newEstado = $(this).text().trim() === 'NO' ? 1 : 0;  // Cambia el estado
+        var newEstado = $(this).text().trim() === 'SI' ? 1 : 0;  // Cambia el estado
         //alert(newEstado);
         $.ajax({
             url: '../ajax/habilita_testimonio.php?id_notificacion',  // Ruta al script PHP que cambiará el estado en la base de datos
@@ -1313,6 +1330,36 @@ $(document).on('click', '.estado-btn-testimonio', function() {
             }
         });
 });
+
+$("#guardar_testimonio").submit(function(event) {
+                   // alert();
+		    $('#guardar_datos').attr("disabled", true);
+		    var parametros = $(this).serialize();
+		    $.ajax({
+		        type: "POST",
+		        url: "../ajax/nuevo_testimonio.php",
+		        data: parametros,
+		        beforeSend: function(objeto) {
+		            $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+		        },
+		        success: function(datos) {
+		            $("#resultados_ajax").html(datos);
+		            $('#guardar_datos').attr("disabled", false);
+		            load_testimonios(1);
+                            recargarIframe();
+		            //resetea el formulario
+		            $("#guardar_linea")[0].reset();
+		            $("#nombre").focus();
+		            //desaparecer la alerta
+		            window.setTimeout(function() {
+		                $(".alert").fadeTo(200, 0).slideUp(200, function() {
+		                    $(this).remove();
+		                });
+		            }, 2000);
+		        }
+		    });
+		    event.preventDefault();
+		})
 </script>
 
 <?php require 'includes/footer_end.php'
