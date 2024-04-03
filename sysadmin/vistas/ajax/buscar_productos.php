@@ -78,7 +78,7 @@ if ($action == 'ajax') {
                 <th></th>
                 <th>Código</th>
                 <th style="text-align: center" colspan="1">Producto</th>
-                <th style="text-align: center">APLICA IVA</th>               
+                <!--th style="text-align: center">APLICA IVA</th-->               
                 <th>Online</th>
                 <th class='text-center'>Destacado</th>
                 <th class='text-center'>Existencia</th>
@@ -220,12 +220,12 @@ if ($image_path == null) {
                                                
                                            </td>
                     <td><?php echo $estado_online; ?></td>
-                    <td>
+                    <!--td>
                        <button style="font-size: 10px;" class="estado-destacado btn-rounded btn-xs btn <?php echo $destacado == 1 ? 'btn-success' : 'btn-danger'; ?>" data-idd="<?php echo $id_producto; ?>">
         <?php echo $destacado == 1 ? 'SI' : 'NO'; ?>
     </button>                         
                                                
-                                           </td>
+                                           </td-->
                     <td class='text-center'><?php 
                     if($drogshipin==1){
                          $id_marketplace      = $row['id_marketplace'];
