@@ -94,7 +94,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 /*--------*/
                 $precio_total_f = number_format($final_items, 2); //Precio total formateado
                 $precio_total_r = str_replace(",", "", $precio_total_f); //Reemplazo las comas
-                $sumador_total += $precio_venta_desglosado; //Sumador
+                $sumador_total += $precio_venta; //Sumador
                 $final_items = rebajas($precio_total, $desc_tmp); //Aplicando el descuento
                 $subtotal    = number_format($sumador_total, 2, '.', '');
                 /*  if ($row['iva_producto'] == 1) {
@@ -139,19 +139,19 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             }
             $total_factura = $subtotal + $total_impuesto;
             ?>
-            <tr>
+            <!--tr>
                 <td class='text-right' colspan=5>SUBTOTAL</td>
                 <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal, 2); ?></b></td>
                 <td></td>
-            </tr>
-            <tr>
+            </tr-->
+            <!--tr>
                 <td class='text-right' colspan=5><?php echo $nom_impuesto; ?> (<?php echo $impuesto; ?>)% </td>
                 <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto, 2); ?></td>
                 <td></td>
-            </tr>
+            </tr-->
             <tr>
                 <td style="font-size: 14pt;" class='text-right' colspan=5><b>TOTAL <?php echo $simbolo_moneda; ?></b></td>
-                <td style="font-size: 16pt;" class='text-right'><b id="precio_total"><?php echo number_format($total_factura, 2); ?></b></td>
+                <td style="font-size: 16pt;" class='text-right'><b id="precio_total"><?php echo number_format($subtotal, 2); ?></b></td>
                 <td></td>
             </tr>
         </tbody>
