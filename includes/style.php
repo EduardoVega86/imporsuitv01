@@ -190,14 +190,6 @@
     position: relative;
   }
 
-  .marquee p {
-    display: inline-block;
-    padding-left: 100%;
-    /* Inicia la animación fuera de la pantalla */
-    animation: marqueeAnimation 20s linear infinite;
-    /* Ajusta la duración según tus necesidades */
-  }
-
   @keyframes marqueeAnimation {
     from {
       transform: translateX(0);
