@@ -213,19 +213,19 @@ if ($image_path == null) {
                     <td><?php echo $codigo_producto; ?></td>
                     
                     <td ><?php echo $nombre_producto; ?></td>
-                    <td>
+                    <!--td>
                        <button style="font-size: 10px;" class="estado-btn btn-rounded btn-xs btn <?php echo $aplica_iva == 1 ? 'btn-success' : 'btn-danger'; ?>" data-id="<?php echo $id_producto; ?>">
         <?php echo $aplica_iva == 1 ? 'SI' : 'NO'; ?>
     </button>                         
                                                
-                                           </td>
+                                           </td-->
                     <td><?php echo $estado_online; ?></td>
-                    <!--td>
+                    <td>
                        <button style="font-size: 10px;" class="estado-destacado btn-rounded btn-xs btn <?php echo $destacado == 1 ? 'btn-success' : 'btn-danger'; ?>" data-idd="<?php echo $id_producto; ?>">
         <?php echo $destacado == 1 ? 'SI' : 'NO'; ?>
     </button>                         
                                                
-                                           </td-->
+                                           </td>
                     <td class='text-center'><?php 
                     if($drogshipin==1){
                          $id_marketplace      = $row['id_marketplace'];

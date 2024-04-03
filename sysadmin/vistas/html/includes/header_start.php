@@ -44,4 +44,11 @@ require_once "../funciones.php";
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             line-height: 38px;
         }
+        .caja{
+    padding: 20px !important;
+    border-radius: 25px;
+   -webkit-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
+-moz-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
+box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23); 
+}
     </style>
