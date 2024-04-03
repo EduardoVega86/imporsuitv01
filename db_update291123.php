@@ -1360,8 +1360,7 @@ mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id`,`id_producto
 
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `banner_opacidad` DOUBLE NULL DEFAULT '0.5' AFTER `caracteristicas_home`, ADD `banner_color_filtro` TEXT NULL AFTER `banner_opacidad`;");
 
-mysqli_query($conexion, "CREATE TABLE `ciudad_cotizacion`
-  (
+mysqli_query($conexion, "CREATE TABLE ciudad_cotizacion (
   `id_cotizacion` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `provincia` varchar(100) NOT NULL,
   `ciudad` varchar(100) NOT NULL,
@@ -1376,10 +1375,10 @@ mysqli_query($conexion, "CREATE TABLE `ciudad_cotizacion`
   `codigo_ciudad_laar` varchar(100) DEFAULT NULL,
   `codigo_provincia_gintracom` varchar(100) DEFAULT NULL,
   `codigo_ciudad_gintracom` varchar(100) DEFAULT NULL,
-  `codigo_ciudad_servientrega` varchar(100) DEFAULT NULL,
+  `codigo_ciudad_servientrega` varchar(100) DEFAULT NULL
 )");
 
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (1,'AZUAY','BANOS',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','694'),
 	 (2,'AZUAY','CHILCAPAMBA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (3,'AZUAY','CHORDELEG',1,0,0,'TE','0','NULL','NULL','201001003','201001003006','NULL','NULL','221'),
@@ -1390,7 +1389,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (8,'AZUAY','GUACHAPALA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','501'),
 	 (9,'AZUAY','GUALACEO',1,0,0,'TR','0','NULL','NULL','201001003','201001003003','NULL','NULL','19'),
 	 (10,'AZUAY','LA UNION (AZUAY)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (11,'AZUAY','NABON',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (12,'AZUAY','ONA',1,0,0,'TE','0','NULL','NULL','201001003','201001016002','NULL','NULL','NULL'),
 	 (13,'AZUAY','PAUTE',1,0,0,'TE','0','NULL','NULL','201001003','201001003004','NULL','NULL','460'),
@@ -1401,7 +1400,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (18,'AZUAY','SANTA ISABEL',1,0,0,'TE','0','NULL','NULL','201001003','201001003005','NULL','NULL','64'),
 	 (19,'AZUAY','SAYUASI',1,0,1,'TE','0','TE','NULL','NULL','NULL','1022','57668','NULL'),
 	 (20,'AZUAY','SEVILLA DE ORO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','504');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (21,'AZUAY','SIGSIG',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','391'),
 	 (22,'AZUAY','TARQUI (AZUAY)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (23,'AZUAY','PACCHA ',0,0,1,'0','0','TN','NULL','201001003','201001003023','1022','59059','NULL'),
@@ -1412,7 +1411,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (28,'BOLIVAR','4 ESQUINAS',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','689'),
 	 (29,'BOLIVAR','ASUNCION',1,0,1,'TE','0','TE','NULL','NULL','NULL','1023','57672','696'),
 	 (30,'BOLIVAR','BALZAPAMBA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','507');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (31,'BOLIVAR','CALUMA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','72'),
 	 (32,'BOLIVAR','CHILLANES',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','110'),
 	 (33,'BOLIVAR','CHIMBO',1,0,1,'TE','0','TE','NULL','NULL','NULL','1023','56261','286'),
@@ -1423,7 +1422,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (38,'BOLIVAR','PISAGUA ALTO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','508'),
 	 (39,'BOLIVAR','PISAGUA BAJO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','509'),
 	 (40,'BOLIVAR','RECINTO 24 DE MAYO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','698');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (41,'BOLIVAR','RECINTO EL PALMAR',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','699'),
 	 (42,'BOLIVAR','RECINTO LA MARITZA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','700'),
 	 (43,'BOLIVAR','SALINAS (BOLIVAR)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1434,7 +1433,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (48,'BOLIVAR','SAN PABLO DE ATENAS',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','128'),
 	 (49,'BOLIVAR','SAN MIGUEL',0,0,1,'0','0','TE','NULL','NULL','NULL','1023','56266','NULL'),
 	 (50,'BOLIVAR','SAN PEDRO DE GUANUJO',1,0,1,'TE','0','TN','NULL','NULL','NULL','1023','57683','285');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (51,'BOLIVAR','SAN SIMON',1,0,1,'TE','0','TE','NULL','NULL','NULL','1023','57684','511'),
 	 (52,'BOLIVAR','SAN SIMON (YACOTO)',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','511'),
 	 (53,'BOLIVAR','SANTA FE',1,0,1,'TE','0','TE','NULL','NULL','NULL','1023','57685','512'),
@@ -1445,7 +1444,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (58,'CANAR','CHARCAY',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (59,'CANAR','CHONTAMARCA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (60,'CANAR','COCHANCAY',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','513');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (61,'CANAR','COJITAMBO',1,0,1,'TE','0','TE','NULL','201001005','201001005007','1024','57688','692'),
 	 (62,'CANAR','DELEG',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','679'),
 	 (63,'CANAR','DUCUR',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','514'),
@@ -1456,7 +1455,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (68,'CANAR','LA DOLOROSA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (69,'CANAR','LA PUNTILLA',1,0,0,'TR','0','NULL','NULL','NULL','NULL','NULL','NULL','502'),
 	 (70,'CANAR','LA TRONCAL',1,0,1,'TE','0','TN','NULL','201001005','201001005002','1024','56282','52');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (71,'CANAR','LAS LAJAS',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (72,'CANAR','SUSCAL',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','393'),
 	 (73,'CANAR','TAMBO',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','394'),
@@ -1467,7 +1466,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (78,'CANAR','MANUEL J. CALLE',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (79,'CARCHI','BOLIVAR',1,1,0,'TE','TE','NULL','NULL','201001006','201001006006','NULL','NULL','271'),
 	 (80,'CARCHI','CHITAN DE NAVARRETES',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','703');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (81,'CARCHI','CRISTOBAL COLON',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','272'),
 	 (82,'CARCHI','CUESACA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','704'),
 	 (83,'CARCHI','EL ANGEL',1,1,0,'TE','TE','NULL','NULL','201001006','201001006003','NULL','NULL','273'),
@@ -1478,7 +1477,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (88,'CARCHI','MIRA',1,0,0,'TE','0','NULL','NULL','201001006','201001006002','NULL','NULL','251'),
 	 (89,'CARCHI','PIOTER',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','124'),
 	 (90,'CARCHI','SAN GABRIEL',1,1,0,'TE','TE','NULL','NULL','201001006','201001006004','NULL','NULL','51');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (91,'CARCHI','SAN ISIDRO (CARCHI SAN GA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (92,'CARCHI','SANDIAL',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','705'),
 	 (93,'CARCHI','SANTA MARTHA DE CUBA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','132'),
@@ -1489,7 +1488,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (98,'CHIMBORAZO','COLTA',1,1,0,'TE','TE','NULL','NULL','201001008','201001008008','NULL','NULL','242'),
 	 (99,'CHIMBORAZO','CUMANDA',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','469'),
 	 (100,'CHIMBORAZO','EL GUANO',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','244');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (101,'CHIMBORAZO','FLORES',0,0,1,'0','0','TE','NULL','NULL','NULL','1026','59068','NULL'),
 	 (102,'CHIMBORAZO','GUAMOTE',1,1,0,'TE','TE','NULL','NULL','201001008','201001008007','NULL','NULL','243'),
 	 (103,'CHIMBORAZO','ILAPO',0,0,1,'0','0','TE','NULL','NULL','NULL','1026','59069','NULL'),
@@ -1500,7 +1499,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (108,'CHIMBORAZO','PUNGALA',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (109,'CHIMBORAZO','PUNIN',0,0,1,'0','0','TE','NULL','NULL','NULL','1026','59071','NULL'),
 	 (110,'CHIMBORAZO','RECINTO EL BATAN',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (111,'CHIMBORAZO','RECINTO EL ROSARIO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (112,'CHIMBORAZO','RECINTO SAN PEDRO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (113,'CHIMBORAZO','RECITNO EL CHAGUE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1511,7 +1510,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (118,'CHIMBORAZO','SAN LUIS (CHIMBORAZO)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (119,'CHIMBORAZO','SANTA ROSA DE AGUA CLARA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (120,'CHIMBORAZO','YARUQUIES',1,1,1,'TE','TE','TN','NULL','201001008','201001008011','1026','57711','680');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (121,'COTOPAXI','BELISARIO QUEVEDO',1,1,1,'TE','TE','TE','NULL','201001007','201001007012','1027','57713','521'),
 	 (122,'COTOPAXI','CHIPUALO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','522'),
 	 (123,'COTOPAXI','EL CORAZON',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','706'),
@@ -1522,7 +1521,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (128,'COTOPAXI','LATACUNGA',1,1,1,'TP','TP','TN','NULL','201001007','201001007001','1027','56290','41'),
 	 (129,'COTOPAXI','MORASPUNGO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','712'),
 	 (130,'COTOPAXI','MULALAO',1,1,1,'TE','TE','TE','NULL','201001007','201001007015','1027','57719','524');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (131,'COTOPAXI','MULALILLO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','525'),
 	 (132,'COTOPAXI','PANGUA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','707'),
 	 (133,'COTOPAXI','PANZALEO',1,0,1,'TE','0','TN','NULL','NULL','NULL','1027','57721','526'),
@@ -1533,7 +1532,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (138,'COTOPAXI','RUMIPAMBA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','529'),
 	 (139,'COTOPAXI','SALCEDO',1,1,1,'TE','TE','TN','NULL','201001007','201001007002','1027','56295','66'),
 	 (140,'COTOPAXI','SAN MARCOS',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','530');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (141,'COTOPAXI','SANTA ANA (COTOPAXI)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (142,'COTOPAXI','SAQUISILI',1,1,1,'TE','TE','TE','NULL','201001007','201001007003','1027','56296','256'),
 	 (143,'COTOPAXI','SIGCHOS',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','708'),
@@ -1544,7 +1543,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (148,'COTOPAXI','11 DE NOVIEMBRE (ILINCHISI)',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (149,'COTOPAXI','ALAQUES (ALAQUEZ) ',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (150,'COTOPAXI','EL CARMEN ',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (151,'COTOPAXI','MULALO',0,1,0,'0','TE','NULL','NULL','201001007','201001007010','NULL','NULL','NULL'),
 	 (152,'COTOPAXI','MULLIQUINDIL',0,0,1,'0','0','TE','NULL','NULL','NULL','1027','59074','NULL'),
 	 (153,'COTOPAXI','SAN MIGUEL',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1555,7 +1554,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (158,'EL ORO','CANA QUEMADA',1,0,1,'TE','0','TE','NULL','NULL','NULL','1028','57737','538'),
 	 (159,'EL ORO','EL CAMBIO',1,1,1,'TE','TE','TE','NULL','201001009','201001009011','1028','57738','351'),
 	 (160,'EL ORO','EL GUABO',1,1,1,'TE','TE','TE','NULL','201001009','201001009008','1028','56301','58');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (161,'EL ORO','EL PACHE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','540'),
 	 (162,'EL ORO','EL PORTON',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','541'),
 	 (163,'EL ORO','HUAQUILLAS',1,1,1,'TR','TE','TN','NULL','201001009','201001009007','1028','56302','35'),
@@ -1566,7 +1565,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (168,'EL ORO','LOMA DE FRANCO',1,1,0,'TE','TE','NULL','NULL','201001009','201001009018','NULL','NULL','368'),
 	 (169,'EL ORO','MACHALA',1,0,1,'TR','0','TN','NULL','201001009','201001009001','1028','56304','7'),
 	 (170,'EL ORO','MARCABELI',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','488');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (171,'EL ORO','PACCHA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','759'),
 	 (172,'EL ORO','PASAJE',1,1,1,'TE','TE','TN','NULL','201001009','201001009002','1028','56306','36'),
 	 (173,'EL ORO','PINAS',1,1,0,'TE','TE','NULL','NULL','201001009','201001009004','NULL','NULL','50'),
@@ -1577,7 +1576,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (178,'EL ORO','RIO BONITO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','545'),
 	 (179,'EL ORO','SAN ANTONIO EL ORO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (180,'EL ORO','SAN VICENTE DEL JOBO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','547');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (181,'EL ORO','SANTA ROSA (EL ORO)',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (182,'EL ORO','SHUMIRAL',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','548'),
 	 (183,'EL ORO','ZARUMA',1,1,0,'TE','TE','NULL','NULL','201001009','201001009005','NULL','NULL','67'),
@@ -1588,7 +1587,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (188,'ESMERALDAS','ATACAMES',1,1,1,'TE','TE','TE','NULL','201001010','201001010003','1029','56311','23'),
 	 (189,'ESMERALDAS','BORBON',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','549'),
 	 (190,'ESMERALDAS','ESMERALDAS',1,0,1,'TP','0','TN','NULL','201001010','201001010001','1029','56313','10');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (191,'ESMERALDAS','LA CONCORDIA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','69'),
 	 (192,'ESMERALDAS','LA INDEPENDENCIA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','236'),
 	 (193,'ESMERALDAS','LA UNION (QUININDE)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1599,7 +1598,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (198,'ESMERALDAS','QUININDE',1,1,1,'TE','TE','TN','NULL','201001010','201001010008','1029','56315','96'),
 	 (199,'ESMERALDAS','RIO VERDE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','715'),
 	 (200,'ESMERALDAS','SAME',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','266');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (201,'ESMERALDAS','SAN LORENZO',1,0,1,'TE','0','TN','NULL','NULL','NULL','1029','56317','490'),
 	 (202,'ESMERALDAS','SUA',1,0,1,'TE','0','TE','NULL','NULL','NULL','1029','57662','267'),
 	 (203,'ESMERALDAS','TACHINA',1,1,1,'TE','TE','TE','NULL','201001010','201001010016','1029','57761','269'),
@@ -1610,7 +1609,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (208,'ESMERALDAS','TABIAZO',0,0,1,'0','0','TE','NULL','NULL','NULL','1029','59081','NULL'),
 	 (209,'ESMERALDAS','VUELTA LARGA',0,0,1,'0','0','TE','NULL','NULL','NULL','1029','59082','NULL'),
 	 (210,'GALAPAGOS','ISABELA',0,1,0,'0','GAL','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (211,'GALAPAGOS','SAN CRISTOBAL',0,1,0,'0','GAL','NULL','NULL','201001020','201001020003','NULL','NULL','49'),
 	 (212,'GALAPAGOS','SANTA CRUZ',0,1,0,'0','GAL','NULL','NULL','201001020','201001020002','NULL','NULL','468'),
 	 (213,'GUAYAS','3 POSTES',1,0,0,'TE','0','0','','201001002','','1031','','567'),
@@ -1621,7 +1620,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (218,'GUAYAS','BOLICHE',1,1,1,'TE','TN','TE','','201001002','2010010012067','1031','57768','569'),
 	 (219,'GUAYAS','BUCAY',1,0,1,'TE','0','TE','','201001002','201001002037','1031','','68'),
 	 (220,'GUAYAS','CERECITA',1,0,1,'TE','0','TE','','201001002','201001002027','1031','','323');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (221,'GUAYAS','CHIVERIA',1,0,1,'TE','0','TE','','201001002','201001002054','1031','','682'),
 	 (222,'GUAYAS','CHONGON',1,0,1,'TR','0','TE','','201001002','201001002032','1031','','223'),
 	 (223,'GUAYAS','CHURUTE',1,0,0,'TE','0','0','','201001002','','1031','',''),
@@ -1632,7 +1631,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (228,'GUAYAS','DATA DE POSORJA',1,0,0,'TE','0','0','','201001002','','1031','',''),
 	 (229,'GUAYAS','DAULE',1,1,1,'TR','0','TE','','201001002','201001002009','1031','56326','25'),
 	 (230,'GUAYAS','DURAN',1,1,1,'TR','0','TE','','201001002','201001002002','1031','56327','24');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (231,'GUAYAS','EL DESEO',1,0,1,'TE','0','TE','','201001002','201001002049','1031','','726'),
 	 (232,'GUAYAS','EL EMPALME',1,1,0,'TE','TE','0','','201001002','','1031','56328','767'),
 	 (233,'GUAYAS','EL MORRO',1,0,0,'TE','0','0','','201001002','','1031','','118'),
@@ -1643,7 +1642,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (238,'GUAYAS','GENERAL VERNAZA',1,0,1,'TE','0','TE','','201001002','201001002056','1031','','111'),
 	 (239,'GUAYAS','GUAYAQUIL',1,1,1,'TR','TN','TP','','201001002','201001002001','1031','56331','1'),
 	 (240,'GUAYAS','INGENIO SAN CARLOS',1,0,1,'TE','0','TE','','201001002','201001002074','1031','','727');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (241,'GUAYAS','ISIDRO AYORA',1,0,1,'TE','0','TE','','201001002','201001002025','1031','','321'),
 	 (242,'GUAYAS','JESUS MARIA',1,0,0,'TE','0','0','','201001002','','1031','',''),
 	 (243,'GUAYAS','JUJAN',1,0,1,'TE','0 ','TE','','201001002','201001002018','1031','57784','376'),
@@ -1654,7 +1653,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (248,'GUAYAS','LA T DE SALITRE',1,0,0,'TE','0','0','','201001002','','1031','','555'),
 	 (249,'GUAYAS','LA TOMA',1,1,1,'TE','TE','TE','NULL','201001002','201001002030','1031','59084','556'),
 	 (250,'GUAYAS','LA VICTORIA',1,1,0,'TE','TE','NULL','NULL','201001002','201001002024','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (251,'GUAYAS','LAS ANIMAS',1,1,0,'TE','TE','NULL','NULL','201001002','201001002050','NULL','NULL','557'),
 	 (252,'GUAYAS','LOS TINTOS',1,1,1,'TE','TE','TE','NULL','201001002','201001002059','1031','57795','304'),
 	 (253,'GUAYAS','MANUEL J CALLE',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','769'),
@@ -1665,7 +1664,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (258,'GUAYAS','NARANJAL',1,1,1,'TE','TE','TN','NULL','201001002','201001002015','1031','56336','20'),
 	 (259,'GUAYAS','NARANJITO',1,1,1,'TE','TE','TE','NULL','201001002','201001002033','1031','56337','345'),
 	 (260,'GUAYAS','NOBOL',1,1,0,'TE','TE','NULL','NULL','201001002','201001002021','NULL','NULL','317');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (261,'GUAYAS','PALESTINA',1,1,0,'TE','TE','NULL','NULL','201001002','201001002022','NULL','NULL','315'),
 	 (262,'GUAYAS','PEDRO CARBO',1,1,0,'TE','TE','NULL','NULL','201001002','201001002040','NULL','NULL','61'),
 	 (263,'GUAYAS','PETRILLO',1,1,0,'TE','TE','NULL','NULL','201001002','201001002060','NULL','NULL','318'),
@@ -1676,7 +1675,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (268,'GUAYAS','PUERTO DEL ENGABAO',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','562'),
 	 (269,'GUAYAS','PUERTO INCA',1,1,0,'TE','TE','NULL','NULL','201001002','201001002028','NULL','NULL','332'),
 	 (270,'GUAYAS','ROBERTO ASTUDILLO',1,1,1,'TE','TE','TE','NULL','201001002','201001002052','1031','57806','343');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (271,'GUAYAS','SABANILLA (PEDRO CARBO)',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (272,'GUAYAS','SALITRE',1,1,0,'TE','TE','NULL','NULL','201001002','201001002031','NULL','NULL','305'),
 	 (273,'GUAYAS','SAMBORONDON',1,1,1,'TE','TE','TN','NULL','201001002','201001002019','1031','56343','60'),
@@ -1687,7 +1686,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (278,'GUAYAS','TARIFA',1,1,0,'TE','TE','NULL','NULL','201001002','201001002063','NULL','NULL','301'),
 	 (279,'GUAYAS','TAURA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','775'),
 	 (280,'GUAYAS','TENGUEL',1,1,0,'TE','TE','NULL','NULL','201001002','201001002017','NULL','NULL','336');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (281,'GUAYAS','VILLA NUEVA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','565'),
 	 (282,'GUAYAS','VIRGEN DE FATIMA KM 26',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','566'),
 	 (283,'GUAYAS','YAGUACHI',0,1,1,'0','TE','TE','NULL','201001002','201001002006','1031','56345','182'),
@@ -1698,7 +1697,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (288,'GUAYAS','CUMANDA',0,1,0,'0','TE','NULL','NULL','201001002','201001010010','NULL','NULL','NULL'),
 	 (289,'GUAYAS','CUMANDA MILAGRO',0,1,0,'0','TE','NULL','NULL','201001002','201001002078','NULL','NULL','NULL'),
 	 (290,'GUAYAS','ELOY ALFARO - DURÁN',0,1,0,'0','TE','NULL','NULL','NULL','NULL','NULL','NULL','719');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (291,'GUAYAS','GENERAL VILLAMIL (PLAYAS)',0,1,0,'0','TE','NULL','NULL','201001002','201001002075','NULL','NULL','NULL'),
 	 (292,'GUAYAS','KM 26 - VIRGEN DE FÁTIMA',0,1,0,'0','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (293,'GUAYAS','KM 26 VIA DURAN TAMBO',0,1,0,'0','TE','NULL','NULL','201001002','201001002039','NULL','NULL','NULL'),
@@ -1709,7 +1708,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (298,'IMBABURA','ADUANA',1,1,0,'TE','TS','NULL','NULL','NULL','NULL','NULL','NULL','575'),
 	 (299,'IMBABURA','ALPACHACA',1,0,1,'TE','0','TN','NULL','NULL','NULL','1032','57818','101'),
 	 (300,'IMBABURA','ANDRADE MARIN',1,1,1,'TE','TS','TN','NULL','201001011','201001011021','1032','57819','102');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (301,'IMBABURA','ANTONIO ANTE',0,0,1,'0','0','TE','NULL','201001011','201001011022','1032','56346','728'),
 	 (302,'IMBABURA','ATUNTAQUI',1,1,1,'TE','TS','TE','NULL','201001011','201001011001','1032','57820','54'),
 	 (303,'IMBABURA','CANVALLE-MILAGRO',0,1,0,'0','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1720,7 +1719,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (308,'IMBABURA','EL OLIVO',1,0,1,'TE','0','TN','NULL','NULL','NULL','1032','57824','577'),
 	 (309,'IMBABURA','EL RETORNO',1,0,1,'TE','0','TN','NULL','NULL','NULL','1032','57825','578'),
 	 (310,'IMBABURA','EUGENIO ESPEJO (CALPAQUI) ',0,0,1,'0','0','TE','NULL','NULL','NULL','1032','59086','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (311,'IMBABURA','GONZALEZ SUAREZ',0,1,0,'0','TE','NULL','NULL','201001011','201001011012','NULL','NULL','NULL'),
 	 (312,'IMBABURA','IBARRA',1,1,1,'TP','TP','TN','NULL','201001011','201001011005','1032','56348','40'),
 	 (313,'IMBABURA','IMANTAG',0,0,1,'0','0','TE','NULL','NULL','NULL','1032','59088','NULL'),
@@ -1731,7 +1730,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (318,'IMBABURA','OTAVALO',1,1,1,'TE','TP','TN','NULL','201001011','201001011002','1032','56349','56'),
 	 (319,'IMBABURA','PEGUCHE',0,1,1,'0','TE','TN','NULL','201001011','201001011013','1032','59091','NULL'),
 	 (320,'IMBABURA','PERUGACHI',0,1,0,'0','TE','NULL','NULL','201001011','201001011030','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (321,'IMBABURA','PIMAMPIRO',1,1,0,'TE','TE','NULL','NULL','201001011','201001011003','NULL','NULL','252'),
 	 (322,'IMBABURA','PINSAQUI',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','579'),
 	 (323,'IMBABURA','PUERTO LAGO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','580'),
@@ -1742,7 +1741,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (328,'IMBABURA','SAN BLAS',0,0,1,'0','0','TE','NULL','NULL','NULL','1032','59092','NULL'),
 	 (329,'IMBABURA','SAN FRANCISCO DE NATABUELA',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (330,'IMBABURA','SAN JOSE',0,1,0,'0','TS','NULL','NULL','201001011','201001011026','NULL','NULL','581');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (331,'IMBABURA','SAN JUAN DE ILUMAN',0,0,1,'0','0','TE','NULL','NULL','NULL','1032','59093','NULL'),
 	 (332,'IMBABURA','SAN LUIS ',0,1,0,'0','TS','NULL','NULL','201001011','201001011027','NULL','NULL','730'),
 	 (333,'IMBABURA','SAN MIGUEL DE IBARRA',0,1,0,'0','TS','NULL','NULL','201001011','201001011031','NULL','NULL','NULL'),
@@ -1753,7 +1752,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (338,'IMBABURA','SANTA BERTHA',0,1,0,'0','TS','NULL','NULL','201001011','201001011028','NULL','NULL','NULL'),
 	 (339,'IMBABURA','TIERRA BLANCA',0,1,0,'0','TS','NULL','NULL','201001011','201001011029','NULL','NULL','NULL'),
 	 (340,'IMBABURA','TUMBACO',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (341,'IMBABURA','URCUQUI',1,1,1,'TE','TE','TE','NULL','201001011','201001011004','1032','59096','729'),
 	 (342,'IMBABURA','YACHAY',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','731'),
 	 (343,'IMBABURA','YAGUARCOCHA',1,0,1,'TE','0','TN','NULL','201001011','201001011019','1032','57836','583'),
@@ -1764,7 +1763,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (348,'LOJA','SABIANGO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (349,'LOJA','SAN JOSE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (350,'LOJA','SAN LUCAS',1,0,0,'TE','0','NULL','NULL','201001012','201001012015','NULL','NULL','588');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (351,'LOJA','SAN PEDRO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (352,'LOJA','SANTIAGO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','683'),
 	 (353,'LOJA','SARAGURO',1,0,0,'TE','0','NULL','NULL','201001012','201001012009','NULL','NULL','430'),
@@ -1775,7 +1774,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (358,'LOJA','SUCRE',0,0,1,'0','0','TE','NULL','NULL','NULL','1033','59098','NULL'),
 	 (359,'LOJA','SAN PEDRO DE LA BENDITA',0,1,0,'0','TE','NULL','NULL','201001012','201001012014','NULL','NULL','NULL'),
 	 (360,'LOJA','SAN PEDRO DE VILCABAMBA',0,1,0,'0','TE','NULL','NULL','201001012','201001012013','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (361,'LOJA','VILCABAMBA',0,0,0,'NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','431'),
 	 (362,'LOJA','CALVAS',0,1,0,'0','TE','NULL','NULL','201001012','201001012017','NULL','NULL','NULL'),
 	 (363,'LOS RIOS','BABA',1,1,1,'TE','TE','TE','NULL','201001013','201001013013','1034','56368','374'),
@@ -1786,7 +1785,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (368,'LOS RIOS','CATARAMA',1,1,0,'TE','TE','NULL','NULL','201001013','201001012003','NULL','NULL','385'),
 	 (369,'LOS RIOS','ECHEANDIA',0,1,0,'0','TE','NULL','NULL','201001013','201001004002','NULL','NULL','NULL'),
 	 (370,'LOS RIOS','EL EMPALME',0,1,0,'0','TE','NULL','NULL','201001013','201001002011','NULL','NULL','227');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (371,'LOS RIOS','ENTRADA DE SAN JUAN',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','590'),
 	 (372,'LOS RIOS','FEBRES CORDERO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (373,'LOS RIOS','FUMISA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','591'),
@@ -1797,7 +1796,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (378,'LOS RIOS','LA CARMELA - GUARE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (379,'LOS RIOS','LA ESMERALDA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (380,'LOS RIOS','LA ESPERANZA',1,1,0,'TE','TE','NULL','NULL','201001013','201001013026','NULL','NULL','593');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (381,'LOS RIOS','LA JULIA',1,1,0,'TE','TE','NULL','NULL','201001013','201001013025','NULL','NULL','594'),
 	 (382,'LOS RIOS','LA UNION (BABAHOYO)',1,0,1,'TE','0','TE','NULL','NULL','NULL','1034','57866','NULL'),
 	 (383,'LOS RIOS','LA UNION (VALENCIA)',1,1,1,'TE','TE','TN','NULL','NULL','NULL','1034','57867','NULL'),
@@ -1808,7 +1807,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (388,'LOS RIOS','PALENQUE',1,1,0,'TE','TE','NULL','NULL','201001013','201001002036','NULL','NULL','378'),
 	 (389,'LOS RIOS','PALMISA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','597'),
 	 (390,'LOS RIOS','PATRICIA PILAR',1,0,0,'TE','0','NULL','NULL','201001013','201001013010','NULL','NULL','280');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (391,'LOS RIOS','PIMOCHA',1,0,1,'TE','0','TE','NULL','NULL','NULL','1034','57873','NULL'),
 	 (392,'LOS RIOS','PROGRESO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (393,'LOS RIOS','PUEBLO NUEVO (LOS RIOS)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1819,7 +1818,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (398,'LOS RIOS','RICAURTE',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','387'),
 	 (399,'LOS RIOS','SAN CAMILO',1,1,1,'TE','TE','TE','NULL','201001013','201001013014','1034','57876','55'),
 	 (400,'LOS RIOS','SAN CARLOS',0,1,1,'0','TE','TE','NULL','201001013','201001013015','1034','57877','233');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (401,'LOS RIOS','SAN CARLOS (LOS RIOS)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','233'),
 	 (402,'LOS RIOS','SAN JACINTO DE BUENA FE',0,1,0,'0','TE','NULL','NULL','201001013','201001013023','NULL','NULL','NULL'),
 	 (403,'LOS RIOS','SAN JOSE DEL TAMBO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1830,7 +1829,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (408,'LOS RIOS','URDANETA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','133'),
 	 (409,'LOS RIOS','VALENCIA',1,1,1,'TE','TE','TE','NULL','201001013','201001013004','1034','56377','181'),
 	 (410,'LOS RIOS','VENTANAS',1,1,1,'TR','TE','TN','NULL','201001013','201001013003','1034','56378','12');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (411,'LOS RIOS','VINCES',1,1,1,'TE','TE','TN','NULL','201001013','201001013006','1034','56379','57'),
 	 (412,'LOS RIOS','ZAPOTAL',0,0,1,'0','0','TE','NULL','NULL','NULL','1034','57881','134'),
 	 (413,'LOS RIOS','ZAPOTAL (LOS RIOS)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','134'),
@@ -1841,7 +1840,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (418,'MANABI','AYACUCHO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (419,'MANABI','AYAMPE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (420,'MANABI','BACHILLERO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','103');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (421,'MANABI','BAHIA DE CARAQUEZ',1,1,0,'TR','TP','NULL','NULL','201001014','201001014003','NULL','NULL','30'),
 	 (422,'MANABI','BASE NAVAL JARAMIJO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (423,'MANABI','BELLAVISTA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','105'),
@@ -1852,7 +1851,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (428,'MANABI','CANUTO',1,1,1,'TE','TS','TE','NULL','201001014','201001014032','1035','57894','106'),
 	 (429,'MANABI','CASCOL',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','427'),
 	 (430,'MANABI','CERECITO (VIA CRUCITA)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (431,'MANABI','CHARAPOTO',1,1,0,'TE','TE','NULL','NULL','201001014','201001014015','NULL','NULL','417'),
 	 (432,'MANABI','CHEVE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','607'),
 	 (433,'MANABI','CHONE',1,1,1,'TR','TS','TN','NULL','201001014','201001014004','1035','56381','95'),
@@ -1863,7 +1862,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (438,'MANABI','COLORADO',1,1,0,'TE','TE','NULL','NULL','201001014','201001014044','NULL','NULL','684'),
 	 (439,'MANABI','CRUCITA',1,1,1,'TE','TE','TE','NULL','201001014','201001014010','1035','57903','400'),
 	 (440,'MANABI','DON JUAN',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','611');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (441,'MANABI','EL CARMEN',1,1,1,'TE','TP','TN','NULL','201001014','201001014005','1035','56382','74'),
 	 (442,'MANABI','EL MATAL',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','612'),
 	 (443,'MANABI','EL NARANJO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1874,7 +1873,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (448,'MANABI','JARAMIJO',1,1,1,'TE','TE','TE','NULL','201001014','201001014013','1035','56387','409'),
 	 (449,'MANABI','JIPIJAPA',1,1,0,'TR','TE','NULL','NULL','201001014','201001014006','NULL','NULL','97'),
 	 (450,'MANABI','JUNIN',1,1,0,'TE','TS','NULL','NULL','201001014','201001014009','NULL','NULL','414');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (451,'MANABI','LA CHORRERA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','739'),
 	 (452,'MANABI','LA ESTANCILLA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','412'),
 	 (453,'MANABI','LA SEGUA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1885,7 +1884,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (458,'MANABI','LOS BAJOS',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','615'),
 	 (459,'MANABI','MACHALILLA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','117'),
 	 (460,'MANABI','MANTA',1,1,1,'TR','TP','TN','NULL','201001014','201001014001','1035','56388','13');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (461,'MANABI','MEJIA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (462,'MANABI','MONTECRISTI',1,1,1,'TE','TE','TE','NULL','201001014','201001014020','1035','56389','90'),
 	 (463,'MANABI','NUEVO BRICENO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','617'),
@@ -1896,7 +1895,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (468,'MANABI','PEDERNALES',1,1,0,'TE','TS','NULL','NULL','201001014','201001010009','NULL','NULL','70'),
 	 (469,'MANABI','PICHINCHA',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','234'),
 	 (470,'MANABI','PLAYA PRIETA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','740');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (471,'MANABI','PORTOVIEJO',1,1,1,'TR','TP','TN','NULL','201001014','201001014002','1035','56395','3'),
 	 (472,'MANABI','PUEBLO NUEVO',1,0,1,'TE','0','TE','NULL','NULL','NULL','1035','57874','126'),
 	 (473,'MANABI','PUEBLO NUEVO (MANABI)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','126'),
@@ -1907,7 +1906,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (478,'MANABI','RICAURTE',1,1,1,'TE','TS','TE','NULL','NULL','NULL','1035','59150','737'),
 	 (479,'MANABI','RIO CHICO',1,1,1,'TE','TE','TE','NULL','NULL','NULL','1035','57921','599'),
 	 (480,'MANABI','ROCAFUERTE',1,1,1,'TE','TE','TE','NULL','201001014','201001014012','1035','56396','401');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (481,'MANABI','SALAITE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (482,'MANABI','SALANGO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (483,'MANABI','SAN ANTONIO (MANABI)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1918,7 +1917,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (488,'MANABI','SAN PLACIDO',1,1,1,'TE','TE','TE','NULL','NULL','NULL','1035','57927','619'),
 	 (489,'MANABI','SAN VICENTE',1,1,0,'TE','TE','NULL','NULL','201001014','201001014018','NULL','NULL','416'),
 	 (490,'MANABI','SANCAN',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','620');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (491,'MANABI','SANTA ANA (MANABI)',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (492,'MANABI','SANTA RITA',1,0,0,'TR','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (493,'MANABI','SESME',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1929,7 +1928,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (498,'MANABI','ZAPALLO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (499,'MANABI','ABDON CALDERON (SAN FRANCISCO)',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (500,'MANABI','SAN PEDRO DE SUMA',0,0,1,'0','0','TE','NULL','NULL','NULL','1035','59099','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (501,'MANABI','COSTA AZUL',0,1,0,'0','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (502,'MANABI','ESTANCILLA',0,1,0,'0','TS','NULL','NULL','201001014','201001014033','NULL','NULL','NULL'),
 	 (503,'MANABI','LA DELICIA KM. 29',0,1,0,'0','TE','NULL','NULL','201001014','201001014035','NULL','NULL','NULL'),
@@ -1940,7 +1939,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (508,'MANABI','SUCRE',0,1,0,'0','TE','NULL','NULL','201001014','201001014042','NULL','NULL','NULL'),
 	 (509,'MANABI','TARQUI MANABÍ',0,1,0,'0','TE','NULL','NULL','201001014','201001014041','NULL','NULL','NULL'),
 	 (510,'MORONA SANTIAGO','GENERAL PROAÑO',0,0,1,'0','0','TE','NULL','NULL','NULL','1036','59100','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (511,'MORONA SANTIAGO','GUALAQUIZA',1,0,0,'TE','0','NULL','NULL','201001015','201001015002','NULL','NULL','33'),
 	 (512,'MORONA SANTIAGO','HUAMBOYA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (513,'MORONA SANTIAGO','LIMON INDANZA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','494'),
@@ -1951,7 +1950,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (518,'MORONA SANTIAGO','PALORA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','297'),
 	 (519,'MORONA SANTIAGO','RIO BLANCO',0,0,1,'0','0','TE','NULL','NULL','NULL','1036','59101','NULL'),
 	 (520,'MORONA SANTIAGO','SAN ISIDRO',0,0,1,'0','0','TE','NULL','NULL','NULL','1036','59102','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (521,'MORONA SANTIAGO','SEVILLA DON BOSCO',0,0,1,'0','0','TE','NULL','NULL','NULL','1036','59103','NULL'),
 	 (522,'MORONA SANTIAGO','SUCUA',1,1,0,'TE','TO','NULL','NULL','201001015','201001017007','NULL','NULL','773'),
 	 (523,'MORONA SANTIAGO','TIWINTZA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1962,7 +1961,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (528,'NAPO','CARLOS JULIO AROSEMENA',0,1,0,'0','TO','NULL','NULL','201001016','201001016009','NULL','NULL','NULL'),
 	 (529,'NAPO','CARLOS JULIO AROSEMENA TOLA',0,1,0,'0','TO','NULL','NULL','201001016','201001016008','NULL','NULL','NULL'),
 	 (530,'NAPO','COTUNDO',1,0,1,'TE','0','TE','NULL','NULL','NULL','1037','57938','741');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (531,'NAPO','EL CHACO',1,1,0,'TE','TO','NULL','NULL','201001016','201001017012','NULL','NULL','491'),
 	 (532,'NAPO','GONZALO PIZARRO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','625'),
 	 (533,'NAPO','MISAHUALLI',0,1,0,'0','TO','NULL','NULL','201001016','201001016005','NULL','NULL','NULL'),
@@ -1973,7 +1972,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (538,'NAPO','SAN PABLO DE USHPAYACU',0,0,1,'0','0','TE','NULL','NULL','NULL','1037','59106','NULL'),
 	 (539,'NAPO','TAZAYACU',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','742'),
 	 (540,'NAPO','TENA',1,1,1,'TE','TO','TN','NULL','201001016','201001016001','1037','56417','78');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (541,'ORELLANA','EL COCA',1,0,1,'TE','0','TN','NULL','201001017','201001017002','1038','57943','38'),
 	 (542,'ORELLANA','JOYA DE LOS SACHAS',1,1,1,'TE','TO','TN','NULL','NULL','NULL','1038','56420','291'),
 	 (543,'ORELLANA','LORETO',1,1,0,'TE','TO','NULL','NULL','201001017','201001017016','NULL','NULL','116'),
@@ -1984,7 +1983,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (548,'ORELLANA','SAN CARLOS',0,0,1,'0','0','TE','NULL','NULL','NULL','1038','59109','NULL'),
 	 (549,'ORELLANA','SAN SEBASTIAN DEL COCA',0,0,1,'0','0','TE','NULL','NULL','NULL','1038','59110','NULL'),
 	 (550,'ORELLANA','LAGO SAN PEDRO',0,0,1,'0','0','TE','NULL','NULL','NULL','1038','59108','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (551,'ORELLANA','UNION MILAGREÑA',0,0,1,'0','0','TE','NULL','NULL','NULL','1038','59111','NULL'),
 	 (552,'PASTAZA','10 DE AGOSTO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (553,'PASTAZA','AMERICAS',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -1995,7 +1994,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (558,'PASTAZA','PUYO',1,1,1,'TE','TO','TN','NULL','201001018','201001018001','1039','57319','22'),
 	 (559,'PASTAZA','SAN JOSE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (560,'PASTAZA','SANTA CLARA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','293');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (561,'PASTAZA','SHELL (EL PUYO)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','295'),
 	 (562,'PASTAZA','TNT HUGO ORTIZ',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (563,'PASTAZA','SHELL ',0,1,1,'0','TO','TE','NULL','201001018','201001017004','1039','57660','295'),
@@ -2006,7 +2005,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (568,'PICHINCHA','AMAGUANA',1,1,1,'TL','TS','TE','NULL','201001001','201001001018','1040','57947','442'),
 	 (569,'PICHINCHA','ASCAZUBI ',0,1,0,'0','TE','NULL','NULL','201001001','201001001062','NULL','NULL','NULL'),
 	 (570,'PICHINCHA','AYORA',1,1,1,'TE','TE','TE','NULL','201001001','201001001042','1040','57948','630');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (571,'PICHINCHA','BICENTENARIO - REPLICA MONTUFAR',0,1,0,'0','TS','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (572,'PICHINCHA','CAJAS',0,1,0,'0','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (573,'PICHINCHA','CALACALI',1,1,0,'TL','TS','NULL','NULL','201001001','201001001022','NULL','NULL','631'),
@@ -2017,7 +2016,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (578,'PICHINCHA','CONOCOTO',1,1,1,'TL','TS','TN','NULL','201001001','201001001033','1040','57951','444'),
 	 (579,'PICHINCHA','COTOGCHOA',0,0,1,'0','0','TE','NULL','NULL','NULL','1040','59114','NULL'),
 	 (580,'PICHINCHA','CUMBAYA',1,1,1,'TL','TS','TN','NULL','201001001','201001001009','1040','57952','47');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (581,'PICHINCHA','CUSUBAMBA',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','633'),
 	 (582,'PICHINCHA','EL CHAUPI',0,1,0,'0','TE','NULL','NULL','201001001','201001001071','NULL','NULL','NULL'),
 	 (583,'PICHINCHA','EL QUINCHE',0,1,0,'0','TE','NULL','NULL','201001001','201001001007','NULL','NULL','NULL'),
@@ -2028,7 +2027,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (588,'PICHINCHA','LA ARMENIA',1,1,1,'TL','TS','TN','NULL','201001001','201001001047','1040','57957','636'),
 	 (589,'PICHINCHA','LA ESPERANZA',0,1,1,'0','TS','TE','NULL','NULL','NULL','1040','59154','NULL'),
 	 (590,'PICHINCHA','LA MERCED',0,0,1,'0','0','TN','NULL','NULL','NULL','1040','59117','113');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (591,'PICHINCHA','LA ROLDOS',0,1,0,'0','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (592,'PICHINCHA','LA SEXTA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (593,'PICHINCHA','LLANO CHICO',1,1,1,'TL','TS','TN','NULL','201001001','201001001048','1040','57958','637'),
@@ -2039,7 +2038,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (598,'PICHINCHA','MITAD DEL MUNDO',0,1,0,'0','TS','NULL','NULL','201001001','201001001021','NULL','NULL','29'),
 	 (599,'PICHINCHA','MONJAS',1,1,0,'TL','TS','NULL','NULL','201001001','201001002043','NULL','NULL','639'),
 	 (600,'PICHINCHA','NANEGALITO',1,1,0,'TE','TE','NULL','NULL','201001001','201001001029','NULL','NULL','121');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (601,'PICHINCHA','NAYON ',0,0,1,'0','0','TN','NULL','NULL','NULL','1040','59155','NULL'),
 	 (602,'PICHINCHA','NONO',0,1,0,'0','TE','NULL','NULL','201001001','201001001068','NULL','NULL','NULL'),
 	 (603,'PICHINCHA','OLMEDO (PESILLO)',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -2050,7 +2049,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (608,'PICHINCHA','PEDRO VICENTE MALDONADO',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','451'),
 	 (609,'PICHINCHA','PIFO',1,1,1,'TL','TS','TE','NULL','201001001','201001001025','1040','57964','448'),
 	 (610,'PICHINCHA','PINTAG',1,1,1,'TL','TS','TE','NULL','201001001','201001001036','1040','57965','641');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (611,'PICHINCHA','PISULI',0,1,0,'0','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (612,'PICHINCHA','PLANADA',0,1,0,'0','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (613,'PICHINCHA','POMASQUI',1,1,1,'TL','TS','TE','NULL','201001001','201001001028','1040','57966','130'),
@@ -2061,7 +2060,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (618,'PICHINCHA','QUITO',1,1,1,'TL','TP','TN','NULL','201001001','201001001001','1040','56431','2'),
 	 (619,'PICHINCHA','RUMIÑAHUI',0,1,1,'0','TE','TN','NULL','NULL','NULL','1040','56432','NULL'),
 	 (620,'PICHINCHA','RUMIPAMBA',0,1,0,'0','TE','NULL','NULL','201001001','201001001065','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (621,'PICHINCHA','SAN ANTONIO DE PICHINCHA',1,1,1,'TC','TS','TE','NULL','201001001','201001001053','1040','57970','642'),
 	 (622,'PICHINCHA','SAN JOSE DE MORAN',1,1,1,'TC','TS','TN','NULL','201001001','201001001054','1040','57971','643'),
 	 (623,'PICHINCHA','SAN JUAN DE CALDERON',1,0,1,'TC','0','TN','NULL','NULL','NULL','1040','57972','644'),
@@ -2072,7 +2071,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (628,'PICHINCHA','TABABELA',1,1,1,'TC','TS','TE','NULL','201001001','201001001056','1040','57975','646'),
 	 (629,'PICHINCHA','TABACUNDO',1,1,1,'TE','TE','TE','NULL','201001001','201001001003','1040','57976','454'),
 	 (630,'PICHINCHA','TAMBILLO',1,1,0,'TE','TS','NULL','NULL','201001001','201001021003','NULL','NULL','456');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (631,'PICHINCHA','TOCACHI',0,0,1,'0','0','TE','NULL','NULL','NULL','1040','59157','NULL'),
 	 (632,'PICHINCHA','TUMBACO',1,1,1,'TL','TS','TN','NULL','201001001','201001001020','1040','59158','31'),
 	 (633,'PICHINCHA','TUPIGACHI',0,1,1,'0','TE','TE','NULL','NULL','NULL','1040','59159','NULL'),
@@ -2083,7 +2082,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (638,'PICHINCHA','ZAMBISA',0,1,0,'0','TS','NULL','NULL','201001001','201001001058','NULL','NULL','648'),
 	 (639,'PICHINCHA','ZAMBISA',0,0,0,'NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','648'),
 	 (640,'SANTA ELENA','ANCON',1,1,1,'TE','TE','TE','NULL','201001023','201001002034','4125','57980','483');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (641,'SANTA ELENA','ANCONCITO',1,1,1,'TE','TE','TE','NULL','201001023','201001002046','4125','57981','482'),
 	 (642,'SANTA ELENA','ATAHUALPA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (643,'SANTA ELENA','AYANGUE',1,1,0,'TE','TE','NULL','NULL','201001023','201001023018','NULL','NULL','NULL'),
@@ -2094,7 +2093,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (648,'SANTA ELENA','CHANDUY',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (649,'SANTA ELENA','CURIA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (650,'SANTA ELENA','EL TAMBO',1,0,0,'TE','0','NULL','NULL','201001023','201001023020','NULL','NULL','651');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (651,'SANTA ELENA','JAMBELI MONTEVERDE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','654'),
 	 (652,'SANTA ELENA','LA ENTRADA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (653,'SANTA ELENA','LA LIBERTAD',1,0,1,'TR','0','TN','NULL','201001023','201001002013','4125','56435','14'),
@@ -2105,7 +2104,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (658,'SANTA ELENA','OLON',1,1,0,'TE','TE','NULL','NULL','201001023','201001023006','NULL','NULL','655'),
 	 (659,'SANTA ELENA','OLONCITO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','655'),
 	 (660,'SANTA ELENA','PALMAR',1,1,0,'TE','TE','NULL','NULL','201001023','201001023013','NULL','NULL','477');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (661,'SANTA ELENA','PROSPERIDAD',1,1,0,'TE','TE','NULL','NULL','201001023','201001023014','NULL','NULL','656'),
 	 (662,'SANTA ELENA','PUNTA BARANDUA',1,1,0,'TE','TE','NULL','NULL','201001023','201001023015','NULL','NULL','657'),
 	 (663,'SANTA ELENA','PUNTA BLANCA',1,1,0,'TE','TE','NULL','NULL','201001023','201001023002','NULL','NULL','474'),
@@ -2116,7 +2115,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (668,'SANTA ELENA','SAN PABLO (SANTA ELENA)',1,1,0,'TE','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (669,'SANTA ELENA','SAN PEDRO',1,1,0,'TE','TE','NULL','NULL','201001023','201001011007','NULL','NULL','481'),
 	 (670,'SANTA ELENA','SANTA ELENA',1,1,1,'TR','TE','TN','NULL','201001023','201001002010','4125','56436','59');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (671,'SANTA ELENA','SANTA ROSA (SANTA ELENA)',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (672,'SANTA ELENA','SINCHAL',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (673,'SANTA ELENA','VALDIVIA',1,1,0,'TE','TE','NULL','NULL','201001023','201001023016','NULL','NULL','478'),
@@ -2127,7 +2126,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (678,'SANTO DOMINGO','KM 38.5 VIA QUEVEDO',1,1,0,'TE','TS','NULL','NULL','NULL','NULL','NULL','NULL','661'),
 	 (679,'SANTO DOMINGO','KM 41 VIA QUEVEDO',1,1,0,'TE','TS','NULL','NULL','NULL','NULL','NULL','NULL','662'),
 	 (680,'SANTO DOMINGO','LAS DELICIAS',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','688');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (681,'SANTO DOMINGO','LUZ DE AMERICA',1,1,0,'TE','TS','NULL','NULL','NULL','NULL','NULL','NULL','663'),
 	 (682,'SANTO DOMINGO','NUEVO ISRAEL',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','664'),
 	 (683,'SANTO DOMINGO','PUERTO LIMON',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','744'),
@@ -2138,7 +2137,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (688,'SANTO DOMINGO','ABRAHAM CALAZACÓN ',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (689,'SANTO DOMINGO','BOMBOLI',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (690,'SANTO DOMINGO','CHIGUILPE ',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (691,'SANTO DOMINGO','RÍO TOACHI ',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (692,'SANTO DOMINGO','PATRICIA PILAR',0,1,0,'0','TS','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (693,'SANTO DOMINGO','LA CONCORDIA',0,1,0,'0','TS','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -2149,7 +2148,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (698,'SUCUMBIOS','CASCALES',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','667'),
 	 (699,'SUCUMBIOS','JIVINO VERDE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','668'),
 	 (700,'SUCUMBIOS','LAGO AGRIO',1,1,1,'TE','TO','TN','NULL','201001022','201001017003','1041','56441','17');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (701,'SUCUMBIOS','LUMBAQUI',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','670'),
 	 (702,'SUCUMBIOS','PACAYACU',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (703,'SUCUMBIOS','SANTA CECILIA',1,0,1,'TE','0','TE','NULL','NULL','NULL','1041','58027','672'),
@@ -2160,7 +2159,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (708,'SUCUMBIOS','JAMBELI',0,0,1,'0','0','TE','NULL','NULL','NULL','1041','59131','NULL'),
 	 (709,'SUCUMBIOS','NUEVA LOJA (LAGO AGRIO)',0,1,0,'0','TO','NULL','NULL','201001022','201001022001','NULL','NULL','NULL'),
 	 (710,'SUCUMBIOS','SAN PEDRO DE LOS COFANES',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (711,'TUNGURAHUA','AMBATILLO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (712,'TUNGURAHUA','AMBATO',1,1,1,'TP','TP','TN','NULL','201001019','20100101901','1042','56445','42'),
 	 (713,'TUNGURAHUA','BANOS',1,1,0,'TR','TE','NULL','NULL','201001019','20100101902','NULL','NULL','79'),
@@ -2171,7 +2170,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (718,'TUNGURAHUA','MOCHA',0,1,0,'0','TE','NULL','NULL','201001019','201001019007','NULL','NULL','262'),
 	 (719,'TUNGURAHUA','PATATE',1,1,0,'TE','TE','NULL','NULL','201001019','201001003008','NULL','NULL','261'),
 	 (720,'TUNGURAHUA','PELILEO',1,1,1,'TE','TE','TE','NULL','201001019','201001019004','1042','56450','259');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (721,'TUNGURAHUA','PILLARO',1,1,0,'TE','TE','NULL','NULL','201001019','201001019006','NULL','NULL','260'),
 	 (722,'TUNGURAHUA','PINLLO',1,0,1,'TE','0','TN','NULL','NULL','NULL','1042','59170','NULL'),
 	 (723,'TUNGURAHUA','QUERO',1,1,1,'TE','TE','TE','NULL','201001019','201001019008','1042','56452','263'),
@@ -2182,7 +2181,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (728,'TUNGURAHUA','CUNCHIBAMBA',0,0,0,'0','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (729,'TUNGURAHUA','HUACHI GRANDE',0,0,1,'0','0','TN','NULL','NULL','NULL','1042','59166','NULL'),
 	 (730,'TUNGURAHUA','IZAMBA',0,0,1,'0','0','TN','NULL','NULL','NULL','1042','59167','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (731,'TUNGURAHUA','MUNDUGLEO',0,0,1,'0','0','TN','NULL','NULL','NULL','1042','59168','NULL'),
 	 (732,'TUNGURAHUA','PICAIGUA',0,0,1,'0','0','TN','NULL','NULL','NULL','1042','59169','NULL'),
 	 (733,'TUNGURAHUA','QUINCHICOTO',0,0,1,'0','0','TE','NULL','NULL','NULL','1042','59171','NULL'),
@@ -2193,7 +2192,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (738,'TUNGURAHUA','MOCHA',0,0,0,'NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','262'),
 	 (739,'TUNGURAHUA','MONTALVO',0,1,0,'NULL','TE','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (740,'TUNGURAHUA','SAN PEDRO DE PELILEO',0,1,0,'0','TE','NULL','NULL','201001019','201001019013','NULL','NULL','NULL');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (741,'TUNGURAHUA','ULBA',0,1,0,'0','TE','NULL','NULL','201001019','201001019012','NULL','NULL','NULL'),
 	 (742,'ZAMORA','28 DE MAYO',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (743,'ZAMORA','CENTINELA DEL CONDOR',0,1,0,'0','TO','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -2204,7 +2203,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (748,'ZAMORA','CUMBARATZA',1,0,1,'TE','0','TE','NULL','','NULL','1043','58035','757'),
 	 (749,'ZAMORA','EL PADMI',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (750,'ZAMORA','EL PANGUI',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','747');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (751,'ZAMORA','GUADALUPE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','753'),
 	 (752,'ZAMORA','GUALAQUIZA',0,1,0,'0','TO','NULL','NULL','201001015','201001015002','NULL','NULL','NULL'),
 	 (753,'ZAMORA','GUAYZIMI',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -2215,7 +2214,7 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (758,'ZAMORA','PANGUINTZA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (759,'ZAMORA','PAQUIZHA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','750'),
 	 (760,'ZAMORA','PIUNTZA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','752');");
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
+mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (761,'ZAMORA','SAN ROQUE',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
 	 (762,'ZAMORA','TIMBARA',0,0,1,'0','0','TE','NULL','NULL','NULL','1043','59147','NULL'),
 	 (763,'ZAMORA','TUNDAYME',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL'),
@@ -2225,7 +2224,23 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.ciudad_cotizacion (id_coti
 	 (767,'ZAMORA','ZUMBA',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','676'),
 	 (768,'ZAMORA','ZUMBI',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
 
+mysqli_query($conexion, "CREATE TABLE `cobertura_servientrega` (
+  `id_cobertura` int(11) NOT NULL AUTO_INCREMENT,
+  `tipo_cobertura` varchar(20) NOT NULL,
+  `costo` double DEFAULT NULL,
+  `precio` double DEFAULT NULL
+  );");
 
+mysqli_query($conexion, "INSERT INTO prueba_imporsuit.cobertura_servientrega (id_cobertura,tipo_cobertura,costo,precio) VALUES
+(1,'TL',2.04,4.75),
+(2,'TC',3.15,4.75),
+(3,'TP',3.48,5.0),
+(4,'TR',3.86,5.3),
+(5,'TE',4.66,5.8);
+");
+
+
+echo mysqli_error($conexion); // Si hay error lo mostramos
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
