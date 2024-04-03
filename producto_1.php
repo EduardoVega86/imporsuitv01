@@ -313,47 +313,49 @@ if ($formato == 3) {
     <div class="container">
       <div class="left-column">
 
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
-        <img src="image1_thumbnail.jpg" class="img-fluid">
-      </li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1">
-        <img src="image2_thumbnail.jpg" class="img-fluid">
-      </li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2">
-        <img src="image3_thumbnail.jpg" class="img-fluid">
-      </li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="image1_large.jpg" alt="First slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="image2_large.jpg" alt="Second slide">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="image3_large.jpg" alt="Third slide">
-      </div>
-    </div>
-  </div>
+        <div class="container mt-5">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                <img src="https://previews.123rf.com/images/aprillrain/aprillrain2212/aprillrain221200638/196354278-imagen-de-caricatura-de-un-astronauta-sentado-en-una-luna-ilustraci%C3%B3n-de-alta-calidad.jpg" class="img-fluid">
+              </li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1">
+                <img src="https://pics.craiyon.com/2023-10-21/1f1d408dddce4984a689afc06d9f42d8.webp" class="img-fluid">
+              </li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2">
+                <img src="https://png.pngtree.com/background/20230524/original/pngtree-sad-pictures-for-desktop-hd-backgrounds-picture-image_2705986.jpg" class="img-fluid">
+              </li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="https://previews.123rf.com/images/aprillrain/aprillrain2212/aprillrain221200638/196354278-imagen-de-caricatura-de-un-astronauta-sentado-en-una-luna-ilustraci%C3%B3n-de-alta-calidad.jpg" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://pics.craiyon.com/2023-10-21/1f1d408dddce4984a689afc06d9f42d8.webp" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://png.pngtree.com/background/20230524/original/pngtree-sad-pictures-for-desktop-hd-backgrounds-picture-image_2705986.jpg" alt="Third slide">
+              </div>
+            </div>
+          </div>
 
-  <div class="main-image">
-    <img src="image1_large.jpg" id="main-image" class="img-fluid" alt="Responsive image">
-  </div>
+          <div class="main-image">
+            <img src="<?php
+                      $subcadena = "http";
 
-        <img src="<?php
-                  $subcadena = "http";
-
-                  if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                  ?>
+                      if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                      ?>
     <?php echo  $image_path . '"'; ?>
     <?php
-                  } else {
+                      } else {
     ?>
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                 }
-                                                                  ?>alt="Producto" class="product-image">
+                                                                  ?> id="main-image" class="img-fluid" alt="Responsive image">
+          </div>
+        </div>
+
+
       </div>
 
 
@@ -397,37 +399,10 @@ if ($formato == 3) {
 
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      var carousel = $(".carousel-vertical").owlCarousel({
-        autoPlay: 3000,
-        items: 3,
-        itemsDesktop: [1199, 3],
-        itemsDesktopSmall: [979, 3],
-        slideSpeed: 300,
-        paginationSpeed: 400,
-        singleItem: false,
-        navigation: true,
-        navigationText: ["prev", "next"],
-        pagination: false,
-        scrollPerPage: true
-      });
-
-      $('.carousel-vertical .item').click(function() {
-        var index = $(this).index();
-        $('.product-detail').removeClass('active');
-        $('#detail' + (index + 1)).addClass('active');
-      });
-    });
-  </script>
-
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="js_nuevo/bootstrap.bundle.min.js" type="text/javascript"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="assets/js/jquery-2.1.4.min.js" type="text/javascript"></script>
   <script src="assets/js/custom_1.js"></script>
   <script>
     window.onscroll = function() {
@@ -446,13 +421,15 @@ if ($formato == 3) {
   </script>
 
 <script>
-$(document).ready(function(){
-  $('#carouselExampleIndicators').on('slide.bs.carousel', function (e) {
-    var nextHREF = $(e.relatedTarget).find('img').attr('src');
-    $('#main-image').attr('src', nextHREF);
-  });
-});
-</script>
+    $(document).ready(function() {
+      $('#carouselExampleIndicators').on('slide.bs.carousel', function(e) {
+        var nextHREF = $(e.relatedTarget).find('img').attr('src');
+        $('#main-image').attr('src', nextHREF);
+      });
+    });
+  </script>
+
+
 </body>
 
 </html>

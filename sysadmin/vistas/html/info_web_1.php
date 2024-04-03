@@ -15,6 +15,27 @@ $row           = mysqli_fetch_array($query_empresa);
 
 $favicon = $row['favicon'];
 
+
+  if (
+                        isset($_SERVER['HTTPS']) &&
+                        ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+                        isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+                        $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+                    ) {
+                        $protocol = 'https://';
+                    } else {
+                        $protocol = 'http://';
+                    }
+ $currentUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+// URL base local (por ejemplo, localhost)
+$localBaseUrl = 'localhost'; // Puedes modificar esto según tu configuración
+// Comprobar si la URL actual contiene la URL base local
+if (strpos($currentUrl, $localBaseUrl) !== false) {
+    $sistema_url='/imporsuitv01';
+} else {
+   $sistema_url='';
+}
+
 ?>
 <?php require 'includes/header_start.php'; ?>
 
@@ -142,7 +163,7 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
                                                                                                             <a href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf"></a>
                                                                                                             <label class="form-check-label" for="flexSwitchCheckChecked"><strong>Deseas ser proveedor de Imporsuit?</strong><br><a target="blank" href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf">Leer términos y condiciones</a> <br>Al marcar esta casilla, usted acepta y se compromete a cumplir con los Términos y Condiciones. </label>
                                                                                                             <input style="width: 30px; height: 30px" class="" type="checkbox" role="switch" id="proveedor" <?php if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1) == 1) { ?> checked<?php } ?> >
-                                                                                                            
+                                                                                                            <?php $vista_previa= $protocol .$_SERVER['HTTP_HOST'] .$sistema_url. "/index_1.php"; ?>
                                                                                                                 
 													</div><br>
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -523,7 +544,7 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
         </button>
       </div>
       <div class="modal-body">
-        <iframe id="miIframePc" src="http://localhost/imporsuitv01/index_1.php" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+        <iframe id="miIframePc" src="<?php echo $vista_previa; ?>" style="width: 100%; height: 500px;" frameborder="0"></iframe>
       </div>
     </div>
   </div>
@@ -560,7 +581,7 @@ box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
         </button>
       </div>
       <div class="modal-body">
-        <iframe id="miIframeCelular" src="http://localhost/imporsuitv01/index_1.php" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+        <iframe id="miIframeCelular" src="<?php echo $vista_previa; ?>" style="width: 100%; height: 500px;" frameborder="0"></iframe>
       </div>
     </div>
   </div>
