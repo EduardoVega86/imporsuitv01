@@ -132,8 +132,8 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             ?>
                 <tr>
                     <td class='text-center'><?php echo $codigo_producto; ?></td>
-                    <td class='text-center'><?php echo $cantidad; ?></td>
-                    <td><?php echo $nombre_producto; ?></td>
+                    <td id="producto_qty" class='text-center'><?php echo $cantidad; ?></td>
+                    <td id="producto_name"><?php echo $nombre_producto; ?></td>
                     <td class='text-center'>
                         <div class="input-group">
                             <select id="<?php echo $id_tmp; ?>" class="form-control employee_id">

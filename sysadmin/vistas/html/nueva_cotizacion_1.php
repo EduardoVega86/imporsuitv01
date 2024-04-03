@@ -137,6 +137,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                         <input type="hidden" id="transp" name="transp">
                                                         <input type="hidden" id="transportadora" name="transportadora">
+                                                        <input type="hidden" name="destino_c" id="destino_c">
+                                                        <input type="hidden" name="nombre_remitente" id=nombre_remitente>
+                                                        <input type="hidden" name="apellido_remitente" id=apellido_remitente>
+                                                        <input type="hidden" name="direccion_remitente" id=direccion_remitente>
+                                                        <input type="hidden" name="telefono_remitente" id=telefono_remitente>
                                                         <div class="row">
 
                                                             <div class="col-md-4">
@@ -149,7 +154,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Cedula </span>
-                                                                <input type="text" class="datos form-control formulario" id="cedula" name="cedula" placeholder="cedula *" required>
+                                                                <input type="text" class="datos form-control formulario" id="cedula" name="cedula" placeholder="cedula">
 
                                                             </div>
                                                             <div class="col-md-4">
@@ -691,6 +696,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
             data.append("productos_guia", document.getElementById('productos_guia').value);
             data.append("identificacion", document.getElementById('cedula').value);
             data.append("seguro", document.getElementById('asegurar_producto').value);
+            data.append("contenido", document.getElementById('producto_name').textContent) + "x" + document.getElementById('producto_qty').textContent;
 
 
 
@@ -735,10 +741,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 processData: false,
                 success: function(response) {
                     $('#id_pedido_cot_').val(response);
-                    $ciudad
                     data.set('id_pedido_cot', response);
                     let ciudad_texto = $('#ciudad_entrega option:selected').text();
+                    let destino_texto = $('#destino_c').val();
                     data.append('ciudad_texto', ciudad_texto);
+                    data.append('destino_texto', destino_texto);
                     $.ajax({
                         url: "../ajax/datos_servi.php",
                         type: "POST",
@@ -746,12 +753,38 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                         contentType: false,
                         processData: false,
                         success: function(response) {
-                            console.log(response);
-                            let [guia, precio] = response.split(',');
-                            $('#guia').val(guia);
-                            $('#precio').val(precio);
-                            $('#modal_vuelto').modal('show');
-                            window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                            let datos_servi = JSON.parse(response);
+                            let [codigo, codigo_origen] = [datos_servi.codigo, datos_servi.codigo_origen];
+                            data.append('codigo', codigo);
+                            data.append('codigo_origen', codigo_origen);
+                            $.ajax({
+                                url: "../../../ajax/servientrega/generar_guia_servientrega.php",
+                                type: "POST",
+                                data: data,
+                                contentType: false,
+                                processData: false,
+                                success: function(response) {
+                                    let data_se = JSON.parse(response);
+                                    let id_servi = data_se["id"];
+                                    data.append('id_servi', id_servi);
+                                    $.ajax({
+                                        url: "../ajax/enviar_servi.php",
+                                        type: "POST",
+                                        data: data,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function(response) {
+                                            console.log(response);
+                                            let [guia, precio] = response.split(',');
+                                            $('#guia').val(guia);
+                                            $('#precio').val(precio);
+                                            $('#modal_vuelto').modal('show');
+                                            // window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                                        }
+                                    })
+                                }
+                            })
+                            //window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
                         }
                     });
                 }
@@ -787,6 +820,12 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
         $('#tr' + id).css('filter', 'none');
         $('#transp').val(id);
         $('#transportadora').val(id);
+        console.log(id);
+        if (id === 1) {
+            $("#costo_envio").val($("#precio_laar").text());
+        } else if (id === 3) {
+            $("#costo_envio").val($("#precio_servientrega").text());
+        }
 
     }
 
@@ -924,7 +963,13 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 ciudad: id_provincia,
             },
             success: function(data) {
-                ciudadOrigen = data;
+                let datos_envio = JSON.parse(data);
+
+                ciudadOrigen = datos_envio["ciudad"];
+                $('#nombre_remitente').val(datos_envio["nombre_remitente"]);
+                $('#direccion_remitente').val(datos_envio["direccion_remitente"]);
+                $('#telefono_remitente').val(datos_envio["telefono_remitente"]);
+                $("#destino_c").val(ciudadOrigen);
                 let ciudadDestino = ""
                 $.ajax({
                     url: "../ajax/obtener_dato_destino_servi.php",

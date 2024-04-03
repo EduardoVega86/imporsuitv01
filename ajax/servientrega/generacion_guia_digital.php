@@ -1,7 +1,7 @@
 <?php
 
 // URL del servicio web
-$url = "https://181.39.87.158:7777/api/GuiaDigital/[31030,'impor.comex','123456']";
+$url = "https://181.39.87.158:7777/api/GuiaDigital/[31034,'impor.comex','123456']";
 
 // Inicializar cURL
 $ch = curl_init();
@@ -28,10 +28,33 @@ curl_close($ch);
 // Decodificar la respuesta JSON para obtener la cadena base64 de la imagen
 $responseData = json_decode($response, true);
 $base64String = $responseData['archivoEncriptado'];
+$b64 = base64_decode($base64String);
 
-echo '<img src="data:image/jpg;base64,' . $base64String . '" style="max-width: 100%; height: auto;">';
+if (strpos($b64, "%PDF") !== 0) {
+    echo "No es un PDF";
+} else {
+}
 
-echo $base64String;
+if (
+    isset($_SERVER['HTTPS']) &&
+    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+) {
+    $protocol = 'https://';
+} else {
+    $protocol = 'http://';
+}
+$server_url =  "../../sysadmin/vistas/ajax/temp2.pdf";
+
+file_put_contents($server_url, $b64);
+
+
+
+
+echo $server_url;
+
+/* echo $base64String;
 // Asegúrate de que tienes la cadena base64 de la imagen
 if ($base64String) {
     // Mostrar la imagen
@@ -39,4 +62,4 @@ if ($base64String) {
 } else {
     echo 'No se pudo obtener la imagen.';
 }
-?>
+ */

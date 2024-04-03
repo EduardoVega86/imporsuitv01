@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Arr;
+
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
 $tienda = $_POST['tienda'];
@@ -27,6 +29,10 @@ $sql = "SELECT * FROM `origen_laar`";
 $result = mysqli_query($conexion_prove, $sql);
 
 $ciudadO = mysqli_fetch_array($result);
+$nombre_remitente = $ciudadO['nombreO'];
+
+$direccion_remitente = $ciudadO['direccion'];
+$telefono_remitente = $ciudadO['telefono'];
 echo mysqli_error($conexion_prove);
 
 $sql = "SELECT * FROM ciudad_laar where codigo = '" . $ciudadO['ciudadO'] . "';";
@@ -34,4 +40,11 @@ $result = mysqli_query($conexion_prove, $sql);
 $ciudadO = mysqli_fetch_array($result);
 $ciudad = $ciudadO['nombre'];
 
-echo $ciudad;
+$result = array(
+    "ciudad" => $ciudad,
+    "nombre_remitente" => $nombre_remitente,
+    "direccion_remitente" => $direccion_remitente,
+    "telefono_remitente" => $telefono_remitente
+);
+
+echo json_encode($result);
