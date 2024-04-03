@@ -268,3 +268,45 @@ $(document).on('click', '.estado-destacado', function() {
       }
   });
 });
+
+$(document).on('click', '.estado-habilitado', function() {
+   
+  var userId = $(this).data('idd2');
+  //alert($(this).text().trim());
+  var newEstado = $(this).text().trim() === 'NO' ? 1 : 0;  // Cambia el estado
+  //alert(newEstado);
+  $.ajax({
+      url: '../ajax/producto_habilitar.php?id_notificacion',  // Ruta al script PHP que cambiará el estado en la base de datos
+      type: 'POST',
+      data: {id: userId, estado: newEstado},
+      success: function(response){
+          // Actualizar el botón según la nueva respuesta de estado
+          if(response.trim() == '1'){
+              $('button[data-idd2="' + userId + '"]').text('SI').removeClass('btn-danger').addClass('btn-success');
+          } else {
+              $('button[data-idd2="' + userId + '"]').text('NO').removeClass('btn-success').addClass('btn-danger');
+          }
+      }
+  });
+});
+
+$(document).on('click', '.estado-online', function() {
+   
+  var userId = $(this).data('idd3');
+  //alert($(this).text().trim());
+  var newEstado = $(this).text().trim() === 'NO' ? 1 : 0;  // Cambia el estado
+  //alert(newEstado);
+  $.ajax({
+      url: '../ajax/producto_online.php?id_notificacion',  // Ruta al script PHP que cambiará el estado en la base de datos
+      type: 'POST',
+      data: {id: userId, estado: newEstado},
+      success: function(response){
+          // Actualizar el botón según la nueva respuesta de estado
+          if(response.trim() == '1'){
+              $('button[data-idd3="' + userId + '"]').text('SI').removeClass('btn-danger').addClass('btn-success');
+          } else {
+              $('button[data-idd3="' + userId + '"]').text('NO').removeClass('btn-success').addClass('btn-danger');
+          }
+      }
+  });
+});
