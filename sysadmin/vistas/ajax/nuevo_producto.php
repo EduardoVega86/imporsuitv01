@@ -12,22 +12,11 @@ if (empty($_POST['codigo'])) {
     $errors[] = "Costo de Producto vacío";
 } else if (empty($_POST['precio'])) {
     $errors[] = "Precio de venta vacío";
-} else if (empty($_POST['minimo'])) {
-    $errors[] = "Stock minimo  vacío";
-} else if ($_POST['estado'] == "") {
-    $errors[] = "Selecciona el estado del producto";
-} else if ($_POST['impuesto'] == "") {
-    $errors[] = "Selecciona el impuesto del producto";
-} else if ($_POST['inv'] == "") {
-    $errors[] = "Selecciona Maneja Inventario";
 } else if (
     !empty($_POST['codigo']) &&
     !empty($_POST['nombre']) &&
     $_POST['linea'] != "" &&
     $_POST['proveedor'] != "" &&
-    $_POST['estado'] != "" &&
-    $_POST['impuesto'] != "" &&
-    $_POST['inv'] != "" &&
     !empty($_POST['costo']) &&
     !empty($_POST['precio']) &&
     !empty($_POST['minimo'])
@@ -43,8 +32,8 @@ if (empty($_POST['codigo'])) {
     $descripcion = mysqli_real_escape_string($conexion, (strip_tags($_POST["descripcion"], ENT_QUOTES)));
     $linea       = intval($_POST['linea']);
     $proveedor   = intval($_POST['proveedor']);
-    $estado      = intval($_POST['estado']);
-    $impuesto    = intval($_POST['impuesto']);
+    $estado      = 1;
+    $impuesto    = 0;
     $inv         = intval($_POST['inv']);
     //$imp              = intval($_POST['id_imp']);
     $costo            = floatval($_POST['costo']);
@@ -54,7 +43,7 @@ if (empty($_POST['codigo'])) {
     $precio_especial  = floatval($_POST['precio']);
     @$precio_normal  = floatval($_POST['precion']);
     $stock            = floatval($_POST['stock']);
-    $online            = $_POST['online'];
+    $online            = 1;
     $stock_minimo     = floatval($_POST['minimo']);
     $formato    = floatval($_POST['formato']);
     $date_added       = date("Y-m-d H:i:s");
@@ -72,7 +61,6 @@ if (empty($_POST['codigo'])) {
                                         id_proveedor='" . $proveedor . "',
                                         inv_producto='" . $inv . "',
                                         iva_producto='" . $impuesto . "',
-                                        estado_producto='" . $estado . "',
                                         costo_producto='" . $costo . "',
                                         utilidad_producto='" . $utilidad . "',
                                         valor1_producto='" . $precio_venta . "',
@@ -81,7 +69,6 @@ if (empty($_POST['codigo'])) {
                                         valor4_producto='" . $precio_normal . "',
                                         formato='" . $formato . "',
                                         stock_producto='" . $stock . "',
-                                        online='" . $online . "',
                                         stock_min_producto='" . $stock_minimo . "'
                                         WHERE codigo_producto='" . $codigo . "'";
         $query_update = mysqli_query($conexion, $sql);

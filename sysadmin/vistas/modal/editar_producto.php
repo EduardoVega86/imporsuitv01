@@ -2,7 +2,7 @@
 if (isset($conexion)) {
 ?>
 	<div id="editarProducto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -61,8 +61,8 @@ if (isset($conexion)) {
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="mod_linea" class="control-label">Linea:</label>
-											<select class='form-control' name='mod_linea' id='mod_linea' required>
+											<label for="mod_linea" class="control-label">Categoría:</label>
+											<select class='form-control' name='mod_linea' id='mod_linea' >
 												<option value="">-- Selecciona --</option>
 												<?php
 
@@ -79,7 +79,7 @@ if (isset($conexion)) {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="mod_proveedor" class="control-label">Proveedor:</label>
-											<select class='form-control' name='mod_proveedor' id='mod_proveedor' required>
+											<select class='form-control' name='mod_proveedor' id='mod_proveedor' >
 												<option value="">-- Selecciona --</option>
 												<?php
 
@@ -94,48 +94,22 @@ if (isset($conexion)) {
 										</div>
 									</div>
 								</div>
-								<div class="col-md-12">
+                                                            <div class="row">
+                                                            	<div class="col-md-6">
+										<img width="100%" src="../../img_sistema/formato_pro.jpg" alt="" />
+										
+									</div>
+								<div class="col-md-6">
 									<img width="100%" src="../../img/formato_pro.jpg" alt="" />
 									<div class="form-group">
 										<label for="estado" class="control-label">Formato Pagina Productos:</label>
-										<select class="form-control" id="mod_formato" name="mod_formato" required>
+										<select class="form-control" id="mod_formato" name="mod_formato">
 											<option value="" selected>-- Selecciona --</option>
 											<option value="1">FORMATO 1</option>
 											<option value="2">FORMATO 2</option>
 										</select>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label for="mod_estado" class="control-label">Estado:</label>
-											<select class="form-control" id="mod_estado" name="mod_estado" required>
-												<option value="">-- Selecciona --</option>
-												<option value="1" selected>Activo</option>
-												<option value="0">Inactivo</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label for="mod_impuesto" class="control-label">Impuesto:</label>
-											<select class="form-control" id="mod_impuesto" name="mod_impuesto" required>
-												<option value="">-- Selecciona --</option>
-												<option value="0" selected>Incluido</option>
-												<option value="1">No incluido</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label for="mod_impuesto" class="control-label">Online:</label>
-											<select class="form-control" id="mod_online" name="mod_online" required>
-												<option value="">-- Selecciona --</option>
-												<option value="1" selected>Si</option>
-												<option value="0">No</option>
-											</select>
-										</div>
-									</div>
 								</div>
 
 							</div>
@@ -168,31 +142,30 @@ if (isset($conexion)) {
 								</div>
 
 								<div class="row">
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<div class="form-group">
 											<label for="mod_precio" class="control-label">PVP:</label>
 											<input type="text" class="form-control" id="mod_precio" name="mod_precio" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
 										</div>
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-4">
 										<div class="form-group">
 											<label for="mod_preciom" class="control-label">PxMayor:</label>
 											<input type="text" class="form-control" id="mod_preciom" name="mod_preciom" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
 										</div>
 									</div>
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="mod_precioe" class="control-label">PVP Online:</label>
-											<input type="text" class="form-control" id="mod_precioe" name="mod_precioe" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
+                                                                    <div class="col-md-4">
+									<div class="form-group">
+											
+											<div class="form-group">
+
+												<label for="precion" class="control-label">P Referencial:</label>
+												<input type="text" class="form-control" id="mod_precion" name="mod_precion" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" value="0" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12" >
+											</div>
 										</div>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group">
-											<label for="mod_precioe" class="control-label">P Referencial:</label>
-											<input type="text" class="form-control" id="mod_precion" name="mod_precion" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
-										</div>
-									</div>
+                                                                        </div>
 								</div>
+                                                            
 
 								<div class="row">
 									<div class="col-md-4">

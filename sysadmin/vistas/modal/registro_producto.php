@@ -103,40 +103,20 @@ if (isset($conexion)) {
 												<option value="3">DRAG AND DROP</option>
 											</select>
                                                                         </div>
+                                                                        
+                                                                      
                                                                         </div>
+                                                                    
 
 
 								</div>
 								<div class="row">
 									<div class="col-md-4">
-										<div class="form-group">
-											<label for="estado" class="control-label">Estado:</label>
-											<select class="form-control" id="estado" name="estado" required>
-												<option value="">-- Selecciona --</option>
-												<option value="1" selected>Activo</option>
-												<option value="0">Inactivo</option>
-											</select>
-										</div>
+										
 									</div>
+									
 									<div class="col-md-4">
-										<div class="form-group">
-											<label for="impuesto" class="control-label">Impuesto:</label>
-											<select class="form-control" id="impuesto" name="impuesto" required>
-												<option value="">-- Selecciona --</option>
-												<option value="0" selected>Incluido</option>
-												<option value="1">No incluido</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label for="impuesto" class="control-label">Online</label>
-											<select class="form-control" id="online" name="online" required>
-												<option value="">-- Selecciona --</option>
-												<option value="1" selected>Si</option>
-												<option value="0">No</option>
-											</select>
-										</div>
+										
 									</div>
 								</div>
 

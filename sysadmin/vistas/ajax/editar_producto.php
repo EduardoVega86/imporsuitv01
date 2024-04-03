@@ -17,21 +17,12 @@ if (empty($_POST['mod_id'])) {
     $errors[] = "Precio de venta vacío";
 } else if (empty($_POST['mod_minimo'])) {
     $errors[] = "Stock minimo vacío";
-} else if ($_POST['mod_estado'] == "") {
-    $errors[] = "Selecciona el estado del producto";
-} else if ($_POST['mod_impuesto'] == "") {
-    $errors[] = "Selecciona el impuesto del producto";
-} else if ($_POST['mod_inv'] == "") {
-    $errors[] = "Selecciona el impuesto del producto";
-} else if (
+}   else if (
     !empty($_POST['mod_codigo']) &&
     !empty($_POST['mod_nombre']) &&
     $_POST['mod_linea'] != "" &&
     $_POST['mod_proveedor'] != "" &&
     //$_POST['mod_medida'] != "" &&
-    $_POST['mod_inv'] != "" &&
-    $_POST['mod_impuesto'] != "" &&
-    $_POST['mod_estado'] != "" &&
     !empty($_POST['mod_costo']) &&
     !empty($_POST['mod_precio']) &&
     !empty($_POST['mod_minimo'])
@@ -48,31 +39,29 @@ if (empty($_POST['mod_id'])) {
     $proveedor   = intval($_POST['mod_proveedor']);
     //$medida          = intval($_POST['mod_medida']);
     $inv      = intval($_POST['mod_inv']);
-    $impuesto = intval($_POST['mod_impuesto']);
-    $estado   = intval($_POST['mod_estado']);
+    $impuesto = 0;
+    //$estado   = intval($_POST['mod_estado']);
     //$imp             = intval($_POST['id_imp2']);
     $costo           = floatval($_POST['mod_costo']);
     $utilidad        = floatval($_POST['mod_utilidad']);
     $precio_venta    = floatval($_POST['mod_precio']);
     $precio_mayoreo  = floatval($_POST['mod_preciom']);
-    $precio_especial = floatval($_POST['mod_precioe']);
-    $precio_normal = floatval($_POST['mod_precion']);
+    @$precio_especial = floatval($_POST['mod_precio']);
+    @$precio_normal = floatval($_POST['mod_precion']);
     $stock           = floatval($_POST['mod_stock']);
     $stock_minimo    = floatval($_POST['mod_minimo']);
     
     $formato    = floatval($_POST['mod_formato']);
     //echo $formato;
-    $online    = $_POST['mod_online'];
+    //$online    = $_POST['mod_online'];
     $id_producto     = $_POST['mod_id'];
     $sql             = "UPDATE productos SET codigo_producto='" . $codigo . "',
                                         nombre_producto='" . $nombre . "',
-                                        pagina_web='" . $online . "',
                                         descripcion_producto='" . $descripcion . "',
                                         id_linea_producto='" . $linea . "',
                                         id_proveedor='" . $proveedor . "',
                                         inv_producto='" . $inv . "',
                                         iva_producto='" . $impuesto . "',
-                                        estado_producto='" . $estado . "',
                                         costo_producto='" . $costo . "',
                                         utilidad_producto='" . $utilidad . "',
                                         valor1_producto='" . $precio_venta . "',
