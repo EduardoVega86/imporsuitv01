@@ -63,10 +63,10 @@ $domain = $_SERVER['HTTP_HOST'];
           <!-- Elementos a la izquierda -->
           <ul class="navbar-nav mr-auto ">
             <li class="nav-item active">
-              <a class="nav-link texto_cabecera" href="#">Inicio <span class="sr-only">(current)</span></a>
+              <a class="nav-link texto_cabecera" href="<?php echo $protocol?>://<?php echo $domain?>">Inicio <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link texto_cabecera" href="#">Catálogo</a>
+              <a class="nav-link texto_cabecera" href="<?php echo $protocol?>://<?php echo $domain?>/categoria.php">Catálogo</a>
             </li>
 
           </ul>
