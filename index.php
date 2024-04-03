@@ -490,14 +490,13 @@ $domain = $_SERVER['HTTP_HOST'];
         $tiktok       = $row['tiktok'];
 
       ?>
-        <div class="footer-contenido">
+        <div class="footer-contenido div-alineado-izquierda">
           <h4>Acerca de <?php echo $nombre_empresa ?></h4>
           <img id="navbarLogo" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
                                               ?>">
           <span class="descripcion">
             <?php echo $giro_empresa ?>
           </span>
-
         </div>
         <div class="footer-contenido">
           <h5>Legal</h5>
