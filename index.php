@@ -56,8 +56,9 @@ $domain = $_SERVER['HTTP_HOST'];
                                                                                                                                                                               echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
                                                                                                                                                                            }
                                                                                                                                                                            ?>" alt="Imagen" /></a></a>
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-               <i class="fas fa-bars" style="color: #000; text-shadow: 0px 0px 3px #fff;"></i>
+               <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                <!-- Elementos a la izquierda -->
@@ -206,7 +207,8 @@ $domain = $_SERVER['HTTP_HOST'];
          <br>
 
          <!-- Categoria -->
-         <div class="owl-carousel owl-theme caja" style="margin-bottom: 50px">
+         <div class="caja" style="margin-bottom: 50px";>
+         <div class="owl-carousel owl-theme">
             <?php
             include './auditoria.php';
             $sql = "SELECT * FROM lineas WHERE tipo='1' AND online=1";
@@ -229,6 +231,7 @@ $domain = $_SERVER['HTTP_HOST'];
                   </div>
                </div>
             <?php } ?>
+         </div>
          </div>
          <script>
             $(document).ready(function() {
@@ -397,7 +400,7 @@ $domain = $_SERVER['HTTP_HOST'];
                }
                //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
             ?>
-               <div class="col-md-4">
+               <div class="col-md-4 icon_responsive">
                   <a <?php echo $enlace_icon ?>>
                      <div class="card card_icon text-center">
                         <div class="card-body card-body_icon d-flex flex-row">
@@ -439,7 +442,8 @@ $domain = $_SERVER['HTTP_HOST'];
          <h1 style="text-align: center">Testimonios</h1>
          <br>
          <!-- Testimonios -->
-         <div class="owl-carousel owl-theme caja" style="margin-bottom: 50px">
+         <div class="caja" style="margin-bottom: 50px";>
+         <div class="owl-carousel owl-theme">
             <?php
             include './auditoria.php';
             $sql = "SELECT * FROM testimonios WHERE id_producto=-1";
@@ -462,6 +466,7 @@ $domain = $_SERVER['HTTP_HOST'];
                   </div>
                </div>
             <?php } ?>
+         </div>
          </div>
          <script>
             $(document).ready(function() {
