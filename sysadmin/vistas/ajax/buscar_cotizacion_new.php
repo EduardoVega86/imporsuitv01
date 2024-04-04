@@ -169,7 +169,6 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                 <tr class="info">
                     <th class="text-center"><input type="checkbox" onchange="checkall()" name="todos" id="todos"></th>
                     <th class="text-center"># Orden</th>
-                    <th class="text-center">Fecha</th>
                     <th class="text-center">Detalle</th>
                     <th class="text-center">Cliente</th>
                     <th class="text-center">Localidad</th>
@@ -177,6 +176,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
                         <th class="text-center">Proveedor</th>
                     <?php } ?>
+                    <th class="text-center">Transportadora</th>
                     <th colspan="2" style="text-align: center;">Estado</th>
 
                     <th class='text-center'>Impreso</th>
@@ -211,6 +211,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     $estado_factura   = $row['estado_factura'];
                     $guia_enviada   = $row['guia_enviada'];
                     $drogshipin   = $row['drogshipin'];
+                    $transportadora  = $row['transporte'];
 
                     $tienda   = $row['tienda'];
                     if ($tienda == null || $tienda == '') {
@@ -353,13 +354,19 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     $tienda = str_replace('http://', '', $tienda);
                     $tienda = str_replace('.imporsuit.com', '', $tienda);
                     $tienda = strtoupper($tienda);
-
+                    $badge_transportadoras = "badge ";
+                    if ($transportadora == "SERVIENTREGA") {
+                        $badge_transportadoras .= "badge-success";
+                    } else if ($transportadora == "LAAR") {
+                        $badge_transportadoras .= "badge-warning";
+                    } else if ($transportadora == "IMPORFAST") {
+                        $badge_transportadoras .= "badge-danger";
+                    }
                     ?>
                     <tr class="align-middle">
                         <td class="align-middle"><input type="checkbox" name="item" id="<?php echo $numero_factura; ?>"></td>
                         <td class="align-middle text-center"><label class='badge badge-purple'><?php echo $numero_factura; ?></label><br><span class="fs-xs"><?php echo $tipo_venta_m; ?></span> </td>
-                        <td class="text-center align-middle"><span><?php echo $año; ?></span> <br><span><?php echo $hora . " " . $apm; ?> </span></td>
-                        <td class="align-middle"> <button onclick="ver_detalle_cot('<?php echo $numero_factura ?>')" class="btn btn-sm btn-outline-primary"> Ver detalle</button> </td>
+                        <td class="align-middle"> <button onclick="ver_detalle_cot('<?php echo $numero_factura ?>')" class="btn btn-sm btn-outline-primary"> Ver detalle</button> <br><span><?php echo $año; ?></span> <br><span><?php echo $hora . " " . $apm; ?> </span> </td>
 
                         <td class="text-center align-middle fs-7"><span class="font-weight-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
                         <td class="text-center align-middle"><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
@@ -369,6 +376,11 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                         <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
                             <td class="text-center align-middle"><span class="text-link" onclick="abrirModalTienda('<?php echo $proveedor; ?>')"> <?php echo $proveedor; ?></span></td>
                         <?php } ?>
+                        <td class="text-center align-middle"><?php if (empty($transportadora)) {
+                                                                    echo "<span class='badge badge-warning text-black'>Transportadora no asignada</span>";
+                                                                } else {
+                                                                    echo "<span class='" . $badge_transportadoras . " '>" . $transportadora . "</span>";
+                                                                } ?></td>
                         <td class="text-center align-middle" id="estados_laar_<?php echo $numero_factura ?>"><?php
                                                                                                                 // echo $drogshipin;
                                                                                                                 switch ($drogshipin) {
@@ -746,7 +758,6 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                 <tr class="info">
                     <th class="text-center"><input type="checkbox" onchange="checkall()" name="todos" id="todos"></th>
                     <th class="text-center"># Orden</th>
-                    <th class="text-center">Fecha</th>
                     <th class="text-center">Detalle</th>
                     <th class="text-center">Cliente</th>
                     <th class="text-center">Localidad</th>
@@ -754,6 +765,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
                         <th class="text-center">Proveedor</th>
                     <?php } ?>
+                    <th class="text-center">Transportadora</th>
                     <th colspan="2" style="text-align: center;">Estado</th>
 
                     <th class='text-center'>Impreso</th>
@@ -788,6 +800,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     $estado_factura   = $row['estado_factura'];
                     $guia_enviada   = $row['guia_enviada'];
                     $drogshipin   = $row['drogshipin'];
+                    $transportadora  = $row['transporte'];
 
 
                     $tienda   = $row['tienda'];
@@ -931,13 +944,19 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     $tienda = str_replace('http://', '', $tienda);
                     $tienda = str_replace('.imporsuit.com', '', $tienda);
                     $tienda = strtoupper($tienda);
-
+                    $badge_transportadoras = "badge ";
+                    if ($transportadora == "SERVIENTREGA") {
+                        $badge_transportadoras .= "badge-success";
+                    } else if ($transportadora == "LAAR") {
+                        $badge_transportadoras .= "badge-warning";
+                    } else if ($transportadora == "IMPORFAST") {
+                        $badge_transportadoras .= "badge-danger";
+                    }
                     ?>
                     <tr class="align-middle">
                         <td class="align-middle"><input type="checkbox" name="item" id="<?php echo $numero_factura; ?>"></td>
                         <td class="align-middle text-center"><label class='badge badge-purple'><?php echo $numero_factura; ?></label><br><span class="fs-xs"><?php echo $tipo_venta_m; ?></span> </td>
-                        <td class="text-center align-middle"><span><?php echo $año; ?></span> <br><span><?php echo $hora . " " . $apm; ?> </span></td>
-                        <td class="align-middle"> <button onclick="ver_detalle_cot('<?php echo $numero_factura ?>')" class="btn btn-sm btn-outline-primary"> Ver detalle</button> </td>
+                        <td class="align-middle text-center "> <button onclick="ver_detalle_cot('<?php echo $numero_factura ?>')" class="btn btn-sm btn-outline-primary"> Ver detalle</button> <br> <span><?php echo $año; ?></span> <br><span><?php echo $hora . " " . $apm; ?> </span> </td>
 
                         <td class="text-center align-middle fs-7"><span class="font-weight-bold"> <?php echo $nombre; ?> </span> <br> <span class=""><?php echo $direccion; ?></span><br> <span><?php echo  "telf: " .  $telefono; ?></span></td>
                         <td class="text-center align-middle"><?php echo '<strong>' . $provincia . '</strong>' . '<br>' . $ciudad_cot; ?></td>
@@ -947,6 +966,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                         <?php if ($server_url === "https://marketplace.imporsuit.com") { ?>
                             <td class="text-center align-middle"><span class="text-link" onclick="abrirModalTienda('<?php echo $proveedor; ?>')"> <?php echo $proveedor; ?></span></td>
                         <?php } ?>
+                        <td class="text-center align-middle"><?php if (empty($transportadora)) {
+                                                                    echo "<span class='badge badge-warning text-black'>Transportadora no asignada</span>";
+                                                                } else {
+                                                                    echo "<span class='" . $badge_transportadoras . " '>" . $transportadora . "</span>";
+                                                                } ?></td>
+
                         <td class="text-center align-middle" id="estados_laar_<?php echo $numero_factura ?>"><?php
                                                                                                                 // echo $drogshipin;
                                                                                                                 switch ($drogshipin) {
