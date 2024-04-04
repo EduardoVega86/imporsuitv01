@@ -118,6 +118,14 @@ while ($row = mysqli_fetch_array($query)) {
     .left-column {
       width: 40%;
       padding: 20px;
+      padding-top: 80px;
+      position: -webkit-sticky;
+      /* Para compatibilidad con Safari */
+      position: sticky;
+      top: 0;
+      /* Ajusta esto a la altura de cualquier cabecera o menú que tengas */
+      height: 100%;
+      /* O la altura que quieras que tenga */
     }
 
     .right-column {
@@ -349,12 +357,12 @@ if ($formato == 3) {
 
     <div class="container flex-column">
       <div class="d-flex">
-        <div class="left-column" style="position: sticky; top: 0;">
+        <div class="left-column">
 
           <div class="d-flex flex-row">
             <div class="d-flex flex-column" style="max-width: 200px !important;">
               <!-- Indicadores del carrusel para las miniaturas -->
-              <div class="list-group" id="list-tab" role="tablist">
+              <div class="list-group" style="max-width: 200px !important;" id="list-tab" role="tablist">
 
                 <a class="list-group-item list-group-item-action active" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                   <img src="<?php
@@ -480,7 +488,7 @@ if ($formato == 3) {
           <br><br>
 
           <!-- Inicio de Iconos-->
-          <div class="d-flex flex-row">
+          <div class="d-flex flex-row" style="padding-bottom: 75px;">
             <?php
             include './auditoria.php';
             $sql = "SELECT * FROM caracteristicas_tienda WHERE accion=1 or accion=2 or accion=3";

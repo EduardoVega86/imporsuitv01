@@ -243,9 +243,10 @@
   /* Fondo para el menú desplegable en modo responsive */
   @media (max-width: 768px) {
     .navbar-collapse {
-      background-color: #ffffff;
+      background-color: <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?>;
       /* o el color que prefieras */
       color: black !important;
+      border-radius: 0.5rem;
     }
 
     .navbar-brand {
@@ -421,6 +422,12 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
     /* Añade sombra a la tarjeta */
   }
+  @media (max-width: 768px){
+    .icon_responsive {
+    padding-bottom: 20px;
+  }
+  }
+
 
   .card-body_icon i {
     color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
@@ -812,7 +819,6 @@
   owl-carousel .footer-contenedor {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 20px;
     justify-content: space-around;
     place-content: center;
     background-color: #f1f1f1;
@@ -1006,8 +1012,6 @@
   .caja {
     padding-top: 40px !important;
     padding-bottom: 40px !important;
-    padding-left: 240px !important;
-    padding-right: 240px !important;
     border-radius: 25px;
     -webkit-box-shadow: -2px 5px 5px 0px rgba(0, 0, 0, 0.23);
     -moz-box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
