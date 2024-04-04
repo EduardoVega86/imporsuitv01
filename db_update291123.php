@@ -2225,7 +2225,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (768,'ZAMORA','ZUMBI',1,0,0,'TE','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL');");
 
 mysqli_query($conexion, "CREATE TABLE `cobertura_servientrega` (
-  `id_cobertura` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cobertura` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `tipo_cobertura` varchar(20) NOT NULL,
   `costo` double DEFAULT NULL,
   `precio` double DEFAULT NULL
