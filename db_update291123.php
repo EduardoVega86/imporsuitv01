@@ -2239,6 +2239,20 @@ mysqli_query($conexion, "INSERT INTO cobertura_servientrega (id_cobertura,tipo_c
 (5,'TE',4.66,5.8);
 ");
 
+mysqli_query($conexion, "CREATE TABLE `cobertura_laar` (
+	`id_cobertura` bigint UNSIGNED NOT NULL PRIMARY KEY,
+	`tipo_cobertura` varchar(100) NOT NULL,
+	`costo` double NOT NULL,
+	`precio` double NOT NULL
+  );");
+
+mysqli_query($conexion, "INSERT INTO `cobertura_laar` (`id_cobertura`, `tipo_cobertura`, `costo`, `precio`) VALUES
+(1, 'TP', 2.8, 4.5),
+(2, 'TE', 3.5, 5.5),
+(3, 'TL', 2.8, 3.5),
+(4, 'TS', 3.5, 5.5),
+(5, 'TO', 3.5, 5.5);");
+
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
