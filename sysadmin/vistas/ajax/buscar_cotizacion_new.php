@@ -146,54 +146,6 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
     ?>
         <!-- Botones para filtrar registros -->
-
-        <div class="modal fade" id="motorizado" tabindex="-1" role="dialog" aria-labelledby="motorizadoLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form class="form-horizontal" method="post" id="asignar_motorizado" name="asignar_motorizado">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="motorizadoLabel">Asignar Motorizado</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="form-group">
-                                <label for="nombre" class="col-sm-2 control-label">Guia FAST</label>
-                                <div class="col">
-                                    <input type="text" class="form-control" id="guia_fast" name="guia_fast" disabled required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="empresa" class="col-sm-2 control-label">Motorizado</label>
-                                <div class="col">
-                                    <select class="form-control" id="motorizado_s" name="motorizado_s" required>
-                                        <option value="">-- Seleccione un motorizado --</option>
-                                        <?php
-                                        mysqli_data_seek($empresas, 0);
-                                        while ($row = mysqli_fetch_assoc($empresas)) {
-                                            $id_empresa = $row['id'];
-                                            $nombre     = $row['nombre'];
-                                        ?>
-                                            <option value="<?php echo $id_empresa; ?>"><?php echo $nombre; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary cerrarModal" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-
         <div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -1201,12 +1153,10 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
 
                                     ?>
-                                        <a href="#" data-target="#motorizado_a" data-toggle="modal" data-guias="<?php echo $guia_numero; ?>" data-nombrem="<?php echo $data_trabajador['nombre']; ?>" data-telefono="<?php echo $data_trabajador['contacto']; ?>" data-placa="<?php echo $data_trabajador['placa']; ?>" data-empresa="<?php echo $data_empresa['nombre']; ?>" class="ver badge badge-success">Motorizado</a>
 
                                     <?php
                                                                                                                         } else {
                                     ?>
-                                        <a href="#" data-target="#motorizado" data-toggle="modal" class="anadir badge badge-warning">Sin motorizado</a>
                                 <?php
                                                                                                                         }
                                                                                                                     } else {

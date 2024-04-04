@@ -2240,7 +2240,6 @@ mysqli_query($conexion, "INSERT INTO prueba_imporsuit.cobertura_servientrega (id
 ");
 
 
-echo mysqli_error($conexion); // Si hay error lo mostramos
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
