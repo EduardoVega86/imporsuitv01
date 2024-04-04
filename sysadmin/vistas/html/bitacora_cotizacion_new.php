@@ -40,7 +40,7 @@ $ventas = 1;
                 ?>
                     <div class="col-lg-12">
                         <div class="portlet">
-                            <div class="portlet-heading bg-primary">
+                            <div class="portlet-heading" style="background-color: #171931">
                                 <h3 class="portlet-title">
                                     Historial de pedidos
                                 </h3>
