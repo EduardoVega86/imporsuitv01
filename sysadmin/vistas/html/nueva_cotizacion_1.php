@@ -142,6 +142,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                                                         <input type="hidden" name="apellido_remitente" id=apellido_remitente>
                                                         <input type="hidden" name="direccion_remitente" id=direccion_remitente>
                                                         <input type="hidden" name="telefono_remitente" id=telefono_remitente>
+                                                        <input type="hidden" name="servi_flete" id="servi_flete">
+                                                        <input type="hidden" name="servi_seguro" id="servi_seguro">
+                                                        <input type="hidden" name="servi_comision" id="servi_comision">
+                                                        <input type="hidden" name="servi_impuesto" id="servi_impuesto">
+                                                        <input type="hidden" name="servi_otros" id="servi_otros">
                                                         <div class="row">
 
                                                             <div class="col-md-4">
@@ -757,34 +762,72 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                             let [codigo, codigo_origen] = [datos_servi.codigo, datos_servi.codigo_origen];
                             data.append('codigo', codigo);
                             data.append('codigo_origen', codigo_origen);
-                            $.ajax({
-                                url: "../../../ajax/servientrega/generar_guia_servientrega.php",
-                                type: "POST",
-                                data: data,
-                                contentType: false,
-                                processData: false,
-                                success: function(response) {
-                                    let data_se = JSON.parse(response);
-                                    let id_servi = data_se["id"];
-                                    data.append('id_servi', id_servi);
-                                    $.ajax({
-                                        url: "../ajax/enviar_servi.php",
-                                        type: "POST",
-                                        data: data,
-                                        contentType: false,
-                                        processData: false,
-                                        success: function(response) {
-                                            console.log(response);
-                                            let [guia, precio] = response.split(',');
-                                            $('#guia').val(guia);
-                                            $('#precio').val(precio);
-                                            $('#modal_vuelto').modal('show');
-                                            // window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
-                                        }
-                                    })
-                                }
-                            })
-                            //window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+
+                            let esRecaudo = $('#cod').val();
+
+                            if (esRecaudo == 1) {
+
+
+                                $.ajax({
+                                    url: "../../../ajax/servientrega/generar_guia_servientrega_r.php",
+                                    type: "POST",
+                                    data: data,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function(response) {
+                                        let data_se = JSON.parse(response);
+                                        let id_servi = data_se["id"];
+                                        data.append('id_servi', id_servi);
+
+                                        $.ajax({
+                                            url: "../ajax/enviar_servi.php",
+                                            type: "POST",
+                                            data: data,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function(response) {
+                                                console.log(response);
+                                                let [guia, precio] = response.split(',');
+                                                $('#guia').val(guia);
+                                                $('#precio').val(precio);
+                                                $('#modal_vuelto').modal('show');
+                                                // window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                                            }
+                                        })
+                                    }
+                                })
+                            } else if (esRecaudo == 2) {
+
+                                $.ajax({
+                                    url: "../../../ajax/servientrega/generar_guia_servientrega.php",
+                                    type: "POST",
+                                    data: data,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function(response) {
+                                        let data_se = JSON.parse(response);
+                                        let id_servi = data_se["id"];
+                                        data.append('id_servi', id_servi);
+
+                                        $.ajax({
+                                            url: "../ajax/enviar_servi.php",
+                                            type: "POST",
+                                            data: data,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function(response) {
+                                                console.log(response);
+                                                let [guia, precio] = response.split(',');
+                                                $('#guia').val(guia);
+                                                $('#precio').val(precio);
+                                                $('#modal_vuelto').modal('show');
+                                                // window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                                            }
+                                        })
+                                    }
+                                })
+                                //window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                            }
                         }
                     });
                 }
@@ -941,9 +984,11 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 let precio_total = $('#precio_total').val();
 
                 calcular_guia(recaudo);
+                //obtener el texto de los selects}
 
             }
         }) // /success function
+
     }
 
     $("#ciudad_entrega").select2({
@@ -971,6 +1016,56 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 $('#telefono_remitente').val(datos_envio["telefono_remitente"]);
                 $("#destino_c").val(ciudadOrigen);
                 let ciudadDestino = ""
+                let ciudad_or = $('#ciudad_entrega option:selected').text();
+                let provincia_or = $('#provinica option:selected').text();
+                $.ajax({
+                    url: "../../../ajax/servientrega/cotizador3.php",
+                    type: "POST",
+                    data: {
+                        ciudad_origen: ciudadOrigen,
+                        ciudad_destino: ciudad_or,
+                        provincia_destino: provincia_or,
+                        precio_total: $('#valor_total_').val(),
+
+                    },
+                    success: function(data) {
+                        let parser = new DOMParser();
+                        let xmlDoc = parser.parseFromString(data, "text/xml");
+
+                        // Extraer el contenido de <Result>
+                        let resultString = xmlDoc.getElementsByTagName("Result")[0].childNodes[0].nodeValue;
+
+                        // Convertir el contenido de Result (que es un string de XML) a un objeto que se pueda manipular
+                        let resultDoc = parser.parseFromString(resultString, "text/xml");
+
+                        // Obtener el valor de <flete>
+                        function getNumericValueFromTag(tagName) {
+                            let tag = resultDoc.getElementsByTagName(tagName)[0];
+                            if (tag && tag.childNodes.length > 0) {
+                                // Convertir el valor del nodo a número y retornarlo
+                                return parseFloat(tag.childNodes[0].nodeValue);
+                            } else {
+                                // Si el elemento no se encuentra o no tiene un valor, retorna 0
+                                return 0;
+                            }
+                        }
+
+                        // Extraer los valores numéricos de cada elemento relevante
+                        let flete = getNumericValueFromTag("flete");
+                        let seguro = getNumericValueFromTag("seguro");
+                        let valorComision = getNumericValueFromTag("valor_comision");
+                        let otros = getNumericValueFromTag("otros");
+                        let impuesto = getNumericValueFromTag("impuesto");
+
+                        // Sumar todos los valores para obtener el total
+                        $('#servi_impuesto').val(impuesto);
+                        $('#servi_otros').val(otros);
+                        $('#servi_seguro').val(seguro);
+                        $('#servi_comision').val(valorComision);
+                        $('#servi_flete').val(flete);
+                    }
+
+                })
                 $.ajax({
                     url: "../ajax/obtener_dato_destino_servi.php",
                     type: "POST",

@@ -47,9 +47,10 @@ $sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `f
 $query = mysqli_query($destino, $sql);
 
 $ultimoid_market = mysqli_insert_id($destino);
-$ultimoid = 'IMP' . $ultimoid_market;
+$ultimoid =  $guia_sistema;
 
 $sql_update = "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_laar`.`id_guia` = $ultimoid_market";
+
 //echo $sql_update;
 
 $query_update = mysqli_query($destino, $sql_update);
@@ -150,6 +151,9 @@ $seguro = $_POST['seguro'];
 $observacion = $_POST['observacion'];
 $costo_envio = $_POST['costo_envio'];
 
+//se recibe el costo asi $5.23 y se convierte a 5.23
+$costo_envio = str_replace('$', '', $costo_envio);
+
 $fechaActual = date("m/y/Y");
 //echo $fechaActual;
 
@@ -230,13 +234,15 @@ if ($response) {
 
 
 
-    @$guia = $data["guia"];
-    @$url = $data["url"];
+    @$guia = $guia_sistema;
+    @$url = "https://guias.imporsuit.com/Servientrega/Guia/" .  $guia_sistema;
     //$guia=1;
     if (isset($guia)) {
-        $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='LAAR' WHERE `id_factura` = $id_pedido_cot";
+        $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='SERVIENTREGA' WHERE `id_factura` = $id_pedido_cot";
+        echo $sql_update;
         //echo $sql_update;
         $query_update = mysqli_query($conexion, $sql_update);
+        echo mysqli_error($conexion);
 
         $date_added = date("Y-m-d H:i:s");
         $sql_insertar_guia = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
@@ -259,9 +265,10 @@ if ($response) {
             . "'','$telefono','$celular',"
             . "'201202002002013','$cantidad_total','2',"
             . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-            . "'0','$observacion','$costo_total',2)";
+            . "'0','$observacion','$costo_total',3)";
         //echo $sql_insertar_guia;
         $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
+        echo mysqli_error($conexion);
         /*
         // Grabar cabecera_cuenta_cobrar
         $id_factura = get_row('facturas_cot', 'id_factura', 'id_factura', $id_pedido_cot);
@@ -306,13 +313,14 @@ if ($response) {
             . "'','$telefono','$celular',"
             . "'201202002002013','$cantidad_total','2',"
             . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-            . "'0','$observacion','$costo_total',2)";
+            . "'0','$observacion','$costo_total',3)";
         //echo $sql_insertar_guia_destino;
         //echo $tipo_origen;
         if ($tipo_origen == 1) {
 
             //echo "origen";
             $query_insertar_destino = mysqli_query($conexion_destino, $sql_insertar_guia_destino);
+            echo mysqli_error($conexion_destino);
 
             $id_fact_destino = get_row_destino($conexion_destino, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
             // echo $id_fact_destino;
@@ -320,6 +328,7 @@ if ($response) {
                                 WHERE id_factura='" . $id_fact_destino . "'";
             // echo $sql;
             $query_update_destino = mysqli_query($conexion_destino, $sql);
+            echo mysqli_error($conexion_destino);
 
             //ingresar guia marketplace
 
@@ -338,11 +347,12 @@ if ($response) {
 ";
             // echo $sql_insertar_guia;
             $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
-
+            echo mysqli_error($conexion_marketplace);
             $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
             $sql = "UPDATE facturas_cot SET  estado_factura=2
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
             $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+            echo mysqli_error($conexion_marketplace);
         } else {
 
             // echo 'asd';
@@ -380,21 +390,22 @@ if ($response) {
             //                . "'','$telefono','$celular',"
             //                . "'201202002002013','$cantidad_total','2',"
             //                . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-            //                . "'0','$observacion','$costo_total',2)";
+            //                . "'0','$observacion','$costo_total',3)";
             // echo $sql_insertar_guia_marketplace;
             $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
-
+            echo mysqli_error($conexion_marketplace);
             $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
             $sql = "UPDATE facturas_cot SET  estado_factura=2
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
             $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+            echo mysqli_error($conexion_marketplace);
         }
 
         $query = "SELECT * FROM detalle_fact_cot WHERE id_factura = $id_pedido_cot";
         //echo $query;
         // Realizar la consulta
         $resultado = mysqli_query($conexion, $query);
-
+        echo mysqli_error($conexion);
         // Verificar si la consulta fue exitosa
         if ($resultado) {
             // Iterar sobre los resultados usando un bucle while
