@@ -56,7 +56,7 @@ $domain = $_SERVER['HTTP_HOST'];
                                                                                                                                                                               echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
                                                                                                                                                                            }
                                                                                                                                                                            ?>" alt="Imagen" /></a></a>
-            
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
             </button>
@@ -73,13 +73,63 @@ $domain = $_SERVER['HTTP_HOST'];
                </ul>
                <!-- Elementos a la derecha -->
                <ul class="navbar-nav">
-                  <div class="search-box">
-                     <input type="text" class="search-input" placeholder="Buscar">
-                     <button class="search-button">
-                        <i class="fas fa-search"></i> <!-- Este es un icono de FontAwesome, asegúrate de incluir la librería -->
-                     </button>
-                  </div>
+                  <form id="searchForm">
+                     <div class="search-box">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Buscar" required>
+                        <button type="submit" class="search-button">
+                           <i class="fas fa-search"></i>
+                        </button>
+                     </div>
+                     <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem;">
+                        <!-- Las sugerencias se insertarán aquí -->
+                     </div>
+                  </form>
 
+                  <script>
+                     // Autocompletar sugerencias
+                     document.getElementById('searchInput').addEventListener('input', function() {
+                        var inputVal = this.value;
+
+                        // Ocultar sugerencias si no hay valor
+                        if (inputVal.length === 0) {
+                           document.getElementById('suggestions').style.display = 'none';
+                           return;
+                        }
+
+                        // Realizar la solicitud AJAX al script PHP para obtener sugerencias
+                        fetch('/sysadmin/vistas/ajax/search_index.php', {
+                              method: 'POST',
+                              body: new URLSearchParams('query=' + inputVal)
+                           })
+                           .then(response => response.json())
+                           .then(data => {
+                              var suggestionsContainer = document.getElementById('suggestions');
+                              suggestionsContainer.innerHTML = '';
+                              suggestionsContainer.style.display = 'block';
+
+                              // Agregar las sugerencias al contenedor
+                              data.forEach(function(item) {
+                                 var div = document.createElement('div');
+                                 div.innerHTML = item.nombre_producto; // Asumiendo que 'nombre_producto' es lo que quieres mostrar
+                                 div.onclick = function() {
+                                    // Al hacer clic, se actualiza el input y se redirige
+                                    document.getElementById('searchInput').value = this.innerText;
+                                    window.location.href = 'producto_1.php?id=' + item.id_producto;
+                                 };
+                                 suggestionsContainer.appendChild(div);
+                              });
+                           })
+                           .catch(error => console.error('Error:', error));
+                     });
+
+                     // Evento submit del formulario
+                     document.getElementById('searchForm').addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        var searchQuery = document.getElementById('searchInput').value;
+                        // Aquí puedes manejar la búsqueda, por ejemplo, redirigir a una página de resultados
+                        window.location.href = '/busqueda.php?query=' + encodeURIComponent(searchQuery);
+                     });
+                  </script>
                </ul>
             </div>
          </div>
@@ -207,31 +257,31 @@ $domain = $_SERVER['HTTP_HOST'];
          <br>
 
          <!-- Categoria -->
-         <div class="caja" style="margin-bottom: 50px";>
-         <div class="owl-carousel owl-theme">
-            <?php
-            include './auditoria.php';
-            $sql = "SELECT * FROM lineas WHERE tipo='1' AND online=1";
-            $query = mysqli_query($conexion, $sql);
-            while ($row = mysqli_fetch_array($query)) {
-               $id_linea = $row['id_linea'];
-               $nombre_linea = $row['nombre_linea'];
-               $image_path = $row['imagen'];
-               //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
-            ?>
-               <div class="item">
-                  <div class="category-container d-flex flex-column align-items-center">
-                     <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
-                                                                                             ?>');"></div> -->
-                     <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path)
-                                                                                                         ?>');"></div>
-                     <a class="btn category-button boton texto_boton" style="border-radius: 0.5rem;" href="categoria_1.php?id_cat=<?php echo $id_linea ?>" role="button">
-                        <?php echo $nombre_linea; ?>
-                     </a>
+         <div class="caja" style="margin-bottom: 50px" ;>
+            <div class="owl-carousel owl-theme">
+               <?php
+               include './auditoria.php';
+               $sql = "SELECT * FROM lineas WHERE tipo='1' AND online=1";
+               $query = mysqli_query($conexion, $sql);
+               while ($row = mysqli_fetch_array($query)) {
+                  $id_linea = $row['id_linea'];
+                  $nombre_linea = $row['nombre_linea'];
+                  $image_path = $row['imagen'];
+                  //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
+               ?>
+                  <div class="item">
+                     <div class="category-container d-flex flex-column align-items-center">
+                        <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
+                                                                                                ?>');"></div> -->
+                        <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path)
+                                                                                                            ?>');"></div>
+                        <a class="btn category-button boton texto_boton" style="border-radius: 0.5rem;" href="categoria_1.php?id_cat=<?php echo $id_linea ?>" role="button">
+                           <?php echo $nombre_linea; ?>
+                        </a>
+                     </div>
                   </div>
-               </div>
-            <?php } ?>
-         </div>
+               <?php } ?>
+            </div>
          </div>
          <script>
             $(document).ready(function() {
@@ -303,15 +353,15 @@ $domain = $_SERVER['HTTP_HOST'];
                   <div class="grid-container">
                      <div class="card" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
                         <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
-                        <div class="img-container" style="aspect-ratio: 1 / 1; overflow: hidden; margin-bottom: -120px">
-                           <img src=" <?php
-                                       $subcadena = "http";
+                        <div class="img-container" style="aspect-ratio: 1 / 1; overflow: hidden; margin-bottom: -120px"><a href="producto_1.php?id=<?php echo $id_producto ?>">
+                              <img src=" <?php
+                                          $subcadena = "http";
 
-                                       if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                                       ?>
+                                          if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                                          ?>
                   <?php echo  $image_path . '"'; ?>
                 <?php
-                                       } else {
+                                          } else {
                   ?>
                  sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                               }
@@ -328,15 +378,39 @@ $domain = $_SERVER['HTTP_HOST'];
                                                                                           }
                                                                               ?> class="card-img-top mx-auto d-block" alt="Product Name" style="object-fit: cover; width: 55%; height: 55%; margin-top: 10px;">
 
+                           </a>
                         </div>
                         <div class="card-body d-flex flex-column">
-                           <p class="card-text flex-grow-1"><strong><?php echo $nombre_producto ?></strong></p>
+                           <p class="card-text flex-grow-1"><a href="producto_1.php?id=<?php echo $id_producto ?>" style="text-decoration: none; color:black;"><strong><?php echo $nombre_producto ?></strong></a></p>
                            <div class="product-footer mb-2">
-                              <p class="card-text flex-grow-1"><strong>Precio: </strong><?php if ($precio_normal > 0) {
-                                                                                             echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_normal;
-                                                                                          } ?></span></p>
+                              <div class="d-flex flex-row">
+                                 <div>
+                                    <span style="font-size: 15px; color:#4461ed; padding-right: 10px;">
+                                       <strong><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></strong>
+                                    </span>
+                                 </div>
+                                 <div>
+                                    <?php if ($precio_normal > 0) { ?>
+                                       <span class="tachado" style="font-size: 15px; padding-right: 10px;">
+                                          <strong><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_normal, 2); ?></strong>
+                                       </span>
+                                    <?php
+                                    }
+                                    ?>
+                                 </div>
+                                 <?php if ($precio_normal > 0) { ?>
+                                    <div class="px-2" style="background-color: #4464ec; color:white; border-radius: 0.3rem;">
+
+
+                                       <span style="font-size: 15px;"><i class="bx bxs-purchase-tag"></i>
+                                          <strong>AHORRA UN <?php echo number_format(100 - ($precio_especial * 100 / $precio_normal)); ?>%</strong>
+                                       </span>
+
+                                    </div>
+                                 <?php } ?>
+                              </div>
                            </div>
-                           <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="producto.php?id=<?php echo $id_producto ?>">Comprar</a>
+                           <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="producto_1.php?id=<?php echo $id_producto ?>">Comprar</a>
                         </div>
 
                      </div>
@@ -442,31 +516,31 @@ $domain = $_SERVER['HTTP_HOST'];
          <h1 style="text-align: center">Testimonios</h1>
          <br>
          <!-- Testimonios -->
-         <div class="caja" style="margin-bottom: 50px";>
-         <div class="owl-carousel owl-theme">
-            <?php
-            include './auditoria.php';
-            $sql = "SELECT * FROM testimonios WHERE id_producto=-1";
-            $query = mysqli_query($conexion, $sql);
-            while ($row = mysqli_fetch_array($query)) {
-               $id_testimonio = $row['id_testimonio'];
-               $nombre_testimonio = $row['nombre'];
-               $testimonio = $row['testimonio'];
-               $image_path = $row['imagen'];
-               //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
-            ?>
-               <div class="item">
-                  <div class="category-container d-flex flex-column align-items-center">
-                     <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
-                                                                                             ?>');"></div> -->
-                     <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path)
-                                                                                                         ?>');"></div>
-                     <p class="card-text flex-grow-1"><strong><?php echo $nombre_testimonio ?></strong></p>
-                     <p class="card-text flex-grow-1"><?php echo $testimonio ?></p>
+         <div class="caja" style="margin-bottom: 50px" ;>
+            <div class="owl-carousel owl-theme">
+               <?php
+               include './auditoria.php';
+               $sql = "SELECT * FROM testimonios WHERE id_producto=-1";
+               $query = mysqli_query($conexion, $sql);
+               while ($row = mysqli_fetch_array($query)) {
+                  $id_testimonio = $row['id_testimonio'];
+                  $nombre_testimonio = $row['nombre'];
+                  $testimonio = $row['testimonio'];
+                  $image_path = $row['imagen'];
+                  //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
+               ?>
+                  <div class="item">
+                     <div class="category-container d-flex flex-column align-items-center">
+                        <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
+                                                                                                ?>');"></div> -->
+                        <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path)
+                                                                                                            ?>');"></div>
+                        <p class="card-text flex-grow-1"><strong><?php echo $nombre_testimonio ?></strong></p>
+                        <p class="card-text flex-grow-1"><?php echo $testimonio ?></p>
+                     </div>
                   </div>
-               </div>
-            <?php } ?>
-         </div>
+               <?php } ?>
+            </div>
          </div>
          <script>
             $(document).ready(function() {
@@ -497,84 +571,104 @@ $domain = $_SERVER['HTTP_HOST'];
 
       <!-- FOOTER -->
       <!-- Botón flotante para WhatsApp -->
-      <a href="https://wa.me/tunúmero" class="whatsapp-float" target="_blank">
-         PODEMOS AYUDARTE
-      </a>
+      <<?php
+         function formatPhoneNumber($number)
+         {
+            // Eliminar caracteres no numéricos excepto el signo +
+            $number = preg_replace('/[^\d+]/', '', $number);
 
-      <footer class="footer-contenedor">
-         <?php
-         $sql   = "SELECT * FROM  perfil  where id_perfil=1";
-         $query = mysqli_query($conexion, $sql);
-         while ($row = mysqli_fetch_array($query)) {
-            $nombre_empresa       = $row['nombre_empresa'];
-            $giro_empresa       = $row['giro_empresa'];
-            $telefono       = $row['telefono'];
-            $email       = $row['email'];
-            $logo_url       = $row['logo_url'];
-            $facebook       = $row['facebook'];
-            $instagram       = $row['instagram'];
-            $tiktok       = $row['tiktok'];
+            // Verificar si el número ya tiene el código de país +593
+            if (!preg_match('/^\+593/', $number)) {
+               // Si el número comienza con 0, quitarlo
+               if (strpos($number, '0') === 0) {
+                  $number = substr($number, 1);
+               }
+               // Agregar el código de país +593 al inicio del número
+               $number = '+593' . $number;
+            }
 
-         ?>
-            <div class="footer-contenido div-alineado-izquierda">
-               <h4>Acerca de <?php echo $nombre_empresa ?></h4>
-               <img id="navbarLogo" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
-                                                   ?>">
-               <span class="descripcion">
-                  <?php echo $giro_empresa ?>
-               </span>
-            </div>
-            <div class="footer-contenido">
-               <h5>Legal</h5>
-               <ul class="lista_legal">
-                  <?php
-                  $sql   = "SELECT * FROM  politicas_empresa";
-                  $query = mysqli_query($conexion, $sql);
-                  while ($row = mysqli_fetch_array($query)) {
-                     $nombre_politica       = $row['nombre'];
-                     $id_politica       = $row['id_politica'];
-                  ?>
-                     <li><a href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
-                  <?php } ?>
-               </ul>
-            </div>
-            <div class="footer-contenido">
-               <h5>Siguenos</h5>
-               <div class="redes">
-                  <?php if ($facebook  !== "") { ?>
-                     <a class="icon-redes" href="<?php echo $facebook ?>">
-                        <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="facebook">
-                     </a>
-                  <?php } ?>
-                  <?php if ($instagram  !== "") { ?>
-                     <a class="icon-redes" href="<?php echo $instagram ?>">
-                        <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram">
-                     </a>
-                  <?php } ?>
-                  <?php if ($tiktok  !== "") { ?>
-                     <a class="icon-redes" href="<?php echo $tiktok ?>">
-                        <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="tiktok">
-                     </a>
-                  <?php } ?>
+            return $number;
+         }
+
+         // Usar la función formatPhoneNumber para imprimir el número formateado
+         $telefono = get_row('perfil', 'telefono', 'id_perfil', 1);
+         $telefonoFormateado = formatPhoneNumber($telefono);
+         ?> <a href="https://wa.me/<?php echo $telefonoFormateado ?>" class="whatsapp-float" target="_blank">PODEMOS AYUDARTE</a>
+
+         <footer class="footer-contenedor">
+            <?php
+            $sql   = "SELECT * FROM  perfil  where id_perfil=1";
+            $query = mysqli_query($conexion, $sql);
+            while ($row = mysqli_fetch_array($query)) {
+               $nombre_empresa       = $row['nombre_empresa'];
+               $giro_empresa       = $row['giro_empresa'];
+               $telefono       = $row['telefono'];
+               $email       = $row['email'];
+               $logo_url       = $row['logo_url'];
+               $facebook       = $row['facebook'];
+               $instagram       = $row['instagram'];
+               $tiktok       = $row['tiktok'];
+
+            ?>
+               <div class="footer-contenido div-alineado-izquierda">
+                  <h4>Acerca de <?php echo $nombre_empresa ?></h4>
+                  <img id="navbarLogo" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
+                                                      ?>">
+                  <span class="descripcion">
+                     <?php echo $giro_empresa ?>
+                  </span>
                </div>
-            </div>
-            <div class="footer-contenido">
-               <h5>
-                  Información de contacto
-               </h5>
-               <span class="descripcion">
-                  <span class="icons">
-                     <i class='bx bxl-whatsapp ws'></i> <?php echo $telefono ?>
+               <div class="footer-contenido">
+                  <h5>Legal</h5>
+                  <ul class="lista_legal">
+                     <?php
+                     $sql   = "SELECT * FROM  politicas_empresa";
+                     $query = mysqli_query($conexion, $sql);
+                     while ($row = mysqli_fetch_array($query)) {
+                        $nombre_politica       = $row['nombre'];
+                        $id_politica       = $row['id_politica'];
+                     ?>
+                        <li><a href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
+                     <?php } ?>
+                  </ul>
+               </div>
+               <div class="footer-contenido">
+                  <h5>Siguenos</h5>
+                  <div class="redes">
+                     <?php if ($facebook  !== "") { ?>
+                        <a class="icon-redes" href="<?php echo $facebook ?>">
+                           <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="facebook">
+                        </a>
+                     <?php } ?>
+                     <?php if ($instagram  !== "") { ?>
+                        <a class="icon-redes" href="<?php echo $instagram ?>">
+                           <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram">
+                        </a>
+                     <?php } ?>
+                     <?php if ($tiktok  !== "") { ?>
+                        <a class="icon-redes" href="<?php echo $tiktok ?>">
+                           <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="tiktok">
+                        </a>
+                     <?php } ?>
+                  </div>
+               </div>
+               <div class="footer-contenido">
+                  <h5>
+                     Información de contacto
+                  </h5>
+                  <span class="descripcion">
+                     <span class="icons">
+                        <i class='bx bxl-whatsapp ws'></i> <?php echo $telefono ?>
+                     </span>
+                     <span class="icons">
+                        <i class='bx bx-mail-send send'></i><?php echo $email ?>
+                     </span>
                   </span>
-                  <span class="icons">
-                     <i class='bx bx-mail-send send'></i><?php echo $email ?>
-                  </span>
-               </span>
-            </div>
-         <?php } ?>
-      </footer>
-      <div class="text-center p-4">© 2019 IMPORSUIT S.A. | Todos los derechos reservados.
-      </div>
+               </div>
+            <?php } ?>
+         </footer>
+         <div class="text-center p-4">© 2019 IMPORSUIT S.A. | Todos los derechos reservados.
+         </div>
 
 
    </main>

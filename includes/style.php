@@ -300,8 +300,10 @@
 
   @media (max-width: 768px) {
     #navbarLogo {
-      max-width: 100% !important; /* Ajusta el ancho al contenedor */
-    height: auto !important;  /* Ajusta la altura proporcionalmente */
+      max-width: 100% !important;
+      /* Ajusta el ancho al contenedor */
+      height: auto !important;
+      /* Ajusta la altura proporcionalmente */
     }
   }
 </style>
@@ -353,10 +355,11 @@
       font-size: 3.5rem;
     }
   }
+
   .div-alineado-izquierda {
     align-items: flex-start !important;
-     padding-left: 50px;
-}
+    padding-left: 50px;
+  }
 </style>
 <style>
   .carousel-item {
@@ -422,12 +425,42 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
     /* Añade sombra a la tarjeta */
   }
-  @media (max-width: 768px){
+
+  @media (max-width: 768px) {
     .icon_responsive {
-    padding-bottom: 20px;
-  }
+      padding-bottom: 20px;
+    }
   }
 
+  #searchForm {
+    position: relative;
+  }
+
+  .tachado {
+    text-decoration: line-through;
+  }
+
+  .suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    /* Posiciona justo debajo del input */
+    left: 0;
+    right: 0;
+    z-index: 999;
+    /* Asegura que aparezca por encima de otros elementos */
+    background-color: #fff;
+    /* O el color de fondo que prefieras */
+    border: 1px solid #ddd;
+    /* O el estilo de borde que prefieras */
+    border-top: none;
+    /* Esto es para no tener un borde doble donde se junta con el input */
+  }
+
+  .suggestions-dropdown div:hover {
+    background-color: #e9e9e9;
+    /* Cambia el color de fondo al hacer hover */
+    cursor: pointer;
+  }
 
   .card-body_icon i {
     color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
@@ -435,6 +468,13 @@
     margin-bottom: 15px !important;
     /* Espacio debajo del ícono */
   }
+
+  .icon_pequeno i {
+    color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
+    /* Cambia el color de los íconos, ajusta según tu esquema de color */
+    font-size: 0.3em;
+  }
+
 
   .card-title_icon {
     font-size: 1rem !important;

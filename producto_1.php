@@ -66,8 +66,10 @@ while ($row = mysqli_fetch_array($query)) {
 <html lang="es">
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
     #main-image {
       /* Añade una sombra o borde si es necesario */
@@ -116,7 +118,7 @@ while ($row = mysqli_fetch_array($query)) {
     }
 
     .left-column {
-      width: 40%;
+      width: 60%;
       padding: 20px;
       padding-top: 80px;
       position: -webkit-sticky;
@@ -129,7 +131,7 @@ while ($row = mysqli_fetch_array($query)) {
     }
 
     .right-column {
-      width: 60%;
+      width: 40%;
       padding: 20px;
     }
 
@@ -220,8 +222,47 @@ while ($row = mysqli_fetch_array($query)) {
       animation: jump 3s ease infinite;
       /* Animación llamada 'jump' que dura 3 segundos y se repite infinitamente */
     }
-
+    .content_left_right{
+      display: flex;
+    }
     /* Añade más estilos según sea necesario */
+
+    /* Para dispositivos con un ancho de 768px o menos */
+    @media (max-width: 768px) {
+      .content_left_right{
+      display: flex;
+      flex-direction: column;
+      max-width: 75%;
+      margin: 0 auto;
+    }
+
+      .left-column,
+      .right-column {
+        width: 100%;
+        padding: 10px;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      #navbarLogo {
+        height: 60px;
+        width: 60px;
+      }
+
+      /* Otros ajustes responsivos */
+    }
+
+    /* Para dispositivos con un ancho de 480px o menos */
+    @media (max-width: 480px) {
+      .navbar-brand img {
+        height: 50px;
+        width: 50px;
+      }
+
+      /* Ajustes adicionales para dispositivos más pequeños */
+    }
   </style>
   <?php
   include './includes/head_1.php';
@@ -356,7 +397,7 @@ if ($formato == 3) {
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container flex-column">
-      <div class="d-flex">
+      <div class="content_left_right">
         <div class="left-column">
 
           <div class="d-flex flex-row">
@@ -469,26 +510,38 @@ if ($formato == 3) {
           <h3>Descripción:</h3>
           <p><?php echo $descripcion_producto ?></p>
 
-          <div class="cart-item__price-wrapper"><span class="price price--end" style="font-size: 24px;">
-              <?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?>
-            </span>
+          <div class="d-flex flex-row">
+            <div>
+              <span style="font-size: 20px; color:#4461ed; padding-right: 10px;">
+                <strong><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></strong>
+              </span>
+            </div>
+            <div>
+              <?php if ($precio_normal > 0) { ?>
+                <span class="tachado" style="font-size: 20px; padding-right: 10px;">
+                  <strong><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_normal, 2); ?></strong>
+                </span>
+              <?php
+              }
+              ?>
+            </div>
+            <?php if ($precio_normal > 0) { ?>
+              <div class="px-2" style="background-color: #4464ec; color:white; border-radius: 0.3rem;">
+
+
+                <span style="font-size: 20px;"><i class="bx bxs-purchase-tag"></i>
+                  <strong>AHORRA UN <?php echo number_format(100 - ($precio_especial * 100 / $precio_normal)); ?>%</strong>
+                </span>
+
+              </div>
+            <?php } ?>
           </div>
           <div class="container" style="margin-bottom: 20px;">
 
 
           </div>
-          <br>
-          <!-- Otras opciones del producto -->
-          <a style="height: 50px; font-size: 26px; width: 100%; border-radius: 15px" class="jump-button btn boton text-white " href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <span style="margin-top: 10px">COMPRAR AHORA </span></a><!-- comment -->
-
-
-          <br><br>
-
-          <br><br>
-
           <!-- Inicio de Iconos-->
-          <div class="d-flex flex-row" style="padding-bottom: 75px;">
+          <div class="d-flex flex-column">
             <?php
             include './auditoria.php';
             $sql = "SELECT * FROM caracteristicas_tienda WHERE accion=1 or accion=2 or accion=3";
@@ -506,26 +559,29 @@ if ($formato == 3) {
               }
               //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
             ?>
-              <div class="col-md-4">
-                <a <?php echo $enlace_icon ?>>
-                  <div class="card card_icon text-center">
-                    <div class="card-body card-body_icon d-flex flex-column">
-                      <div>
-                        <i class="fas <?php echo $icon_text ?> fa-2x"></i> <!-- Cambia el icono según corresponda -->
-                      </div>
-                      <div>
-                        <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
-                        <p class="card-text card-text_icon"><?php echo $subtexto_icon ?></p>
-                      </div>
-                    </div>
+              <div class="col-md-8">
+                <div class="card-body card-body_icon d-flex flex-row">
+                  <div style="margin-right: 15px;">
+                    <i class="fas <?php echo $icon_text ?> icon_pequeno"></i> <!-- Cambia el icono según corresponda -->
                   </div>
-                </a>
+                  <div>
+                    <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
+                  </div>
+                </div>
               </div>
             <?php
             }
             ?>
           </div>
           <!-- Fin Iconos -->
+          <!-- Otras opciones del producto -->
+          <a style="height: 50px; font-size: 26px; width: 100%; border-radius: 15px" class="jump-button btn boton text-white " href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <span style="margin-top: 10px">COMPRAR AHORA </span></a><!-- comment -->
+
+
+          <br><br>
+
+          <br><br>
           <div>
             <?php
 
@@ -565,7 +621,45 @@ if ($formato == 3) {
           </div>
         </div>
       </div>
+      <!-- Inicio de Iconos-->
+      <div class="d-flex flex-row" style="padding-bottom: 75px;">
+        <?php
+        include './auditoria.php';
+        $sql = "SELECT * FROM caracteristicas_tienda WHERE accion=1 or accion=2 or accion=3";
+        $query = mysqli_query($conexion, $sql);
+        while ($row = mysqli_fetch_array($query)) {
+          $texto = $row['texto'];
+          $icon_text = $row['icon_text'];
+          $enlace_icon = $row['enlace_icon'];
+          $subtexto_icon = $row['subtexto_icon'];
 
+          if ($enlace_icon == '') {
+            $enlace_icon = '';
+          } else {
+            $enlace_icon = 'href="' . $enlace_icon . '" target="_blank" style="text-decoration: none; color: inherit;"';
+          }
+          //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
+        ?>
+          <div class="col-md-4">
+            <a <?php echo $enlace_icon ?>>
+              <div class="card card_icon text-center">
+                <div class="card-body card-body_icon d-flex flex-column">
+                  <div>
+                    <i class="fas <?php echo $icon_text ?> fa-2x"></i> <!-- Cambia el icono según corresponda -->
+                  </div>
+                  <div>
+                    <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
+                    <p class="card-text card-text_icon"><?php echo $subtexto_icon ?></p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        <?php
+        }
+        ?>
+      </div>
+      <!-- Fin Iconos -->
     </div>
 
   </main>
