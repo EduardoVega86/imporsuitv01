@@ -35,7 +35,9 @@ $ciudad_texto = $_POST['ciudad_texto'];
 
 $fecha = date("Y-m-d");
 
-$url = 'https://181.39.87.158:8021/api/guiawebs/';
+$factura = "000" . rand(100000, 999999);
+
+$url = 'https://181.39.87.158:8021/api/GuiaRecaudo/';
 
 // Los datos que vas a enviar en formato JSON
 $data = array(
@@ -73,21 +75,21 @@ $data = array(
     "ANCHO" => 50,
     "ALTO" => 50,
     "PESO_FISICO" => 2,
-    "LOGIN_CREACION" => "impor.comex",
-    "PASSWORD" => "123456",
+    "LOGIN_CREACION" => "IMPCOMEX",
+    "PASSWORD" => "Rtcom-ex9912",
     "ID_CL" => 0,
     "VERIFICAR_CONTENIDO_RECAUDO" => "",
-    "VALIDADOR_RECAUDO" => "SI",
+    "VALIDADOR_RECAUDO" => "NO",
     "DIRECCION_RECAUDO" => $ciudad_texto,
     "FECHA_FACTURA" => $fecha,
     "NUMERO_FACTURA" => "002584154154",
-    "VALOR_FACTURA" => 150.25,
+    "VALOR_FACTURA" => $valor_mercancia,
     "VALOR_FLETE " => $servi_flete,
     "VALOR_COMISION" => $servi_comision,
     "VALOR_SEGURO" => $servi_seguro,
     "VALOR_IMPUESTO" => $servi_impuesto,
     "VALOR_OTROS" => $servi_otros,
-    "VALOR_A_RECAUDAR" => "200",
+    "VALOR_A_RECAUDAR" => $valor_mercancia,
     "DETALLE_ITEMS_FACTURA" => "PRUEBAS SISTEMAS",
 
 );
