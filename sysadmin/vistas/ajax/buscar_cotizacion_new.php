@@ -770,78 +770,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     if ($numrows > 0) {
         echo mysqli_error($conexion);
     ?>
-        <div class="modal fade" id="motorizado" tabindex="-1" data-dismiss="model" role="dialog" aria-labelledby="motorizadoLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form class="form-horizontal" onsubmit="asignar_motorizado(event)" method="post" id="asignar_motorizadoss" name="asignar_motorizadoss">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="motorizadoLabel">Asignar Motorizado</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        </div>
-                        <div class="modal-body">
 
-                            <div class="form-group">
-                                <label for="nombre" class="col control-label">Guia FAST</label>
-                                <div class="col">
-                                    <input type="text" class="form-control" id="guia_fast" name="guia_fast" disabled required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="empresa" class="col-sm-2 control-label">Motorizado</label>
-                                <div class="col">
-                                    <select class="form-control" id="motorizado_s" name="motorizado_s" required>
-                                        <option value="">-- Seleccione un motorizado --</option>
-                                        <?php
-                                        mysqli_data_seek($empresas, 0);
-                                        while ($row = mysqli_fetch_assoc($empresas)) {
-                                            $id_empresa = $row['id'];
-                                            $nombre     = $row['nombre'];
-                                        ?>
-                                            <option value="<?php echo $id_empresa; ?>"><?php echo $nombre; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary cerrarModal" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary guardarModal">Guardar Cambios</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="motorizado_a" tabindex="-1" data-dismiss="modal" role="dialog" aria-labelledby="motorizado_aLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="motorizado_aLabel">Motorizado</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="empresa">Empresa</label>
-                            <input type="text" class="form-control" id="empresa" name="empresa" disabled required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" disabled required>
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono">Telefono</label>
-                            <input type="text" class="form-control" id="telefono" name="telefono" disabled required>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary cerrarModal" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -923,7 +852,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     $guia_numero = '';
                     $impreso = $row['impreso'];
                     $estado_guia = '';
-                    
+
                     @$guia_laar_info = $row['guia_laar'];
                     $estado_actual_guia_X = '';
                     switch ($estado_factura) {

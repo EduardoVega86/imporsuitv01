@@ -178,136 +178,123 @@
 		animation: blink 1s infinite;
 	}
 </style>
-<?php
-if (
-	isset($_SERVER['HTTPS']) &&
-	($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
-	isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-	$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
-) {
-	$protocol = 'https://';
-} else {
-	$protocol = 'http://';
-}
-$dominio_general = $protocol . $_SERVER['HTTP_HOST'];
-if ($dominio_general === "https://marketplace.imporsuit.com") {
-?>
-	<script src="https://alfaingenius.com/ws/chatweb/chatweb-v2.js" defer></script>
-	<!-- Definición de datos para el chatweb -->
-	<script type="text/javascript">
-		var data_chatweb_ai = {
 
-			//Datos ChatWeb
-			nombre_ai: "IMPORSUIT AI",
-			token_ai: "IMPORTSUIT_SUPPORT2023asdJJKALM23489320J",
-			id_servicio_mensajeria_ai: "14",
-			tokens_respuesta_max_ai: "200", //maximo de tokens
-			estado_analytics_chatbot: 0, //si el estado esta 0, no se analiza los mensajes del chatweb
-			estado_notificaciones_chatbot: true, //si el modelo esta 0, no se solicita notificaciones
+<script src="https://alfaingenius.com/ws/chatweb/chatweb-v2.js" defer></script>
+<!-- Definición de datos para el chatweb -->
+<script type="text/javascript">
+	var data_chatweb_ai = {
 
-			//Verificar Modo Prueba
-			modo_prueba_ai: 0, //si el modo prueba esta 1, no consumira tokens de la IA y solo respondera el mensaje de prueba
-			mensaje_de_prueba: 'Para subir un producto en ImportSuit, sigue estos pasos: 1. Inicia sesión en tu cuenta de ImportSuit. 2. Ve al panel de control y selecciona la opción "Productos" en el menú lateral. 3. Haz clic en el botón "Agregar Producto" para crear un nuevo producto. 4. Completa la información requerida para el producto, como el nombre, descripción, categoría, precio, imágenes, etc. 5. Si deseas agregar variantes del producto, como diferentes tamaños o colores, puedes hacerlo en la sección de "Variantes". 6. Si tienes un inventario para el producto, puedes administrarlo en la sección de "Inventario". 7. Una vez que hayas completado todos los detalles del producto, haz clic en el botón "Guardar" para subirlo a tu tienda en línea. Recuerda que puedes consultar la guía detallada sobre cómo agregar productos a tu tienda en ImportSuit en el siguiente enlace: [Agregar Productos a tu Tienda](https://www.notion.so/Agregar-Productos-a-tu-Tienda-be9e714afbe346a9af68b8af462163c4). el tutorial de yotube es: https://www.youtube.com/watch?v=M1IVwWb3vR0&t=4s',
+		//Datos ChatWeb
+		nombre_ai: "IMPORSUIT AI",
+		token_ai: "IMPORTSUIT_SUPPORT2023asdJJKALM23489320J",
+		id_servicio_mensajeria_ai: "14",
+		tokens_respuesta_max_ai: "200", //maximo de tokens
+		estado_analytics_chatbot: 0, //si el estado esta 0, no se analiza los mensajes del chatweb
+		estado_notificaciones_chatbot: true, //si el modelo esta 0, no se solicita notificaciones
 
-			//parametros ai o prompts
+		//Verificar Modo Prueba
+		modo_prueba_ai: 0, //si el modo prueba esta 1, no consumira tokens de la IA y solo respondera el mensaje de prueba
+		mensaje_de_prueba: 'Para subir un producto en ImportSuit, sigue estos pasos: 1. Inicia sesión en tu cuenta de ImportSuit. 2. Ve al panel de control y selecciona la opción "Productos" en el menú lateral. 3. Haz clic en el botón "Agregar Producto" para crear un nuevo producto. 4. Completa la información requerida para el producto, como el nombre, descripción, categoría, precio, imágenes, etc. 5. Si deseas agregar variantes del producto, como diferentes tamaños o colores, puedes hacerlo en la sección de "Variantes". 6. Si tienes un inventario para el producto, puedes administrarlo en la sección de "Inventario". 7. Una vez que hayas completado todos los detalles del producto, haz clic en el botón "Guardar" para subirlo a tu tienda en línea. Recuerda que puedes consultar la guía detallada sobre cómo agregar productos a tu tienda en ImportSuit en el siguiente enlace: [Agregar Productos a tu Tienda](https://www.notion.so/Agregar-Productos-a-tu-Tienda-be9e714afbe346a9af68b8af462163c4). el tutorial de yotube es: https://www.youtube.com/watch?v=M1IVwWb3vR0&t=4s',
 
-			parametros_chatbot_ai: [{
-					"nombre_parametro_chatbot": "home_page",
-					"descripcion_parametro_chatbot": "El Cliente se encuentra en la pagina de inicio",
-					"prompt_parametro_chatbot": "El Cliente se encuentra en la pagina de inicio",
-					"constante_parametro_chatbot": 1,
-				},
-				{
-					"nombre_parametro_chatbot": "estado del e-commerce",
-					"descripcion_parametro_chatbot": "El e-commerce esta en estado de prueba",
-					"prompt_parametro_chatbot": "El e-commerce esta en estado de prueba",
-					"constante_parametro_chatbot": 1,
-				},
-			],
+		//parametros ai o prompts
 
-			//Mensajes Default
-			mensajes_default_chatbot_ai: [{
-					"mensaje": "Hola! soy tu asistente virtual! en qué deseas que te ayude?",
-					"prior": 1, //siempre debe estar activo para que se envie el mensaje
-					"onsend": 0, //se envia el mensaje a lo que el usuario envia cualquier mensaje
-					"onload": 1, //se envia el mensaje a lo que el usuario recarga la página
-					"onfirst": 0, //se envía el mensaje a lo que el usuario
-					"opciones_mensaje": [{
-							"opcion": "Soporte", //nombre del boton
-							"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
-							"nombre_analytic_chatbot": "soporte_chatweb",
-						},
-						{
-							"opcion": "Manual de Soporte",
-							"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
-							"nombre_analytic_chatbot": "soporte_chatweb",
-							"url_mensaje_opcion": "https://google.com",
-						},
-						{
-							"opcion": "Textos para Productos",
-							"respuesta_mensaje_opcion": "Te ayudaré a crear textos para productos, pásame el texto del producto para hacerlo vendible",
-							"nombre_analytic_chatbot": "marketing_chatweb",
-						},
-					],
+		parametros_chatbot_ai: [{
+				"nombre_parametro_chatbot": "home_page",
+				"descripcion_parametro_chatbot": "El Cliente se encuentra en la pagina de inicio",
+				"prompt_parametro_chatbot": "El Cliente se encuentra en la pagina de inicio",
+				"constante_parametro_chatbot": 1,
+			},
+			{
+				"nombre_parametro_chatbot": "estado del e-commerce",
+				"descripcion_parametro_chatbot": "El e-commerce esta en estado de prueba",
+				"prompt_parametro_chatbot": "El e-commerce esta en estado de prueba",
+				"constante_parametro_chatbot": 1,
+			},
+		],
 
-				},
-				{
-					"mensaje": "Te puedo ayudar en algo mas?",
-					"prior": 1, //siempre debe estar activo para que se envie el mensaje
-					"onsend": 1, //al enviar cualquier mensaje
-					"onload": 0, //al recargar la pagina
-					"onfirst": 0, //al enviar por primera vez
-					"opciones_mensaje": [{
-							"opcion": "Soporte",
-							"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
-							"nombre_analytic_chatbot": "soporte_chatweb",
-						},
-						{
-							"opcion": "Manual de Soporte",
-							"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
-							"nombre_analytic_chatbot": "soporte_chatweb",
-							"url_mensaje_opcion": "https://google.com",
-						},
-						{
-							"opcion": "Textos para Productos",
-							"respuesta_mensaje_opcion": "Te ayudaré a crear textos para productos, pásame el texto del producto para hacerlo vendible",
-							"nombre_analytic_chatbot": "marketing_chatweb",
-						},
-					],
+		//Mensajes Default
+		mensajes_default_chatbot_ai: [{
+				"mensaje": "Hola! soy tu asistente virtual! en qué deseas que te ayude?",
+				"prior": 1, //siempre debe estar activo para que se envie el mensaje
+				"onsend": 0, //se envia el mensaje a lo que el usuario envia cualquier mensaje
+				"onload": 1, //se envia el mensaje a lo que el usuario recarga la página
+				"onfirst": 0, //se envía el mensaje a lo que el usuario
+				"opciones_mensaje": [{
+						"opcion": "Soporte", //nombre del boton
+						"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
+						"nombre_analytic_chatbot": "soporte_chatweb",
+					},
+					{
+						"opcion": "Manual de Soporte",
+						"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
+						"nombre_analytic_chatbot": "soporte_chatweb",
+						"url_mensaje_opcion": "https://google.com",
+					},
+					{
+						"opcion": "Textos para Productos",
+						"respuesta_mensaje_opcion": "Te ayudaré a crear textos para productos, pásame el texto del producto para hacerlo vendible",
+						"nombre_analytic_chatbot": "marketing_chatweb",
+					},
+				],
 
-				},
-			],
-			mensajes_error_chatbot_ai: "De Momento no puedo atenderte",
+			},
+			{
+				"mensaje": "Te puedo ayudar en algo mas?",
+				"prior": 1, //siempre debe estar activo para que se envie el mensaje
+				"onsend": 1, //al enviar cualquier mensaje
+				"onload": 0, //al recargar la pagina
+				"onfirst": 0, //al enviar por primera vez
+				"opciones_mensaje": [{
+						"opcion": "Soporte",
+						"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
+						"nombre_analytic_chatbot": "soporte_chatweb",
+					},
+					{
+						"opcion": "Manual de Soporte",
+						"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
+						"nombre_analytic_chatbot": "soporte_chatweb",
+						"url_mensaje_opcion": "https://google.com",
+					},
+					{
+						"opcion": "Textos para Productos",
+						"respuesta_mensaje_opcion": "Te ayudaré a crear textos para productos, pásame el texto del producto para hacerlo vendible",
+						"nombre_analytic_chatbot": "marketing_chatweb",
+					},
+				],
 
-			//Analytics Chatweb
+			},
+		],
+		mensajes_error_chatbot_ai: "De Momento no puedo atenderte",
 
-			/*
-			analytics_chatbots: [
-			    "support_notion_api",
-			    "cliente_quiere_agendar",
-			],
-			*/
+		//Analytics Chatweb
 
-			//Datos Usuario ChatWeb
-			uid_user_ai: "",
-			name_user_ai: "Daniel Bonilla",
-			celular_user_ai: "593987654321",
-			email_user_ai: "cliente@dominio.com",
-			datos_usuario_chatbot_ia: [{
-					"campo_cliente_chatbot": "tipo de negocio",
-					"descripcion_campo_chatbot": "",
-					"valor_campo_cliente": "Venta de Autos",
-				},
-				{
-					"campo_cliente_chatbot": "tipo de plan mensual",
-					"descripcion_campo_chatbot": "",
-					"valor_campo_cliente": "Plan de Prueba",
-				},
-			],
-		};
-	</script>
+		/*
+		analytics_chatbots: [
+		    "support_notion_api",
+		    "cliente_quiere_agendar",
+		],
+		*/
 
-<?php } ?>
+		//Datos Usuario ChatWeb
+		uid_user_ai: "",
+		name_user_ai: "Daniel Bonilla",
+		celular_user_ai: "593987654321",
+		email_user_ai: "cliente@dominio.com",
+		datos_usuario_chatbot_ia: [{
+				"campo_cliente_chatbot": "tipo de negocio",
+				"descripcion_campo_chatbot": "",
+				"valor_campo_cliente": "Venta de Autos",
+			},
+			{
+				"campo_cliente_chatbot": "tipo de plan mensual",
+				"descripcion_campo_chatbot": "",
+				"valor_campo_cliente": "Plan de Prueba",
+			},
+		],
+	};
+</script>
+
+
 
 
 </head>
