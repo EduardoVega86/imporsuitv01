@@ -2231,7 +2231,7 @@ mysqli_query($conexion, "CREATE TABLE `cobertura_servientrega` (
   `precio` double DEFAULT NULL
   );");
 
-mysqli_query($conexion, "INSERT INTO prueba_imporsuit.cobertura_servientrega (id_cobertura,tipo_cobertura,costo,precio) VALUES
+mysqli_query($conexion, "INSERT INTO cobertura_servientrega (id_cobertura,tipo_cobertura,costo,precio) VALUES
 (1,'TL',2.04,4.75),
 (2,'TC',3.15,4.75),
 (3,'TP',3.48,5.0),
