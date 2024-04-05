@@ -475,7 +475,7 @@ if ($formato == 3) {
 
 
                 <div class="
-    price price--large price--on-sale  price--show-badge">
+                       price price--large price--on-sale  price--show-badge">
                   <div class="price__container">
                     <div class="price__regular">
                       <span class="visually-hidden visually-hidden--inline">Regular price</span>

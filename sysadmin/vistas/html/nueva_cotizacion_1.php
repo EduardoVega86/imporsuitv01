@@ -865,7 +865,9 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
         $('#transportadora').val(id);
         console.log(id);
         if (id === 1) {
-            $("#costo_envio").val($("#precio_laar").text());
+            let costo_envio_sin_signo = $('#precio_laar').text();
+            costo_envio_sin_signo = costo_envio_sin_signo.replace('$', '');
+            $("#costo_envio").val(costo_envio_sin_signo);
         } else if (id === 3) {
             $("#costo_envio").val($("#precio_servientrega").text());
         }
@@ -1139,7 +1141,8 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                     $('#costo_envio').val(0);
                 } else {
                     $('#precio_laar').text(`$${precio_laar}`);
-                    $('#costo_envio').val(precio_laar);
+                    let envio_sin_signo = precio_laar.replace('$', '');
+                    $('#costo_envio').val(envio_sin_signo);
                 }
             })
 

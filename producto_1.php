@@ -405,7 +405,7 @@ if ($formato == 3) {
               <!-- Indicadores del carrusel para las miniaturas -->
               <div class="list-group" style="max-width: 200px !important;" id="list-tab" role="tablist">
 
-                <a class="list-group-item list-group-item-action active" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                   <img src="<?php
                             $subcadena = "http";
                             if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
@@ -417,7 +417,7 @@ if ($formato == 3) {
                 <!-- condiciones para imagenes adicionales -->
                 <!-- url1 -->
                 <?php if ($url_a1 !== "") { ?>
-                  <a class="list-group-item list-group-item-action active" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
                               if (strpos(strtolower($url_a1), strtolower($subcadena)) === 0) {
@@ -430,7 +430,7 @@ if ($formato == 3) {
 
                 <!-- url2 -->
                 <?php if ($url_a2 !== "") { ?>
-                  <a class="list-group-item list-group-item-action active" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
                               if (strpos(strtolower($url_a2), strtolower($subcadena)) === 0) {
@@ -443,7 +443,7 @@ if ($formato == 3) {
 
                 <!-- url3 -->
                 <?php if ($url_a3 !== "") { ?>
-                  <a class="list-group-item list-group-item-action active" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
                               if (strpos(strtolower($url_a3), strtolower($subcadena)) === 0) {
@@ -456,7 +456,7 @@ if ($formato == 3) {
 
                 <!-- url4 -->
                 <?php if ($url_a4 !== "") { ?>
-                  <a class="list-group-item list-group-item-action active" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
                               if (strpos(strtolower($url_a4), strtolower($subcadena)) === 0) {
@@ -469,7 +469,7 @@ if ($formato == 3) {
 
                 <!-- url5 -->
                 <?php if ($url_a5 !== "") { ?>
-                  <a class="list-group-item list-group-item-action active" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
                               if (strpos(strtolower($url_a5), strtolower($subcadena)) === 0) {
@@ -744,7 +744,7 @@ if ($formato == 3) {
   </div>
 
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><!-- comment -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="js_nuevo/bootstrap.bundle.min.js" type="text/javascript"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
