@@ -162,7 +162,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 </tr>
             <?php
             }
-            $total_factura = $subtotal + $total_impuesto;
+            $total_factura = $subtotal;
             ?>
             <!--tr>
                 <td class='text-right' colspan=5>SUBTOTAL</td>
