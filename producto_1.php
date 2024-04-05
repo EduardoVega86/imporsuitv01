@@ -483,7 +483,7 @@ if ($formato == 3) {
                 <!-- Repite para otras miniaturas -->
               </div>
             </div>
-            <div class="col-lg-10">
+            <div class="col-lg-10" style="max-width: 500px !important;">
               <!-- Área principal de visualización de imagen -->
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-image1" role="tabpanel" aria-labelledby="list-image1-list">
@@ -505,11 +505,7 @@ if ($formato == 3) {
 
         <div class="right-column">
           <div class="product-title"><?php echo $nombre_producto ?></div>
-
-
-          <h3>Descripción:</h3>
-          <p><?php echo $descripcion_producto ?></p>
-
+          <br>
           <div class="d-flex flex-row">
             <div>
               <span style="font-size: 20px; color:#4461ed; padding-right: 10px;">
@@ -560,9 +556,9 @@ if ($formato == 3) {
               //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
             ?>
               <div class="col-md-8">
-                <div class="card-body card-body_icon d-flex flex-row">
+                <div class="icon_pequeno d-flex flex-row">
                   <div style="margin-right: 15px;">
-                    <i class="fas <?php echo $icon_text ?> icon_pequeno"></i> <!-- Cambia el icono según corresponda -->
+                    <i class="fas <?php echo $icon_text ?>"></i> <!-- Cambia el icono según corresponda -->
                   </div>
                   <div>
                     <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
@@ -582,7 +578,7 @@ if ($formato == 3) {
           <br><br>
 
           <br><br>
-          <div>
+          <div class="contenedor-landing">
             <?php
 
 

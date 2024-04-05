@@ -356,6 +356,12 @@
     }
   }
 
+  @media (min-width: 768px) {
+    .div-alineado-izquierda {
+      align-items: center !important;
+    }
+  }
+
   .div-alineado-izquierda {
     align-items: flex-start !important;
     padding-left: 50px;
@@ -472,7 +478,7 @@
   .icon_pequeno i {
     color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
     /* Cambia el color de los íconos, ajusta según tu esquema de color */
-    font-size: 0.3em;
+    font-size: 1em;
   }
 
 

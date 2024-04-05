@@ -410,7 +410,7 @@ $domain = $_SERVER['HTTP_HOST'];
                                  <?php } ?>
                               </div>
                            </div>
-                           <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="producto_1.php?id=<?php echo $id_producto ?>">Comprar</a>
+                           <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="producto.php?id=<?php echo $id_producto ?>">Comprar</a>
                         </div>
 
                      </div>
