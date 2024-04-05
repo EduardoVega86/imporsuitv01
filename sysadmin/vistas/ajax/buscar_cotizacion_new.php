@@ -570,9 +570,237 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 $span_estado = 'badge-purple';
                                                                                                                                 $estado_guia = 'Recolectado';
                                                                                                                                 break;
-                                                                                                                            case '5':
+                                                                                                                            case '300':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '301':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '302':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '303':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '304':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '305':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '306':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '307':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '308':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '309':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '310':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '311':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '312':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '313':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '314':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '315':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '316':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '317':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '318':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '319':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '320':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '321':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '322':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '323':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '324':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '325':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '326':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '327':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '328':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '329':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '330':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '331':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '332':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '333':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '334':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '335':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '336':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '337':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '338':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '339':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '340':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '341':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '342':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '343':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '344':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '345':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '346':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '347':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '348':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '349':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '350':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '351':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '401':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '402':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '403':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '500':
                                                                                                                                 $span_estado = 'badge-danger';
-                                                                                                                                $estado_guia = 'Anulado';
+                                                                                                                                $estado_guia = 'Devolución';
+                                                                                                                                break;
+                                                                                                                            case '501':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Devolución';
+                                                                                                                                break;
+                                                                                                                            case '502':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Devolución';
                                                                                                                                 break;
                                                                                                                         }
                                                                                                                     } else {
@@ -1150,7 +1378,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 $estado_guia = 'Devuelto';
                                                                                                                                 break;
                                                                                                                         }
-                                                                                                                    } else if ($estado_guia_for != "0" && strpos($guia_numero, "IMP") !== 0) {
+                                                                                                                    } else if ($estado_guia_for != "0" && strpos($guia_numero, "FAST") === 0) {
                                                                                                                         switch ($estado_guia_for) {
                                                                                                                             case '1':
                                                                                                                                 $span_estado = 'badge-purple';
@@ -1167,6 +1395,257 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                             case '4':
                                                                                                                                 $span_estado = 'badge-danger';
                                                                                                                                 $estado_guia = 'Anulado';
+                                                                                                                                break;
+                                                                                                                        }
+                                                                                                                    } else if ($estado_guia_for != "0" && is_numeric($guia_numero)) {
+                                                                                                                        switch ($estado_guia_for) {
+                                                                                                                            case '100':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Generada';
+                                                                                                                                break;
+                                                                                                                            case '101':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulada';
+                                                                                                                                break;
+                                                                                                                            case '103':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Generada';
+                                                                                                                                break;
+                                                                                                                            case '200':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Recolectado';
+                                                                                                                                break;
+                                                                                                                            case '300':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '301':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '302':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '303':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '304':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '305':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '306':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '307':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '308':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '309':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '310':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '311':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '312':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '313':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '314':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '315':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '316':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '317':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '318':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '319':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '320':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '321':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '322':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '323':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '324':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '325':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '326':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '327':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '328':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '329':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '330':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '331':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '332':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '333':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '334':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '335':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '336':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '337':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '338':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '339':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '340':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '341':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'Procesamiento';
+                                                                                                                                break;
+                                                                                                                            case '342':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '343':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '344':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '345':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '346':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '347':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '348':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '349':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '350':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '351':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '401':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '402':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '403':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '500':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Devolución';
+                                                                                                                                break;
+                                                                                                                            case '501':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Devolución';
+                                                                                                                                break;
+                                                                                                                            case '502':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Devolución';
                                                                                                                                 break;
                                                                                                                         }
                                                                                                                     } else {
