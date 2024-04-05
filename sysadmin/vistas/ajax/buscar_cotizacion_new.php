@@ -528,7 +528,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 $estado_guia = 'Devuelto';
                                                                                                                                 break;
                                                                                                                         }
-                                                                                                                    } else if ($estado_guia_for != "0" && strpos($guia_numero, "IMP") !== 0) {
+                                                                                                                    } else if ($estado_guia_for != "0" && strpos($guia_numero, "FAST") === 0) {
                                                                                                                         switch ($estado_guia_for) {
                                                                                                                             case '1':
                                                                                                                                 $span_estado = 'badge-purple';
@@ -550,6 +550,29 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                             case '7':
                                                                                                                                 $span_estado = 'badge-success';
                                                                                                                                 $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                        }
+                                                                                                                    } else if ($estado_guia_for != "0" && is_numeric($guia_numero)) {
+                                                                                                                        switch ($estado_guia_for) {
+                                                                                                                            case '100':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Generada';
+                                                                                                                                break;
+                                                                                                                            case '101':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulada';
+                                                                                                                                break;
+                                                                                                                            case '103':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Generada';
+                                                                                                                                break;
+                                                                                                                            case '200':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Recolectado';
+                                                                                                                                break;
+                                                                                                                            case '5':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulado';
                                                                                                                                 break;
                                                                                                                         }
                                                                                                                     } else {
