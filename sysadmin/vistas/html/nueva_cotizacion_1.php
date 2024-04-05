@@ -555,9 +555,6 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                 }
             });
 
-
-
-
             $.ajax({
                 url: '../ajax/calcular_guia.php',
                 type: 'post',
@@ -570,7 +567,6 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
                     $('#resultados').html(response);
                     $('#generar_guia_btn').prop('disabled', false);
                 } // /success function
-
             });
             $.ajax({
                 url: "../ajax/ultimo_pedido.php",

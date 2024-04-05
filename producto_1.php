@@ -222,19 +222,21 @@ while ($row = mysqli_fetch_array($query)) {
       animation: jump 3s ease infinite;
       /* Animación llamada 'jump' que dura 3 segundos y se repite infinitamente */
     }
-    .content_left_right{
+
+    .content_left_right {
       display: flex;
     }
+
     /* Añade más estilos según sea necesario */
 
     /* Para dispositivos con un ancho de 768px o menos */
     @media (max-width: 768px) {
-      .content_left_right{
-      display: flex;
-      flex-direction: column;
-      max-width: 75%;
-      margin: 0 auto;
-    }
+      .content_left_right {
+        display: flex;
+        flex-direction: column;
+        max-width: 75%;
+        margin: 0 auto;
+      }
 
       .left-column,
       .right-column {
@@ -416,7 +418,7 @@ if ($formato == 3) {
                 </a>
                 <!-- condiciones para imagenes adicionales -->
                 <!-- url1 -->
-                <?php if ($url_a1 !== "") { ?>
+                <?php if ($url_a1 !== "" || !empty($url_a1)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -429,7 +431,7 @@ if ($formato == 3) {
                 <?php } ?>
 
                 <!-- url2 -->
-                <?php if ($url_a2 !== "") { ?>
+                <?php if ($url_a2 !== "" || !empty($url_a2)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -442,7 +444,7 @@ if ($formato == 3) {
                 <?php } ?>
 
                 <!-- url3 -->
-                <?php if ($url_a3 !== "") { ?>
+                <?php if ($url_a3 !== "" || !empty($url_a3)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -455,7 +457,7 @@ if ($formato == 3) {
                 <?php } ?>
 
                 <!-- url4 -->
-                <?php if ($url_a4 !== "") { ?>
+                <?php if ($url_a4 !== "" || !empty($url_a4)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -468,7 +470,7 @@ if ($formato == 3) {
                 <?php } ?>
 
                 <!-- url5 -->
-                <?php if ($url_a5 !== "") { ?>
+                <?php if ($url_a5 !== "" || !empty($url_a5)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -782,6 +784,22 @@ if ($formato == 3) {
     });
   </script>
 
+  <script>
+    // Función llamada si la imagen no puede cargarse
+    function imagenError(image) {
+      console.log("La imagen no pudo cargarse.");
+      // Aquí puedes realizar una acción, como cargar una imagen de respaldo
+      image.src = 'ruta/a/tu/imagen/por/defecto.jpg';
+    }
+
+    // Función llamada cuando la imagen se ha cargado correctamente
+    function imagenCargada(image) {
+      console.log("La imagen se cargó correctamente.");
+      // Aquí puedes realizar acciones después de que la imagen haya cargado
+      // Por ejemplo, podrías agregar una clase al elemento
+      image.classList.add("cargada-correctamente");
+    }
+  </script>
 
 </body>
 
