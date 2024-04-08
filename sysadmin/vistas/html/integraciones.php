@@ -261,7 +261,7 @@ $respuesta = mysqli_fetch_row($respuesta);
                                                                         <option value="PT">🇵🇹</option> <!-- Portugal-->
                                                                     </select> 
                                                                     <div class="d-flex justify-content-center mb-3 pb-1">
-                                                                        <img src="../../img/dropi.jpeg" width="50px" alt="img">
+                                                                        <img src="https://marketplace.imporsuit.com/sysadmin/img/dropi.jpeg" width="50px" alt="img">
                                                                         <span class="h1 fw-bold mb-0"> Dropi</span>
                                                                     </div>
 

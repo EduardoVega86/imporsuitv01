@@ -82,7 +82,7 @@ $pais = get_row('perfil', 'pais', 'id_perfil', 1);
 										?>
 													<div class="col-lg-3">
 														<div class="card-box">
-															<a id="" href="nueva_cotizacion.php?id=<?php echo $tienda; ?>">
+															<a id="" href="nueva_cotizacion_1.php?id=<?php echo $tienda; ?>">
 																<div class="widget-chart">
 
 																	<img width="100px" src="../../img_sistema/logo_tienda.png" alt="" />

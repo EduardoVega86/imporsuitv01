@@ -234,7 +234,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                         <div id="card3" onclick="seleccionar_transportadora(3)" class="card formulario p-1">
                                                                             <img style="width: 100%;" id="tr3" src="../../img_sistema/servi.png" class="card-img-top  formulario image-bn interactive-image" alt="Selecciona Laarcourrier">
                                                                             <div class="card-body" style="text-align: center;">
-                                                                                <strong id="precio_servientrega">---</strong>
+                                                                                <strong id="precio_servientrega">Proximamente</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -838,7 +838,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     function seleccionarProvincia() {
         var id_provincia = $('#ciudad_entrega').val();
         let recaudo = $('#cod').val();
-        calcular_servi(id_provincia, recaudo);
+        //calcular_servi(id_provincia, recaudo);
 
         $.ajax({
             url: "../ajax/cargar_provincia_pedido.php",
