@@ -50,117 +50,117 @@ $domain = $_SERVER['HTTP_HOST'];
          <div class="container">
             <!-- Logo en el centro para todas las vistas -->
             <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
-                                                                                                                                                                           if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
-                                                                                                                                                                              echo "assets/img/imporsuit.png";
-                                                                                                                                                                           } else {
-                                                                                                                                                                              echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
-                                                                                                                                                                           }
-                                                                                                                                                                           ?>" alt="Imagen" /></a></a>
+                                                                                                                                                                              if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
+                                                                                                                                                                                 echo "assets/img/imporsuit.png";
+                                                                                                                                                                              } else {
+                                                                                                                                                                                 echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
+                                                                                                                                                                              }
+                                                                                                                                                                              ?>" alt="Imagen" /></a></a>
 
             <button class="navbar-toggler" id="menuButton">
                <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
-               <!-- Elementos a la izquierda -->
-               <ul class="navbar-nav mr-auto ">
-                  <li class="nav-item active">
-                     <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria.php">Catálogo</a>
-                  </li>
-
-               </ul>
-               <!-- Elementos a la derecha -->
-               <ul class="navbar-nav">
-                  <form id="searchForm">
-                     <div class="search-box">
-                        <input type="text" id="searchInput" class="search-input" placeholder="Buscar" required>
-                        <button type="submit" class="search-button">
-                           <i class="fas fa-search"></i>
-                        </button>
-                     </div>
-                     <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem; padding-left:10px;">
-                        <!-- Las sugerencias se insertarán aquí -->
-                     </div>
-                  </form>
-
-                  <script>
-                     // Autocompletar sugerencias
-                     document.getElementById('searchInput').addEventListener('input', function() {
-                        var inputVal = this.value;
-
-                        // Ocultar sugerencias si no hay valor
-                        if (inputVal.length === 0) {
-                           document.getElementById('suggestions').style.display = 'none';
-                           return;
-                        }
-
-                        // Realizar la solicitud AJAX al script PHP para obtener sugerencias
-                        fetch('/sysadmin/vistas/ajax/search_index.php', {
-                              method: 'POST',
-                              body: new URLSearchParams('query=' + inputVal)
-                           })
-                           .then(response => response.json())
-                           .then(data => {
-                              var suggestionsContainer = document.getElementById('suggestions');
-                              suggestionsContainer.innerHTML = '';
-                              suggestionsContainer.style.display = 'block';
-
-                              // Agregar las sugerencias al contenedor
-                              data.forEach(function(item) {
-                                 var div = document.createElement('div');
-                                 div.innerHTML = item.nombre_producto; // Asumiendo que 'nombre_producto' es lo que quieres mostrar
-                                 div.onclick = function() {
-                                    // Al hacer clic, se actualiza el input y se redirige
-                                    document.getElementById('searchInput').value = this.innerText;
-                                    window.location.href = 'producto_1.php?id=' + item.id_producto;
-                                 };
-                                 suggestionsContainer.appendChild(div);
-                              });
-                           })
-                           .catch(error => console.error('Error:', error));
-                     });
-
-                     // Evento submit del formulario
-                     document.getElementById('searchForm').addEventListener('submit', function(event) {
-                        event.preventDefault();
-                        var searchQuery = document.getElementById('searchInput').value;
-                        // Aquí puedes manejar la búsqueda, por ejemplo, redirigir a una página de resultados
-                        window.location.href = '/busqueda.php?query=' + encodeURIComponent(searchQuery);
-                     });
-                  </script>
-               </ul>
-            </div>
-
-            <script>
-               // Obtener el botón y el menú
-               var menuButton = document.getElementById('menuButton');
-               var menu = document.getElementById('navbarResponsive');
-
-               // Función para alternar la visibilidad del menú
-               function toggleMenu() {
-                  if (menu.classList.contains('show')) {
-                     menu.classList.remove('show');
-                  } else {
-                     menu.classList.add('show');
-                  }
-               }
-
-               // Evento click para el botón del menú
-               menuButton.onclick = function() {
-                  toggleMenu();
-               };
-
-               // Opcional: cerrar el menú si se hace clic fuera de él
-               window.onclick = function(event) {
-                  if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
-                     menu.classList.remove('visible');
-                  }
-               };
-            </script>
-
          </div>
+         <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
+            <!-- Elementos a la izquierda -->
+            <ul class="navbar-nav mr-auto " style="padding-right: 15px;">
+               <li class="nav-item active">
+                  <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria.php">Catálogo</a>
+               </li>
+
+            </ul>
+            <!-- Elementos a la derecha -->
+            <ul class="navbar-nav">
+               <form id="searchForm">
+                  <div class="search-box">
+                     <input type="text" id="searchInput" class="search-input" placeholder="Buscar" required>
+                     <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                     </button>
+                  </div>
+                  <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem; padding-left:10px;">
+                     <!-- Las sugerencias se insertarán aquí -->
+                  </div>
+               </form>
+
+               <script>
+                  // Autocompletar sugerencias
+                  document.getElementById('searchInput').addEventListener('input', function() {
+                     var inputVal = this.value;
+
+                     // Ocultar sugerencias si no hay valor
+                     if (inputVal.length === 0) {
+                        document.getElementById('suggestions').style.display = 'none';
+                        return;
+                     }
+
+                     // Realizar la solicitud AJAX al script PHP para obtener sugerencias
+                     fetch('/sysadmin/vistas/ajax/search_index.php', {
+                           method: 'POST',
+                           body: new URLSearchParams('query=' + inputVal)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                           var suggestionsContainer = document.getElementById('suggestions');
+                           suggestionsContainer.innerHTML = '';
+                           suggestionsContainer.style.display = 'block';
+
+                           // Agregar las sugerencias al contenedor
+                           data.forEach(function(item) {
+                              var div = document.createElement('div');
+                              div.innerHTML = item.nombre_producto; // Asumiendo que 'nombre_producto' es lo que quieres mostrar
+                              div.onclick = function() {
+                                 // Al hacer clic, se actualiza el input y se redirige
+                                 document.getElementById('searchInput').value = this.innerText;
+                                 window.location.href = 'producto_1.php?id=' + item.id_producto;
+                              };
+                              suggestionsContainer.appendChild(div);
+                           });
+                        })
+                        .catch(error => console.error('Error:', error));
+                  });
+
+                  // Evento submit del formulario
+                  document.getElementById('searchForm').addEventListener('submit', function(event) {
+                     event.preventDefault();
+                     var searchQuery = document.getElementById('searchInput').value;
+                     // Aquí puedes manejar la búsqueda, por ejemplo, redirigir a una página de resultados
+                     window.location.href = '/busqueda.php?query=' + encodeURIComponent(searchQuery);
+                  });
+               </script>
+            </ul>
+         </div>
+
+         <script>
+            // Obtener el botón y el menú
+            var menuButton = document.getElementById('menuButton');
+            var menu = document.getElementById('navbarResponsive');
+
+            // Función para alternar la visibilidad del menú
+            function toggleMenu() {
+               if (menu.classList.contains('show')) {
+                  menu.classList.remove('show');
+               } else {
+                  menu.classList.add('show');
+               }
+            }
+
+            // Evento click para el botón del menú
+            menuButton.onclick = function() {
+               toggleMenu();
+            };
+
+            // Opcional: cerrar el menú si se hace clic fuera de él
+            window.onclick = function(event) {
+               if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
+                  menu.classList.remove('visible');
+               }
+            };
+         </script>
+
       </nav>
    </header>
 
@@ -207,9 +207,9 @@ $domain = $_SERVER['HTTP_HOST'];
                      <div class="carousel-caption <?php echo $alineacion; ?>">
                         <h1><?php echo $titulo_slider; ?></h1>
                         <p><?php echo $texto_slider; ?></p>
-                        <?php if (!empty($text_btn_slider)){?>
-                        <p><a class="btn btn-lg btn-primary boton texto_boton" href="<?php echo $enlace_btn_slider; ?>"><?php echo $text_btn_slider; ?></a></p>
-                        <?php }?>
+                        <?php if (!empty($text_btn_slider)) { ?>
+                           <p><a class="btn btn-lg btn-primary boton texto_boton" href="<?php echo $enlace_btn_slider; ?>"><?php echo $text_btn_slider; ?></a></p>
+                        <?php } ?>
                      </div>
                   </div>
                </div>
@@ -221,9 +221,9 @@ $domain = $_SERVER['HTTP_HOST'];
                         <div class="carousel-caption text-start">
                            <h1><?php echo $slide['titulo']; ?></h1>
                            <p><?php echo $slide['texto_banner']; ?></p>
-                           <?php if (!empty($slide['texto_boton'])){?>
-                           <p><a class="btn btn-lg btn-primary boton texto_boton" href="<?php echo $slide['enlace']; ?>"><?php echo $slide['texto_boton']; ?></a></p>
-                           <?php }?>
+                           <?php if (!empty($slide['texto_boton'])) { ?>
+                              <p><a class="btn btn-lg btn-primary boton texto_boton" href="<?php echo $slide['enlace']; ?>"><?php echo $slide['texto_boton']; ?></a></p>
+                           <?php } ?>
                         </div>
                      </div>
                   </div>
