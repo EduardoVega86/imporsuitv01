@@ -49,7 +49,7 @@ $domain = $_SERVER['HTTP_HOST'];
       <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
          <div class="container">
             <!-- Logo en el centro para todas las vistas -->
-            <a class="navbar-brand_1" href="#"><a class="navbar-brand" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
+            <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
                                                                                                                                                                            if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
                                                                                                                                                                               echo "assets/img/imporsuit.png";
                                                                                                                                                                            } else {
@@ -207,7 +207,9 @@ $domain = $_SERVER['HTTP_HOST'];
                      <div class="carousel-caption <?php echo $alineacion; ?>">
                         <h1><?php echo $titulo_slider; ?></h1>
                         <p><?php echo $texto_slider; ?></p>
+                        <?php if (!empty($text_btn_slider)){?>
                         <p><a class="btn btn-lg btn-primary boton texto_boton" href="<?php echo $enlace_btn_slider; ?>"><?php echo $text_btn_slider; ?></a></p>
+                        <?php }?>
                      </div>
                   </div>
                </div>
@@ -219,7 +221,9 @@ $domain = $_SERVER['HTTP_HOST'];
                         <div class="carousel-caption text-start">
                            <h1><?php echo $slide['titulo']; ?></h1>
                            <p><?php echo $slide['texto_banner']; ?></p>
+                           <?php if (!empty($slide['texto_boton'])){?>
                            <p><a class="btn btn-lg btn-primary boton texto_boton" href="<?php echo $slide['enlace']; ?>"><?php echo $slide['texto_boton']; ?></a></p>
+                           <?php }?>
                         </div>
                      </div>
                   </div>

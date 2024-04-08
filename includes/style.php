@@ -191,7 +191,7 @@
 
   .marquee-container p {
     font-size: 20px !important;
-    margin-top: 12px !important;
+    margin-top: 0px !important;
   }
 
   .marquee {
@@ -241,7 +241,8 @@
 
   @media (max-width: 768px) {
     .navbar-brand {
-      
+      position: relative;
+      left: 0;
       transform: none;
       /* Ajusta el tamaño del logo para pantallas pequeñas si es necesario */
       max-height: 80px;
@@ -249,6 +250,7 @@
 
     }
     .navbar-brand_1 {
+      position: relative;
       left: 0;
       transform: none;
       /* Ajusta el tamaño del logo para pantallas pequeñas si es necesario */
@@ -372,14 +374,15 @@
     }
   }
 
-  @media (min-width: 768px) {
+  @media (max-width: 768px) {
     .div-alineado-izquierda {
-      align-items: center !important;
+      align-items: flex-end ;
+      padding-left: 0px;
     }
   }
 
   .div-alineado-izquierda {
-    align-items: flex-start !important;
+    align-items: flex-start;
     padding-left: 50px;
   }
 </style>
