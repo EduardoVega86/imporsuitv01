@@ -34,6 +34,9 @@ function agregar(id) {
   //alert();
   var precio_venta = document.getElementById("precio_venta_" + id).value;
   var cantidad = document.getElementById("cantidad_" + id).value;
+  //quita el disabled
+  document.getElementById("ciudad_entrega").disabled = false;
+  document.getElementById("provinica").disabled = false;
   //Inicia validacion
   if (isNaN(cantidad)) {
     $.Notification.notify(
@@ -214,3 +217,9 @@ function imprimir_factura(user_id) {
     "true"
   );
 }
+
+document
+  .getElementById("ciudad_entrega")
+  .addEventListener("click", function () {
+    console.log("xD");
+  });
