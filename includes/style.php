@@ -157,7 +157,8 @@
 
   @media (max-width: 768px) {
     .slider_producto{
-    flex-direction: column;
+    flex-direction: column-reverse;
+    align-items: center;
   }
   }
 
@@ -179,6 +180,10 @@
 </style>
 
 <style>
+  .contenedor-landing img{
+    width: -webkit-fill-available !important;
+  }
+
   .marquee-container {
 
     overflow: hidden;
@@ -250,13 +255,15 @@
 
     }
     .navbar-brand_1 {
-      position: relative;
       left: 0;
       transform: none;
       /* Ajusta el tamaño del logo para pantallas pequeñas si es necesario */
       max-height: 80px;
       /* O el valor que mejor se ajuste a tu diseño */
 
+    }
+    .collapse{
+      padding-top: 50px;
     }
   }
 

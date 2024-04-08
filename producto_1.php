@@ -88,7 +88,6 @@ while ($row = mysqli_fetch_array($query)) {
         flex-direction: column;
       }
     }
-
     .list-group-item {
       background-color: transparent;
       /* Esto hará que el fondo sea transparente */
@@ -129,9 +128,9 @@ while ($row = mysqli_fetch_array($query)) {
     }
 
     .left-column {
-      width: 60%;
+      width: 50%;
       padding: 20px;
-      padding-top: 80px;
+      padding-top: 60px;
       position: -webkit-sticky;
       /* Para compatibilidad con Safari */
       position: sticky;
@@ -142,8 +141,9 @@ while ($row = mysqli_fetch_array($query)) {
     }
 
     .right-column {
-      width: 40%;
+      width: 50%;
       padding: 20px;
+      padding-top: 60px;
     }
 
     .product-image {
@@ -245,7 +245,7 @@ while ($row = mysqli_fetch_array($query)) {
       .content_left_right {
         display: flex;
         flex-direction: column;
-        max-width: 75%;
+        max-width: 85%;
         margin: 0 auto;
       }
 
@@ -262,6 +262,24 @@ while ($row = mysqli_fetch_array($query)) {
       #navbarLogo {
         height: 60px;
         width: 60px;
+      }
+
+      .container {
+        align-items: flex-end !important;
+      }
+
+      .navbar-brand_1 {
+        top: 0;
+        padding-left: 20px;
+      }
+
+      .left-column {
+        position: static;
+        /* Para compatibilidad con Safari */
+      }
+      .list-group {
+        flex-direction: row !important;
+        padding-top: 10px;
       }
 
       /* Otros ajustes responsivos */
@@ -321,122 +339,122 @@ if ($formato == 3) {
     <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
       <div class="container">
         <!-- Logo en el centro para todas las vistas -->
-        <a class="navbar-brand" href="#"><a class="navbar-brand" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
-                                                                                                                                                                        if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
-                                                                                                                                                                          echo "assets/img/imporsuit.png";
-                                                                                                                                                                        } else {
-                                                                                                                                                                          echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
-                                                                                                                                                                        }
-                                                                                                                                                                        ?>" alt="Imagen" /></a></a>
+        <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
+                                                                                                                                                                          if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
+                                                                                                                                                                            echo "assets/img/imporsuit.png";
+                                                                                                                                                                          } else {
+                                                                                                                                                                            echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
+                                                                                                                                                                          }
+                                                                                                                                                                          ?>" alt="Imagen" /></a></a>
 
         <button class="navbar-toggler" id="menuButton">
           <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
-          <!-- Elementos a la izquierda -->
-          <ul class="navbar-nav mr-auto ">
-            <li class="nav-item active">
-              <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria.php">Catálogo</a>
-            </li>
-
-          </ul>
-          <!-- Elementos a la derecha -->
-          <ul class="navbar-nav">
-            <form id="searchForm">
-              <div class="search-box">
-                <input type="text" id="searchInput" class="search-input" placeholder="Buscar" required>
-                <button type="submit" class="search-button">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-              <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem; padding-left:10px;">
-                <!-- Las sugerencias se insertarán aquí -->
-              </div>
-            </form>
-
-            <script>
-              // Autocompletar sugerencias
-              document.getElementById('searchInput').addEventListener('input', function() {
-                var inputVal = this.value;
-
-                // Ocultar sugerencias si no hay valor
-                if (inputVal.length === 0) {
-                  document.getElementById('suggestions').style.display = 'none';
-                  return;
-                }
-
-                // Realizar la solicitud AJAX al script PHP para obtener sugerencias
-                fetch('/sysadmin/vistas/ajax/search_index.php', {
-                    method: 'POST',
-                    body: new URLSearchParams('query=' + inputVal)
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                    var suggestionsContainer = document.getElementById('suggestions');
-                    suggestionsContainer.innerHTML = '';
-                    suggestionsContainer.style.display = 'block';
-
-                    // Agregar las sugerencias al contenedor
-                    data.forEach(function(item) {
-                      var div = document.createElement('div');
-                      div.innerHTML = item.nombre_producto; // Asumiendo que 'nombre_producto' es lo que quieres mostrar
-                      div.onclick = function() {
-                        // Al hacer clic, se actualiza el input y se redirige
-                        document.getElementById('searchInput').value = this.innerText;
-                        window.location.href = 'producto_1.php?id=' + item.id_producto;
-                      };
-                      suggestionsContainer.appendChild(div);
-                    });
-                  })
-                  .catch(error => console.error('Error:', error));
-              });
-
-              // Evento submit del formulario
-              document.getElementById('searchForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                var searchQuery = document.getElementById('searchInput').value;
-                // Aquí puedes manejar la búsqueda, por ejemplo, redirigir a una página de resultados
-                window.location.href = '/busqueda.php?query=' + encodeURIComponent(searchQuery);
-              });
-            </script>
-          </ul>
-        </div>
-
-        <script>
-          // Obtener el botón y el menú
-          var menuButton = document.getElementById('menuButton');
-          var menu = document.getElementById('navbarResponsive');
-
-          // Función para alternar la visibilidad del menú
-          function toggleMenu() {
-            if (menu.classList.contains('show')) {
-              menu.classList.remove('show');
-            } else {
-              menu.classList.add('show');
-            }
-          }
-
-          // Evento click para el botón del menú
-          menuButton.onclick = function() {
-            toggleMenu();
-          };
-
-          // Opcional: cerrar el menú si se hace clic fuera de él
-          window.onclick = function(event) {
-            if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
-              menu.classList.remove('visible');
-            }
-          };
-        </script>
-
       </div>
+      <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
+        <!-- Elementos a la izquierda -->
+        <ul class="navbar-nav mr-auto " style="padding-right: 15px;">
+          <li class="nav-item active">
+            <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria.php">Catálogo</a>
+          </li>
+
+        </ul>
+        <!-- Elementos a la derecha -->
+        <ul class="navbar-nav">
+          <form id="searchForm">
+            <div class="search-box">
+              <input type="text" id="searchInput" class="search-input" placeholder="Buscar" required>
+              <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem; padding-left:10px;">
+              <!-- Las sugerencias se insertarán aquí -->
+            </div>
+          </form>
+
+          <script>
+            // Autocompletar sugerencias
+            document.getElementById('searchInput').addEventListener('input', function() {
+              var inputVal = this.value;
+
+              // Ocultar sugerencias si no hay valor
+              if (inputVal.length === 0) {
+                document.getElementById('suggestions').style.display = 'none';
+                return;
+              }
+
+              // Realizar la solicitud AJAX al script PHP para obtener sugerencias
+              fetch('/sysadmin/vistas/ajax/search_index.php', {
+                  method: 'POST',
+                  body: new URLSearchParams('query=' + inputVal)
+                })
+                .then(response => response.json())
+                .then(data => {
+                  var suggestionsContainer = document.getElementById('suggestions');
+                  suggestionsContainer.innerHTML = '';
+                  suggestionsContainer.style.display = 'block';
+
+                  // Agregar las sugerencias al contenedor
+                  data.forEach(function(item) {
+                    var div = document.createElement('div');
+                    div.innerHTML = item.nombre_producto; // Asumiendo que 'nombre_producto' es lo que quieres mostrar
+                    div.onclick = function() {
+                      // Al hacer clic, se actualiza el input y se redirige
+                      document.getElementById('searchInput').value = this.innerText;
+                      window.location.href = 'producto_1.php?id=' + item.id_producto;
+                    };
+                    suggestionsContainer.appendChild(div);
+                  });
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
+            // Evento submit del formulario
+            document.getElementById('searchForm').addEventListener('submit', function(event) {
+              event.preventDefault();
+              var searchQuery = document.getElementById('searchInput').value;
+              // Aquí puedes manejar la búsqueda, por ejemplo, redirigir a una página de resultados
+              window.location.href = '/busqueda.php?query=' + encodeURIComponent(searchQuery);
+            });
+          </script>
+        </ul>
+      </div>
+
+      <script>
+        // Obtener el botón y el menú
+        var menuButton = document.getElementById('menuButton');
+        var menu = document.getElementById('navbarResponsive');
+
+        // Función para alternar la visibilidad del menú
+        function toggleMenu() {
+          if (menu.classList.contains('show')) {
+            menu.classList.remove('show');
+          } else {
+            menu.classList.add('show');
+          }
+        }
+
+        // Evento click para el botón del menú
+        menuButton.onclick = function() {
+          toggleMenu();
+        };
+
+        // Opcional: cerrar el menú si se hace clic fuera de él
+        window.onclick = function(event) {
+          if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
+            menu.classList.remove('visible');
+          }
+        };
+      </script>
+
     </nav>
   </header>
 
-  <main>
+  <main style="background-color: #f9f9f9;">
     <?php $banner = get_row('perfil', 'banner', 'id_perfil', 1);
     if ($banner != "") {
       $texto_slider = get_row('perfil', 'texto_slider', 'id_perfil', 1);
@@ -488,7 +506,7 @@ if ($formato == 3) {
   ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="container flex-column">
+    <div class="container flex-column" style="align-items: center !important;">
       <div class="content_left_right">
         <div class="left-column">
 
@@ -596,121 +614,123 @@ if ($formato == 3) {
         </div>
 
         <div class="right-column">
-          <div class="product-title"><?php echo $nombre_producto ?></div>
-          <br>
-          <div class="d-flex flex-row">
-            <div>
-              <span style="font-size: 20px; color:#4461ed; padding-right: 10px;">
-                <strong><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></strong>
-              </span>
-            </div>
-            <div>
-              <?php if ($precio_normal > 0) { ?>
-                <span class="tachado" style="font-size: 20px; padding-right: 10px;">
-                  <strong><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_normal, 2); ?></strong>
+          <div class="caja px-5" style="width:100%" ;>
+            <div class="product-title"><?php echo $nombre_producto ?></div>
+            <br>
+            <div class="d-flex flex-row">
+              <div>
+                <span style="font-size: 20px; color:#4461ed; padding-right: 10px;">
+                  <strong><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></strong>
                 </span>
+              </div>
+              <div>
+                <?php if ($precio_normal > 0) { ?>
+                  <span class="tachado" style="font-size: 20px; padding-right: 10px;">
+                    <strong><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_normal, 2); ?></strong>
+                  </span>
+                <?php
+                }
+                ?>
+              </div>
+              <?php if ($precio_normal > 0) { ?>
+                <div class="px-2" style="background-color: #4464ec; color:white; border-radius: 0.3rem;">
+
+
+                  <span style="font-size: 20px;"><i class="bx bxs-purchase-tag"></i>
+                    <strong>AHORRA UN <?php echo number_format(100 - ($precio_especial * 100 / $precio_normal)); ?>%</strong>
+                  </span>
+
+                </div>
+              <?php } ?>
+            </div>
+            <div class="container" style="margin-bottom: 20px;">
+
+
+            </div>
+            <!-- Inicio de Iconos-->
+            <div class="d-flex flex-column">
+              <?php
+              include './auditoria.php';
+              $sql = "SELECT * FROM caracteristicas_tienda WHERE accion=1 or accion=2 or accion=3";
+              $query = mysqli_query($conexion, $sql);
+              while ($row = mysqli_fetch_array($query)) {
+                $texto = $row['texto'];
+                $icon_text = $row['icon_text'];
+                $enlace_icon = $row['enlace_icon'];
+                $subtexto_icon = $row['subtexto_icon'];
+
+                if ($enlace_icon == '') {
+                  $enlace_icon = '';
+                } else {
+                  $enlace_icon = 'href="' . $enlace_icon . '" target="_blank" style="text-decoration: none; color: inherit;"';
+                }
+                //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
+              ?>
+                <div class="col-md-8">
+                  <div class="icon_pequeno d-flex flex-row">
+                    <div style="margin-right: 15px;">
+                      <i class="fas <?php echo $icon_text ?>"></i> <!-- Cambia el icono según corresponda -->
+                    </div>
+                    <div>
+                      <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
+                    </div>
+                  </div>
+                </div>
               <?php
               }
               ?>
             </div>
-            <?php if ($precio_normal > 0) { ?>
-              <div class="px-2" style="background-color: #4464ec; color:white; border-radius: 0.3rem;">
+            <!-- Fin Iconos -->
+            <!-- Otras opciones del producto -->
+            <a style="height: 50px; font-size: 26px; width: 100%; border-radius: 15px" class="jump-button btn boton text-white " href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <span style="margin-top: 10px">COMPRAR AHORA </span></a><!-- comment -->
 
 
-                <span style="font-size: 20px;"><i class="bx bxs-purchase-tag"></i>
-                  <strong>AHORRA UN <?php echo number_format(100 - ($precio_especial * 100 / $precio_normal)); ?>%</strong>
-                </span>
+            <br><br>
 
-              </div>
-            <?php } ?>
-          </div>
-          <div class="container" style="margin-bottom: 20px;">
+            <br><br>
+            <div class="contenedor-landing">
+              <?php
 
 
-          </div>
-          <!-- Inicio de Iconos-->
-          <div class="d-flex flex-column">
-            <?php
-            include './auditoria.php';
-            $sql = "SELECT * FROM caracteristicas_tienda WHERE accion=1 or accion=2 or accion=3";
-            $query = mysqli_query($conexion, $sql);
-            while ($row = mysqli_fetch_array($query)) {
-              $texto = $row['texto'];
-              $icon_text = $row['icon_text'];
-              $enlace_icon = $row['enlace_icon'];
-              $subtexto_icon = $row['subtexto_icon'];
+              $rutaArchivo = 'sysadmin/vistas/ajax/' . get_row('landing', 'contenido', 'id_producto', $id_producto); // Reemplaza con la ruta correcta
 
-              if ($enlace_icon == '') {
-                $enlace_icon = '';
-              } else {
-                $enlace_icon = 'href="' . $enlace_icon . '" target="_blank" style="text-decoration: none; color: inherit;"';
-              }
-              //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
-            ?>
-              <div class="col-md-8">
-                <div class="icon_pequeno d-flex flex-row">
-                  <div style="margin-right: 15px;">
-                    <i class="fas <?php echo $icon_text ?>"></i> <!-- Cambia el icono según corresponda -->
-                  </div>
-                  <div>
-                    <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
-                  </div>
-                </div>
-              </div>
-            <?php
-            }
-            ?>
-          </div>
-          <!-- Fin Iconos -->
-          <!-- Otras opciones del producto -->
-          <a style="height: 50px; font-size: 26px; width: 100%; border-radius: 15px" class="jump-button btn boton text-white " href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <span style="margin-top: 10px">COMPRAR AHORA </span></a><!-- comment -->
-
-
-          <br><br>
-
-          <br><br>
-          <div class="contenedor-landing">
-            <?php
-
-
-            $rutaArchivo = 'sysadmin/vistas/ajax/' . get_row('landing', 'contenido', 'id_producto', $id_producto); // Reemplaza con la ruta correcta
-
-            // Verifica si el archivo existe
-            if (file_exists($rutaArchivo)) {
-              // Carga y muestra el contenido del archivo HTML
-              $rutaArchivo = file_get_contents($rutaArchivo);
-              echo $rutaArchivo;
-            } else {
-
-              //echo $rutaArchivo;
-              $contenido = get_row('landing', 'contenido', 'id_producto', $id_producto);
-              if (strpos($contenido, 'http') !== false) {
-                //echo 'si';
-                $rutaArchivo = $contenido;
+              // Verifica si el archivo existe
+              if (file_exists($rutaArchivo)) {
+                // Carga y muestra el contenido del archivo HTML
                 $rutaArchivo = file_get_contents($rutaArchivo);
                 echo $rutaArchivo;
               } else {
-                $rutaArchivo = '../ajax/' . $contenido; // Reemplaza con la ruta correcta   
-                // Verifica si el archivo existe
-                if (file_exists($rutaArchivo)) {
-                  // Carga y muestra el contenido del archivo HTML
+
+                //echo $rutaArchivo;
+                $contenido = get_row('landing', 'contenido', 'id_producto', $id_producto);
+                if (strpos($contenido, 'http') !== false) {
+                  //echo 'si';
+                  $rutaArchivo = $contenido;
                   $rutaArchivo = file_get_contents($rutaArchivo);
                   echo $rutaArchivo;
                 } else {
+                  $rutaArchivo = '../ajax/' . $contenido; // Reemplaza con la ruta correcta   
+                  // Verifica si el archivo existe
+                  if (file_exists($rutaArchivo)) {
+                    // Carga y muestra el contenido del archivo HTML
+                    $rutaArchivo = file_get_contents($rutaArchivo);
+                    echo $rutaArchivo;
+                  } else {
 
-                  //echo $rutaArchivo;
-                  echo $contenido;
+                    //echo $rutaArchivo;
+                    echo $contenido;
+                  }
                 }
               }
-            }
-            ?>
+              ?>
 
+            </div>
           </div>
         </div>
       </div>
       <!-- Inicio de Iconos-->
-      <div class="iconos_producto" style="padding-bottom: 75px;">
+      <div class="iconos_producto col-md-12" style="padding-bottom: 75px;">
         <?php
         include './auditoria.php';
         $sql = "SELECT * FROM caracteristicas_tienda WHERE accion=1 or accion=2 or accion=3";
