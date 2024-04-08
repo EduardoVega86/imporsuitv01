@@ -78,6 +78,17 @@ while ($row = mysqli_fetch_array($query)) {
       /* Ejemplo de sombra */
     }
 
+    .iconos_producto {
+      display: flex;
+      flex-direction: row;
+    }
+
+    @media (max-width: 480px) {
+      .iconos_producto {
+        flex-direction: column;
+      }
+    }
+
     .list-group-item {
       background-color: transparent;
       /* Esto hará que el fondo sea transparente */
@@ -317,10 +328,11 @@ if ($formato == 3) {
                                                                                                                                                                           echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
                                                                                                                                                                         }
                                                                                                                                                                         ?>" alt="Imagen" /></a></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-bars" style="color: #000; text-shadow: 0px 0px 3px #fff;"></i>
+
+        <button class="navbar-toggler" id="menuButton">
+          <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
           <!-- Elementos a la izquierda -->
           <ul class="navbar-nav mr-auto ">
             <li class="nav-item active">
@@ -333,15 +345,93 @@ if ($formato == 3) {
           </ul>
           <!-- Elementos a la derecha -->
           <ul class="navbar-nav">
-            <div class="search-box">
-              <input type="text" class="search-input" placeholder="Buscar">
-              <button class="search-button">
-                <i class="fas fa-search"></i> <!-- Este es un icono de FontAwesome, asegúrate de incluir la librería -->
-              </button>
-            </div>
+            <form id="searchForm">
+              <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar" required>
+                <button type="submit" class="search-button">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem; padding-left:10px;">
+                <!-- Las sugerencias se insertarán aquí -->
+              </div>
+            </form>
 
+            <script>
+              // Autocompletar sugerencias
+              document.getElementById('searchInput').addEventListener('input', function() {
+                var inputVal = this.value;
+
+                // Ocultar sugerencias si no hay valor
+                if (inputVal.length === 0) {
+                  document.getElementById('suggestions').style.display = 'none';
+                  return;
+                }
+
+                // Realizar la solicitud AJAX al script PHP para obtener sugerencias
+                fetch('/sysadmin/vistas/ajax/search_index.php', {
+                    method: 'POST',
+                    body: new URLSearchParams('query=' + inputVal)
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                    var suggestionsContainer = document.getElementById('suggestions');
+                    suggestionsContainer.innerHTML = '';
+                    suggestionsContainer.style.display = 'block';
+
+                    // Agregar las sugerencias al contenedor
+                    data.forEach(function(item) {
+                      var div = document.createElement('div');
+                      div.innerHTML = item.nombre_producto; // Asumiendo que 'nombre_producto' es lo que quieres mostrar
+                      div.onclick = function() {
+                        // Al hacer clic, se actualiza el input y se redirige
+                        document.getElementById('searchInput').value = this.innerText;
+                        window.location.href = 'producto_1.php?id=' + item.id_producto;
+                      };
+                      suggestionsContainer.appendChild(div);
+                    });
+                  })
+                  .catch(error => console.error('Error:', error));
+              });
+
+              // Evento submit del formulario
+              document.getElementById('searchForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var searchQuery = document.getElementById('searchInput').value;
+                // Aquí puedes manejar la búsqueda, por ejemplo, redirigir a una página de resultados
+                window.location.href = '/busqueda.php?query=' + encodeURIComponent(searchQuery);
+              });
+            </script>
           </ul>
         </div>
+
+        <script>
+          // Obtener el botón y el menú
+          var menuButton = document.getElementById('menuButton');
+          var menu = document.getElementById('navbarResponsive');
+
+          // Función para alternar la visibilidad del menú
+          function toggleMenu() {
+            if (menu.classList.contains('show')) {
+              menu.classList.remove('show');
+            } else {
+              menu.classList.add('show');
+            }
+          }
+
+          // Evento click para el botón del menú
+          menuButton.onclick = function() {
+            toggleMenu();
+          };
+
+          // Opcional: cerrar el menú si se hace clic fuera de él
+          window.onclick = function(event) {
+            if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
+              menu.classList.remove('visible');
+            }
+          };
+        </script>
+
       </div>
     </nav>
   </header>
@@ -402,7 +492,7 @@ if ($formato == 3) {
       <div class="content_left_right">
         <div class="left-column">
 
-          <div class="d-flex flex-row">
+          <div class="slider_producto">
             <div class="d-flex flex-column" style="max-width: 200px !important;">
               <!-- Indicadores del carrusel para las miniaturas -->
               <div class="list-group" style="max-width: 200px !important;" id="list-tab" role="tablist">
@@ -418,7 +508,7 @@ if ($formato == 3) {
                 </a>
                 <!-- condiciones para imagenes adicionales -->
                 <!-- url1 -->
-                <?php if ($url_a1 !== "" || !empty($url_a1)) { ?>
+                <?php if (!empty($url_a1)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -431,7 +521,7 @@ if ($formato == 3) {
                 <?php } ?>
 
                 <!-- url2 -->
-                <?php if ($url_a2 !== "" || !empty($url_a2)) { ?>
+                <?php if (!empty($url_a2)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -444,7 +534,7 @@ if ($formato == 3) {
                 <?php } ?>
 
                 <!-- url3 -->
-                <?php if ($url_a3 !== "" || !empty($url_a3)) { ?>
+                <?php if (!empty($url_a3)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -457,7 +547,7 @@ if ($formato == 3) {
                 <?php } ?>
 
                 <!-- url4 -->
-                <?php if ($url_a4 !== "" || !empty($url_a4)) { ?>
+                <?php if (!empty($url_a4)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -470,7 +560,7 @@ if ($formato == 3) {
                 <?php } ?>
 
                 <!-- url5 -->
-                <?php if ($url_a5 !== "" || !empty($url_a5)) { ?>
+                <?php if (!empty($url_a5)) { ?>
                   <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                     <img src="<?php
                               $subcadena = "http";
@@ -620,7 +710,7 @@ if ($formato == 3) {
         </div>
       </div>
       <!-- Inicio de Iconos-->
-      <div class="d-flex flex-row" style="padding-bottom: 75px;">
+      <div class="iconos_producto" style="padding-bottom: 75px;">
         <?php
         include './auditoria.php';
         $sql = "SELECT * FROM caracteristicas_tienda WHERE accion=1 or accion=2 or accion=3";
@@ -638,7 +728,7 @@ if ($formato == 3) {
           }
           //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
         ?>
-          <div class="col-md-4">
+          <div class="col-md-4" style="padding-bottom: 20px;">
             <a <?php echo $enlace_icon ?>>
               <div class="card card_icon text-center">
                 <div class="card-body card-body_icon d-flex flex-column">
@@ -664,10 +754,12 @@ if ($formato == 3) {
 
   <!-- FOOTER -->
   <!-- Botón flotante para WhatsApp -->
-  <a href="https://wa.me/tunúmero" class="whatsapp-float" target="_blank">
-    PODEMOS AYUDARTE
-  </a>
-
+  <?php
+  $ws_flotante = get_row('perfil', 'boton_compra_flotante', 'id_perfil', 1);
+  if ($ws_flotante == 1) { ?>
+    <a style="" class="btn-flotante-producto" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <span style="margin-top: 10px">COMPRAR AHORA </span></a>
+  <?php } ?>
 
   <footer class="footer-contenedor">
     <?php
