@@ -705,7 +705,7 @@ $domain = $_SERVER['HTTP_HOST'];
             </div>
          <?php } ?>
       </footer>
-      <div class="text-center p-4">© 2019 IMPORSUIT S.A. | Todos los derechos reservados.
+      <div class="text-center p-4">© 2024 IMPORSUIT S.A. | Todos los derechos reservados.
       </div>
 
 
