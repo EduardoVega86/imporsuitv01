@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 require_once "../db.php";
 require_once "../php_conexion.php";
-$ciudad = $_POST['ciudad_texto'];
+$ciudad = $_POST['origen_texto'];
 $destino = $_POST['destino_c'];
 
 $sql = "SELECT * FROM `ciudad_cotizacion` WHERE `ciudad` like '$ciudad%'";

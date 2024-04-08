@@ -126,6 +126,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                         <input type="hidden" name="servi_comision" id="servi_comision">
                                                         <input type="hidden" name="servi_impuesto" id="servi_impuesto">
                                                         <input type="hidden" name="servi_otros" id="servi_otros">
+                                                        <input type="hidden" name="origen_texto" id="origen_texto">
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Nombre Destinatario </span>
@@ -632,6 +633,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                     let destino_texto = $('#destino_c').val();
                     data.append('ciudad_texto', ciudad_texto);
                     data.append('destino_texto', destino_texto);
+
                     $.ajax({
                         url: "../ajax/datos_servi.php",
                         type: "POST",
@@ -639,8 +641,10 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                         contentType: false,
                         processData: false,
                         success: function(response) {
+
                             let datos_servi = JSON.parse(response);
-                            let [codigo, codigo_origen] = [datos_servi.codigo, datos_servi.codigo_origen];
+                            let codigo = datos_servi["codigo"];
+                            let codigo_origen = datos_servi["codigo_origen"];
                             data.append('codigo', codigo);
                             data.append('codigo_origen', codigo_origen);
                             let esRecaudo = $('#cod').val();
@@ -759,6 +763,8 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
             let costo_envio_sin_signo = $('#precio_laar').text();
             costo_envio_sin_signo = costo_envio_sin_signo.replace('$', '');
             $("#costo_envio").val(costo_envio_sin_signo);
+        } else if (id === 2) {
+            $.Notification.notify('custom', 'bottom right', 'RECUERDA!', 'SPEED REALIZA ENTREGAS EL MISMO DÍA!')
         } else if (id === 3) {
             $("#costo_envio").val($("#precio_servientrega").text());
         }
@@ -874,10 +880,11 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 $('#nombre_remitente').val(datos_envio["nombre_remitente"]);
                 $('#direccion_remitente').val(datos_envio["direccion_remitente"]);
                 $('#telefono_remitente').val(datos_envio["telefono_remitente"]);
-                $("#destino_c").val(ciudadOrigen);
+                $("#destino_c").val($('#ciudad_entrega option:selected').text());
                 let ciudadDestino = ""
                 let ciudad_or = $('#ciudad_entrega option:selected').text();
                 let provincia_or = $('#provinica option:selected').text();
+                $('#origen_texto').val(ciudadOrigen);
                 $.ajax({
                     url: "../../../ajax/servientrega/cotizador3.php",
                     type: "POST",

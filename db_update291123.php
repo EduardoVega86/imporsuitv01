@@ -2253,6 +2253,8 @@ mysqli_query($conexion, "INSERT INTO `cobertura_laar` (`id_cobertura`, `tipo_cob
 (4, 'TS', 3.5, 5.5),
 (5, 'TO', 3.5, 5.5);");
 
+mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TP', `trayecto_gintracom` = 'TN' WHERE `ciudad_cotizacion`.`id_cotizacion` = 239;");
+mysqli_query($conexion, "ALTER TABLE `dropi` CHANGE `pais_id` `pais_id` INT NOT NULL DEFAULT '0';");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
