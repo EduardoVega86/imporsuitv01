@@ -150,6 +150,17 @@
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     z-index: 99;
   }
+  .slider_producto{
+    display: flex;
+    flex-direction: row;
+  }
+
+  @media (max-width: 768px) {
+    .slider_producto{
+    flex-direction: column;
+  }
+  }
+
 
   .btn-flotante-producto:hover {
     background-color: <?php echo get_row('perfil', 'color_botones', 'id_perfil', '1') ?> !important;
@@ -179,7 +190,7 @@
   }
 
   .marquee-container p {
-    font-size: 18px !important;
+    font-size: 20px !important;
     margin-top: 12px !important;
   }
 
@@ -222,7 +233,7 @@
     max-width: 100%;
   }
 
-  .navbar-brand {
+  .navbar-brand_1 {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -230,7 +241,14 @@
 
   @media (max-width: 768px) {
     .navbar-brand {
-      position: relative;
+      
+      transform: none;
+      /* Ajusta el tamaño del logo para pantallas pequeñas si es necesario */
+      max-height: 80px;
+      /* O el valor que mejor se ajuste a tu diseño */
+
+    }
+    .navbar-brand_1 {
       left: 0;
       transform: none;
       /* Ajusta el tamaño del logo para pantallas pequeñas si es necesario */
@@ -300,8 +318,6 @@
 
   @media (max-width: 768px) {
     #navbarLogo {
-      max-width: 100% !important;
-      /* Ajusta el ancho al contenedor */
       height: auto !important;
       /* Ajusta la altura proporcionalmente */
     }
@@ -795,7 +811,7 @@
   }
 
   .ws {
-    color: green;
+    color: #24d366;
     font-size: 2em;
   }
 
@@ -920,9 +936,9 @@
     transform: scale(1);
   }
 
-  .ws {
-    color: green;
-    font-size: 2em;
+  .ws_flotante {
+    color: #24d366;
+    font-size: 4em;
   }
 
   .send {
@@ -1027,11 +1043,9 @@
     /* Distancia desde el fondo de la pantalla */
     right: 40px;
     /* Distancia desde el lado derecho de la pantalla */
-    background-color: #25D366;
-    /* Color de fondo de WhatsApp */
-    color: white;
+    background-color: transparent;
     /* Color del texto */
-    padding: 10px 20px;
+    padding: -5px;
     /* Relleno interno del botón */
     border-radius: 5px;
     /* Bordes redondeados */

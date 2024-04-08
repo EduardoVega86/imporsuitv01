@@ -221,14 +221,15 @@
 				"onfirst": 0, //se envía el mensaje a lo que el usuario
 				"opciones_mensaje": [{
 						"opcion": "Soporte", //nombre del boton
-						"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
+						"respuesta_mensaje_opcion": "👉🏻https://wa.link/zkhvnw👈🏻 Soporte Tiendas",
 						"nombre_analytic_chatbot": "soporte_chatweb",
+						"url_mensaje_opcion": "https://wa.link/zkhvnw",
 					},
 					{
-						"opcion": "Manual de Soporte",
-						"respuesta_mensaje_opcion": "Te ayudaré con Soporte para tu e-commerce, haz cualquier pregunta que necesites",
+						"opcion": "Tutoriales",
+						"respuesta_mensaje_opcion": "Te he redirigido a la sección de tutoriales, allí encontrarás información útil para tu e-commerce",
 						"nombre_analytic_chatbot": "soporte_chatweb",
-						"url_mensaje_opcion": "https://google.com",
+						"url_mensaje_opcion": "https://ecommsuit.com/tutoriales-imporsuit",
 					},
 					{
 						"opcion": "Textos para Productos",
