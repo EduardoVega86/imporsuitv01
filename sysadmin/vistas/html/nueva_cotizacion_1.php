@@ -147,8 +147,8 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Ciudad </span>
-                                                                <div id="div_ciudad">
-                                                                    <select class="datos form-control formulario" onclick="" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required>
+                                                                <div id="div_ciudad" onclick="verify()">
+                                                                    <select class="datos form-control formulario" onfocus="verify()" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required disabled>
                                                                         <option value="">Ciudad *</option>
                                                                         <?php
                                                                         $sql2 = "select * from ciudad_laar ";
@@ -169,7 +169,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Provincia </span>
-                                                                <select class="datos form-control formulario" id="provinica" name="provinica" required>
+                                                                <select class="datos form-control formulario" id="provinica" name="provinica" required disabled>
                                                                     <option value="">Provincia *</option>
                                                                     <?php
                                                                     $sql2 = "select * from provincia_laar where id_pais=$pais";
@@ -367,6 +367,8 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
         });
     });
 
+
+
     $(function() {
         $("#nombre_cliente").autocomplete({
             source: "../ajax/autocomplete/clientes.php",
@@ -399,6 +401,12 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 <!-- FIN -->
 <script>
     var sleepSetTimeout_ctrl;
+
+    function verify() {
+        if ($("#ciudad_entrega").prop("disabled")) {
+            $.Notification.notify('error', 'bottom right', 'ERROR!', 'Debes añadir un producto primero');
+        }
+    }
 
     function sleep(ms) {
         clearInterval(sleepSetTimeout_ctrl);
