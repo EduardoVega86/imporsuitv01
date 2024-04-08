@@ -1001,7 +1001,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                     let precio_speed = $("#precio_laar").text();
                     precio_speed = precio_speed.replace('$', '');
                     let total_speed = parseFloat(precio_speed) + 1;
-                    $('#aplica').text(`$6.50`);
+                    $('#aplica').text(`$5.50`);
                 } else
                 if ($('#ciudad_entrega option:selected').text() == "VALLE DE LOS CHILLOS") {
                     let precio_speed = $("#precio_laar").text();
