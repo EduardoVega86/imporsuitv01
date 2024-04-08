@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 include 'is_logged.php'; // Verifica que el usuario esté logueado
 require_once "../db.php";
 require_once "../php_conexion.php";

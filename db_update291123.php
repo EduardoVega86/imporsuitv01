@@ -2256,6 +2256,9 @@ mysqli_query($conexion, "INSERT INTO `cobertura_laar` (`id_cobertura`, `tipo_cob
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TP', `trayecto_gintracom` = 'TN' WHERE `ciudad_cotizacion`.`id_cotizacion` = 239;");
 mysqli_query($conexion, "ALTER TABLE `dropi` CHANGE `pais_id` `pais_id` INT NOT NULL DEFAULT '0';");
 
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `whatsapp_flotante` INT DEFAULT 0 NOT NULL;");
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `boton_compra_flotante` INT DEFAULT 0 NOT NULL;");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");

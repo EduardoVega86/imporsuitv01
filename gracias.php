@@ -272,7 +272,7 @@ GROUP BY tienda;";
             $tienda         = $row_tienda["tienda"];
 
             if ($_SERVER['HTTP_HOST'] == 'localhost') {
-                $or_marketplace = 'http://localhost/marketplace/';
+                $or_marketplace = 'http://localhost/';
             } else {
                 $or_marketplace = 'https://marketplace.imporsuit.com/';
             }

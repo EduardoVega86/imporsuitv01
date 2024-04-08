@@ -49,7 +49,7 @@ $domain = $_SERVER['HTTP_HOST'];
       <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
          <div class="container">
             <!-- Logo en el centro para todas las vistas -->
-            <a class="navbar-brand" href="#"><a class="navbar-brand" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
+            <a class="navbar-brand_1" href="#"><a class="navbar-brand" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
                                                                                                                                                                            if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
                                                                                                                                                                               echo "assets/img/imporsuit.png";
                                                                                                                                                                            } else {
@@ -57,10 +57,10 @@ $domain = $_SERVER['HTTP_HOST'];
                                                                                                                                                                            }
                                                                                                                                                                            ?>" alt="Imagen" /></a></a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" id="menuButton">
                <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
+            <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
                <!-- Elementos a la izquierda -->
                <ul class="navbar-nav mr-auto ">
                   <li class="nav-item active">
@@ -80,7 +80,7 @@ $domain = $_SERVER['HTTP_HOST'];
                            <i class="fas fa-search"></i>
                         </button>
                      </div>
-                     <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem;">
+                     <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem; padding-left:10px;">
                         <!-- Las sugerencias se insertarán aquí -->
                      </div>
                   </form>
@@ -132,6 +132,34 @@ $domain = $_SERVER['HTTP_HOST'];
                   </script>
                </ul>
             </div>
+
+            <script>
+               // Obtener el botón y el menú
+               var menuButton = document.getElementById('menuButton');
+               var menu = document.getElementById('navbarResponsive');
+
+               // Función para alternar la visibilidad del menú
+               function toggleMenu() {
+                  if (menu.classList.contains('show')) {
+                     menu.classList.remove('show');
+                  } else {
+                     menu.classList.add('show');
+                  }
+               }
+
+               // Evento click para el botón del menú
+               menuButton.onclick = function() {
+                  toggleMenu();
+               };
+
+               // Opcional: cerrar el menú si se hace clic fuera de él
+               window.onclick = function(event) {
+                  if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
+                     menu.classList.remove('visible');
+                  }
+               };
+            </script>
+
          </div>
       </nav>
    </header>
@@ -238,7 +266,7 @@ $domain = $_SERVER['HTTP_HOST'];
 
          </p>
          <div class="marquee">
-            <p style="font-size: 22px;">
+            <p style="font-size: 25px;">
                - <?php $sql   = "SELECT * FROM  horizontal  where posicion=1 or posicion is null";
                   $query = mysqli_query($conexion, $sql);
                   while ($row = mysqli_fetch_array($query)) {
@@ -571,104 +599,110 @@ $domain = $_SERVER['HTTP_HOST'];
 
       <!-- FOOTER -->
       <!-- Botón flotante para WhatsApp -->
-      <<?php
-         function formatPhoneNumber($number)
-         {
-            // Eliminar caracteres no numéricos excepto el signo +
-            $number = preg_replace('/[^\d+]/', '', $number);
+      <?php
+      function formatPhoneNumber($number)
+      {
+         // Eliminar caracteres no numéricos excepto el signo +
+         $number = preg_replace('/[^\d+]/', '', $number);
 
-            // Verificar si el número ya tiene el código de país +593
-            if (!preg_match('/^\+593/', $number)) {
-               // Si el número comienza con 0, quitarlo
-               if (strpos($number, '0') === 0) {
-                  $number = substr($number, 1);
-               }
-               // Agregar el código de país +593 al inicio del número
-               $number = '+593' . $number;
+         // Verificar si el número ya tiene el código de país +593
+         if (!preg_match('/^\+593/', $number)) {
+            // Si el número comienza con 0, quitarlo
+            if (strpos($number, '0') === 0) {
+               $number = substr($number, 1);
             }
-
-            return $number;
+            // Agregar el código de país +593 al inicio del número
+            $number = '+593' . $number;
          }
 
-         // Usar la función formatPhoneNumber para imprimir el número formateado
-         $telefono = get_row('perfil', 'telefono', 'id_perfil', 1);
-         $telefonoFormateado = formatPhoneNumber($telefono);
-         ?> <a href="https://wa.me/<?php echo $telefonoFormateado ?>" class="whatsapp-float" target="_blank">PODEMOS AYUDARTE</a>
+         return $number;
+      }
 
-         <footer class="footer-contenedor">
-            <?php
-            $sql   = "SELECT * FROM  perfil  where id_perfil=1";
-            $query = mysqli_query($conexion, $sql);
-            while ($row = mysqli_fetch_array($query)) {
-               $nombre_empresa       = $row['nombre_empresa'];
-               $giro_empresa       = $row['giro_empresa'];
-               $telefono       = $row['telefono'];
-               $email       = $row['email'];
-               $logo_url       = $row['logo_url'];
-               $facebook       = $row['facebook'];
-               $instagram       = $row['instagram'];
-               $tiktok       = $row['tiktok'];
+      // Usar la función formatPhoneNumber para imprimir el número formateado
+      $telefono = get_row('perfil', 'telefono', 'id_perfil', 1);
+      $telefonoFormateado = formatPhoneNumber($telefono);
+      ?>
 
-            ?>
-               <div class="footer-contenido div-alineado-izquierda">
-                  <h4>Acerca de <?php echo $nombre_empresa ?></h4>
-                  <img id="navbarLogo" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
-                                                      ?>">
-                  <span class="descripcion">
-                     <?php echo $giro_empresa ?>
+      <?php
+      $ws_flotante = get_row('perfil', 'whatsapp_flotante', 'id_perfil', 1);
+      if ($ws_flotante == 1) { ?>
+         <a href="https://wa.me/<?php echo $telefonoFormateado ?>" class="whatsapp-float" target="_blank"><i class="bx bxl-whatsapp-square ws_flotante"></i></a>
+      <?php } ?>
+
+      <footer class="footer-contenedor">
+         <?php
+         $sql   = "SELECT * FROM  perfil  where id_perfil=1";
+         $query = mysqli_query($conexion, $sql);
+         while ($row = mysqli_fetch_array($query)) {
+            $nombre_empresa       = $row['nombre_empresa'];
+            $giro_empresa       = $row['giro_empresa'];
+            $telefono       = $row['telefono'];
+            $email       = $row['email'];
+            $logo_url       = $row['logo_url'];
+            $facebook       = $row['facebook'];
+            $instagram       = $row['instagram'];
+            $tiktok       = $row['tiktok'];
+
+         ?>
+            <div class="footer-contenido div-alineado-izquierda">
+               <h4>Acerca de <?php echo $nombre_empresa ?></h4>
+               <img id="navbarLogo" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
+                                                   ?>">
+               <span class="descripcion">
+                  <?php echo $giro_empresa ?>
+               </span>
+            </div>
+            <div class="footer-contenido">
+               <h5>Legal</h5>
+               <ul class="lista_legal">
+                  <?php
+                  $sql   = "SELECT * FROM  politicas_empresa";
+                  $query = mysqli_query($conexion, $sql);
+                  while ($row = mysqli_fetch_array($query)) {
+                     $nombre_politica       = $row['nombre'];
+                     $id_politica       = $row['id_politica'];
+                  ?>
+                     <li><a href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
+                  <?php } ?>
+               </ul>
+            </div>
+            <div class="footer-contenido">
+               <h5>Siguenos</h5>
+               <div class="redes">
+                  <?php if ($facebook  !== "") { ?>
+                     <a class="icon-redes" href="<?php echo $facebook ?>">
+                        <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="facebook">
+                     </a>
+                  <?php } ?>
+                  <?php if ($instagram  !== "") { ?>
+                     <a class="icon-redes" href="<?php echo $instagram ?>">
+                        <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram">
+                     </a>
+                  <?php } ?>
+                  <?php if ($tiktok  !== "") { ?>
+                     <a class="icon-redes" href="<?php echo $tiktok ?>">
+                        <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="tiktok">
+                     </a>
+                  <?php } ?>
+               </div>
+            </div>
+            <div class="footer-contenido">
+               <h5>
+                  Información de contacto
+               </h5>
+               <span class="descripcion">
+                  <span class="icons">
+                     <i class='bx bxl-whatsapp ws'></i> <?php echo $telefono ?>
                   </span>
-               </div>
-               <div class="footer-contenido">
-                  <h5>Legal</h5>
-                  <ul class="lista_legal">
-                     <?php
-                     $sql   = "SELECT * FROM  politicas_empresa";
-                     $query = mysqli_query($conexion, $sql);
-                     while ($row = mysqli_fetch_array($query)) {
-                        $nombre_politica       = $row['nombre'];
-                        $id_politica       = $row['id_politica'];
-                     ?>
-                        <li><a href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
-                     <?php } ?>
-                  </ul>
-               </div>
-               <div class="footer-contenido">
-                  <h5>Siguenos</h5>
-                  <div class="redes">
-                     <?php if ($facebook  !== "") { ?>
-                        <a class="icon-redes" href="<?php echo $facebook ?>">
-                           <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="facebook">
-                        </a>
-                     <?php } ?>
-                     <?php if ($instagram  !== "") { ?>
-                        <a class="icon-redes" href="<?php echo $instagram ?>">
-                           <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram">
-                        </a>
-                     <?php } ?>
-                     <?php if ($tiktok  !== "") { ?>
-                        <a class="icon-redes" href="<?php echo $tiktok ?>">
-                           <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="tiktok">
-                        </a>
-                     <?php } ?>
-                  </div>
-               </div>
-               <div class="footer-contenido">
-                  <h5>
-                     Información de contacto
-                  </h5>
-                  <span class="descripcion">
-                     <span class="icons">
-                        <i class='bx bxl-whatsapp ws'></i> <?php echo $telefono ?>
-                     </span>
-                     <span class="icons">
-                        <i class='bx bx-mail-send send'></i><?php echo $email ?>
-                     </span>
+                  <span class="icons">
+                     <i class='bx bx-mail-send send'></i><?php echo $email ?>
                   </span>
-               </div>
-            <?php } ?>
-         </footer>
-         <div class="text-center p-4">© 2019 IMPORSUIT S.A. | Todos los derechos reservados.
-         </div>
+               </span>
+            </div>
+         <?php } ?>
+      </footer>
+      <div class="text-center p-4">© 2019 IMPORSUIT S.A. | Todos los derechos reservados.
+      </div>
 
 
    </main>
