@@ -328,7 +328,7 @@ function importar(dato_importar){
     success: function(response) {
       console.log('Datos enviados correctamente');
       console.log('Respuesta del servidor:', response);
-      window.location.href = url_productos;
+      //window.location.href = url_productos;
     },
     error: function(xhr, status, error) {
       console.error('Error al enviar datos:', error);

@@ -412,6 +412,12 @@
     /* Esto es necesario para posicionar el pseudo-elemento */
   }
 
+  @media (max-width: 768px) {
+    .carousel-item{
+      height: auto !important;
+    }
+  }
+
   .carousel-item::before {
     content: '';
     /* Necesario para que se muestre el pseudo-elemento */
@@ -1133,15 +1139,5 @@
   }
   .price-label {
     font-size: 14px;
-  }
-  .filtro_productos{
-    position: absolute;
-    left: 0;
-  }
-
-  @media (max-width: 768px) {
-    .filtro_productos {
-      position: relative;
-    }
   }
 </style>

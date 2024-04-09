@@ -61,6 +61,29 @@ if (isset($_GET['id_cat'])) {
       color: red;
       font-weight: bold;
     }
+
+    .left-column {
+      width: 20%;
+      padding: 20px;
+      padding-top: 60px;
+      position: -webkit-sticky;
+      /* Para compatibilidad con Safari */
+      position: sticky;
+      top: 0;
+      /* Ajusta esto a la altura de cualquier cabecera o menú que tengas */
+      height: 100%;
+      /* O la altura que quieras que tenga */
+    }
+
+    .right-column {
+      width: 80%;
+      padding: 20px;
+      padding-top: 60px;
+    }
+
+    .content_left_right {
+      display: flex;
+    }
   </style>
   <?php
   include './includes/head_1.php';
@@ -251,114 +274,112 @@ if (isset($_GET['id_cat'])) {
     <!-- Marketing messaging and featurettes
   ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
-    <div class="container mt-4 d-flex flex-column">
+    <div class="container-fluid mt-4">
       <h1 style="text-align: center">Categorías</h1>
       <br>
-      <div class="filtro_productos caja px-3">
-        <div class="container py-5">
-          <!-- Acordeón -->
-          <div id="accordion">
-            <div class="card">
-              <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Categorías
-                  </button>
-                </h5>
-              </div>
-              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                  <!-- Contenido del acordeón -->
-                  BELLEZA
+
+      <div class="content_left_right">
+        <div class="left-column">
+          <div class="filtro_productos caja px-3">
+            <!-- Acordeón -->
+            <div id="accordion" class="accordion">
+              <div class="card mb-3">
+                <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
+                  <a class="card-title">
+                    Categoria
+                  </a>
+                </div>
+                <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
+                  <p>Belleza</p>
                   <!-- Más categorías aquí -->
                 </div>
               </div>
+          </div>
+          <!-- Fin Acordeón -->
+
+          <div class="filter-section">
+            <div class="filter-header">Rango de precios</div>
+            <div class="range-slider">
+              <span class="price-label">$0</span>
+              <input type="range" min="0" max="12000" value="6000" class="slider" id="myRange">
+              <span class="price-label">$12000</span>
             </div>
-            <!-- Repite para más items del acordeón -->
           </div>
+
+          <button class="btn-filter">Filtrar</button>
+
+          <script>
+            var slider = document.getElementById("myRange");
+            var output = document.getElementById("demo");
+            output.innerHTML = slider.value;
+
+            slider.oninput = function() {
+              output.innerHTML = this.value;
+            }
+          </script>
         </div>
-
-        <div class="filter-section">
-          <div class="filter-header">Rango de precios</div>
-          <div class="range-slider">
-            <span class="price-label">$0</span>
-            <input type="range" min="0" max="12000" value="6000" class="slider" id="myRange">
-            <span class="price-label">$12000</span>
-          </div>
-        </div>
-
-        <button class="btn-filter">Filtrar</button>
-
-        <script>
-          var slider = document.getElementById("myRange");
-          var output = document.getElementById("demo");
-          output.innerHTML = slider.value;
-
-          slider.oninput = function() {
-            output.innerHTML = this.value;
-          }
-        </script>
       </div>
 
-      <div class="row">
-        <!-- Categoría 1 -->
-        <?php
-        if (isset($_GET['id_cat'])) {
-          if (isset($categorias) and $categorias != '') {
-            $lista_cat = substr($categorias, 0, -1);
-            $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
+      <div class="right-column">
+        <div class="row">
+          <!-- Categoría 1 -->
+          <?php
+          if (isset($_GET['id_cat'])) {
+            if (isset($categorias) and $categorias != '') {
+              $lista_cat = substr($categorias, 0, -1);
+              $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
+            } else {
+              $lista_cat = "''";
+              $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria";
+            }
           } else {
-            $lista_cat = "''";
-            $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria";
+            $sql = "select * from productos where  pagina_web='1' and stock_producto > 0";
           }
-        } else {
-          $sql = "select * from productos where  pagina_web='1' and stock_producto > 0";
-        }
 
-        $query = mysqli_query($conexion, $sql);
-        $num_registros = mysqli_num_rows($query);
-        //echo $num_registros, ' Productos';
-        while ($row = mysqli_fetch_array($query)) {
-          $id_producto          = $row['id_producto'];
-          $codigo_producto      = $row['codigo_producto'];
-          $nombre_producto      = $row['nombre_producto'];
-          $descripcion_producto = $row['descripcion_producto'];
-          $linea_producto       = $row['id_linea_producto'];
-          $med_producto         = $row['id_med_producto'];
-          $id_proveedor         = $row['id_proveedor'];
-          $inv_producto         = $row['inv_producto'];
-          $impuesto_producto    = $row['iva_producto'];
-          $costo_producto       = $row['costo_producto'];
-          $utilidad_producto    = $row['utilidad_producto'];
-          $precio_producto      = $row['valor1_producto'];
-          $precio_mayoreo       = $row['valor2_producto'];
-          $precio_especial      = $row['valor3_producto'];
-          $precio_normal      = $row['valor4_producto'];
-          $stock_producto       = $row['stock_producto'];
-          $stock_min_producto   = $row['stock_min_producto'];
-          $online   = $row['pagina_web'];
-          $status_producto      = $row['estado_producto'];
-          $date_added           = date('d/m/Y', strtotime($row['date_added']));
-          $image_path           = $row['image_path'];
-          $id_imp_producto      = $row['id_imp_producto'];
+          $query = mysqli_query($conexion, $sql);
+          $num_registros = mysqli_num_rows($query);
+          //echo $num_registros, ' Productos';
+          while ($row = mysqli_fetch_array($query)) {
+            $id_producto          = $row['id_producto'];
+            $codigo_producto      = $row['codigo_producto'];
+            $nombre_producto      = $row['nombre_producto'];
+            $descripcion_producto = $row['descripcion_producto'];
+            $linea_producto       = $row['id_linea_producto'];
+            $med_producto         = $row['id_med_producto'];
+            $id_proveedor         = $row['id_proveedor'];
+            $inv_producto         = $row['inv_producto'];
+            $impuesto_producto    = $row['iva_producto'];
+            $costo_producto       = $row['costo_producto'];
+            $utilidad_producto    = $row['utilidad_producto'];
+            $precio_producto      = $row['valor1_producto'];
+            $precio_mayoreo       = $row['valor2_producto'];
+            $precio_especial      = $row['valor3_producto'];
+            $precio_normal      = $row['valor4_producto'];
+            $stock_producto       = $row['stock_producto'];
+            $stock_min_producto   = $row['stock_min_producto'];
+            $online   = $row['pagina_web'];
+            $status_producto      = $row['estado_producto'];
+            $date_added           = date('d/m/Y', strtotime($row['date_added']));
+            $image_path           = $row['image_path'];
+            $id_imp_producto      = $row['id_imp_producto'];
 
-        ?>
+          ?>
 
 
 
 
-          <div class="col-6 col-md-4 col-lg-3" style="padding-bottom: 15px;">
-            <div class="card h-100" style="border-radius: 15px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
-              <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
-              <div class="img-container d-flex" style="aspect-ratio: 1 / 1; overflow: hidden; justify-content: center; align-items: center;">
-                <img src=" <?php
-                            $subcadena = "http";
+            <div class="col-6 col-md-4 col-lg-3" style="padding-bottom: 15px;">
+              <div class="card h-100" style="border-radius: 15px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+                <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
+                <div class="img-container d-flex" style="aspect-ratio: 1 / 1; overflow: hidden; justify-content: center; align-items: center;">
+                  <img src=" <?php
+                              $subcadena = "http";
 
-                            if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                            ?>
+                              if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                              ?>
                <?php echo  $image_path . '"'; ?>
                <?php
-                            } else {
+                              } else {
                 ?>
                   sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                               }
@@ -374,28 +395,30 @@ if (isset($_GET['id_cat'])) {
                   sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                                         }
                                                                                 ?> class="card-img-top" alt="Product Name" style="object-fit: cover; width: 80%; height: 80%;">
-              </div>
-              <div class="card-body d-flex flex-column">
-                <a href="producto.php?id=<?php echo $id_producto ?>" style="text-decoration: none; color:black;">
-                  <h6 class="card-title"><?php echo $nombre_producto; ?></h6>
-                </a>
-                <div class="product-footer mb-2">
-
-                  <span class="text-muted"><?php if ($precio_normal > 0) {
-                                              echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_normal;
-                                            } ?></span>
-
-                  <span class="text-price"><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></span>
                 </div>
-                <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
+                <div class="card-body d-flex flex-column">
+                  <a href="producto.php?id=<?php echo $id_producto ?>" style="text-decoration: none; color:black;">
+                    <h6 class="card-title"><?php echo $nombre_producto; ?></h6>
+                  </a>
+                  <div class="product-footer mb-2">
+
+                    <span class="text-muted"><?php if ($precio_normal > 0) {
+                                                echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_normal;
+                                              } ?></span>
+
+                    <span class="text-price"><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></span>
+                  </div>
+                  <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
+                </div>
               </div>
             </div>
-          </div>
-        <?php
-        }
+          <?php
+          }
 
-        ?>
+          ?>
+        </div>
       </div>
+    </div>
     </div>
     <div class="marquee-container">
       <div class="marquee">
