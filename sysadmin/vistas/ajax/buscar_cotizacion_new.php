@@ -1218,7 +1218,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             <td class="text-center align-middle"><span class="text-link" onclick="abrirModalTienda('<?php echo $proveedor; ?>')"> <?php echo $proveedor; ?></span></td>
                         <?php } ?>
                         <td class="text-center align-middle"><?php if (empty($transportadora)) {
-                                                                    echo "<span class='badge badge-warning text-black'>Transportadora no asignada</span>";
+                                                                    echo "<span class='badge badge-warning text-black'>NA</span>";
                                                                 } else {
                                                                     echo "<span class='" . $badge_transportadoras . " '>" . $transportadora . "</span>";
                                                                 } ?></td>

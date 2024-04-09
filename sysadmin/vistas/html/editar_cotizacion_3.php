@@ -886,7 +886,7 @@ while ($r = $query->fetch_object()) {
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-<script type="text/javascript" src="../../js/editar_cotizacion.js"></script>
+<script type="text/javascript" src="../../js/editar_cotizacion_3.js"></script>
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
 <script>
@@ -1582,7 +1582,7 @@ while ($r = $query->fetch_object()) {
         valor_total = $('#valor_total_').val();
         costo_total = $('#costo_total').val();
         valorasegurado = $('#valorasegurado').val();
-
+        transportadora = $('#transportadora').val();
 
         id_factura = 1;
         if (id_factura = 1) {
@@ -1604,7 +1604,7 @@ while ($r = $query->fetch_object()) {
                     valor_total: valor_total,
                     costo_total: costo_total,
                     valorasegurado: valorasegurado,
-
+                    transportadora: transportadora,
                 },
                 dataType: 'text',
                 success: function(response) {
