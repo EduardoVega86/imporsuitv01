@@ -6,6 +6,7 @@ $(document).ready(function () {
   $("#resultados4").load("../ajax/tipo_doc.php");
   $("#resultados5").load("../ajax/carga_num_trans.php");
   // alert($('#costo_total').val());
+  $("id_pedido_cot_").val(window.location.href.split("=")[1]);
 });
 
 function load(page) {
@@ -67,9 +68,8 @@ function agregar(id) {
         "PRODUCTO AGREGADO A LA FACTURA CORRECTAMENTE"
       );
       $("#resultados").html(datos);
-      if ($("#transportadora").val() != "") {
-        calcular_guia($("#cod").val());
-      }
+
+      calcular_guia($("#cod").val());
     },
   });
 }
@@ -92,6 +92,7 @@ function eliminar(id) {
         "PRODCUTO ELIMINADO DE LA DATA"
       );
       $("#resultados").html(datos);
+      calcular_guia($("#cod").val());
     },
   });
 }
@@ -319,4 +320,335 @@ function imprimir_factura(id_factura) {
     "568",
     "true"
   );
+}
+function generar_guia() {
+  let monto_total = $("#monto_total_").text();
+  monto_total_ = monto_total.replace(/,/g, "");
+  monto_total__ = monto_total_.replace(/\./g, "");
+  monto_total = monto_total__.replace("$", "");
+  monto_total = parseFloat(monto_total);
+
+  if (monto_total <= 0) {
+    $.Notification.notify(
+      "error",
+      "bottom right",
+      "ERROR!",
+      "El monto total debe ser mayor a 0"
+    );
+    return;
+  }
+  let transportadora = $("#transp").val();
+  if (transportadora == "") {
+    $.Notification.notify(
+      "error",
+      "bottom right",
+      "ERROR!",
+      "Debes seleccionar una transportadora"
+    );
+  }
+  if (transportadora === "1") {
+    var formulario = document.getElementById("datos_pedido");
+    if (document.querySelector("#valorasegurado").value === "") {
+      document.querySelector("#valorasegurado").value = 0;
+    }
+
+    var data = new FormData(formulario);
+
+    data.append(
+      "valor_total",
+      Math.round(document.getElementById("valor_total_").value)
+    );
+    data.append(
+      "cantidad_total",
+      document.getElementById("cantidad_total").value
+    );
+    data.append("costo_total", document.getElementById("costo_total").value);
+    data.append("ciudad", document.getElementById("ciudad_entrega").value);
+    data.append(
+      "productos_guia",
+      document.getElementById("productos_guia").value
+    );
+
+    $.ajax({
+      url: "../ajax/calcular_guia.php",
+      type: "post",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        $("#resultados").html(response);
+        $("#generar_guia_btn").prop("disabled", false);
+      },
+    });
+    $.ajax({
+      url: "../ajax/enviar_laar.php",
+      type: "POST",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        Swal.fire({
+          icon: "success",
+          title: "Guía generada",
+          text: "La guía ha sido generada exitosamente",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          window.location.href =
+            `./editar_cotizacion.php?id_factura=` + $("#id_pedido_cot_").val();
+        });
+      },
+    });
+  }
+  if (transportadora === "2") {
+    //obtienne el formulario
+    var formulario = document.getElementById("formulario");
+    //crea un objeto FormData
+    if (document.querySelector("#valorasegurado").value === "") {
+      document.querySelector("#valorasegurado").value = 0;
+    }
+
+    var data = new FormData(formulario);
+    data.append("nombre_destino", document.getElementById("nombred").value);
+    data.append("celular", document.getElementById("telefonod").value);
+    data.append(
+      "direccion",
+      document.getElementById("calle_principal").value +
+        " " +
+        document.getElementById("calle_secundaria").value
+    );
+    data.append(
+      "valor_total",
+      Math.round(document.getElementById("valor_total_").value)
+    );
+    data.append(
+      "cantidad_total",
+      document.getElementById("cantidad_total").value
+    );
+    data.append("costo_total", document.getElementById("costo_total").value);
+    data.append("ciudad", document.getElementById("ciudad_entrega").value);
+    data.append(
+      "productos_guia",
+      document.getElementById("productos_guia").value
+    );
+    data.append("identificacion", document.getElementById("cedula").value);
+    data.append("seguro", document.getElementById("asegurar_producto").value);
+
+    // generar el pedido
+
+    $.ajax({
+      url: "../ajax/calcular_guia.php",
+      type: "post",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        //alert(response)
+
+        $("#resultados").html(response);
+        $("#generar_guia_btn").prop("disabled", false);
+      }, // /success function
+    });
+
+    $("#id_pedido_cot_").val();
+    data.set("id_pedido_cot", response);
+    $.ajax({
+      url: "../ajax/enviar_guia_local.php",
+      type: "POST",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        console.log(response);
+        let [guia, precio] = response.split(",");
+        $("#guia").val(guia);
+        $("#precio").val(precio);
+        $("#modal_vuelto").modal("show");
+        // window.location.href =        `./editar_cotizacion.php?id_factura=` + $("#id_pedido_cot_").val();
+      },
+    });
+  }
+  if (transportadora === "3") {
+    //obtienne el formulario
+    var formulario = document.getElementById("formulario");
+    //crea un objeto FormData
+    if (document.querySelector("#valorasegurado").value === "") {
+      document.querySelector("#valorasegurado").value = 0;
+    }
+    var data = new FormData(formulario);
+    data.append("nombre_destino", document.getElementById("nombred").value);
+    data.append("celular", document.getElementById("telefonod").value);
+    data.append(
+      "direccion",
+      document.getElementById("calle_principal").value +
+        " " +
+        document.getElementById("calle_secundaria").value
+    );
+    data.append(
+      "valor_total",
+      Math.round(document.getElementById("valor_total_").value)
+    );
+    data.append(
+      "cantidad_total",
+      document.getElementById("cantidad_total").value
+    );
+    data.append("costo_total", document.getElementById("costo_total").value);
+    data.append("ciudad", document.getElementById("ciudad_entrega").value);
+    data.append(
+      "productos_guia",
+      document.getElementById("productos_guia").value
+    );
+    data.append("identificacion", document.getElementById("cedula").value);
+    data.append("seguro", document.getElementById("asegurar_producto").value);
+    data.append(
+      "contenido",
+      document.getElementById("producto_name").textContent
+    ) +
+      "x" +
+      document.getElementById("producto_qty").textContent;
+
+    $.ajax({
+      url: "../../../ingresar_pedido_1.php",
+      type: "POST",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        console.log(response);
+        let [guia, precio] = response.split(",");
+        $("#guia").val(guia);
+        $("#precio").val(precio);
+        $("#modal_vuelto").modal("show");
+      },
+    });
+    $.ajax({
+      url: "../ajax/calcular_guia.php",
+      type: "post",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        $("#resultados").html(response);
+        $("#generar_guia_btn").prop("disabled", false);
+      },
+    });
+    $.ajax({
+      url: "../ajax/ultimo_pedido.php",
+      type: "POST",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        $("#id_pedido_cot_").val(response);
+        data.set("id_pedido_cot", response);
+        let ciudad_texto = $("#ciudad_entrega option:selected").text();
+        let destino_texto = $("#destino_c").val();
+        data.append("ciudad_texto", ciudad_texto);
+        data.append("destino_texto", destino_texto);
+
+        $.ajax({
+          url: "../ajax/datos_servi.php",
+          type: "POST",
+          data: data,
+          contentType: false,
+          processData: false,
+          success: function (response) {
+            let datos_servi = JSON.parse(response);
+            let codigo = datos_servi["codigo"];
+            let codigo_origen = datos_servi["codigo_origen"];
+            data.append("codigo", codigo);
+            data.append("codigo_origen", codigo_origen);
+            let esRecaudo = $("#cod").val();
+            if (esRecaudo == 1) {
+              $.ajax({
+                url: "../../../ajax/servientrega/generar_guia_servientrega_r.php",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                  let data_se = JSON.parse(response);
+                  let id_servi = data_se["id"];
+                  data.append("id_servi", id_servi);
+                  Swal.fire({
+                    icon: "info",
+                    title: "Por favor espere",
+                    text: "Estamos generando la guía",
+                    showConfirmButton: false,
+                    didOpen: () => {
+                      Swal.showLoading();
+                    },
+                  });
+                  $.ajax({
+                    url: "../ajax/enviar_servi.php",
+                    type: "POST",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                      Swal.fire({
+                        icon: "success",
+                        title: "Guía generada",
+                        text: "La guía ha sido generada exitosamente",
+                        showConfirmButton: true,
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          window.location.href =
+                            `./editar_cotizacion.php?id_factura=` +
+                            $("#id_pedido_cot_").val();
+                        }
+                      });
+                    },
+                  });
+                },
+              });
+            } else if (esRecaudo == 2) {
+              $.ajax({
+                url: "../../../ajax/servientrega/generar_guia_servientrega.php",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                  let data_se = JSON.parse(response);
+                  let id_servi = data_se["id"];
+                  data.append("id_servi", id_servi);
+                  Swal.fire({
+                    icon: "info",
+                    title: "Por favor espere",
+                    text: "Estamos generando la guía",
+                    showConfirmButton: false,
+                    didOpen: () => {
+                      Swal.showLoading();
+                    },
+                  });
+                  $.ajax({
+                    url: "../ajax/enviar_servi.php",
+                    type: "POST",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                      Swal.fire({
+                        icon: "success",
+                        title: "Guía generada",
+                        text: "La guía ha sido generada exitosamente",
+                        showConfirmButton: true,
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          window.location.href =
+                            `./editar_cotizacion.php?id_factura=` +
+                            $("#id_pedido_cot_").val();
+                        }
+                      });
+                    },
+                  });
+                },
+              });
+            }
+          },
+        });
+      },
+    });
+  }
 }

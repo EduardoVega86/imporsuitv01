@@ -11,21 +11,21 @@ $cod = $_POST['cod'];
 $seguro = $_POST['seguro'];
 $costo = $_POST['costo_total'];
 
-echo $valor_total;
-
 $transportadora = $_POST['transportadora'];
 //echo $costo;
 $valorasegurado = $_POST['valorasegurado'];
 //valorasegurado=$('#valorasegurado').val();
-
+if (empty($transportadora)) {
+    $transportadora = 1;
+}
 //echo $valor_total;
 if ($transportadora == 1) {
     $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudad);
-} else {
+} else if ($transportadora == 2) {
     if ($ciudad == 1) {
-        $valor_base = 4.5;
-    } else {
         $valor_base = 5.5;
+    } else {
+        $valor_base = 6.5;
     }
 }
 
@@ -63,9 +63,18 @@ $valor_texto = "Precio de envío $" . number_format($valor_envio, 2);
                 <img width="100px" src="../../img_sistema/logo-dark.png" alt="" />
             <?php
 
-            } else {
+            } else if ($transportadora == "2") {
             ?>
                 <img width="100px" src="../../img_sistema/speed.jpg" alt="" />
+            <?php
+            } else if ($transportadora == "3") {
+            ?>
+                <img width="100px" src="../../img_sistema/servi.png" alt="" />
+            <?php
+
+            } else if ($transportadora == "4") {
+            ?>
+                <img width="100px" src="../../img_sistema/gintracom.png" alt="" />
             <?php
             }
             ?>
@@ -92,7 +101,7 @@ $valor_texto = "Precio de envío $" . number_format($valor_envio, 2);
     </tr>
     <tr>
         <th>Monto a recibir </th>
-        <td>$<?php echo number_format($valor_total - $costo - $valor_envio, 2) ?></td>
+        <td id="monto_total_">$<?php echo number_format($valor_total - $costo - $valor_envio, 2) ?></td>
     </tr>
 </table>
 
