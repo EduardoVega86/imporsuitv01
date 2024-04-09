@@ -3,6 +3,12 @@ $(document).ready(function () {
   $("#f_resultado").load("../ajax/incrementa_fact_cot_n.php");
   $("#datos_factura").load();
   $("#barcode").focus();
+  //alert($("#id_producto_importar").val())
+  if ($("#id_producto_importar").val() != 0){
+      //alert($("#id_producto_importar").val())
+      id_prodcuto=$("#id_producto_importar").val()
+        agregar_prod(id_prodcuto)   
+  }
   load(1);
 });
 
@@ -34,6 +40,60 @@ function agregar(id) {
   //alert();
   var precio_venta = document.getElementById("precio_venta_" + id).value;
   var cantidad = document.getElementById("cantidad_" + id).value;
+  //quita el disabled
+  document.getElementById("ciudad_entrega").disabled = false;
+  document.getElementById("provinica").disabled = false;
+  //Inicia validacion
+  if (isNaN(cantidad)) {
+    $.Notification.notify(
+      "error",
+      "bottom center",
+      "NOTIFICACIÓN",
+      "LA CANTIDAD NO ES UN NUMERO, INTENTAR DE NUEVO"
+    );
+    document.getElementById("cantidad_" + id).focus();
+    return false;
+  }
+  if (isNaN(precio_venta)) {
+    $.Notification.notify(
+      "error",
+      "bottom center",
+      "NOTIFICACIÓN",
+      "EL PRECIO NO ES UN NUMERO, INTENTAR DE NUEVO"
+    );
+    document.getElementById("precio_venta_" + id).focus();
+    return false;
+  }
+  //Fin validacion
+  $.ajax({
+    type: "POST",
+    url: "../ajax/agregar_tmp_modalcot_n.php",
+    data:
+      "id=" +
+      id +
+      "&precio_venta=" +
+      precio_venta +
+      "&cantidad=" +
+      cantidad +
+      "&operacion=" +
+      2,
+    beforeSend: function (objeto) {
+      $("#resultados").html(
+        '<img src="../../img/ajax-loader.gif"> Cargando...'
+      );
+    },
+    success: function (datos) {
+      //alert(datos);
+      $("#resultados").html(datos);
+      //alert($("#valor_total_").val());
+    },
+  });
+}
+
+function agregar_prod(id) {
+  alert($("#precio_importar").val());
+  var precio_venta = $("#precio_importar").val();
+  var cantidad = 1;
   //quita el disabled
   document.getElementById("ciudad_entrega").disabled = false;
   document.getElementById("provinica").disabled = false;
