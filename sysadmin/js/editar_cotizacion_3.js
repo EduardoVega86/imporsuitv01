@@ -353,7 +353,10 @@ function generar_guia() {
     }
 
     var data = new FormData(formulario);
-
+    data.append(
+      "direccion",
+      document.getElementById("direccion_destino").value
+    );
     data.append(
       "valor_total",
       Math.round(document.getElementById("valor_total_").value)
@@ -394,8 +397,7 @@ function generar_guia() {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          window.location.href =
-            `./editar_cotizacion.php?id_factura=` + $("#id_pedido_cot_").val();
+          // window.location.href =            `./editar_cotizacion.php?id_factura=` + $("#id_pedido_cot_").val();
         });
       },
     });
@@ -407,6 +409,36 @@ function generar_guia() {
     if (document.querySelector("#valorasegurado").value === "") {
       document.querySelector("#valorasegurado").value = 0;
     }
+    data.append("nombre_destino", document.getElementById("nombred").value);
+    data.append("celular", document.getElementById("telefonod").value);
+    data.append(
+      "direccion",
+      document.getElementById("calle_principal").value +
+        " " +
+        document.getElementById("calle_secundaria").value
+    );
+    data.append(
+      "valor_total",
+      Math.round(document.getElementById("valor_total_").value)
+    );
+    data.append(
+      "cantidad_total",
+      document.getElementById("cantidad_total").value
+    );
+    data.append("costo_total", document.getElementById("costo_total").value);
+    data.append("ciudad", document.getElementById("ciudad_entrega").value);
+    data.append(
+      "productos_guia",
+      document.getElementById("productos_guia").value
+    );
+    data.append("identificacion", document.getElementById("cedula").value);
+    data.append("seguro", document.getElementById("asegurar_producto").value);
+    data.append(
+      "contenido",
+      document.getElementById("producto_name").textContent
+    ) +
+      "x" +
+      document.getElementById("producto_qty").textContent;
 
     var data = new FormData(formulario);
     data.append("nombre_destino", document.getElementById("nombred").value);

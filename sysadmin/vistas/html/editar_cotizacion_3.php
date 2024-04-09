@@ -482,6 +482,19 @@ while ($r = $query->fetch_object()) {
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                                                     ?>
                                                     <form role="form" id="datos_pedido">
+                                                        <input type="hidden" id="transp" name="transp">
+                                                        <input type="hidden" id="transportadora" name="transportadora">
+                                                        <input type="hidden" name="destino_c" id="destino_c">
+                                                        <input type="hidden" name="nombre_remitente" id=nombre_remitente>
+                                                        <input type="hidden" name="apellido_remitente" id=apellido_remitente>
+                                                        <input type="hidden" name="direccion_remitente" id=direccion_remitente>
+                                                        <input type="hidden" name="telefono_remitente" id=telefono_remitente>
+                                                        <input type="hidden" name="servi_flete" id="servi_flete">
+                                                        <input type="hidden" name="servi_seguro" id="servi_seguro">
+                                                        <input type="hidden" name="servi_comision" id="servi_comision">
+                                                        <input type="hidden" name="servi_impuesto" id="servi_impuesto">
+                                                        <input type="hidden" name="servi_otros" id="servi_otros">
+                                                        <input type="hidden" name="origen_texto" id="origen_texto">
 
                                                         <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                         <input type="hidden" id="identificacion" name="identificacion" value="">
