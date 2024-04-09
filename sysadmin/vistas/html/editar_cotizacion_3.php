@@ -621,19 +621,19 @@ while ($r = $query->fetch_object()) {
 
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Nombre Destinatario </span>
-                                                                    <input id="nombredestino" name="nombredestino" class="form-control" value="<?php echo $nombredestino; ?>">
+                                                                    <input id="nombredestino" name="nombredestino" class="form-control formulario" value="<?php echo $nombredestino; ?>">
 
                                                                 </div>
 
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Cedula </span>
-                                                                    <input id="identificacion" name="identificacion" class="form-control" placeholder="Ingrese Identificacion" value="">
+                                                                    <input id="identificacion" name="identificacion" class="form-control formulario" placeholder="Ingrese Identificacion" value="">
 
                                                                 </div>
 
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Teléfono </span>
-                                                                    <input id="telefono" name="telefono" class="form-control" value="<?php echo $telefono; ?>">
+                                                                    <input id="telefono" name="telefono" class="form-control formulario" value="<?php echo $telefono; ?>">
 
                                                                 </div>
 
@@ -642,7 +642,7 @@ while ($r = $query->fetch_object()) {
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Ciudad </span>
                                                                     <div id="div_ciudad">
-                                                                        <select onchange="seleccionarProvincia()" class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" required>
+                                                                        <select onchange="seleccionarProvincia()" class="datos form-control formulario" id="ciudad_entrega" name="ciudad_entrega" required>
                                                                             <option value="">Ciudad *</option>
                                                                             <?php
                                                                             $sql2 = "select * from ciudad_laar ";
@@ -673,7 +673,7 @@ while ($r = $query->fetch_object()) {
 
 
                                                                         <span class="help-block">Provincia </span>
-                                                                        <select onchange="" class="datos form-control" id="provinica" name="provinica" required>
+                                                                        <select onchange="" class="datos form-control formulario" id="provinica" name="provinica" required>
                                                                             <option value="">Provincia *</option>
                                                                             <?php
                                                                             $sql2 = "select * from provincia_laar ";
@@ -684,66 +684,49 @@ while ($r = $query->fetch_object()) {
                                                                                 $provincia = $row2['provincia'];
                                                                                 $cod_provincia = $row2['codigo_provincia'];
 
-                                                                                // Obtener el valor almacenado en la tabla orgien_laar
                                                                                 $valor_seleccionado = $provinciadestino;
 
-                                                                                // Verificar si el valor actual coincide con el almacenado en la tabla
                                                                                 $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
 
-                                                                                // Imprimir la opción con la marca de "selected" si es el valor almacenado
                                                                                 echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
                                                                             }
                                                                             ?>
                                                                         </select>
-
-
-
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Dirección </span>
-                                                                    <input id="direccion_destino" name="direccion_destino" class="form-control" value="<?php echo $direccion; ?>">
-
+                                                                    <input id="direccion_destino" name="direccion_destino" class="form-control formulario" value="<?php echo $direccion; ?>">
                                                                 </div>
-
                                                             </div>
-
                                                             <div class="row">
-
-
-
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Referencia </span>
-                                                                    <input id="referencia" name="referencia" class="form-control" placeholder="Referencia" value="<?php echo $referencia; ?>">
-
+                                                                    <input id="referencia" name="referencia" class="form-control formulario" placeholder="Referencia" value="<?php echo $referencia; ?>">
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Numero de casa </span>
-                                                                    <input id="numerocasa" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">
-
+                                                                    <input id="numerocasa" name="numerocasa" class="form-control formulario" value="<?php echo $observacion; ?>">
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Observaciones para la entrega </span>
-                                                                    <input id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">
+                                                                    <input id="observacion" name="observacion" class="form-control formulario" value="<?php echo $observacion; ?>">
                                                                 </div>
                                                             </div>
-                                                            <input id="celular" type="hidden" name="celular" class="form-control" placeholder="Celular" value="<?php echo $telefono; ?>">
-
+                                                            <input id="celular" type="hidden" name="celular" class="form-control formulario" placeholder="Celular" value="<?php echo $telefono; ?>">
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-4">
                                                             <span class="help-block">Recaudo </span>
-                                                            <select onchange="calcular_guia()" id="cod" name="cod" class="form-control">
+                                                            <select onchange="calcular_guia()" id="cod" name="cod" class="form-control formulario">
                                                                 <option value="0">Seleccionar</option>
                                                                 <option value="1" selected>Con Recuado</option>
                                                                 <option value="0">Sin Recaudo </option>
                                                             </select>
                                                         </div>
-
                                                         <div class="col-md-5">
                                                             <span class="help-block">Seguro </span>
-                                                            <select onchange="calcular_guia()" id="seguro" name="seguro" class="form-control">
+                                                            <select onchange="calcular_guia()" id="seguro" name="seguro" class="form-control formulario">
                                                                 <option value="">Deseas asegurar la mercadería </option>
                                                                 <option value="1">SI</option>
                                                                 <option value="0">NO </option>
@@ -751,11 +734,8 @@ while ($r = $query->fetch_object()) {
                                                         </div>
                                                         <div class="col-md-3">
                                                             <span>&nbsp;</span>
-                                                            <input id="valorasegurado" name="valorasegurado" class="form-control" value="" placeholder="Valor a aegurar">
+                                                            <input id="valorasegurado" name="valorasegurado" class="form-control formulario" value="" placeholder="Valor a aegurar">
                                                         </div>
-
-
-
                                                     </div>
                                                     <div style="background-color: #F6F6F6" class="card-box mt-3">
                                                         <div class="widget-chart">
@@ -777,7 +757,6 @@ while ($r = $query->fetch_object()) {
                                                                 <!-- Segunda Columna -->
                                                                 <div class="col-md-2">
                                                                     <div id="card1" class="card formulario p-1">
-
                                                                         <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Servientrega">
                                                                         <div class="card-body" style="text-align: center;">
                                                                             <strong id="precio_laar">---</strong>
@@ -810,43 +789,30 @@ while ($r = $query->fetch_object()) {
                                                             ?>
                                                                 <div class="col-md-3">
                                                                     </br>
-
                                                                     <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn btn-danger" disabled>Generar Guía</button>
-
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     </br>
                                                                     <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Calcular</button>
                                                                 </div>
                                                             <?php
-
                                                             }
                                                             ?>
                                                             <div class="col-md-6">
                                                                 </br>
-
-
                                                             </div>
                                                         </div>
-
                                                         </form>
                                                     </div>
-
                                                 </div>
                                         </div>
                                     </div>
                                 </div>
                             <?php
-
                                             }
                             ?>
                             </div>
-
-
-
                         </div>
-                        <!-- end row -->
-
                     </div>
             </div>
         </div>
@@ -865,30 +831,23 @@ while ($r = $query->fetch_object()) {
 ?>
 
 </div>
-<!-- end container -->
+
 </div>
-<!-- end content -->
 
 <?php require 'includes/pie.php'; ?>
 
 </div>
-<!-- ============================================================== -->
-<!-- End Right content here -->
-<!-- ============================================================== -->
 
 
 </div>
-<!-- END wrapper -->
+
 
 <?php require 'includes/footer_start.php'
 ?>
-<!-- ============================================================== -->
-<!-- Todo el codigo js aqui-->
-<!-- ============================================================== -->
+
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/editar_cotizacion_3.js"></script>
-<!-- ============================================================== -->
-<!-- Codigos Para el Auto complete de Clientes -->
+
 <script>
     $(function() {
         $("#nombre_cliente").autocomplete({
@@ -985,222 +944,36 @@ while ($r = $query->fetch_object()) {
             type: "POST", // Type of request to be send, called as method
             data: {
                 transportadora: transportadora,
-
-
             }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
             dataType: 'text', // To send DOMDocument or non processed data file it is set to false
             success: function(data) // A function to be called if request succeeds
             {
-
-
-
                 $('#div_ciudad_local').html(data);
                 $('#div_ciudad').html('');
-
-
             }
         });
-
     }
-
 
     function cargar_provincia_pedido() {
 
         var id_provincia = $('#provinica').val();
         //alert($('#provinica').val())
         //var data = new FormData(formulario);
-
         $.ajax({
             url: "../ajax/cargar_ciudad_pedido.php", // Url to which the request is send
             type: "POST", // Type of request to be send, called as method
             data: {
                 provinica: id_provincia,
-
-
             }, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
             dataType: 'text', // To send DOMDocument or non processed data file it is set to false
             success: function(data) // A function to be called if request succeeds
             {
-
-
-
                 $('#div_ciudad').html(data);
-
-
             }
         });
-
     }
 
-
-
-
-
-    /* function generar_guia(id_factura) {
-        $('#generar_guia_btn').prop('disabled', true);
-        nombre_destino = $('#nombredestino').val();
-        identificacion = $('#identificacion').val();
-        ciudad = $('#ciudad_entrega').val();;
-        //alert(ciudad);
-        direccion_destino = $('#direccion_destino').val(); //CIERRA LA MODAL
-        //alert(direccion_destino);
-        referencia = $('#referencia').val(); //CIERRA LA MODAL
-        telefono = $('#telefono').val(); //CIERRA LA MODAL
-        celular = $('#celular').val(); //CIERRA LA MODAL
-        observacion = $('#observacion').val(); //CIERRA LA MODAL
-        cod = $('#cod').val(); //CIERRA LA MODAL
-        seguro = $('#seguro').val(); //CIERRA LA MODAL
-        productos_guia = $('#productos_guia').val();
-        cantidad_total = $('#cantidad_total').val();
-        valor_total = $('#valor_total_').val();
-        costo_total = $('#costo_total').val();
-
-        numerocasa = $('#numerocasa').val();
-        valor_envio = $('#valor_total_').val();
-        valorasegurado = $('#valorasegurado').val();
-
-        id_pedido_cot = $('#id_pedido_cot').val();
-        costo_envio = $('#valor_envio2').val();
-        var utilidad = valor_envio - costo_total - costo_envio;
-
-
-
-        id_factura = 1;
-
-        transportadora = $('#transportadora').val();
-
-
-
-        if (utilidad > 0) {
-            if (transportadora == 1) {
-                url = '../ajax/enviar_laar.php';
-                regresar = 0;
-            } else {
-                url = '../ajax/enviar_guia_local.php';
-                regresar = 1;
-            }
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: {
-                    nombre_destino: nombre_destino,
-                    ciudad: ciudad,
-                    direccion: direccion_destino,
-                    referencia: referencia,
-                    telefono: telefono,
-                    celular: celular,
-                    observacion: observacion,
-                    cod: cod,
-                    seguro: seguro,
-                    productos_guia: productos_guia,
-                    cantidad_total: cantidad_total,
-                    valor_total: valor_total,
-                    numerocasa: numerocasa,
-                    id_pedido_cot: id_pedido_cot,
-                    identificacion: identificacion,
-                    costo_total: costo_total,
-                    valorasegurado: valorasegurado,
-                    costo_envio: costo_envio,
-
-                },
-                dataType: 'text',
-                success: function(response) {
-
-                    if (response == 'ok') {
-                        Swal.fire({
-                            title: "¡Generación de guía exitosa!",
-                            icon: "success",
-                            confirmButtonText: "¡Aceptar!",
-                        }).then(() => {
-                            if (regresar == 0) {
-                                window.location.reload();
-                            } else {
-                                window.location.href = 'bitacora_cotizacion_new.php';
-                            }
-                        });
-                    } else {
-                        //  let objetoJSON = JSON.parse(response);
-                        Swal.fire({
-                            title: "Oops...",
-                            text: response,
-                            icon: "error",
-                            confirmButtonText: "¡Aceptar!",
-                        }).then(() => {
-                            window.location.reload();
-                        });
-
-                    }
-
-                } // /success function
-
-            }); // /ajax function to fetch the printable order
-        } else {
-            if (cod == 1) {
-                $.ajax({
-                    url: url,
-                    type: 'post',
-                    data: {
-                        nombre_destino: nombre_destino,
-                        ciudad: ciudad,
-                        direccion: direccion_destino,
-                        referencia: referencia,
-                        telefono: telefono,
-                        celular: celular,
-                        observacion: observacion,
-                        cod: cod,
-                        seguro: seguro,
-                        productos_guia: productos_guia,
-                        cantidad_total: cantidad_total,
-                        valor_total: valor_total,
-                        numerocasa: numerocasa,
-                        id_pedido_cot: id_pedido_cot,
-                        identificacion: identificacion,
-                        costo_total: costo_total,
-                        valorasegurado: valorasegurado,
-                        costo_envio: costo_envio,
-
-                    },
-                    dataType: 'text',
-                    success: function(response) {
-
-                        if (response == 'ok') {
-                            Swal.fire({
-                                title: "¡Generación de guía exitosa!",
-                                icon: "success",
-                                confirmButtonText: "¡Aceptar!",
-                            }).then(() => {
-                                window.location.reload();
-                            });
-                        } else {
-                            //  let objetoJSON = JSON.parse(response);
-                            Swal.fire({
-                                title: "Oops...",
-                                text: response,
-                                icon: "error",
-                                confirmButtonText: "¡Aceptar!",
-                            }).then(() => {
-                                window.location.reload();
-                            });
-
-                        }
-
-                    } // /success function
-
-                }); // /ajax function to fetch the printable order
-            } else {
-                Swal.fire({
-                    title: "¡El monto a recibir es menor a 0! Por favor verifique los valores",
-                    icon: "error",
-                    confirmButtonText: "¡Aceptar!",
-                }).then(() => {
-                    // window.location.reload();
-                });
-            }
-        }
-    } */
-
     function anular_guia(guia, id) {
-
         id_factura = 1;
         if (id_factura = 1) {
             $.ajax({
@@ -1209,21 +982,17 @@ while ($r = $query->fetch_object()) {
                 data: {
                     guia: guia,
                     id: id,
-
                 },
                 dataType: 'text',
                 success: function(response) {
-
                     if (response == 'ok') {
                         location.reload();
                     } else {
                         alert(response)
                     }
-
-                } // /success function
-
-            }); // /ajax function to fetch the printable order
-        } // /if orderId
+                }
+            });
+        }
     }
 
     function printOrder(id_factura) {
@@ -1242,18 +1011,17 @@ while ($r = $query->fetch_object()) {
                     mywindow.document.write('</head><body>');
                     mywindow.document.write(response);
                     mywindow.document.write('</body></html>');
-                    mywindow.document.close(); // necessary for IE >= 10
-                    mywindow.focus(); // necessary for IE >= 10
+                    mywindow.document.close();
+                    mywindow.focus();
                     mywindow.print();
                     mywindow.close();
-                } // /success function
+                }
 
-            }); // /ajax function to fetch the printable order
-        } // /if orderId
-    } // /print order function
+            });
+        }
+    }
 </script>
 <script>
-    // print order function
     function printFactura(id_factura) {
         $('#modal_vuelto').modal('hide');
         if (id_factura) {
@@ -1368,6 +1136,7 @@ while ($r = $query->fetch_object()) {
         } else if (id === 3) {
             $("#costo_envio").val($("#precio_servientrega").text());
         }
+        calcular_guia_2();
     }
 
     function seleccionarProvincia() {
@@ -1564,6 +1333,56 @@ while ($r = $query->fetch_object()) {
         calcular_guia_2();
     }
 
+    function calcular_guia_1(recaudo) {
+
+        let precio_total = $('#valor_total_').val();
+        let provinica = $('#provinica').val();
+        let ciudad_entrega = $('#ciudad_entrega').val();
+        fetch(`../ajax/calcular_guia_new.php?precio_total=${precio_total}&provincia=${provinica}&ciudad_entrega=${ciudad_entrega}&recaudo=${recaudo}`)
+            .then(response => response.json())
+            .then(html => {
+                console.log(html);
+                let precio_laar = html["laar"];
+                if (html === undefined || html === null || html === "" || html === "null" || html === "undefined" || html === NaN || html === "NaN" || html === "[]" || html.length === 0 || html === 0) {
+                    $('#precio_laar').text(`NO APLICA`);
+                    $('#costo_envio').val(0);
+                } else {
+                    $('#precio_laar').text(`$${precio_laar}`);
+                    let envio_sin_signo = precio_laar.replace('$', '');
+                    $('#costo_envio').val(envio_sin_signo);
+                }
+                if ($('#ciudad_entrega option:selected').text() == "QUITO") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$5.50`);
+                } else
+                if ($('#ciudad_entrega option:selected').text() == "VALLE DE LOS CHILLOS") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else
+                if ($('#ciudad_entrega option:selected').text() == "CUMBAYA") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else
+                if ($('#ciudad_entrega option:selected').text() == "TUMBACO") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else {
+                    $('#aplica').text(`NO APLICA`);
+
+                }
+            })
+        $('#generar_guia_btn').removeAttr('disabled');
+
+    }
+
     function calcular_guia_2() {
 
         nombre_destino = $('#nombredestino').val(); //CIERRA LA MODAL
@@ -1616,6 +1435,13 @@ while ($r = $query->fetch_object()) {
             }); // /ajax function to fetch the printable order
         } // /if orderId
     }
+
+    //promesa en 3s 
+
+    setTimeout(() => {
+        calcular_guia_1(1);
+
+    }, 1000);
 </script>
 
 <?php require 'includes/footer_end.php'

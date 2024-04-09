@@ -20,6 +20,7 @@ if ($filtro == 'mayor_menor') {
 }
 $rw = mysqli_fetch_array($consultar);
 $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=";
+$url_ticket = "https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=";
 
 if ($filtro == 'mayor_menor') {
     $band = "btn-primary";
@@ -52,6 +53,7 @@ if ($filtro == 'mayor_menor') {
             <th>Monto Pendiente</th>
             <th>Numero Guia</th>
             <th>Guia</th>
+            <th>Ticket</th>
             <th>Ver</th>
             <th>Editar</th>
             <th>Devolucion</th>
@@ -163,6 +165,9 @@ if ($filtro == 'mayor_menor') {
                 </td>
                 <td class="text-center">
                     <a href="<?php echo $url_guia . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>
+                </td>
+                <td class="text-center">
+                    <a href="<?php echo $url_ticket . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-receipt"></i></a>
                 </td>
                 <td class="text-center">
                     <button onclick="ver_detalles('<?php echo $rws['numero_factura']; ?>')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
