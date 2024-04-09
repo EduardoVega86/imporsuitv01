@@ -142,18 +142,19 @@ if (isset($conexion)) {
 								</div>
 
 								<div class="row">
-									<div class="col-md-4">
+                                                                    <div class="col-md-4">
 										<div class="form-group">
-											<label for="mod_precio" class="control-label">PVP:</label>
-											<input type="text" class="form-control" id="mod_precio" name="mod_precio" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label for="mod_preciom" class="control-label">PxMayor:</label>
+											<label for="mod_preciom" class="control-label">Precio Proveedor:</label>
 											<input type="text" class="form-control" id="mod_preciom" name="mod_preciom" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
 										</div>
 									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="mod_precio" class="control-label">Precio de venta (Sugerido):</label>
+											<input type="text" class="form-control" id="mod_precio" name="mod_precio" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12">
+										</div>
+									</div>
+									
                                                                     <div class="col-md-4">
 									<div class="form-group">
 											
