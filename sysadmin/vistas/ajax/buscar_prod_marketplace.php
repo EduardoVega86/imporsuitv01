@@ -1,5 +1,4 @@
 <?php
-
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
@@ -172,9 +171,14 @@ if ($image_path == null) {
   <a class='btn btn-primary'  style="width: 100%" href="../ajax/importar.php?id=<?php echo $id_producto; ?>" title="Importar" onclick="recibir(<?php echo $id_producto ?>)">
       Importar
                         </a>
+  
+  <?php }else{
+      ?>
+  <a class='btn btn-warning'  style="width: 100%" href="../ajax/importar.php?id=<?php echo $id_producto; ?>" title="Guia" onclick="recibir(<?php echo $id_producto ?>)">
+      Generar Guía
+                        </a>
   <?php }
       ?>
-
   </div>
 </div>
     </div>
