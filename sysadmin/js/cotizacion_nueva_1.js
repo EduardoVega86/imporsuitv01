@@ -6,7 +6,9 @@ $(document).ready(function () {
   //alert($("#id_producto_importar").val())
   if ($("#id_producto_importar").val() != 0){
       //alert($("#id_producto_importar").val())
-      id_prodcuto=$("#id_producto_importar").val()
+      id_prodcuto=$("#id_producto_importar").val();
+      precio_importar=$("#precio_importar").val()
+      //alert(precio_importar)
         agregar_prod(id_prodcuto)   
   }
   load(1);
@@ -91,7 +93,7 @@ function agregar(id) {
 }
 
 function agregar_prod(id) {
-  alert($("#precio_importar").val());
+ //alert(id);
   var precio_venta = $("#precio_importar").val();
   var cantidad = 1;
   //quita el disabled
