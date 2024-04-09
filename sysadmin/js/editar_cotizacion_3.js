@@ -6,7 +6,7 @@ $(document).ready(function () {
   $("#resultados4").load("../ajax/tipo_doc.php");
   $("#resultados5").load("../ajax/carga_num_trans.php");
   // alert($('#costo_total').val());
-  $("id_pedido_cot_").val(window.location.href.split("=")[1]);
+  $("id_pedido_cot").val(window.location.href.split("=")[1]);
 });
 
 function load(page) {
@@ -370,6 +370,10 @@ function generar_guia() {
     data.append(
       "productos_guia",
       document.getElementById("productos_guia").value
+    );
+    data.append(
+      "nombre_destino",
+      document.getElementById("nombredestino").value
     );
 
     $.ajax({

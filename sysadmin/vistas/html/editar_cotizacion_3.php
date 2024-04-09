@@ -496,6 +496,8 @@ while ($r = $query->fetch_object()) {
                                                         <input type="hidden" name="servi_otros" id="servi_otros">
                                                         <input type="hidden" name="origen_texto" id="origen_texto">
 
+                                                        <input type="hidden" name="id_pedido_cot" id="id_pedido_cot">
+
                                                         <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                         <input type="hidden" id="identificacion" name="identificacion" value="">
                                                         <input type="hidden" id="provinica" name="provinica" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
