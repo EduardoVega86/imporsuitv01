@@ -1089,3 +1089,59 @@
     background-color: white;
   }
 </style>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .filter-section {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+  .filter-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .filter-header a {
+    text-decoration: none;
+    float: right;
+    font-weight: normal;
+    color: #6c757d;
+  }
+  .range-slider {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .range-slider input[type=range] {
+    width: 100%;
+  }
+  .btn-filter {
+    background-color: #7c4dff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  .price-label {
+    font-size: 14px;
+  }
+  .filtro_productos{
+    position: absolute;
+    left: 0;
+  }
+
+  @media (max-width: 768px) {
+    .filtro_productos {
+      position: relative;
+    }
+  }
+</style>

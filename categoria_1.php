@@ -20,7 +20,7 @@ include './auditoria.php';
 include './includes/style.php';
 if (isset($_GET['id_cat'])) {
   $sql = "select * from lineas where online='1' and padre='$id_categoria'";
-//echo $sql;
+  //echo $sql;
   $query = mysqli_query($conexion, $sql);
   $categorias = '';
   while ($row = mysqli_fetch_array($query)) {
@@ -33,305 +33,521 @@ if (isset($_GET['id_cat'])) {
 ?>
 <!doctype html>
 <html lang="es">
-  <head>
-   <style> 
-   .card {
-  transition: transform .2s; /* Animación para el efecto de hover */
-}
 
-.card:hover {
-  transform: scale(1.05); /* Aumenta ligeramente el tamaño de la tarjeta al pasar el ratón */
-}
+<head>
+  <style>
+    .card {
+      transition: transform .2s;
+      /* Animación para el efecto de hover */
+    }
 
-.product-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    .card:hover {
+      transform: scale(1.05);
+      /* Aumenta ligeramente el tamaño de la tarjeta al pasar el ratón */
+    }
 
-.text-muted {
-  text-decoration: line-through; /* Efecto tachado para el precio anterior */
-}
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.text-price {
-  color: red;
-  font-weight: bold;
-}
-</style> 
-<?php
-include './includes/head_1.php';
-?>
-<link href="css_nuevo/bootstrap.min.css" rel="stylesheet" type="text/css"/>    
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    .text-muted {
+      text-decoration: line-through;
+      /* Efecto tachado para el precio anterior */
+    }
 
-<meta name="theme-color" content="#7952b3">
+    .text-price {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+  <?php
+  include './includes/head_1.php';
+  ?>
+  <link href="css_nuevo/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
-
-
-    <link href="css_nuevo/carousel.css" rel="stylesheet" type="text/css"/>
-    <!-- Custom styles for this template -->
-    
-  </head>
-  <body>
-   <?php
-   include 'modal/comprar.php';
-  ?> 
-<header>
- <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
-  <div class="container">
-    <!-- Logo en el centro para todas las vistas -->
-    <a class="navbar-brand"  href="#"><a class="navbar-brand" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px;" src="<?php
-                                 if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
-                                    echo "assets/img/imporsuit.png";
-                                 } else {
-                                    echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
-                                 }
-                                 ?>" alt="Imagen" /></a></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="fas fa-bars" style="color: #000; text-shadow: 0px 0px 3px #fff;"></i>
-</button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <!-- Elementos a la izquierda -->
-      <ul class="navbar-nav mr-auto ">
-        <li class="nav-item active">
-          <a class="nav-link texto_cabecera" href="#">Inicio <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link texto_cabecera" href="#">Catálogo</a>
-        </li>
-        
-      </ul>
-      <!-- Elementos a la derecha -->
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle texto_cabecera" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Políticas
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Política 1</a>
-            <a class="dropdown-item" href="#">Política 2</a>
-            <a class="dropdown-item" href="#">Política 3</a>
-          </div>
-        </li>
-        
-          <form class="form-inline my-2 my-lg-0">
-      <input class="form-control" type="search" placeholder="Buscar" aria-label="Buscar">
-      
-    </form>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-</header>
-
-<main>
-<?php $banner=get_row('perfil', 'banner', 'id_perfil', 1);
-        if ($banner!=""){
-            $texto_slider=get_row('perfil', 'texto_slider', 'id_perfil', 1);
-            $text_btn_slider=get_row('perfil', 'texto_btn_slider', 'id_perfil', 1);
-            $enlace_btn_slider=get_row('perfil', 'enlace_btn_slider', 'id_perfil', 1);
-            $titulo_slider=get_row('perfil', 'titulo_slider', 'id_perfil', 1);
-            $alineacion_slider=get_row('perfil', 'alineacion_slider', 'id_perfil', 1);
-            
-$resultado = $conexion->query("SELECT banner FROM perfil WHERE id_perfil = 1");
-$slidePrincipal = $resultado->fetch_assoc();
+  <meta name="theme-color" content="#7952b3">
 
 
-if($alineacion_slider==1 or $alineacion_slider==0 or $alineacion_slider==""){
- $alineacion="text-start";   
-}
-if($alineacion_slider==2){
-  $alineacion="";  
-}
-if($alineacion_slider==3){
-$alineacion="text-end";    
-}
-// Consulta para slides adicionales
-$resultadoAdicionales = $conexion->query("SELECT fondo_banner, texto_banner, titulo, texto_boton, enlace_boton, alineacion FROM banner_adicional");
 
-?>
-   
-   
+  <link href="css_nuevo/carousel.css" rel="stylesheet" type="text/css" />
+  <!-- Custom styles for this template -->
 
-    <?php 
-} ?>
+</head>
 
-<div class="marquee-container">
-    <div class="marquee">
-        <p style="font-size: 22px;">
-            -
-        <?php 
+<body>
+  <?php
+  include 'modal/comprar.php';
+  ?>
+  <header>
+    <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
+      <div class="container">
+        <!-- Logo en el centro para todas las vistas -->
+        <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
+                                                                                                                                                                          if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
+                                                                                                                                                                            echo "assets/img/imporsuit.png";
+                                                                                                                                                                          } else {
+                                                                                                                                                                            echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
+                                                                                                                                                                          }
+                                                                                                                                                                          ?>" alt="Imagen" /></a></a>
 
-            $sql   = "SELECT * FROM  horizontal  where posicion=1 or posicion is null";
-                     $query = mysqli_query($conexion, $sql);
-                     while ($row = mysqli_fetch_array($query)) {
-                         $texto       = $row['texto'];
-                     echo $texto.' - ';
-                     }?>
-            </p>
-        
-    </div>
-</div>
-  <!-- Marketing messaging and featurettes
-  ================================================== -->
-  <!-- Wrap the rest of the page in another container to center all the content. -->
-<div class="container mt-4">
-    <h1 style="text-align: center">Categorías</h1>
-    <br>
-  <div class="row">
-    <!-- Categoría 1 -->
-     <?php
-                     if (isset($_GET['id_cat'])) {
-                if (isset($categorias) and $categorias != '') {
-                  $lista_cat = substr($categorias, 0, -1);
-                  $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
-                } else {
-                  $lista_cat = "''";
-                  $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria";
-                }
-              } else {
-                $sql = "select * from productos where  pagina_web='1' and stock_producto > 0";
+        <button class="navbar-toggler" id="menuButton">
+          <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
+        <!-- Elementos a la izquierda -->
+        <ul class="navbar-nav mr-auto " style="padding-right: 15px;">
+          <li class="nav-item active">
+            <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria.php">Catálogo</a>
+          </li>
+
+        </ul>
+        <!-- Elementos a la derecha -->
+        <ul class="navbar-nav">
+          <form id="searchForm">
+            <div class="search-box">
+              <input type="text" id="searchInput" class="search-input" placeholder="Buscar" required>
+              <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem; padding-left:10px;">
+              <!-- Las sugerencias se insertarán aquí -->
+            </div>
+          </form>
+
+          <script>
+            // Autocompletar sugerencias
+            document.getElementById('searchInput').addEventListener('input', function() {
+              var inputVal = this.value;
+
+              // Ocultar sugerencias si no hay valor
+              if (inputVal.length === 0) {
+                document.getElementById('suggestions').style.display = 'none';
+                return;
               }
 
-              $query = mysqli_query($conexion, $sql);
-              $num_registros = mysqli_num_rows($query);
-              //echo $num_registros, ' Productos';
-              while ($row = mysqli_fetch_array($query)) {
-                $id_producto          = $row['id_producto'];
-                $codigo_producto      = $row['codigo_producto'];
-                $nombre_producto      = $row['nombre_producto'];
-                $descripcion_producto = $row['descripcion_producto'];
-                $linea_producto       = $row['id_linea_producto'];
-                $med_producto         = $row['id_med_producto'];
-                $id_proveedor         = $row['id_proveedor'];
-                $inv_producto         = $row['inv_producto'];
-                $impuesto_producto    = $row['iva_producto'];
-                $costo_producto       = $row['costo_producto'];
-                $utilidad_producto    = $row['utilidad_producto'];
-                $precio_producto      = $row['valor1_producto'];
-                $precio_mayoreo       = $row['valor2_producto'];
-                $precio_especial      = $row['valor3_producto'];
-                $precio_normal      = $row['valor4_producto'];
-                $stock_producto       = $row['stock_producto'];
-                $stock_min_producto   = $row['stock_min_producto'];
-                $online   = $row['pagina_web'];
-                $status_producto      = $row['estado_producto'];
-                $date_added           = date('d/m/Y', strtotime($row['date_added']));
-                $image_path           = $row['image_path'];
-                $id_imp_producto      = $row['id_imp_producto'];
+              // Realizar la solicitud AJAX al script PHP para obtener sugerencias
+              fetch('/sysadmin/vistas/ajax/search_index.php', {
+                  method: 'POST',
+                  body: new URLSearchParams('query=' + inputVal)
+                })
+                .then(response => response.json())
+                .then(data => {
+                  var suggestionsContainer = document.getElementById('suggestions');
+                  suggestionsContainer.innerHTML = '';
+                  suggestionsContainer.style.display = 'block';
 
-              ?>
+                  // Agregar las sugerencias al contenedor
+                  data.forEach(function(item) {
+                    var div = document.createElement('div');
+                    div.innerHTML = item.nombre_producto; // Asumiendo que 'nombre_producto' es lo que quieres mostrar
+                    div.onclick = function() {
+                      // Al hacer clic, se actualiza el input y se redirige
+                      document.getElementById('searchInput').value = this.innerText;
+                      window.location.href = 'producto_1.php?id=' + item.id_producto;
+                    };
+                    suggestionsContainer.appendChild(div);
+                  });
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
+            // Evento submit del formulario
+            document.getElementById('searchForm').addEventListener('submit', function(event) {
+              event.preventDefault();
+              var searchQuery = document.getElementById('searchInput').value;
+              // Aquí puedes manejar la búsqueda, por ejemplo, redirigir a una página de resultados
+              window.location.href = '/busqueda.php?query=' + encodeURIComponent(searchQuery);
+            });
+          </script>
+        </ul>
+      </div>
+
+      <script>
+        // Obtener el botón y el menú
+        var menuButton = document.getElementById('menuButton');
+        var menu = document.getElementById('navbarResponsive');
+
+        // Función para alternar la visibilidad del menú
+        function toggleMenu() {
+          if (menu.classList.contains('show')) {
+            menu.classList.remove('show');
+          } else {
+            menu.classList.add('show');
+          }
+        }
+
+        // Evento click para el botón del menú
+        menuButton.onclick = function() {
+          toggleMenu();
+        };
+
+        // Opcional: cerrar el menú si se hace clic fuera de él
+        window.onclick = function(event) {
+          if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
+            menu.classList.remove('visible');
+          }
+        };
+      </script>
+
+    </nav>
+  </header>
+
+  <main>
+    <?php $banner = get_row('perfil', 'banner', 'id_perfil', 1);
+    if ($banner != "") {
+      $texto_slider = get_row('perfil', 'texto_slider', 'id_perfil', 1);
+      $text_btn_slider = get_row('perfil', 'texto_btn_slider', 'id_perfil', 1);
+      $enlace_btn_slider = get_row('perfil', 'enlace_btn_slider', 'id_perfil', 1);
+      $titulo_slider = get_row('perfil', 'titulo_slider', 'id_perfil', 1);
+      $alineacion_slider = get_row('perfil', 'alineacion_slider', 'id_perfil', 1);
+
+      $resultado = $conexion->query("SELECT banner FROM perfil WHERE id_perfil = 1");
+      $slidePrincipal = $resultado->fetch_assoc();
 
 
-                     
-    
-   <div class="col-md-4 mb-4">
-      <div class="card h-100">
-        <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
-        <div class="img-container" style="aspect-ratio: 1 / 1; overflow: hidden;">
-          <img src=" <?php
-                                          $subcadena = "http";
+      if ($alineacion_slider == 1 or $alineacion_slider == 0 or $alineacion_slider == "") {
+        $alineacion = "text-start";
+      }
+      if ($alineacion_slider == 2) {
+        $alineacion = "";
+      }
+      if ($alineacion_slider == 3) {
+        $alineacion = "text-end";
+      }
+      // Consulta para slides adicionales
+      $resultadoAdicionales = $conexion->query("SELECT fondo_banner, texto_banner, titulo, texto_boton, enlace_boton, alineacion FROM banner_adicional");
 
-                                          if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                                          ?>
-    <?php echo  $image_path . '"'; ?>
-    <?php
-                                          } else {
     ?>
-    sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                      }
-                                                                        ?> src="<?php
-                $subcadena = "http";
 
-                if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-        ?>
-    <?php echo  $image_path . '"'; ?>
+
+
     <?php
-                } else {
-    ?>
-    sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                      }
-                                                                        ?> class="card-img-top" alt="Product Name" style="object-fit: cover; width: 100%; height: 100%;">
-        </div>
-        <div class="card-body d-flex flex-column">
-          <a href="producto.php?id=<?php echo $id_producto ?>" ><h5 class="card-title"><?php echo $nombre_producto; ?></h5> </a>
-          <p class="card-text flex-grow-1"><?php echo $descripcion_producto ?></p>
-          <div class="product-footer mb-2">
-             
-            <span class="text-muted"><?php if ($precio_normal > 0) {
-                                        echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_normal;
-                                      } ?></span>
-           
-            <span class="text-price"><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></span>
-          </div>
-          <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
-        </div>
+    } ?>
+
+    <div class="marquee-container">
+      <div class="marquee">
+        <p style="font-size: 22px;">
+          -
+          <?php
+
+          $sql   = "SELECT * FROM  horizontal  where posicion=1 or posicion is null";
+          $query = mysqli_query($conexion, $sql);
+          while ($row = mysqli_fetch_array($query)) {
+            $texto       = $row['texto'];
+            echo $texto . ' - ';
+          } ?>
+        </p>
+
       </div>
     </div>
-     <?php
-                     }
+    <!-- Marketing messaging and featurettes
+  ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container mt-4 d-flex flex-column">
+      <h1 style="text-align: center">Categorías</h1>
+      <br>
+      <div class="filtro_productos caja px-3">
+        <div class="container py-5">
+          <!-- Acordeón -->
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Categorías
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  <!-- Contenido del acordeón -->
+                  BELLEZA
+                  <!-- Más categorías aquí -->
+                </div>
+              </div>
+            </div>
+            <!-- Repite para más items del acordeón -->
+          </div>
+        </div>
 
-                     ?>
-  </div>
-</div>
-<div class="marquee-container">
-    <div class="marquee">
+        <div class="filter-section">
+          <div class="filter-header">Rango de precios</div>
+          <div class="range-slider">
+            <span class="price-label">$0</span>
+            <input type="range" min="0" max="12000" value="6000" class="slider" id="myRange">
+            <span class="price-label">$12000</span>
+          </div>
+        </div>
+
+        <button class="btn-filter">Filtrar</button>
+
+        <script>
+          var slider = document.getElementById("myRange");
+          var output = document.getElementById("demo");
+          output.innerHTML = slider.value;
+
+          slider.oninput = function() {
+            output.innerHTML = this.value;
+          }
+        </script>
+      </div>
+
+      <div class="row">
+        <!-- Categoría 1 -->
+        <?php
+        if (isset($_GET['id_cat'])) {
+          if (isset($categorias) and $categorias != '') {
+            $lista_cat = substr($categorias, 0, -1);
+            $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
+          } else {
+            $lista_cat = "''";
+            $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria";
+          }
+        } else {
+          $sql = "select * from productos where  pagina_web='1' and stock_producto > 0";
+        }
+
+        $query = mysqli_query($conexion, $sql);
+        $num_registros = mysqli_num_rows($query);
+        //echo $num_registros, ' Productos';
+        while ($row = mysqli_fetch_array($query)) {
+          $id_producto          = $row['id_producto'];
+          $codigo_producto      = $row['codigo_producto'];
+          $nombre_producto      = $row['nombre_producto'];
+          $descripcion_producto = $row['descripcion_producto'];
+          $linea_producto       = $row['id_linea_producto'];
+          $med_producto         = $row['id_med_producto'];
+          $id_proveedor         = $row['id_proveedor'];
+          $inv_producto         = $row['inv_producto'];
+          $impuesto_producto    = $row['iva_producto'];
+          $costo_producto       = $row['costo_producto'];
+          $utilidad_producto    = $row['utilidad_producto'];
+          $precio_producto      = $row['valor1_producto'];
+          $precio_mayoreo       = $row['valor2_producto'];
+          $precio_especial      = $row['valor3_producto'];
+          $precio_normal      = $row['valor4_producto'];
+          $stock_producto       = $row['stock_producto'];
+          $stock_min_producto   = $row['stock_min_producto'];
+          $online   = $row['pagina_web'];
+          $status_producto      = $row['estado_producto'];
+          $date_added           = date('d/m/Y', strtotime($row['date_added']));
+          $image_path           = $row['image_path'];
+          $id_imp_producto      = $row['id_imp_producto'];
+
+        ?>
+
+
+
+
+          <div class="col-6 col-md-4 col-lg-3" style="padding-bottom: 15px;">
+            <div class="card h-100" style="border-radius: 15px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+              <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
+              <div class="img-container d-flex" style="aspect-ratio: 1 / 1; overflow: hidden; justify-content: center; align-items: center;">
+                <img src=" <?php
+                            $subcadena = "http";
+
+                            if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                            ?>
+               <?php echo  $image_path . '"'; ?>
+               <?php
+                            } else {
+                ?>
+                  sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
+                                                                              }
+                                                                                ?> src="<?php
+                                                                                        $subcadena = "http";
+
+                                                                                        if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                                                                                        ?>
+                  <?php echo  $image_path . '"'; ?>
+                  <?php
+                                                                                        } else {
+                  ?>
+                  sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
+                                                                                        }
+                                                                                ?> class="card-img-top" alt="Product Name" style="object-fit: cover; width: 80%; height: 80%;">
+              </div>
+              <div class="card-body d-flex flex-column">
+                <a href="producto.php?id=<?php echo $id_producto ?>" style="text-decoration: none; color:black;">
+                  <h6 class="card-title"><?php echo $nombre_producto; ?></h6>
+                </a>
+                <div class="product-footer mb-2">
+
+                  <span class="text-muted"><?php if ($precio_normal > 0) {
+                                              echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_normal;
+                                            } ?></span>
+
+                  <span class="text-price"><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></span>
+                </div>
+                <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
+              </div>
+            </div>
+          </div>
+        <?php
+        }
+
+        ?>
+      </div>
+    </div>
+    <div class="marquee-container">
+      <div class="marquee">
         <p>
-        <?php 
+          <?php
 
-            $sql   = "SELECT * FROM  horizontal  where posicion=2";
-                     $query = mysqli_query($conexion, $sql);
-                     while ($row = mysqli_fetch_array($query)) {
-                         $texto       = $row['texto'];
-                     echo $texto.' - ';
-                     }?>
-            </p>
+          $sql   = "SELECT * FROM  horizontal  where posicion=2";
+          $query = mysqli_query($conexion, $sql);
+          while ($row = mysqli_fetch_array($query)) {
+            $texto       = $row['texto'];
+            echo $texto . ' - ';
+          } ?>
+        </p>
+      </div>
     </div>
-</div>
-  
 
 
-  
-  <!-- FOOTER -->
-  <!-- Botón flotante para WhatsApp -->
-<a href="https://wa.me/tunúmero" class="whatsapp-float" target="_blank">
-    PODEMOS AYUDARTE
-</a>
 
-  <footer class="footer-container footer">
-    <div class="container text-center">
-        <h3 class="texto_footer">Contacto:</h3>
-        <p class="texto_footer"><?php echo get_row('perfil', 'texto_contactos', 'id_perfil', '1'); ?></p>
-        <hr class="texto_footer"> <!-- Línea divisoria -->
-        <p class="texto_footer">&copy; 2024 Sitio Web desarrollado por IMPORSUIT.</p>
-        <p ><a class="texto_footer" href="#">Política</a></p>
+
+    <!-- FOOTER -->
+    <!-- Botón flotante para WhatsApp -->
+    <?php
+    function formatPhoneNumber($number)
+    {
+      // Eliminar caracteres no numéricos excepto el signo +
+      $number = preg_replace('/[^\d+]/', '', $number);
+
+      // Verificar si el número ya tiene el código de país +593
+      if (!preg_match('/^\+593/', $number)) {
+        // Si el número comienza con 0, quitarlo
+        if (strpos($number, '0') === 0) {
+          $number = substr($number, 1);
+        }
+        // Agregar el código de país +593 al inicio del número
+        $number = '+593' . $number;
+      }
+
+      return $number;
+    }
+
+    // Usar la función formatPhoneNumber para imprimir el número formateado
+    $telefono = get_row('perfil', 'telefono', 'id_perfil', 1);
+    $telefonoFormateado = formatPhoneNumber($telefono);
+    ?>
+
+    <?php
+    $ws_flotante = get_row('perfil', 'whatsapp_flotante', 'id_perfil', 1);
+    if ($ws_flotante == 1) { ?>
+      <a href="https://wa.me/<?php echo $telefonoFormateado ?>" class="whatsapp-float" target="_blank"><i class="bx bxl-whatsapp-square ws_flotante"></i></a>
+    <?php } ?>
+
+    <footer class="footer-contenedor">
+      <?php
+      $sql   = "SELECT * FROM  perfil  where id_perfil=1";
+      $query = mysqli_query($conexion, $sql);
+      while ($row = mysqli_fetch_array($query)) {
+        $nombre_empresa       = $row['nombre_empresa'];
+        $giro_empresa       = $row['giro_empresa'];
+        $telefono       = $row['telefono'];
+        $email       = $row['email'];
+        $logo_url       = $row['logo_url'];
+        $facebook       = $row['facebook'];
+        $instagram       = $row['instagram'];
+        $tiktok       = $row['tiktok'];
+
+      ?>
+        <div class="footer-contenido div-alineado-izquierda">
+          <h4>Acerca de <?php echo $nombre_empresa ?></h4>
+          <img id="navbarLogo" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
+                                              ?>">
+          <span class="descripcion">
+            <?php echo $giro_empresa ?>
+          </span>
+        </div>
+        <div class="footer-contenido">
+          <h5>Legal</h5>
+          <ul class="lista_legal">
+            <?php
+            $sql   = "SELECT * FROM  politicas_empresa";
+            $query = mysqli_query($conexion, $sql);
+            while ($row = mysqli_fetch_array($query)) {
+              $nombre_politica       = $row['nombre'];
+              $id_politica       = $row['id_politica'];
+            ?>
+              <li><a href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
+            <?php } ?>
+          </ul>
+        </div>
+        <div class="footer-contenido">
+          <h5>Siguenos</h5>
+          <div class="redes">
+            <?php if ($facebook  !== "") { ?>
+              <a class="icon-redes" href="<?php echo $facebook ?>">
+                <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="facebook">
+              </a>
+            <?php } ?>
+            <?php if ($instagram  !== "") { ?>
+              <a class="icon-redes" href="<?php echo $instagram ?>">
+                <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram">
+              </a>
+            <?php } ?>
+            <?php if ($tiktok  !== "") { ?>
+              <a class="icon-redes" href="<?php echo $tiktok ?>">
+                <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="tiktok">
+              </a>
+            <?php } ?>
+          </div>
+        </div>
+        <div class="footer-contenido">
+          <h5>
+            Información de contacto
+          </h5>
+          <span class="descripcion">
+            <span class="icons">
+              <i class='bx bxl-whatsapp ws'></i> <?php echo $telefono ?>
+            </span>
+            <span class="icons">
+              <i class='bx bx-mail-send send'></i><?php echo $email ?>
+            </span>
+          </span>
+        </div>
+      <?php } ?>
+    </footer>
+    <div class="text-center p-4">© 2024 IMPORSUIT S.A. | Todos los derechos reservados.
     </div>
-</footer>
 
 
-</main>
-     
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="js_nuevo/bootstrap.bundle.min.js" type="text/javascript"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery-2.1.4.min.js" type="text/javascript"></script>
-<script src="assets/js/custom_1.js"></script>
-       <script>
-window.onscroll = function() {
-  var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
-   var logo = document.getElementById("navbarLogo");
-   logo.style.maxHeight = "60px"; // o el tamaño que desees para el logo
-        if (window.pageYOffset > 100) {
-    nav.style.height = "70px";
-    // Aquí también puedes cambiar otros estilos si es necesario, como el tamaño del logo o de la fuente
-  } else {
-    nav.style.height = "100px";
-    logo.style.maxHeight = "100px"; // tamaño original del logo
-    // Restablece los estilos si el usuario vuelve a la parte superior de la página
-  }
-};
-</script>
-  </body>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="js_nuevo/bootstrap.bundle.min.js" type="text/javascript"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="assets/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+  <script src="assets/js/custom_1.js"></script>
+  <script>
+    window.onscroll = function() {
+      var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
+      var logo = document.getElementById("navbarLogo");
+      logo.style.maxHeight = "60px"; // o el tamaño que desees para el logo
+      logo.style.maxWidth = "60px"; // o el tamaño que desees para el logo
+      if (window.pageYOffset > 100) {
+        nav.style.height = "70px";
+        // Aquí también puedes cambiar otros estilos si es necesario, como el tamaño del logo o de la fuente
+      } else {
+        nav.style.height = "100px";
+        logo.style.maxHeight = "100px"; // tamaño original del logo
+        logo.style.maxWidth = "100px"; // tamaño original del logo
+        // Restablece los estilos si el usuario vuelve a la parte superior de la página
+      }
+    };
+  </script>
+</body>
+
 </html>

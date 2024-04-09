@@ -307,7 +307,7 @@ $domain = $_SERVER['HTTP_HOST'];
                                                                                                 ?>');"></div> -->
                         <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path)
                                                                                                             ?>');"></div>
-                        <a class="btn category-button boton texto_boton" style="border-radius: 0.5rem;" href="categoria_1.php?id_cat=<?php echo $id_linea ?>" role="button">
+                        <a class="btn category-button boton texto_boton" style="border-radius: 0.5rem;" href="categoria.php?id_cat=<?php echo $id_linea ?>" role="button">
                            <?php echo $nombre_linea; ?>
                         </a>
                      </div>

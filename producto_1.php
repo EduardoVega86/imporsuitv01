@@ -863,23 +863,23 @@ if ($formato == 3) {
   <script src="js_nuevo/bootstrap.bundle.min.js" type="text/javascript"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="assets/js/custom_1.js"></script>
-  <script>
-    window.onscroll = function() {
-      var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
-      var logo = document.getElementById("navbarLogo");
-      logo.style.maxHeight = "60px"; // o el tamaño que desees para el logo
-      logo.style.maxWidth = "60px"; // o el tamaño que desees para el logo
-      if (window.pageYOffset > 100) {
-        nav.style.height = "70px";
-        // Aquí también puedes cambiar otros estilos si es necesario, como el tamaño del logo o de la fuente
-      } else {
-        nav.style.height = "100px";
-        logo.style.maxHeight = "100px"; // tamaño original del logo
-        logo.style.maxWidth = "100px"; // tamaño original del logo
-        // Restablece los estilos si el usuario vuelve a la parte superior de la página
-      }
-    };
-  </script>
+  <<script>
+      window.onscroll = function() {
+         var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
+         var logo = document.getElementById("navbarLogo");
+         logo.style.maxHeight = "60px"; // o el tamaño que desees para el logo
+         logo.style.maxWidth = "60px"; // o el tamaño que desees para el logo
+         if (window.pageYOffset > 100) {
+            nav.style.height = "70px";
+            // Aquí también puedes cambiar otros estilos si es necesario, como el tamaño del logo o de la fuente
+         } else {
+            nav.style.height = "100px";
+            logo.style.maxHeight = "100px"; // tamaño original del logo
+            logo.style.maxWidth = "100px"; // tamaño original del logo
+            // Restablece los estilos si el usuario vuelve a la parte superior de la página
+         }
+      };
+   </script>
 
   <script>
     $(document).ready(function() {
