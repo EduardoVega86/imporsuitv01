@@ -74,7 +74,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             $nom_impuesto   = get_row('perfil', 'nom_impuesto', 'id_perfil', 1);
             $sumador_total  = 0;
             $total_iva      = 0;
-            $costo_producto    = $costo_temp;
+            @$costo_producto    = $costo_temp;
 
             $total_impuesto = 0;
             $subtotal       = 0;
