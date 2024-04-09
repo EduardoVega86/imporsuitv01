@@ -496,7 +496,6 @@ while ($r = $query->fetch_object()) {
                                                         <input type="hidden" name="servi_otros" id="servi_otros">
                                                         <input type="hidden" name="origen_texto" id="origen_texto">
 
-                                                        <input type="hidden" name="id_pedido_cot" id="id_pedido_cot">
 
                                                         <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                         <input type="hidden" id="identificacion" name="identificacion" value="">
@@ -545,7 +544,6 @@ while ($r = $query->fetch_object()) {
                                                             <?php
                                                             } else {
 
-
                                                             ?>
 
                                                                 <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
@@ -584,6 +582,7 @@ while ($r = $query->fetch_object()) {
                                                             <input type="hidden" name="servi_impuesto" id="servi_impuesto">
                                                             <input type="hidden" name="servi_otros" id="servi_otros">
                                                             <input type="hidden" name="origen_texto" id="origen_texto">
+                                                            <input type="hidden" name="id_pedido_cot" id="id_pedido_cot">
 
                                                             <?php if ($_SERVER['HTTP_HOST'] == 'localhost') {
                                                                 $destino = new mysqli('localhost', 'root', '', 'master');

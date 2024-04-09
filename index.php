@@ -222,7 +222,7 @@ $domain = $_SERVER['HTTP_HOST'];
                            <h1><?php echo $slide['titulo']; ?></h1>
                            <p><?php echo $slide['texto_banner']; ?></p>
                            <?php if (!empty($slide['texto_boton'])) { ?>
-                              <p><a class="btn btn-lg btn-primary boton texto_boton" href="<?php echo $slide['enlace']; ?>"><?php echo $slide['texto_boton']; ?></a></p>
+                              <p><a class="btn btn-lg btn-primary boton texto_boton" href="<?php echo $slide['enlace_boton']; ?>"><?php echo $slide['texto_boton']; ?></a></p>
                            <?php } ?>
                         </div>
                      </div>

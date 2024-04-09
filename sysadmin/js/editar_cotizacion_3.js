@@ -6,7 +6,6 @@ $(document).ready(function () {
   $("#resultados4").load("../ajax/tipo_doc.php");
   $("#resultados5").load("../ajax/carga_num_trans.php");
   // alert($('#costo_total').val());
-  $("id_pedido_cot").val(window.location.href.split("=")[1]);
 });
 
 function load(page) {
@@ -322,6 +321,8 @@ function imprimir_factura(id_factura) {
   );
 }
 function generar_guia() {
+  $("id_pedido_cot").val(window.location.href.split("=")[1]);
+
   let monto_total = $("#monto_total_").text();
   monto_total_ = monto_total.replace(/,/g, "");
   monto_total__ = monto_total_.replace(/\./g, "");
@@ -375,7 +376,8 @@ function generar_guia() {
       "nombre_destino",
       document.getElementById("nombredestino").value
     );
-
+    data.set("id_pedido_cot", $("#id_pedido_cot").val());
+    data.append("costo_envio", document.getElementById("costo_envio").value);
     $.ajax({
       url: "../ajax/calcular_guia.php",
       type: "post",
@@ -401,57 +403,22 @@ function generar_guia() {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          // window.location.href =            `./editar_cotizacion.php?id_factura=` + $("#id_pedido_cot_").val();
+          window.location.href =
+            `./editar_cotizacion.php?id_factura=` + $("#id_pedido_cot_").val();
         });
       },
     });
   }
   if (transportadora === "2") {
-    //obtienne el formulario
-    var formulario = document.getElementById("formulario");
-    //crea un objeto FormData
+    var formulario = document.getElementById("datos_pedido");
     if (document.querySelector("#valorasegurado").value === "") {
       document.querySelector("#valorasegurado").value = 0;
     }
-    data.append("nombre_destino", document.getElementById("nombred").value);
-    data.append("celular", document.getElementById("telefonod").value);
-    data.append(
-      "direccion",
-      document.getElementById("calle_principal").value +
-        " " +
-        document.getElementById("calle_secundaria").value
-    );
-    data.append(
-      "valor_total",
-      Math.round(document.getElementById("valor_total_").value)
-    );
-    data.append(
-      "cantidad_total",
-      document.getElementById("cantidad_total").value
-    );
-    data.append("costo_total", document.getElementById("costo_total").value);
-    data.append("ciudad", document.getElementById("ciudad_entrega").value);
-    data.append(
-      "productos_guia",
-      document.getElementById("productos_guia").value
-    );
-    data.append("identificacion", document.getElementById("cedula").value);
-    data.append("seguro", document.getElementById("asegurar_producto").value);
-    data.append(
-      "contenido",
-      document.getElementById("producto_name").textContent
-    ) +
-      "x" +
-      document.getElementById("producto_qty").textContent;
 
     var data = new FormData(formulario);
-    data.append("nombre_destino", document.getElementById("nombred").value);
-    data.append("celular", document.getElementById("telefonod").value);
     data.append(
       "direccion",
-      document.getElementById("calle_principal").value +
-        " " +
-        document.getElementById("calle_secundaria").value
+      document.getElementById("direccion_destino").value
     );
     data.append(
       "valor_total",
@@ -467,11 +434,12 @@ function generar_guia() {
       "productos_guia",
       document.getElementById("productos_guia").value
     );
-    data.append("identificacion", document.getElementById("cedula").value);
-    data.append("seguro", document.getElementById("asegurar_producto").value);
-
-    // generar el pedido
-
+    data.append(
+      "nombre_destino",
+      document.getElementById("nombredestino").value
+    );
+    data.set("id_pedido_cot", $("#id_pedido_cot").val());
+    data.append("costo_envio", document.getElementById("costo_envio").value);
     $.ajax({
       url: "../ajax/calcular_guia.php",
       type: "post",
@@ -479,15 +447,10 @@ function generar_guia() {
       contentType: false,
       processData: false,
       success: function (response) {
-        //alert(response)
-
         $("#resultados").html(response);
         $("#generar_guia_btn").prop("disabled", false);
-      }, // /success function
+      },
     });
-
-    $("#id_pedido_cot_").val();
-    data.set("id_pedido_cot", response);
     $.ajax({
       url: "../ajax/enviar_guia_local.php",
       type: "POST",
@@ -495,12 +458,15 @@ function generar_guia() {
       contentType: false,
       processData: false,
       success: function (response) {
-        console.log(response);
-        let [guia, precio] = response.split(",");
-        $("#guia").val(guia);
-        $("#precio").val(precio);
-        $("#modal_vuelto").modal("show");
-        // window.location.href =        `./editar_cotizacion.php?id_factura=` + $("#id_pedido_cot_").val();
+        Swal.fire({
+          icon: "success",
+          title: "Guía generada",
+          text: "La guía ha sido generada exitosamente",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          location.reload();
+        });
       },
     });
   }

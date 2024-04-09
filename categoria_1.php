@@ -30,6 +30,7 @@ if (isset($_GET['id_cat'])) {
     $categorias .= "'" . $row['id_linea'] . "',";
   }
 }
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -84,6 +85,66 @@ if (isset($_GET['id_cat'])) {
     .content_left_right {
       display: flex;
     }
+
+    #accordionCategorias .card {
+      margin-bottom: 0.5rem;
+      border: none;
+      /* Elimina los bordes si lo deseas */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      /* Sombra suave para dar profundidad */
+    }
+
+    #accordionCategorias .card-header {
+      padding: 0.4rem 1.25rem;
+      /* Ajusta el relleno según sea necesario */
+      background: #fff;
+      /* Fondo blanco o el color que prefieras */
+      border-bottom: 1px solid #eaeaea;
+      /* Borde suave en la parte inferior */
+    }
+
+    #accordionCategorias .btn {
+      width: 100%;
+      /* Asegúrate de que los botones usen todo el ancho disponible */
+      text-align: left;
+      /* Alinea el texto a la izquierda */
+      padding: 0.6rem 1.25rem;
+      /* Ajusta el relleno para aumentar la altura de las filas */
+      color: #333;
+      /* Color de texto */
+      background-color: transparent;
+      /* Fondo transparente */
+      border: none;
+      /* Sin bordes */
+      border-radius: 0.25rem;
+      /* Esquinas ligeramente redondeadas */
+    }
+
+    #accordionCategorias .btn:hover,
+    #accordionCategorias .btn:focus {
+      color: #0056b3;
+      /* Cambia el color del texto al pasar el mouse o enfocar */
+      text-decoration: none;
+      /* Elimina la decoración de subrayado */
+      background-color: #f8f9fa;
+      /* Fondo ligeramente más oscuro al pasar el mouse o enfocar */
+    }
+
+    #accordionCategorias .collapse.show {
+      max-height: none;
+      /* Asegúrate de que el contenido colapsable pueda expandirse completamente */
+    }
+
+    /* Transición suave para el colapso y la expansión */
+    #accordionCategorias .collapse {
+      transition: max-height 0.4s ease;
+    }
+
+    #accordionCategorias .btn {
+  text-transform: capitalize; /* Solo la primera letra de cada palabra en mayúsculas */
+  font-size: 0.9rem; /* Ajusta al tamaño de fuente deseado */
+}
+
   </style>
   <?php
   include './includes/head_1.php';
@@ -277,109 +338,127 @@ if (isset($_GET['id_cat'])) {
     <div class="container-fluid mt-4">
       <h1 style="text-align: center">Categorías</h1>
       <br>
-
+      <?php
+      $categorias_acordion = mysqli_query($conexion, "SELECT * FROM lineas");
+      ?>
       <div class="content_left_right">
         <div class="left-column">
           <div class="filtro_productos caja px-3">
             <!-- Acordeón -->
-            <div id="accordion" class="accordion">
-              <div class="card mb-3">
-                <div class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
-                  <a class="card-title">
-                    Categoria
-                  </a>
+            <div id="accordionCategorias" class="accordion">
+              <!-- Este es el acordeón padre para la categoría principal -->
+              <div class="card">
+                <div class="card-header" id="headingCategorias">
+                  <h5 class="mb-0">
+                    <button class="btn collapsed" data-toggle="collapse" data-target="#collapseCategorias" aria-expanded="true" aria-controls="collapseCategorias">
+                      Categorías
+                    </button>
+                  </h5>
                 </div>
-                <div id="collapseOne" class="card-body collapse" data-parent="#accordion">
-                  <p>Belleza</p>
-                  <!-- Más categorías aquí -->
+                <div id="collapseCategorias" class="collapse show" aria-labelledby="headingCategorias" data-parent="#accordionCategorias">
+                  <div class="card-body">
+                    <!-- Aquí comienza el acordeón anidado para las subcategorías -->
+                    <div id="accordionSubcategorias" class="accordion">
+                      <?php while ($categoria_acordion = mysqli_fetch_assoc($categorias_acordion)) : ?>
+                        <div class="card">
+                          <div class="card-header" id="heading-<?php echo htmlspecialchars($categoria_acordion['nombre_linea']); ?>">
+                            <h5 class="mb-0">
+                              <button type="button" class="btn" onclick="window.location.href='categoria_1.php?id_cat=<?php echo urlencode($categoria_acordion['id_linea']); ?>'">
+                                <?php echo htmlspecialchars($categoria_acordion['nombre_linea']); ?>
+                              </button>
+                            </h5>
+                          </div>
+
+                        </div>
+                      <?php endwhile; ?>
+                    </div>
+                    <!-- Fin del acordeón anidado para las subcategorías -->
+                  </div>
                 </div>
               </div>
-          </div>
-          <!-- Fin Acordeón -->
-
-          <div class="filter-section">
-            <div class="filter-header">Rango de precios</div>
-            <div class="range-slider">
-              <span class="price-label">$0</span>
-              <input type="range" min="0" max="12000" value="6000" class="slider" id="myRange">
-              <span class="price-label">$12000</span>
             </div>
+            <!-- Fin Acordeón -->
+
+            <div class="filter-section">
+              <div class="filter-header">Rango de precios</div>
+              <div class="range-slider">
+                <span class="price-label">$0</span>
+                <input type="range" min="0" max="12000" value="6000" class="slider" id="myRange">
+                <span class="price-label">$12000</span>
+              </div>
+            </div>
+
+            <button class="btn-filter">Filtrar</button>
+
+            <script>
+              var slider = document.getElementById("myRange");
+              var output = document.getElementById("demo");
+              output.innerHTML = slider.value;
+
+              slider.oninput = function() {
+                output.innerHTML = this.value;
+              }
+            </script>
           </div>
-
-          <button class="btn-filter">Filtrar</button>
-
-          <script>
-            var slider = document.getElementById("myRange");
-            var output = document.getElementById("demo");
-            output.innerHTML = slider.value;
-
-            slider.oninput = function() {
-              output.innerHTML = this.value;
-            }
-          </script>
         </div>
-      </div>
 
-      <div class="right-column">
-        <div class="row">
-          <!-- Categoría 1 -->
-          <?php
-          if (isset($_GET['id_cat'])) {
-            if (isset($categorias) and $categorias != '') {
-              $lista_cat = substr($categorias, 0, -1);
-              $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
+        <div class="right-column">
+          <div class="row">
+            <!-- Categoría 1 -->
+            <?php
+            if (isset($_GET['id_cat'])) {
+              if (isset($categorias) and $categorias != '') {
+                $lista_cat = substr($categorias, 0, -1);
+                $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
+              } else {
+                $lista_cat = "''";
+                $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria";
+              }
             } else {
-              $lista_cat = "''";
-              $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria";
+              $sql = "select * from productos where  pagina_web='1' and stock_producto > 0";
             }
-          } else {
-            $sql = "select * from productos where  pagina_web='1' and stock_producto > 0";
-          }
 
-          $query = mysqli_query($conexion, $sql);
-          $num_registros = mysqli_num_rows($query);
-          //echo $num_registros, ' Productos';
-          while ($row = mysqli_fetch_array($query)) {
-            $id_producto          = $row['id_producto'];
-            $codigo_producto      = $row['codigo_producto'];
-            $nombre_producto      = $row['nombre_producto'];
-            $descripcion_producto = $row['descripcion_producto'];
-            $linea_producto       = $row['id_linea_producto'];
-            $med_producto         = $row['id_med_producto'];
-            $id_proveedor         = $row['id_proveedor'];
-            $inv_producto         = $row['inv_producto'];
-            $impuesto_producto    = $row['iva_producto'];
-            $costo_producto       = $row['costo_producto'];
-            $utilidad_producto    = $row['utilidad_producto'];
-            $precio_producto      = $row['valor1_producto'];
-            $precio_mayoreo       = $row['valor2_producto'];
-            $precio_especial      = $row['valor3_producto'];
-            $precio_normal      = $row['valor4_producto'];
-            $stock_producto       = $row['stock_producto'];
-            $stock_min_producto   = $row['stock_min_producto'];
-            $online   = $row['pagina_web'];
-            $status_producto      = $row['estado_producto'];
-            $date_added           = date('d/m/Y', strtotime($row['date_added']));
-            $image_path           = $row['image_path'];
-            $id_imp_producto      = $row['id_imp_producto'];
+            $query = mysqli_query($conexion, $sql);
+            $num_registros = mysqli_num_rows($query);
+            //echo $num_registros, ' Productos';
+            while ($row = mysqli_fetch_array($query)) {
+              $id_producto          = $row['id_producto'];
+              $codigo_producto      = $row['codigo_producto'];
+              $nombre_producto      = $row['nombre_producto'];
+              $descripcion_producto = $row['descripcion_producto'];
+              $linea_producto       = $row['id_linea_producto'];
+              $med_producto         = $row['id_med_producto'];
+              $id_proveedor         = $row['id_proveedor'];
+              $inv_producto         = $row['inv_producto'];
+              $impuesto_producto    = $row['iva_producto'];
+              $costo_producto       = $row['costo_producto'];
+              $utilidad_producto    = $row['utilidad_producto'];
+              $precio_producto      = $row['valor1_producto'];
+              $precio_mayoreo       = $row['valor2_producto'];
+              $precio_especial      = $row['valor3_producto'];
+              $precio_normal      = $row['valor4_producto'];
+              $stock_producto       = $row['stock_producto'];
+              $stock_min_producto   = $row['stock_min_producto'];
+              $online   = $row['pagina_web'];
+              $status_producto      = $row['estado_producto'];
+              $date_added           = date('d/m/Y', strtotime($row['date_added']));
+              $image_path           = $row['image_path'];
+              $id_imp_producto      = $row['id_imp_producto'];
 
-          ?>
+            ?>
 
+              <div class="col-6 col-md-4 col-lg-3" style="padding-bottom: 15px;">
+                <div class="card h-100" style="border-radius: 15px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+                  <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
+                  <div class="img-container d-flex" style="aspect-ratio: 1 / 1; overflow: hidden; justify-content: center; align-items: center;">
+                    <img src=" <?php
+                                $subcadena = "http";
 
-
-
-            <div class="col-6 col-md-4 col-lg-3" style="padding-bottom: 15px;">
-              <div class="card h-100" style="border-radius: 15px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
-                <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
-                <div class="img-container d-flex" style="aspect-ratio: 1 / 1; overflow: hidden; justify-content: center; align-items: center;">
-                  <img src=" <?php
-                              $subcadena = "http";
-
-                              if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                              ?>
+                                if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
+                                ?>
                <?php echo  $image_path . '"'; ?>
                <?php
-                              } else {
+                                } else {
                 ?>
                   sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                               }
@@ -395,30 +474,29 @@ if (isset($_GET['id_cat'])) {
                   sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                                         }
                                                                                 ?> class="card-img-top" alt="Product Name" style="object-fit: cover; width: 80%; height: 80%;">
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <a href="producto.php?id=<?php echo $id_producto ?>" style="text-decoration: none; color:black;">
-                    <h6 class="card-title"><?php echo $nombre_producto; ?></h6>
-                  </a>
-                  <div class="product-footer mb-2">
-
-                    <span class="text-muted"><?php if ($precio_normal > 0) {
-                                                echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_normal;
-                                              } ?></span>
-
-                    <span class="text-price"><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></span>
                   </div>
-                  <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
+                  <div class="card-body d-flex flex-column">
+                    <a href="producto.php?id=<?php echo $id_producto ?>" style="text-decoration: none; color:black;">
+                      <h6 class="card-title"><?php echo $nombre_producto; ?></h6>
+                    </a>
+                    <div class="product-footer mb-2">
+
+                      <span class="text-muted"><?php if ($precio_normal > 0) {
+                                                  echo get_row('perfil', 'moneda', 'id_perfil', 1) . $precio_normal;
+                                                } ?></span>
+
+                      <span class="text-price"><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></span>
+                    </div>
+                    <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          <?php
-          }
-
-          ?>
+            <?php
+            }
+            ?>
+          </div>
         </div>
       </div>
-    </div>
     </div>
     <div class="marquee-container">
       <div class="marquee">
