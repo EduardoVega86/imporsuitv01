@@ -544,7 +544,6 @@ while ($r = $query->fetch_object()) {
                                                             <?php
                                                             } else {
 
-
                                                             ?>
 
                                                                 <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
