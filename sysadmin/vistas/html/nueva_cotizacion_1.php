@@ -17,6 +17,11 @@ if ($tienda == "local") {
 } else {
     $parametro = "tienda = '$tienda'";
 }
+$producto_importar=0;
+if (isset($_GET['id_producto'])){
+   $producto_importar = $_GET['id_producto'];
+   $precio_importar = $_GET['precio_importar'];
+}
 get_cadena($user_id);
 $modulo = "Pedidos";
 permisos($modulo, $cadena_permisos);
@@ -86,6 +91,8 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                             <div class="col-md-2">
                                                                 <input type="text" class="form-control formulario" id="barcode_qty" value="1" autocomplete="off">
                                                                 <input type="hidden" id="parametro" name="parametro" value="<?php echo $parametro; ?>">
+                                                                <input type="hidden" id="id_producto_importar" name="id_producto_importar" value="<?php echo $producto_importar; ?>">
+                                                                <input type="hidden" id="precio_importar" name="precio_importar" value="<?php echo $precio_importar; ?>">
                                                             </div>
                                                             <label for="condiciones" class="control-label">Codigo:</label>
                                                             <div class="col-md-5" align="left">
@@ -353,6 +360,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 <script type="text/javascript" src="../../js/cotizacion_nueva_1.js"></script>
 
 <script>
+   
     $(document).ready(function() {
         $("#provinica").select2({
             placeholder: "Selecciona una opción",
