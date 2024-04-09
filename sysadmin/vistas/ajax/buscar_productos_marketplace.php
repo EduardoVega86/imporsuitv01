@@ -196,7 +196,7 @@ while ($row = mysqli_fetch_array($query)) {
                     <td class='text-center'>
                         <?php
 if ($image_path == null) {
-                echo '<img src="../../img/productos/default.jpg" class="" width="60">';
+                echo '<img src="../../img/productos/default.jpg" class="" style="height:280px !important" width="60">';
             } else {
                 echo '<img src="' . $image_path . '" class="" width="60">';
             }

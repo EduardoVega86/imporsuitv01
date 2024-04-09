@@ -147,7 +147,7 @@ while ($row = mysqli_fetch_array($query)) {
 if ($image_path == null) {
                 echo '<img src="../../img/productos/default.jpg" class="" width="100%">';
             } else {
-                echo '<img src="' . $image_path . '" class="" width="100%" style="max-height:280px">';
+                echo '<img src="' . $image_path . '" class="" width="100%" style="max-height:280px; height:280px !important;">';
             }
 
             ?>
