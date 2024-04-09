@@ -6584,7 +6584,7 @@ fieldset:disabled .btn {
 .carousel-inner {
     position: relative;
     width: 100%;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .carousel-inner::after {
