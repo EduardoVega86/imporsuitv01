@@ -22,7 +22,9 @@ if (isset($_POST['precio_venta'])) {
 }
 $costo_total = 0;
 $id_pedido_cot = 0;
+
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
+    
     // consulta para comparar el stock con la cantidad resibida
     $query = mysqli_query($conexion, "select stock_producto, inv_producto , drogshipin, costo_producto from productos where id_producto = '$id'");
     $rw    = mysqli_fetch_array($query);

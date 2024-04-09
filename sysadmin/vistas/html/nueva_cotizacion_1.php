@@ -18,9 +18,11 @@ if ($tienda == "local") {
     $parametro = "tienda = '$tienda'";
 }
 $producto_importar=0;
+$precio_importar=0;
 if (isset($_GET['id_producto'])){
    $producto_importar = $_GET['id_producto'];
-   $precio_importar = $_GET['precio_importar'];
+   $precio_importar = $_GET['precio_importacion'];
+   //echo $precio_importar;
 }
 get_cadena($user_id);
 $modulo = "Pedidos";
