@@ -1,6 +1,6 @@
 $(document).ready(function () {
   load(1);
-
+  $("#id_pedido_cot").val(window.location.href.split("=")[1]);
   $("#resultados").load("../ajax/editar_tmp_cot.php");
   $("#resultados3").load("../ajax/carga_resibido.php");
   $("#resultados4").load("../ajax/tipo_doc.php");
@@ -321,7 +321,7 @@ function imprimir_factura(id_factura) {
   );
 }
 function generar_guia() {
-  $("id_pedido_cot").val(window.location.href.split("=")[1]);
+  $("#id_pedido_cot").val(window.location.href.split("=")[1]);
 
   let monto_total = $("#monto_total_").text();
   monto_total_ = monto_total.replace(/,/g, "");
@@ -513,8 +513,7 @@ function generar_guia() {
       },
     });
 
-    $("#id_pedido_cot_").val(response);
-    data.set("id_pedido_cot", response);
+    data.set("id_pedido_cot", $("#id_pedido_cot").val());
     let ciudad_texto = $("#ciudad_entrega option:selected").text();
     let destino_texto = $("#destino_c").val();
     data.append("ciudad_texto", ciudad_texto);

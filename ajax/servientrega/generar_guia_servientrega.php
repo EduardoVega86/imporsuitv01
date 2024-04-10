@@ -64,8 +64,8 @@ $data = array(
     "ancho" => 50,
     "alto" => 50,
     "peso_fisico" => 2,
-    "login_creacion" => "impor.comex",
-    "password" => "123456"
+    "login_creacion" => "IMP.1793168264001.2",
+    "password" => "Ecuador24"
 );
 
 // Convertir los datos al formato JSON
