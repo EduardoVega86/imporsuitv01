@@ -2260,7 +2260,7 @@ mysqli_query($conexion, "ALTER TABLE `perfil` ADD `whatsapp_flotante` INT DEFAUL
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `boton_compra_flotante` INT DEFAULT 0 NOT NULL;");
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TP', `cobertura_laar` = '1' WHERE `ciudad_cotizacion`.`id_cotizacion` = 190;");
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TL' WHERE `ciudad_cotizacion`.`id_cotizacion` = 618;");
-
+mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `cobertura_laar` = '1', `trayecto_laar`= 'TP' WHERE `ciudad_cotizacion`.`id_cotizacion` = 115;");
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");

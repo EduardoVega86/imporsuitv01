@@ -305,8 +305,10 @@ $domain = $_SERVER['HTTP_HOST'];
                      <div class="category-container d-flex flex-column align-items-center">
                         <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
                                                                                                 ?>');"></div> -->
-                        <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path)
-                                                                                                            ?>');"></div>
+                        <a href="categoria.php?id_cat=<?php echo $id_linea ?>" class="category-link">
+                           <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path); ?>');"></div>
+                        </a>
+
                         <a class="btn category-button boton texto_boton" style="border-radius: 0.5rem;" href="categoria.php?id_cat=<?php echo $id_linea ?>" role="button">
                            <?php echo $nombre_linea; ?>
                         </a>
@@ -442,7 +444,7 @@ $domain = $_SERVER['HTTP_HOST'];
                                  <?php } ?>
                               </div>
                            </div>
-                           <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="producto.php?id=<?php echo $id_producto ?>">Comprar</a>
+                           <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton texto_boton mt-2" href="producto.php?id=<?php echo $id_producto ?>">Comprar</a>
                         </div>
 
                      </div>

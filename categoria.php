@@ -473,7 +473,7 @@ include 'includes/head.php'
                         </div>
                         <div class="quick-add no-js-hidden">
                         </div>
-                        <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-cart-plus"></i><span>COMPRAR </span></a><!-- comment -->
+                        <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton texto_boton mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-cart-plus"></i><span>COMPRAR </span></a><!-- comment -->
                       </div>
                     </div>
                   </div>

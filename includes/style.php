@@ -150,16 +150,17 @@
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     z-index: 99;
   }
-  .slider_producto{
+
+  .slider_producto {
     display: flex;
     flex-direction: row;
   }
 
   @media (max-width: 768px) {
-    .slider_producto{
-    flex-direction: column-reverse;
-    align-items: center;
-  }
+    .slider_producto {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
   }
 
 
@@ -180,7 +181,7 @@
 </style>
 
 <style>
-  .contenedor-landing img{
+  .contenedor-landing img {
     width: -webkit-fill-available !important;
   }
 
@@ -254,6 +255,7 @@
       /* O el valor que mejor se ajuste a tu diseño */
 
     }
+
     .navbar-brand_1 {
       left: 0;
       transform: none;
@@ -262,7 +264,8 @@
       /* O el valor que mejor se ajuste a tu diseño */
 
     }
-    .collapse{
+
+    .collapse {
       padding-top: 50px;
     }
   }
@@ -383,7 +386,7 @@
 
   @media (max-width: 768px) {
     .div-alineado-izquierda {
-      align-items: flex-end ;
+      align-items: flex-end;
       padding-left: 0px;
     }
   }
@@ -413,7 +416,7 @@
   }
 
   @media (max-width: 768px) {
-    .carousel-item{
+    .carousel-item {
       height: auto !important;
     }
   }
@@ -1100,32 +1103,38 @@
   body {
     font-family: Arial, sans-serif;
   }
+
   .filter-section {
     background-color: #f8f8f8;
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 10px;
   }
+
   .filter-header {
     font-weight: bold;
     margin-bottom: 5px;
   }
+
   .filter-header a {
     text-decoration: none;
     float: right;
     font-weight: normal;
     color: #6c757d;
   }
+
   .range-slider {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
   }
+
   .range-slider input[type=range] {
     width: 100%;
   }
+
   .btn-filter {
-    background-color: #7c4dff;
+    background-color: <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?>;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -1137,7 +1146,89 @@
     cursor: pointer;
     border-radius: 20px;
   }
+
   .price-label {
     font-size: 14px;
+  }
+</style>
+<style>
+  /* select categorias */
+  .custom-select-wrapper {
+    position: absolute;
+    /* Posicionamiento absoluto respecto al padre relativo */
+    z-index: 20;
+    /* Más alto para asegurarse de que aparezca por encima */
+    top: 0;
+    /* Ajusta esto según necesites */
+    left: 0;
+    /* Alinea al lado izquierdo de `.caja_categorias` */
+    width: auto;
+    /* O un ancho específico si prefieres */
+    padding: 20px;
+  }
+
+  .custom-select {
+    position: relative;
+
+  }
+
+  .custom-select-trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    background: <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?>;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .custom-options {
+    position: absolute;
+    display: none;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?>;
+    border-top: none;
+    background: #fff;
+    transition: all 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    border-radius: 0 0 4px 4px;
+    width: 100%;
+    /* O un ancho específico si prefieres */
+    z-index: 30;
+    /* Asegúrate de que sea mayor que el de `.custom-select-wrapper` */
+    /* Resto de tus estilos para `.custom-options` */
+  }
+
+  .custom-select.open .custom-options {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .option {
+    position: relative;
+    display: block;
+    padding: 0 22px;
+    font-size: 16px;
+    font-weight: 300;
+    color: <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?>;
+    line-height: 40px;
+    cursor: pointer;
+  }
+
+  .option:hover,
+  .option.selected {
+    background-color: #e2e2e2;
   }
 </style>
