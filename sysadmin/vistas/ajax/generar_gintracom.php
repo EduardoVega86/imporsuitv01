@@ -20,18 +20,20 @@ $row = mysqli_fetch_array($result);
 $codigo_provincia_gintracom = $row['codigo_provincia_gintracom'];
 $codigo_ciudad_gintracom = $row['codigo_ciudad_gintracom'];
 
-$patron = '/([a-zA-Z\s]+)x(\d+)/';
-
 $productos_guias = $_POST['productos_guia'];
-$resultado = preg_replace($patron, '$2 * $1', $productos_guias);
 
-$resultado_final = preg_replace('/(\d)\s/', '$1 | ', $resultado);
+preg_match_all('/([^\dx]+)x(\d+)/', $productos_guias, $coincidencias, PREG_SET_ORDER);
 
-$resultado_final = rtrim($resultado_final, ' | ');
+$resultado_final = [];
 
-echo $resultado_final;
+foreach ($coincidencias as $producto) {
+    $nombre = trim($producto[1]); // Eliminamos espacios en blanco alrededor del nombre del producto
+    $cantidad = $producto[2];
+    $resultado_final[] = "$cantidad * $nombre"; // Formateamos
+}
 
-$resultado = preg_replace($patron, '$2 * $1', $productos_guias);
+// Unimos los productos formateados con el separador deseado
+echo implode(' | ', $resultado_final);
 
 $data = array("remitente" => array(
     "codigo_provincia_gintracom" => $codigo_provincia_gintracom,

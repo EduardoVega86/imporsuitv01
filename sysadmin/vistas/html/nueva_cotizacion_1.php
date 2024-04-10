@@ -253,7 +253,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 
                                                                             <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Servientrega">
                                                                             <div class="card-body" style="text-align: center;">
-                                                                                <strong id="precio_laar">---</strong>
+                                                                                <strong id="precio_laar">Proximamente</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
