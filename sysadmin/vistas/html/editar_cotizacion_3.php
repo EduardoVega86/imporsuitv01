@@ -1186,7 +1186,7 @@ while ($r = $query->fetch_object()) {
         let ciudadOrigen = ""
         let tienda = window.location.search.split("=")[1];
         $.ajax({
-            url: "../ajax/obtener_dato_envio_servi.php",
+            url: "../ajax/obtener_dato_envio_servi_t.php",
             type: "POST",
             data: {
                 tienda: tienda,
@@ -1454,7 +1454,7 @@ while ($r = $query->fetch_object()) {
 
     setTimeout(() => {
         calcular_guia_1(1);
-
+        calcular_servi(1, 1);
     }, 1000);
 </script>
 
