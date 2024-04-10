@@ -17,12 +17,12 @@ if ($tienda == "local") {
 } else {
     $parametro = "tienda = '$tienda'";
 }
-$producto_importar=0;
-$precio_importar=0;
-if (isset($_GET['id_producto'])){
-   $producto_importar = $_GET['id_producto'];
-   $precio_importar = $_GET['precio_importacion'];
-   //echo $precio_importar;
+$producto_importar = 0;
+$precio_importar = 0;
+if (isset($_GET['id_producto'])) {
+    $producto_importar = $_GET['id_producto'];
+    $precio_importar = $_GET['precio_importacion'];
+    //echo $precio_importar;
 }
 get_cadena($user_id);
 $modulo = "Pedidos";
@@ -243,7 +243,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                         <div id="card3" onclick="seleccionar_transportadora(3)" class="card formulario p-1">
                                                                             <img style="width: 100%;" id="tr3" src="../../img_sistema/servi.png" class="card-img-top  formulario image-bn interactive-image" alt="Selecciona Laarcourrier">
                                                                             <div class="card-body" style="text-align: center;">
-                                                                                <strong id="precio_servientrega">Proximamente</strong>
+                                                                                <strong id="precio_servientrega">---</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -362,7 +362,6 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 <script type="text/javascript" src="../../js/cotizacion_nueva_1.js"></script>
 
 <script>
-   
     $(document).ready(function() {
         $("#provinica").select2({
             placeholder: "Selecciona una opción",

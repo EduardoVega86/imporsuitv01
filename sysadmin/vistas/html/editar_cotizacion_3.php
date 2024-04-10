@@ -347,28 +347,7 @@ while ($r = $query->fetch_object()) {
                                                         <?php
                                                         }
                                                         ?>
-                                                        <!-- Carga los datos ajax -->
 
-                                                        <!--div class="stepwizard">
-    <div class="stepwizard-row">
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-default btn-circle">1</button>
-            <p>Ingresdo</p>
-        </div>
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-primary btn-circle">2</button>
-            <p>Preparado</p>
-        </div>
-        <div class="stepwizard-step">
-            <button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
-            <p>Impreso</p>
-        </div> 
-         <div class="stepwizard-step">
-            <button type="button" class="btn btn-default btn-circle" disabled="disabled">3</button>
-            <p>Impreso</p>
-        </div> 
-    </div>
-</div-->
 
 
                                                     </div>
@@ -609,9 +588,9 @@ while ($r = $query->fetch_object()) {
                                                                 <div class="row">
 
                                                                     <div class="col-md-6">
-                                                                        <span class="help-block">Tipo de Guia </span>
 
-                                                                        <select onchange="tipo_transportadora()" class="datos form-control" id="transportadora" name="transportadora" required>
+
+                                                                        <select onchange="tipo_transportadora()" class="datos form-control" id="transportadora" name="transportadora" hidden required>
                                                                             <option value="">Seleccione transportadora</option>
                                                                             <option value="1" selected>Transportadoa Laar</option>
                                                                             <option value="2">Speed</option>
@@ -758,64 +737,67 @@ while ($r = $query->fetch_object()) {
                                                                     Generar Guías
                                                                 </span>
                                                             </div>
-                                                            <div class="d-flex justify-content-center">
-                                                                <!-- Primera Columna -->
-                                                                <div class="col-md-2">
-                                                                    <div id="card3" onclick="seleccionar_transportadora(3)" class="card formulario p-1">
-                                                                        <img style="width: 100%;" id="tr3" src="../../img_sistema/servi.png" class="card-img-top  formulario image-bn interactive-image" alt="Selecciona Laarcourrier">
-                                                                        <div class="card-body" style="text-align: center;">
-                                                                            <strong id="precio_servientrega">Proximamente</strong>
+                                                            <div class="d-flex justify-content-center flex-wrap">
+                                                                <!-- Envoltura de fila para manejo responsive de columnas -->
+                                                                <div class="row justify-content-center items-center">
+                                                                    <!-- Primera Columna -->
+                                                                    <div class="col-6 col-md-2">
+                                                                        <div id="card3" onclick="seleccionar_transportadora(3)" class="card formulario p-1">
+                                                                            <img style="width: 100%;" id="tr3" src="../../img_sistema/servi.png" class="card-img-top formulario image-bn interactive-image" alt="Selecciona Laarcourrier">
+                                                                            <div class="card-body" style="text-align: center;">
+                                                                                <strong id="precio_servientrega">---</strong>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <!-- Segunda Columna -->
-                                                                <div class="col-md-2">
-                                                                    <div id="card1" class="card formulario p-1">
-                                                                        <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Servientrega">
-                                                                        <div class="card-body" style="text-align: center;">
-                                                                            <strong id="precio_laar">---</strong>
+                                                                    <!-- Segunda Columna -->
+                                                                    <div class="col-6 col-md-2">
+                                                                        <div id="card1" class="card formulario p-1">
+                                                                            <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Servientrega">
+                                                                            <div class="card-body" style="text-align: center;">
+                                                                                <strong id="precio_laar">---</strong>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <!-- Tercera Columna -->
-                                                                <div class="col-md-2">
-                                                                    <div id="card2" class="card formulario p-1">
-                                                                        <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(2)" src="../../img_sistema/speed.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
-                                                                        <div class="card-body" style="text-align: center;">
-                                                                            <strong id="aplica">NO APLICA</strong>
+                                                                    <!-- Tercera Columna -->
+                                                                    <div class="col-6 col-md-2">
+                                                                        <div id="card2" class="card formulario p-1">
+                                                                            <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(2)" src="../../img_sistema/speed.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
+                                                                            <div class="card-body" style="text-align: center;">
+                                                                                <strong id="aplica">NO APLICA</strong>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-md-2">
-                                                                    <div id="card4" class="card formulario p-1 ">
-                                                                        <img style="width: 50%;" id="tr2" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintracom.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
-                                                                        <div class="card-body" style="text-align: center;">
-                                                                            <strong>Proximamente</strong>
+                                                                    <!-- Cuarta Columna -->
+                                                                    <div class="col-6 col-md-2">
+                                                                        <div id="card4" class="card formulario p-1">
+                                                                            <!-- Ajuste de ancho al 100% para consistencia -->
+                                                                            <img style="width: 100%;" id="tr4" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintracom.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
+                                                                            <div class="card-body" style="text-align: center;">
+                                                                                <strong>Proximamente</strong>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                         </div>
-                                                        <div class="row">
+                                                        <div class="row justify-content-center items-center mt-3 text-center">
                                                             <?php
                                                             $pais = get_row('perfil', 'pais', 'id_perfil', 1);
                                                             if ($pais == 1) {
                                                             ?>
-                                                                <div class="col-md-3">
-                                                                    </br>
-                                                                    <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn btn-danger" disabled>Generar Guía</button>
+                                                                <div class="col-12 col-sm-6 col-md-3 mb-3"> <!-- Ajuste para responsividad y margen en dispositivos pequeños -->
+                                                                    <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn btn-danger w-100" disabled>Generar Guía</button> <!-- w-100 para ancho completo en su columna -->
                                                                 </div>
-                                                                <div class="col-md-3">
-                                                                    </br>
-                                                                    <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary">Calcular</button>
+                                                                <div class="col-12 col-sm-6 col-md-3 mb-3"> <!-- Ajuste para responsividad y margen en dispositivos pequeños -->
+                                                                    <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn btn-primary w-100">Facturar</button> <!-- w-100 para ancho completo en su columna -->
                                                                 </div>
                                                             <?php
                                                             }
                                                             ?>
-                                                            <div class="col-md-6">
-                                                                </br>
-                                                            </div>
+
                                                         </div>
+
                                                         </form>
                                                     </div>
                                                 </div>
