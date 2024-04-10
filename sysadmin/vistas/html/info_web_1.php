@@ -448,7 +448,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                       <h5><strong>ELEMENTOS</strong></h5>
                       <div class=" row ">
                         <div class="col-sm-1">
-                          <span style="font-size: 10px" class="help-block">Principal:</span>
+                          <span style="font-size: 10px" class="help-block">Botones:</span>
                           <input class="colores input-change" type="color" name="color_botones" value="<?php echo $row["color_botones"]; ?>">
 
                         </div>

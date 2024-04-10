@@ -31,11 +31,23 @@ if (isset($_GET['id_cat'])) {
   }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $valorMinimo = filter_input(INPUT_POST, 'valorMinimo', FILTER_SANITIZE_NUMBER_INT);
+  $valorMaximo = filter_input(INPUT_POST, 'valorMaximo', FILTER_SANITIZE_NUMBER_INT);
+
+  // Ahora puedes usar $valorMinimo y $valorMaximo para filtrar tus datos
+  // Por ejemplo, ajustar tu consulta SQL para usar estos valores como condiciones
+} else {
+  $valorMinimo = 0;
+  $valorMaximo = 500;
+}
+
 ?>
 <!doctype html>
 <html lang="es">
 
 <head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.css">
   <style>
     .card {
       transition: transform .2s;
@@ -77,6 +89,10 @@ if (isset($_GET['id_cat'])) {
     }
 
     .right-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Esto centrará sus hijos horizontalmente */
       width: 80%;
       padding: 20px;
       padding-top: 60px;
@@ -95,7 +111,7 @@ if (isset($_GET['id_cat'])) {
     }
 
     #accordionCategorias .card-header {
-      padding: 0.4rem 1.25rem;
+      padding: 0;
       /* Ajusta el relleno según sea necesario */
       background: #fff;
       /* Fondo blanco o el color que prefieras */
@@ -108,7 +124,7 @@ if (isset($_GET['id_cat'])) {
       /* Asegúrate de que los botones usen todo el ancho disponible */
       text-align: left;
       /* Alinea el texto a la izquierda */
-      padding: 0.6rem 1.25rem;
+      padding: 0;
       /* Ajusta el relleno para aumentar la altura de las filas */
       color: #333;
       /* Color de texto */
@@ -138,13 +154,100 @@ if (isset($_GET['id_cat'])) {
     /* Transición suave para el colapso y la expansión */
     #accordionCategorias .collapse {
       transition: max-height 0.4s ease;
+      padding-top: 0;
     }
 
     #accordionCategorias .btn {
-  text-transform: capitalize; /* Solo la primera letra de cada palabra en mayúsculas */
-  font-size: 0.9rem; /* Ajusta al tamaño de fuente deseado */
-}
+      text-transform: capitalize;
+      /* Solo la primera letra de cada palabra en mayúsculas */
+      font-size: 0.9rem;
+      /* Ajusta al tamaño de fuente deseado */
+    }
 
+    /* Esconde la columna izquierda en pantallas pequeñas */
+    @media (max-width: 768px) {
+      .left-column {
+        display: none;
+      }
+    }
+
+    /* Estilo para el modal que ocupe toda la pantalla */
+    .fullscreen-modal .modal-dialog {
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      margin: 0;
+    }
+
+    .fullscreen-modal .modal-content {
+      height: 100%;
+      border-radius: 0;
+    }
+
+    /* Slide de rango de precions con noUiSlider */
+    /* Base del Slider */
+    .noUi-target {
+      background-color: #B2B2B2;
+      height: 10px;
+      border-radius: 5px;
+    }
+
+    /* Conexión entre las manijas */
+    .noUi-connect {
+      background-color: <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?>;
+      /* Tu color de elección para la barra activa */
+    }
+
+    /* Manijas del Slider */
+    .noUi-handle {
+      outline: none;
+      top: -5px;
+      /* Ajusta esta propiedad para cambiar la posición vertical de la manija */
+      border: 1px solid #D3D3D3;
+      /* Borde de la manija */
+      background-color: white;
+      border-radius: 50%;
+      width: 19px !important;
+      /* Ancho de la manija */
+      height: 19px !important;
+      /* Altura de la manija */
+      box-shadow: none;
+      cursor: pointer;
+      background-image: none !important;
+    }
+
+    .noUi-handle::after,
+    .noUi-handle::before {
+      content: none !important;
+      /* Elimina el contenido de los pseudo-elementos */
+    }
+
+    /* Tooltips (los que muestran los valores encima de las manijas) */
+    .noUi-tooltip {
+      display: none;
+      /* Oculta el tooltip por defecto de noUiSlider */
+    }
+
+    .caja_categorias {
+      padding-top: 40px !important;
+      padding-bottom: 40px !important;
+      border-radius: 25px;
+      -webkit-box-shadow: -2px 5px 5px 0px rgba(0, 0, 0, 0.23);
+      -moz-box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
+      box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
+      background-color: white;
+      position: relative;
+      z-index: 10;
+      /* Asegúrate de que esto sea mayor que el z-index de otros elementos */
+      display: flex;
+      /* Usa flexbox para alinear elementos internos */
+      justify-content: flex-start;
+      /* Alinea el menú a la izquierda */
+      width: 100%;
+      /* O el ancho que desees para esta caja */
+      box-sizing: border-box;
+      /* Asegura que el padding no añada al ancho total */
+    }
   </style>
   <?php
   include './includes/head_1.php';
@@ -342,7 +445,108 @@ if (isset($_GET['id_cat'])) {
       $categorias_acordion = mysqli_query($conexion, "SELECT * FROM lineas");
       ?>
       <div class="content_left_right">
-        <div class="left-column">
+        <!-- Botón que se muestra solo en pantallas pequeñas -->
+        <div class="d-lg-none">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#leftColumnModal">
+            Filtro
+          </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade fullscreen-modal" id="leftColumnModal" tabindex="-1" aria-labelledby="leftColumnModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Cabeza del modal con el botón de cerrar -->
+              <div class="modal-header">
+                <h5 class="modal-title" id="leftColumnModalLabel">Filtros</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <!-- Contenido del modal -->
+              <div class="modal-body">
+                <!-- Aquí incluyes el contenido de tu left-column -->
+                <!-- Puedes hacerlo directamente o incluirlo con PHP como parte de la estructura de tu página -->
+                <div class="filtro_productos caja px-3">
+                  <!-- Acordeón -->
+                  <div id="accordionCategorias" class="accordion">
+                    <!-- Este es el acordeón padre para la categoría principal -->
+                    <div class="card">
+                      <div class="card-header" id="headingCategorias">
+                        <h5 class="mb-0">
+                          <button class="btn collapsed" data-toggle="collapse" data-target="#collapseCategorias" aria-expanded="true" aria-controls="collapseCategorias"><strong>
+                              Categorías
+                            </strong></button>
+                        </h5>
+                      </div>
+                      <div id="collapseCategorias" class="collapse show" aria-labelledby="headingCategorias" data-parent="#accordionCategorias">
+                        <div class="card-body">
+                          <!-- Aquí comienza el acordeón anidado para las subcategorías -->
+                          <div id="accordionSubcategorias" class="accordion">
+                            <?php while ($categoria_acordion = mysqli_fetch_assoc($categorias_acordion)) : ?>
+                              <div class="card">
+                                <div class="card-header" id="heading-<?php echo htmlspecialchars($categoria_acordion['nombre_linea']); ?>">
+                                  <h5 class="mb-0">
+                                    <button type="button" class="btn" onclick="window.location.href='categoria_1.php?id_cat=<?php echo urlencode($categoria_acordion['id_linea']); ?>'">
+                                      <?php echo htmlspecialchars($categoria_acordion['nombre_linea']); ?>
+                                    </button>
+                                  </h5>
+                                </div>
+
+                              </div>
+                            <?php endwhile;
+                            // Reiniciar el puntero al principio del conjunto de resultados
+                            mysqli_data_seek($categorias_acordion, 0); ?>
+                          </div>
+                          <!-- Fin del acordeón anidado para las subcategorías -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Fin Acordeón -->
+
+                  <div>
+                    <form id="form-rango-precios-modal" method="post">
+                      <div class="filter-header"><strong>Rango de precios</strong></div>
+                      <div id="slider-rango-precios-modal"></div>
+                      <p>Valor mínimo: $<span id="valorMinimo-modal">0</span></p>
+                      <p>Valor máximo: $<span id="valorMaximo-modal">0</span></p>
+                      <input type="hidden" id="inputValorMinimo-modal" name="valorMinimo" value="0">
+                      <input type="hidden" id="inputValorMaximo-modal" name="valorMaximo" value="0">
+                      <button type="submit" class="btn-filter">Filtrar</button>
+                    </form>
+                  </div>
+
+
+
+                  <script>
+                    document.getElementById('btn-filtrar').addEventListener('click', function() {
+                      var valorMin = document.getElementById('valorMinimo').textContent;
+                      var valorMax = document.getElementById('valorMaximo').textContent;
+
+                      fetch('categoria_1.php', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                          },
+                          body: `valorMinimo=${valorMin}&valorMaximo=${valorMax}`
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                          // Suponiendo que la respuesta sea un fragmento de HTML con los productos filtrados
+                          document.querySelector('.right-column').innerHTML = data;
+                        })
+                        .catch(error => console.error('Error:', error));
+                    });
+                  </script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Fin Modal -->
+
+        <div class="left-column d-none d-lg-block">
           <div class="filtro_productos caja px-3">
             <!-- Acordeón -->
             <div id="accordionCategorias" class="accordion">
@@ -350,9 +554,9 @@ if (isset($_GET['id_cat'])) {
               <div class="card">
                 <div class="card-header" id="headingCategorias">
                   <h5 class="mb-0">
-                    <button class="btn collapsed" data-toggle="collapse" data-target="#collapseCategorias" aria-expanded="true" aria-controls="collapseCategorias">
-                      Categorías
-                    </button>
+                    <button class="btn collapsed" data-toggle="collapse" data-target="#collapseCategorias" aria-expanded="true" aria-controls="collapseCategorias"><strong>
+                        Categorías
+                      </strong></button>
                   </h5>
                 </div>
                 <div id="collapseCategorias" class="collapse show" aria-labelledby="headingCategorias" data-parent="#accordionCategorias">
@@ -379,43 +583,77 @@ if (isset($_GET['id_cat'])) {
             </div>
             <!-- Fin Acordeón -->
 
-            <div class="filter-section">
-              <div class="filter-header">Rango de precios</div>
-              <div class="range-slider">
-                <span class="price-label">$0</span>
-                <input type="range" min="0" max="12000" value="6000" class="slider" id="myRange">
-                <span class="price-label">$12000</span>
-              </div>
+            <div>
+              <form id="form-rango-precios-left" method="post">
+                <div class="filter-header"><strong>Rango de precios</strong></div>
+                <div id="slider-rango-precios-left"></div>
+                <p>Valor mínimo: $<span id="valorMinimo-left">0</span></p>
+                <p>Valor máximo: $<span id="valorMaximo-left">0</span></p>
+                <input type="hidden" id="inputValorMinimo-left" name="valorMinimo" value="0">
+                <input type="hidden" id="inputValorMaximo-left" name="valorMaximo" value="0">
+                <button type="submit" class="btn-filter">Filtrar</button>
+              </form>
             </div>
 
-            <button class="btn-filter">Filtrar</button>
+
 
             <script>
-              var slider = document.getElementById("myRange");
-              var output = document.getElementById("demo");
-              output.innerHTML = slider.value;
+              document.getElementById('btn-filtrar').addEventListener('click', function() {
+                var valorMin = document.getElementById('valorMinimo').textContent;
+                var valorMax = document.getElementById('valorMaximo').textContent;
 
-              slider.oninput = function() {
-                output.innerHTML = this.value;
-              }
+                fetch('categoria_1.php', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `valorMinimo=${valorMin}&valorMaximo=${valorMax}`
+                  })
+                  .then(response => response.text())
+                  .then(data => {
+                    // Suponiendo que la respuesta sea un fragmento de HTML con los productos filtrados
+                    document.querySelector('.right-column').innerHTML = data;
+                  })
+                  .catch(error => console.error('Error:', error));
+              });
             </script>
           </div>
         </div>
 
         <div class="right-column">
-          <div class="row">
+          <div class="caja_categorias">
+            <div class="custom-select-wrapper" onclick="this.querySelector('.custom-select').classList.toggle('open');">
+              <div class="custom-select">
+                <div class="custom-select-trigger">Ordenar por</div>
+                <div class="custom-options">
+                  <span class="option">Mayor precio</span>
+                  <span class="option">Menor precio</span>
+                </div>
+              </div>
+            </div>
+
+            <script>
+              document.addEventListener('click', function(e) {
+                const selectWrapper = document.querySelector('.custom-select-wrapper');
+                if (!selectWrapper.contains(e.target)) {
+                  selectWrapper.querySelector('.custom-select').classList.remove('open');
+                }
+              });
+            </script>
+          </div>
+          <div class="row" style="padding-top: 15;">
             <!-- Categoría 1 -->
             <?php
             if (isset($_GET['id_cat'])) {
               if (isset($categorias) and $categorias != '') {
                 $lista_cat = substr($categorias, 0, -1);
-                $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) or id_linea_producto=$id_categoria";
+                $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) and valor3_producto >= $valorMinimo and valor3_producto <= $valorMaximo or id_linea_producto=$id_categoria";
               } else {
                 $lista_cat = "''";
-                $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria";
+                $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria and valor3_producto >= $valorMinimo and valor3_producto <= $valorMaximo";
               }
             } else {
-              $sql = "select * from productos where  pagina_web='1' and stock_producto > 0";
+              $sql = "select * from productos where  pagina_web='1' and stock_producto > 0 and valor3_producto >= $valorMinimo and valor3_producto <= $valorMaximo";
             }
 
             $query = mysqli_query($conexion, $sql);
@@ -631,6 +869,7 @@ if (isset($_GET['id_cat'])) {
   <script src="js_nuevo/bootstrap.bundle.min.js" type="text/javascript"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="assets/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.js"></script>
   <script src="assets/js/custom_1.js"></script>
   <script>
     window.onscroll = function() {
@@ -648,6 +887,66 @@ if (isset($_GET['id_cat'])) {
         // Restablece los estilos si el usuario vuelve a la parte superior de la página
       }
     };
+
+    // Función para inicializar un slider
+    function initSlider(sliderId, valorMinimoId, valorMaximoId, inputValorMinimoId, inputValorMaximoId, onSliderUpdateCallback) {
+      var slider = document.getElementById(sliderId);
+      noUiSlider.create(slider, {
+        start: [parseInt(localStorage.getItem(inputValorMinimoId) || 0), parseInt(localStorage.getItem(inputValorMaximoId) || 500)],
+        connect: true,
+        range: {
+          'min': 0,
+          'max': 500
+        }
+      });
+
+      slider.noUiSlider.on('update', function(values, handle) {
+        var value = values[handle];
+        var valorMinimo = document.getElementById(valorMinimoId);
+        var valorMaximo = document.getElementById(valorMaximoId);
+        var inputValorMinimo = document.getElementById(inputValorMinimoId);
+        var inputValorMaximo = document.getElementById(inputValorMaximoId);
+
+        if (handle) {
+          valorMaximo.textContent = Math.round(value);
+          inputValorMaximo.value = Math.round(value);
+          localStorage.setItem(inputValorMaximoId, Math.round(value));
+        } else {
+          valorMinimo.textContent = Math.round(value);
+          inputValorMinimo.value = Math.round(value);
+          localStorage.setItem(inputValorMinimoId, Math.round(value));
+        }
+
+        // Ejecutar el callback después de actualizar el slider
+        if (onSliderUpdateCallback) {
+          onSliderUpdateCallback(values[0], values[1]);
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      initSlider('slider-rango-precios-left', 'valorMinimo-left', 'valorMaximo-left', 'inputValorMinimo-left', 'inputValorMaximo-left');
+      initSlider('slider-rango-precios-modal', 'valorMinimo-modal', 'valorMaximo-modal', 'inputValorMinimo-modal', 'inputValorMaximo-modal');
+
+      // Obtén las instancias de noUiSlider para cada slider
+      const sliderLeft = document.getElementById('slider-rango-precios-left').noUiSlider;
+      const sliderModal = document.getElementById('slider-rango-precios-modal').noUiSlider;
+
+      // Función para sincronizar los sliders
+      function sincronizarSliders(sourceSlider, targetSlider) {
+        sourceSlider.on('update', function(values) {
+          // Verifica si los valores son diferentes para evitar la actualización innecesaria
+          const targetValues = targetSlider.get().map(v => parseFloat(v));
+          if (values[0] != targetValues[0] || values[1] != targetValues[1]) {
+            targetSlider.set(values);
+          }
+        });
+      }
+
+      // Sincroniza los sliders entre sí
+      sincronizarSliders(sliderLeft, sliderModal);
+      sincronizarSliders(sliderModal, sliderLeft);
+    });
   </script>
 </body>
 

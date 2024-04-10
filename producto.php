@@ -603,7 +603,7 @@ if ($formato == 3) {
                           /* Animación llamada 'jump' que dura 3 segundos y se repite infinitamente */
                         }
                       </style>
-                      <a style="height: 50px; font-size: 26px; width: 100%; border-radius: 15px" class="jump-button btn boton text-white " href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <a style="height: 50px; font-size: 26px; width: 100%; border-radius: 15px" class="jump-button btn boton texto_boton " href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <span style="margin-top: 10px">COMPRAR AHORA </span></a><!-- comment -->
 
 
@@ -684,7 +684,7 @@ if ($formato == 3) {
                     /* Animación llamada 'jump' que dura 3 segundos y se repite infinitamente */
                   }
                 </style>
-                <a style="height: 50px; font-size: 26px; width: 100%; border-radius: 15px" class="jump-button btn boton text-white " href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <a style="height: 50px; font-size: 26px; width: 100%; border-radius: 15px" class="jump-button btn boton texto_boton" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <span style="margin-top: 10px">COMPRAR AHORA </span></a><!-- comment -->
 
 
@@ -987,7 +987,7 @@ if ($formato == 3) {
     <?php
     include 'includes/footer.php'
     ?>
-    <a style="" class=" btn-flotante-producto " href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <a style="" class=" btn-flotante-producto texto_boton" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <span style="margin-top: 10px">COMPRAR AHORA </span></a>
   </div>
 
