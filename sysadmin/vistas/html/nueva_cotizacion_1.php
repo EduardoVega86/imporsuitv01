@@ -253,7 +253,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 
                                                                             <img style="width: 100%;" id="tr1" onclick="seleccionar_transportadora(1)" src="../../img_sistema/laar.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Servientrega">
                                                                             <div class="card-body" style="text-align: center;">
-                                                                                <strong id="precio_laar">Proximamente</strong>
+                                                                                <strong id="precio_laar">---</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -270,7 +270,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                         <div id="card4" class="card formulario p-1 ">
                                                                             <img style="width: 50%;" id="tr2" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintracom.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
                                                                             <div class="card-body" style="text-align: center;">
-                                                                                <strong>Proximamente</strong>
+                                                                                <strong>---</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -856,7 +856,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
         var id_provincia = $('#ciudad_entrega').val();
         let recaudo = $('#cod').val();
         calcular_servi(id_provincia, recaudo);
-
+        calcular_gintra(id_provincia, recaudo);
         $.ajax({
             url: "../ajax/cargar_provincia_pedido.php",
             type: "POST",
@@ -1043,6 +1043,22 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 }
             })
         $('#generar_guia_btn').removeAttr('disabled');
+    }
+
+    function calcular_gintra(id_ciudad, recaudo) {
+        $.ajax({
+            url: "../ajax/calcular_gintra.php",
+            type: "POST",
+            data: {
+                ciudad: id_ciudad,
+                recaudo: recaudo
+            },
+            success: function(data) {
+                let precio = JSON.parse(data);
+                $('#precio_gintracom').text(`$${precio}`);
+            }
+        })
+
     }
 </script>
 <?php require 'includes/footer_end.php'
