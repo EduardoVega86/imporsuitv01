@@ -27,7 +27,7 @@ $valor_asegurado = $_POST['valorasegurado'];
 
 
 
-$url = 'https://181.39.87.158:8021/api/guiawebs/';
+$url = 'https://swservicli.servientrega.com.ec:5052/api/guiawebs';
 
 // Los datos que vas a enviar en formato JSON
 $data = array(
@@ -64,8 +64,8 @@ $data = array(
     "ancho" => 50,
     "alto" => 50,
     "peso_fisico" => 2,
-    "login_creacion" => "IMP.1793168264001.2",
-    "password" => "Ecuador24"
+    "login_creacion" => "integracion.api.1",
+    "password" => "54321"
 );
 
 // Convertir los datos al formato JSON
