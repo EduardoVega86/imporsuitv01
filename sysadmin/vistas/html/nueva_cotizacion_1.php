@@ -855,7 +855,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     function seleccionarProvincia() {
         var id_provincia = $('#ciudad_entrega').val();
         let recaudo = $('#cod').val();
-        //calcular_servi(id_provincia, recaudo);
+        calcular_servi(id_provincia, recaudo);
 
         $.ajax({
             url: "../ajax/cargar_provincia_pedido.php",

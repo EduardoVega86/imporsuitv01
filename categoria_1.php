@@ -32,16 +32,33 @@ if (isset($_GET['id_cat'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $valorMinimo = filter_input(INPUT_POST, 'valorMinimo', FILTER_SANITIZE_NUMBER_INT);
-  $valorMaximo = filter_input(INPUT_POST, 'valorMaximo', FILTER_SANITIZE_NUMBER_INT);
+  // Asignación de valores mínimos y máximos desde el filtro de precios
+  $valorMinimo = filter_input(INPUT_POST, 'valorMinimo', FILTER_SANITIZE_NUMBER_INT) ?? 0;
+  $valorMaximo = filter_input(INPUT_POST, 'valorMaximo', FILTER_SANITIZE_NUMBER_INT) ?? 500;
 
-  // Ahora puedes usar $valorMinimo y $valorMaximo para filtrar tus datos
-  // Por ejemplo, ajustar tu consulta SQL para usar estos valores como condiciones
+  // Asignación de criterio de ordenamiento desde el formulario de ordenar por
+  if (isset($_POST['ordenar_por'])) {
+    $_SESSION['ordenar_por'] = $_POST['ordenar_por']; // Guardar en sesión
+  }
+
+  // Establecer $orderSql según la opción de ordenamiento seleccionada
+  if (isset($_SESSION['ordenar_por'])) {
+    switch ($_SESSION['ordenar_por']) {
+      case 'Mayor precio':
+        $orderSql = ' ORDER BY valor3_producto DESC';
+        break;
+      case 'Menor precio':
+        $orderSql = ' ORDER BY valor3_producto ASC';
+        break;
+        // Otras condiciones según sea necesario
+    }
+  }
 } else {
+  // Valores por defecto si no se recibe una solicitud POST
   $valorMinimo = 0;
   $valorMaximo = 500;
+  $orderSql = ''; // Establecer un orden predeterminado si lo necesitas
 }
-
 ?>
 <!doctype html>
 <html lang="es">
@@ -93,9 +110,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       flex-direction: column;
       align-items: center;
       /* Esto centrará sus hijos horizontalmente */
+      align-self: start;
+      /* Añade esta línea para alinear la propia .right-column al inicio de su contenedor flex */
       width: 80%;
       padding: 20px;
       padding-top: 60px;
+      min-height: 600px;
+      /* Ajusta esto según la altura mínima que desees */
     }
 
     .content_left_right {
@@ -160,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     #accordionCategorias .btn {
       text-transform: capitalize;
       /* Solo la primera letra de cada palabra en mayúsculas */
-      font-size: 0.9rem;
+      font-size: 1rem;
       /* Ajusta al tamaño de fuente deseado */
     }
 
@@ -168,6 +189,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     @media (max-width: 768px) {
       .left-column {
         display: none;
+      }
+
+      .right-column {
+        width: 100%;
+        padding: 0px;
       }
     }
 
@@ -229,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     .caja_categorias {
-      padding-top: 40px !important;
+      padding-top: 20px !important;
       padding-bottom: 40px !important;
       border-radius: 25px;
       -webkit-box-shadow: -2px 5px 5px 0px rgba(0, 0, 0, 0.23);
@@ -248,12 +274,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       box-sizing: border-box;
       /* Asegura que el padding no añada al ancho total */
     }
+
+    .filtro-flotante {
+      position: absolute;
+      right: 20;
+    }
+
+    .btn_filtro {
+      font-size: 20px !important;
+      background: transparent;
+      color: black !important;
+      border-radius: 0.5rem !important;
+    }
+
+    .row {
+      width: 100%;
+    }
+
+    .ver-todo-btn {
+      background-color: transparent;
+      /* Hace que el fondo sea transparente */
+      color: #b4b4b4;
+      /* Establece el color inicial del texto */
+      text-decoration: none;
+      /* Elimina el subrayado */
+      padding: .375rem .75rem;
+      /* Añade algo de padding */
+      border: 1px solid white;
+      /* Añade un borde si lo deseas */
+      border-radius: .25rem;
+      /* Redondea las esquinas si lo deseas */
+      transition: color .3s;
+      /* Suaviza la transición del color */
+    }
+
+    .ver-todo-btn:hover {
+      color: black;
+      /* Cambia el color del texto al pasar el ratón por encima */
+      background-color: rgba(255, 255, 255, .3);
+      /* Opcional: cambia ligeramente el color de fondo al pasar el ratón por encima */
+    }
   </style>
   <?php
   include './includes/head_1.php';
   ?>
   <link href="css_nuevo/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
   <meta name="theme-color" content="#7952b3">
 
@@ -445,12 +512,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $categorias_acordion = mysqli_query($conexion, "SELECT * FROM lineas");
       ?>
       <div class="content_left_right">
-        <!-- Botón que se muestra solo en pantallas pequeñas -->
-        <div class="d-lg-none">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#leftColumnModal">
-            Filtro
-          </button>
-        </div>
+
 
         <!-- Modal -->
         <div class="modal fade fullscreen-modal" id="leftColumnModal" tabindex="-1" aria-labelledby="leftColumnModalLabel" aria-hidden="true">
@@ -472,12 +534,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   <div id="accordionCategorias" class="accordion">
                     <!-- Este es el acordeón padre para la categoría principal -->
                     <div class="card">
-                      <div class="card-header" id="headingCategorias">
-                        <h5 class="mb-0">
+                      <div class="card-header d-flex flex-row justify-content-between align-items-center" id="headingCategorias">
+                        <h5 class="mb-0 flex-grow-1">
                           <button class="btn collapsed" data-toggle="collapse" data-target="#collapseCategorias" aria-expanded="true" aria-controls="collapseCategorias"><strong>
                               Categorías
                             </strong></button>
                         </h5>
+                        <!-- Botón Ver Todo al lado del título Categorías -->
+                        <a href="categoria_1.php" class="ver-todo-btn ml-auto">ver todo</a>
                       </div>
                       <div id="collapseCategorias" class="collapse show" aria-labelledby="headingCategorias" data-parent="#accordionCategorias">
                         <div class="card-body">
@@ -552,12 +616,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div id="accordionCategorias" class="accordion">
               <!-- Este es el acordeón padre para la categoría principal -->
               <div class="card">
-                <div class="card-header" id="headingCategorias">
-                  <h5 class="mb-0">
+                <div class="card-header d-flex flex-row justify-content-between align-items-center" id="headingCategorias">
+                  <h5 class="mb-0 flex-grow-1">
                     <button class="btn collapsed" data-toggle="collapse" data-target="#collapseCategorias" aria-expanded="true" aria-controls="collapseCategorias"><strong>
                         Categorías
                       </strong></button>
                   </h5>
+                  <!-- Botón Ver Todo al lado del título Categorías -->
+                  <a href="categoria_1.php" class="ver-todo-btn ml-auto">ver todo</a>
                 </div>
                 <div id="collapseCategorias" class="collapse show" aria-labelledby="headingCategorias" data-parent="#accordionCategorias">
                   <div class="card-body">
@@ -622,24 +688,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="right-column">
           <div class="caja_categorias">
-            <div class="custom-select-wrapper" onclick="this.querySelector('.custom-select').classList.toggle('open');">
-              <div class="custom-select">
-                <div class="custom-select-trigger">Ordenar por</div>
-                <div class="custom-options">
-                  <span class="option">Mayor precio</span>
-                  <span class="option">Menor precio</span>
+            <form id="ordenarForm" method="post">
+              <div class="custom-select-wrapper" onclick="this.querySelector('.custom-select').classList.toggle('open');">
+                <div class="custom-select">
+                  <div class="custom-select-trigger">Ordenar por</div>
+                  <div class="custom-options">
+                    <button type="submit" class="option" name="ordenar_por" value="Mayor precio">Mayor precio</button>
+                    <button type="submit" class="option" name="ordenar_por" value="Menor precio">Menor precio</button>
+                  </div>
                 </div>
               </div>
+              <!-- Campos ocultos para mantener los valores de rango de precios -->
+              <input type="hidden" name="valorMinimo" value="<?php echo htmlspecialchars($valorMinimo); ?>">
+              <input type="hidden" name="valorMaximo" value="<?php echo htmlspecialchars($valorMaximo); ?>">
+            </form>
+            <!-- Botón que se muestra solo en pantallas pequeñas -->
+            <div class="d-lg-none filtro-flotante">
+              <button type="button" class="btn_filtro btn" data-toggle="modal" data-target="#leftColumnModal">
+                <i class='bx bxs-filter-alt'></i> Filtro
+              </button>
             </div>
-
-            <script>
-              document.addEventListener('click', function(e) {
-                const selectWrapper = document.querySelector('.custom-select-wrapper');
-                if (!selectWrapper.contains(e.target)) {
-                  selectWrapper.querySelector('.custom-select').classList.remove('open');
-                }
-              });
-            </script>
           </div>
           <div class="row" style="padding-top: 15;">
             <!-- Categoría 1 -->
@@ -647,16 +715,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (isset($_GET['id_cat'])) {
               if (isset($categorias) and $categorias != '') {
                 $lista_cat = substr($categorias, 0, -1);
-                $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) and valor3_producto >= $valorMinimo and valor3_producto <= $valorMaximo or id_linea_producto=$id_categoria";
+                $sql = "select * from productos where (pagina_web='1' and stock_producto > 0 and id_linea_producto in ($lista_cat) and valor3_producto >= $valorMinimo and valor3_producto <= $valorMaximo or id_linea_producto=$id_categoria) " . $orderSql;
               } else {
                 $lista_cat = "''";
-                $sql = "select * from productos where pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria and valor3_producto >= $valorMinimo and valor3_producto <= $valorMaximo";
+                $sql = "select * from productos where (pagina_web='1' and stock_producto > 0 and id_linea_producto=$id_categoria and valor3_producto >= $valorMinimo and valor3_producto <= $valorMaximo) " . $orderSql;
               }
             } else {
-              $sql = "select * from productos where  pagina_web='1' and stock_producto > 0 and valor3_producto >= $valorMinimo and valor3_producto <= $valorMaximo";
+              $sql = "select * from productos where  (pagina_web='1' and stock_producto > 0 and valor3_producto >= $valorMinimo and valor3_producto <= $valorMaximo) " . $orderSql;
             }
 
             $query = mysqli_query($conexion, $sql);
+            if (!$query) {
+              die("Error en la consulta: " . mysqli_error($conexion));
+            }
             $num_registros = mysqli_num_rows($query);
             //echo $num_registros, ' Productos';
             while ($row = mysqli_fetch_array($query)) {
@@ -725,7 +796,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                       <span class="text-price"><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></span>
                     </div>
-                    <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton text-white mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
+                    <a style="z-index:2; height: 40px; font-size: 16px; margin-top: auto !important;" class="btn boton texto_boton mt-2" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">Comprar</a>
                   </div>
                 </div>
               </div>
