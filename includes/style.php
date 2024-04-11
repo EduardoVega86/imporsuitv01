@@ -154,6 +154,7 @@
   .slider_producto {
     display: flex;
     flex-direction: row;
+    justify-content: right;
   }
 
   @media (max-width: 768px) {
@@ -398,16 +399,11 @@
 </style>
 <style>
   .carousel-item {
-    height: 100vh;
-    /* Esto hará que cada slide tenga la altura de la ventana del navegador */
-    min-height: 300px;
-    /* Altura mínima para asegurarse de que se vea bien en pantallas pequeñas */
-    background-repeat: no-repeat;
-    /* Esto evitará que la imagen se repita */
-    background-position: center;
-    /* Centra la imagen de fondo */
-    background-size: cover;
-    /* Esto hará que la imagen cubra todo el contenedor sin deformarse */
+    /* Elimina la altura fija para todas las resoluciones */
+  min-height: 300px; /* Altura mínima para asegurarse de que se vea bien en pantallas pequeñas */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; /* Cambia 'cover' por 'contain' para asegurar que la imagen se vea entera */
   }
 
   .carousel-item {
@@ -1180,12 +1176,12 @@
     padding: 0 40px;
     font-size: 16px;
     font-weight: 300;
-    color: #fff;
+    color: <?php echo get_row('perfil', 'texto_boton', 'id_perfil', '1') ?>;
     height: 40px;
     line-height: 40px;
     background: <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?>;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 0.5rem;
   }
 
   .custom-options {
@@ -1216,19 +1212,31 @@
     pointer-events: all;
   }
 
-  .option {
-    position: relative;
-    display: block;
-    padding: 0 22px;
-    font-size: 16px;
-    font-weight: 300;
-    color: <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?>;
-    line-height: 40px;
-    cursor: pointer;
-  }
+  /* Estilo base para tus opciones, haciendo el fondo transparente y quitando estilos de botón */
+.option {
+  background: transparent; /* Fondo transparente */
+  border: none; /* Sin bordes */
+  color: #333; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno */
+  text-align: left; /* Alineación del texto a la izquierda */
+  display: block; /* Ocupa todo el ancho disponible */
+  width: 100%;
+  box-sizing: border-box; /* Para incluir padding en el ancho total */
+  transition: background-color 0.3s; /* Transición suave del fondo */
+}
 
-  .option:hover,
-  .option.selected {
-    background-color: #e2e2e2;
-  }
+/* Estilo para cuando se pasa el mouse por encima de las opciones */
+.option:hover {
+  background-color: #e2e2e2; /* Color de fondo al hacer hover */
+}
+
+/* Estilo para la opción seleccionada */
+.option.selected {
+  background-color: #ddd; /* Fondo de la opción seleccionada */
+}
+
+/* Remueve el estilo de botón al hacer clic */
+.option:focus {
+  outline: none; /* Remueve el contorno que aparece al enfocar */
+}
 </style>

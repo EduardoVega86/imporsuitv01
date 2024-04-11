@@ -593,7 +593,7 @@ if ($formato == 3) {
                 <!-- Repite para otras miniaturas -->
               </div>
             </div>
-            <div class="col-lg-10" style="max-width: 500px !important;">
+            <div class="col-lg-10" style="max-width: 600px !important;">
               <!-- Área principal de visualización de imagen -->
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-image1" role="tabpanel" aria-labelledby="list-image1-list">
