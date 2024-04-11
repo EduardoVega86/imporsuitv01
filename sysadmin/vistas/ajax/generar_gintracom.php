@@ -11,6 +11,11 @@ $direccion_remitente = $_POST['direccion_remitente'];
 $telefono_remitente = $_POST['telefono_remitente'];
 $ciudad_origen = $_POST['origen_texto'];
 
+$nombre_destino = $_POST['nombre_destino'];
+$direccion_destino = $_POST['direccion'];
+$telefono_destino = $_POST['celular'];
+$ciudad_destino = $_POST['ciudad_texto'];
+
 
 $sql = "SELECT * FROM `ciudad_cotizacion` WHERE `ciudad` = '$ciudad_origen'";
 $result = mysqli_query($conexion, $sql);
@@ -19,6 +24,14 @@ $row = mysqli_fetch_array($result);
 
 $codigo_provincia_gintracom = $row['codigo_provincia_gintracom'];
 $codigo_ciudad_gintracom = $row['codigo_ciudad_gintracom'];
+
+$sql = "SELECT * FROM `ciudad_cotizacion` WHERE `ciudad` = '$ciudad_destino'";
+$result = mysqli_query($conexion, $sql);
+
+$row = mysqli_fetch_array($result);
+
+$codigo_provincia_gintracom_destino = $row['codigo_provincia_gintracom'];
+$codigo_ciudad_gintracom_destino = $row['codigo_ciudad_gintracom'];
 
 $productos_guias = $_POST['productos_guia'];
 
@@ -33,17 +46,42 @@ foreach ($coincidencias as $producto) {
 }
 
 // Unimos los productos formateados con el separador deseado
-echo implode(' | ', $resultado_final);
+$productos_guias = implode(' | ', $resultado_final);
 
-$data = array("remitente" => array(
-    "codigo_provincia_gintracom" => $codigo_provincia_gintracom,
-    "codigo_ciudad_gintracom" => $codigo_ciudad_gintracom
-));
+$cant_paquetes = "1";
+$peso = "2.00";
+$observacion = $_POST['observacion'];
+$fecha = date("Y-m-d H:i:s");
+$declarado = $_POST['valor_total'];
+$cod = $_POST['cod'];
+$con_recaudo = $cod == "1" ? true : false;
+
+$data = array(
+    "remitente" => array(
+        "nombre" => $nombre_remitente,
+        "direccion" => $direccion_remitente,
+        "telefono" => $telefono_remitente,
+        "ciudad" => $ciudad_origen,
+        "provincia" => $codigo_provincia_gintracom,
+        "ciudad" => $codigo_ciudad_gintracom
+    ),
+    "cant_paquetes" => $cant_paquetes,
+    "peso_total" => $peso,
+    "observacion" => $observacion,
+    "fecha" => $fecha,
+    "declarado" => $declarado,
+    "con_recaudo" => $con_recaudo,
+    "contenido" => $productos_guias,
+    "documento_venta" => "000" . rand(100000, 999999),
+);
 
 $data = array_merge($data, array("destinatario" => array(
-    "nombre_remitente" => $nombre_remitente,
-    "direccion_remitente" => $direccion_remitente,
-    "telefono_remitente" => $telefono_remitente
+    "nombre" => $nombre_destino,
+    "direccion" => $direccion_destino,
+    "telefono" => $telefono_destino,
+    "ciudad" => $ciudad_destino,
+    "provincia" => $codigo_provincia_gintracom_destino,
+    "ciudad" => $codigo_ciudad_gintracom_destino
 )));
 
 echo json_encode($data);
