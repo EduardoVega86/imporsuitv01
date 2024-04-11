@@ -37,7 +37,7 @@ $fecha = date("Y-m-d");
 
 $factura = "000" . rand(100000, 999999);
 
-$url = 'https://181.39.87.158:8021/api/GuiaRecaudo/';
+$url = 'https://swservicli.servientrega.com.ec:5052/api/GuiaRecaudo';
 
 // Los datos que vas a enviar en formato JSON
 $data = array(
@@ -75,8 +75,8 @@ $data = array(
     "ANCHO" => 50,
     "ALTO" => 50,
     "PESO_FISICO" => 2,
-    "LOGIN_CREACION" => "IMP.1793168264001",
-    "PASSWORD" => "Ecuador24",
+    "LOGIN_CREACION" => "integracion.api.1",
+    "PASSWORD" => "54321",
     "ID_CL" => 0,
     "VERIFICAR_CONTENIDO_RECAUDO" => "",
     "VALIDADOR_RECAUDO" => "D",
