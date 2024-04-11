@@ -59,6 +59,17 @@ if (strpos($guia, "IMP") !== 0) {
 
     curl_close($chAuth);
     return;
+} else if (is_numeric($guia)) {
+    $url = "https://guias.imporsuit.com/Servientrega/Anular/" . $guia;
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($ch);
+    echo $response;
+
+    return;
 }
 
 $id = $_POST['id'];

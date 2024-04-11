@@ -51,7 +51,6 @@ $data = array(
     "RAZON_SOCIAL_DESTI_NE" =>  $razon_zocial_destinatario,
     "NOMBRE_DESTINATARIO_NE" => $nombre_destinatario,
     "APELLIDO_DESTINATAR_NE" =>     $apellido_destinatario,
-    "direccion1_destinat_ne" => $direccion_destinatario,
     "SECTOR_DESTINAT_NE" => "",
     "TELEFONO1_DESTINAT_NE" => $telefono_destinatario,
     "TELEFONO2_DESTINAT_NE" => "",
@@ -59,9 +58,9 @@ $data = array(
     "CORREO_DESTINATARIO" => "desarrollo1@imporfactoryusa.com",
     "ID_REMITENTE_CL" => "001remi",
     "RAZON_SOCIAL_REMITE" => $razon_social_remitente,
-    "NOMBRE_REMITENTE" => $nombre_remitente,
-    "APELLIDO_REMITE" =>    $apellido_remitente,
-    "DIRECCION1_REMITE" => $direccion_remitente,
+    "NOMBRE_REMITENTE" => "$nombre_remitente",
+    "APELLIDO_REMITE" =>    "$apellido_remitente",
+    "DIRECCION1_REMITE" => "$direccion_remitente",
     "SECTOR_REMITE" => "",
     "TELEFONO1_REMITE" => $telefono_remitente,
     "TELEFONO2_REMITE" => "",
@@ -93,6 +92,8 @@ $data = array(
     "DETALLE_ITEMS_FACTURA" => "PRUEBAS SISTEMAS",
 
 );
+
+print_r($data);
 
 
 // Convertir los datos al formato JSON
