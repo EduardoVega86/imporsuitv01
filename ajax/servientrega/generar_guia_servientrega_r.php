@@ -15,7 +15,7 @@ if (isset($_POST['apellido_destinatario'])) {
 $direccion_destinatario = $_POST['direccion'];
 $telefono_destinatario = $_POST['celular'];
 
-$razon_social_remitente = "Servientrega Ecuador S.A.";
+$razon_social_remitente = "IMPORCOMEX S.A.";
 $nombre_remitente = $_POST['nombre_remitente'];
 $apellido_remitente = $_POST['apellido_remitente'];
 $direccion_remitente = $_POST['direccion_remitente'];
@@ -80,7 +80,7 @@ $data = array(
     "ID_CL" => 0,
     "VERIFICAR_CONTENIDO_RECAUDO" => "",
     "VALIDADOR_RECAUDO" => "D",
-    "DIRECCION_RECAUDO" => $ciudad_texto,
+    "DIRECCION_RECAUDO" => $direccion_destinatario,
     "FECHA_FACTURA" => $fecha,
     "NUMERO_FACTURA" => "002584154154",
     "VALOR_FACTURA" => $valor_mercancia,
