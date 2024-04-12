@@ -9,7 +9,7 @@ $authData = array(
 
 $guia = $_POST['guia'];
 
-if (strpos($guia, "IMP") !== 0) {
+if (strpos($guia, "IMP") !== 0 && !is_numeric($guia)) {
     $authUrl = "https://fast.imporsuit.com/GenerarGuia/anular/" . $guia;
     $authHeaders = array(
         'accept: application/json',
@@ -68,7 +68,7 @@ if (strpos($guia, "IMP") !== 0) {
 
     $response = curl_exec($ch);
     echo $response;
-
+    curl_close($ch);
     return;
 }
 
