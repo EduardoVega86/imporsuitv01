@@ -88,6 +88,7 @@ while ($row = mysqli_fetch_array($query)) {
         flex-direction: column;
       }
     }
+
     .list-group-item {
       background-color: transparent;
       /* Esto hará que el fondo sea transparente */
@@ -277,6 +278,7 @@ while ($row = mysqli_fetch_array($query)) {
         position: static;
         /* Para compatibilidad con Safari */
       }
+
       .list-group {
         flex-direction: row !important;
         padding-top: 10px;
@@ -526,69 +528,114 @@ if ($formato == 3) {
                 </a>
                 <!-- condiciones para imagenes adicionales -->
                 <!-- url1 -->
-                <?php if (!empty($url_a1)) { ?>
-                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
-                    <img src="<?php
-                              $subcadena = "http";
-                              if (strpos(strtolower($url_a1), strtolower($subcadena)) === 0) {
-                              ?>
-                   <?php echo  $url_a1 . '"'; ?>
-                   <?php } else { ?>
-                    sysadmin/<?php echo str_replace("../..", "", $url_a1) ?>" <?php } ?> class="img-thumbnail">
-                  </a>
-                <?php } ?>
+                <?php
+                $subcadena = "http";
+                // Verifica si la URL es una dirección externa
+                if (strpos(strtolower($url_a1), strtolower($subcadena)) === 0) {
+                  // Es una URL externa, asumimos que la imagen existe
+                  if (!empty($url_a1)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $url_a1; ?>" class="img-thumbnail">
+                    </a>
+                  <?php }
+                } else {
+                  // Es una ruta local, verificamos si el archivo existe
+                  $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a1);
+                  if (!empty($url_a1) && file_exists($rutaLocal)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
+                    </a>
+                <?php }
+                }
+                ?>
 
                 <!-- url2 -->
-                <?php if (!empty($url_a2)) { ?>
-                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
-                    <img src="<?php
-                              $subcadena = "http";
-                              if (strpos(strtolower($url_a2), strtolower($subcadena)) === 0) {
-                              ?>
-                   <?php echo  $url_a2 . '"'; ?>
-                   <?php } else { ?>
-                    sysadmin/<?php echo str_replace("../..", "", $url_a2) ?>" <?php } ?> class="img-thumbnail">
-                  </a>
-                <?php } ?>
+                <?php
+                $subcadena = "http";
+                // Verifica si la URL es una dirección externa
+                if (strpos(strtolower($url_a2), strtolower($subcadena)) === 0) {
+                  // Es una URL externa, asumimos que la imagen existe
+                  if (!empty($url_a2)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $url_a2; ?>" class="img-thumbnail">
+                    </a>
+                  <?php }
+                } else {
+                  // Es una ruta local, verificamos si el archivo existe
+                  $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a2);
+                  if (!empty($url_a2) && file_exists($rutaLocal)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
+                    </a>
+                <?php }
+                }
+                ?>
 
                 <!-- url3 -->
-                <?php if (!empty($url_a3)) { ?>
-                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
-                    <img src="<?php
-                              $subcadena = "http";
-                              if (strpos(strtolower($url_a3), strtolower($subcadena)) === 0) {
-                              ?>
-                   <?php echo  $url_a3 . '"'; ?>
-                   <?php } else { ?>
-                    sysadmin/<?php echo str_replace("../..", "", $url_a3) ?>" <?php } ?> class="img-thumbnail">
-                  </a>
-                <?php } ?>
+                <?php
+                $subcadena = "http";
+                // Verifica si la URL es una dirección externa
+                if (strpos(strtolower($url_a3), strtolower($subcadena)) === 0) {
+                  // Es una URL externa, asumimos que la imagen existe
+                  if (!empty($url_a3)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $url_a3; ?>" class="img-thumbnail">
+                    </a>
+                  <?php }
+                } else {
+                  // Es una ruta local, verificamos si el archivo existe
+                  $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a3);
+                  if (!empty($url_a3) && file_exists($rutaLocal)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
+                    </a>
+                <?php }
+                }
+                ?>
 
                 <!-- url4 -->
-                <?php if (!empty($url_a4)) { ?>
-                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
-                    <img src="<?php
-                              $subcadena = "http";
-                              if (strpos(strtolower($url_a4), strtolower($subcadena)) === 0) {
-                              ?>
-                      <?php echo  $url_a4 . '"'; ?>
-                      <?php } else { ?>
-                        sysadmin/<?php echo str_replace("../..", "", $url_a4) ?>" <?php } ?> class="img-thumbnail">
-                  </a>
-                <?php } ?>
+                <?php
+                $subcadena = "http";
+                // Verifica si la URL es una dirección externa
+                if (strpos(strtolower($url_a4), strtolower($subcadena)) === 0) {
+                  // Es una URL externa, asumimos que la imagen existe
+                  if (!empty($url_a4)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $url_a4; ?>" class="img-thumbnail">
+                    </a>
+                  <?php }
+                } else {
+                  // Es una ruta local, verificamos si el archivo existe
+                  $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a4);
+                  if (!empty($url_a4) && file_exists($rutaLocal)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
+                    </a>
+                <?php }
+                }
+                ?>
 
                 <!-- url5 -->
-                <?php if (!empty($url_a5)) { ?>
-                  <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
-                    <img src="<?php
-                              $subcadena = "http";
-                              if (strpos(strtolower($url_a5), strtolower($subcadena)) === 0) {
-                              ?>
-                      <?php echo  $url_a5 . '"'; ?>
-                      <?php } else { ?>
-                        sysadmin/<?php echo str_replace("../..", "", $url_a5) ?>" <?php } ?> class="img-thumbnail">
-                  </a>
-                <?php } ?>
+                <?php
+                $subcadena = "http";
+                // Verifica si la URL es una dirección externa
+                if (strpos(strtolower($url_a5), strtolower($subcadena)) === 0) {
+                  // Es una URL externa, asumimos que la imagen existe
+                  if (!empty($url_a5)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $url_a5; ?>" class="img-thumbnail">
+                    </a>
+                  <?php }
+                } else {
+                  // Es una ruta local, verificamos si el archivo existe
+                  $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a5);
+                  if (!empty($url_a5) && file_exists($rutaLocal)) { ?>
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                      <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
+                    </a>
+                <?php }
+                }
+                ?>
                 <!-- Final de condiciones -->
                 <!-- Repite para otras miniaturas -->
               </div>
@@ -864,22 +911,22 @@ if ($formato == 3) {
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="assets/js/custom_1.js"></script>
   <script>
-      window.onscroll = function() {
-         var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
-         var logo = document.getElementById("navbarLogo");
-         logo.style.maxHeight = "60px"; // o el tamaño que desees para el logo
-         logo.style.maxWidth = "60px"; // o el tamaño que desees para el logo
-         if (window.pageYOffset > 100) {
-            nav.style.height = "70px";
-            // Aquí también puedes cambiar otros estilos si es necesario, como el tamaño del logo o de la fuente
-         } else {
-            nav.style.height = "100px";
-            logo.style.maxHeight = "100px"; // tamaño original del logo
-            logo.style.maxWidth = "100px"; // tamaño original del logo
-            // Restablece los estilos si el usuario vuelve a la parte superior de la página
-         }
-      };
-   </script>
+    window.onscroll = function() {
+      var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
+      var logo = document.getElementById("navbarLogo");
+      logo.style.maxHeight = "60px"; // o el tamaño que desees para el logo
+      logo.style.maxWidth = "60px"; // o el tamaño que desees para el logo
+      if (window.pageYOffset > 100) {
+        nav.style.height = "70px";
+        // Aquí también puedes cambiar otros estilos si es necesario, como el tamaño del logo o de la fuente
+      } else {
+        nav.style.height = "100px";
+        logo.style.maxHeight = "100px"; // tamaño original del logo
+        logo.style.maxWidth = "100px"; // tamaño original del logo
+        // Restablece los estilos si el usuario vuelve a la parte superior de la página
+      }
+    };
+  </script>
 
   <script>
     $(document).ready(function() {

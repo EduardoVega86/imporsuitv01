@@ -68,7 +68,7 @@ $domain = $_SERVER['HTTP_HOST'];
                   <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria.php">Catálogo</a>
+                  <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria_1.php">Catálogo</a>
                </li>
 
             </ul>
@@ -306,11 +306,11 @@ $domain = $_SERVER['HTTP_HOST'];
                      <div class="category-container d-flex flex-column align-items-center">
                         <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
                                                                                                 ?>');"></div> -->
-                        <a href="categoria.php?id_cat=<?php echo $id_linea ?>" class="category-link">
+                        <a href="categoria_1.php?id_cat=<?php echo $id_linea ?>" class="category-link">
                            <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path); ?>');"></div>
                         </a>
 
-                        <a class="btn category-button boton texto_boton" style="border-radius: 0.5rem;" href="categoria.php?id_cat=<?php echo $id_linea ?>" role="button">
+                        <a class="btn category-button boton texto_boton" style="border-radius: 0.5rem;" href="categoria_1.php?id_cat=<?php echo $id_linea ?>" role="button">
                            <?php echo $nombre_linea; ?>
                         </a>
                      </div>
@@ -445,7 +445,7 @@ $domain = $_SERVER['HTTP_HOST'];
                                  <?php } ?>
                               </div>
                            </div>
-                           <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton texto_boton mt-2" href="producto.php?id=<?php echo $id_producto ?>">Comprar</a>
+                           <a style="z-index:2; height: 40px; font-size: 16px" class="btn boton texto_boton mt-2" href="producto_1.php?id=<?php echo $id_producto ?>">Comprar</a>
                         </div>
 
                      </div>
@@ -518,7 +518,7 @@ $domain = $_SERVER['HTTP_HOST'];
                            </div>
                            <div>
                               <h5 class="card-title card-title_icon"><?php echo $texto ?></h5>
-                              <p class="card-text card-text_icon"><?php echo $subtexto_icon ?></p>
+                              <p class="card-text card-text_icon" style="font-size: 12px;"><?php echo $subtexto_icon ?></p>
                            </div>
                         </div>
                      </div>
@@ -564,14 +564,13 @@ $domain = $_SERVER['HTTP_HOST'];
                   $image_path = $row['imagen'];
                   //$image_path = 'https://cdn.icon-icons.com/icons2/2633/PNG/512/office_gallery_image_picture_icon_159182.png';
                ?>
-                  <div class="item">
-                     <div class="category-container d-flex flex-column align-items-center">
-                        <!-- <div class="category-image" style="background-image: url('sysadmin/<?php //echo str_replace("../..", "", $image_path) 
-                                                                                                ?>');"></div> -->
-                        <div class="category-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path)
-                                                                                                            ?>');"></div>
-                        <p class="card-text flex-grow-1"><strong><?php echo $nombre_testimonio ?></strong></p>
-                        <p class="card-text flex-grow-1"><?php echo $testimonio ?></p>
+                  <div class="item d-flex flex-column">
+                     <div class="testimonios-container">
+                        <div class="testimonios-image rounded-circle" style="background-image: url('sysadmin/<?php echo str_replace("../..", "", $image_path); ?>');">
+                           <!-- Imagen del testimonio -->
+                        </div>
+                        <p class="card-text"><strong><?php echo $nombre_testimonio; ?></strong></p>
+                        <p class="card-text testimonio-text"><?php echo $testimonio; ?></p>
                      </div>
                   </div>
                <?php } ?>
