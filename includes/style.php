@@ -400,10 +400,12 @@
 <style>
   .carousel-item {
     /* Elimina la altura fija para todas las resoluciones */
-  min-height: 300px; /* Altura mínima para asegurarse de que se vea bien en pantallas pequeñas */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain; /* Cambia 'cover' por 'contain' para asegurar que la imagen se vea entera */
+    min-height: 300px;
+    /* Altura mínima para asegurarse de que se vea bien en pantallas pequeñas */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    /* Cambia 'cover' por 'contain' para asegurar que la imagen se vea entera */
   }
 
   .carousel-item {
@@ -414,6 +416,7 @@
   @media (max-width: 768px) {
     .carousel-item {
       height: auto !important;
+      min-height: 130px;
     }
   }
 
@@ -1213,30 +1216,41 @@
   }
 
   /* Estilo base para tus opciones, haciendo el fondo transparente y quitando estilos de botón */
-.option {
-  background: transparent; /* Fondo transparente */
-  border: none; /* Sin bordes */
-  color: #333; /* Color del texto */
-  padding: 10px 20px; /* Espaciado interno */
-  text-align: left; /* Alineación del texto a la izquierda */
-  display: block; /* Ocupa todo el ancho disponible */
-  width: 100%;
-  box-sizing: border-box; /* Para incluir padding en el ancho total */
-  transition: background-color 0.3s; /* Transición suave del fondo */
-}
+  .option {
+    background: transparent;
+    /* Fondo transparente */
+    border: none;
+    /* Sin bordes */
+    color: #333;
+    /* Color del texto */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    text-align: left;
+    /* Alineación del texto a la izquierda */
+    display: block;
+    /* Ocupa todo el ancho disponible */
+    width: 100%;
+    box-sizing: border-box;
+    /* Para incluir padding en el ancho total */
+    transition: background-color 0.3s;
+    /* Transición suave del fondo */
+  }
 
-/* Estilo para cuando se pasa el mouse por encima de las opciones */
-.option:hover {
-  background-color: #e2e2e2; /* Color de fondo al hacer hover */
-}
+  /* Estilo para cuando se pasa el mouse por encima de las opciones */
+  .option:hover {
+    background-color: #e2e2e2;
+    /* Color de fondo al hacer hover */
+  }
 
-/* Estilo para la opción seleccionada */
-.option.selected {
-  background-color: #ddd; /* Fondo de la opción seleccionada */
-}
+  /* Estilo para la opción seleccionada */
+  .option.selected {
+    background-color: #ddd;
+    /* Fondo de la opción seleccionada */
+  }
 
-/* Remueve el estilo de botón al hacer clic */
-.option:focus {
-  outline: none; /* Remueve el contorno que aparece al enfocar */
-}
+  /* Remueve el estilo de botón al hacer clic */
+  .option:focus {
+    outline: none;
+    /* Remueve el contorno que aparece al enfocar */
+  }
 </style>
