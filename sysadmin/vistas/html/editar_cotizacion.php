@@ -1188,7 +1188,7 @@ while ($r = $query->fetch_object()) {
                 success: function(response) {
 
                     if (response == 'ok') {
-                        // location.reload();
+                        location.reload();
                     } else {
                         alert(response)
                     }
