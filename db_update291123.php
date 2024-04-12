@@ -2262,6 +2262,8 @@ mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TP', 
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TL' WHERE `ciudad_cotizacion`.`id_cotizacion` = 618;");
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `cobertura_laar` = '1', `trayecto_laar`= 'TP' WHERE `ciudad_cotizacion`.`id_cotizacion` = 115;");
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TE' WHERE `ciudad_cotizacion`.`id_cotizacion` = 230;");
+mysqli_query($conexion, "ALTER TABLE `users` ADD `cedula_facturacion` VARCHAR(13) NOT NULL AFTER `fecha_actualizacion`, ADD `correo_facturacion` VARCHAR(150) NOT NULL AFTER `cedula_facturacion`, ADD `direccion_facturacion` VARCHAR(200) NOT NULL AFTER `correo_facturacion`;");
+
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
