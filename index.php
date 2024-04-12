@@ -668,7 +668,7 @@ $domain = $_SERVER['HTTP_HOST'];
                      $nombre_politica       = $row['nombre'];
                      $id_politica       = $row['id_politica'];
                   ?>
-                     <li><a href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
+                     <li><a style="text-decoration: none; color:#5a5a5a" href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
                   <?php } ?>
                </ul>
             </div>
@@ -707,7 +707,7 @@ $domain = $_SERVER['HTTP_HOST'];
             </div>
          <?php } ?>
       </footer>
-      <div class="text-center p-4">© 2024 IMPORSUIT S.A. | Todos los derechos reservados.
+      <div class="text-center p-4 derechos-autor">© 2024 IMPORSUIT S.A. | Todos los derechos reservados.
       </div>
 
 

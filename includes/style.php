@@ -1297,4 +1297,9 @@
     outline: none;
     /* Remueve el contorno que aparece al enfocar */
   }
+
+  .derechos-autor{
+    background-color: <?php echo get_row('perfil', 'color_footer', 'id_perfil', '1') ?>;
+    color: <?php echo get_row('perfil', 'texto_footer', 'id_perfil', '1') ?>;
+  }
 </style>
