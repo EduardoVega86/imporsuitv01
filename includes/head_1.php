@@ -72,6 +72,7 @@ $base_url = $protocol . '://' . $domain;
    </script>
    <noscript>
 <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=260280873723650&ev=PageView&noscript=1" /></noscript>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <!-- End Meta Pixel Code -->
 
    
