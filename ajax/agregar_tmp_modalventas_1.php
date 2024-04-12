@@ -211,7 +211,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                         </td>
                         <td style="width: 50%">
                             <div class="_rsi-modal-line-item-info">
-                                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721"><?php echo $nombre_producto; ?></a>
+                                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721" style="font-size: 15px;"><?php echo $nombre_producto; ?></a>
                             </div>
                         </td>
                         <td style="width: 10%">
@@ -230,7 +230,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         ?>
         </div>
         <div class="_rsi-build-block _rsi-build-block-totals-summary">
-            <div style="background-color: #e8ecef; padding: 20px; " class="_rsi-modal-checkout-lines">
+            <div style="background-color: #e8ecef; padding: 10px; " class="_rsi-modal-checkout-lines">
                 <table style="width: 100%">
 
                     <div class="" data-checkout-line="subtotal">

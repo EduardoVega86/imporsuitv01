@@ -403,8 +403,10 @@
     min-height: 300px;
     /* Altura mínima para asegurarse de que se vea bien en pantallas pequeñas */
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+    background-position: center center;
+    /* Centra la imagen */
+    background-size: cover;
+    /* Asegúrate de que la imagen cubra todo el contenedor */
     /* Cambia 'cover' por 'contain' para asegurar que la imagen se vea entera */
   }
 
@@ -416,7 +418,35 @@
   @media (max-width: 768px) {
     .carousel-item {
       height: auto !important;
-      min-height: 130px;
+      min-height: 120px;
+      background-position: center;
+      background-size: contain;
+    }
+
+    .carousel .carousel-caption h1 {
+        font-size: 20px; /* Tamaño del título más pequeño */
+        margin-bottom: 5px; /* Margen inferior reducido */
+    }
+
+    .carousel .carousel-caption p {
+        font-size: 14px; /* Tamaño del texto más pequeño */
+    }
+
+    .carousel .carousel-caption .btn {
+        font-size: 12px; /* Tamaño del botón más pequeño */
+        padding: 5px 10px; /* Padding del botón ajustado */
+    }
+
+    .carousel .carousel-caption {
+        text-align: center; /* Alineación del texto al centro */
+    }
+
+    .carousel .carousel-item {
+        background-size: cover; /* Asegura cobertura completa de la imagen de fondo */
+        /* ...otros estilos... */
+    }
+    .carousel-caption{
+      display: none;
     }
   }
 
@@ -523,6 +553,12 @@
     /* Color del título de la tarjeta */
   }
 
+  @media (max-width: 768px) {
+    .titulo_producto{
+      font-size: 13px;
+    }
+  }
+
   .card-text_icon {
     font-size: 0.9rem !important;
     /* Tamaño del texto de la tarjeta */
@@ -600,38 +636,44 @@
   /* testimonios */
 
   .testimonios-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding-left: 20;
-  padding-right: 20;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-left: 20;
+    padding-right: 20;
+  }
 
-/* Estilos de imagen de testimonio */
-.testimonios-image {
-  background-size: cover;
-  background-position: center;
-  width: 100px; /* Ajusta según el diseño */
-  height: 100px; /* Ajusta según el diseño */
-  border-radius: 50%;
-  margin-bottom: 15px;
-}
+  /* Estilos de imagen de testimonio */
+  .testimonios-image {
+    background-size: cover;
+    background-position: center;
+    width: 100px;
+    /* Ajusta según el diseño */
+    height: 100px;
+    /* Ajusta según el diseño */
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
 
-/* Estilos de texto de la tarjeta */
-.card-text {
-  margin-bottom: 10px;
-  padding: 0 10px;
-  word-wrap: break-word; /* Asegura que el texto se ajuste dentro del contenedor */
-}
+  /* Estilos de texto de la tarjeta */
+  .card-text {
+    margin-bottom: 10px;
+    padding: 0 10px;
+    word-wrap: break-word;
+    /* Asegura que el texto se ajuste dentro del contenedor */
+  }
 
-/* Estilos específicos para el texto del testimonio */
-.testimonio-text {
-  overflow-wrap: break-word;
-  word-break: break-word; /* Permite que la palabra se rompa y pase a la siguiente línea si es necesario */
-  hyphens: auto; /* Añade guiones cuando las palabras se rompen */
-  font-size: 12px;
-}
+  /* Estilos específicos para el texto del testimonio */
+  .testimonio-text {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    /* Permite que la palabra se rompa y pase a la siguiente línea si es necesario */
+    hyphens: auto;
+    /* Añade guiones cuando las palabras se rompen */
+    font-size: 12px;
+  }
+
   /* fin testimonios */
 
   /* CSS para cambiar el diseño de flechas del carrucel de categorias */
@@ -649,14 +691,16 @@
     top: 50%;
     transform: translateY(-50%);
     /* Establecer un tamaño adecuado para el botón si estás utilizando un icono más grande */
-    font-size: 25px; /* Aumenta el tamaño de los íconos */
+    font-size: 25px;
+    /* Aumenta el tamaño de los íconos */
   }
 
   /* También puedes aumentar el tamaño solo de los íconos, si estás usando FontAwesome u otra librería de íconos */
-.owl-carousel .owl-nav button.owl-prev i,
-.owl-carousel .owl-nav button.owl-next i {
-  font-size: 25px; /* Aumenta el tamaño de los íconos */
-}
+  .owl-carousel .owl-nav button.owl-prev i,
+  .owl-carousel .owl-nav button.owl-next i {
+    font-size: 25px;
+    /* Aumenta el tamaño de los íconos */
+  }
 
   .owl-carousel .owl-nav .owl-prev {
     left: -2px;
@@ -1298,7 +1342,7 @@
     /* Remueve el contorno que aparece al enfocar */
   }
 
-  .derechos-autor{
+  .derechos-autor {
     background-color: <?php echo get_row('perfil', 'color_footer', 'id_perfil', '1') ?>;
     color: <?php echo get_row('perfil', 'texto_footer', 'id_perfil', '1') ?>;
   }

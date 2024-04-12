@@ -10,6 +10,9 @@
      width: 35px;
      font-size: 20px;
    }
+   #datos {
+    padding: 5px !important; 
+   }
  </style>
  <div class="modal fade" style="font-size:15px; padding: 10px" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog">

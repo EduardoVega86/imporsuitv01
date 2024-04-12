@@ -239,14 +239,23 @@ while ($row = mysqli_fetch_array($query)) {
       display: flex;
     }
 
+    .ahorra {
+        font-size: 20px;
+      }
+
     /* Añade más estilos según sea necesario */
 
     /* Para dispositivos con un ancho de 768px o menos */
+    .precios_producto {
+      display: flex;
+      flex-direction: row;
+    }
+
     @media (max-width: 768px) {
       .content_left_right {
         display: flex;
         flex-direction: column;
-        max-width: 85%;
+        max-width: 100%;
         margin: 0 auto;
       }
 
@@ -254,6 +263,14 @@ while ($row = mysqli_fetch_array($query)) {
       .right-column {
         width: 100%;
         padding: 10px;
+      }
+
+      .precios_producto {
+        flex-direction: column;
+      }
+
+      .ahorra {
+        font-size: 15px;
       }
 
       .container {
@@ -664,7 +681,7 @@ if ($formato == 3) {
           <div class="caja px-5" style="width:100%" ;>
             <div class="product-title"><?php echo $nombre_producto ?></div>
             <br>
-            <div class="d-flex flex-row">
+            <div class="precios_producto">
               <div>
                 <span style="font-size: 20px; color:#4461ed; padding-right: 10px;">
                   <strong><?php echo get_row('perfil', 'moneda', 'id_perfil', 1) . number_format($precio_especial, 2); ?></strong>
@@ -683,7 +700,7 @@ if ($formato == 3) {
                 <div class="px-2" style="background-color: #4464ec; color:white; border-radius: 0.3rem;">
 
 
-                  <span style="font-size: 20px;"><i class="bx bxs-purchase-tag"></i>
+                  <span class="ahorra"><i class="bx bxs-purchase-tag"></i>
                     <strong>AHORRA UN <?php echo number_format(100 - ($precio_especial * 100 / $precio_normal)); ?>%</strong>
                   </span>
 
@@ -861,7 +878,7 @@ if ($formato == 3) {
             $nombre_politica       = $row['nombre'];
             $id_politica       = $row['id_politica'];
           ?>
-            <li><a href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
+            <li><a style="text-decoration: none; color:#5a5a5a" href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
           <?php } ?>
         </ul>
       </div>
@@ -901,7 +918,7 @@ if ($formato == 3) {
     <?php } ?>
 
   </footer>
-  <div class="text-center p-4" style="background-color: white;"><span> © 2019 IMPORSUIT S.A. | Todos los derechos reservados.</span>
+  <div class="text-center p-4 derechos-autor">© 2024 IMPORSUIT S.A. | Todos los derechos reservados.
   </div>
 
 

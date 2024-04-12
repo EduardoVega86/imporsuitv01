@@ -314,6 +314,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       background-color: rgba(255, 255, 255, .3);
       /* Opcional: cambia ligeramente el color de fondo al pasar el ratón por encima */
     }
+
+    /* Estilo sin imagen doble de producto*/
+    .image-sin-hover{
+      position: relative;
+    }
+    /* Fin estilo sin imagen doble de producto*/
+
+    /* Estilo imagen doble de producto*/
+    .img-container {
+      position: relative;
+    }
+
+    .img-container .hover-img {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: opacity 0.7s ease-in-out;
+      opacity: 0;
+      display: block !important;
+    }
+
+    .img-container:hover .hover-img {
+      opacity: 1;
+    }
+
+    .img-container:hover .primary-img {
+      opacity: 0;
+    }
+    /* Fin estilo imagen doble de producto*/
   </style>
   <?php
   include './includes/head_1.php';
@@ -753,40 +782,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               $date_added           = date('d/m/Y', strtotime($row['date_added']));
               $image_path           = $row['image_path'];
               $id_imp_producto      = $row['id_imp_producto'];
+              $url_a1            = $row['url_a1'];
 
             ?>
 
               <div class="col-6 col-md-4 col-lg-3" style="padding-bottom: 15px;">
                 <div class="card h-100" style="border-radius: 15px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
                   <!-- Use inline styles or a dedicated class in your stylesheet to set the aspect ratio -->
-                  <div class="img-container d-flex" style="aspect-ratio: 1 / 1; overflow: hidden; justify-content: center; align-items: center;">
-                    <img src=" <?php
-                                $subcadena = "http";
+                  <a href="producto_1.php?id=<?php echo $id_producto ?>" class="category-link">
 
-                                if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                                ?>
-               <?php echo  $image_path . '"'; ?>
-               <?php
-                                } else {
-                ?>
-                  sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                              }
-                                                                                ?> src="<?php
-                                                                                        $subcadena = "http";
+                    <?php
+                    // condicion para poner el hover si existe el secundario
+                    $secondaryImagePath2 = strpos(strtolower($url_a1), "http") === 0 ? $url_a1 : 'sysadmin/' . str_replace("../..", "", $url_a1);
+                    if (!empty($url_a1) && @getimagesize($secondaryImagePath2)) { // El @ suprime los errores si getimagesize falla
+                    ?>
+                      <div class="img-container d-flex" style="aspect-ratio: 1 / 1; overflow: hidden; justify-content: center; align-items: center;">
+                      <?php } else { ?>
+                        <div class="image-sin-hover d-flex" style="aspect-ratio: 1 / 1; overflow: hidden; justify-content: center; align-items: center;">
+                        <?php } ?>
 
-                                                                                        if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
-                                                                                        ?>
-                  <?php echo  $image_path . '"'; ?>
-                  <?php
-                                                                                        } else {
-                  ?>
-                  sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                                        }
-                                                                                ?> class="card-img-top" alt="Product Name" style="object-fit: cover; width: 80%; height: 80%;">
-                  </div>
+                        <img src="<?php echo strpos(strtolower($image_path), "http") === 0 ? $image_path : 'sysadmin/' . str_replace("../..", "", $image_path); ?>" class="card-img-top primary-img" alt="Nombre del Producto" style="object-fit: cover; width: 80%; height: 80%;">
+                        <?php
+                        // Suponiendo que $url_a1 es la URL de la imagen secundaria
+                        $secondaryImagePath = strpos(strtolower($url_a1), "http") === 0 ? $url_a1 : 'sysadmin/' . str_replace("../..", "", $url_a1);
+                        if (!empty($url_a1) && @getimagesize($secondaryImagePath)) { // El @ suprime los errores si getimagesize falla
+                        ?>
+                          <img src="<?php echo $secondaryImagePath; ?>" class="card-img-top hover-img" alt="Imagen Secundaria del Producto" style="object-fit: cover; width: 80%; height: 80%;">
+                        <?php } ?>
+                        </div>
+
+                  </a>
                   <div class="card-body d-flex flex-column">
-                    <a href="producto.php?id=<?php echo $id_producto ?>" style="text-decoration: none; color:black;">
-                      <h6 class="card-title"><?php echo $nombre_producto; ?></h6>
+                    <a href="producto_1.php?id=<?php echo $id_producto ?>" style="text-decoration: none; color:black;">
+                      <h6 class="card-title titulo_producto"><?php echo $nombre_producto; ?></h6>
                     </a>
                     <div class="product-footer mb-2">
 
@@ -807,24 +835,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       </div>
     </div>
-    <div class="marquee-container">
-      <div class="marquee">
-        <p>
-          <?php
-
-          $sql   = "SELECT * FROM  horizontal  where posicion=2";
-          $query = mysqli_query($conexion, $sql);
-          while ($row = mysqli_fetch_array($query)) {
-            $texto       = $row['texto'];
-            echo $texto . ' - ';
-          } ?>
-        </p>
-      </div>
-    </div>
-
-
-
-
+  
     <!-- FOOTER -->
     <!-- Botón flotante para WhatsApp -->
     <?php
@@ -890,7 +901,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               $nombre_politica       = $row['nombre'];
               $id_politica       = $row['id_politica'];
             ?>
-              <li><a href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
+              <li><a style="text-decoration: none; color:#5a5a5a" href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
             <?php } ?>
           </ul>
         </div>
@@ -929,7 +940,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
       <?php } ?>
     </footer>
-    <div class="text-center p-4">© 2024 IMPORSUIT S.A. | Todos los derechos reservados.
+    <div class="text-center p-4 derechos-autor">© 2024 IMPORSUIT S.A. | Todos los derechos reservados.
     </div>
 
 
