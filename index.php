@@ -204,6 +204,9 @@ $domain = $_SERVER['HTTP_HOST'];
                <!-- Slide principal -->
                <div class="carousel-item active" style="background-image: url('<?php echo 'sysadmin/vistas/ajax/' . $banner; ?>');">
                   <div class="container">
+                     <?php
+
+                     ?>
                      <div class="carousel-caption <?php echo $alineacion; ?>">
                         <h1><?php echo $titulo_slider; ?></h1>
                         <p><?php echo $texto_slider; ?></p>
@@ -215,10 +218,22 @@ $domain = $_SERVER['HTTP_HOST'];
                </div>
 
                <!-- Slides adicionales -->
-               <?php while ($slide = $resultadoAdicionales->fetch_assoc()) : ?>
+               <?php while ($slide = $resultadoAdicionales->fetch_assoc()) :
+
+                  $alineacion_slider_adicional = $slide['alineacion'];
+
+                  if ($alineacion_slider_adicional == 1 or $alineacion_slider_adicional == 0 or $alineacion_slider_adicional == "") {
+                     $alineacion_adicional = "text-start";
+                  }
+                  if ($alineacion_slider_adicional == 2) {
+                     $alineacion_adicional = "";
+                  }
+                  if ($alineacion_slider_adicional == 3) {
+                     $alineacion_adicional = "text-end";
+                  } ?>
                   <div class="carousel-item" style="background-image: url('<?php echo 'sysadmin/vistas/ajax/' . $slide['fondo_banner']; ?>'); object-fit: fill;">
                      <div class="container">
-                        <div class="carousel-caption text-start">
+                        <div class="carousel-caption <?php echo $alineacion_adicional; ?>">
                            <h1><?php echo $slide['titulo']; ?></h1>
                            <p><?php echo $slide['texto_banner']; ?></p>
                            <?php if (!empty($slide['texto_boton'])) { ?>
