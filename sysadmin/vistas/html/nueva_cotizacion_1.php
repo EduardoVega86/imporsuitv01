@@ -437,7 +437,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
             data.append("nombre_destino", document.getElementById('nombred').value);
             data.append("celular", document.getElementById('telefonod').value);
             data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
-            data.append("valor_total", Math.round(document.getElementById('valor_total_').value));
+            data.append("valor_total", document.getElementById('valor_total_').value)
             data.append("cantidad_total", document.getElementById('cantidad_total').value);
             data.append("costo_total", document.getElementById('costo_total').value);
             data.append("ciudad", document.getElementById('ciudad_entrega').value);
