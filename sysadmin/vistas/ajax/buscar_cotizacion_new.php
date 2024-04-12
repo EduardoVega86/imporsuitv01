@@ -460,7 +460,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                         $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row_guia('guia_laar', 'guia_laar', 'id_pedido', $id_factura . " and tienda_venta like '%" . $server_url . "%'");
                                                                                                                     }
                                                                                                                     $estado_guia_for = get_row('guia_laar', 'estado_guia', 'guia_laar', $guia_numero);
-                                                                                                                    if ($estado_guia_for != "0" && strpos($guia_numero, "FAST") !== 0) {
+                                                                                                                    if ($estado_guia_for != "0" && strpos($guia_numero, "IMP")) {
 
                                                                                                                         switch ($estado_guia_for) {
                                                                                                                             case '1':
@@ -553,6 +553,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 break;
                                                                                                                         }
                                                                                                                     } else if ($estado_guia_for != "0" && is_numeric($guia_numero)) {
+                                                                                                                        echo $guia_numero;
                                                                                                                         switch ($estado_guia_for) {
                                                                                                                             case '100':
                                                                                                                                 $span_estado = 'badge-purple';
