@@ -19,6 +19,11 @@ if (isset($_POST['precio_venta'])) {
 if (isset($_POST['descripcion_libre'])) {
     $descripcion_libre = $_POST['descripcion_libre'];
 }
+if (isset($_POST['valor_cantidad'])) {
+    $valor_cantidad = $_POST['valor_cantidad'];
+}else{
+    $valor_cantidad = 1;
+}
 //echo $descripcion_libre;
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     // consulta para comparar el stock con la cantidad resibida
@@ -31,13 +36,18 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     //Comprobamos si agregamos un producto a la tabla tmp_compra
     $comprobar = mysqli_query($conexion, "select * from tmp_ventas, productos where productos.id_producto = tmp_ventas.id_producto and tmp_ventas.id_producto='" . $id . "' and tmp_ventas.session_id='" . $session_id . "'");
     if ($row = mysqli_fetch_array($comprobar)) {
-        $cant = $row['cantidad_tmp'] + $cantidad;
+        if ( $valor_cantidad == 1){
+            $cant = $row['cantidad_tmp'] + 1;
+        }else{
+            $cant = $row['cantidad_tmp'] - 1;
+        }
+        
         // condicion si el stock e menor que la cantidad requerida
         if ($cant > $row['stock_producto'] and $inv == 0) {
-            echo "<script>swal('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
+            echo "<script>Swal.fire('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
             $('#resultados').load('../ajax/agregar_tmp.php');
             </script>";
-            exit;
+            
         } else {
             $sql          = "UPDATE tmp_ventas SET cantidad_tmp='" . $cant . "', precio_tmp='" . $precio_venta . "' WHERE id_producto='" . $id . "' and session_id='" . $session_id . "'";
             $query_update = mysqli_query($conexion, $sql);
@@ -48,10 +58,10 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     } else {
         // condicion si el stock e menor que la cantidad requerida
         if ($cantidad > $stock and $inv == 0) {
-            echo "<script>swal('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
+            echo "<script>Swal.fire('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
              $('#resultados').load('../ajax/agregar_tmp.php');
             </script>";
-            exit;
+            
         } else {
             //echo "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id, drogshipin_tmp) VALUES ('$id','$cantidad','$precio_venta','0','$session_id','$drogshipin_tmp')";
             $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id, drogshipin_tmp) VALUES ('$id','$cantidad','$precio_venta','0','$session_id','$drogshipin_tmp')");
@@ -121,13 +131,13 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         //echo $total_impuesto.'<br>';
     ?>
 
-    
+
         <div class="_rsi-modal-line-item" data-line-item-variant-id="45622098493721">
             <div class="_rsi-modal-line-item-image-container">
                 <table style="width: 100%">
                     <tr>
                         <td style="width: 20%">
-                <img style="width: 67px" src="
+                            <img style="width: 67px" src="
                              
                               <?php
                                 $subcadena = "http";
@@ -141,54 +151,110 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
     sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                 }
                                                                     ?> class="_rsi-modal-line-item-image">
-                        </td><td style="width: 10%">
-                <div class="_rsi-modal-line-item-quantity"><?php echo $cantidad; ?></div>
+                        </td>
+                        <td style="width: 10%">
+                        <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-decrementar" data-id="<?php echo $id_producto; ?>">-</button>
+                                </span>
+                                <input type="text" name="cantidad[<?php echo $id_producto; ?>]" class="form-control input-cantidad" value="<?php echo $cantidad; ?>" data-id="<?php echo $id_producto; ?>" data-precio="<?php echo $precio_venta_unitario; ?>">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-incrementar" data-id="<?php echo $id_producto; ?>">+</button>
+                                </span>
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    function actualizarCantidad(id, cantidad, valor_cantidad) {
+                                        var precio = $("input[name='cantidad[" + id + "]']").data('precio');
+                                        var sesion = $("#session").val();
+                                        // Realizar petición AJAX para actualizar cantidad
+                                        $.ajax({
+                                            url: 'ajax/agregar_tmp_modalventas_1.php',
+                                            method: 'POST',
+                                            data: {
+                                                id: id,
+                                                cantidad: cantidad,
+                                                precio_venta: precio,
+                                                sesion: sesion,
+                                                valor_cantidad
+                                            },
+                                            success: function(response) {
+                                                $("#resultados").html(response);
+                                                // Actualizar también los totales aquí si es necesario
+                                            },
+                                            error: function(error) {
+                                                console.error(error);
+                                            }
+                                        });
+                                    }
+
+                                    // Asignación de eventos para botones de incrementar y decrementar
+                                    $('.btn-decrementar').click(function() {
+                                        var id = $(this).data('id');
+                                        var inputCantidad = $("input[name='cantidad[" + id + "]']");
+                                        var cantidadActual = parseInt(inputCantidad.val());
+                                        if (cantidadActual > 1) {
+                                            actualizarCantidad(id, cantidadActual - 1,2);
+                                            inputCantidad.val(cantidadActual - 1);
+                                        }
+                                    });
+
+                                    $('.btn-incrementar').click(function() {
+                                        var id = $(this).data('id');
+                                        var inputCantidad = $("input[name='cantidad[" + id + "]']");
+                                        var cantidadActual = parseInt(inputCantidad.val());
+                                        actualizarCantidad(id, cantidadActual + 1,1);
+                                        inputCantidad.val(cantidadActual + 1);
+                                    });
+                                });
+                            </script>
                         </td>
                         <td style="width: 50%">
-            <div class="_rsi-modal-line-item-info">
-                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721"><?php echo $nombre_producto; ?></a>
-            </div>
-                            </td>
-                            <td style="width: 10%">
-            <div class="_rsi-modal-line-item-final-price"><?php echo $simbolo_moneda . number_format($final_items, 2); ?></div></td>
-                            <td style="width: 10%">
-            &nbsp;&nbsp;&nbsp;<a href="#" class=' btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>')">x</a></td>
- <tr>        
-</table>
-        </div><br>
+                            <div class="_rsi-modal-line-item-info">
+                                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721"><?php echo $nombre_producto; ?></a>
+                            </div>
+                        </td>
+                        <td style="width: 10%">
+                            <div class="_rsi-modal-line-item-final-price"><?php echo $simbolo_moneda . number_format($final_items, 2); ?></div>
+                        </td>
+                        <td style="width: 10%">
+                            &nbsp;&nbsp;&nbsp;<a href="#" class=' btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>')">x</a></td>
+                    <tr>
+                </table>
+            </div><br>
 
-    <?php
+        <?php
     }
     $total_factura = $subtotal + $total_impuesto;
 
-    ?>
-</div>
-<div class="_rsi-build-block _rsi-build-block-totals-summary">
-    <div style="background-color: #e8ecef; padding: 20px; " class="_rsi-modal-checkout-lines">
-        <table style="width: 100%">
-            
-        <div class="" data-checkout-line="subtotal">
-            <span style="text-align: left" class="">Subtotal</span>
-            <span style="float: right" class=""><?php echo $simbolo_moneda . number_format($total_factura, 2); ?></span>
+        ?>
         </div>
-       
-        <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
-            <span class="_rsi-modal-checkout-line-title">Envío</span>
-            <strong style="float: right" class="">Gratis</strong>
+        <div class="_rsi-build-block _rsi-build-block-totals-summary">
+            <div style="background-color: #e8ecef; padding: 20px; " class="_rsi-modal-checkout-lines">
+                <table style="width: 100%">
+
+                    <div class="" data-checkout-line="subtotal">
+                        <span style="text-align: left" class="">Subtotal</span>
+                        <span style="float: right" class=""><?php echo $simbolo_moneda . number_format($total_factura, 2); ?></span>
+                    </div>
+
+                    <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
+                        <span class="_rsi-modal-checkout-line-title">Envío</span>
+                        <strong style="float: right" class="">Gratis</strong>
+                    </div>
+                    <hr>
+                    <div class="" data-checkout-line="total" data-order-total="2999" data-partial-total-for-checkout="2999">
+                        <strong class="">Total</strong><strong style="float: right" class=""><?php echo $simbolo_moneda . number_format($total_factura, 2); ?></strong>
+                    </div>
+                </table>
+            </div>
         </div>
-            <hr>
-        <div class="" data-checkout-line="total" data-order-total="2999" data-partial-total-for-checkout="2999">
-            <strong class="">Total</strong><strong style="float: right" class=""><?php echo $simbolo_moneda . number_format($total_factura, 2); ?></strong>
-        </div>
-        </table>
-    </div>
-</div>
 
 
 
-<script></script>
-<script>
-    //alert()
+        <script></script>
+        <script>
+            //alert()
 
-    $("#total_carrito").text(<?php echo $cantidad_total; ?>)
-</script>
+            $("#total_carrito").text(<?php echo $cantidad_total; ?>)
+        </script>

@@ -863,7 +863,7 @@ if ($formato == 3) {
   <script src="js_nuevo/bootstrap.bundle.min.js" type="text/javascript"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="assets/js/custom_1.js"></script>
-  <<script>
+  <script>
       window.onscroll = function() {
          var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
          var logo = document.getElementById("navbarLogo");

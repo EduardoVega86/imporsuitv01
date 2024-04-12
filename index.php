@@ -230,6 +230,7 @@ $domain = $_SERVER['HTTP_HOST'];
                <?php endwhile; ?>
             </div>
 
+
             <!-- Controles -->
             <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
