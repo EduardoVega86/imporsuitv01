@@ -336,7 +336,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 
           </div>
           <!-- Modal -->
-          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
@@ -345,7 +345,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                 </div>
                 <div class="modal-body mb-3 px-4">
                   <span class="text-muted">
-                    <p class="text-justify">Estimado usuario, estamos transicionando hacia una nueva version, por lo cual hemos detectado que el correo de acceso no ha sido modificado, recomandamos poner su correo de registro.</p>
+                    <p class="text-justify">Estimado usuario, estamos transicionando hacia una nueva version, por lo cual hemos detectado que nos faltan algunos datos para facturación, recomandamos llenar los datos.</p>
                   </span>
                 </div>
                 <div class="px-3">
@@ -353,6 +353,14 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                     <div class="mb-3">
                       <label for="email">Correo</label>
                       <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                      <label for="cedula">Cédula</label>
+                      <input type="text" class="form-control" id="cedula" aria-describedby="cedulaHelp">
+                    </div>
+                    <div class="mb-3">
+                      <label for="direccion">Dirección</label>
+                      <input type="text" class="form-control" id="direccion" aria-describedby="direccionHelp">
                     </div>
                     <div class="mb-3 d-grid">
                       <button type="submit" class="btn btn-primary btn-block">Guardar</button>
@@ -710,6 +718,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 
 <script>
   var item = localStorage.getItem('email');
+
   if (item == null) {
     $.ajax({
       url: '../ajax/actualizar_email.php',
@@ -727,6 +736,30 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
     })
   } else if (item === "root@admin.com") {
     localStorage.removeItem('email');
+  } else {
+    console.log("xd");
+    if (!validarEmail(item)) {
+      $.ajax({
+        url: '../ajax/actualizar_email.php',
+        data: {
+          'action': 'ajax'
+        },
+        dataType: 'json',
+        async: false,
+        success: function(response) {
+          localStorage.setItem('email', response.email);
+          if (response.status == "cambio") {
+            $('#staticBackdrop').modal('show');
+          }
+        }
+      })
+
+    }
+  }
+
+  function validarEmail(email) {
+    var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(email);
   }
 
 
@@ -750,12 +783,16 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
   function modificar_email(e) {
     e.preventDefault();
     var email = $("#email").val();
+    var cedula = $("#cedula").val();
+    var direccion = $("#direccion").val();
     $.ajax({
       type: 'POST',
       url: '../ajax/actualizar_email.php',
       contentType: 'application/json', // Especifica el tipo de contenido
       data: JSON.stringify({ // Convierte los datos a una cadena JSON
         email: email,
+        cedula: cedula,
+        direccion: direccion,
         action: 'ajax'
       }),
       dataType: 'json',
