@@ -1,271 +1,347 @@
+<?php
+session_start();
+require_once "sysadmin/vistas/db.php";
+require_once "sysadmin/vistas/php_conexion.php";
+require_once "sysadmin/vistas/funciones.php";
+// echo 'sysadmin/vistas/ajax/banner/'.get_row('perfil', 'banner', 'id_perfil', 1);
+
+$pagina = 'INICIO';
+
+include './includes/style.php';
+$id_politica = $_GET['id'];
+
+
+// Obtener el protocolo (http o https)
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+
+// Obtener el dominio (nombre de host)
+$domain = $_SERVER['HTTP_HOST'];
+
+
+?>
 <!doctype html>
+<html lang="es">
+
+<head>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding-bottom: 0 !important;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1 0 auto;
+      /* La página principal ocupa el espacio necesario */
+    }
+
+    .footer-contenedor {
+      flex-shrink: 0;
+      /* Esto asegura que el footer no se encoja */
+    }
+  </style>
+
   <?php
-   session_start();
-   
-   require_once "sysadmin/vistas/db.php";
-       require_once "sysadmin/vistas/php_conexion.php";
-       require_once "sysadmin/vistas/funciones.php";
-      // echo 'sysadmin/vistas/ajax/banner/'.get_row('perfil', 'banner', 'id_perfil', 1);
-         $id_producto='';  
-       $pagina='inicio';   
-       include './auditoria.php';
-       include './includes/style.php';
-   $id_politica=$_GET['id'];
-       ?>
+  include './includes/head_1.php';
+  ?>
+  <link href="css_nuevo/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <!-- librerias para el carrusel-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- Fin librerias para el carrusel-->
 
-<html class="no-js" lang="es">
-   <?php
-   include 'includes/head.php'
-   ?>
-<body class="gradient">
-    
+  <meta name="theme-color" content="#7952b3">
 
 
 
+  <link href="css_nuevo/carousel.css" rel="stylesheet" type="text/css" />
+</head>
 
+<body>
 
-<style>
-  .drawer {
-    visibility: hidden;
-  }
-  
-</style>
+  <header>
+    <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
+      <div class="container">
+        <!-- Logo en el centro para todas las vistas -->
+        <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="<?php echo $protocol ?>://<?php echo $domain ?>"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
+                                                                                                                                                                                                                        if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
+                                                                                                                                                                                                                          echo "assets/img/imporsuit.png";
+                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                          echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        ?>" alt="Imagen" /></a></a>
 
-<?php
-         include 'includes/carrito.php';
-         ?>
-
-
-<!-- BEGIN sections: header-group -->
-<div id="shopify-section-sections--20805847122201__2c2ec774-3430-481f-b927-e9c035b9d24e" class="shopify-section shopify-section-group-header-group">
-         <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-tickers.css?v=30346802988262109031693673627" rel="stylesheet" type="text/css" media="all" />
-         <?php include './includes/flotante.php' ?>
-         <!-- <div class="horizontal-ticker__inner"> -->
-         <?php
-            include 'includes/horizontal_items.php';
-            ?>
-         <!-- </div> -->
+        <button class="navbar-toggler" id="menuButton">
+          <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
+        </button>
       </div>
-<!-- comment -->
-<div id="shopify-section-sections--20805847122201__header" class="shopify-section shopify-section-group-header-group section-header">
-         <link href="ccs/component-list-menu.css" rel="stylesheet" type="text/css"/>
-         <link rel="stylesheet" href="ccs/component-list-menu.css?v=151968516119678728991693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="ccs/component-search.css?v=184225813856820874251693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="ccs/component-menu-drawer.css?v=183501262910778191901693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="ccs/component-cart-notification.css?v=137625604348931474661693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="ccs/component-cart-items.css?v=68325217056990975251693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="ccs/component-price.css?v=183165605081763449011693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="ccs/component-loading-overlay.css?v=167310470843593579841693673627" media="print" onload="this.media='all'">
-         <link href="ccs/component-cart-drawer.css?v=103351759924144934211693673627" rel="stylesheet" type="text/css" media="all" />
-         <link href="ccs/component-cart.css?v=183883492810467818381693673627" rel="stylesheet" type="text/css" media="all" />
-         <link href="ccs/component-totals.css?v=54425048278126878361693673627" rel="stylesheet" type="text/css" media="all" />
-         <link href="ccs/component-price.css?v=183165605081763449011693673627" rel="stylesheet" type="text/css" media="all" />
-         <link href="ccs/component-discounts.css?v=152760482443307489271693673627" rel="stylesheet" type="text/css" media="all" />
-         <link href="ccs/component-loading-overlay.css?v=167310470843593579841693673627" rel="stylesheet" type="text/css" media="all" />
-         <noscript>
-            <link href="ccs/component-list-menu.css?v=151968516119678728991693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="ccs/component-search.css?v=184225813856820874251693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="ccs/component-menu-drawer.css?v=183501262910778191901693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="ccs/component-cart-notification.css?v=137625604348931474661693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="ccs/component-cart-items.css?v=68325217056990975251693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <script src="js/details-disclosure.js?v=153497636716254413831693673628" defer="defer"></script>
-         <script src="js/details-modal.js?v=4511761896672669691693673628" defer="defer"></script>
-         <script src="js/cart-notification.js?v=160453272920806432391693673626" defer="defer"></script>
-         <script src="js/cart.js" type="text/javascript"></script>
-         <script src="js/search-form.js?v=113639710312857635801693673628" defer="defer"></script>
-         <script src="//tiendamiaec.com/cdn/shop/t/3/assets/cart-drawer.js?v=44260131999403604181693673626" defer="defer"></script>
-         <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
-            <symbol id="icon-search" viewbox="0 0 18 19" fill="none">
-               <path fill-rule="evenodd" clip-rule="evenodd" d="M11.03 11.68A5.784 5.784 0 112.85 3.5a5.784 5.784 0 018.18 8.18zm.26 1.12a6.78 6.78 0 11.72-.7l5.4 5.4a.5.5 0 11-.71.7l-5.41-5.4z" fill="currentColor"/>
-            </symbol>
-            <symbol id="icon-reset" class="icon icon-close"  fill="none" viewBox="0 0 18 18" stroke="currentColor">
-               <circle r="8.5" cy="9" cx="9" stroke-opacity="0.2"/>
-               <path d="M6.82972 6.82915L1.17193 1.17097" stroke-linecap="round" stroke-linejoin="round" transform="translate(5 5)"/>
-               <path d="M1.22896 6.88502L6.77288 1.11523" stroke-linecap="round" stroke-linejoin="round" transform="translate(5 5)"/>
-            </symbol>
-            <symbol id="icon-close" class="icon icon-close" fill="none" viewBox="0 0 18 17">
-               <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
-            </symbol>
-         </svg>
-         <?php
-         $index_activa="menu_activo texto_boton";
-         $categoria_activa="";
-            include 'includes/styky-header.php';
-            ?>
+      <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
+        <!-- Elementos a la izquierda -->
+        <ul class="navbar-nav mr-auto " style="padding-right: 15px;">
+          <li class="nav-item active">
+            <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria_1.php">Catálogo</a>
+          </li>
+
+        </ul>
+        <!-- Elementos a la derecha -->
+        <ul class="navbar-nav">
+          <form id="searchForm">
+            <div class="search-box">
+              <input type="text" id="searchInput" class="search-input" placeholder="Buscar" required>
+              <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div id="suggestions" class="suggestions-dropdown" style="display: none; background-color: white; border-radius: 0.5rem; padding-left:10px;">
+              <!-- Las sugerencias se insertarán aquí -->
+            </div>
+          </form>
+
+          <script>
+            // Autocompletar sugerencias
+            document.getElementById('searchInput').addEventListener('input', function() {
+              var inputVal = this.value;
+
+              // Ocultar sugerencias si no hay valor
+              if (inputVal.length === 0) {
+                document.getElementById('suggestions').style.display = 'none';
+                return;
+              }
+
+              // Realizar la solicitud AJAX al script PHP para obtener sugerencias
+              fetch('/sysadmin/vistas/ajax/search_index.php', {
+                  method: 'POST',
+                  body: new URLSearchParams('query=' + inputVal)
+                })
+                .then(response => response.json())
+                .then(data => {
+                  var suggestionsContainer = document.getElementById('suggestions');
+                  suggestionsContainer.innerHTML = '';
+                  suggestionsContainer.style.display = 'block';
+
+                  // Agregar las sugerencias al contenedor
+                  data.forEach(function(item) {
+                    var div = document.createElement('div');
+                    div.innerHTML = item.nombre_producto; // Asumiendo que 'nombre_producto' es lo que quieres mostrar
+                    div.onclick = function() {
+                      // Al hacer clic, se actualiza el input y se redirige
+                      document.getElementById('searchInput').value = this.innerText;
+                      window.location.href = 'producto_1.php?id=' + item.id_producto;
+                    };
+                    suggestionsContainer.appendChild(div);
+                  });
+                })
+                .catch(error => console.error('Error:', error));
+            });
+
+            // Evento submit del formulario
+            document.getElementById('searchForm').addEventListener('submit', function(event) {
+              event.preventDefault();
+              var searchQuery = document.getElementById('searchInput').value;
+              // Aquí puedes manejar la búsqueda, por ejemplo, redirigir a una página de resultados
+              window.location.href = '/busqueda.php?query=' + encodeURIComponent(searchQuery);
+            });
+          </script>
+        </ul>
       </div>
-<!-- END sections: header-group -->
 
-    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
-      <section id="shopify-section-template--20805846728985__60910267-55e8-4e0d-a9f9-79b26b3533dc" class="shopify-section section">
-
-<?php
-
-         echo get_row('politicas_empresa', 'politica', 'id_politica', $id_politica);
-            ?>
-</section>
-
-
-</section>
-    </main>
-
-    <div id="shopify-section-promo-popup" class="shopify-section"><link href="//tiendamiaecu.com/cdn/shop/t/3/assets/section-promo-popup.css?v=175993886525155844911693673629" rel="stylesheet" type="text/css" media="all" />
-<link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-newsletter.css?v=180884587654672216131693673627" rel="stylesheet" type="text/css" media="all" />
-<link href="//tiendamiaecu.com/cdn/shop/t/3/assets/newsletter-section.css?v=62410470717655853621693673628" rel="stylesheet" type="text/css" media="all" />
-<link href="//tiendamiaecu.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
-
-</div>
-    <div id="shopify-section-scroll-to-top-btn" class="shopify-section"><style data-shopify>
-  .scroll-to-top-btn-scroll-to-top-btn {
-    --offset-x: 20px;
-    --offset-y: 20px;
-  }
-</style>
-
-
-
-
-</div>
-    <div id="shopify-section-global-music-player" class="shopify-section"><style data-shopify>
-  .music-player-global-music-player {
-    --offset-x: 20px;
-    --offset-y: 20px;
-  }
-</style>
-
-
-
-
-</div>
-    <!-- BEGIN sections: footer-group -->
-<div id="shopify-section-sections--20805847089433__footer" class="shopify-section shopify-section-group-footer-group">
-         <link href="//tiendamiaec.com/cdn/shop/t/3/assets/section-footer.css?v=46383091618275559031693673628" rel="stylesheet" type="text/css" media="all" />
-         <link rel="stylesheet" href="//tiendamiaec.com/cdn/shop/t/3/assets/component-newsletter.css?v=180884587654672216131693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="//tiendamiaec.com/cdn/shop/t/3/assets/component-list-menu.css?v=151968516119678728991693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="//tiendamiaec.com/cdn/shop/t/3/assets/component-list-payment.css?v=69253961410771838501693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="//tiendamiaec.com/cdn/shop/t/3/assets/component-list-social.css?v=52211663153726659061693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="//tiendamiaec.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="//tiendamiaec.com/cdn/shop/t/3/assets/disclosure.css?v=646595190999601341693673628" media="print" onload="this.media='all'">
-         <link rel="stylesheet" href="//tiendamiaec.com/cdn/shop/t/3/assets/component-card.css?v=171622893807557687511693673627" media="print" onload="this.media='all'">
-         <noscript>
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-newsletter.css?v=180884587654672216131693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-list-menu.css?v=151968516119678728991693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-list-payment.css?v=69253961410771838501693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-list-social.css?v=52211663153726659061693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-rte.css?v=73443491922477598101693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/disclosure.css?v=646595190999601341693673628" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <noscript>
-            <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-card.css?v=171622893807557687511693673627" rel="stylesheet" type="text/css" media="all" />
-         </noscript>
-         <!-- <link href="//tiendamiaec.com/cdn/shop/t/3/assets/component-card.css?v=171622893807557687511693673627" rel="stylesheet" type="text/css" media="all" /> -->
-         <style data-shopify>.footer {
-            margin-top: 0px;
-            }
-            .section-sections--20805847089433__footer-padding {
-            padding-top: 24px;
-            padding-bottom: 15px;
-            }
-            @media screen and (min-width: 750px) {
-            .footer {
-            margin-top: 0px;
-            }
-            .section-sections--20805847089433__footer-padding {
-            padding-top: 32px;
-            padding-bottom: 20px;
-            }
-            }
-         </style>
-         <?php include './includes/footer.php'; ?>
-      </div>
-<!-- END sections: footer-group -->
-
-    <ul hidden>
-      <li id="a11y-refresh-page-message">Choosing a selection results in a full page refresh.</li>
-      <li id="a11y-new-window-message">Opens in a new window.</li>
-    </ul>
-
-    <script>
-      window.shopUrl = 'https://tiendamiaecu.com';
-      window.routes = {
-        cart_add_url: '/cart/add',
-        cart_change_url: '/cart/change',
-        cart_update_url: '/cart/update',
-        cart_url: '/cart',
-        predictive_search_url: '/search/suggest'
-      };
-
-      window.cartStrings = {
-        error: `There was an error while updating your cart. Please try again.`,
-        quantityError: `You can only add [quantity] of this item to your cart.`
-      }
-
-      window.variantStrings = {
-        addToCart: `Add to cart`,
-        soldOut: `Sold out`,
-        unavailable: `Unavailable`,
-        unavailable_with_option: `[value] - Unavailable`,
-      }
-
-      window.accessibilityStrings = {
-        imageAvailable: `Image [index] is now available in gallery view`,
-        shareSuccess: `Link copied to clipboard`,
-        pauseSlideshow: `Pause slideshow`,
-        playSlideshow: `Play slideshow`,
-      }
-    </script><script src="//tiendamiaecu.com/cdn/shop/t/3/assets/predictive-search.js?v=16985596534672189881693673628" defer="defer"></script>
       <script>
-        window.addEventListener("contextmenu", (e) => {
-          e.preventDefault();
-        });
-        document.addEventListener("selectstart", (e) => {
-          e.preventDefault();
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-          document.querySelectorAll('img').forEach(img => {
-            img.addEventListener('dragstart', function(e) {
-              e.preventDefault();
-            })
-          })
-        })
-        function ctrlShiftKey(e, keyCode) {
-          return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
-        }
-        document.addEventListener('keydown', function(e) {
-          if (
-            event.keyCode === 123 ||
-            ctrlShiftKey(e, 'I') ||
-            ctrlShiftKey(e, 'J') ||
-            ctrlShiftKey(e, 'C') ||
-            (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
-          ) {
-            e.preventDefault();
+        // Obtener el botón y el menú
+        var menuButton = document.getElementById('menuButton');
+        var menu = document.getElementById('navbarResponsive');
+
+        // Función para alternar la visibilidad del menú
+        function toggleMenu() {
+          if (menu.classList.contains('show')) {
+            menu.classList.remove('show');
+          } else {
+            menu.classList.add('show');
           }
-        })
+        }
+
+        // Evento click para el botón del menú
+        menuButton.onclick = function() {
+          toggleMenu();
+        };
+
+        // Opcional: cerrar el menú si se hace clic fuera de él
+        window.onclick = function(event) {
+          if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
+            menu.classList.remove('visible');
+          }
+        };
       </script>
-    
-  
-  <!-- "snippets/revy-bundle-script.liquid" was not rendered, the associated app was uninstalled -->
-  
+
+    </nav>
+  </header>
+
+  <main style="background-color: #f9f9f9; padding-top: 100px;">
+    <section>
+
+      <?php
+      echo get_row('politicas_empresa', 'politica', 'id_politica', $id_politica);
+      ?>
+    </section>
+
+
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <!-- Botón flotante para WhatsApp -->
+  <?php
+  function formatPhoneNumber($number)
+  {
+    // Eliminar caracteres no numéricos excepto el signo +
+    $number = preg_replace('/[^\d+]/', '', $number);
+
+    // Verificar si el número ya tiene el código de país +593
+    if (!preg_match('/^\+593/', $number)) {
+      // Si el número comienza con 0, quitarlo
+      if (strpos($number, '0') === 0) {
+        $number = substr($number, 1);
+      }
+      // Agregar el código de país +593 al inicio del número
+      $number = '+593' . $number;
+    }
+
+    return $number;
+  }
+
+  // Usar la función formatPhoneNumber para imprimir el número formateado
+  $telefono = get_row('perfil', 'telefono', 'id_perfil', 1);
+  $telefonoFormateado = formatPhoneNumber($telefono);
+  ?>
+
+  <?php
+  $ws_flotante = get_row('perfil', 'whatsapp_flotante', 'id_perfil', 1);
+  if ($ws_flotante == 1) { ?>
+    <a href="https://wa.me/<?php echo $telefonoFormateado ?>" class="whatsapp-float" target="_blank"><i class="bx bxl-whatsapp-square ws_flotante"></i></a>
+  <?php } ?>
+
+  <footer>
+    <?php
+    $sql   = "SELECT * FROM  perfil  where id_perfil=1";
+    $query = mysqli_query($conexion, $sql);
+    while ($row = mysqli_fetch_array($query)) {
+      $nombre_empresa       = $row['nombre_empresa'];
+      $giro_empresa       = $row['giro_empresa'];
+      $telefono       = $row['telefono'];
+      $email       = $row['email'];
+      $logo_url       = $row['logo_url'];
+      $facebook       = $row['facebook'];
+      $instagram       = $row['instagram'];
+      $tiktok       = $row['tiktok'];
+
+    ?>
+      <div class="d-flex flex-column">
+        <div class="footer-contenedor">
+          <div class="footer-contenido div-alineado-izquierda">
+            <h4>Acerca de <?php echo $nombre_empresa ?></h4>
+            <img id="navbarLogo" src="sysadmin/<?php echo str_replace("../..", "", $logo_url)
+                                                ?>">
+            <span class="descripcion">
+              <?php echo $giro_empresa ?>
+            </span>
+          </div>
+          <div class="footer-contenido">
+            <h5>Legal</h5>
+            <ul class="lista_legal">
+              <?php
+              $sql   = "SELECT * FROM  politicas_empresa";
+              $query = mysqli_query($conexion, $sql);
+              while ($row = mysqli_fetch_array($query)) {
+                $nombre_politica       = $row['nombre'];
+                $id_politica       = $row['id_politica'];
+              ?>
+                <li><a style="text-decoration: none; color:#5a5a5a" href="<?php echo $protocol ?>://<?php echo $domain ?>/politicas.php?id=<?php echo $id_politica ?>" target="_blank"><?php echo $nombre_politica; ?></a></li>
+              <?php } ?>
+            </ul>
+          </div>
+          <div class="footer-contenido">
+            <h5>Siguenos</h5>
+            <div class="redes">
+              <?php if ($facebook  !== "") { ?>
+                <a class="icon-redes" href="<?php echo $facebook ?>">
+                  <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="facebook">
+                </a>
+              <?php } ?>
+              <?php if ($instagram  !== "") { ?>
+                <a class="icon-redes" href="<?php echo $instagram ?>">
+                  <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="instagram">
+                </a>
+              <?php } ?>
+              <?php if ($tiktok  !== "") { ?>
+                <a class="icon-redes" href="<?php echo $tiktok ?>">
+                  <img src="https://img.icons8.com/color/48/000000/tiktok.png" alt="tiktok">
+                </a>
+              <?php } ?>
+            </div>
+          </div>
+          <div class="footer-contenido">
+            <h5>
+              Información de contacto
+            </h5>
+            <span class="descripcion">
+              <span class="icons">
+                <i class='bx bxl-whatsapp ws'></i> <?php echo $telefono ?>
+              </span>
+              <span class="icons">
+                <i class='bx bx-mail-send send'></i><?php echo $email ?>
+              </span>
+            </span>
+          </div>
+        <?php } ?>
+        </div>
+        <div class="text-center p-4 derechos-autor">© 2024 IMPORSUIT S.A. | Todos los derechos reservados.
+        </div>
+      </div>
+  </footer>
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="js_nuevo/bootstrap.bundle.min.js" type="text/javascript"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- librerias para el carrusel-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- Fin librerias para el carrusel-->
+
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    window.onscroll = function() {
+      var nav = document.getElementById('navbarId'); // Asegúrate de que el ID coincida con el ID de tu navbar
+      var logo = document.getElementById("navbarLogo");
+      logo.style.maxHeight = "60px"; // o el tamaño que desees para el logo
+      logo.style.maxWidth = "60px"; // o el tamaño que desees para el logo
+      if (window.pageYOffset > 100) {
+        nav.style.height = "70px";
+        // Aquí también puedes cambiar otros estilos si es necesario, como el tamaño del logo o de la fuente
+      } else {
+        nav.style.height = "100px";
+        logo.style.maxHeight = "100px"; // tamaño original del logo
+        logo.style.maxWidth = "100px"; // tamaño original del logo
+        // Restablece los estilos si el usuario vuelve a la parte superior de la página
+      }
+    };
+  </script>
 </body>
+
 </html>
-
-
