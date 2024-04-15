@@ -830,6 +830,10 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                     Swal.showLoading();
                                 }
                             })
+                            response = JSON.parse(response);
+
+                            $id_gintracom = response["guia"];
+                            data.append('id_gintracom', $id_gintracom);
                             $.ajax({
                                 url: "../ajax/enviar_gintracom.php",
                                 type: "POST",
@@ -1162,8 +1166,17 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 if (precio === "x") {
                     $('#precio_gintra').text(`NO APLICA`);
                 } else {
+                    //de texto a numero
+                    precio = parseFloat(precio);
 
-                    $('#precio_gintra').text(`$${precio}`);
+                    console.log(precio);
+                    if (recaudo == 1) {
+                        precio = ($('#valor_total_').val() * 0.03) + precio;
+                        $('#precio_gintra').text(`$${precio}`);
+                    } else {
+                        $('#precio_gintra').text(`$${precio}`);
+
+                    }
                 }
             }
         })
