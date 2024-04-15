@@ -830,6 +830,10 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                     Swal.showLoading();
                                 }
                             })
+                            response = JSON.parse(response);
+
+                            $id_gintracom = response["guia"];
+                            data.append('id_gintracom', $id_gintracom);
                             $.ajax({
                                 url: "../ajax/enviar_gintracom.php",
                                 type: "POST",

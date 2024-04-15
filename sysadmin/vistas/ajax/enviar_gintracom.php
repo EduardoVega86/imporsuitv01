@@ -1,8 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
 require_once "../db.php";
 require_once "../php_conexion.php";
 require_once "../funciones.php";
@@ -10,9 +7,9 @@ require_once "../funciones_destino.php";
 
 // Configuración de la base de datos de destino
 if ($_SERVER['HTTP_HOST'] == 'localhost') {
-    $destino = mysqli_connect('localhost', 'root', '', 'master');
+    $destino = new mysqli('localhost', 'root', '', 'master');
 } else {
-    $destino = mysqli_connect('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+    $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 }
 
 if ($destino->connect_error) {
@@ -26,10 +23,10 @@ $row_cnt = mysqli_num_rows($query);
 if ($row_cnt > 0) {
     while ($row = mysqli_fetch_array($query)) {
         $numero_sig = $row['id_guia'] + 1;
-        $guia_sistema = 'FAST' . $numero_sig;
+        $guia_sistema = $_POST["id_gintracom"];
     }
 } else {
-    $guia_sistema = "FAST1";
+    $guia_sistema = "I0000000001";
 }
 if (
     isset($_SERVER['HTTPS']) &&
@@ -45,17 +42,19 @@ $server_url = $protocol . $_SERVER['HTTP_HOST'];
 
 $date_added = date("Y-m-d H:i:s");
 
-$sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`, `estado_guia`, `id_transporte`) "
-    . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1',1, '2');";
-
+$sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`, `estado_guia`) "
+    . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1',3);";
 $query = mysqli_query($destino, $sql);
 
 $ultimoid_market = mysqli_insert_id($destino);
-$ultimoid = 'FAST' . $ultimoid_market;
+$ultimoid =  $guia_sistema;
+
 $sql_update = "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_laar`.`id_guia` = $ultimoid_market";
+
 //echo $sql_update;
 
 $query_update = mysqli_query($destino, $sql_update);
+
 
 //origen
 $id_pedido_cot = $_POST['id_pedido_cot'];
@@ -132,6 +131,8 @@ if ($tipo_origen == 1) {
 //echo $celularO;
 
 //destino
+
+
 $nombre_destino = $_POST['nombre_destino'];
 $ciudad_entrega = $_POST['ciudad'];
 $direccion = $_POST['direccion'];
@@ -149,6 +150,9 @@ $cod = filter_var($cod, FILTER_VALIDATE_BOOLEAN);
 $seguro = $_POST['seguro'];
 $observacion = $_POST['observacion'];
 $costo_envio = $_POST['costo_envio'];
+
+//se recibe el costo asi $5.23 y se convierte a 5.23
+$costo_envio = str_replace('$', '', $costo_envio);
 
 $fechaActual = date("m/y/Y");
 //echo $fechaActual;
@@ -168,8 +172,9 @@ $costo_total = $_POST['costo_total'];
 if ($tipo_origen == 0) {
     $costo_total = 0;
 }
+
 // URL del servicio web al que deseas enviar los datos con el token
-$destino_url = "https://fast.imporsuit.com/GenerarGuia/nueva/";
+$destino_url = "https://guias.imporsuit.com/Gintracom/label/" . $ultimoid;
 // Datos a enviar en formato JSON al servicio de destino
 $cantidad_total_prducto = $cantidad_total;
 $cantidad_total = 1;
@@ -211,52 +216,36 @@ $datos_destino = array(
     "tipocobro" => 0,
     "comentario" => "$observacion",
     "fechaPedido" => "$fechaActual",
-    "extras" => ""
+    "extras" => array(
+        "Campo1" => "",
+        "Campo2" => "",
+        "Campo3" => ""
+    )
 );
-
-// Configuración de la solicitud cURL para el servicio de destino
-$ch = curl_init($destino_url);
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($datos_destino));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'Content-Type: application/json',
-    'X-Token-Guia: Zc46Um3cI8Eh9vce6hn9'
-));
+$response = true;
+if ($response) {
+    $data = json_decode($response, true);
 
 
-// Realizar la solicitud cURL al servicio de destino
-
-$response = curl_exec($ch);
+    // Puedes trabajar con los datos de respuesta aquí
 
 
-// Verificar si hubo errores en la solicitud
-if (curl_errno($ch)) {
-    echo 'Error en la solicitud cURL para el servicio de destino: ' . curl_error($ch);
-}
-
-// Cerrar la conexión cURL
-curl_close($ch);
+    $id_pedido_cot = $_POST['id_pedido_cot'];
 
 
 
-// Puedes trabajar con los datos de respuesta aquí
+    @$guia = $guia_sistema;
+    @$url = "https://guias.imporsuit.com/Gintracom/label/" .  $guia_sistema;
+    //$guia=1;
+    if (isset($guia)) {
+        $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='SERVIENTREGA' WHERE `id_factura` = $id_pedido_cot";
+        echo $sql_update;
+        //echo $sql_update;
+        $query_update = mysqli_query($conexion, $sql_update);
+        echo mysqli_error($conexion);
 
-
-$id_pedido_cot = $_POST['id_pedido_cot'];
-
-
-
-$guia = $guia_sistema;
-$url = "https://fast.imporsuit.com/GenerarGuia/descargar/" . $guia_sistema . "/";
-//$guia=1;
-if (isset($guia)) {
-    $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='IMPORFAST'  WHERE `id_factura` = $id_pedido_cot";
-    //echo $sql_update;
-    $query_update = mysqli_query($conexion, $sql_update);
-
-    $date_added = date("Y-m-d H:i:s");
-    $sql_insertar_guia = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
+        $date_added = date("Y-m-d H:i:s");
+        $sql_insertar_guia = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
             `identificacionO`,`ciudadO`, `nombreO`,
             `direccionO`, `referenciaO`,`numeroCasaO`, 
             `postalO`,`telefonoO`, `celularO`,
@@ -268,18 +257,19 @@ if (isset($guia)) {
             `costoflete`,`costoproducto`, `tipocobro`,
             `comentario`,`valor_costo`, `estado_guia`, `id_transporte`) 
         VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$tienda','$url','$id_pedido_cot',"
-        . "'$identificacionO','$ciudadO','$nombreO',"
-        . "'$direccionO','$refenciaO','$numeroCasaO',"
-        . "'','$telefonoO','$celularO',"
-        . "'$identificacion','$ciudad_entrega','$nombre_destino',"
-        . "'$direccion','$referencia','$numerocasa',"
-        . "'','$telefono','$celular',"
-        . "'201202002002013','$cantidad_total','2',"
-        . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-        . "'0','$observacion','$costo_total',1, '2')";
-    //echo $sql_insertar_guia;
-    $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
-    /*
+            . "'$identificacionO','$ciudadO','$nombreO',"
+            . "'$direccionO','$refenciaO','$numeroCasaO',"
+            . "'','$telefonoO','$celularO',"
+            . "'$identificacion','$ciudad_entrega','$nombre_destino',"
+            . "'$direccion','$referencia','$numerocasa',"
+            . "'','$telefono','$celular',"
+            . "'201202002002013','$cantidad_total','2',"
+            . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
+            . "'0','$observacion','$costo_total',100, 4)";
+        //echo $sql_insertar_guia;
+        $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
+        echo mysqli_error($conexion);
+        /*
         // Grabar cabecera_cuenta_cobrar
         $id_factura = get_row('facturas_cot', 'id_factura', 'id_factura', $id_pedido_cot);
 
@@ -302,8 +292,8 @@ if (isset($guia)) {
         echo mysqli_error($conexion);
 */
 
-    //ingresar guia destino
-    $sql_insertar_guia_destino = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
+        //ingresar guia destino
+        $sql_insertar_guia_destino = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
             `identificacionO`,`ciudadO`, `nombreO`,
             `direccionO`, `referenciaO`,`numeroCasaO`, 
             `postalO`,`telefonoO`, `celularO`,
@@ -315,31 +305,34 @@ if (isset($guia)) {
             `costoflete`,`costoproducto`, `tipocobro`,
             `comentario`,`valor_costo`, `estado_guia`, `id_transporte`) 
         VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$tienda','$url','$id_pedido_cot',"
-        . "'$identificacionO','$ciudadO','$nombreO',"
-        . "'$direccionO','$refenciaO','$numeroCasaO',"
-        . "'','$telefonoO','$celularO',"
-        . "'$identificacion','$ciudad_entrega','$nombre_destino',"
-        . "'$direccion','$referencia','$numerocasa',"
-        . "'','$telefono','$celular',"
-        . "'201202002002013','$cantidad_total','2',"
-        . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-        . "'0','$observacion','$costo_total',1, '2')";
-    //echo $sql_insertar_guia_destino;
-    //echo $tipo_origen;
-    if ($tipo_origen == 1) {
+            . "'$identificacionO','$ciudadO','$nombreO',"
+            . "'$direccionO','$refenciaO','$numeroCasaO',"
+            . "'','$telefonoO','$celularO',"
+            . "'$identificacion','$ciudad_entrega','$nombre_destino',"
+            . "'$direccion','$referencia','$numerocasa',"
+            . "'','$telefono','$celular',"
+            . "'201202002002013','$cantidad_total','2',"
+            . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
+            . "'0','$observacion','$costo_total',100, 4)";
+        //echo $sql_insertar_guia_destino;
+        //echo $tipo_origen;
+        if ($tipo_origen == 1) {
 
-        //echo "origen";
-        $query_insertar_destino = mysqli_query($conexion_destino, $sql_insertar_guia_destino);
-        $id_fact_destino = get_row_destino($conexion_destino, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
-        // echo $id_fact_destino;
-        $sql = "UPDATE facturas_cot SET  estado_factura=1
+            //echo "origen";
+            $query_insertar_destino = mysqli_query($conexion_destino, $sql_insertar_guia_destino);
+            echo mysqli_error($conexion_destino);
+
+            $id_fact_destino = get_row_destino($conexion_destino, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
+            // echo $id_fact_destino;
+            $sql = "UPDATE facturas_cot SET  estado_factura=2
                                 WHERE id_factura='" . $id_fact_destino . "'";
-        // echo $sql;
-        $query_update_destino = mysqli_query($conexion_destino, $sql);
+            // echo $sql;
+            $query_update_destino = mysqli_query($conexion_destino, $sql);
+            echo mysqli_error($conexion_destino);
 
-        //ingresar guia marketplace
+            //ingresar guia marketplace
 
-        $sql_insertar_guia_marketplace = "UPDATE `guia_laar` SET 
+            $sql_insertar_guia_marketplace = "UPDATE `guia_laar` SET 
                `tienda_venta` = '$server_url',`guia_laar` = '$guia',`fecha` = '$date_added',`tienda_proveedor` = '$tienda',`url_guia` = '$url',`id_pedido` = '$id_pedido_cot',
                `identificacionO`= '$identificacionO',`ciudadO`= '$ciudadO', `nombreO`= '$nombreO',
                    `direccionO`= '$direccionO', `referenciaO`= '$refenciaO',`numeroCasaO`= '$numeroCasaO',
@@ -350,20 +343,21 @@ if (isset($guia)) {
       `tipoServicio`= '201202002002013',`noPiezas`= '$cantidad_total', `peso`= '2',
           `valorDeclarado`= '$valorasegurado', `contiene`= '$productos_guia',`cod` = '$cod_guia',
               `costoflete`= '$costo_envio',`costoproducto`= '$valor_total',
-                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '1', `id_transporte` ='2'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
+                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '100', `id_transporte`= '3'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
 ";
-        // echo $sql_insertar_guia;
-        $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
-
-        $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
-        $sql = "UPDATE facturas_cot SET  estado_factura=1
+            // echo $sql_insertar_guia;
+            $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
+            echo mysqli_error($conexion_marketplace);
+            $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
+            $sql = "UPDATE facturas_cot SET  estado_factura=2
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
-        $query_update_destino = mysqli_query($conexion_marketplace, $sql);
-    } else {
+            $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+            echo mysqli_error($conexion_marketplace);
+        } else {
 
-        // echo 'asd';
-        //ingresar guia marketplace
-        $sql_insertar_guia_marketplace = "UPDATE `guia_laar` SET 
+            // echo 'asd';
+            //ingresar guia marketplace
+            $sql_insertar_guia_marketplace = "UPDATE `guia_laar` SET 
                `tienda_venta` = '$server_url',`guia_laar` = '$guia',`fecha` = '$date_added',`tienda_proveedor` = '$tienda',`url_guia` = '$url',`id_pedido` = '$id_pedido_cot',
                `identificacionO`= '$identificacionO',`ciudadO`= '$ciudadO', `nombreO`= '$nombreO',
                    `direccionO`= '$direccionO', `referenciaO`= '$refenciaO',`numeroCasaO`= '$numeroCasaO',
@@ -374,49 +368,51 @@ if (isset($guia)) {
       `tipoServicio`= '201202002002013',`noPiezas`= '$cantidad_total', `peso`= '2',
           `valorDeclarado`= '$valorasegurado', `contiene`= '$productos_guia',`cod` = '$cod_guia',
               `costoflete`= '$costo_envio',`costoproducto`= '$valor_total',
-                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '1', `id_transporte` ='2'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
+                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '100', `id_transporte`='3'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
 ";
-        //            $sql_insertar_guia_marketplace = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
-        //            `identificacionO`,`ciudadO`, `nombreO`,
-        //            `direccionO`, `referenciaO`,`numeroCasaO`, 
-        //            `postalO`,`telefonoO`, `celularO`,
-        //            `identificacionD`, `ciudadD`,`nombreD`, 
-        //            `direccionD`,`referenciaD`, `numeroCasaD`,
-        //            `postalD`, `telefonoD`,`celularD`, 
-        //            `tipoServicio`,`noPiezas`, `peso`,
-        //            `valorDeclarado`, `contiene`,`cod` ,
-        //            `costoflete`,`costoproducto`, `tipocobro`,
-        //            `comentario`,`valor_costo`, `estado_guia`) 
-        //        VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$tienda','$url','$id_pedido_cot',"
-        //                . "'$identificacionO','$ciudadO','$nombreO',"
-        //                . "'$direccionO','$refenciaO','$numeroCasaO',"
-        //                . "'','$telefonoO','$celularO',"
-        //                . "'$identificacion','$ciudad_entrega','$nombre_destino',"
-        //                . "'$direccion','$referencia','$numerocasa',"
-        //                . "'','$telefono','$celular',"
-        //                . "'201202002002013','$cantidad_total','2',"
-        //                . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-        //                . "'0','$observacion','$costo_total',2)";
-        // echo $sql_insertar_guia_marketplace;
-        $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
-
-        $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
-        $sql = "UPDATE facturas_cot SET  estado_factura=2
+            //            $sql_insertar_guia_marketplace = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
+            //            `identificacionO`,`ciudadO`, `nombreO`,
+            //            `direccionO`, `referenciaO`,`numeroCasaO`, 
+            //            `postalO`,`telefonoO`, `celularO`,
+            //            `identificacionD`, `ciudadD`,`nombreD`, 
+            //            `direccionD`,`referenciaD`, `numeroCasaD`,
+            //            `postalD`, `telefonoD`,`celularD`, 
+            //            `tipoServicio`,`noPiezas`, `peso`,
+            //            `valorDeclarado`, `contiene`,`cod` ,
+            //            `costoflete`,`costoproducto`, `tipocobro`,
+            //            `comentario`,`valor_costo`, `estado_guia`) 
+            //        VALUES (  '$server_url', '$ultimoid', '$guia', '$date_added', '', '$tienda','$url','$id_pedido_cot',"
+            //                . "'$identificacionO','$ciudadO','$nombreO',"
+            //                . "'$direccionO','$refenciaO','$numeroCasaO',"
+            //                . "'','$telefonoO','$celularO',"
+            //                . "'$identificacion','$ciudad_entrega','$nombre_destino',"
+            //                . "'$direccion','$referencia','$numerocasa',"
+            //                . "'','$telefono','$celular',"
+            //                . "'201202002002013','$cantidad_total','2',"
+            //                . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
+            //                . "'0','$observacion','$costo_total',3)";
+            // echo $sql_insertar_guia_marketplace;
+            $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
+            echo mysqli_error($conexion_marketplace);
+            $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
+            $sql = "UPDATE facturas_cot SET  estado_factura=2
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
-        $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+            $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+            echo mysqli_error($conexion_marketplace);
+        }
 
         $query = "SELECT * FROM detalle_fact_cot WHERE id_factura = $id_pedido_cot";
         //echo $query;
         // Realizar la consulta
         $resultado = mysqli_query($conexion, $query);
-
+        echo mysqli_error($conexion);
         // Verificar si la consulta fue exitosa
         if ($resultado) {
             // Iterar sobre los resultados usando un bucle while
             if ($_SERVER['HTTP_HOST'] == 'localhost') {
-                $conexion_marketplace = mysqli_connect('localhost', 'root', '', 'master');
+                $conexion_marketplace = new mysqli('localhost', 'root', '', 'master');
             } else {
-                $conexion_marketplace = mysqli_connect('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+                $conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
             }
 
             // Verificar si la conexión fue exitosa
@@ -456,8 +452,6 @@ if (isset($guia)) {
                         $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
                         $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
                         $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto_origen='" . $id_producto . "' and tienda='$server_url' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario   
-
-
                     }
                 }
             }
@@ -467,6 +461,10 @@ if (isset($guia)) {
         } else {
             echo "Error en la consulta: " . mysqli_error($conexion);
         }
+        echo 'ok';
+    } else {
+        var_dump($data);
     }
-    echo 'ok';
+} else {
+    echo 'No se recibió respuesta del servicio de destino';
 }
