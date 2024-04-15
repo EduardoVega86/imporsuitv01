@@ -143,6 +143,7 @@
                 $drogshipin        = $row['drogshipin_tmp'];
                 $desc_tmp        = $row['desc_tmp'];
                 $nombre_producto = $row['nombre_producto'];
+
                 $contenido .= ' %3a%0A ' . $nombre_producto . ' x ' . $cantidad;
                 $id_marketplace = $row['id_marketplace'];
                 $id_producto_origen = $row['id_producto_origen'];
