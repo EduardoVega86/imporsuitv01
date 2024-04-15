@@ -84,4 +84,31 @@ $data = array_merge($data, array("destinatario" => array(
     "ciudad" => $codigo_ciudad_gintracom_destino
 )));
 
-echo json_encode($data);
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, "https://ec.gintracom.site/web/import-suite/pedido");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+$usuario = "importsuite";
+$clave = "ab5b809caf73b2c1abb0e4586a336c3a";
+
+$credenciales = base64_encode($usuario . ":" . $clave);
+
+$headers = array();
+$headers[] = "Content-Type: application/json";
+// basic auth
+$headers[] = "Authorization : Basic " . $credenciales;
+
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+$result = curl_exec($ch);
+
+if (curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}
+
+curl_close($ch);
+
+echo $result;
