@@ -815,7 +815,42 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                     data.append('destino_texto', destino_texto);
 
                     $.ajax({
-                        url: "../ajax/"
+                        url: "../ajax/generar_gintracom.php",
+                        type: "POST",
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            Swal.fire({
+                                icon: "info",
+                                title: "Por favor espere",
+                                text: "Estamos generando la guía",
+                                showConfirmButton: false,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                }
+                            })
+                            $.ajax({
+                                url: "../ajax/enviar_gintracom.php",
+                                type: "POST",
+                                data: data,
+                                contentType: false,
+                                processData: false,
+                                success: function(response) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Guía generada",
+                                        text: "La guía ha sido generada exitosamente",
+                                        showConfirmButton: true,
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                                        }
+                                    })
+                                }
+                            })
+                        }
+
                     })
                 }
             });

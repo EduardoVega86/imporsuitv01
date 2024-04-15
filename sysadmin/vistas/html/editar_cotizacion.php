@@ -50,6 +50,7 @@ if (isset($_GET['id_factura'])) {
         $referencia = $rw_factura['referencia'];
         $telefono = $rw_factura['telefono'];
         $observacion = $rw_factura['observacion'];
+        $numerocasa = $rw_factura['numerocasa'];
 
         //calcular segun la ciudad
         $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
@@ -413,7 +414,7 @@ while ($r = $query->fetch_object()) {
                                                             <input type="hidden" id="referencia" name="referencia" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                             <input type="hidden" id="telefono" name="telefono" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                             <input id="celular" type="hidden" name="celular" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
-                                                            <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">
+                                                            <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="">
                                                             <input id="cod" type="hidden" name="cod">
                                                             <input id="seguro" type="hidden" name="seguro">
                                                             <input id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
@@ -559,7 +560,7 @@ while ($r = $query->fetch_object()) {
                                                         <input type="hidden" id="referencia" name="referencia" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                         <input type="hidden" id="telefono" name="telefono" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                         <input id="celular" type="hidden" name="celular" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
-                                                        <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">
+                                                        <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="">
                                                         <input id="cod" type="hidden" name="cod">
                                                         <input id="seguro" type="hidden" name="seguro">
                                                         <input id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
@@ -787,7 +788,7 @@ while ($r = $query->fetch_object()) {
 
                                                         <div class="col-md-6">
                                                             <span class="help-block">Numero de casa </span>
-                                                            <input id="numerocasa" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">
+                                                            <input id="numerocasa" name="numerocasa" class="form-control" value="">
 
                                                         </div>
 
