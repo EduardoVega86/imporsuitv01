@@ -66,7 +66,7 @@ if ($filaDestacados['total'] == 0) {
       <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
          <div class="container">
             <!-- Logo en el centro para todas las vistas -->
-            <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
+            <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="<?php echo $protocol ?>://<?php echo $domain ?>"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
                                                                                                                                                                               if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
                                                                                                                                                                                  echo "assets/img/imporsuit.png";
                                                                                                                                                                               } else {

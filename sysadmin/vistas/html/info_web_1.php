@@ -459,13 +459,14 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
 
 
                         </div>
+                        <!-- 
                         <div class="col-md-1">
 
                           <span style="font-size: 10px" class="help-block">Footer:</span>
-                          <input class="colores input-change" type="color" name="color_footer" value="<?php echo $row["color_footer"]; ?>">
+                          <input class="colores input-change" type="color" name="color_footer" value="<?php //echo $row["color_footer"]; ?>">
 
                         </div>
-
+                        -->
 
                       </div>
                     </div>
@@ -482,11 +483,13 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                           <input class="colores input-change" type="color" name="texto_boton" value="<?php echo $row["texto_boton"]; ?>">
 
                         </div>
+                        <!-- 
                         <div class="col-sm-1">
                           <span style="font-size: 10px" class="help-block">Footer:</span>
-                          <input class="colores input-change" type="color" name="texto_footer" value="<?php echo $row["texto_footer"]; ?>">
+                          <input class="colores input-change" type="color" name="texto_footer" value="<?php // echo $row["texto_footer"]; ?>">
 
                         </div>
+                        -->
                         <div class="col-sm-1">
                           <span style="font-size: 10px" class="help-block">Texto Precio:</span>
                           <input class="colores input-change" type="color" name="texto_precio" value="<?php echo $row["texto_precio"]; ?>">
