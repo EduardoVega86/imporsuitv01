@@ -15,6 +15,23 @@ $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : '
 // Obtener el dominio (nombre de host)
 $domain = $_SERVER['HTTP_HOST'];
 
+//comprobacion de destacados
+$consultaDestacados = "SELECT COUNT(*) AS total FROM productos WHERE destacado = '1'";
+$resultadoDestacados = mysqli_query($conexion, $consultaDestacados);
+$filaDestacados = mysqli_fetch_assoc($resultadoDestacados);
+
+if ($filaDestacados['total'] == 0) {
+    // No hay productos destacados, así que actualizamos 3 productos aleatoriamente
+    $actualizarDestacados = "UPDATE productos SET destacado = '1' ORDER BY RAND() LIMIT 3";
+    $resultadoActualizacion = mysqli_query($conexion, $actualizarDestacados);
+
+    if ($resultadoActualizacion) {
+        echo "Se han actualizado 3 productos como destacados.";
+    } else {
+        echo "Hubo un error al actualizar los productos destacados: " . mysqli_error($conexion);
+    }
+}
+
 ?>
 <!doctype html>
 <html lang="es">
