@@ -894,7 +894,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <?php if ($permisos_editar == 1) { ?>
-                                        <a class="dropdown-item" target="blank" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> <?php if ($drogshipin == 3) {
+                                        <a class="dropdown-item" target="blank" href="editar_cotizacion_3.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> <?php if ($drogshipin == 3) {
                                                                                                                                                                                     echo "Ver";
                                                                                                                                                                                 } else {
                                                                                                                                                                                     echo "Editar";
@@ -1760,7 +1760,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                 <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <?php if ($permisos_editar == 1) { ?>
-                                        <a class="dropdown-item" target="blank" href="editar_cotizacion.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> <?php if ($drogshipin == 3) {
+                                        <a class="dropdown-item" target="blank" href="editar_cotizacion_3.php?id_factura=<?php echo $id_factura; ?>"><i class='fa fa-edit'></i> <?php if ($drogshipin == 3) {
                                                                                                                                                                                     echo "Ver";
                                                                                                                                                                                 } else {
                                                                                                                                                                                     echo "Editar";
