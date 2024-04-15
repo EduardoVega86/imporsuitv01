@@ -47,6 +47,15 @@ $domain = $_SERVER['HTTP_HOST'];
     .caja div{
       margin: 0 !important;
     }
+    .documento_politica {
+      width: 75%; 
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+    .documento_politica {
+      width: 90%; 
+    }
+  }
   </style>
 
   <?php
@@ -191,7 +200,7 @@ $domain = $_SERVER['HTTP_HOST'];
   </header>
 
   <main style="background-color: #f9f9f9; padding-top: 100px; padding-bottom:30px;">
-    <section class="caja" style="width: 50%; margin: 0 auto;">
+    <section class="caja documento_politica">
 
       <?php
       echo get_row('politicas_empresa', 'politica', 'id_politica', $id_politica);
