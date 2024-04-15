@@ -622,4 +622,96 @@ function generar_guia() {
       },
     });
   }
+  if (transportadora === "3") {
+    var formulario = document.getElementById("datos_pedido");
+    if (document.querySelector("#valorasegurado").value === "") {
+      document.querySelector("#valorasegurado").value = 0;
+    }
+
+    var data = new FormData(formulario);
+    data.append(
+      "direccion",
+      document.getElementById("direccion_destino").value
+    );
+    data.append(
+      "valor_total",
+      Math.round(document.getElementById("valor_total_").value)
+    );
+    data.append(
+      "cantidad_total",
+      document.getElementById("cantidad_total").value
+    );
+    data.append("costo_total", document.getElementById("costo_total").value);
+    data.append("ciudad", document.getElementById("ciudad_entrega").value);
+    data.append(
+      "productos_guia",
+      document.getElementById("productos_guia").value
+    );
+    data.append(
+      "nombre_destino",
+      document.getElementById("nombredestino").value
+    );
+    data.set("id_pedido_cot", $("#id_pedido_cot").val());
+    data.append("costo_envio", document.getElementById("costo_envio").value);
+    $.ajax({
+      url: "../ajax/calcular_guia.php",
+      type: "post",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        $("#resultados").html(response);
+        $("#generar_guia_btn").prop("disabled", false);
+      },
+    });
+
+    data.set("id_pedido_cot", $("#id_pedido_cot").val());
+    let ciudad_texto = $("#ciudad_entrega option:selected").text();
+    let destino_texto = $("#destino_c").val();
+    data.append("ciudad_texto", ciudad_texto);
+    data.append("destino_texto", destino_texto);
+    $.ajax({
+      url: "../ajax/generar_gintracom.php",
+      type: "POST",
+      data: data,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        Swal.fire({
+          icon: "info",
+          title: "Por favor espere",
+          text: "Estamos generando la guía",
+          showConfirmButton: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+        response = JSON.parse(response);
+
+        $id_gintracom = response["guia"];
+        data.append("id_gintracom", $id_gintracom);
+        $.ajax({
+          url: "../ajax/enviar_gintracom.php",
+          type: "POST",
+          data: data,
+          contentType: false,
+          processData: false,
+          success: function (response) {
+            Swal.fire({
+              icon: "success",
+              title: "Guía generada",
+              text: "La guía ha sido generada exitosamente",
+              showConfirmButton: true,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href =
+                  `./editar_cotizacion.php?id_factura=` +
+                  $("#id_pedido_cot_").val();
+              }
+            });
+          },
+        });
+      },
+    });
+  }
 }
