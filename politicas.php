@@ -187,8 +187,8 @@ $domain = $_SERVER['HTTP_HOST'];
     </nav>
   </header>
 
-  <main style="background-color: #f9f9f9; padding-top: 100px;">
-    <section>
+  <main style="background-color: #f9f9f9; padding-top: 100px; padding-left:20px; padding-right: 20px;">
+    <section class="caja">
 
       <?php
       echo get_row('politicas_empresa', 'politica', 'id_politica', $id_politica);
