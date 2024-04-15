@@ -771,9 +771,9 @@ while ($r = $query->fetch_object()) {
                                                                     <div class="col-6 col-md-2">
                                                                         <div id="card4" class="card formulario p-1">
                                                                             <!-- Ajuste de ancho al 100% para consistencia -->
-                                                                            <img style="width: 100%;" id="tr4" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintracom.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
+                                                                            <img style="width: 100%;" id="tr4" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintra.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
                                                                             <div class="card-body" style="text-align: center;">
-                                                                                <strong>Proximamente</strong>
+                                                                                <strong>---</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
