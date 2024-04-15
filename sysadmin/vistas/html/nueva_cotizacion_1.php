@@ -268,9 +268,9 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                     </div>
                                                                     <div class="col-md-2">
                                                                         <div id="card4" class="card formulario p-1 ">
-                                                                            <img style="width: 50%;" id="tr2" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintracom.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
+                                                                            <img style="width: 100%;" id="tr2" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintra.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
                                                                             <div class="card-body" style="text-align: center;">
-                                                                                <strong>---</strong>
+                                                                                <strong id="precio_gintra">---</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -754,6 +754,73 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 }
             });
         }
+        if (transportadora === "4") {
+            //obtienne el formulario
+            var formulario = document.getElementById('formulario');
+            //crea un objeto FormData
+            if (document.querySelector("#valorasegurado").value === "") {
+                document.querySelector("#valorasegurado").value = 0;
+            }
+            var data = new FormData(formulario);
+            data.append("nombre_destino", document.getElementById('nombred').value);
+            data.append("celular", document.getElementById('telefonod').value);
+            data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
+            data.append("valor_total", Math.round(document.getElementById('valor_total_').value));
+            data.append("cantidad_total", document.getElementById('cantidad_total').value);
+            data.append("costo_total", document.getElementById('costo_total').value);
+            data.append("ciudad", document.getElementById('ciudad_entrega').value);
+            data.append("productos_guia", document.getElementById('productos_guia').value);
+            data.append("identificacion", document.getElementById('cedula').value);
+            data.append("seguro", document.getElementById('asegurar_producto').value);
+            data.append("contenido", document.getElementById('producto_name').textContent) + "x" + document.getElementById('producto_qty').textContent;
+
+            $.ajax({
+                url: "../../../ingresar_pedido_1.php",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    let [guia, precio] = response.split(',');
+                    $('#guia').val(guia);
+                    $('#precio').val(precio);
+                    $('#modal_vuelto').modal('show');
+                }
+            });
+            $.ajax({
+                url: '../ajax/calcular_guia.php',
+                type: 'post',
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    $('#resultados').html(response);
+                    $('#generar_guia_btn').prop('disabled', false);
+                }
+
+            });
+            $.ajax({
+                url: "../ajax/ultimo_pedido.php",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    $('#id_pedido_cot_').val(response);
+                    data.set('id_pedido_cot', response);
+                    let ciudad_texto = $('#ciudad_entrega option:selected').text();
+                    let destino_texto = $('#destino_c').val();
+                    data.append('ciudad_texto', ciudad_texto);
+                    data.append('destino_texto', destino_texto);
+
+                    $.ajax({
+                        url: "../ajax/"
+                    })
+                }
+            });
+        }
+
     }
 
     if (window.location.search != null) {
@@ -856,7 +923,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
         var id_provincia = $('#ciudad_entrega').val();
         let recaudo = $('#cod').val();
         calcular_servi(id_provincia, recaudo);
-        calcular_gintra(id_provincia, recaudo);
+        calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
         $.ajax({
             url: "../ajax/cargar_provincia_pedido.php",
             type: "POST",
@@ -1055,7 +1122,14 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
             },
             success: function(data) {
                 let precio = JSON.parse(data);
-                $('#precio_gintracom').text(`$${precio}`);
+                console.log(precio);
+                precio = precio["gintra"];
+                if (precio === "x") {
+                    $('#precio_gintra').text(`NO APLICA`);
+                } else {
+
+                    $('#precio_gintra').text(`$${precio}`);
+                }
             }
         })
 

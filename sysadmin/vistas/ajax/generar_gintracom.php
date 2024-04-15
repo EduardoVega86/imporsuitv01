@@ -111,4 +111,4 @@ if (curl_errno($ch)) {
 
 curl_close($ch);
 
-echo $result;
+print_r($result);
