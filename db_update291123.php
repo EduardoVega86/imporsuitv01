@@ -2264,6 +2264,16 @@ mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `cobertura_laar` = '1', 
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TE' WHERE `ciudad_cotizacion`.`id_cotizacion` = 230;");
 mysqli_query($conexion, "ALTER TABLE `users` ADD `cedula_facturacion` VARCHAR(13) NOT NULL AFTER `fecha_actualizacion`, ADD `correo_facturacion` VARCHAR(150) NOT NULL AFTER `cedula_facturacion`, ADD `direccion_facturacion` VARCHAR(200) NOT NULL AFTER `correo_facturacion`;");
 
+mysqli_query($conexion, "CREATE TABLE `cobertura_gintracom` (
+	`id_cobertura` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`trayecto` varchar(10) NOT NULL,
+	`precio` float NOT NULL
+  );");
+
+mysqli_query($conexion, "INSERT INTO `cobertura_gintracom` (`id_cobertura`, `trayecto`, `precio`) VALUES
+	(1, 'TN', 5),
+	(2, 'TE', 6)
+	;");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
