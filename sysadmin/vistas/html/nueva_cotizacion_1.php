@@ -970,8 +970,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     function seleccionarProvincia() {
         var id_provincia = $('#ciudad_entrega').val();
         let recaudo = $('#cod').val();
-        calcular_servi(id_provincia, recaudo);
-        calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
+
         $.ajax({
             url: "../ajax/cargar_provincia_pedido.php",
             type: "POST",
@@ -987,6 +986,8 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 let precio_total = $('#precio_total').val();
 
                 calcular_guia(recaudo);
+                calcular_servi(id_provincia, recaudo);
+                calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
             }
         })
     }
@@ -1017,6 +1018,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 let ciudad_or = $('#ciudad_entrega option:selected').text();
                 let provincia_or = $('#provinica option:selected').text();
                 $('#origen_texto').val(ciudadOrigen);
+                data.set('origen_texto', ciudadOrigen);
                 $.ajax({
                     url: "../../../ajax/servientrega/cotizador3.php",
                     type: "POST",
