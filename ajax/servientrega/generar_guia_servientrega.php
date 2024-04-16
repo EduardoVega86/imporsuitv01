@@ -24,7 +24,7 @@ $telefono_remitente = $_POST['telefono_remitente'];
 $contenido = $_POST['productos_guia'];
 $valor_mercancia = $_POST['valor_total'];
 $valor_asegurado = $_POST['valorasegurado'];
-
+$referencia = $_POST['referencia'];
 
 
 $url = 'https://swservicli.servientrega.com.ec:5052/api/guiawebs';
@@ -43,7 +43,7 @@ $data = array(
     "apellido_destinatar_ne" =>     $apellido_destinatario,
     "direccion1_destinat_ne" => $direccion_destinatario,
     "sector_destinat_ne" => "",
-    "telefono1_destinat_ne" => $telefono_destinatario,
+    "telefono1_destinat_ne" => $telefono_destinatario . " - Referencia: " . $referencia,
     "telefono2_destinat_ne" => "",
     "codigo_postal_dest_ne" => "",
     "id_remitente_cl" => "001remi",
