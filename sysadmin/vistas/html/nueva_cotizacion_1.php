@@ -501,7 +501,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                 showConfirmButton: false,
                                                 timer: 1500
                                             }).then(() => {
-                                                window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                                                window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
                                             });
                                         }
                                     });
@@ -581,7 +581,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                             $('#guia').val(guia);
                                             $('#precio').val(precio);
                                             $('#modal_vuelto').modal('show');
-                                            window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                                            window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
                                         }
                                     });
                                 }
@@ -699,7 +699,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                     showConfirmButton: true,
                                                                 }).then((result) => {
                                                                     if (result.isConfirmed) {
-                                                                        window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                                                                        window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
                                                                     }
                                                                 })
                                                             }
@@ -741,7 +741,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                     showConfirmButton: true,
                                                                 }).then((result) => {
                                                                     if (result.isConfirmed) {
-                                                                        window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                                                                        window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
                                                                     }
                                                                 })
                                                             }
@@ -850,7 +850,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                         showConfirmButton: true,
                                                     }).then((result) => {
                                                         if (result.isConfirmed) {
-                                                            window.location.href = `./editar_cotizacion.php?id_factura=` + $('#id_pedido_cot_').val();
+                                                            window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
                                                         }
                                                     })
                                                 }
