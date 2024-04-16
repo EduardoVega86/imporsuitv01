@@ -2280,8 +2280,9 @@ mysqli_query($conexion, "INSERT INTO `cobertura_gintracom` (`id_cobertura`, `tra
 
 mysqli_query($conexion, "ALTER TABLE `tmp_ventas` ADD `iva_tmp` INT NULL DEFAULT '0' AFTER `drogshipin_tmp`;");
 
+mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `cobertura_servientrega` = '1', `cobertura_laar`='1', `trayecto_laar` ='TE', `trayecto_servientrega`='TE' WHERE `ciudad_cotizacion`.`id_cotizacion` = 674;");
 
-    
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
