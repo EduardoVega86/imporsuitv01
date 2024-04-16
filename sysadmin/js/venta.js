@@ -1,9 +1,10 @@
 $(document).ready(function() {
     $("#resultados").load("../ajax/agregar_tmp.php");
+    $("#outer_comprobante").load("../ajax/carga_correlativos.php?id_comp=1");
     //$("#f_resultado").load("../ajax/incrementa_factura.php");
     $("#resultados2").load("../ajax/carga_caja.php");
     $("#resultados3").load("../ajax/carga_resibido.php");
-    $("#resultados4").load("../ajax/tipo_doc.php");
+    //$("#resultados4").load("../ajax/tipo_doc.php");
     $("#resultados5").load("../ajax/carga_num_trans.php");
     $("#datos_factura").load();
     $("#barcode").focus();
@@ -188,21 +189,41 @@ $("#guardar_cliente").submit(function(event) {
     var parametros = $(this).serialize();
     $.ajax({
         type: "POST",
-        url: "../ajax/nuevo_cliente.php",
+        url: "../ajax/nuevo_cliente_pos.php",
         data: parametros,
         beforeSend: function(objeto) {
             $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
         },
         success: function(datos) {
-            $("#resultados_ajax").html(datos);
+            alert(datos);
+            
             $('#guardar_datos').attr("disabled", false);
             //resetea el formulario
-            $("#guardar_cliente")[0].reset();
+            
             //desaparecer la alerta
+            if (datos.indexOf("alert-danger") !== -1) {
+              $("#resultados_ajax").html(datos);   
+            }else{
+                  $('#id_cliente').val(datos);
+				$('#nombre_cliente').val($('#nombre').val());
+				$('#rnc').val($('#fiscal').val());
+                                $("#guardar_cliente")[0].reset();
+                                 $("#resultados_ajax").html(""); 
+                                 $('#nuevoCliente').modal('hide');
+
+
+				$.Notification.notify('custom','bottom right','EXITO!', 'CLIENTE AGREGADO CORRECTAMENTE')
+                                $('#nuevoCliente').modal('hide');
+            }
+                
+           
+          
+                                
             $(".alert-success").delay(400).show(10, function() {
                 $(this).delay(2000).hide(10, function() {
                     $(this).remove();
                 });
+                
             }); // /.alert
             load(1);
         }

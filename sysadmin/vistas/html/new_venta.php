@@ -32,7 +32,12 @@ while ($r = $query_vendedor->fetch_object()) {$vendedor[] = $r;}
 <?php require 'includes/header_start.php';?>
 
 <?php require 'includes/header_end.php';?>
-
+<style>
+     .agregar_producto:hover {
+    cursor: pointer;
+    background-color: lightskyblue;
+  }
+</style>
 <!-- Begin page -->
 <div id="wrapper" class="forced enlarged"> <!-- DESACTIVA EL MENU -->
 
@@ -82,7 +87,7 @@ include "../modal/buscar_productos_libre.php";
     include "../modal/anular_factura.php";
     ?>
 									<div class="row">
-										<div class="col-lg-8">
+										<div class="col-lg-6">
 											<div class="card-box">
 
 												<div class="widget-chart">
@@ -112,28 +117,79 @@ include "../modal/buscar_productos_libre.php";
 																	<span class="fa fa-search"></span> Buscar
 																</button>
                                                                                                                            
-                                                                                                                            <button type="button" accesskey="a" class="btn btn-warning waves-effect waves-light" data-toggle="modal" data-target="#libre">
-																	<span class="fa fa-plus"></span> Libre
-																</button>
+                                                                                                                            
 </div>
 															</div>
 														</div>
+                                                                                                            <div class="form-group row">
+                                                                                                                <?php
+
+												$query_producto = mysqli_query($conexion, "select * from productos where drogshipin=0 order by nombre_producto");
+												while ($row = mysqli_fetch_array($query_producto)) {
+                                                                              
+                                                                                                     $id_producto          = $row['id_producto'];
+            $codigo_producto      = $row['codigo_producto'];
+            $nombre_producto      = $row['nombre_producto'];
+            $descripcion_producto = $row['descripcion_producto'];
+            $linea_producto       = $row['id_linea_producto'];
+            $med_producto         = $row['id_med_producto'];
+            $id_proveedor         = $row['id_proveedor'];
+            $inv_producto         = $row['inv_producto'];
+            $impuesto_producto    = $row['iva_producto'];
+            $costo_producto       = $row['costo_producto'];
+            $utilidad_producto    = $row['utilidad_producto'];
+            $precio_producto      = $row['valor1_producto'];
+            $precio_mayoreo       = $row['valor2_producto'];
+            $precio_especial      = $row['valor3_producto'];
+            $precio_normal        = $row['valor4_producto'];
+            $stock_producto       = $row['stock_producto'];
+            $stock_min_producto   = $row['stock_min_producto'];
+            $tienda      = $row['tienda'];
+            $image_path           = $row['image_path'];
+												?>
+                                                                                                                                      <div  class="col-md-2" >
+                                                                                                                                          <div  style="padding:10px; min-height: 125px"  align="center" class="card agregar_producto" onclick="agregar('<?php echo $id_producto;?>')">
+    <div  class="card-body">
+                                                                                                            <?php
+if ($image_path == null) {
+                echo '<img src="../../img_sistema/LOGOS-IMPORSUIT.jpg" class="" width="100%" style="max-height:280px; max-height:280px !important;">';
+            } else {
+                echo '<img src="' . $image_path . '" class="" width="100%" style="max-height:280px; max-height:280px !important;">';
+            }
+
+            ?>
+        <p style="font-size: 8px; margin-bottom: 0px !important;"><?php echo $nombre_producto; ?></br>
+    <?php echo stock_punto($stock_producto); ?>
+   <strong> $ <?php echo number_format($precio_producto, 2, '.', ''); ?></strong></p>
+    
+    
+    
+   
+  </div>
+                                                                                                                 </div>
+                                                                                                             </div>
+												<?php
+												}
+												?>
+                                                                                                                </div>
+                                                                                                                
 													</form>
 
-													<div id="resultados" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
+													
 
 												</div>
 											</div>
 
 										</div>
 
-										<div class="col-lg-4">
+										<div class="col-lg-6">
 											<div class="card-box">
 												<div class="widget-chart">
 													<form role="form" id="datos_factura">
 														<div class="form-group row">
 															<label class="col-2 col-form-label"></label>
 															<div class="col-12">
+                                                                                                                             <div id="outer_comprobante"></div><!-- Carga los datos ajax -->
 																<div class="input-group">
 																	<input type="text" id="nombre_cliente" class="form-control" placeholder="Buscar Cliente" required  tabindex="2">
 																	<span class="input-group-btn">
@@ -143,44 +199,83 @@ include "../modal/buscar_productos_libre.php";
 																</div>
 															</div>
 														</div>
+                                                                                                           
+																<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#panel1">Editar informaciòn del Cliente &#9660;</div>
+      <div id="panel1" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="row">
+           <div class="col-md-4">
+																
+																	<strong>Nombre: </strong>
+                                                                                                                                        <input type="text" class="form-control formulario" autocomplete="off" id="nombre_fac" name="rnc" >
+                                                                                                                                        
+        </div>
+            <div class="col-md-4">
+																<div class="form-group">
+																	<strong>Email: </strong>
+                                                                                                                                        <input type="text" class="form-control formulario" autocomplete="off" id="email_fac" name="telefono_fac" >
+                                                                                                                                        
+        </div></div>
+            
+                </div>
+            <div class="row">
+           <div class="col-md-4">
+																
+																	<strong>RUC/Cédula: </strong>
+                                                                                                                                        <input type="text" class="form-control formulario" autocomplete="off" id="rnc" name="rnc" >
+                                                                                                                                        
+        </div>
+            <div class="col-md-4">
+																<div class="form-group">
+																	<strong>Teléfono: </strong>
+                                                                                                                                        <input type="text" class="form-control formulario" autocomplete="off" id="telefono_fac" name="telefono_fac" readonly>
+                                                                                                                                        
+        </div></div>
+            <div class="col-md-4">
+																<div class="form-group">
+																	<strong>Direccón: </strong>
+                                                                                                                                        <input type="text" class="form-control formulario" autocomplete="off" id="direccion_fac" name="direccion_fac" readonly>
+                                                                                                                                        
+        </div></div>
+                </div>
+            <div class="row">
+                
+            </div>
+            
+            
+      </div>
+    </div>
+    
+    
+  </div>
+</div>
+                                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="form-group row">
+                                                                                                            <div id="resultados" class='col-md-12' style="margin-top:10px; font-size: 10px"></div><!-- Carga los datos ajax -->
+                                                                                                            </div>
+                                                                                                            <div class="row">
+                                                                                                                <input id = "id_comp" class = "form-control" name = "id_comp" value="1" required autocomplete="off" type="hidden">
+                                                                                                                 <input id = "id_vend" class = "form-control" name = "id_vend" value="<?php echo $user_id ?>" required autocomplete="off" type="hidden">
+                                                                                                                 <input id = "tipo_doc" class = "form-control" name = "tipo_doc" value="1" required autocomplete="off" type="hidden">
+                                                                                                               
+                                                                                                                </div>
+                                                                                                                
 														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="fiscal">RNC/Cedula</label>
-																	<input type="text" class="form-control" autocomplete="off" id="rnc" name="rnc" disabled="true">
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="id_comp" class="control-label">Comprobante:</label>
-																	<select id = "id_comp" class = "form-control" name = "id_comp" required autocomplete="off" onchange="getval(this);">
-																		<option value="">-SELECCIONE-</option>
-																		<?php foreach ($tipo as $c): ?>
-																			<option value="<?php echo $c->id_comp; ?>"><?php echo $c->nombre_comp; ?></option>
-																		<?php endforeach;?>
-																	</select>
-																</div>
-															</div>
-                                                                                                                    <div class="col-md-6">
-																<div class="form-group">
-																	<label for="id_comp" class="control-label">Vendedor:</label>
-																	<select id = "id_vend" class = "form-control" name = "id_vend" required autocomplete="off" >
-																		<option value="">-SELECCIONE-</option>
-																		<?php foreach ($vendedor as $v): ?>
-																			<option value="<?php echo $v->id_users; ?>"><?php echo $v->nombre_users.' '.$v->apellido_users; ?></option>
-																		<?php endforeach;?>
-																	</select>
-																</div>
-															</div>
+															
+															
+																	
+                                                                                                                                        
+																		
+																
+															
+                                                                                                                  
 
 														</div>
 														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label for="fiscal">No. Comprobante</label>
-																	<div id="outer_comprobante"></div><!-- Carga los datos ajax -->
-																</div>
-															</div>
+															
 															<div class="col-md-6">
 																<div class="form-group">
 																	<div id="resultados4"></div><!-- Carga los datos ajax -->
@@ -203,7 +298,8 @@ include "../modal/buscar_productos_libre.php";
 															</div>
 															<div class="col-md-6">
 																<div class="form-group">
-																	<div id="resultados3"></div><!-- Carga los datos ajax del incremento de la fatura -->
+                                                                                                                                    <label for="resibido">Dinero Recibido</label>
+																	<input type="text" class="form-control resibido" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8" autocomplete="off" id="resibido" required name="resibido" tabindex="3">
 																</div>
 															</div>
 														</div>
@@ -292,6 +388,9 @@ include "../modal/buscar_productos_libre.php";
 <!-- ============================================================== -->
 <!-- Codigos Para el Auto complete de Clientes -->
 <script>
+    function editar_datos(){
+        
+    }
 	$(function() {
 		$("#nombre_cliente").autocomplete({
 			source: "../ajax/autocomplete/clientes.php",
@@ -301,6 +400,10 @@ include "../modal/buscar_productos_libre.php";
 				$('#id_cliente').val(ui.item.id_cliente);
 				$('#nombre_cliente').val(ui.item.nombre_cliente);
 				$('#rnc').val(ui.item.fiscal_cliente);
+                                $('#telefono_fac').val(ui.item.telefono_cliente);
+                                $('#direccion_fac').val(ui.item.direccion_cliente);
+                                $('#nombre_fac').val(ui.item.nombre_cliente);
+                                $('#email_fac').val(ui.item.email_cliente);
 				$.Notification.notify('custom','bottom right','EXITO!', 'CLIENTE AGREGADO CORRECTAMENTE')
 			}
 		});
@@ -399,6 +502,29 @@ function printFactura(id_factura) {
 			//$("#resultados3").load("../ajax/carga_resibido.php");
 		}
 	}
+        
+         $('#direccion_fac').on('input', function() {
+            // Obtener el valor del input
+            var nuevoRNC = $(this).val();
+            id_cliente=$('#id_cliente').val();
+            //alert();
+            // Enviar el nuevo RNC al servidor mediante AJAX
+            $.ajax({
+                url: '../ajax/actualizar_direccion_cliente.php', // Ruta del archivo PHP que procesará la actualización
+                type: 'POST',
+                data: { rnc: nuevoRNC, id_cliente:id_cliente, }, // Datos a enviar al servidor
+                success: function(response) {
+                    // Manejar la respuesta del servidor (puede ser un mensaje de éxito o error)
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    // Manejar errores de la petición AJAX
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+        
+        
 </script>
 <script>
   function getval(sel)

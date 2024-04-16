@@ -73,6 +73,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 <th class='text-center'>DESCRIP.</th>
                 <th class='text-center'>PRECIO <?php echo $simbolo_moneda; ?></th>
                 <th class='text-center'>DESC %</th>
+                <th class='text-center'>IVA</th>
                 <th class='text-right'>TOTAL</th>
                 <th></th>
             </tr>
@@ -85,6 +86,7 @@ $sumador_total  = 0;
 $total_iva      = 0;
 $total_impuesto = 0;
 $subtotal       = 0;
+$subtotal_sin_iva=0;
 $sql            = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
 while ($row = mysqli_fetch_array($sql)) {
     $id_tmp          = $row["id_tmp"];
@@ -93,8 +95,12 @@ while ($row = mysqli_fetch_array($sql)) {
     $cantidad        = $row['cantidad_tmp'];
     $desc_tmp        = $row['desc_tmp'];
     $nombre_producto = $row['nombre_producto'];
+    $descripcion = $row['descripcion'];
+    $iva_tmp = $row['iva_tmp'];
 
     $precio_venta   = $row['precio_tmp'];
+    $subtotal_sin_iva=$subtotal_sin_iva+$precio_venta;
+    
     $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
     $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
     $precio_total   = $precio_venta_r * $cantidad;
@@ -119,53 +125,64 @@ while ($row = mysqli_fetch_array($sql)) {
         $total_iva = iva($precio_venta_desglosado);
     }*/
     //$total_impuesto += rebajas($subtotal, $desc_tmp) * $cantidad;
+    if ($iva_tmp==1){
+        $total_iva=$total_iva+iva($precio_venta);
+    }
+       //echo $total_iva; 
     $total_impuesto=$total_impuesto+$impuesto_unitario;
     ?>
     <tr>
         <td class='text-center'><?php echo $codigo_producto; ?></td>
         <td class='text-center'><?php echo $cantidad; ?></td>
-        <td><?php echo $nombre_producto; ?></td>
         <td class='text-center'>
             <div class="input-group">
-                <select id="<?php echo $id_tmp; ?>" class="form-control employee_id">
-                    <?php
-$sql1 = mysqli_query($conexion, "select * from productos where id_producto='" . $id_producto . "'");
-    while ($rw1 = mysqli_fetch_array($sql1)) {
-        ?>
-                        <option selected disabled value="<?php echo $precio_venta ?>"><?php echo number_format($precio_venta, 2); ?></option>
-                        <option value="<?php echo $rw1['valor1_producto'] ?>">PV <?php echo number_format($rw1['valor1_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor2_producto'] ?>">PM <?php echo number_format($rw1['valor2_producto'], 2); ?></option>
-                        <option value="<?php echo $rw1['valor3_producto'] ?>">PE <?php echo number_format($rw1['valor3_producto'], 2); ?></option>
-                        <?php
-}
-    ?>
-                </select>
+                
+                <input type="text" class="form-control descripcion_id" style="text-align:center; font-size:10px;" value="<?php echo $descripcion; ?>" id="<?php echo $id_tmp; ?>">
+            </div>
+        </td>
+        <td class='text-center'>
+            <div class="input-group">
+                
+                <input type="text" class="form-control employee_id" style="text-align:center; font-size:10px; max-width: 70px" value="<?php echo number_format($precio_venta, 2); ?>" id="<?php echo $id_tmp; ?>">
             </div>
         </td>
         <td align="right" width="15%">
-            <input type="text" class="form-control txt_desc" style="text-align:center" value="<?php echo $desc_tmp; ?>" id="<?php echo $id_tmp; ?>">
+            <input type="text" class="form-control  txt_desc" style="text-align:center; font-size:10px; max-width: 70px" value="<?php echo $desc_tmp; ?>" id="<?php echo $id_tmp; ?>">
         </td>
+        <td class="text-center align-middle">
+    <div class="input-group justify-content-center">
+        <?php
+       if ($row["iva_tmp"] == 1) {
+    echo "<input type='checkbox' onclick='agregar_iva(this, $id_tmp)' checked>";
+} else {
+    echo "<input type='checkbox' onclick='agregar_iva(this, $id_tmp)'>";
+}
+        ?>
+    </div>
+</td>
+                        
         <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($final_items, 2); ?></td>
         <!--<td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_iva, 2); ?></td>-->
+        
         <td class='text-center'>
-            <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>')"><i class="fa fa-remove"></i>
+            <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' style="font-size: 5px" onclick="eliminar('<?php echo $id_tmp ?>')"><i class="fa fa-remove"></i>
             </a>
         </td>
     </tr>
     <?php
 }
 
-$total_factura = $subtotal + $total_impuesto;
+$total_factura = $subtotal_sin_iva + $total_iva;
 
 ?>
 <tr>
     <td class='text-right' colspan=5>SUBTOTAL</td>
-    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal, 2); ?></b></td>
+    <td class='text-right'><b><?php echo $simbolo_moneda . ' ' . number_format($subtotal_sin_iva, 2); ?></b></td>
     <td></td>
 </tr>
 <tr>
     <td class='text-right' colspan=5><?php echo $nom_impuesto; ?> (<?php echo $impuesto; ?>)% </td>
-    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_impuesto, 2); ?>
+    <td class='text-right'><?php echo $simbolo_moneda . ' ' . number_format($total_iva, 2); ?>
     </td>
     <td></td>
 </tr>
@@ -178,6 +195,23 @@ $total_factura = $subtotal + $total_impuesto;
 </table>
 </div>
 <script>
+ function agregar_iva(checkbox, id_tmp) {
+    var valor = checkbox.checked ? 1 : 0; // Obtener el valor del checkbox (1 si está marcado, 0 si no)
+//alert(valor)
+    // Realizar la solicitud AJAX
+      $.ajax({
+        type: "POST",
+        url: "../ajax/editar_iva_producto.php",
+        data: "id_tmp=" + id_tmp + "&iva=" + valor,
+        success: function(datos) {
+           $("#resultados").load("../ajax/agregar_tmp.php");
+           $.Notification.notify('success','bottom center','EXITO!', 'IVA ACTUALIZADO CORRECTAMENTE')
+       }
+   });
+       
+       
+}
+
     $(document).ready(function () {
         $('.txt_desc').off('blur');
         $('.txt_desc').on('blur',function(event){
@@ -207,6 +241,7 @@ $total_factura = $subtotal + $total_impuesto;
         $(".employee_id").on("change", function(event) {
            id_tmp = $(this).attr("id");
            precio = $(this).val();
+           alert(precio);
            $.ajax({
             type: "POST",
             url: "../ajax/editar_precio_venta.php",
@@ -217,6 +252,8 @@ $total_factura = $subtotal + $total_impuesto;
          }
      });
        });
+       
+      
 
     });
 </script>

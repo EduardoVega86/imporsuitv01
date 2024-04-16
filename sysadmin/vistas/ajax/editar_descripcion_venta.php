@@ -11,7 +11,7 @@ if (empty($_POST['id_tmp'])) {
     require_once "../php_conexion.php";
     // escaping, additionally removing everything that could be (html/javascript-) code
     $id_tmp = intval($_POST['id_tmp']);
-    $descripcion = floatval($_POST['descripcion']);
+    $descripcion = $_POST['descripcion'];
 //echo $precio;
     $sql          = "UPDATE tmp_ventas SET  descripcion='" . $descripcion . "' WHERE id_tmp='" . $id_tmp . "'";
     echo $sql;

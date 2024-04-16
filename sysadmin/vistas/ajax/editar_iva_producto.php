@@ -12,8 +12,9 @@ if (empty($_POST['id_tmp'])) {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $id_tmp = intval($_POST['id_tmp']);
     $iva = $_POST['iva'];
-echo $precio;
-    $sql          = "UPDATE iva_tmp SET  precio_tmp='" . $iva . "' WHERE id_tmp='" . $id_tmp . "'";
+//echo $precio;
+    $sql          = "UPDATE tmp_ventas SET  iva_tmp='" . $iva . "' WHERE id_tmp='" . $id_tmp . "'";
+    //echo $sql;
     $query_update = mysqli_query($conexion, $sql);
 } else {
     $errors[] = "Error desconocido.";

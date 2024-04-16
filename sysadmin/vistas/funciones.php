@@ -100,6 +100,17 @@ function stock($stock)
         return '<span class="badge badge-primary">' . $stock . '</span>';
     }
 }
+
+function stock_punto($stock)
+{
+    if ($stock == 0) {
+        return '<span style="font-size: 8px; position: absolute; top: 0; right: 0;" class="badge badge-danger">' . $stock . '</span>';
+    } else if ($stock <= 3) {
+        return '<span style="font-size: 8px; position: absolute; top: 0; right: 0;" class="badge badge-warning">' . $stock . '</span>';
+    } else {
+        return '<span style="font-size: 8px; position: absolute; top: 0; right: 0;" class="badge badge-primary">' . $stock . '</span>';
+    }
+}
 /*--------------------------------------------------------------*/
 /* Funcion para obtener el total de Pacientes
 /*--------------------------------------------------------------*/
