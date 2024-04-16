@@ -37,6 +37,8 @@ $fecha = date("Y-m-d");
 
 $factura = "000" . rand(100000, 999999);
 
+$referencia = $_POST['referencia'];
+
 $url = 'https://swservicli.servientrega.com.ec:5052/api/GuiaRecaudo';
 
 // Los datos que vas a enviar en formato JSON
@@ -60,7 +62,7 @@ $data = array(
     "RAZON_SOCIAL_REMITE" => $razon_social_remitente,
     "NOMBRE_REMITENTE" => "$nombre_remitente",
     "APELLIDO_REMITE" =>    "$apellido_remitente",
-    "DIRECCION1_REMITE" => "$direccion_remitente",
+    "DIRECCION1_REMITE" => "$direccion_remitente " . " - Referencia: " . $referencia,
     "SECTOR_REMITE" => "",
     "TELEFONO1_REMITE" => $telefono_remitente,
     "TELEFONO2_REMITE" => "",

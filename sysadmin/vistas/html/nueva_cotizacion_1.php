@@ -1018,7 +1018,6 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 let ciudad_or = $('#ciudad_entrega option:selected').text();
                 let provincia_or = $('#provinica option:selected').text();
                 $('#origen_texto').val(ciudadOrigen);
-                data.set('origen_texto', ciudadOrigen);
                 $.ajax({
                     url: "../../../ajax/servientrega/cotizador3.php",
                     type: "POST",
