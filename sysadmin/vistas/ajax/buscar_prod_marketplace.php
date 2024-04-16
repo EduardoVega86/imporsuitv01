@@ -107,6 +107,8 @@ while ($row = mysqli_fetch_array($query)) {
             $stock_min_producto   = $row['stock_min_producto'];
             $tienda      = $row['tienda'];
             
+            $id_producto_origen   = $row['id_producto_origen'];
+            
             
             $online   = $row['pagina_web'];
             $status_producto      = $row['estado_producto'];
@@ -174,7 +176,7 @@ if ($image_path == null) {
   
   <?php }else{
       ?>
-  <a class='btn btn-warning'  style="width: 100%" target="blank" href="nueva_cotizacion_1.php?id=local&id_producto=<?php echo $id_producto; ?>&precio_importacion=<?php echo $precio_especial; ?>" title="Guia" onclick="recibir(<?php echo $id_producto ?>)">
+  <a class='btn btn-warning'  style="width: 100%" target="blank" href="nueva_cotizacion_1.php?id=local&id_producto=<?php echo $id_producto_origen; ?>&precio_importacion=<?php echo $precio_especial; ?>" title="Guia" onclick="recibir(<?php echo $id_producto ?>)">
       Generar Guía
                         </a>
   <?php }
