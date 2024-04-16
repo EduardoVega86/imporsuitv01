@@ -2275,6 +2275,23 @@ mysqli_query($conexion, "INSERT INTO `cobertura_gintracom` (`id_cobertura`, `tra
 	(2, 'TE', 6)
 	;");
 
+mysqli_query($conexion, "ALTER TABLE `tmp_ventas` ADD `descripcion` TEXT NULL AFTER `id_producto`;");
+
+mysqli_query($conexion, "CREATE TABLE `cobertura_gintracom` (
+	`id_cobertura` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`trayecto` varchar(10) NOT NULL,
+	`precio` float NOT NULL
+  );");
+
+mysqli_query($conexion, "INSERT INTO `cobertura_gintracom` (`id_cobertura`, `trayecto`, `precio`) VALUES
+	(1, 'TN', 5),
+	(2, 'TE', 6)
+	;");
+
+mysqli_query($conexion, "ALTER TABLE `tmp_ventas` ADD `iva_tmp` INT NULL DEFAULT '0' AFTER `drogshipin_tmp`;");
+
+
+    
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
