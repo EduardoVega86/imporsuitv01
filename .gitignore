@@ -19,3 +19,4 @@ guias/
 sysadmin/vistas/assets/js/lib_firma_sri/errores
 sysadmin/vistas/assets/js/lib_firma_sri/src/services/uploads
 update.sh
+sysadmin/vistas/db.php

@@ -23,7 +23,7 @@ $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
 
 if (isset($_GET['id_factura'])) {
     $id_factura  = intval($_GET['id_factura']);
-    $campos      = "clientes.id_cliente, clientes.nombre_cliente, clientes.fiscal_cliente, clientes.email_cliente, facturas_cot.id_vendedor, facturas_cot.fecha_factura, facturas_cot.condiciones, facturas_cot.validez, facturas_cot.numero_factura, facturas_cot.nombre,facturas_cot.telefono, facturas_cot.provincia,facturas_cot.c_principal,facturas_cot.c_secundaria,facturas_cot.referencia, facturas_cot.observacion, facturas_cot.ciudad_cot, facturas_cot.guia_enviada, facturas_cot.drogshipin, facturas_cot.tienda";
+    $campos      = "clientes.id_cliente, clientes.nombre_cliente, clientes.fiscal_cliente, clientes.email_cliente, facturas_cot.id_vendedor, facturas_cot.fecha_factura, facturas_cot.condiciones,facturas_cot.transporte, facturas_cot.validez, facturas_cot.numero_factura, facturas_cot.nombre,facturas_cot.telefono, facturas_cot.provincia,facturas_cot.c_principal,facturas_cot.c_secundaria,facturas_cot.referencia, facturas_cot.observacion, facturas_cot.ciudad_cot, facturas_cot.guia_enviada, facturas_cot.drogshipin, facturas_cot.tienda";
     //echo "select $campos from facturas_cot, clientes where facturas_cot.id_cliente=clientes.id_cliente and id_factura='" . $id_factura . "'";
     $sql_factura = mysqli_query($conexion, "select $campos from facturas_cot, clientes where facturas_cot.id_cliente=clientes.id_cliente and id_factura='" . $id_factura . "'");
     $count       = mysqli_num_rows($sql_factura);
@@ -51,6 +51,8 @@ if (isset($_GET['id_factura'])) {
         $telefono = $rw_factura['telefono'];
         $observacion = $rw_factura['observacion'];
 
+        $transporte = $rw_factura['transporte'];
+        echo $transporte;
         //calcular segun la ciudad
         $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
 
@@ -304,7 +306,28 @@ while ($r = $query->fetch_object()) {
                                                         ?>
                                                             <table class="table table-sm table-striped">
                                                                 <tr>
-                                                                    <th><img width="100px" src="../../img_sistema/logo-dark.png" alt="" /></th>
+                                                                    <th>
+                                                                        <?php if ($transporte === "LAAR") {
+                                                                        ?>
+                                                                            <img width="100px" src="../../img_sistema/logo-dark.png" alt="" />
+                                                                        <?php
+                                                                        } else if ($transporte === "SPEED") {
+                                                                        ?>
+                                                                            <img width="100px" src="../../img_sistema/speed.jpg" alt="" />
+                                                                        <?php
+                                                                        } else if ($transporte === "SERVIENTREGA") {
+                                                                        ?>
+                                                                            <img width="100px" src="../../img_sistema/servi.png" alt="" />
+                                                                        <?php
+                                                                        } else if ($transporte === "INTERRAPIDISIMO") {
+                                                                        ?>
+                                                                            <img width="100px" src="../../img_sistema/gintra.png" alt="" />
+                                                                        <?php
+
+                                                                        }
+                                                                        ?>
+
+                                                                    </th>
                                                                     <th></th>
                                                                 </tr>
                                                                 <tr>
@@ -393,6 +416,166 @@ while ($r = $query->fetch_object()) {
                                                     } else {
                                                         $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                                                         $traking = "https://fast.imporsuit.com/GenerarGuia/visor/" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
+                                                    ?>
+                                                        <form role="form" id="datos_pedido">
+                                                            <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="identificacion" name="identificacion" value="">
+                                                            <input type="hidden" id="provinica" name="provinica" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="ciudad_entrega" name="ciudad_entrega" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="direccion_destino" name="direccion_destino" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="referencia" name="referencia" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="telefono" name="telefono" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input id="celular" type="hidden" name="celular" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">
+                                                            <input id="cod" type="hidden" name="cod">
+                                                            <input id="seguro" type="hidden" name="seguro">
+                                                            <input id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
+                                                            <input type="hidden" id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">
+
+
+
+                                                        </form>
+                                                        <div class="row">
+                                                            <div align="center" class="col-md-3">
+                                                                </br>
+
+                                                                <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
+                                                            </div>
+
+                                                            <div align="center" class="col-md-3">
+                                                                </br>
+
+
+                                                                <button style="cursor: pointer;" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt="" /><br>Cancelar guia</button>
+                                                            </div>
+                                                            <div align="center" class="col-md-3">
+                                                                </br>
+                                                                <?php
+                                                                if (get_row('facturas_cot', 'facturada', 'id_factura', $id_factura) == 1) {
+
+                                                                ?>
+
+                                                                    <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class="btn form-control"> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
+                                                                <?php
+
+                                                                } else {
+
+
+                                                                ?>
+
+                                                                    <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
+                                                                <?php
+
+                                                                }
+                                                                ?>
+                                                            </div>
+
+                                                        </div>
+                                                        <div style="margin-top: 10px" id="factura_conguia" class="row">
+
+                                                        </div>
+
+                                                    <?php
+
+                                                    }
+                                                } else if (is_numeric($guia_numero)) {
+                                                    $estadoGuia  = get_row('guia_laar', 'estado_guia', 'id_pedido', $id_factura);
+                                                    if ($estadoGuia == 101) {
+                                                    ?>
+                                                        <div class="widget-bg-color-icon card-box">
+                                                            <div class="bg-icon bg-icon-danger pull-left">
+                                                                <i class="ti-dashboard text-danger"></i>
+                                                            </div>
+                                                            <div class="text-right">
+                                                                <h5 class="text-dark text-center"><b class=" text-danger">Guía Anulada</b></h5>
+
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    <?php
+                                                    } else {
+                                                        $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                                                        $traking = "https://www.servientrega.com.ec/Tracking/?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura) . "&tipo=GUIA";
+                                                    ?>
+                                                        <form role="form" id="datos_pedido">
+                                                            <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="identificacion" name="identificacion" value="">
+                                                            <input type="hidden" id="provinica" name="provinica" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="ciudad_entrega" name="ciudad_entrega" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="direccion_destino" name="direccion_destino" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="referencia" name="referencia" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input type="hidden" id="telefono" name="telefono" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input id="celular" type="hidden" name="celular" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">
+                                                            <input id="cod" type="hidden" name="cod">
+                                                            <input id="seguro" type="hidden" name="seguro">
+                                                            <input id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
+                                                            <input type="hidden" id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">
+
+
+
+                                                        </form>
+                                                        <div class="row">
+                                                            <div align="center" class="col-md-3">
+                                                                </br>
+
+                                                                <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
+                                                            </div>
+
+                                                            <div align="center" class="col-md-3">
+                                                                </br>
+
+
+                                                                <button style="cursor: pointer;" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt="" /><br>Cancelar guia</button>
+                                                            </div>
+                                                            <div align="center" class="col-md-3">
+                                                                </br>
+                                                                <?php
+                                                                if (get_row('facturas_cot', 'facturada', 'id_factura', $id_factura) == 1) {
+
+                                                                ?>
+
+                                                                    <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class="btn form-control"> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
+                                                                <?php
+
+                                                                } else {
+
+
+                                                                ?>
+
+                                                                    <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
+                                                                <?php
+
+                                                                }
+                                                                ?>
+                                                            </div>
+
+                                                        </div>
+                                                        <div style="margin-top: 10px" id="factura_conguia" class="row">
+
+                                                        </div>
+
+                                                    <?php
+
+                                                    }
+                                                } else if (strpos($guia_numero, "I00") === 0) {
+                                                    $estadoGuia  = get_row('guia_laar', 'estado_guia', 'id_pedido', $id_factura);
+                                                    if ($estadoGuia == 101) {
+                                                    ?>
+                                                        <div class="widget-bg-color-icon card-box">
+                                                            <div class="bg-icon bg-icon-danger pull-left">
+                                                                <i class="ti-dashboard text-danger"></i>
+                                                            </div>
+                                                            <div class="text-right">
+                                                                <h5 class="text-dark text-center"><b class=" text-danger">Guía Anulada</b></h5>
+
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    <?php
+                                                    } else {
+                                                        $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
+                                                        $traking = "https://www.servientrega.com.ec/Tracking/?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura) . "&tipo=GUIA";
                                                     ?>
                                                         <form role="form" id="datos_pedido">
                                                             <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
@@ -739,7 +922,7 @@ while ($r = $query->fetch_object()) {
                                                             </div>
                                                             <div class="d-flex justify-content-center flex-wrap">
                                                                 <!-- Envoltura de fila para manejo responsive de columnas -->
-                                                                <div class="row justify-content-center items-center">
+                                                                <div class="row justify-content-center items-center mt-3 text-center">
                                                                     <!-- Primera Columna -->
                                                                     <div class="col-6 col-md-2">
                                                                         <div id="card3" onclick="seleccionar_transportadora(3)" class="card formulario p-1">
