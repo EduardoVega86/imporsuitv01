@@ -9,7 +9,7 @@ $result = mysqli_query($conexion, $sql);
 if ($result) {
     $row = mysqli_fetch_array($result);
     $id_factura = $row['id_factura'];
-    echo $id_factura + 1;
+    echo $id_factura;
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conexion);
 }

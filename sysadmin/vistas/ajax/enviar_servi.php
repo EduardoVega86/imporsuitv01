@@ -19,6 +19,7 @@ if ($destino->connect_error) {
 $sql = "SELECT * FROM guia_laar order by id_guia desc limit 1";
 
 $query = mysqli_query($destino, $sql);
+echo mysqli_error($destino);
 $row_cnt = mysqli_num_rows($query);
 if ($row_cnt > 0) {
     while ($row = mysqli_fetch_array($query)) {
@@ -45,6 +46,7 @@ $date_added = date("Y-m-d H:i:s");
 $sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`, `estado_guia`) "
     . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1',2);";
 $query = mysqli_query($destino, $sql);
+echo mysqli_error($destino);
 
 $ultimoid_market = mysqli_insert_id($destino);
 $ultimoid =  $guia_sistema;
@@ -54,6 +56,7 @@ $sql_update = "UPDATE `guia_laar` SET `guia_sistema` = '$ultimoid' WHERE `guia_l
 //echo $sql_update;
 
 $query_update = mysqli_query($destino, $sql_update);
+echo mysqli_error($destino);
 
 
 //origen
@@ -239,9 +242,10 @@ if ($response) {
     //$guia=1;
     if (isset($guia)) {
         $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='SERVIENTREGA' WHERE `id_factura` = $id_pedido_cot";
-        echo $sql_update;
+
         //echo $sql_update;
         $query_update = mysqli_query($conexion, $sql_update);
+
         echo mysqli_error($conexion);
 
         $date_added = date("Y-m-d H:i:s");
@@ -289,6 +293,7 @@ if ($response) {
         $sql_cc = "INSERT INTO `cabecera_cuenta_cobrar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`) VALUES ('$numero_factura','$date_added','$nombre_destino','$server_url','2','$estado_pedido','$valor_total','$costo_total','$valor_base','$monto_recibir')";
 
         $query_insertar_cc = mysqli_query($conexion, $sql_cc);
+        echo mysqli_error($destino);
         echo mysqli_error($conexion);
 */
 
@@ -398,6 +403,7 @@ if ($response) {
             $sql = "UPDATE facturas_cot SET  estado_factura=2
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
             $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+            echo mysqli_error($destino);
             echo mysqli_error($conexion_marketplace);
         }
 
@@ -447,11 +453,11 @@ if ($response) {
                     $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
                     $update  = mysqli_query($conexion, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto='" . $id_producto . "' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario
                     if ($tienda == 'enviado') {
-                        $sql2    = mysqli_query($conexion_destino, "select * from productos where id_producto='" . $id_marketplace . "'");
+                        $sql2    = mysqli_query($conexion_destino, "select *a from productos where id_producto='" . $id_marketplace . "'");
                         $rw      = mysqli_fetch_array($sql2);
                         $old_qty = $rw['stock_producto']; //Cantidad encontrada en el inventario
                         $new_qty = $old_qty - $cantidad; //Nueva cantidad en el inventario
-                        $update  = mysqli_query($conexion_destino, "UPDATE productos SET stock_producto='" . $new_qty . "' WHERE id_producto_origen='" . $id_producto . "' and tienda='$server_url' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario   
+                        $update  = mysqli_query($conexion_destino, "UPDATE productosa SET stock_producto='" . $new_qty . "' WHERE id_producto_origen='" . $id_producto . "' and tienda='$server_url' and inv_producto=0"); //Actualizo la nueva cantidad en el inventario   
                     }
                 }
             }
