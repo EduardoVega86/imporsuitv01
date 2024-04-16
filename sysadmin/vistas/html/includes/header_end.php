@@ -16,7 +16,7 @@
 
 	.card-chat-container {
 		position: fixed;
-		bottom: 105px;
+		bottom: 35px;
 		right: 20px;
 		width: 550px;
 		max-height: 60%;
@@ -105,7 +105,7 @@
 		height: 40px;
 		line-height: 40px;
 		position: fixed;
-		bottom: 105px;
+		bottom: 35px;
 		right: 45px;
 	}
 
@@ -131,7 +131,7 @@
 
 	.notification-text {
 		position: fixed;
-		bottom: 100px;
+		bottom: 25px;
 		right: 100px;
 		width: 300px;
 		max-height: 60%;
