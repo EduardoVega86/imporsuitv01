@@ -2282,6 +2282,7 @@ mysqli_query($conexion, "ALTER TABLE `tmp_ventas` ADD `iva_tmp` INT NULL DEFAULT
 
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `cobertura_servientrega` = '1', `cobertura_laar`='1', `trayecto_laar` ='TE', `trayecto_servientrega`='TE' WHERE `ciudad_cotizacion`.`id_cotizacion` = 674;");
 
+mysqli_query($conexion, "ALTER TABLE `users` CHANGE `cedula_facturacion` `cedula_facturacion` VARCHAR(13) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL, CHANGE `correo_facturacion` `correo_facturacion` VARCHAR(150) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL, CHANGE `direccion_facturacion` `direccion_facturacion` VARCHAR(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NULL;");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
