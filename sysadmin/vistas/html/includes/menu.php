@@ -208,7 +208,22 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 											<li><a href="../html/caja.php">Caja</a></li>
 										</ul>
 									</li-->
+<li class="has_sub">
+					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-desktop"></i><span> POS
+						</span> <span class="menu-arrow"></span></a>
 
+					<ul class="list-unstyled">
+						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
+											
+							<li><a href="../html/new_venta.php">Punto de Venta</a></li>
+						
+
+
+
+
+					</ul>
+				</li>
+                                
 				<li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Pedidos
 						</span> <span class="menu-arrow"></span></a>
