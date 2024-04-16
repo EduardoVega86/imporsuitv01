@@ -345,7 +345,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                 </div>
                 <div class="modal-body mb-3 px-4">
                   <span class="text-muted">
-                    <p class="text-justify">Estimado usuario, estamos transicionando hacia una nueva version, por lo cual hemos detectado que nos faltan algunos datos para facturación, recomandamos llenar los datos.</p>
+                    <p class="text-justify">Estimado usuario, estamos transicionando hacia una nueva version, por lo cual hemos detectado que nos faltan algunos datos de tu empresa, recomandamos llenar los datos.</p>
                   </span>
                 </div>
                 <div class="px-3">

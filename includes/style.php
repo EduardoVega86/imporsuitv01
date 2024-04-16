@@ -388,7 +388,7 @@
   @media (max-width: 768px) {
     .div-alineado-izquierda {
       align-items: flex-end;
-      padding-left: 0px;
+      padding-left: 0px !important;
     }
   }
 
@@ -1343,7 +1343,7 @@
   }
 
   .derechos-autor {
-    background-color: <?php echo get_row('perfil', 'color_footer', 'id_perfil', '1') ?>;
-    color: <?php echo get_row('perfil', 'texto_footer', 'id_perfil', '1') ?>;
+    background-color: <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?> !important;
+    color: <?php echo get_row('perfil', 'texto_cabecera', 'id_perfil', '1') ?> !important;
   }
 </style>

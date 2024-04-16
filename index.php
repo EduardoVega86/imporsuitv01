@@ -15,6 +15,23 @@ $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : '
 // Obtener el dominio (nombre de host)
 $domain = $_SERVER['HTTP_HOST'];
 
+//comprobacion de destacados
+$consultaDestacados = "SELECT COUNT(*) AS total FROM productos WHERE destacado = '1'";
+$resultadoDestacados = mysqli_query($conexion, $consultaDestacados);
+$filaDestacados = mysqli_fetch_assoc($resultadoDestacados);
+
+if ($filaDestacados['total'] == 0) {
+    // No hay productos destacados, así que actualizamos 3 productos aleatoriamente
+    $actualizarDestacados = "UPDATE productos SET destacado = '1' ORDER BY RAND() LIMIT 3";
+    $resultadoActualizacion = mysqli_query($conexion, $actualizarDestacados);
+
+    if ($resultadoActualizacion) {
+        echo "Se han actualizado 3 productos como destacados.";
+    } else {
+        echo "Hubo un error al actualizar los productos destacados: " . mysqli_error($conexion);
+    }
+}
+
 ?>
 <!doctype html>
 <html lang="es">
@@ -49,7 +66,7 @@ $domain = $_SERVER['HTTP_HOST'];
       <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
          <div class="container">
             <!-- Logo en el centro para todas las vistas -->
-            <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="#"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
+            <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="<?php echo $protocol ?>://<?php echo $domain ?>"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
                                                                                                                                                                               if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
                                                                                                                                                                                  echo "assets/img/imporsuit.png";
                                                                                                                                                                               } else {

@@ -771,9 +771,9 @@ while ($r = $query->fetch_object()) {
                                                                     <div class="col-6 col-md-2">
                                                                         <div id="card4" class="card formulario p-1">
                                                                             <!-- Ajuste de ancho al 100% para consistencia -->
-                                                                            <img style="width: 100%;" id="tr4" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintracom.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
+                                                                            <img style="width: 100%;" id="tr4" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintra.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
                                                                             <div class="card-body" style="text-align: center;">
-                                                                                <strong>Proximamente</strong>
+                                                                                <strong id="precio_gintra">---</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1139,6 +1139,7 @@ while ($r = $query->fetch_object()) {
         var id_provincia = $('#ciudad_entrega').val();
         let recaudo = $('#cod').val();
         calcular_servi(id_provincia, recaudo);
+        calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
 
         $.ajax({
             url: "../ajax/cargar_provincia_pedido.php",
@@ -1450,7 +1451,41 @@ while ($r = $query->fetch_object()) {
     setTimeout(() => {
         calcular_guia_1(1);
         calcular_servi(1, 1);
+        calcular_gintra($("#ciudad_entrega option:selected").text(), 1);
+
     }, 1000);
+
+    function calcular_gintra(id_ciudad, recaudo) {
+        $.ajax({
+            url: "../ajax/calcular_gintra.php",
+            type: "POST",
+            data: {
+                ciudad: id_ciudad,
+                recaudo: recaudo
+            },
+            success: function(data) {
+                let precio = JSON.parse(data);
+                console.log(precio);
+                precio = precio["gintra"];
+                if (precio === "x") {
+                    $('#precio_gintra').text(`NO APLICA`);
+                } else {
+                    //de texto a numero
+                    precio = parseFloat(precio);
+
+                    console.log(precio);
+                    if (recaudo == 1) {
+                        precio = ($('#valor_total_').val() * 0.03) + precio;
+                        $('#precio_gintra').text(`$${precio}`);
+                    } else {
+                        $('#precio_gintra').text(`$${precio}`);
+
+                    }
+                }
+            }
+        })
+
+    }
 </script>
 
 <?php require 'includes/footer_end.php'
