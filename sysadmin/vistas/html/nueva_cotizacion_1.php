@@ -1182,6 +1182,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                     console.log(precio);
                     if (recaudo == 1) {
                         precio = ($('#valor_total_').val() * 0.03) + precio;
+                        precio = precio.toFixed(2);
                         $('#precio_gintra').text(`$${precio}`);
                     } else {
                         $('#precio_gintra').text(`$${precio}`);
