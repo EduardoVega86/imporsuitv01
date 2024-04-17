@@ -57,7 +57,7 @@ else {
         $sWhere .= ')';
 
     }
-       $per_page  = 8; //how much records you want to show
+       $per_page  = 12; //how much records you want to show
     if (@$_GET['numero'] != "") {
         $per_page=$_GET['numero'];
 
