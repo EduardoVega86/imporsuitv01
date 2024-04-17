@@ -155,8 +155,8 @@ while ($row = mysqli_fetch_array($query)) {
 if ($image_path == null) {
                 echo '<img src="../../img_sistema/LOGOS-IMPORSUIT.jpg" class="formulario" width="100%">';
             } else {
-           
-    echo '<img src="../../img_sistema/LOGOS-IMPORSUIT.jpg" class="formulario" width="100%">';
+          
+   echo '<img src="' . $image_path . '" class="formulario" width="100%" style="max-height:280px; max-height:280px !important;">';
 
                 
             }
