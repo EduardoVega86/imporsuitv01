@@ -7,6 +7,15 @@ File: Main Css
 /*===================================
   Menu
   ===================================*/
+.caja{
+    border-radius: 25px !important; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.formulario{
+    border-radius: 25px !important; 
+   
+}
+
 .topbar {
   left: 0;
   position: fixed;
