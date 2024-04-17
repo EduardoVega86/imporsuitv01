@@ -1,9 +1,22 @@
 <?php
+require_once '../../sysadmin/vistas/db.php';
+require_once '../../sysadmin/vistas/php_conexion.php';
+
 $ciudad_origen = $_POST['ciudad_origen'];
 $ciudad_destino = $_POST['ciudad_destino'];
 $provincia_destino = $_POST['provincia_destino'];
 $precio_total = $_POST['precio_total'];
-$destino = $ciudad_destino . "-" . $provincia_destino;
+$sql = "SELECT ciudad FROM ciudad_cotizacion WHERE ciudad LIKE '%$ciudad_destino%' AND provincia LIKE '%$provincia_destino%'";
+$result = mysqli_query($conexion, $sql);
+$es_slash = mysqli_fetch_array($result);
+
+// Verifica si la ciudad contiene un slash
+if (strpos($es_slash['ciudad'], '/') !== false) {
+   $destino = $ciudad_destino . " (" . $provincia_destino . ")-" . $provincia_destino;
+} else {
+   $destino = $ciudad_destino . "-" . $provincia_destino;
+}
+
 
 $url = "https://servientrega-ecuador.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
 
