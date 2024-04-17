@@ -1,5 +1,5 @@
 <?php
-$url = "https://servientrega-ecuador.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
+/* $url = "https://servientrega-ecuador.appsiscore.com/app/ws/cotizador_ser_recaudo.php?wsdl";
 
 $xml = <<<XML
 <soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="https://servientrega-ecuador.appsiscore.com/app/ws/">
@@ -35,3 +35,23 @@ $response = curl_exec($ch);
 curl_close($ch);
 
 echo $response;
+ */
+
+// JSON como una cadena
+$json = '{
+   "guia": "180778286",
+   "ciudad": "",
+   "estado": "1",
+   "movimiento": "102",
+   "observacion1": ".",
+   "observacion2": "",
+   "observacion3": "",
+   "fecha_movimiento_novedad": "2024-04-17 15:10:29"
+}';
+
+// Decodificar JSON a un array asociativo
+$a = json_decode($json, true);
+
+// Ahora puedes acceder a los valores usando claves de array
+echo $a['guia'];  // Accederá a "180778286"
+echo $a['estado']; // Accederá a "1"
