@@ -1436,7 +1436,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (26,'BOLIVAR','CHIMBO',1,0,1,'TE','0','TE','0','0','0','1023','56261','286'),
 	 (27,'BOLIVAR','ECHEANDIA',1,0,0,'TE','0','0','0','0','0','0','0','382');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
-	 (28,'BOLIVAR','GUARANDA',1,0,1,'TP','0','TN','0','201001004','201001004001','1023','56264','44'),
+	 (28,'BOLIVAR','GUARANDA',1,1,1,'TP','TP','TN','0','201001004','201001004001','1023','56264','44'),
 	 (29,'BOLIVAR','LA MAGDALENA',1,0,1,'TE','0','TE','0','0','0','1023','57674','697'),
 	 (30,'BOLIVAR','LAS NAVES',1,0,0,'TE','0','0','0','0','0','0','0','768'),
 	 (31,'BOLIVAR','PISAGUA ALTO',1,0,0,'TE','0','0','0','0','0','0','0','508'),
