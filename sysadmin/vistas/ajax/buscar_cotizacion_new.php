@@ -1691,9 +1691,9 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                         $tracking = "https://www.servientrega.com.ec/Tracking/?guia=" . $guia_numero . "&tipo=GUIA"
                                     ?>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
-                                    <a style="cursor: pointer;" href="<?php echo $tracking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a> <br>
 
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
+                                    <a style="cursor: pointer;" href="<?php echo $tracking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a> <br>
 
                                 <?php
                                                                                                                     } else {
