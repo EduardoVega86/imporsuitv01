@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
   // Valores por defecto si no se recibe una solicitud POST
   $valorMinimo = 0;
-  $valorMaximo = 500;
+  $valorMaximo = 3000;
   $orderSql = ''; // Establecer un orden predeterminado si lo necesitas
 }
 ?>
@@ -974,11 +974,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function initSlider(sliderId, valorMinimoId, valorMaximoId, inputValorMinimoId, inputValorMaximoId, onSliderUpdateCallback) {
       var slider = document.getElementById(sliderId);
       noUiSlider.create(slider, {
-        start: [parseInt(localStorage.getItem(inputValorMinimoId) || 0), parseInt(localStorage.getItem(inputValorMaximoId) || 500)],
+        start: [parseInt(localStorage.getItem(inputValorMinimoId) || 0), parseInt(localStorage.getItem(inputValorMaximoId) || 3000)],
         connect: true,
         range: {
           'min': 0,
-          'max': 500
+          'max': 3000
         }
       });
 
