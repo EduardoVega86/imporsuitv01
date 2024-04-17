@@ -57,6 +57,11 @@ else {
         $sWhere .= ')';
 
     }
+       $per_page  = 8; //how much records you want to show
+    if (@$_GET['numero'] != "") {
+        $per_page=$_GET['numero'];
+
+    }
     if ($_GET['tienda'] !== ""){
         $sWhere .= " and tienda = '" . $_GET['tienda'] . "' ";
     }
@@ -65,7 +70,7 @@ else {
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
-    $per_page  = 8; //how much records you want to show
+ 
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
@@ -77,7 +82,7 @@ else {
     $reload      = '../html/productos.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-   // echo $sql;
+    //echo $sql;
     $query = mysqli_query($destino, $sql);
     //loop through fetched data
     if ($numrows > 0) {
@@ -141,42 +146,48 @@ while ($row = mysqli_fetch_array($query)) {
                 $estado_online = "<span class='badge badge-danger'>NO</span>";
             }
             ?>
+             
           
-<div  class="col-md-3" >
-<div  style="padding:10px"  align="center" class="card" >
+<div  class="col-md-2" >
+<div  style="padding:10px"  align="center" class="card caja" >
          <?php
+        
 if ($image_path == null) {
-                echo '<img src="../../img/productos/default.jpg" class="" width="100%">';
+                echo '<img src="../../img_sistema/logo.png" class="formulario" width="100%">';
             } else {
-                echo '<img src="' . $image_path . '" class="" width="100%" style="max-height:280px; height:280px !important;">';
+                if (file_exists($image_path)) {
+   echo '<img src="' . $image_path . '" class="formulario" width="100%" style="max-height:280px; max-height:280px !important;">';
+} else {
+    echo '<img src="../../img_sistema/LOGOS-IMPORSUIT.jpg" class="formulario" width="100%">';
+}
+                
             }
 
             ?>
   <div  class="card-body">
       <h5 class="card-title"><strong><?php echo $nombre_producto; ?></strong></h5>
-    <p class="card-text"><strong>Stock</strong> <?php echo stock($stock_producto); ?></p>
-    <p class="card-text"><strong>Precio Proveedor:</strong> $ <?php echo number_format($costo_producto, 2, '.', ''); ?></p>
-    <p class="card-text"><strong>Precio Sugerido:</strong> $ <?php echo number_format($precio_especial, 2, '.', ''); ?></p>
-    <p class="card-text"><strong>Proveedor:</strong> <?php echo $tienda; ?></p>
+    <p class="card-text"><strong>Stock</strong> <?php echo stock($stock_producto); ?></br>
+    <strong>Precio Proveedor:</strong> $ <?php echo number_format($costo_producto, 2, '.', ''); ?></br>
+    <strong>Precio Sugerido:</strong> $ <?php echo number_format($precio_especial, 2, '.', ''); ?></br>
+    <strong>Proveedor:</strong> <?php $subdomain = str_replace(array('http://','https://', '.imporsuit.com'), '', $tienda);
+															echo strtoupper($subdomain); ?></strong></p>
     
-    <br><br>
+   
    <div width="100%" class="d-flex gap-3 justify-content-center">
-            <a class='btn bg-info text-white'  title="Ver Landing" target="_blank" href="landing_market.php?id=<?php echo $id_producto; ?>"  data-target="#nuevoLanding" onclick="obtener_datos_landing('<?php echo $id_producto; ?>');carga_img1('<?php echo $id_producto; ?>')"> 
-            Ver Landing           
-            </a>
+           
            
   
- <a  data-toggle="modal" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');" class="btn bg-info text-white">Descripcion</a>
-  </div><br> <br>  <?php if($tienda <>$server_url){
+ <a  data-toggle="modal" style="width: 100%" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');" class="btn bg-info text-white formulario">Descripcion</a>
+  </div><br>  <?php if($tienda <>$server_url){
       ?>
   
-  <a class='btn btn-primary'  style="width: 100%" href="../ajax/importar.php?id=<?php echo $id_producto; ?>" title="Importar" onclick="recibir(<?php echo $id_producto ?>)">
+  <a class='btn btn-primary formulario'  style="width: 100%" href="../ajax/importar.php?id=<?php echo $id_producto; ?>" title="Importar" onclick="recibir(<?php echo $id_producto ?>)">
       Importar
                         </a>
   
   <?php }else{
       ?>
-  <a class='btn btn-warning'  style="width: 100%" target="blank" href="nueva_cotizacion_1.php?id=local&id_producto=<?php echo $id_producto_origen; ?>&precio_importacion=<?php echo $precio_especial; ?>" title="Guia" onclick="recibir(<?php echo $id_producto ?>)">
+  <a class='btn btn-warning formulario'  style="width: 100%" target="blank" href="nueva_cotizacion_1.php?id=local&id_producto=<?php echo $id_producto_origen; ?>&precio_importacion=<?php echo $precio_especial; ?>" title="Guia" onclick="recibir(<?php echo $id_producto ?>)">
       Generar Guía
                         </a>
   <?php }
@@ -222,15 +233,26 @@ if ($image_path == null) {
            <?php
 }
         ?>
-        <table>
-       <tr>
-                    <td colspan=12><span class="pull-right">
-                            <?php
-                            echo paginate($reload, $page, $total_pages, $adjacents);
-                            ?></span></td>
-                </tr>
-                </table>
+                </br>
+        
   </div>
+ <div class="row"> 
+     <div class="col-md-12"> 
+     <table style="width: 100%">
+    <tr>
+        <td colspan="1" style="text-align: right; width: 60%">
+        
+        <td colspan="12" style="text-align: right;">
+            <span>
+                <?php
+                echo paginate($reload, $page, $total_pages, $adjacents);
+                ?>
+            </span>
+        </td>
+    </tr>
+</table>
+           </div>
+     </div>
 <?php
 }
     else {

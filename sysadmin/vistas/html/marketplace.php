@@ -120,7 +120,7 @@ while ($r = $query->fetch_object()) {
 												<div class="input-group">
 													<?php
 													if ($_SERVER['HTTP_HOST'] == 'localhost') {
-														$destino = new mysqli('localhost', 'root', '', 'prueba_imporsuit');
+														$destino = new mysqli('localhost', 'root', '', 'master');
 													} else {
 														$destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 													} ?>
@@ -160,7 +160,16 @@ while ($r = $query->fetch_object()) {
 									<div class='outer_div'></div><!-- Carga los datos ajax -->
 
 
+<div class="col-md-4 input-group ">
+                                        <label for="numero_q">Desplegar: </label>
+                                        <select onchange="buscar_numero(this.value)" name="numero_q" style="background-color: #0275d8; color:white;" class="form-control formulario" id="numero_q">
+                                            <option value="10"> 10 </option>
+                                            <option value="20"> 20 </option>
+                                            <option value="50"> 50 </option>
+                                            <option value="100"> 100 </option>
 
+                                        </select>
+                                    </div>
 								</div>
 							</div>
 						</div>
@@ -536,6 +545,50 @@ while ($r = $query->fetch_object()) {
 		var categoria = $("#categoria").val();
 		VentanaCentrada('../pdf/documentos/rep_productos.php?daterange=' + daterange + "&categoria=" + categoria, 'Reporte', '', '800', '600', 'true');
 	}
+        
+        function buscar_numero(numero) {
+  // alert(tienda)
+  var q = $("#q").val();
+  var tienda = $("#tienda_p").val();
+  var categoria = $("#categoria").val();
+  if (tienda == 0) {
+    tienda = "";
+  }
+  if (numero == 0) {
+    numero = "";
+  }
+  if (estado == 0) {
+    estado = "";
+  }
+
+  page = 1;
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url:
+      "../ajax/buscar_prod_marketplace.php?action=ajax&page=" +
+      page +
+      "&numero=" +
+      numero +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda,
+      "&categoria=" +
+      categoria,
+      
+
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
+}
 </script>
 <?php require 'includes/footer_end.php'
 ?>

@@ -1,6 +1,6 @@
 <?php
-$datos = mysqli_query($conexion, "SELECT * FROM dropi");
-$datos = mysqli_fetch_assoc($datos);
+@$datos = mysqli_query($conexion, "SELECT * FROM dropi");
+@$datos = mysqli_fetch_assoc($datos);
 if (!empty($datos)) {
 ?>
     <script>
