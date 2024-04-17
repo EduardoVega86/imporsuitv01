@@ -118,8 +118,42 @@ while ($row = mysqli_fetch_array($query)) {
     #list-tab .list-group-item img.img-thumbnail {
       width: 150px;
       /* El ancho deseado para las miniaturas */
-      height: auto;
+      height: 65px;
       /* Para mantener la proporción de aspecto */
+    }
+
+    /* Estilos para miniaturas */
+    .list-group-item img.img-thumbnail {
+      width: 100px;
+      /* Ancho que desees para las miniaturas */
+      height: 100px;
+      /* Altura que desees para las miniaturas */
+      object-fit: cover;
+      /* cover recortará la imagen para ajustarla al tamaño */
+    }
+
+    /* Estilos para imagen principal */
+    #main-image {
+      width: 500px;
+      /* Ancho que desees para la imagen principal */
+      height: 500px;
+      /* Altura que desees para la imagen principal */
+      object-fit: cover;
+      /* contain asegurará que la imagen se ajuste dentro de este espacio sin recortarse */
+    }
+
+
+    @media (max-width: 768px) {
+
+      /* Estilos para imagen principal */
+      #main-image {
+        width: 300px;
+        /* Ancho que desees para la imagen principal */
+        height: 300px;
+        /* Altura que desees para la imagen principal */
+        object-fit: cover;
+        /* contain asegurará que la imagen se ajuste dentro de este espacio sin recortarse */
+      }
     }
 
     .container {
@@ -240,8 +274,8 @@ while ($row = mysqli_fetch_array($query)) {
     }
 
     .ahorra {
-        font-size: 20px;
-      }
+      font-size: 20px;
+    }
 
     /* Añade más estilos según sea necesario */
 
@@ -359,12 +393,12 @@ if ($formato == 3) {
       <div class="container">
         <!-- Logo en el centro para todas las vistas -->
         <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="<?php echo $protocol ?>://<?php echo $domain ?>"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
-                                                                                                                                                                          if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
-                                                                                                                                                                            echo "assets/img/imporsuit.png";
-                                                                                                                                                                          } else {
-                                                                                                                                                                            echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
-                                                                                                                                                                          }
-                                                                                                                                                                          ?>" alt="Imagen" /></a></a>
+                                                                                                                                                                                                                        if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
+                                                                                                                                                                                                                          echo "assets/img/imporsuit.png";
+                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                          echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        ?>" alt="Imagen" /></a></a>
 
         <button class="navbar-toggler" id="menuButton">
           <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
@@ -667,16 +701,15 @@ if ($formato == 3) {
                                             ?>
                       <?php echo  $image_path . '"'; ?>
                       <?php } else { ?>
-                        sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php } ?> class="img-fluid" alt="Responsive image">
+                        sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php } ?> class="img-fluid" alt="Responsive image" data-toggle="modal" data-target="#imagenModal">
                 </div>
                 <!-- Repite para otras imágenes -->
               </div>
             </div>
           </div>
-
-
+          
         </div>
-
+        
         <div class="right-column">
           <div class="caja px-5" style="width:100%" ;>
             <div class="product-title"><?php echo $nombre_producto ?></div>
@@ -834,6 +867,22 @@ if ($formato == 3) {
       <!-- Fin Iconos -->
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="imagenModal" tabindex="-1" aria-labelledby="imagenModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="imagenModalLabel">Visualización de Imagen</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <img src="" id="imagenEnModal" class="img-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
   </main>
 
   <!-- FOOTER -->
@@ -943,6 +992,11 @@ if ($formato == 3) {
         // Restablece los estilos si el usuario vuelve a la parte superior de la página
       }
     };
+
+    $('#imagenModal').on('show.bs.modal', function(event) {
+            var imageSrc = $('#main-image').attr('src'); // Obtiene la fuente de la imagen principal
+            $('#imagenEnModal').attr('src', imageSrc); // Establece la fuente en la imagen dentro del modal
+          });
   </script>
 
   <script>

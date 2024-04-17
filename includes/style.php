@@ -1184,6 +1184,10 @@
     box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
     background-color: white;
   }
+  .caja_transparente {
+    border-radius: 25px;
+    border: 1px solid #ccc;
+  }
 </style>
 
 <style>
