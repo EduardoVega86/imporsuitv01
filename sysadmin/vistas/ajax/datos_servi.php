@@ -5,14 +5,18 @@ require_once "../db.php";
 require_once "../php_conexion.php";
 $ciudad = $_POST['origen_texto'];
 $destino = $_POST['destino_c'];
+$provincia = $_POST['provincia'];
 
-$sql = "SELECT * FROM `ciudad_cotizacion` WHERE `ciudad` like '$ciudad%'";
+$sql = "SELECT * FROM `ciudad_cotizacion` WHERE `ciudad` like '$ciudad%' ";
+
 $result = mysqli_query($conexion, $sql);
 $row = mysqli_fetch_array($result);
 
+
+
 $codigo_servientrega = $row['codigo_ciudad_servientrega'];
 
-$sql = "SELECT * FROM `ciudad_cotizacion` WHERE `ciudad` like '$destino%'";
+$sql = "SELECT * FROM `ciudad_cotizacion` WHERE `ciudad` like '$destino%' AND `provincia` like '$provincia%'";
 $result = mysqli_query($conexion, $sql);
 $row = mysqli_fetch_array($result);
 
