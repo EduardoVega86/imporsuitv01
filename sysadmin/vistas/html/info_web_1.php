@@ -237,7 +237,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
 
                           <div class="col-sm-12">
                             <span class="help-block" style="font-size: 10px"> DESCRIPCION</span>
-                            <input type="text" class="form-control UpperCase input-change" name="giro" value="<?php echo $row['giro_empresa'] ?>" required autocomplete="off">
+                            <input type="text" class="form-control UpperCase input-change" name="giro" value="<?php echo $row['giro_empresa'] ?>"autocomplete="off">
                           </div>
                         </div>
                         <div class="row">
@@ -285,10 +285,11 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                         </div>
                         <div class='outer_div_flotante'></div>
 
-                        <div class="">
+                        <!--   <div class="">
                           <input class="input-change" type="checkbox" role="switch" id="flotar_comprar_ahora" <?php if (get_row('perfil', 'boton_compra_flotante', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
                           <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar Boton de Comprar Ahora</label>
                         </div>
+                        -->
 
                         <div class="">
                           <input class="input-change" type="checkbox" role="switch" id="flotar_ws" <?php if (get_row('perfil', 'whatsapp_flotante', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>

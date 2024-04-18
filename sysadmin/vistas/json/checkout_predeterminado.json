@@ -1,0 +1,39 @@
+[
+    {
+        "id_elemento": "tituloFormulario",
+        "posicion": 0,
+        "content": {
+            "texto_titulo": "PAGA AL RECIBIR EN CAASGSB",
+            "alineacion_titulo": "1",
+            "": "#000000"
+        }
+    },
+    {
+        "id_elemento": "resumenTotal",
+        "posicion": 1,
+        "content": {
+            "subtotal": "Subtotal",
+            "envio": "Gratis",
+            "total": "Total",
+            "impuestos": "on"
+        }
+    },
+    {
+        "id_elemento": "tarifasEnvio",
+        "posicion": 2,
+        "content": {
+            "titulo_tarifa": "Método de envío",
+            "gratis": "Gratis"
+        }
+    },
+    {
+        "id_elemento": "codigosDescuento",
+        "posicion": 3,
+        "content": {
+            "descuentos": "Descuentos",
+            "etiqueta_descuento": "Codigo de descuento",
+            "textoBtn_aplicar": "Aplicar",
+            "": "#000000"
+        }
+    }
+]

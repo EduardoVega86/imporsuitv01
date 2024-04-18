@@ -21,15 +21,9 @@ $resultadoDestacados = mysqli_query($conexion, $consultaDestacados);
 $filaDestacados = mysqli_fetch_assoc($resultadoDestacados);
 
 if ($filaDestacados['total'] == 0) {
-    // No hay productos destacados, así que actualizamos 3 productos aleatoriamente
-    $actualizarDestacados = "UPDATE productos SET destacado = '1' ORDER BY RAND() LIMIT 3";
-    $resultadoActualizacion = mysqli_query($conexion, $actualizarDestacados);
-
-    if ($resultadoActualizacion) {
-        echo "Se han actualizado 3 productos como destacados.";
-    } else {
-        echo "Hubo un error al actualizar los productos destacados: " . mysqli_error($conexion);
-    }
+   // No hay productos destacados, así que actualizamos 3 productos aleatoriamente
+   $actualizarDestacados = "UPDATE productos SET destacado = '1' ORDER BY RAND() LIMIT 3";
+   $resultadoActualizacion = mysqli_query($conexion, $actualizarDestacados);
 }
 
 ?>
@@ -64,30 +58,40 @@ if ($filaDestacados['total'] == 0) {
 
    <header>
       <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
-         <div class="container">
-            <!-- Logo en el centro para todas las vistas -->
-            <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="<?php echo $protocol ?>://<?php echo $domain ?>"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
-                                                                                                                                                                              if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
-                                                                                                                                                                                 echo "assets/img/imporsuit.png";
-                                                                                                                                                                              } else {
-                                                                                                                                                                                 echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
-                                                                                                                                                                              }
-                                                                                                                                                                              ?>" alt="Imagen" /></a></a>
 
-            <button class="navbar-toggler" id="menuButton">
-               <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
-            </button>
-         </div>
-         <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
-            <!-- Elementos a la izquierda -->
-            <ul class="navbar-nav mr-auto " style="padding-right: 15px;">
+         <div>
+            <ul class="navbar-nav mr-auto menu_izquierda" style="padding-right: 15px;">
                <li class="nav-item active">
                   <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
                </li>
                <li class="nav-item">
                   <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria_1.php">Catálogo</a>
                </li>
+            </ul>
+         </div>
+         <div class="container">
+            <!-- Logo en el centro para todas las vistas -->
+            <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="<?php echo $protocol ?>://<?php echo $domain ?>"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
+                                                                                                                                                                                                                           if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
+                                                                                                                                                                                                                              echo "assets/img/imporsuit.png";
+                                                                                                                                                                                                                           } else {
+                                                                                                                                                                                                                              echo "sysadmin" . str_replace("../..", "", get_row('perfil', 'logo_url', 'id_perfil', '1'));
+                                                                                                                                                                                                                           }
+                                                                                                                                                                                                                           ?>" alt="Imagen" /></a></a>
 
+            <button class="navbar-toggler" id="menuButton">
+               <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
+            </button>
+         </div>
+         <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px; justify-content: flex-end;">
+            <!-- Elementos a la izquierda -->
+            <ul class="navbar-nav mr-auto menu_derecha" style="padding-right: 15px;">
+               <li class="nav-item active">
+                  <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria_1.php">Catálogo</a>
+               </li>
             </ul>
             <!-- Elementos a la derecha -->
             <ul class="navbar-nav">
@@ -287,7 +291,7 @@ if ($filaDestacados['total'] == 0) {
       }
 
       if ($estado == 1) {
-         $animacion = "padding-left: 100%; display: inline-block; animation: marqueeAnimation 20s linear infinite;";
+         $animacion = "padding-left: 100%; display: inline-block; animation: marqueeAnimation 40s linear infinite;";
       } else {
          $animacion = "text-align: center; justify-content: center; align-items: center;";
       } ?>

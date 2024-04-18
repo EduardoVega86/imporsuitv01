@@ -155,7 +155,7 @@ $pacientes = 1;
                                     <form>
                                         <div class="form-group">
                                             <label for="texto_titulo">Texto</label>
-                                            <input type="text" class="form-control" id="texto_titulo" placeholder="Texto_titulo">
+                                            <input type="text" class="form-control" id="texto_titulo" placeholder="">
                                         </div>
                                         <div class="form-group">
                                             <label for="inputPassword3" class="col-sm-2 col-form-label">Alineacion</label>
@@ -193,15 +193,15 @@ $pacientes = 1;
                                     <form>
                                         <div class="form-group">
                                             <label for="subtotal">Texto subtotal</label>
-                                            <input type="text" class="form-control" id="subtotal" placeholder="Subtotal">
+                                            <input type="text" class="form-control" id="subtotal" placeholder="">
                                         </div>
                                         <div class="form-group">
                                             <label for="envio">Texto envío</label>
-                                            <input type="text" class="form-control" id="envio" placeholder="Gatis">
+                                            <input type="text" class="form-control" id="envio" placeholder="">
                                         </div>
                                         <div class="form-group">
                                             <label for="total">Texto total</label>
-                                            <input type="text" class="form-control" id="total" placeholder="Total">
+                                            <input type="text" class="form-control" id="total" placeholder="">
                                         </div>
                                         <div class="form-group form-check">
                                             <input type="checkbox" class="form-check-input" id="impuestos">
@@ -231,11 +231,11 @@ $pacientes = 1;
                                     <form>
                                         <div class="form-group">
                                             <label for="titulo_tarifa">Título</label>
-                                            <input type="text" class="form-control" id="titulo_tarifa" placeholder="Titulo_tarifa">
+                                            <input type="text" class="form-control" id="titulo_tarifa" placeholder="">
                                         </div>
                                         <div class="form-group">
                                             <label for="envio">Gratis</label>
-                                            <input type="text" class="form-control" id="gratis" placeholder="Gratis">
+                                            <input type="text" class="form-control" id="gratis" placeholder="">
                                         </div>
                                         <!-- Añade más campos según sea necesario -->
                                     </form>
@@ -258,15 +258,15 @@ $pacientes = 1;
                                     <form>
                                         <div class="form-group">
                                             <label for="descuentos">Texto de línea de descuentos</label>
-                                            <input type="text" class="form-control" id="descuentos" placeholder="Descuentos">
+                                            <input type="text" class="form-control" id="descuentos" placeholder="">
                                         </div>
                                         <div class="form-group">
                                             <label for="etiqueta_descuento">Etiqueta de campo de Código de descuento</label>
-                                            <input type="text" class="form-control" id="etiqueta_descuento" placeholder="Codigo de descuento">
+                                            <input type="text" class="form-control" id="etiqueta_descuento" placeholder="">
                                         </div>
                                         <div class="form-group">
                                             <label for="textoBtn_aplicar">Texto del botón Aplicar</label>
-                                            <input type="text" class="form-control" id="textoBtn_aplicar" placeholder="Codigo de descuento">
+                                            <input type="text" class="form-control" id="textoBtn_aplicar" placeholder="">
                                         </div>
                                         <div class="form-group">
                                             <label for="colorBtn_aplicar">Color boton aplicar</label>
@@ -286,7 +286,7 @@ $pacientes = 1;
                         <div id="previewContainer" class="p-3">
 
                             <div id="tituloFormularioPreview">
-                                <h4 id="tituloPreview">PAGA AL RECIBIR EN CASA!</h4>
+                                <h4 id="texto_tituloPreview">PAGA AL RECIBIR EN CASA!</h4>
                             </div>
                             <div id="resumenTotalPreview" class="caja_variable">
                                 <div class="d-flex flex-row">
@@ -428,7 +428,7 @@ $pacientes = 1;
             // Asumiendo que tienes un input con id='texto_titulo'
             const tituloInput = document.getElementById('texto_titulo');
             tituloInput.addEventListener('input', function() {
-                document.getElementById('tituloPreview').textContent = this.value;
+                document.getElementById('texto_tituloPreview').textContent = this.value;
             });
 
             // Asume que tienes otro input para la descripción con id='subtotal'
@@ -464,8 +464,76 @@ $pacientes = 1;
             });
         });
 
+        // Funcion para que consuma los datos de checout_predeterminado.json y los utilice
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAndSetInitialData();
+        });
+
+        function loadAndSetInitialData() {
+    $.getJSON('../json/checkout_predeterminado.json', function(data) {
+        data.forEach(function(item) {
+            // Asignar valores a los campos de entrada y actualizar la vista previa
+            Object.keys(item.content).forEach(function(key) {
+                var field = $('#' + key);
+                var fieldValue = item.content[key];
+                var previewField = $('#' + key + 'Preview');
+
+                // Actualizar el valor del campo si existe
+                if (field.length) {
+                    if (field.is(':checkbox')) {
+                        // Caso especial para checkboxes
+                        field.prop('checked', fieldValue === 'on');
+                    } else {
+                        // Para inputs y selects
+                        field.val(fieldValue).change(); // Agregamos .change() para disparar el evento
+                    }
+                } else {
+                    console.warn('No se encontró el campo para', key);
+                }
+
+                // Actualizar la vista previa si existe
+                if (previewField.length) {
+                    previewField.text(fieldValue);
+                } else {
+                    console.warn('No se encontró el campo de vista previa para', key);
+                }
+            });
+
+            // Reordena los elementos si es necesario
+            reorderElement($('#' + item.id_elemento), item.posicion, '.list-group');
+            reorderElement($('#' + item.id_elemento + 'Preview'), item.posicion, '#previewContainer');
+        });
+
+        // Disparar eventos para actualizar la vista previa
+        $('input, select').each(function() {
+            $(this).trigger('input');
+        });
+        
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Error al cargar el archivo JSON:', textStatus, errorThrown);
+    });
+}
+
+
+        function reorderElement(element, position, containerSelector) {
+            if (element.length && element.index() !== position) {
+                element.detach();
+                if (position === 0) {
+                    $(containerSelector).prepend(element);
+                } else {
+                    $(containerSelector).children().eq(position - 1).after(element);
+                }
+            }
+        }
+
         // Funcion para crear .json con la informacion de los inputs
-        function saveListState() {
+        /*
+        document.addEventListener('DOMContentLoaded', () => {
+            saveInitialState();
+        });
+
+        function saveInitialState() {
             var itemList = [];
             $('.list-group-item').each(function(index) {
                 var item = {
@@ -473,30 +541,28 @@ $pacientes = 1;
                     posicion: index,
                     content: {}
                 };
+                // Captura tanto inputs como selectores
                 $(this).find('input, select').each(function() {
                     item.content[this.id] = $(this).val();
                 });
                 itemList.push(item);
             });
 
+            // Envía la información al servidor para guardar en el archivo JSON
             $.ajax({
                 url: '../ajax/actualizar_checkout.php',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(itemList),
                 success: function(response) {
-                    console.log('Data saved successfully');
+                    console.log('Initial state saved successfully');
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error saving data');
+                    console.error('Error saving initial state');
                 }
             });
         }
-
-        // Llamar a saveListState() en eventos apropiados
-        $('.move-up, .move-down, .input-change').on('click input', function() {
-            saveListState();
-        });
+        */
     </script>
     <?php require 'includes/footer_end.php'
     ?>
