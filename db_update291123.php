@@ -1359,7 +1359,23 @@ mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id`,`id_producto
 mysqli_query($conexion, "INSERT INTO `caracteristicas_tienda` (`id`,`id_producto`,  `texto`, `icon_text`, `subtexto_icon`, `accion`) VALUES (22,'0','Atención al cliente','fa-headset','Soporte 100% garantizado','2');");
 
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `banner_opacidad` DOUBLE NULL DEFAULT '0.5' AFTER `caracteristicas_home`, ADD `banner_color_filtro` TEXT NULL AFTER `banner_opacidad`;");
-
+mysqli_query($conexion, "CREATE TABLE ciudad_cotizacion (
+  `id_cotizacion` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `provincia` varchar(100) NOT NULL,
+  `ciudad` varchar(100) NOT NULL,
+  `cobertura_servientrega` tinyint(4) DEFAULT 0,
+  `cobertura_laar` tinyint(4) DEFAULT 0,
+  `cobertura_gintracom` tinyint(4) DEFAULT 0,
+  `trayecto_servientrega` varchar(10) DEFAULT NULL,
+  `trayecto_laar` varchar(10) DEFAULT NULL,
+  `trayecto_gintracom` varchar(10) DEFAULT NULL,
+  `codigo_provincia_servientrega` varchar(100) DEFAULT NULL,
+  `codigo_provincia_laar` varchar(100) DEFAULT NULL,
+  `codigo_ciudad_laar` varchar(100) DEFAULT NULL,
+  `codigo_provincia_gintracom` varchar(100) DEFAULT NULL,
+  `codigo_ciudad_gintracom` varchar(100) DEFAULT NULL,
+  `codigo_ciudad_servientrega` varchar(100) DEFAULT NULL
+)");
 mysqli_query($conexion, "TRUNCATE TABLE `ciudad_cotizacion`;");
 
 mysqli_query($conexion, "INSERT INTO `ciudad_cotizacion` (`id_cotizacion`, `provincia`, `ciudad`, `cobertura_servientrega`, `cobertura_laar`, `cobertura_gintracom`, `trayecto_servientrega`, `trayecto_laar`, `trayecto_gintracom`, `codigo_provincia_servientrega`, `codigo_provincia_laar`, `codigo_ciudad_laar`, `codigo_provincia_gintracom`, `codigo_ciudad_gintracom`, `codigo_ciudad_servientrega`) VALUES
