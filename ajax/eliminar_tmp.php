@@ -30,7 +30,12 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     //Comprobamos si agregamos un producto a la tabla tmp_compra
     $comprobar = mysqli_query($conexion, "select * from tmp_ventas, productos where productos.id_producto = tmp_ventas.id_producto and tmp_ventas.id_producto='" . $id . "' and tmp_ventas.session_id='" . $session_id . "'");
     if ($row = mysqli_fetch_array($comprobar)) {
-        $cant = $row['cantidad_tmp'] + $cantidad;
+        if ($valor_cantidad == 1) {
+            $cant = $row['cantidad_tmp'] + 1;
+        } else {
+            $cant = $row['cantidad_tmp'] - 1;
+        }
+        
         // condicion si el stock e menor que la cantidad requerida
         if ($cant > $row['stock_producto'] and $inv == 0) {
             echo "<script>swal('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
