@@ -754,9 +754,17 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     function verProveedor() {
         var url = '../ajax/proveedor.php';
         let tienda = '<?php echo $dominio_completo ?>';
-        console.log(tienda);
 
-
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                tienda: tienda
+            },
+            success: function(response) {
+                $('#proveedor').html(response);
+            }
+        })
     }
 
     verProveedor();
