@@ -163,10 +163,10 @@ while ($r = $query->fetch_object()) {
 <div class="col-md-4 input-group ">
                                         <label for="numero_q">Desplegar: </label>
                                         <select onchange="buscar_numero(this.value)" name="numero_q" style="background-color: #0275d8; color:white;" class="form-control formulario" id="numero_q">
-                                            <option value="10"> 10 </option>
-                                            <option value="20"> 20 </option>
-                                            <option value="50"> 50 </option>
-                                            <option value="100"> 100 </option>
+                                            <option value="12"> 12 </option>
+                                            <option value="24"> 24 </option>
+                                            <option value="48"> 48 </option>
+                                            <option value="96"> 96 </option>
 
                                         </select>
                                     </div>
@@ -556,11 +556,9 @@ while ($r = $query->fetch_object()) {
   }
   if (numero == 0) {
     numero = "";
-  }
-  if (estado == 0) {
-    estado = "";
-  }
-
+  } 
+  
+    
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -572,11 +570,11 @@ while ($r = $query->fetch_object()) {
       "&q=" +
       q +
       "&tienda=" +
-      tienda,
+      tienda +
       "&categoria=" +
       categoria,
       
-
+ 
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
