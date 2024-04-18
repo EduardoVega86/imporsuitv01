@@ -1350,4 +1350,21 @@
     background-color: <?php echo get_row('perfil', 'color', 'id_perfil', '1') ?> !important;
     color: <?php echo get_row('perfil', 'texto_cabecera', 'id_perfil', '1') ?> !important;
   }
+
+  .menu_derecha{
+    display:none !important;
+  }
+  .menu_izquierda{
+    padding-left: 40px !important;
+    display: flex !important;
+    gap: 10px;
+  }
+  @media (max-width: 768px) {
+    .menu_derecha{
+    display:flex !important;
+  }
+  .menu_izquierda{
+    display: none !important;
+  }
+  }
 </style>

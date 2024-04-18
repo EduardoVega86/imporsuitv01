@@ -391,6 +391,16 @@ if ($formato == 3) {
   <header>
     <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
       <div class="container">
+        <div>
+          <ul class="navbar-nav mr-auto menu_izquierda" style="padding-right: 15px;">
+            <li class="nav-item active">
+              <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>/categoria_1.php">Catálogo</a>
+            </li>
+          </ul>
+        </div>
         <!-- Logo en el centro para todas las vistas -->
         <a class="navbar-brand" href="#"><a class="navbar-brand_1" href="<?php echo $protocol ?>://<?php echo $domain ?>"><img id="navbarLogo" class="" style="vertical-align: top; height: 100px; width: 100px;" src="<?php
                                                                                                                                                                                                                         if (empty(get_row('perfil', 'logo_url', 'id_perfil', '1'))) {
@@ -404,9 +414,9 @@ if ($formato == 3) {
           <i class="fas fa-bars" style="color: white; text-shadow: 0px 0px 3px #fff;"></i>
         </button>
       </div>
-      <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px;">
+      <div class="collapse navbar-collapse" id="navbarResponsive" style="padding-left: 10px; padding-right: 10px; justify-content: flex-end;">
         <!-- Elementos a la izquierda -->
-        <ul class="navbar-nav mr-auto " style="padding-right: 15px;">
+        <ul class="navbar-nav mr-auto menu_derecha" style="padding-right: 15px;">
           <li class="nav-item active">
             <a class="nav-link texto_cabecera" href="<?php echo $protocol ?>://<?php echo $domain ?>">Inicio <span class="sr-only">(current)</span></a>
           </li>
@@ -707,9 +717,9 @@ if ($formato == 3) {
               </div>
             </div>
           </div>
-          
+
         </div>
-        
+
         <div class="right-column">
           <div class="caja px-5" style="width:100%" ;>
             <div class="product-title"><?php echo $nombre_producto ?></div>
@@ -869,30 +879,34 @@ if ($formato == 3) {
 
     <!-- Modal -->
     <div class="modal fade" id="imagenModal" tabindex="-1" aria-labelledby="imagenModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="imagenModalLabel">Visualización de Imagen</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <img src="" id="imagenEnModal" class="img-fluid">
-                </div>
-              </div>
-            </div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="imagenModalLabel">Visualización de Imagen</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
+          <div class="modal-body">
+            <img src="" id="imagenEnModal" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- FOOTER -->
   <!-- Botón flotante para WhatsApp -->
   <?php
+  /*
   $ws_flotante = get_row('perfil', 'boton_compra_flotante', 'id_perfil', 1);
   if ($ws_flotante == 1) { ?>
     <a style="" class="btn-flotante-producto texto_boton" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <span style="margin-top: 10px">COMPRAR AHORA </span></a>
-  <?php } ?>
+  <?php } */?>
+
+  <a style="" class="btn-flotante-producto texto_boton" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <span style="margin-top: 10px">COMPRAR AHORA </span></a>
 
   <footer class="footer-contenedor">
     <?php
@@ -994,9 +1008,9 @@ if ($formato == 3) {
     };
 
     $('#imagenModal').on('show.bs.modal', function(event) {
-            var imageSrc = $('#main-image').attr('src'); // Obtiene la fuente de la imagen principal
-            $('#imagenEnModal').attr('src', imageSrc); // Establece la fuente en la imagen dentro del modal
-          });
+      var imageSrc = $('#main-image').attr('src'); // Obtiene la fuente de la imagen principal
+      $('#imagenEnModal').attr('src', imageSrc); // Establece la fuente en la imagen dentro del modal
+    });
   </script>
 
   <script>

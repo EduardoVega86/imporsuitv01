@@ -21,7 +21,7 @@ if (isset($_POST['descripcion_libre'])) {
 }
 if (isset($_POST['valor_cantidad'])) {
     $valor_cantidad = $_POST['valor_cantidad'];
-}else{
+} else {
     $valor_cantidad = 1;
 }
 //echo $descripcion_libre;
@@ -36,18 +36,17 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     //Comprobamos si agregamos un producto a la tabla tmp_compra
     $comprobar = mysqli_query($conexion, "select * from tmp_ventas, productos where productos.id_producto = tmp_ventas.id_producto and tmp_ventas.id_producto='" . $id . "' and tmp_ventas.session_id='" . $session_id . "'");
     if ($row = mysqli_fetch_array($comprobar)) {
-        if ( $valor_cantidad == 1){
+        if ($valor_cantidad == 1) {
             $cant = $row['cantidad_tmp'] + 1;
-        }else{
+        } else {
             $cant = $row['cantidad_tmp'] - 1;
         }
-        
+
         // condicion si el stock e menor que la cantidad requerida
         if ($cant > $row['stock_producto'] and $inv == 0) {
             echo "<script>Swal.fire('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
             $('#resultados').load('../ajax/agregar_tmp.php');
             </script>";
-            
         } else {
             $sql          = "UPDATE tmp_ventas SET cantidad_tmp='" . $cant . "', precio_tmp='" . $precio_venta . "' WHERE id_producto='" . $id . "' and session_id='" . $session_id . "'";
             $query_update = mysqli_query($conexion, $sql);
@@ -61,7 +60,6 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
             echo "<script>Swal.fire('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
              $('#resultados').load('../ajax/agregar_tmp.php');
             </script>";
-            
         } else {
             //echo "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id, drogshipin_tmp) VALUES ('$id','$cantidad','$precio_venta','0','$session_id','$drogshipin_tmp')";
             $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id, drogshipin_tmp) VALUES ('$id','$cantidad','$precio_venta','0','$session_id','$drogshipin_tmp')");
@@ -153,7 +151,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                                                     ?> class="_rsi-modal-line-item-image">
                         </td>
                         <td style="width: 10%">
-                        <div class="input-group">
+                            <div class="input-group">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default btn-decrementar" data-id="<?php echo $id_producto; ?>">-</button>
                                 </span>
@@ -194,7 +192,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                         var inputCantidad = $("input[name='cantidad[" + id + "]']");
                                         var cantidadActual = parseInt(inputCantidad.val());
                                         if (cantidadActual > 1) {
-                                            actualizarCantidad(id, cantidadActual - 1,2);
+                                            actualizarCantidad(id, cantidadActual - 1, 2);
                                             inputCantidad.val(cantidadActual - 1);
                                         }
                                     });
@@ -203,7 +201,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                         var id = $(this).data('id');
                                         var inputCantidad = $("input[name='cantidad[" + id + "]']");
                                         var cantidadActual = parseInt(inputCantidad.val());
-                                        actualizarCantidad(id, cantidadActual + 1,1);
+                                        actualizarCantidad(id, cantidadActual + 1, 1);
                                         inputCantidad.val(cantidadActual + 1);
                                     });
                                 });
@@ -249,12 +247,13 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 </table>
             </div>
         </div>
+</div>
 
 
 
-        <script></script>
-        <script>
-            //alert()
+<script></script>
+<script>
+    //alert()
 
-            $("#total_carrito").text(<?php echo $cantidad_total; ?>)
-        </script>
+    $("#total_carrito").text(<?php echo $cantidad_total; ?>)
+</script>

@@ -25,8 +25,30 @@ $pacientes = 1;
 <style>
     .caja {
         padding-left: 40px !important;
-        padding-right: 4px !important;
+        padding-right: 40px !important;
         border-radius: 0.5rem !important;
+        background-color: white;
+    }
+
+    .btn-excel {
+        background-color: #1b6d41;
+        color: white;
+    }
+
+    .btn-solucion {
+        background-color: #FFD100;
+        color: white;
+    }
+
+    hr {
+        border: none;
+        /* Quita el borde predeterminado */
+        height: 2px;
+        /* Ajusta el grosor de la línea */
+        background-color: #000;
+        /* Ajusta el color de la línea */
+        margin: 20px 0;
+        /* Ajusta el espaciado vertical de la línea */
     }
 </style>
 <?php require 'includes/header_end.php'; ?>
@@ -47,31 +69,153 @@ $pacientes = 1;
                     <h1>Historial de Novedades</h1>
                 </div>
 
-                <div class="caja d-flex flex-row">
-                    <div class="d-flex flex-column">
-                        <div class="d-flex flex-row justify-content-start">
-                            <div class="form-check mr-3">
-                                <input type="checkbox" class="form-check-input" id="impuestos">
-                                <label class="form-check-label" for="impuestos">Filtrar por Fecha de la orden</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="impuestos">
-                                <label class="form-check-label" for="impuestos">Filtrar por Fecha de Solución</label>
+                <div class="caja d-flex flex-column">
+                    <div class="d-flex flex-row">
+                        <div class="container" style="margin: 0; padding-left: 0;">
+                            <h4>Seleccione fecha de inicio:</h4>
+                            <div class="input-group date" id="datepickerInicio">
+                                <input type="text" class="form-control">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-check mt-2">
-                            <input type="checkbox" class="form-check-input" id="impuestos">
-                            <label class="form-check-label" for="impuestos">Filtrar por Fecha de Novedad</label>
+                        <div class="container" style="padding-left: 15px;">
+                            <h4>Seleccione fecha de fin:</h4>
+                            <div class="input-group date" id="datepickerFin">
+                                <input type="text" class="form-control">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row justify-content-start">
+                                <div class="form-check mr-3">
+                                    <input type="checkbox" class="form-check-input" id="impuestos">
+                                    <label class="form-check-label" for="impuestos">Filtrar por Fecha de la orden</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="impuestos">
+                                    <label class="form-check-label" for="impuestos">Filtrar por Fecha de Solución</label>
+                                </div>
+                            </div>
+                            <div class="form-check mt-2 d-flex flex-row-reverse">
+                                <div>
+                                    <input type="checkbox" class="form-check-input" id="impuestos">
+                                    <label class="form-check-label" for="impuestos">Filtrar por Fecha de Novedad</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex flex-row">
+                        <div class="d-flex flex-column" style="width: 100%;">
+                            <div class="d-flex flex-row justify-content-start">
+                                <div style="width: 100%;">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label" style="padding-left: 0;">Tienda</label>
+                                    <div>
+                                        <select class="form-control" name="alineacion_titulo" id="alineacion_titulo">
+                                            <option value="1">Izquierda </option>
+                                            <option value="2">Centro </option>
+                                            <option value="3">Derecha </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 100%;">
+                                <label for="inputPassword3" class="col-sm-2 col-form-label" style="padding-left: 0;">Ciudad</label>
+                                <div>
+                                    <select class="form-control" name="alineacion_titulo" id="alineacion_titulo">
+                                        <option value="1">Izquierda </option>
+                                        <option value="2">Centro </option>
+                                        <option value="3">Derecha </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 100%;">
+                            <label for="inputPassword3" class="col-sm-2 col-form-label">Estado</label>
+                            <div style="padding-left: 20px;">
+                                <select class="form-control" name="alineacion_titulo" id="alineacion_titulo">
+                                    <option value="1">Izquierda </option>
+                                    <option value="2">Centro </option>
+                                    <option value="3">Derecha </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="width: 100%;">
+                            <label for="inputPassword3" class="col-sm-2 col-form-label">Departamento</label>
+                            <div style="padding-left: 20px;">
+                                <select class="form-control" name="alineacion_titulo" id="alineacion_titulo">
+                                    <option value="1">Izquierda </option>
+                                    <option value="2">Centro </option>
+                                    <option value="3">Derecha </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="container">
-                        <h2>Seleccione una fecha:</h2>
-                        <div class="input-group date" id="datepicker">
-                            <input type="text" class="form-control">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                            </div>
-                        </div>
+                    <div style="padding-top: 20px;">
+                        <button type="button" class="btn btn-excel"><i class='bx bxs-spreadsheet'></i> Descargar en Excel</button>
+                    </div>
+
+                    <hr />
+
+                    <div class="table-responsive" style="padding-top: 20px;">
+                        <table class="table table-sm table-striped">
+                            <tr class="info">
+
+                                <th>Orden</th>
+                                <th># de Guia</th>
+                                <th>Detalle</th>
+                                <th>Cliente</th>
+                                <th>Estado</th>
+                                <th>Novedad</th>
+                                <th>Solucion</th>
+                                <th>Traking</th>
+
+                            </tr>
+                            <?php
+                            $sql   = "SELECT * FROM  novedades";
+                            //echo $sql;
+                            $query = mysqli_query($conexion, $sql);
+                            while ($row = mysqli_fetch_array($query)) {
+                                $id_novedad     = $row['id_novedad'];
+                                $numero_guia       = $row['numero_guia'];
+                                $detalle       = $row['detalle'];
+                                $cliente       = $row['cliente'];
+                                $estado       = $row['estado'];
+                                $novedad  = $row['novedad'];
+                                $solucion  = $row['solucion'];
+                                $tracking  = $row['tracking'];
+
+                            ?>
+
+
+                                <tr>
+                                    <td><span class="badge badge-purple"><?php echo $id_novedad; ?></span></td>
+
+                                    <td><?php echo $numero_guia; ?></td>
+
+                                    <td><?php echo $detalle; ?></td>
+
+                                    <td><?php echo $cliente ?></td>
+
+                                    <td><?php echo $estado; ?></td>
+
+                                    <td><?php echo $novedad; ?></td>
+
+                                    <td>
+                                        <button type="button" class="btn btn-solucion"><i class='bx bxs-shield-plus'></i> Solucion</button>
+                                    </td>
+
+                                    <td><?php echo $tracking; ?></td>
+
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </table>
                     </div>
                 </div>
                 <!-- end container -->
@@ -107,16 +251,28 @@ $pacientes = 1;
         })
 
         $(document).ready(function() {
-            $('#datepicker').datepicker({
+            // Inicializa el datepicker de fecha de inicio
+            $('#datepickerInicio input').datepicker({
+                format: "dd/mm/yyyy",
+                language: "es",
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function(selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $('#datepickerFin input').datepicker('setStartDate', minDate);
+            });
+
+            // Inicializa el datepicker de fecha de fin
+            $('#datepickerFin input').datepicker({
                 format: "dd/mm/yyyy",
                 language: "es",
                 autoclose: true,
                 todayHighlight: true
             });
 
-            // Abrir el calendario al hacer clic en el icono
-            $('#datepicker .input-group-append').click(function() {
-                $('#datepicker').datepicker('show');
+            // Manejador para abrir el calendario al hacer clic en el ícono
+            $('.input-group-text').click(function() {
+                $(this).parent().prev('input').datepicker('show');
             });
         });
     </script>
