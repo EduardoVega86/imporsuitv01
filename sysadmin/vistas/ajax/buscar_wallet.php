@@ -725,6 +725,10 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>Aviso!</strong> No hay Registro de Guias
             </div>
+
+            <div id="proveedor">
+
+            </div>
 <?php
         }
     }
@@ -746,4 +750,14 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         }
         ajax.send();
     }
+
+    function verProveedor() {
+        var url = '../ajax/proveedor.php';
+        let tienda = '<?php echo $dominio_completo ?>';
+        console.log(tienda);
+
+
+    }
+
+    verProveedor();
 </script>
