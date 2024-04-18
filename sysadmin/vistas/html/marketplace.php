@@ -556,9 +556,9 @@ while ($r = $query->fetch_object()) {
   }
   if (numero == 0) {
     numero = "";
-  }
+  } 
   
-
+    
   page = 1;
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -574,7 +574,7 @@ while ($r = $query->fetch_object()) {
       "&categoria=" +
       categoria,
       
-
+ 
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
