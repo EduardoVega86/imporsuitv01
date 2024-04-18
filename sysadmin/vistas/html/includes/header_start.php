@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 require_once "../funciones.php";
 ?>
 <!DOCTYPE html>
@@ -22,8 +24,8 @@ require_once "../funciones.php";
 	<link href="../../assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 	<!-- librerias para la busqueda de de autocomplete -->
 	<link type="text/css" href="../../js/jquery-ui.css" rel="stylesheet" />
-        
-       
+
+
 
 
 
@@ -36,19 +38,21 @@ require_once "../funciones.php";
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <style>
-        .select2-container--default .select2-selection--single {
-            height: 38px;
-        }
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            line-height: 38px;
-        }
-        .caja{
-    padding: 20px !important;
-    border-radius: 25px;
-   -webkit-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
--moz-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23);
-box-shadow: -2px 2px 5px 0px rgba(0,0,0,0.23); 
-}
-    </style>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+	<style>
+		.select2-container--default .select2-selection--single {
+			height: 38px;
+		}
+
+		.select2-container--default .select2-selection--single .select2-selection__rendered {
+			line-height: 38px;
+		}
+
+		.caja {
+			padding: 20px !important;
+			border-radius: 25px;
+			-webkit-box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
+			-moz-box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
+			box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
+		}
+	</style>

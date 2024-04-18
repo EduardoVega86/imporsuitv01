@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
     header("location: ../../login.php");
@@ -51,6 +52,10 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
         border-radius: 25px;
 
     }
+
+    .formulario_1 {
+        border-radius: 25px 25px 0px 25px;
+    }
 </style>
 
 <div id="wrapper" class="forced enlarged">
@@ -99,7 +104,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                             <label for="condiciones" class="control-label">Codigo:</label>
                                                             <div class="col-md-5" align="left">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control formulario" id="barcode" autocomplete="off" tabindex="1" autofocus="true">
+                                                                    <input type="text" class="form-control formulario_1" id="barcode" autocomplete="off" tabindex="1" autofocus="true">
                                                                     <span class="input-group-btn">
                                                                         <button type="submit" class="btn btn-default"><span class="fa fa-barcode"></span></button>
                                                                     </span>
@@ -120,6 +125,19 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="card-box">
+                                                <!-- 
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h4>¿Existe el cliente? </h4>
+                                                        <div class="form-group">
+                                                            <label for="nombre_cliente" class="control-label">Cedula:</label>
+                                                            <input type="text" class="form-control formulario" id="nombre_cliente" name="nombre_cliente" placeholder="Cedula del cliente" required>
+                                                            <input type="hidden" id="id_cliente" name="id_cliente">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr> -->
+
                                                 <div class="widget-chart">
                                                     <H5><strong>DATOS DESTINATARIO</strong></H5>
                                                     <form method="post" action="../../../ingresar_pedido_1.php" id="formulario">
@@ -143,45 +161,22 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                 <input type="hidden" class="form-control" id="session" name="session" value="<?php echo $session_id; ?>">
                                                                 <input type="hidden" class="form-control" id="cliente" name="cliente" value="1">
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <!-- <div class="col-md-4">
                                                                 <span class="help-block">Cedula </span>
                                                                 <input type="text" class="datos form-control formulario" id="cedula" name="cedula" placeholder="cedula">
-                                                            </div>
+                                                            </div> -->
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Teléfono </span>
                                                                 <input id="telefonod" name="telefono" class="form-control formulario" placeholder="telefono" value="">
 
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <span class="help-block">Ciudad </span>
-                                                                <div id="div_ciudad" onclick="verify()">
-                                                                    <select class="datos form-control formulario" onfocus="verify()" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required disabled>
-                                                                        <option value="">Ciudad *</option>
-                                                                        <?php
-                                                                        $sql2 = "select * from ciudad_laar ";
-                                                                        $query2 = mysqli_query($conexion, $sql2);
-                                                                        $rowcount = mysqli_num_rows($query2);
-                                                                        $i = 1;
-                                                                        while ($row2 = mysqli_fetch_array($query2)) {
-                                                                            $id_ciudad = $row2['id_ciudad'];
-                                                                            $nombre = $row2['nombre'];
-                                                                            $cod_ciudad = $row2['codigo'];
-                                                                            $valor_seleccionado = $ciudaddestino;
-                                                                            $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
-                                                                            echo '<option value="' . $cod_ciudad . '" ' . $selected . '>' . $nombre . '</option>';
-                                                                        ?>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Provincia </span>
-                                                                <select class="datos form-control formulario" id="provinica" name="provinica" required disabled>
+                                                                <select class="datos form-control formulario" onchange="cargar_provincia_pedido()" id="provinica" name="provinica" required disabled>
                                                                     <option value="">Provincia *</option>
                                                                     <?php
-                                                                    $sql2 = "select * from provincia_laar where id_pais=$pais";
+                                                                    $sql2 = "select * from provincia_laar where id_pais='$pais'";
+
                                                                     $query2 = mysqli_query($conexion, $sql2);
                                                                     while ($row2 = mysqli_fetch_array($query2)) {
                                                                         $id_prov = $row2['id_prov'];
@@ -200,12 +195,36 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                     ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <span class="help-block">Sector </span>
-                                                                <input type="text" class="datos form-control rounded formulario" id="sector" name="sector" placeholder="Sector">
-                                                            </div>
                                                         </div>
                                                         <div class="row">
+
+
+                                                            <div class="col-md-4">
+                                                                <span class="help-block">Ciudad </span>
+                                                                <div id="div_ciudad" onclick="verify()">
+                                                                    <select class="datos form-control formulario" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required disabled>
+                                                                        <option value="">Ciudad *</option>
+                                                                        <?php
+                                                                        $sql2 = "select * from ciudad_laar ";
+                                                                        $query2 = mysqli_query($conexion, $sql2);
+                                                                        $rowcount = mysqli_num_rows($query2);
+                                                                        $i = 1;
+                                                                        while ($row2 = mysqli_fetch_array($query2)) {
+                                                                            $id_ciudad = $row2['id_ciudad'];
+                                                                            $nombre = $row2['nombre'];
+                                                                            $cod_ciudad = $row2['codigo'];
+                                                                            $valor_seleccionado = $ciudaddestino;
+                                                                            $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
+                                                                            echo '<option value="' . $cod_ciudad . '" ' . $selected . '>' . $nombre . '</option>';
+                                                                        ?>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="col-md-4">
+                                                                <span class="help-block">Sector </span>
+                                                                <input type="text" class="datos form-control rounded formulario" id="sector" name="sector" placeholder="Sector">
+                                                            </div> -->
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Calle principal </span>
                                                                 <input type="text" class="datos form-control formulario" id="calle_principal" name="calle_principal" placeholder="Calle Principal *" required>
@@ -214,21 +233,25 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                 <span class="help-block">Calle secundaria </span>
                                                                 <input type="text" class="datos form-control formulario" id="calle_secundaria" name="calle_secundaria" placeholder="Calle Secundaria *" required>
                                                             </div>
+                                                        </div>
+                                                        <div class="row">
+
                                                             <div class="col-md-4">
                                                                 <span class="help-block">Numero de casa </span>
                                                                 <input id="numerocasa" name="numerocasa" class="form-control formulario" value="">
                                                             </div>
-                                                            <input type="hidden" id="costo_envio" name="costo_envio">
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-4">
                                                                 <span class="help-block">Referencia </span>
                                                                 <input type="text" class="datos form-control formulario" id="referencia" name="referencia" placeholder="Referencia *" required>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-4">
                                                                 <span class="help-block">Observaciones para la entrega </span>
                                                                 <input type="text" class="datos form-control formulario" id="observacion" name="observacion" placeholder="Referencias Adicionales (Opcional)">
                                                             </div>
+                                                            <input type="hidden" id="costo_envio" name="costo_envio">
+                                                        </div>
+                                                        <div class="row">
+
                                                         </div>
                                                         <div style="background-color: #F6F6F6" class="card-box mt-3">
                                                             <div class="widget-chart">
@@ -327,8 +350,8 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                             </br>
                                                         </div>
                                                         </div>
+                                                    </form>
                                                 </div>
-                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -445,7 +468,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
             data.append("costo_total", document.getElementById('costo_total').value);
             data.append("ciudad", document.getElementById('ciudad_entrega').value);
             data.append("productos_guia", document.getElementById('productos_guia').value);
-            data.append("identificacion", document.getElementById('cedula').value);
+            data.append("identificacion", "0");
             data.append("seguro", document.getElementById('asegurar_producto').value);
 
             $.ajax({
@@ -533,7 +556,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
             data.append("costo_total", document.getElementById('costo_total').value);
             data.append("ciudad", document.getElementById('ciudad_entrega').value);
             data.append("productos_guia", document.getElementById('productos_guia').value);
-            data.append("identificacion", document.getElementById('cedula').value);
+            data.append("identificacion", "0");
             data.append("seguro", document.getElementById('asegurar_producto').value);
 
             // generar el pedido
@@ -612,7 +635,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
             data.append("costo_total", document.getElementById('costo_total').value);
             data.append("ciudad", document.getElementById('ciudad_entrega').value);
             data.append("productos_guia", document.getElementById('productos_guia').value);
-            data.append("identificacion", document.getElementById('cedula').value);
+            data.append("identificacion", "0");
             data.append("seguro", document.getElementById('asegurar_producto').value);
             data.append("contenido", document.getElementById('producto_name').textContent) + "x" + document.getElementById('producto_qty').textContent;
 
@@ -761,113 +784,113 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 
 
         }
-        if (transportadora === "4") {
-            //obtienne el formulario
-            var formulario = document.getElementById('formulario');
-            //crea un objeto FormData
-            if (document.querySelector("#valorasegurado").value === "") {
-                document.querySelector("#valorasegurado").value = 0;
-            }
-            var data = new FormData(formulario);
-            data.append("nombre_destino", document.getElementById('nombred').value);
-            data.append("celular", document.getElementById('telefonod').value);
-            data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
-            data.append("valor_total", document.getElementById('valor_total_').value);
-            data.append("cantidad_total", document.getElementById('cantidad_total').value);
-            data.append("costo_total", document.getElementById('costo_total').value);
-            data.append("ciudad", document.getElementById('ciudad_entrega').value);
-            data.append("productos_guia", document.getElementById('productos_guia').value);
-            data.append("identificacion", document.getElementById('cedula').value);
-            data.append("seguro", document.getElementById('asegurar_producto').value);
-            data.append("contenido", document.getElementById('producto_name').textContent) + "x" + document.getElementById('producto_qty').textContent;
+        /*  if (transportadora === "4") {
+             //obtienne el formulario
+             var formulario = document.getElementById('formulario');
+             //crea un objeto FormData
+             if (document.querySelector("#valorasegurado").value === "") {
+                 document.querySelector("#valorasegurado").value = 0;
+             }
+             var data = new FormData(formulario);
+             data.append("nombre_destino", document.getElementById('nombred').value);
+             data.append("celular", document.getElementById('telefonod').value);
+             data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
+             data.append("valor_total", document.getElementById('valor_total_').value);
+             data.append("cantidad_total", document.getElementById('cantidad_total').value);
+             data.append("costo_total", document.getElementById('costo_total').value);
+             data.append("ciudad", document.getElementById('ciudad_entrega').value);
+             data.append("productos_guia", document.getElementById('productos_guia').value);
+             data.append("identificacion", "0");
+             data.append("seguro", document.getElementById('asegurar_producto').value);
+             data.append("contenido", document.getElementById('producto_name').textContent) + "x" + document.getElementById('producto_qty').textContent;
 
-            $.ajax({
-                url: "../../../ingresar_pedido_1.php",
-                type: "POST",
-                data: data,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    console.log(response);
-                    let [guia, precio] = response.split(',');
-                    $('#guia').val(guia);
-                    $('#precio').val(precio);
-                    $('#modal_vuelto').modal('show');
-                    $.ajax({
-                        url: '../ajax/calcular_guia.php',
-                        type: 'post',
-                        data: data,
-                        contentType: false,
-                        processData: false,
-                        success: function(response) {
-                            $('#resultados').html(response);
-                            $('#generar_guia_btn').prop('disabled', false);
-                            $.ajax({
-                                url: "../ajax/ultimo_pedido.php",
-                                type: "POST",
-                                data: data,
-                                contentType: false,
-                                processData: false,
-                                success: function(response) {
-                                    $('#id_pedido_cot_').val(response);
-                                    data.set('id_pedido_cot', response);
-                                    let ciudad_texto = $('#ciudad_entrega option:selected').text();
-                                    let destino_texto = $('#destino_c').val();
-                                    data.append('ciudad_texto', ciudad_texto);
-                                    data.append('destino_texto', destino_texto);
+             $.ajax({
+                 url: "../../../ingresar_pedido_1.php",
+                 type: "POST",
+                 data: data,
+                 contentType: false,
+                 processData: false,
+                 success: function(response) {
+                     console.log(response);
+                     let [guia, precio] = response.split(',');
+                     $('#guia').val(guia);
+                     $('#precio').val(precio);
+                     $('#modal_vuelto').modal('show');
+                     $.ajax({
+                         url: '../ajax/calcular_guia.php',
+                         type: 'post',
+                         data: data,
+                         contentType: false,
+                         processData: false,
+                         success: function(response) {
+                             $('#resultados').html(response);
+                             $('#generar_guia_btn').prop('disabled', false);
+                             $.ajax({
+                                 url: "../ajax/ultimo_pedido.php",
+                                 type: "POST",
+                                 data: data,
+                                 contentType: false,
+                                 processData: false,
+                                 success: function(response) {
+                                     $('#id_pedido_cot_').val(response);
+                                     data.set('id_pedido_cot', response);
+                                     let ciudad_texto = $('#ciudad_entrega option:selected').text();
+                                     let destino_texto = $('#destino_c').val();
+                                     data.append('ciudad_texto', ciudad_texto);
+                                     data.append('destino_texto', destino_texto);
 
-                                    $.ajax({
-                                        url: "../ajax/generar_gintracom.php",
-                                        type: "POST",
-                                        data: data,
-                                        contentType: false,
-                                        processData: false,
-                                        success: function(response) {
-                                            Swal.fire({
-                                                icon: "info",
-                                                title: "Por favor espere",
-                                                text: "Estamos generando la guía",
-                                                showConfirmButton: false,
-                                                didOpen: () => {
-                                                    Swal.showLoading();
-                                                }
-                                            })
-                                            response = JSON.parse(response);
+                                     $.ajax({
+                                         url: "../ajax/generar_gintracom.php",
+                                         type: "POST",
+                                         data: data,
+                                         contentType: false,
+                                         processData: false,
+                                         success: function(response) {
+                                             Swal.fire({
+                                                 icon: "info",
+                                                 title: "Por favor espere",
+                                                 text: "Estamos generando la guía",
+                                                 showConfirmButton: false,
+                                                 didOpen: () => {
+                                                     Swal.showLoading();
+                                                 }
+                                             })
+                                             response = JSON.parse(response);
 
-                                            $id_gintracom = response["guia"];
-                                            data.append('id_gintracom', $id_gintracom);
-                                            $.ajax({
-                                                url: "../ajax/enviar_gintracom.php",
-                                                type: "POST",
-                                                data: data,
-                                                contentType: false,
-                                                processData: false,
-                                                success: function(response) {
-                                                    Swal.fire({
-                                                        icon: "success",
-                                                        title: "Guía generada",
-                                                        text: "La guía ha sido generada exitosamente",
-                                                        showConfirmButton: true,
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
-                                                        }
-                                                    })
-                                                }
-                                            })
-                                        }
+                                             $id_gintracom = response["guia"];
+                                             data.append('id_gintracom', $id_gintracom);
+                                             $.ajax({
+                                                 url: "../ajax/enviar_gintracom.php",
+                                                 type: "POST",
+                                                 data: data,
+                                                 contentType: false,
+                                                 processData: false,
+                                                 success: function(response) {
+                                                     Swal.fire({
+                                                         icon: "success",
+                                                         title: "Guía generada",
+                                                         text: "La guía ha sido generada exitosamente",
+                                                         showConfirmButton: true,
+                                                     }).then((result) => {
+                                                         if (result.isConfirmed) {
+                                                             window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
+                                                         }
+                                                     })
+                                                 }
+                                             })
+                                         }
 
-                                    })
-                                }
-                            });
-                        }
+                                     })
+                                 }
+                             });
+                         }
 
-                    });
-                }
-            });
+                     });
+                 }
+             });
 
 
-        }
+         } */
 
     }
 
@@ -944,7 +967,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     function cargar_provincia_pedido() {
         var id_provincia = $('#provinica').val();
         $.ajax({
-            url: "../../../ajax/cargar_ciudad_pedido.php",
+            url: "../ajax/cargar_ciudad_pedido.php",
             type: "POST",
             data: {
                 provinica: id_provincia,
@@ -971,7 +994,10 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
         var id_provincia = $('#ciudad_entrega').val();
         let recaudo = $('#cod').val();
 
-        $.ajax({
+        calcular_guia(recaudo);
+        calcular_servi(id_provincia, recaudo);
+        //calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
+        /*  $.ajax({
             url: "../ajax/cargar_provincia_pedido.php",
             type: "POST",
             data: {
@@ -985,11 +1011,10 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 });
                 let precio_total = $('#precio_total').val();
 
-                calcular_guia(recaudo);
-                calcular_servi(id_provincia, recaudo);
-                //calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
+
             }
         })
+    } */
     }
 
     $("#ciudad_entrega").select2({
@@ -998,6 +1023,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     });
 
     function calcular_servi(id_provincia, recaudo) {
+        recaudo = $('#cod').val();
         let ciudadOrigen = ""
         let tienda = window.location.search.split("=")[1];
         $.ajax({
@@ -1113,7 +1139,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     }
 
     function calcular_guia(recaudo) {
-
+        recaudo = $('#cod').val();
         let precio_total = $('#valor_total_').val();
         let provinica = $('#provinica').val();
         let ciudad_entrega = $('#ciudad_entrega').val();
