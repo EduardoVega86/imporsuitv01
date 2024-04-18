@@ -1221,7 +1221,11 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                         <td class="text-center align-middle"><?php if (empty($transportadora)) {
                                                                     echo "<span class='badge badge-warning text-black'>NA</span>";
                                                                 } else {
-                                                                    echo "<span class='" . $badge_transportadoras . " '>" . $transportadora . "</span>";
+                                                                    if ($transportadora == "IMPORFAST") {
+                                                                        echo "<span class='" . $badge_transportadoras . " '>" . "FAST" . "</span>";
+                                                                    } else {
+                                                                        echo "<span class='" . $badge_transportadoras . " '>" . $transportadora . "</span>";
+                                                                    }
                                                                 } ?></td>
 
                         <td class="text-center align-middle" id="estados_laar_<?php echo $numero_factura ?>"><?php

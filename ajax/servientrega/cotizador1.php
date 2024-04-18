@@ -10,7 +10,7 @@ require_once "../../sysadmin/vistas/db.php";
 require_once "../../sysadmin/vistas/php_conexion.php";
 
 $sql = "SELECT * FROM `ciudad_cotizacion` WHERE `ciudad` like '$ciudad_destino%'";
-echo $sql;
+
 
 $result = mysqli_query($conexion, $sql);
 
