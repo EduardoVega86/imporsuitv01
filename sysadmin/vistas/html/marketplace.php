@@ -557,9 +557,7 @@ while ($r = $query->fetch_object()) {
   if (numero == 0) {
     numero = "";
   }
-  if (estado == 0) {
-    estado = "";
-  }
+  
 
   page = 1;
   $("#loader").fadeIn("slow");
@@ -572,7 +570,7 @@ while ($r = $query->fetch_object()) {
       "&q=" +
       q +
       "&tienda=" +
-      tienda,
+      tienda +
       "&categoria=" +
       categoria,
       
