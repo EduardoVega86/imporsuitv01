@@ -24,46 +24,46 @@ $id_provincia = $_POST['provinica'];
 //$id_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 //echo 'asdasd'.$_POST['provinica'].'asddas';
 
-    // escaping, additionally removing everything that could be (html/javascript-) code
-    //$q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-    $aColumns = array('nombre'); //Columnas de busqueda
-    $sTable   = "ciudad_laar";
-    $sWhere   = "where codigoProvincia='$id_provincia'";
-  
-    $sWhere .= " order by id_ciudad";
-   
-    //Count the total number of row in your table*/
-    
-    //main query to fetch the data
-    $sql   = "SELECT * FROM  $sTable $sWhere ";
-    //echo $sql;
-    $query = mysqli_query($conexion, $sql);
-    //loop through fetched data
+// escaping, additionally removing everything that could be (html/javascript-) code
+//$q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
+$aColumns = array('nombre'); //Columnas de busqueda
+$sTable   = "ciudad_laar";
+$sWhere   = "where codigoProvincia='$id_provincia'";
 
-        ?>
- <div class="input-group-prepend">
-                <span style="height: 45px" class="icon_datos input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                </div>
-                <select  class="datos form-control" onchange="calcular_guia()" id="ciudad_entrega" name="ciudad_entrega" required>
-                  <option value="">Ciudad *</option>
-                  <?php
-                           $sql2="select * from ciudad_laar where codigoProvincia= '$id_provincia' and pais=1";
-                          // echo $sql2;
-                           $query2 = mysqli_query($conexion, $sql2);
-                        
-                            $rowcount=mysqli_num_rows($query2);
-                            //echo $rowcount;
-                            $i=1;
-                           while ($row2 = mysqli_fetch_array($query2)) {
-                              // echo $row2['provincia'];
-                               //$id_prov       = $row2['id_prov']; 
-                                 $ciudad      = $row2['nombre']; 
-                                 $codigo      = $row2['codigo']; 
-                           
+$sWhere .= " order by id_ciudad";
+
+//Count the total number of row in your table*/
+
+//main query to fetch the data
+$sql   = "SELECT * FROM  $sTable $sWhere ";
+//echo $sql;
+$query = mysqli_query($conexion, $sql);
+//loop through fetched data
+
 ?>
-        <option value="<?php echo $codigo; ?>"><?php echo $ciudad; ?></option>
-         <?php }?>
-         </select>
+<div class="input-group-prepend">
+</div>
+<select class="datos form-control formulario" onchange="seleccionarProvincia()" id="ciudad_entrega" name="ciudad_entrega" required>
+  <option value="">Ciudad *</option>
+  <?php
+  $sql2 = "select * from ciudad_laar where codigoProvincia= '$id_provincia';";
+  echo $sql2;
+  // echo $sql2;
+  $query2 = mysqli_query($conexion, $sql2);
+
+  $rowcount = mysqli_num_rows($query2);
+  //echo $rowcount;
+  $i = 1;
+  while ($row2 = mysqli_fetch_array($query2)) {
+    // echo $row2['provincia'];
+    //$id_prov       = $row2['id_prov']; 
+    $ciudad      = $row2['nombre'];
+    $codigo      = $row2['codigo'];
+
+  ?>
+    <option value="<?php echo $codigo; ?>"><?php echo $ciudad; ?></option>
+  <?php } ?>
+</select>
 <?php
 
 
