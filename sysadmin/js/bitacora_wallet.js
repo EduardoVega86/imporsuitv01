@@ -133,6 +133,7 @@ function buscar_numero(numero) {
       $('[data-toggle="tooltip"]').tooltip({
         html: true,
       });
+      verProveedor();
     },
   });
 }
@@ -173,6 +174,21 @@ function filtrarRegistros(filtro) {
       $('[data-toggle="tooltip"]').tooltip({
         html: true,
       });
+    },
+  });
+}
+function verProveedor() {
+  var url = "../ajax/proveedor.php";
+  let tienda = "<?php echo $dominio_completo ?>";
+
+  $.ajax({
+    url: url,
+    type: "POST",
+    data: {
+      tienda: tienda,
+    },
+    success: function (response) {
+      $("#proveedor").html(response);
     },
   });
 }

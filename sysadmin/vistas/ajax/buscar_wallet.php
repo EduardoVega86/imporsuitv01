@@ -577,6 +577,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         </tr>
                     </table>
                 </div>
+
             <?php
             }
         } else {
@@ -726,14 +727,12 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                 <strong>Aviso!</strong> No hay Registro de Guias
             </div>
 
-            <div id="proveedor">
-
-            </div>
 <?php
         }
     }
 }
 ?>
+
 
 <script>
     function filterData() {
@@ -752,20 +751,26 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     }
 
     function verProveedor() {
-        var url = '../ajax/proveedor.php';
-        let tienda = '<?php echo $dominio_completo ?>';
+        var url = "../ajax/proveedor.php";
+        let tienda = "<?php echo $dominio_completo ?>";
 
         $.ajax({
             url: url,
-            type: 'POST',
+            type: "POST",
             data: {
-                tienda: tienda
+                tienda: tienda,
             },
             success: function(response) {
-                $('#proveedor').html(response);
-            }
-        })
+                $("#proveedor").html(response);
+            },
+        });
     }
 
     verProveedor();
+
+
+    function filtrarFecha() {
+        const buscar_numero2 = document.getElementById('buscar_numero2').value;
+
+    }
 </script>

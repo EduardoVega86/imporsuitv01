@@ -622,7 +622,7 @@ function generar_guia() {
       },
     });
   }
-  if (transportadora === "3") {
+  if (transportadora === "4") {
     var formulario = document.getElementById("datos_pedido");
     if (document.querySelector("#valorasegurado").value === "") {
       document.querySelector("#valorasegurado").value = 0;
