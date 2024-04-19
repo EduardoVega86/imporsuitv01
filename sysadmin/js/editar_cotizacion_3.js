@@ -516,7 +516,7 @@ function generar_guia() {
     let destino_texto = $("#destino_c").val();
     data.append("ciudad_texto", ciudad_texto);
     data.append("destino_texto", destino_texto);
-
+    data.append("provincia", $("#provinica option:selected").text());
     $.ajax({
       url: "../ajax/datos_servi.php",
       type: "POST",

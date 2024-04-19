@@ -12,7 +12,9 @@ if (isset($id_pedido)) {
     $result = mysqli_query($conexion, $sql);
     $tienda = mysqli_fetch_array($result);
     $tienda = $tienda['tienda'];
-
+    if (empty($tienda)) {
+        $tienda = "https://" . $_SERVER['SERVER_NAME'];
+    }
     $data = array(
         "tienda" => $tienda,
         "ciudad" => $ciudad
