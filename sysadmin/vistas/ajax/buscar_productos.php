@@ -26,12 +26,6 @@ if ($filaDestacados['total'] == 0) {
     // No hay productos destacados, así que actualizamos 3 productos aleatoriamente
     $actualizarDestacados = "UPDATE productos SET destacado = '1' ORDER BY RAND() LIMIT 3";
     $resultadoActualizacion = mysqli_query($conexion, $actualizarDestacados);
-
-    if ($resultadoActualizacion) {
-        echo "Se han actualizado 3 productos como destacados.";
-    } else {
-        echo "Hubo un error al actualizar los productos destacados: " . mysqli_error($conexion);
-    }
 }
 
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
