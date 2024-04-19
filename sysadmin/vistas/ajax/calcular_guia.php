@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 require_once "../db.php";
 require_once "../php_conexion.php";
 require_once "../funciones.php";
@@ -10,6 +11,8 @@ $cantidad_total = $_POST['cantidad_total'];
 $cod = $_POST['cod'];
 $seguro = $_POST['seguro'];
 $costo = $_POST['costo_total'];
+
+$ciudad2 = $_POST['ciudad2'];
 if (isset($_POST['provincia'])) {
     $provincia = $_POST['provincia'];
 }
@@ -30,8 +33,8 @@ if ($transportadora == 1) {
         $valor_base = 6.5;
     }
 } else if ($transportadora == 3) {
-    $valor_base = get_row('ciudad_cotizacion', 'trayecto_servientrega', 'ciudad', $ciudad);
-    $precio_trayecto = get_row('cobertura_servientrega', 'precio', 'trayecto', $valor_base);
+    $valor_base = get_row('ciudad_cotizacion', 'trayecto_servientrega', 'ciudad', $ciudad2);
+    $precio_trayecto = get_row('cobertura_servientrega', 'precio', 'tipo_cobertura', $valor_base);
     $valor_base = $precio_trayecto;
 }
 
