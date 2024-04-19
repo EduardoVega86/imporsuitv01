@@ -2267,6 +2267,9 @@ mysqli_query($conexion, "CREATE TABLE novedades (
  transportadora varchar(100)
 );");
 
+mysqli_query($conexion, "ALTER TABLE `facturas_ventas` DROP INDEX `numero_cotizacion`;");
+ 
+ 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
