@@ -401,8 +401,7 @@ function generar_guia() {
           title: "Guía generada",
           text: "La guía ha sido generada exitosamente",
         }).then(() => {
-          window.location.href =
-            `./editar_cotizacion.php?id_factura=` + $("#id_pedido_cot_").val();
+          location.reload();
         });
       },
     });
@@ -564,9 +563,7 @@ function generar_guia() {
                     showConfirmButton: true,
                   }).then((result) => {
                     if (result.isConfirmed) {
-                      window.location.href =
-                        `./editar_cotizacion.php?id_factura=` +
-                        $("#id_pedido_cot_").val();
+                      location.reload();
                     }
                   });
                 },
@@ -607,9 +604,7 @@ function generar_guia() {
                     showConfirmButton: true,
                   }).then((result) => {
                     if (result.isConfirmed) {
-                      window.location.href =
-                        `./editar_cotizacion.php?id_factura=` +
-                        $("#id_pedido_cot_").val();
+                      location.reload();
                     }
                   });
                 },
@@ -702,9 +697,7 @@ function generar_guia() {
               showConfirmButton: true,
             }).then((result) => {
               if (result.isConfirmed) {
-                window.location.href =
-                  `./editar_cotizacion.php?id_factura=` +
-                  $("#id_pedido_cot_").val();
+                location.reload();
               }
             });
           },
