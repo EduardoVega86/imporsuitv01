@@ -10,7 +10,9 @@ $cantidad_total = $_POST['cantidad_total'];
 $cod = $_POST['cod'];
 $seguro = $_POST['seguro'];
 $costo = $_POST['costo_total'];
-
+if (isset($_POST['provincia'])) {
+    $provincia = $_POST['provincia'];
+}
 $transportadora = $_POST['transportadora'];
 //echo $costo;
 $valorasegurado = $_POST['valorasegurado'];
@@ -27,12 +29,22 @@ if ($transportadora == 1) {
     } else {
         $valor_base = 6.5;
     }
+} else if ($transportadora == 3) {
+    $valor_base = get_row('ciudad_cotizacion', 'trayecto_servientrega', 'ciudad', $ciudad);
+    $precio_trayecto = get_row('cobertura_servientrega', 'precio', 'trayecto', $valor_base);
+    $valor_base = $precio_trayecto;
 }
 
 //echo $cod;
 if ($transportadora == 1) {
 
 
+    if ($cod == "1") {
+        $cod = $valor_total * 0.03;
+    } else {
+        $cod = 0;
+    }
+} else if ($transportadora == 3) {
     if ($cod == "1") {
         $cod = $valor_total * 0.03;
     } else {

@@ -110,6 +110,43 @@ $pacientes = 1;
     .close:hover {
         opacity: 1;
     }
+
+    .sub_titulos {
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    hr {
+        border: none;
+        /* Quita el borde predeterminado */
+        height: 2px;
+        /* Ajusta el grosor de la línea */
+        background-color: #000;
+        /* Ajusta el color de la línea */
+        margin: 20px 0;
+        /* Ajusta el espaciado vertical de la línea */
+    }
+
+    .input-group-text {
+        background: transparent;
+        padding-right: 0;
+        /* Remover el espacio a la derecha del ícono si es necesario */
+    }
+
+    .form-group .input-group .form-control {
+        border: 1px solid #ced4da;
+        /* Ajusta al color de borde deseado */
+        border-left: none;
+        /* Remueve el borde izquierdo donde se unen el ícono y el input */
+    }
+
+    /* Ajusta el tamaño y el color del icono según sea necesario */
+    .bx {
+        font-size: 1.5rem;
+        /* Tamaño del icono */
+        color: #757575;
+        /* Color del icono */
+    }
 </style>
 <?php require 'includes/header_end.php'; ?>
 
@@ -142,13 +179,17 @@ $pacientes = 1;
                             <!-- Elemento del formulario -->
                             <!-- TÍTULO DEL FORMULARIO -->
                             <div class="list-group-item" id="tituloFormulario">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    TÍTULO DEL FORMULARIO
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                                <div class="d-flex">
+                                    <div>
+                                        TÍTULO DEL FORMULARIO
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <!-- Sección oculta que se mostrará al hacer clic en editar -->
                                 <div class="edit-section hidden">
@@ -169,7 +210,7 @@ $pacientes = 1;
                                         </div>
                                         <div class="form-group">
                                             <label for="colorTxt_titulo">Color texto titulo</label>
-                                            <input class="colores input-change" type="color" name="colorTxt_titulo" value="">
+                                            <input class="colores input-change" type="color" id="colorTxt_titulo" name="colorTxt_titulo" value="">
                                         </div>
                                         <!-- Añade más campos según sea necesario -->
                                     </form>
@@ -270,13 +311,48 @@ $pacientes = 1;
                                         </div>
                                         <div class="form-group">
                                             <label for="colorBtn_aplicar">Color boton aplicar</label>
-                                            <input class="colores input-change" type="color" name="colorBtn_aplicar" value="">
+                                            <input class="colores input-change" type="color" id="colorBtn_aplicar" name="colorBtn_aplicar" value="">
                                         </div>
                                         <!-- Añade más campos según sea necesario -->
                                     </form>
                                 </div>
                             </div>
                             <!-- Fin CODIGOS DE DESCUENTO -->
+                            <!-- NOMBRES Y APELLIDOS -->
+                            <div class="list-group-item" id="nombres_apellidos">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                    NOMBRES Y APELLIDOS
+                                    <span>
+                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                    </span>
+                                </div>
+                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="txt_nombresApellidos">Texto Interno</label>
+                                            <input type="text" class="form-control" id="txt_nombresApellidos" placeholder="">
+                                        </div>
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="checkbox" value="" id="mostrarIcon_nombresApellidos" checked>
+                                            <label class="form-check-label" for="mostrarIcon_nombresApellidos">
+                                                Mostrar ícono de campo
+                                            </label>
+                                        </div>
+                                        <div class="btn-group" id="icono_nombresApellidos">
+                                            <button class="btn btn-secondary icon-btn active" data-value="bxs-user"><i class='bx bxs-user'></i></button>
+                                            <button class="btn btn-secondary icon-btn" data-value="bx-user"><i class='bx bx-user'></i></button>
+                                            <button class="btn btn-secondary icon-btn" data-value="bxs-user-detail"><i class='bx bxs-user-detail'></i></button>
+                                        </div>
+
+                                        <!-- Añade más campos según sea necesario -->
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Fin NOMBRES Y APELLIDOS -->
                         </div>
                     </div>
                 </div>
@@ -302,7 +378,7 @@ $pacientes = 1;
                                     <p id="descuentosPreview">Descuento</p>
                                     <span style="width: 100%; text-align: end; font-weight:bold; color: red;">- $4.00</span>
                                 </div>
-
+                                <hr />
                                 <div class="d-flex flex-row">
                                     <p id="totalPreview">Total</p>
                                     <span style="width: 100%; text-align: end;">$19.99</span>
@@ -319,9 +395,9 @@ $pacientes = 1;
                             <div class="discount-code-container" id="codigosDescuentoPreview">
                                 <!-- Campo de entrada para el código de descuento -->
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Código de descuento" aria-label="Código de descuento">
+                                    <input type="text" class="form-control" placeholder="Código de descuento" id="etiqueta_descuentoPreview" aria-label="Código de descuento">
                                     <div class="input-group-append">
-                                        <button class="btn btn-dark" type="button">Aplicar</button>
+                                        <button class="btn btn-dark" id="textoBtn_aplicarPreview" type="button">Aplicar</button>
                                     </div>
                                 </div>
 
@@ -333,10 +409,25 @@ $pacientes = 1;
                                     </button>
                                 </div>
                             </div>
+
+                            <div class="form-group" id="nombres_apellidosPreview" style="position: relative; padding-top: 10px;">
+                                <hr />
+                                <label class="sub_titulos">Nombres y Apellidos</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="icono_nombresApellidos"><i class='bx bxs-user'></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="txt_nombresApellidosPreview" placeholder="Nombre y Apellido">
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
                 <!-- end container -->
+                <div class="save-button-container">
+                    <button id="saveFormState" class="btn btn-success">Guardar Cambios</button>
+                </div>
             </div>
             <!-- end content -->
 
@@ -356,8 +447,9 @@ $pacientes = 1;
     <!-- ============================================================== -->
     <!-- Todo el codigo js aqui -->
     <!-- ============================================================== -->
-    <script type="text/javascript" src="../../js/caracteristicas_entrega.js"></script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
     <script>
         $(document).ready(function() {
             $(".UpperCase").on("keypress", function() {
@@ -383,15 +475,14 @@ $pacientes = 1;
             $('.toggle-visibility').click(function() {
                 var listItem = $(this).closest('.list-group-item');
                 var listItemID = listItem.attr('id');
+                var previewItem = $('#previewContainer').find('#' + listItemID + 'Preview');
 
-                // Alterna la clase 'hidden' en la lista de la izquierda
-                listItem.toggleClass('hidden');
+                // Toggle de visibilidad en la vista previa
+                previewItem.toggle();
 
-                // También alterna la clase 'hidden' en la vista previa correspondiente
-                $('#previewContainer').find('#' + listItemID + 'Preview').toggleClass('hidden');
-
-                // Cambia el ícono de visibilidad
-                $(this).find('i').toggleClass('fa-eye fa-eye-slash');
+                // Cambio del estado y actualización en JSON
+                var estadoActual = previewItem.is(':visible') ? '1' : '0';
+                listItem.data('estado', estadoActual); // Guardar el estado como data attribute
             });
         });
 
@@ -462,58 +553,137 @@ $pacientes = 1;
             descuentosInput.addEventListener('input', function() {
                 document.getElementById('descuentosPreview').textContent = this.value;
             });
+
+            // Asegurarse que los elementos están correctamente enlazados con los eventos de actualización
+            const etiqueta_descuentoInput = document.getElementById('etiqueta_descuento');
+            const textoBtn_aplicarInput = document.getElementById('textoBtn_aplicar');
+
+            etiqueta_descuentoInput.addEventListener('input', function() {
+                var previewInput = document.getElementById('etiqueta_descuentoPreview');
+                previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
+            });
+
+            textoBtn_aplicarInput.addEventListener('input', function() {
+                document.getElementById('textoBtn_aplicarPreview').textContent = this.value;
+            });
+
+            const txt_nombresApellidosInput = document.getElementById('txt_nombresApellidos');
+            txt_nombresApellidosInput.addEventListener('input', function() {
+                var previewInput = document.getElementById('txt_nombresApellidosPreview');
+                previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
+            });
+
         });
 
-        // Funcion para que consuma los datos de checout_predeterminado.json y los utilice
+        // Funcion para que consuma los datos de checkout.json y los utilice
 
         document.addEventListener('DOMContentLoaded', function() {
             loadAndSetInitialData();
         });
 
         function loadAndSetInitialData() {
-    $.getJSON('../json/checkout_predeterminado.json', function(data) {
-        data.forEach(function(item) {
-            // Asignar valores a los campos de entrada y actualizar la vista previa
-            Object.keys(item.content).forEach(function(key) {
-                var field = $('#' + key);
-                var fieldValue = item.content[key];
-                var previewField = $('#' + key + 'Preview');
+            $.getJSON('../json/checkout.json', function(data) {
+                data.forEach(function(item) {
+                    Object.keys(item.content).forEach(function(key) {
+                        var field = $('#' + key);
+                        var fieldValue = item.content[key];
+                        var previewField = $('#' + key + 'Preview');
 
-                // Actualizar el valor del campo si existe
-                if (field.length) {
-                    if (field.is(':checkbox')) {
-                        // Caso especial para checkboxes
-                        field.prop('checked', fieldValue === 'on');
-                    } else {
-                        // Para inputs y selects
-                        field.val(fieldValue).change(); // Agregamos .change() para disparar el evento
-                    }
-                } else {
-                    console.warn('No se encontró el campo para', key);
-                }
+                        // Actualiza el valor del campo si existe
+                        if (field.length) {
+                            if (field.is(':checkbox')) {
+                                field.prop('checked', fieldValue === 'on');
+                            } else {
+                                field.val(fieldValue).change(); // Agrega .change() para disparar el evento y actualizar la vista previa
+                            }
+                        } else {
+                            console.warn('No se encontró el campo para', key);
+                        }
 
-                // Actualizar la vista previa si existe
-                if (previewField.length) {
-                    previewField.text(fieldValue);
-                } else {
-                    console.warn('No se encontró el campo de vista previa para', key);
-                }
+                        // Ajustar visibilidad basada en el estado almacenado
+                        if (item.estado === '0') {
+                            $('#' + item.id_elemento + 'Preview').hide(); // Asegúrate de que los IDs coincidan
+                        } else {
+                            $('#' + item.id_elemento + 'Preview').show();
+                        }
+
+                        // Actualizar la vista previa si existe
+                        if (previewField.length) {
+                            // Actualiza el placeholder específicamente para 'etiqueta_descuentoPreview'
+                            if (key === 'etiqueta_descuento') {
+                                $('#etiqueta_descuentoPreview').attr('placeholder', fieldValue);
+                            } else {
+                                previewField.text(fieldValue);
+                            }
+                            // Actualiza el placeholder específicamente para 'txt_nombresApellidosPreview'
+                            if (key === 'txt_nombresApellidos') {
+                                $('#txt_nombresApellidosPreview').attr('placeholder', fieldValue);
+                            } else {
+                                previewField.text(fieldValue);
+                            }
+                        } else {
+                            console.warn('No se encontró el campo de vista previa para', key);
+                        }
+
+                        // Actualiza la vista previa si existe
+                        if (previewField.length) {
+                            previewField.text(fieldValue);
+                        } else {
+                            console.warn('No se encontró el campo de vista previa para', key);
+                        }
+
+                        // Si el campo es el select de alineación, actualiza también la alineación del texto en la vista previa
+                        if (key === 'alineacion_titulo') {
+                            updateTextAlignment(fieldValue);
+                        }
+                        // Actualizar colores según los valores cargados
+                        if (key === 'colorTxt_titulo') {
+                            $('#texto_tituloPreview').css('color', fieldValue);
+                        }
+                        if (key === 'colorBtn_aplicar') {
+                            $('#textoBtn_aplicarPreview').css('background-color', fieldValue);
+                        }
+
+                        // Actualizar los textos específicos y colores en la vista previa
+                        if (key === 'textoBtn_aplicar') {
+                            $('#textoBtn_aplicarPreview').text(fieldValue);
+                        }
+                    });
+
+                    // Reordena los elementos si es necesario
+                    reorderElement($('#' + item.id_elemento), item.posicion, '.list-group');
+                    reorderElement($('#' + item.id_elemento + 'Preview'), item.posicion, '#previewContainer');
+                });
+
+                // Disparar eventos para actualizar la vista previa
+                $('input, select').each(function() {
+                    $(this).trigger('input');
+                });
+
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.error('Error al cargar el archivo JSON:', textStatus, errorThrown);
             });
+        }
 
-            // Reordena los elementos si es necesario
-            reorderElement($('#' + item.id_elemento), item.posicion, '.list-group');
-            reorderElement($('#' + item.id_elemento + 'Preview'), item.posicion, '#previewContainer');
-        });
+        // Función para actualizar la alineación del texto según el valor seleccionado
+        function updateTextAlignment(value) {
+            const tituloPreview = document.getElementById('tituloFormularioPreview');
+            switch (value) {
+                case '1': // Izquierda
+                    tituloPreview.style.textAlign = 'left';
+                    break;
+                case '2': // Centro
+                    tituloPreview.style.textAlign = 'center';
+                    break;
+                case '3': // Derecha
+                    tituloPreview.style.textAlign = 'right';
+                    break;
+                default:
+                    tituloPreview.style.textAlign = 'left'; // Valor por defecto
+                    break;
+            }
+        }
 
-        // Disparar eventos para actualizar la vista previa
-        $('input, select').each(function() {
-            $(this).trigger('input');
-        });
-        
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error('Error al cargar el archivo JSON:', textStatus, errorThrown);
-    });
-}
 
 
         function reorderElement(element, position, containerSelector) {
@@ -527,23 +697,23 @@ $pacientes = 1;
             }
         }
 
-        // Funcion para crear .json con la informacion de los inputs
-        /*
-        document.addEventListener('DOMContentLoaded', () => {
-            saveInitialState();
-        });
+        // Funcion para boton guardar
 
-        function saveInitialState() {
+        function saveFormState() {
             var itemList = [];
             $('.list-group-item').each(function(index) {
                 var item = {
                     id_elemento: $(this).attr('id'),
                     posicion: index,
+                    estado: $(this).data('estado') || '1', // Usar '1' como valor por defecto si no está definido
                     content: {}
                 };
-                // Captura tanto inputs como selectores
                 $(this).find('input, select').each(function() {
-                    item.content[this.id] = $(this).val();
+                    if ($(this).is(':checkbox')) {
+                        item.content[this.id] = $(this).is(':checked') ? 'on' : 'off';
+                    } else {
+                        item.content[this.id] = $(this).val();
+                    }
                 });
                 itemList.push(item);
             });
@@ -555,14 +725,79 @@ $pacientes = 1;
                 contentType: 'application/json',
                 data: JSON.stringify(itemList),
                 success: function(response) {
-                    console.log('Initial state saved successfully');
+                    alert('Los cambios han sido guardados.');
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error saving initial state');
+                    alert('Ha ocurrido un error al guardar los cambios.');
                 }
             });
         }
-        */
+        $(document).ready(function() {
+            $('#saveFormState').click(function() {
+                saveFormState();
+            });
+        });
+
+        // accion del select
+        document.addEventListener('DOMContentLoaded', function() {
+            // Asumiendo que el select ya existe cuando carga la página
+            const alineacionTituloSelect = document.getElementById('alineacion_titulo');
+            alineacionTituloSelect.addEventListener('change', function() {
+                const tituloPreview = document.getElementById('tituloFormularioPreview');
+                switch (this.value) {
+                    case '1': // Izquierda
+                        tituloPreview.style.textAlign = 'left';
+                        break;
+                    case '2': // Centro
+                        tituloPreview.style.textAlign = 'center';
+                        break;
+                    case '3': // Derecha
+                        tituloPreview.style.textAlign = 'right';
+                        break;
+                }
+            });
+            // Evento para cambiar el color del texto del título
+            $('#colorTxt_titulo').on('change', function() {
+                $('#texto_tituloPreview').css('color', $(this).val());
+            });
+
+            // Cambiar el color del botón Aplicar en tiempo real
+            $('#colorBtn_aplicar').on('change', function() {
+                $('#textoBtn_aplicarPreview').css('background-color', $(this).val());
+            });
+
+        });
+        $(document).ready(function() {
+            // Cambiar la visibilidad del grupo de botones basado en el checkbox
+            $('#mostrarIcon_nombresApellidos').change(function() {
+                if ($(this).is(':checked')) {
+                    $('.btn-group').show();
+                } else {
+                    $('.btn-group').hide();
+                }
+            });
+
+            // Actualizar el botón principal cuando se selecciona un elemento del menú desplegable
+            $(document).ready(function() {
+                // Manejar el evento de clic en cada botón de ícono
+                $('#icono_nombresApellidos .icon-btn').click(function(event) {
+                    // Prevenir la recarga de la página
+                    event.preventDefault();
+
+                    // Remover la clase 'active' de todos los íconos
+                    $('#icono_nombresApellidos .icon-btn').removeClass('active');
+                    // Añadir la clase 'active' al ícono seleccionado
+                    $(this).addClass('active');
+
+                    // Opcional: hacer algo con el valor del ícono seleccionado
+                    var iconValue = $(this).data('value');
+                    console.log('Ícono seleccionado:', iconValue);
+
+                    // Si necesitas enviar este valor en un formulario, puedes usar:
+                    // $('input[name="alineacion_titulo"]').val(iconValue);
+                });
+            });
+        });
     </script>
     <?php require 'includes/footer_end.php'
     ?>

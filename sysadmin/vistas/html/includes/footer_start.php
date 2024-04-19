@@ -48,7 +48,8 @@
 <!-- para el autocomplete -->
 <script type="text/javascript" src="../../js/jquery-ui.js"></script>
 <!-- Fin autocomplete -->
-<script src="../../assets/js/tether.min.js"></script>
+<script src="../../assets/js/tether.min.js"></script>	
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="../../assets/js/bootstrap.min.js"></script>
 <script src="../../assets/js/detect.js"></script>
 <script src="../../assets/js/fastclick.js"></script>

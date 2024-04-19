@@ -28,7 +28,7 @@ $info = $_POST['info'];
 $info = json_decode($info, true);
 
 // Preparar la consulta SQL para insertar los datos en la tabla productos
-$stmt = $destino->prepare("INSERT INTO $tabla (codigo_producto, nombre_producto, descripcion_producto, id_linea_producto, id_proveedor, 
+$stmt = $conexion->prepare("INSERT INTO $tabla (codigo_producto, nombre_producto, descripcion_producto, id_linea_producto, id_proveedor, 
 inv_producto, iva_producto, estado_producto, costo_producto, utilidad_producto, valor1_producto, valor2_producto, valor3_producto, 
 stock_producto, stock_min_producto, date_added, image_path, id_imp_producto, pagina_web, formato, tienda, drogshipin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
 , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
