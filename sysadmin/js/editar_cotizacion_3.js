@@ -400,8 +400,6 @@ function generar_guia() {
           icon: "success",
           title: "Guía generada",
           text: "La guía ha sido generada exitosamente",
-          showConfirmButton: false,
-          timer: 1500,
         }).then(() => {
           window.location.href =
             `./editar_cotizacion.php?id_factura=` + $("#id_pedido_cot_").val();
