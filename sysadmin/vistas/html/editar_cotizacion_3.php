@@ -1596,7 +1596,7 @@ while ($r = $query->fetch_object()) {
         costo_total = $('#costo_total').val();
         valorasegurado = $('#valorasegurado').val();
         transportadora = $('#transportadora').val();
-        provincia = $('#provinica option:selected').text();
+        ciudad2 = $('#ciudad_entrega option:selected').text();
         id_factura = 1;
         if (id_factura = 1) {
             $.ajax({
@@ -1618,7 +1618,7 @@ while ($r = $query->fetch_object()) {
                     costo_total: costo_total,
                     valorasegurado: valorasegurado,
                     transportadora: transportadora,
-                    provincia: provincia,
+                    ciudad2: ciudad2,
                 },
                 dataType: 'text',
                 success: function(response) {
