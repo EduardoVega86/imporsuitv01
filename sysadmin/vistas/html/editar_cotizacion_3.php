@@ -1353,125 +1353,136 @@ while ($r = $query->fetch_object()) {
         let tienda = window.location.search.split("=")[1];
         id_provincia = $('#ciudad_entrega').val();
         $.ajax({
-            url: "../ajax/obtener_dato_envio_servi_t.php",
+            url: "../ajax/obtener_dato_envio_tienda.php",
             type: "POST",
             data: {
                 id_pedido: tienda,
-                ciudad: id_provincia,
             },
             success: function(data) {
-                data = JSON.parse(data);
-                let tienda = data["tienda"];
+                tienda = data;
                 $.ajax({
-                    url: "../ajax/obtener_dato_envio_servi.php",
+                    url: "../ajax/obtener_dato_envio_servi_t.php",
                     type: "POST",
                     data: {
-                        tienda: tienda,
+                        id_pedido: tienda,
                         ciudad: id_provincia,
                     },
                     success: function(data) {
-
-                        let datos_envio = JSON.parse(data);
-                        ciudadOrigen = datos_envio["ciudad"];
-                        $('#nombre_remitente').val(datos_envio["nombre_remitente"]);
-                        $('#direccion_remitente').val(datos_envio["direccion_remitente"]);
-                        $('#telefono_remitente').val(datos_envio["telefono_remitente"]);
-                        $("#destino_c").val($('#ciudad_entrega option:selected').text());
-                        let ciudadDestino = ""
-                        let ciudad_or = $('#ciudad_entrega option:selected').text();
-                        let provincia_or = $('#provinica option:selected').text();
-                        $('#origen_texto').val(ciudadOrigen);
+                        data = JSON.parse(data);
+                        let tienda = data["tienda"];
                         $.ajax({
-                            url: "../../../ajax/servientrega/cotizador3.php",
+                            url: "../ajax/obtener_dato_envio_servi.php",
                             type: "POST",
                             data: {
-                                ciudad_origen: ciudadOrigen,
-                                ciudad_destino: ciudad_or,
-                                provincia_destino: provincia_or,
-                                precio_total: $('#valor_total_').val(),
+                                tienda: tienda,
+                                ciudad: id_provincia,
                             },
                             success: function(data) {
-                                let parser = new DOMParser();
-                                let xmlDoc = parser.parseFromString(data, "text/xml");
 
-                                let resultString = xmlDoc.getElementsByTagName("Result")[0].childNodes[0].nodeValue;
+                                let datos_envio = JSON.parse(data);
+                                ciudadOrigen = datos_envio["ciudad"];
+                                $('#nombre_remitente').val(datos_envio["nombre_remitente"]);
+                                $('#direccion_remitente').val(datos_envio["direccion_remitente"]);
+                                $('#telefono_remitente').val(datos_envio["telefono_remitente"]);
+                                $("#destino_c").val($('#ciudad_entrega option:selected').text());
+                                let ciudadDestino = ""
+                                let ciudad_or = $('#ciudad_entrega option:selected').text();
+                                let provincia_or = $('#provinica option:selected').text();
+                                $('#origen_texto').val(ciudadOrigen);
+                                $.ajax({
+                                    url: "../../../ajax/servientrega/cotizador3.php",
+                                    type: "POST",
+                                    data: {
+                                        ciudad_origen: ciudadOrigen,
+                                        ciudad_destino: ciudad_or,
+                                        provincia_destino: provincia_or,
+                                        precio_total: $('#valor_total_').val(),
+                                    },
+                                    success: function(data) {
+                                        let parser = new DOMParser();
+                                        let xmlDoc = parser.parseFromString(data, "text/xml");
 
-                                let resultDoc = parser.parseFromString(resultString, "text/xml");
+                                        let resultString = xmlDoc.getElementsByTagName("Result")[0].childNodes[0].nodeValue;
 
-                                function getNumericValueFromTag(tagName) {
-                                    let tag = resultDoc.getElementsByTagName(tagName)[0];
-                                    if (tag && tag.childNodes.length > 0) {
-                                        return parseFloat(tag.childNodes[0].nodeValue);
-                                    } else {
-                                        return 0;
-                                    }
-                                }
-                                let flete = getNumericValueFromTag("flete");
-                                let seguro = getNumericValueFromTag("seguro");
-                                let valorComision = getNumericValueFromTag("valor_comision");
-                                let otros = getNumericValueFromTag("otros");
-                                let impuesto = getNumericValueFromTag("impuesto");
+                                        let resultDoc = parser.parseFromString(resultString, "text/xml");
 
-                                $('#servi_impuesto').val(impuesto);
-                                $('#servi_otros').val(otros);
-                                $('#servi_seguro').val(seguro);
-                                $('#servi_comision').val(valorComision);
-                                $('#servi_flete').val(flete);
-                            }
-                        })
-                    }
-                })
-                $.ajax({
-                    url: "../ajax/obtener_dato_destino_servi.php",
-                    type: "POST",
-                    data: {
-                        ciudad: id_provincia,
-                    },
-                    success: function(data) {
-                        ciudadDestino = JSON.parse(data);
-                        let destino = ciudadDestino["nombre"];
-                        let origen = ciudadDestino["provincia"]
-                        console.log(ciudadOrigen, destino, origen);
-                        let precio_total = $('#valor_total_').val();
-                        $.ajax({
-                            url: "../../../ajax/servientrega/cotizador1.php",
-                            type: "POST",
-                            data: {
-                                ciudad_origen: ciudadOrigen,
-                                ciudad_destino: destino,
-                                provincia_destino: origen,
-                                precio_total: precio_total,
-                            },
-                            success: function(data) {
-                                let datos = JSON.parse(data);
-                                if (datos["trayecto"] !== "x") {
-                                    $.ajax({
-                                        url: "../../../ajax/servientrega/cotizador2.php",
-                                        type: "POST",
-                                        data: {
-                                            trayecto: datos["trayecto"],
-                                        },
-                                        success: function(data) {
-                                            let datos2 = JSON.parse(data);
-                                            let precio = parseFloat(datos2["precio"]);
-                                            let total_servi = 0
-                                            if (recaudo == 1) {
-                                                let valor_total_ = parseFloat($('#valor_total_').val());
-                                                total_servi = precio + (valor_total_ * 0.03);
+                                        function getNumericValueFromTag(tagName) {
+                                            let tag = resultDoc.getElementsByTagName(tagName)[0];
+                                            if (tag && tag.childNodes.length > 0) {
+                                                return parseFloat(tag.childNodes[0].nodeValue);
                                             } else {
-                                                total_servi = precio;
+                                                return 0;
                                             }
-                                            $('#precio_servientrega').text(`$${parseFloat(total_servi).toFixed(2)}`);
-
                                         }
-                                    })
-                                } else {
-                                    $('#precio_servientrega').text(`NO APLICA`);
-                                }
+                                        let flete = getNumericValueFromTag("flete");
+                                        let seguro = getNumericValueFromTag("seguro");
+                                        let valorComision = getNumericValueFromTag("valor_comision");
+                                        let otros = getNumericValueFromTag("otros");
+                                        let impuesto = getNumericValueFromTag("impuesto");
+
+                                        $('#servi_impuesto').val(impuesto);
+                                        $('#servi_otros').val(otros);
+                                        $('#servi_seguro').val(seguro);
+                                        $('#servi_comision').val(valorComision);
+                                        $('#servi_flete').val(flete);
+                                    }
+                                })
+                            }
+                        })
+                        $.ajax({
+                            url: "../ajax/obtener_dato_destino_servi.php",
+                            type: "POST",
+                            data: {
+                                ciudad: id_provincia,
+                            },
+                            success: function(data) {
+                                ciudadDestino = JSON.parse(data);
+                                let destino = ciudadDestino["nombre"];
+                                let origen = ciudadDestino["provincia"]
+                                console.log(ciudadOrigen, destino, origen);
+                                let precio_total = $('#valor_total_').val();
+                                $.ajax({
+                                    url: "../../../ajax/servientrega/cotizador1.php",
+                                    type: "POST",
+                                    data: {
+                                        ciudad_origen: ciudadOrigen,
+                                        ciudad_destino: destino,
+                                        provincia_destino: origen,
+                                        precio_total: precio_total,
+                                    },
+                                    success: function(data) {
+                                        let datos = JSON.parse(data);
+                                        if (datos["trayecto"] !== "x") {
+                                            $.ajax({
+                                                url: "../../../ajax/servientrega/cotizador2.php",
+                                                type: "POST",
+                                                data: {
+                                                    trayecto: datos["trayecto"],
+                                                },
+                                                success: function(data) {
+                                                    let datos2 = JSON.parse(data);
+                                                    let precio = parseFloat(datos2["precio"]);
+                                                    let total_servi = 0
+                                                    if (recaudo == 1) {
+                                                        let valor_total_ = parseFloat($('#valor_total_').val());
+                                                        total_servi = precio + (valor_total_ * 0.03);
+                                                    } else {
+                                                        total_servi = precio;
+                                                    }
+                                                    $('#precio_servientrega').text(`$${parseFloat(total_servi).toFixed(2)}`);
+
+                                                }
+                                            })
+                                        } else {
+                                            $('#precio_servientrega').text(`NO APLICA`);
+                                        }
+                                    }
+                                })
                             }
                         })
                     }
                 })
+
             }
         })
     }
