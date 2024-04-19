@@ -178,7 +178,7 @@ if ($action == 'ajax') {
                     <input type="hidden" value="<?php echo $online; ?>" id="online<?php echo $id_producto; ?>">
                     <input type="hidden" value="<?php echo $codigo_producto; ?>" id="codigo_producto<?php echo $id_producto; ?>">
                     <input type="hidden" value="<?php echo $nombre_producto; ?>" id="nombre_producto<?php echo $id_producto; ?>">
-                    <input type="hidden" value="<?php echo $descripcion_producto; ?>" id="descripcion_producto<?php echo $id_producto; ?>">
+                    <input type="hidden" value="<?php echo htmlspecialchars($descripcion_producto, ENT_QUOTES); ?>" id="descripcion_producto<?php echo $id_producto; ?>">
                     <input type="hidden" value="<?php echo $linea_producto; ?>" id="linea_producto<?php echo $id_producto; ?>">
                     <input type="hidden" value="<?php echo $id_proveedor; ?>" id="proveedor_producto<?php echo $id_producto; ?>">
                     <!--<input type="hidden" value="<?php echo $med_producto; ?>" id="med_producto<?php echo $id_producto; ?>">-->
