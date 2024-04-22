@@ -2270,6 +2270,10 @@ mysqli_query($conexion, "CREATE TABLE novedades (
 mysqli_query($conexion, "ALTER TABLE `facturas_ventas` DROP INDEX `numero_cotizacion`;");
 mysqli_query($conexion, "ALTER TABLE `detalle_fact_ventas` ADD `descripcion_detalle` TEXT NOT NULL AFTER `importe_venta`;");
 mysqli_query($conexion, "ALTER TABLE `detalle_fact_ventas` ADD `aplica_iva` INT NOT NULL AFTER `descripcion_detalle`;");
+mysqli_query($conexion, "ALTER TABLE `facturas_ventas` ADD `monto_iva` DOUBLE NOT NULL AFTER `plazodias`;");
+
+mysqli_query($conexion, "UPDATE `perfil` SET `autofactura` = '1' WHERE `perfil`.`id_perfil` = 1;");
+
 
   
  
