@@ -394,68 +394,131 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante) {
     var signaturesQuantity = certBags[forge.oids.certBag];
     var count = 0;
     var positionSignature = 0;
-    var entidad = signaturesQuantity[0].attributes.friendlyName[0];
     console.log('prueba')
     console.log(certBags)
-    if (/BANCO CENTRAL/i.test(entidad)) {
-        entidad = 'BANCO_CENTRAL';
-        var certBags = p12.getBags({bagType: forge.pki.oids.certBag})
-        
-        var cert = certBags[forge.oids.certBag][1].cert;
-        // issuerName
-        var issuerName = 'CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC';
-    } else if (/SECURITY DATA/i.test(entidad)) {
-        entidad = 'SECURITY_DATA';
-        var contador = 0;
-        var max = 0;
-        var attributes_array=[];        
-        certBags[forge.oids.certBag].forEach(function (entry) {
-            var bag = entry.cert;
-            var attributes = bag.extensions;
-                
-            attributes_array[contador] = attributes;
-            attributes_array.sort().reverse();
-            max = attributes_array[0].length;
-            
-            contador++;
-            /*if (attributes.length >= 23) {
-                cert = bag;
-            }*/    
-        });
-        
-        certBags[forge.oids.certBag].forEach(function (entry) {
-            var bag = entry.cert;
-            var attributes = bag.extensions;
-            if (attributes.length >= max) {
-                cert = bag;
-            }   
-        });
-        
-        
-         
-        // issuerName
-        var issuerName = 'CN=AUTORIDAD DE CERTIFICACION SUB SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A.,C=EC';
+
+    var anf_validacion = false
+    var uanataca_validacion = false
+
+
+    if (certBags[forge.oids.certBag][0].cert.issuer.attributes[2].value) {
+        var uanataca = certBags[forge.oids.certBag][0].cert.issuer.attributes[2].value
+        console.log(uanataca)
+        console.log("identificando UANATACA")
+        console.log(certBags[forge.oids.certBag][0].cert.extensions[5].value)
+        if (/UANATACA/.test(uanataca)) {
+            uanataca = 'UANATACA'
+            uanataca_validacion = true
+        }
+    }
+
+
+    if (certBags[forge.oids.certBag][0].cert.extensions[5].value) {
+        var anf = certBags[forge.oids.certBag][0].cert.extensions[5].value;
+
+        console.log("identificando ANF")
+        console.log(certBags[forge.oids.certBag][0].cert.extensions[5].value)
+        if (/anf/.test(anf)) {
+            anf = 'ANF'
+            anf_validacion = true
+        }
+
+    } 
+
+
+    if (anf_validacion == true) {
+        entidad = 'ANF'
+        var certBags = p12.getBags({ bagType: forge.pki.oids.certBag })
+
+        if (/ANF_Global_Root/.test(anf) || /ANF_Ecuador_CA1/.test(anf)) {
+            var cert = certBags[forge.oids.certBag][0].cert;
+            var issuerName = 'O=ANFAC Autoridad de Certificacion Ecuador CA,OU=ANF Autoridad Raiz Ecuador,C=EC,CN=ANF Ecuador CA1,2.5.4.5=#130d31373932363031323135303031';
+        } else {
+            var cert = certBags[forge.oids.certBag][0].cert;
+            var issuerName = 'CN=ANF High Assurance Ecuador Intermediate CA,OU=ANF Autoridad intermedia  EC,O=ANFAC AUTORIDAD DE CERTIFICACION ECUADOR C.A.,C=EC,2.5.4.5=#130d31373932363031323135303031';
+        }
+        anf_validacion = true;
+    }
+    else if (uanataca_validacion == true) {
+        entidad = 'UANATACA'
+        var certBags = p12.getBags({ bagType: forge.pki.oids.certBag })
+        var cert = certBags[forge.oids.certBag][0].cert;
+        var issuerName = '2.5.4.97=#0c0f56415445532d413636373231343939,CN=UANATACA CA2 2016,OU=TSP-UANATACA,O=UANATACA S.A.,L=Barcelona (see current address at www.uanataca.com/address),C=ES';
     }
     else {
-        var cert = certBags[forge.oids.certBag][0].cert;
-        console.log("security data definiendo 1 o 2")
-        var tipoSecurityData = certBags[forge.oids.certBag][0].cert.extensions[3].value;
-        
-        if(/SUBCA-2/i.test(tipoSecurityData)) {
-            console.log("firma sub securirty data 2")
-            var issuerName = 'CN=AUTORIDAD DE CERTIFICACION SUBCA-2 SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A. 2,C=EC';
-        }else{
-            console.log("firma sub securirty data 1")
-            var issuerName = 'CN=AUTORIDAD DE CERTIFICACION SUBCA-1 SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A. 1,C=EC';
+        var entidad = signaturesQuantity[0].attributes.friendlyName[0];
+        if (/BANCO CENTRAL/i.test(entidad)) {
+            entidad = 'BANCO_CENTRAL';
+            var certBags = p12.getBags({ bagType: forge.pki.oids.certBag })
+
+            var cert = certBags[forge.oids.certBag][1].cert;
+            // issuerName
+            var issuerName = 'CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC';
+        } else if (/SECURITY DATA/i.test(entidad)) {
+            entidad = 'SECURITY_DATA';
+            var contador = 0;
+            var max = 0;
+            var attributes_array = [];
+            certBags[forge.oids.certBag].forEach(function (entry) {
+                var bag = entry.cert;
+                var attributes = bag.extensions;
+
+                attributes_array[contador] = attributes;
+                attributes_array.sort().reverse();
+                max = attributes_array[0].length;
+
+                contador++;
+                /*if (attributes.length >= 23) {
+                 cert = bag;
+                 }*/
+            });
+
+            certBags[forge.oids.certBag].forEach(function (entry) {
+                var bag = entry.cert;
+                var attributes = bag.extensions;
+                if (attributes.length >= max) {
+                    cert = bag;
+                }
+            });
+
+
+
+            // issuerName
+            var issuerName = 'CN=AUTORIDAD DE CERTIFICACION SUB SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A.,C=EC';
         }
-        
-        entidad = 'SECURITY_DATA'; 
-		console.log(entidad)
+        else {
+            var cert = certBags[forge.oids.certBag][0].cert;
+            console.log("security data definiendo 1 o 2")
+            var tipoSecurityData = certBags[forge.oids.certBag][0].cert.extensions[3].value;
+			var tipoSecurityData2 = certBags[forge.oids.certBag][0].cert.extensions[5].value;
+            console.log(tipoSecurityData)
+            if (/SUBCA-2/i.test(tipoSecurityData)) {
+                console.log("firma sub securirty data 2")
+                var issuerName = 'CN=AUTORIDAD DE CERTIFICACION SUBCA-2 SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A. 2,C=EC';
+                entidad = 'SECURITY_DATA';
+            } else if (/SUBCA-3/i.test(tipoSecurityData)) {
+                console.log("firma sub securirty data 3")
+                var issuerName = 'CN=AUTORIDAD DE CERTIFICACION SUBCA-3 SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A. 3,C=EC';
+                entidad = 'SECURITY_DATA';
+            }else if(/SUBCA-1/i.test(tipoSecurityData) || /SUBCA-1/i.test(tipoSecurityData2)){
+				console.log("firma sub securirty data 1")
+                var issuerName = 'CN=AUTORIDAD DE CERTIFICACION SUBCA-1 SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A. 1,C=EC';
+                entidad = 'SECURITY_DATA';
+            } else {
+				console.log("firma  NUEVAAAA Lazzate")
+                var issuerName = 'CN=Lazzate Emisor CA,OU=Ente de Certificacion,O=Lazzate Cia. Ltda.,2.5.4.97=#13053539333832,1.2.840.113549.1.9.1=#1615636572746966696361646f7340656e6578742e6563,L=Quito,ST=Quito - Pichincha,C=EC';
+                entidad = 'Lazzate'
+            }
+
+            
+            console.log(entidad)
+        }
+
     }
     console.log(entidad)
     //Validar Fecha de vencimiento del p12
-    var fechaInicio = cert.validity['notBefore'];
-    var fechaFin = cert.validity['notAfter'];
+   // var fechaInicio = cert.validity['notBefore'];
+   // var fechaFin = cert.validity['notAfter'];
 
 
    
@@ -489,14 +552,31 @@ function firmarComprobante(mi_contenido_p12, mi_pwd_p12, comprobante) {
 
 
     //Serial Number
-    var X509SerialNumber = parseInt(cert.serialNumber, 16);
+    var X509SerialNumber;
+    console.log("ENTIDADDDD")
+    console.log(entidad)
+
+    //Serial Number
+    if (entidad == 'ANF' || entidad == 'UANATACA' || entidad == 'Lazzate') {
+        $.ajax({
+            url: "../../assets/js/lib_firma_sri/src/hexToInt.php",
+            type: 'POST',
+            async: false,
+            data: {
+                'hex': cert.serialNumber
+            },
+            context: document.body
+        }).done(function (respuestaHex) {
+            X509SerialNumber = respuestaHex;
+        });
+    } else {
+
+        X509SerialNumber = parseInt(cert.serialNumber, 16);
+    }
 
     exponent = hexToBase64(key.e.data[0].toString(16));
     modulus = bigint2base64(key.n);
-
-    comprobante = comprobante.replace(/\t|\r/g, "")
-
-
+	comprobante = comprobante.replace(/\t|\r/g, "")
 
  //var sha1_comprobante = sha1_base64(comprobante.replace('<?xml version="1.0" encoding="UTF-8"?>', ''));
 
