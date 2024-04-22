@@ -16,6 +16,12 @@ File: Main Css
    
 }
 
+.formulario_derecha{
+    border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+   
+}
+
 .topbar {
   left: 0;
   position: fixed;
