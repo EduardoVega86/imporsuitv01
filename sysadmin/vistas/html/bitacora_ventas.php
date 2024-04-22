@@ -43,6 +43,7 @@ $ventas = 1;
 									<label for="email" class="control-label">Correo Electronico:</label>
 									<input type="email" class="form-control" id="email" name="email" autocomplete="on">
 									<input type="hidden" class="form-control" id="claveaccesomodal" name="claveaccesomodal" autocomplete="on">
+                                                                        <input type="hidden" class="form-control" id="nombre_cliente_correo" name="nombre_cliente_correo" autocomplete="on">
 								</div>
 							</div>
 						</div>
