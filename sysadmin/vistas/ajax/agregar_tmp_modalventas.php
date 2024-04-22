@@ -43,7 +43,7 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     } else {
 // condicion si el stock e menor que la cantidad requerida
         if ($cantidad > $stock and $inv == 0) {
-            echo "<script>swal('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
+            echo "<script>Swal.fire('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
              $('#resultados').load('../ajax/agregar_tmp.php');
             </script>";
             exit;
