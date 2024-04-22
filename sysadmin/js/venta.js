@@ -5,7 +5,18 @@ $(document).ready(function() {
     $("#resultados2").load("../ajax/carga_caja.php");
     $("#resultados3").load("../ajax/carga_resibido.php");
     //$("#resultados4").load("../ajax/tipo_doc.php");
-    $("#resultados5").load("../ajax/carga_num_trans.php");
+   $.ajax({
+    url: "../ajax/carga_num_trans.php",
+    method: "GET", // O POST dependiendo de tu necesidad
+    dataType: "text", // Puedes ajustar el tipo de datos según lo que espera el servidor
+    success: function(resultado) {
+       // alert(resultado)
+        $("#trans").val(resultado); // Asigna el resultado al valor del input con ID "trans"
+    },
+    error: function(xhr, status, error) {
+        console.error("Error al cargar el número de transacción:", status, error);
+    }
+});
     $("#datos_factura").load();
     $("#barcode").focus();
     load(1);
@@ -49,6 +60,9 @@ function agregar(id) {
         data: "id=" + id + "&precio_venta=" + precio_venta + "&cantidad=" + cantidad + "&operacion=" + 2,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            var audio = document.getElementById("myAudio");
+           // alert()
+  audio.play();
         },
         success: function(datos) {
             $("#resultados").html(datos);
@@ -131,6 +145,9 @@ function eliminar(id) {
         data: "id=" + id,
         beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+              var audio = document.getElementById("myAudioEliminar");
+           // alert()
+  audio.play();
         },
         success: function(datos) {
             $("#resultados").html(datos);
@@ -289,3 +306,4 @@ $('#dataDelete').on('show.bs.modal', function(event) {
 function imprimir_factura(user_id) {
     VentanaCentrada('../pdf/documentos/corte_caja.php?user_id=' + user_id, 'Corte', '', '724', '568', 'true');
 }
+
