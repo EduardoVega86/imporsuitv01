@@ -93,18 +93,28 @@ include "../modal/buscar_productos_libre.php";
 												<div class="widget-chart">
 													<div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
 													<form class="form-horizontal" role="form" id="barcode_form">
+                                                                                                          
+                                                                                                            <audio id="myAudio">
+  <source src="../../img_sistema/agregar.mp3" type="audio/mp3">
+  Tu navegador no soporta el elemento de audio.
+</audio>
+                                                                                                            
+                                                                                                            <audio id="myAudioEliminar">
+  <source src="../../img_sistema/eliminar.mp3" type="audio/mp3">
+  Tu navegador no soporta el elemento de audio.
+</audio>
 														<div class="form-group row">
 															<label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
 															<div class="col-md-2">
-																<input type="text" class="form-control" id="barcode_qty" value="1" autocomplete="off">
+																<input type="text" class="form-control formulario" id="barcode_qty" value="1" autocomplete="off">
 															</div>
 
 															<label for="barcode" class="control-label">Codigo:</label>
 															<div class="col-md-5" align="left">
 																<div class="input-group">
-																	<input type="text" class="form-control" id="barcode" autocomplete="off"  tabindex="1" autofocus="true" >
+																	<input type="text" class="form-control formulario_derecha" id="barcode" autocomplete="off"  tabindex="1" autofocus="true" >
 																	<span class="input-group-btn">
-																		<button type="submit" class="btn btn-default"><span class="fa fa-barcode"></span></button>
+																		<button type="submit" class="btn btn-default"><span class="fa fa-barcode "></span></button>
 																	</span>
 																</div>
 															</div>
@@ -113,7 +123,7 @@ include "../modal/buscar_productos_libre.php";
 															<div class="col-md-2">
 																
                                                                                                                           <div class="btn-group">                                                                                                                     
- <button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar">
+ <button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light formulario" data-toggle="modal" data-target="#buscar">
 																	<span class="fa fa-search"></span> Buscar
 																</button>
                                                                                                                            
@@ -152,9 +162,9 @@ include "../modal/buscar_productos_libre.php";
     <div  class="card-body">
                                                                                                             <?php
 if ($image_path == null) {
-                echo '<img src="../../img_sistema/LOGOS-IMPORSUIT.jpg" class="" width="100%" style="max-height:280px; max-height:280px !important;">';
+                echo '<img src="../../img_sistema/LOGOS-IMPORSUIT.jpg" class="" width="100%" style="max-height:280px; min-height:100px !important;">';
             } else {
-                echo '<img src="' . $image_path . '" class="" width="100%" style="max-height:280px; max-height:280px !important;">';
+                echo '<img src="' . $image_path . '" class="" width="100%" style="max-height:280px; min-height:100px !important;">';
             }
 
             ?>
@@ -191,9 +201,9 @@ if ($image_path == null) {
 															<div class="col-12">
                                                                                                                              <div id="outer_comprobante"></div><!-- Carga los datos ajax -->
 																<div class="input-group">
-																	<input type="text" id="nombre_cliente" class="form-control" placeholder="Buscar Cliente" required  tabindex="2">
+																	<input type="text" id="nombre_cliente" class="form-control formulario_derecha" placeholder="Buscar Cliente" required  tabindex="2">
 																	<span class="input-group-btn">
-																		<button type="button" class="btn waves-effect waves-light btn-success" data-toggle="modal" data-target="#nuevoCliente"><li class="fa fa-plus"></li></button>
+																		<button type="button" class="btn waves-effect waves-light btn-success " data-toggle="modal" data-target="#nuevoCliente"><li class="fa fa-plus"></li></button>
 																	</span>
 																	<input id="id_cliente" name="id_cliente" type='hidden'>
 																</div>
@@ -230,13 +240,13 @@ if ($image_path == null) {
             <div class="col-md-4">
 																<div class="form-group">
 																	<strong>Teléfono: </strong>
-                                                                                                                                        <input type="text" class="form-control formulario" autocomplete="off" id="telefono_fac" name="telefono_fac" readonly>
+                                                                                                                                        <input type="text" class="form-control formulario" autocomplete="off" id="telefono_fac" name="telefono_fac">
                                                                                                                                         
         </div></div>
             <div class="col-md-4">
 																<div class="form-group">
 																	<strong>Direccón: </strong>
-                                                                                                                                        <input type="text" class="form-control formulario" autocomplete="off" id="direccion_fac" name="direccion_fac" readonly>
+                                                                                                                                        <input type="text" class="form-control formulario" autocomplete="off" id="direccion_fac" name="direccion_fac">
                                                                                                                                         
         </div></div>
                 </div>
@@ -260,6 +270,7 @@ if ($image_path == null) {
                                                                                                                 <input id = "id_comp" class = "form-control" name = "id_comp" value="1" required autocomplete="off" type="hidden">
                                                                                                                  <input id = "id_vend" class = "form-control" name = "id_vend" value="<?php echo $user_id ?>" required autocomplete="off" type="hidden">
                                                                                                                  <input id = "tipo_doc" class = "form-control" name = "tipo_doc" value="1" required autocomplete="off" type="hidden">
+                                                                                                                 <input id = "trans" class = "form-control" name = "trans" value="" required autocomplete="off" type="hidden">
                                                                                                                
                                                                                                                 </div>
                                                                                                                 
@@ -285,10 +296,10 @@ if ($image_path == null) {
 														</div>
 
 														<div class="row">
-															<div class="col-md-6">
+															<div class="col-md-3">
 																<div class="form-group">
 																	<label for="condiciones">Pago</label>
-																	<select class="form-control input-sm condiciones" id="condiciones" name="condiciones" onchange="showDiv(this)">
+																	<select class="form-control input-sm condiciones formulario" id="condiciones" name="condiciones" onchange="showDiv(this)">
 																		<option value="1">Efectivo</option>
 																		<option value="2">Cheque</option>
 																		<option value="3">Transferencia bancaria</option>
@@ -296,18 +307,11 @@ if ($image_path == null) {
 																	</select>
 																</div>
 															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-                                                                                                                                    <label for="resibido">Dinero Recibido</label>
-																	<input type="text" class="form-control resibido" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8" autocomplete="off" id="resibido" required name="resibido" tabindex="3">
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-8">
+															
+                                                                                                                    <div class="col-md-3">
 																<div class="form-group">
 																	<label for="condiciones">Forma de Pago</label>
-																	<select class="form-control" id="formaPago" name="formaPago" required="required">
+																	<select class="form-control formulario" id="formaPago" name="formaPago" required="required">
 																		<option value="01">SIN UTILIZACION DEL SISTEMA FINANCIERO</option>
 																		<option value="15">COMPENSACIÓN DE DEUDAS</option>
 																		<option value="16">TARJETA DE DÉBITO</option>
@@ -320,16 +324,23 @@ if ($image_path == null) {
 																	</select>
 																</div>
 															</div>
-															<div class="col-md-4">
+                                                                                                                    <div class="col-md-3">
 																<div class="form-group">
 																	<label for="condiciones">Plazo D&iacute;as</label>
-																	<input type="text" class="form-control" id="plazodias" name="plazodias" required="required">
+																	<input type="text" class="form-control formulario" id="plazodias" name="plazodias" value="1" required="required">
+																</div>
+															</div>
+                                                                                                                    <div class="col-md-3">
+																<div class="form-group">
+                                                                                                                                    <label for="resibido">Dinero Recibido</label>
+																	<input type="text" class="form-control resibido formulario" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8" autocomplete="off" id="resibido" required name="resibido" tabindex="3">
 																</div>
 															</div>
 														</div>
+														
 
 														<div class="col-md-12" align="center">
-															<button type="submit" id="guardar_factura" class="btn btn-danger btn-block btn-lg waves-effect waves-light" aria-haspopup="true" aria-expanded="false"><span class="fa fa-save"></span> Guardar</button>
+															<button type="submit" id="guardar_factura" class="btn btn-danger btn-block btn-lg waves-effect waves-light formulario" aria-haspopup="true" aria-expanded="false"><span class="fa fa-save"></span> Pagar</button>
 															<!--<br><br>
 															<button type="button" id="imprimir" class="btn btn-default waves-effect waves-light" onclick="printOrder('1');" accesskey="t" ><span class="fa fa-print"></span> Ticket</button>
 															<button type="button" id="imprimir2" class="btn btn-default waves-effect waves-light" onclick="printFactura('1');" accesskey="p"><span class="fa fa-print"></span> Factura</button>-->
@@ -400,6 +411,7 @@ if ($image_path == null) {
 				$('#id_cliente').val(ui.item.id_cliente);
 				$('#nombre_cliente').val(ui.item.nombre_cliente);
 				$('#rnc').val(ui.item.fiscal_cliente);
+                                //alert(ui.item.fiscal_cliente);
                                 $('#telefono_fac').val(ui.item.telefono_cliente);
                                 $('#direccion_fac').val(ui.item.direccion_cliente);
                                 $('#nombre_fac').val(ui.item.nombre_cliente);
