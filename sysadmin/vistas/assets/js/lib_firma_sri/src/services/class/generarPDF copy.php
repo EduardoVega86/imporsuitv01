@@ -452,7 +452,7 @@ class generarPDF
 		$pdf->Cell(25,6,number_format((float)$subtotal12,2),1,0,'C');//30
 		$pdf->SetXY(130, $ejeX + 5);//130
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(40,6,"SUBTOTAL 12%",1,0,'C');
+		$pdf->Cell(40,6,"SUBTOTAL 15%",1,0,'C');
 
 		$pdf->SetXY(170, $ejeX + 11);
 		$pdf->SetFont('Arial', '', 7);
@@ -806,7 +806,7 @@ class generarPDF
             }
         }
         $pdf->SetXY(130, $ejeX + 10);
-        $pdf->Cell(25, 10, "Subtotal 12%: ", 0, 0, "L", true);
+        $pdf->Cell(25, 10, "Subtotal 15%: ", 0, 0, "L", true);
         $pdf->SetXY(170, $ejeX + 10);
         $pdf->Cell(25, 10, " $subtotal12 ", 0, 0, "R", true);
         $pdf->SetXY(130, $ejeX + 16);
