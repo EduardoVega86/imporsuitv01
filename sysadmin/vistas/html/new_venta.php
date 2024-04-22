@@ -134,7 +134,7 @@ include "../modal/buscar_productos_libre.php";
                                                                                                             <div class="form-group row">
                                                                                                                 <?php
 
-												$query_producto = mysqli_query($conexion, "select * from productos where drogshipin=0 order by nombre_producto");
+												$query_producto = mysqli_query($conexion, "select * from productos where drogshipin=0 order by id_producto");
 												while ($row = mysqli_fetch_array($query_producto)) {
                                                                               
                                                                                                      $id_producto          = $row['id_producto'];
