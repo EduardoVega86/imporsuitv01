@@ -60,7 +60,7 @@ if (empty($_POST['id_cliente'])) {
     $count     = mysqli_num_rows($sql_count);
     if ($count == 0) {
         echo "<script>
-        swal({
+        Swal.fire({
           title: 'No hay Productos agregados en la factura',
           text: 'Intentar nuevamente',
           type: 'error',
@@ -131,6 +131,8 @@ if (empty($_POST['id_cliente'])) {
         $cantidad        = $row['cantidad_tmp'];
         $desc_tmp        = $row['desc_tmp'];
         $nombre_producto = $row['nombre_producto'];
+        $descripcion = $row['descripcion'];
+        $iva_tmp = $row['iva_tmp'];
         // control del impuesto por productos.
         if ($row['iva_producto'] == 0) {
             $p_venta   = $row['precio_tmp'];
@@ -161,17 +163,19 @@ if (empty($_POST['id_cliente'])) {
         //Comprobamos que el dinero Resibido no sea menor al Totalde la factura
         if ($resibido < $sumador_total and $condiciones != 4) {
             echo "<script>
-            swal({
-              title: 'DINERO RECIBIDO ES MENOR AL MONTO TOTAL',
-              text: 'Intentar Nuevamente',
-              type: 'error',
-              confirmButtonText: 'ok'
-          })</script>";
+                	  Swal.fire({
+  title: 'DINERO RECIBIDO ES MENOR AL MONTO TOTAL',
+  text: 'Intentar Nuevamente',
+  icon: 'error',
+  confirmButtonText: 'ok'
+});
+            
+          </script>";
             exit;
         }
-    
+
         //Insert en la tabla detalle_facturad
-        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_ventas VALUES (NULL,'$id_factura','$numero_factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$precio_total')");
+        $insert_detail = mysqli_query($conexion, "INSERT INTO detalle_fact_ventas VALUES (NULL,'$id_factura','$numero_factura','$id_producto','$cantidad','$desc_tmp','$precio_venta_r','$precio_total','$descripcion','$iva_tmp')");
         //GURDAMOS LAS EN EL KARDEX
         $saldo_total = $cantidad * $costo_producto;
         $sql_kardex  = mysqli_query($conexion, "select * from kardex where producto_kardex='" . $id_producto . "' order by id_kardex DESC LIMIT 1");
@@ -198,21 +202,32 @@ if (empty($_POST['id_cliente'])) {
     }
     // Fin de la consulta Principal
     $subtotal         = number_format($sumador_total, 2, '.', '');
+    
+    
+    
     $total_iva        = ($subtotal * $impuesto) / 100;
+    
     $total_iva        = number_format($total_iva, 2, '.', '') - number_format($t_iva, 2, '.', '');
     $total_factura    = $subtotal + $total_iva;
     $cambio           = $resibido - $total_factura;
     $saldo_credito    = $total_factura - $resibido;
     $camb             = number_format($cambio, 2);
     $resibido_formato = number_format($resibido, 2);
+    if ($iva_tmp==1){
+        $total_iva=$total_iva+iva($precio_venta);
+    }
+    
+    
     if ($condiciones == 4) {
         $insert_prima = mysqli_query($conexion, "INSERT INTO creditos VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$total_factura','$saldo_credito','1','$users','1')");
         $insert_abono = mysqli_query($conexion, "INSERT INTO creditos_abonos VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$total_factura','$resibido','$saldo_credito','$users','1','CREDITO INICAL')");
     }
-    //echo "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$formaPago','$secuencialfactura','$plazodias')";
-    $insert = mysqli_query($conexion, "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$formaPago','$secuencialfactura','$plazodias')");
-    generax($id_factura);
-    //echo 'generax';
+    //echo "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$formaPago','$secuencialfactura','$plazodias','$total_iva')";
+    $insert = mysqli_query($conexion, "INSERT INTO facturas_ventas VALUES (NULL,'$numero_factura','$date_added','$id_cliente','$id_vendedor','$condiciones','$total_factura','$estado','$users','$resibido','1','$id_comp','$trans','$formaPago','$secuencialfactura','$plazodias','$total_iva')");
+    $ultimo_id_factura = mysqli_insert_id($conexion);
+    //echo 'ultima'.$ultimo_id_factura.'asd';
+    generax($ultimo_id_factura);
+   // echo  generax($ultimo_id_factura);
     //Actualizar secuencial factura
     $perfil        = mysqli_query($conexion, "select * from perfil");
     $rwperfil         = mysqli_fetch_array($perfil);
@@ -232,7 +247,7 @@ if (empty($_POST['id_cliente'])) {
     // SI TODO ESTA CORRECTO
     if ($condiciones == 4) {
         echo "<script>
-            swal({
+             Swal.fire({
             title: 'VENTA AL CREDITO GUARDADA CON EXITO CON ATICIPO DE: $simbolo_moneda $resibido_formato',
             text: 'Factura: $numero_fatura',
             type: 'success',
@@ -340,7 +355,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
         <script>
             document.addEventListener('click', function() {
                 // Recargar la página
-                location.reload();
+               // location.reload();
             });
         </script>
     </div>

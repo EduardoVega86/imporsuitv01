@@ -57,7 +57,7 @@ function generarXML(id_factura) {
 	var mywindow = VentanaCentrada('../xml/documentos/generar_xml.php?id_factura=' + id_factura, 'Factura', '', '724', '568', 'true');
 		/*$.Notification.notify('alert','bottom center','NOTIFICACIÓN', 'El comprobante se ah Enviado al SRI')*/
 		setTimeout(function () {
-			swal({
+			Swal.fire({
 			  title: 'El comprobante Enviado al SRI',
 			  text: 'Verifique el estado del comprobante',
 			  type: 'success',
@@ -167,3 +167,16 @@ $("#enviarcorreo").submit(function(event) {
 	});
 	event.preventDefault();
 })
+
+
+function datos_mail(id) {
+		    var nombre_cliente = $("#nombre_cliente" + id).val();
+		    
+		    var email_cliente = $("#email_cliente" + id).val();
+		 
+                    
+		    $("#nombre_cliente_correo").val(nombre_cliente);
+		   
+		    $("#email").val(email_cliente);
+		  
+		}

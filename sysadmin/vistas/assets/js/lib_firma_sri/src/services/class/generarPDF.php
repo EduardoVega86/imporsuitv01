@@ -100,7 +100,7 @@ class generarPDF
         //$pdf->Cell(82,8,$document->infoTributaria->nombreComercial,0);
 
         $pdf->SetXY(13, 63);
-        $document->infoTributaria->dirMatriz = 'Quevedo Norte - Av 7 de Octubre Palmeiras y Decima Primera -Local 406 Frente a Servientrega';
+        //$document->infoTributaria->dirMatriz = 'Quevedo Norte - Av 7 de Octubre Palmeiras y Decima Primera -Local 406 Frente a Servientrega';
         if (strlen($document->infoTributaria->dirMatriz) <= 53) {
             $pdf->MultiCell(100, 10, 'Matriz: ' . substr($document->infoTributaria->dirMatriz, 0, 53), 0);
         } else {
@@ -451,7 +451,7 @@ class generarPDF
 		$pdf->Cell(25,6,number_format((float)$subtotal12,2),1,0,'C');//30
 		$pdf->SetXY(130, $ejeX + 5);//130
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(40,6,"SUBTOTAL 12%",1,0,'C');
+		$pdf->Cell(40,6,"SUBTOTAL 15%",1,0,'C');
 
 		$pdf->SetXY(170, $ejeX + 11);
 		$pdf->SetFont('Arial', '', 7);
@@ -486,7 +486,7 @@ class generarPDF
 		$pdf->Cell(25,6,number_format((float)$iva,2),1,0,'C');
 		$pdf->SetXY(130, $ejeX + 35);
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(40,6,"IVA 12%",1,0,'C');
+		$pdf->Cell(40,6,"IVA 15%",1,0,'C');
 
 		$pdf->SetXY(170, $ejeX + 41);
 		$pdf->SetFont('Arial', '', 7);
@@ -711,7 +711,7 @@ class generarPDF
         //$pdf->Cell(82,8,$document->infoTributaria->nombreComercial,0);
 
         $pdf->SetXY(13, 63);
-        $document->infoTributaria->dirMatriz = 'Quevedo Norte - Av 7 de Octubre Palmeiras y Decima Primera -Local 406 Frente a Servientrega';
+        //$document->infoTributaria->dirMatriz = 'Quevedo Norte - Av 7 de Octubre Palmeiras y Decima Primera -Local 406 Frente a Servientrega';
         if (strlen($document->infoTributaria->dirMatriz) <= 53) {
             $pdf->MultiCell(100, 10, 'Matriz: ' . substr($document->infoTributaria->dirMatriz, 0, 53), 0);
         } else {
@@ -972,7 +972,7 @@ class generarPDF
 		$pdf->Cell(25,6,number_format((float)$subtotal12,2),1,0,'C');//30
 		$pdf->SetXY(130, $ejeX + 5);//130
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(40,6,"SUBTOTAL 12%",1,0,'C');
+		$pdf->Cell(40,6,"SUBTOTAL 15%",1,0,'C');
 
         $pdf->SetXY(170, $ejeX + 11);
 		$pdf->SetFont('Arial', '', 7);
@@ -1007,7 +1007,7 @@ class generarPDF
 		$pdf->Cell(25,6,number_format((float)$iva,2),1,0,'C');
 		$pdf->SetXY(130, $ejeX + 35);
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(40,6,"IVA 12%",1,0,'C');
+		$pdf->Cell(40,6,"IVA 15%",1,0,'C');
 
         $pdf->SetXY(170, $ejeX + 41);
 		$pdf->SetFont('Arial', '', 7);
@@ -1325,7 +1325,7 @@ class generarPDF
         //$pdf->Cell(82,8,$document->infoTributaria->nombreComercial,0);
 
         $pdf->SetXY(13, 63);
-        $document->infoTributaria->dirMatriz = 'Quevedo Norte - Av 7 de Octubre Palmeiras y Decima Primera -Local 406 Frente a Servientrega';
+        //$document->infoTributaria->dirMatriz = 'Quevedo Norte - Av 7 de Octubre Palmeiras y Decima Primera -Local 406 Frente a Servientrega';
         if (strlen($document->infoTributaria->dirMatriz) <= 53) {
             $pdf->MultiCell(100, 10, 'Matriz: ' . substr($document->infoTributaria->dirMatriz, 0, 53), 0);
         } else {
@@ -1668,7 +1668,7 @@ class generarPDF
 		$pdf->Cell(25,6,number_format((float)$iva,2),1,0,'C');
 		$pdf->SetXY(130, $ejeX + 35);
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(40,6,"IVA 12%",1,0,'C');
+		$pdf->Cell(40,6,"IVA 15%",1,0,'C');
 
         $pdf->SetXY(170, $ejeX + 41);
 		$pdf->SetFont('Arial', '', 7);
@@ -2181,7 +2181,7 @@ class generarPDF
         //$pdf->Cell(82,8,$document->infoTributaria->nombreComercial,0);
 
         $pdf->SetXY(13, 63);
-        $document->infoTributaria->dirMatriz = 'Quevedo Norte - Av 7 de Octubre Palmeiras y Decima Primera -Local 406 Frente a Servientrega';
+        //$document->infoTributaria->dirMatriz = 'Quevedo Norte - Av 7 de Octubre Palmeiras y Decima Primera -Local 406 Frente a Servientrega';
         if (strlen($document->infoTributaria->dirMatriz) <= 53) {
             $pdf->MultiCell(100, 10, 'Matriz: ' . substr($document->infoTributaria->dirMatriz, 0, 53), 0);
         } else {
@@ -2570,7 +2570,7 @@ class generarPDF
 		$pdf->Cell(25,6,number_format((float)$iva,2),1,0,'C');
 		$pdf->SetXY(130, $ejeX + 35);
 		$pdf->SetFont('Arial', 'B', 7);
-		$pdf->Cell(40,6,"IVA 12%",1,0,'C');
+		$pdf->Cell(40,6,"IVA 15%",1,0,'C');
 
 		$pdf->SetXY(170, $ejeX + 41);
 		$pdf->SetFont('Arial', '', 7);
