@@ -117,8 +117,8 @@ if ($count == 0) {
 $sql_factura    = mysqli_query($conexion, "select * from facturas_ventas where id_factura='" . $id_factura . "'");
 $rw_factura     = mysqli_fetch_array($sql_factura);
 $xml_detalles = '<detalles>';
-$query = mysqli_query($conexion, "SELECT  productos.id_producto, productos.codigo_producto as 'codigo', productos.descripcion_producto as 'descripcion',
-                                  detalle_fact_ventas.cantidad as 'cantidad', detalle_fact_ventas.precio_venta as 'precioUnitario', productos.iva_producto as 'iva'
+$query = mysqli_query($conexion, "SELECT  productos.id_producto, productos.codigo_producto as 'codigo', detalle_fact_ventas.descripcion_detalle as 'descripcion',
+                                  detalle_fact_ventas.cantidad as 'cantidad', detalle_fact_ventas.precio_venta as 'precioUnitario', detalle_fact_ventas.aplica_iva as 'iva'
                                   FROM detalle_fact_ventas
       INNER JOIN facturas_ventas  ON detalle_fact_ventas.id_factura = facturas_ventas.id_factura
       left JOIN productos ON productos.id_producto = detalle_fact_ventas.id_producto WHERE detalle_fact_ventas.id_factura = '" . $id_factura . "'");
@@ -136,21 +136,23 @@ $totalFactura = 0.00;
 while ($data_productos = $query->fetch_assoc()) {
     
         if($data_productos["iva"] == 1){
-            $totalFactura = $data_productos['precioUnitario'] * $data_productos['cantidad'];
-            $totaliva += (($totalFactura / 1.12) * 12 ) / 100;
-            $iva = (($totalFactura / 1.12) * 12 ) / 100;
             
-            $codigoporcentaje = 2;
-            $tarifa = 12.00;
+            $totalFactura = $data_productos['precioUnitario'] * $data_productos['cantidad'];
+            $totalFactura=$totalFactura*1.15;
+            $totaliva += (($totalFactura / 1.15) * 15 ) / 100;
+            
+            $iva = (($totalFactura / 1.15) * 15 ) / 100;
+            $codigoporcentaje = 4;
+            $tarifa = 15.00;
             $baseimponible = $totalFactura - $iva;
             $baseimponible = number_format($baseimponible,2);
             $baseimponible = str_replace(',', '', $baseimponible);
             $totalesconimpuestos += $baseimponible;
-            $preciounitario = $data_productos['precioUnitario'] - (($data_productos['precioUnitario'] / 1.12) * 12 ) / 100;
+            $preciounitario = $totalFactura - (($totalFactura / 1.15) * 15 ) / 100;
             $preciounitario = number_format($preciounitario,4);
             $preciounitario = str_replace(',', '', $preciounitario);
         }else{
-            $iva = 0.00;
+            //$iva = 0.00;
             $codigoporcentaje = 0;
             $tarifa = 0;
             $totalFactura = $data_productos['precioUnitario'] * $data_productos['cantidad'];
@@ -205,7 +207,7 @@ $totaliva = str_replace(',', '', $totaliva);
 if($totaliva > 0 && $totalessinimpuestos > 0 ){
     $xml_totalconimpuestos = '<totalImpuesto>
                                 <codigo>2</codigo>
-                                <codigoPorcentaje>2</codigoPorcentaje>
+                                <codigoPorcentaje>4</codigoPorcentaje>
                                 <baseImponible>' . $totalesconimpuestos . '</baseImponible>
                                 <valor>' . $totaliva . '</valor>
                              </totalImpuesto>
@@ -218,7 +220,7 @@ if($totaliva > 0 && $totalessinimpuestos > 0 ){
 }elseif($totaliva > 0){
     $xml_totalconimpuestos = '<totalImpuesto>
                                 <codigo>2</codigo>
-                                <codigoPorcentaje>2</codigoPorcentaje>
+                                <codigoPorcentaje>4</codigoPorcentaje>
                                 <baseImponible>' . $totalesconimpuestos . '</baseImponible>
                                 <valor>' . $totaliva. '</valor>
                              </totalImpuesto>';
@@ -284,7 +286,7 @@ $id_cliente = $rw_factura['id_cliente'];
 $querycliente = mysqli_query($conexion, "SELECT * from clientes where id_cliente='" . $id_cliente . "'")
 or die('error: ' . mysqli_error($conexion));
 $datacliente = mysqli_fetch_assoc($querycliente);
-
+$fiscal_cliente = $datacliente['fiscal_cliente'];
 $nombre_cliente = $datacliente['nombre_cliente'];
 $direccion_cliente = $datacliente['direccion_cliente'];
 $telefono_cliente = $datacliente['telefono_cliente'];
@@ -295,8 +297,7 @@ $digito_verificador_clave = validar_clave($clave);
 $clave_acceso = "" . date('dmY', strtotime($fecha_emision)) . "" . '01' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_factura, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision  . "" . $digito_verificador_clave . "";
    
 
-$xml = '<?xml version="1.0" encoding="UTF-8"?>
-    <factura id="comprobante" version="1.1.0">
+$xml = '<factura id="comprobante" version="1.1.0">
         <infoTributaria>
             <ambiente>' . $id_tipo_ambiente . '</ambiente>
             <tipoEmision>1</tipoEmision>
@@ -316,7 +317,7 @@ $xml = '<?xml version="1.0" encoding="UTF-8"?>
             <obligadoContabilidad>NO</obligadoContabilidad>       
             <tipoIdentificacionComprador>' . $id_tipo_documento . '</tipoIdentificacionComprador>
             <razonSocialComprador>'.$nombre_cliente.'</razonSocialComprador>
-            <identificacionComprador>0490041877001</identificacionComprador>
+            <identificacionComprador>'.$fiscal_cliente.'</identificacionComprador>
             <direccionComprador>'.$direccion_cliente.'</direccionComprador>';
             $xml.='<totalSinImpuestos>' . $valortotal . '</totalSinImpuestos>';
             $xml .= '<totalDescuento>0</totalDescuento>';
