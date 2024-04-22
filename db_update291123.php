@@ -2282,7 +2282,7 @@ mysqli_query($conexion, "ALTER TABLE `detalle_fact_ventas` ADD `descripcion_deta
 mysqli_query($conexion, "ALTER TABLE `detalle_fact_ventas` ADD `aplica_iva` INT NOT NULL AFTER `descripcion_detalle`;");
 mysqli_query($conexion, "ALTER TABLE `facturas_ventas` ADD `monto_iva` DOUBLE NOT NULL AFTER `plazodias`;");
 
-mysqli_query($conexion, "UPDATE `perfil` SET `autofactura` = '1' WHERE `perfil`.`id_perfil` = 1;");
+mysqli_query($conexion, "UPDATE `perfil` SET `autofactura` = '0' WHERE `perfil`.`id_perfil` = 1;");
 
 
   
