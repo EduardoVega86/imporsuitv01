@@ -99,7 +99,7 @@ while ($row = mysqli_fetch_array($sql)) {
     $iva_tmp = $row['iva_tmp'];
 
     $precio_venta   = $row['precio_tmp'];
-    $subtotal_sin_iva=$subtotal_sin_iva+$precio_venta;
+    $subtotal_sin_iva=$subtotal_sin_iva+$precio_venta*$cantidad;
     
     $precio_venta_f = number_format($precio_venta, 2); //Formateo variables
     $precio_venta_r = str_replace(",", "", $precio_venta_f); //Reemplazo las comas
@@ -137,18 +137,20 @@ while ($row = mysqli_fetch_array($sql)) {
         <td class='text-center'>
             <div class="input-group">
                 
-                <input type="text" class="form-control descripcion_id" style="text-align:center; font-size:10px;" value="<?php echo $descripcion; ?>" id="<?php echo $id_tmp; ?>">
+                <input type="text" class="form-control descripcion_id formulario" style="text-align:center; font-size:10px;" value="<?php echo $descripcion; ?>" id="<?php echo $id_tmp; ?>">
             </div>
         </td>
         <td class='text-center'>
-            <div class="input-group">
-                
-                <input type="text" class="form-control employee_id" style="text-align:center; font-size:10px; max-width: 70px" value="<?php echo number_format($precio_venta, 2); ?>" id="<?php echo $id_tmp; ?>">
-            </div>
-        </td>
-        <td align="right" width="15%">
-            <input type="text" class="form-control  txt_desc" style="text-align:center; font-size:10px; max-width: 70px" value="<?php echo $desc_tmp; ?>" id="<?php echo $id_tmp; ?>">
-        </td>
+  <div class="input-group" style="width: 100%; display: flex; justify-content: center;">
+    <input type="text" class="form-control employee_id formulario" style="text-align: center; font-size: 10px; max-width: 70px;" value="<?php echo number_format($precio_venta, 2); ?>" id="<?php echo $id_tmp; ?>">
+  </div>
+</td>
+<td class='text-center'>
+  <div class="input-group" style="width: 100%; display: flex; justify-content: center;">
+    <input type="text" class="form-control  txt_desc formulario" style="text-align:center; font-size:10px; max-width: 70px" value="<?php echo $desc_tmp; ?>" id="<?php echo $id_tmp; ?>">
+  </div>
+</td>
+        
         <td class="text-center align-middle">
     <div class="input-group justify-content-center">
         <?php
@@ -173,6 +175,7 @@ while ($row = mysqli_fetch_array($sql)) {
 }
 
 $total_factura = $subtotal_sin_iva + $total_iva;
+echo $total_factura
 
 ?>
 <tr>
@@ -241,7 +244,7 @@ $total_factura = $subtotal_sin_iva + $total_iva;
         $(".employee_id").on("change", function(event) {
            id_tmp = $(this).attr("id");
            precio = $(this).val();
-           alert(precio);
+          // alert(precio);
            $.ajax({
             type: "POST",
             url: "../ajax/editar_precio_venta.php",

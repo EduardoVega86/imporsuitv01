@@ -525,8 +525,11 @@ function generax($id)
 //alert();
     global $conexion;
     $id_factura = intval($id);
+    echo $id;
     $sql_count  = mysqli_query($conexion, "select * from facturas_ventas where id_factura='" . $id_factura . "'");
     $count      = mysqli_num_rows($sql_count);
+    //alert(1);
+    echo $count;
     if ($count == 0) {
         echo "<script>alert('Factura no encontrada')</script>";
         echo "<script>window.close();</script>";
@@ -708,8 +711,7 @@ function generax($id)
     $clave_acceso = "" . date('dmY', strtotime($fecha_emision)) . "" . '01' . "" . $nro_documento_empresa . "" . $id_tipo_ambiente . "" . $codigo_establecimiento . "" . $codigo_punto_emision . "" . str_pad($secuencial, '9', '0', STR_PAD_LEFT) . "" . str_pad($id_factura, '8', '0', STR_PAD_LEFT) . "" . $id_tipo_emision  . "" . $digito_verificador_clave . "";
 
 
-    $xml = '<?xml version="1.0" encoding="UTF-8"?>
-    <factura id="comprobante" version="1.1.0">
+    $xml = '<factura id="comprobante" version="1.1.0">
         <infoTributaria>
             <ambiente>' . $id_tipo_ambiente . '</ambiente>
             <tipoEmision>1</tipoEmision>
