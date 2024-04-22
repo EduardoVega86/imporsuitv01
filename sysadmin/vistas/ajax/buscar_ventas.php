@@ -50,7 +50,7 @@ if ($action == 'ajax') {
     $total_pages = ceil($numrows / $per_page);
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
-    $sql   = "SELECT  facturas_ventas.id_factura,facturas_ventas.numero_factura,facturas_ventas.fecha_factura,clientes.nombre_cliente,clientes.telefono_cliente,
+    $sql   = "SELECT  facturas_ventas.id_factura,facturas_ventas.monto_iva, facturas_ventas.numero_factura,facturas_ventas.fecha_factura,clientes.nombre_cliente,clientes.telefono_cliente,
     clientes.email_cliente,users.nombre_users,facturas_ventas.estado_factura,comprobantes_sri.Estado,facturas_ventas.monto_factura,users.apellido_users,comprobantes_sri.claveAcceso,comprobantes_sri.Mensaje  
     FROM facturas_ventas INNER JOIN  clientes ON facturas_ventas.id_cliente=clientes.id_cliente 
     INNER JOIN users ON facturas_ventas.id_vendedor=users.id_users
@@ -72,7 +72,8 @@ if ($action == 'ajax') {
                 <th>Vendedor</th>
                 <th>Estado</th>
                 <th>Estado SRI</th>
-                <th class='text-center'>Total</th>
+                <th class='text-center'>Base</th>
+                <th class='text-center'>IVA</th>
                 <th class='text-center'>Acciones</th>
 
             </tr>
@@ -89,6 +90,7 @@ while ($row = mysqli_fetch_array($query)) {
             $estado_sri       = $row['Estado'];
             $claveAcceso = strval($row['claveAcceso']);
             $mensajesri       = $row['Mensaje'];
+            $monto_iva=$row['monto_iva'];
             $tituloswilf = 'Hubo un error en la autorizacion del comprobante';
             $textowilf   = utf8_decode($mensajesri);
             $Nrocomprobante = $numero_factura;
@@ -101,12 +103,38 @@ while ($row = mysqli_fetch_array($query)) {
                 $xml = '';
                 $reenviaremail ='';
                 $mostrarmensajes = 'onclick="visualizarmensajesSRI(\'' . $tituloswilf . '\',\''.$textowilf.'\',\''.$Nrocomprobante.'\')" style="cursor: pointer"';
+                $enviar_sri='<div class="container mt-3 d-flex justify-content-center align-items-center">
+    <div class="btn-group">
+        <button onclick="generarXML('.$id_factura.');" onclick="datos_mail('.$id_factura.')type="button" class="btn btn-success">
+            <i class="fas fa fa-send"></i> PDF
+        </button>
+        
+    </div>
+</div>';
+
             }elseif ($estado_sri == 'AUTORIZADO') {
                 $estado_sri = 'AUTORIZADO';
                 $label_classsri = 'badge-success';
                 $pdf = '<a class="dropdown-item" href="../assets/comprobantes/autorizados/Factura_'.$claveAcceso.'.pdf" download="'.$claveAcceso.'.pdf"><i class="fa fa-file-pdf-o"></i> Descargar PDF</a>';
                 $xml = '<a class="dropdown-item" href="../assets/comprobantes/autorizados/'.$claveAcceso.'.xml" download="'.$claveAcceso.'.xml"><i class="fa fa-download"></i> Descargar XML</a>';
-                $reenviaremail = '<a class="dropdown-item" data-toggle="modal" data-target="#reenviarEmail" ><i class="fa fa-share-square-o"></i> Reenviar Email <input type="hidden" id="obtenerclaveaccceso" name="obtenerclaveaccceso" value="'.$claveAcceso.'"/></a>';
+                $reenviaremail = '<a class="dropdown-item" onclick="datos_mail('.$id_factura.')" data-toggle="modal" data-target="#reenviarEmail" ><i class="fa fa-share-square-o"></i> Reenviar Email <input type="hidden" id="obtenerclaveaccceso" name="obtenerclaveaccceso" value="'.$claveAcceso.'"/></a>';
+            
+                $enviar_sri='<div class="container mt-3 d-flex justify-content-center align-items-center">
+    <div class="btn-group">
+    
+        <a style="color:white" href="../assets/comprobantes/autorizados/Factura_'.$claveAcceso.'.pdf" download="'.$claveAcceso.'.pdf" type="button" class="btn btn-primary formulario">
+            <i class="fas fa-file-pdf"></i> PDF
+        </a>
+        <a style="color:white" href="../assets/comprobantes/autorizados/'.$claveAcceso.'.xml" download="'.$claveAcceso.'.pdf" type="button" class="btn btn-warning formulario">
+            <i class="fas fa-file-xml"></i> XML
+        </a>
+        <a onclick="datos_mail('.$id_factura.')" data-toggle="modal" data-target="#reenviarEmail" type="button" class="btn btn-secondary formulario">
+            <i class="fas fa-envelope"></i> Mail
+        </a>
+    </div>
+</div>';
+            
+                
             }elseif ($estado_sri == 'DEVUELTA') {
                 $estado_sri = 'DEVUELTA';
                 $label_classsri = 'badge-danger';
@@ -114,6 +142,15 @@ while ($row = mysqli_fetch_array($query)) {
                 $xml = '';
                 $reenviaremail ='';
                 $mostrarmensajes = 'onclick="visualizarmensajesSRI(\'' . $tituloswilf . '\',\''.$textowilf.'\',\''.$Nrocomprobante.'\')" style="cursor: pointer"';
+               $enviar_sri='<div class="container mt-3 d-flex justify-content-center align-items-center">
+    <div class="btn-group">
+        <button onclick="generarXML('.$id_factura.');" onclick="datos_mail('.$id_factura.')type="button" class="btn btn-success">
+            <i class="fas fa fa-send"></i> PDF
+        </button>
+        
+    </div>
+</div>';
+                
             }elseif ($estado_sri == 'NO AUTORIZADO') {
                 $estado_sri = 'NO AUTORIZADO';
                 $label_classsri = 'badge-danger';
@@ -121,17 +158,34 @@ while ($row = mysqli_fetch_array($query)) {
                 $xml = '';
                 $reenviaremail ='';
                 $mostrarmensajes = 'onclick="visualizarmensajesSRI(\'' . $tituloswilf . '\',`'.$textowilf.'`,\''.$Nrocomprobante.'\')" style="cursor: pointer"';
+               $enviar_sri='<div class="container mt-3 d-flex justify-content-center align-items-center">
+    <div class="btn-group">
+        <button onclick="generarXML('.$id_factura.');" onclick="datos_mail('.$id_factura.')type="button" class="btn btn-success">
+            <i class="fas fa fa-send"></i> PDF
+        </button>
+        
+    </div>
+</div>';
+                
             }else{
                 $estado_sri = 'Sin Envio';
                 $label_classsri = 'badge-warning';
                 $pdf = '';
                 $xml = '';
                 $reenviaremail ='';
+                $enviar_sri='<div class="container mt-3 d-flex justify-content-center align-items-center">
+    <div class="btn-group">
+        <button onclick="generarXML('.$id_factura.');" onclick="datos_mail('.$id_factura.')type="button" class="btn btn-success formulario">
+            <i class="fas fa fa-send "></i> AUTORIZAR
+        </button>
+        
+    </div>
+</div>';
             }
             if ($estado_factura == 0) {
                 $text_estado = "Anulada";
                 $label_class = 'badge-warning';
-                
+                 $enviar_sri='';  
             }
             if ($estado_factura == 1) {
                 $text_estado = "Pagada";
@@ -146,6 +200,8 @@ while ($row = mysqli_fetch_array($query)) {
             $total_venta    = $row['monto_factura'];
             $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             ?>
+             <input type="hidden" value="<?php echo $nombre_cliente; ?>" id="nombre_cliente<?php echo $id_factura; ?>">
+             <input type="hidden" value="<?php echo $email_cliente; ?>" id="email_cliente<?php echo $id_factura; ?>">
                         <tr >
                          <td <?php echo $mostrarmensajes; ?>><label class='badge badge-purple'><?php echo $numero_factura; ?></label></td>
                          <td <?php echo $mostrarmensajes; ?>><?php echo $fecha; ?></td>
@@ -154,6 +210,11 @@ while ($row = mysqli_fetch_array($query)) {
                          <td <?php echo $mostrarmensajes; ?>><span class="badge <?php echo $label_class; ?>"><?php echo $text_estado; ?></span></td>
                          <td <?php echo $mostrarmensajes; ?>><span class="badge <?php echo $label_classsri; ?>"><?php echo $estado_sri; ?></span></td>
                          <td class='text-left' <?php echo $mostrarmensajes; ?>><b><?php echo $simbolo_moneda . '' . number_format($total_venta, 2); ?></b></td>
+                         <td class='text-left' <?php echo $mostrarmensajes; ?>><b><?php echo $simbolo_moneda . '' . number_format($monto_iva, 2); ?></b></td>
+                         <td class='text-left' <?php echo $mostrarmensajes; ?>>
+                             <?php echo $enviar_sri; ?>
+                             </td>
+                         
                          <td class="text-center">
                           <div class="btn-group dropdown">
                             <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
@@ -163,6 +224,7 @@ while ($row = mysqli_fetch_array($query)) {
                                <a class="dropdown-item" href="#" onclick="print_ticket('<?php echo $id_factura; ?>')"><i class='fa fa-print'></i> Imprimir Ticket</a>
                                <a class="dropdown-item" href="#" onclick="imprimir_factura('<?php echo $id_factura; ?>');"><i class='fa fa-print'></i> Imprimir Factura</a>
                                <a class="dropdown-item" href="#" onclick="generarXML('<?php echo $id_factura; ?>');"><i class='fa fa-paper-plane'></i> Enviar SRI</a>
+                               
                                <?php echo $pdf; ?>
                                <?php echo $xml; ?>
                                <?php echo $reenviaremail; ?>
