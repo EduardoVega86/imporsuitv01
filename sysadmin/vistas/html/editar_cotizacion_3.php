@@ -821,7 +821,7 @@ while ($r = $query->fetch_object()) {
                                                                         <select onchange="seleccionarProvincia()" class="datos form-control formulario" id="ciudad_entrega" name="ciudad_entrega" required>
                                                                             <option value="">Ciudad *</option>
                                                                             <?php
-                                                                            $sql2 = "select * from ciudad_laar ";
+                                                                            $sql2 = "SELECT * FROM `ciudad_cotizacion` ";
                                                                             //echo $sql2;
                                                                             $query2 = mysqli_query($conexion, $sql2);
 
@@ -829,7 +829,7 @@ while ($r = $query->fetch_object()) {
                                                                             //echo $rowcount;
                                                                             $i = 1;
                                                                             while ($row2 = mysqli_fetch_array($query2)) {
-                                                                                $id_ciudad       = $row2['id_ciudad'];
+                                                                                $id_ciudad       = $row2['id_cotizacion'];
                                                                                 $nombre      = $row2['nombre'];
                                                                                 $cod_ciudad      = $row2['codigo'];
                                                                                 $valor_seleccionado = $ciudaddestino;
@@ -856,9 +856,9 @@ while ($r = $query->fetch_object()) {
                                                                             $query2 = mysqli_query($conexion, $sql2);
 
                                                                             while ($row2 = mysqli_fetch_array($query2)) {
-                                                                                $id_prov = $row2['id_prov'];
+                                                                                $id_prov = $row2['id_cotizacion'];
                                                                                 $provincia = $row2['provincia'];
-                                                                                $cod_provincia = $row2['codigo_provincia'];
+                                                                                $cod_provincia = $row2['codigo_provincia_laar'];
 
                                                                                 $valor_seleccionado = $provinciadestino;
 
