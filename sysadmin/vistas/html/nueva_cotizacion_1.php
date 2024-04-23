@@ -175,8 +175,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                 <select class="datos form-control formulario" onchange="cargar_provincia_pedido()" id="provinica" name="provinica" required disabled>
                                                                     <option value="">Provincia *</option>
                                                                     <?php
-                                                                    $sql2 = "select distinct provincia from ciudad_cotizacion where id_pais='1';
-                                                                    ";
+                                                                    $sql2 = "SELECT provincia, MIN(id_cotizacion) AS id_cotizacion, COUNT(provincia) AS cantidad, MAX(codigo_provincia_laar) as codigo_provincia_laar FROM ciudad_cotizacion WHERE id_pais = '$pais' GROUP BY provincia;";
 
                                                                     $query2 = mysqli_query($conexion, $sql2);
                                                                     while ($row2 = mysqli_fetch_array($query2)) {
@@ -966,7 +965,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     }
 
     function cargar_provincia_pedido() {
-        var id_provincia = $('#provinica').val();
+        var id_provincia = $('#provinica option:selected').text();
         $.ajax({
             url: "../ajax/cargar_ciudad_pedido.php",
             type: "POST",
