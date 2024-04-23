@@ -46,7 +46,7 @@ $query = mysqli_query($conexion, $sql);
 <select class="datos form-control formulario" onchange="seleccionarProvincia()" id="ciudad_entrega" name="ciudad_entrega" required>
   <option value="">Ciudad *</option>
   <?php
-  $sql2 = "sSELECT * FROM `ciudad_cotizacion` where provincia = '$id_provincia';";
+  $sql2 = "SELECT * FROM `ciudad_cotizacion` where provincia = '$id_provincia';";
   echo $sql2;
   // echo $sql2;
   $query2 = mysqli_query($conexion, $sql2);
@@ -57,8 +57,8 @@ $query = mysqli_query($conexion, $sql);
   while ($row2 = mysqli_fetch_array($query2)) {
     // echo $row2['provincia'];
     //$id_prov       = $row2['id_prov']; 
-    $ciudad      = $row2['nombre'];
-    $codigo      = $row2['codigo'];
+    $ciudad      = $row2['ciudad'];
+    $codigo      = $row2['codigo_ciudad_laar'];
 
   ?>
     <option value="<?php echo $codigo; ?>"><?php echo $ciudad; ?></option>
