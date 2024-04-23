@@ -232,7 +232,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001007015, 'Mulalao', 'TE', 'COTOPAXI', '201001007', 32); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001008001, 'RIOBAMBA', 'TP', 'CHIMBORAZO', '201001008', 44); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001008002, 'ALAUSI', 'TE', 'CHIMBORAZO', '201001008', 44); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001008003, 'CHUNCHI', 'TE', 'CH1008', 44); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001008003, 'CHUNCHI', 'TE', 'CHIMBORAZO','201001008', 44); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001008004, 'GUANO', 'TE', 'CHIMBORAZO', '201001008', 44); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001008005, 'CAJABAMBA', 'TE', 'CHIMBORAZO', '201001008', 44); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001008007, 'GUAMOTE', 'TE', 'CHIMBORAZO', '201001008', 44); ");
@@ -1604,7 +1604,7 @@ mysqli_query($conexion, "INSERT INTO `ciudad_cotizacion` (`id_cotizacion`, `prov
 (224, 'GUAYAS', 'DAULE', 1, 1, 1, 'TR', '0', 'TE', '', '201001002', '201001002009', '1031', '56326', '25'),
 (225, 'GUAYAS', 'DURAN', 1, 1, 1, 'TR', 'TE', 'TE', '', '201001002', '201001002002', '1031', '56327', '24'),
 (226, 'GUAYAS', 'EL DESEO', 1, 0, 1, 'TE', '0', 'TE', '', '201001002', '201001002049', '1031', '', '726'),
-(227, 'GUAYAS', 'EL EMPALME/GUAYAS', 1, 1, 1, 'TE', 'TE', 'TE', '', '201001002', '', '1031', '56328', '767'),
+(227, 'GUAYAS', 'EL EMPALME/GUAYAS', 1, 1, 1, 'TE', 'TE', 'TE', '', '201001002', '201001002069', '1031', '56328', '767'),
 (228, 'GUAYAS', 'EL MORRO', 1, 0, 0, 'TE', '0', '0', '', '201001002', '', '1031', '', '118'),
 (229, 'GUAYAS', 'EL TRIUNFO/GUAYAS', 1, 1, 1, 'TR', 'TE', 'TE', '', '201001002', '201001002007', '1031', '56329', '26'),
 (230, 'GUAYAS', 'ELOY ALFARO - DURÁN', 0, 1, 0, '0', 'TE', '0', '0', '0', '0', '0', '0', '719'),
