@@ -183,12 +183,6 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                         $provincia = $row2['provincia'];
                                                                         $cod_provincia = $row2['codigo_provincia_laar'];
 
-                                                                        // Obtener el valor almacenado en la tabla orgien_laar
-                                                                        $valor_seleccionado = $provinciadestino;
-
-                                                                        // Verificar si el valor actual coincide con el almacenado en la tabla
-                                                                        $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
-
                                                                         // Imprimir la opción con la marca de "selected" si es el valor almacenado
                                                                         echo '<option value="' . $cod_provincia . '>' . $provincia . '</option>';
                                                                     }
