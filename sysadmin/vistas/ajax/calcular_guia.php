@@ -12,7 +12,10 @@ $cod = $_POST['cod'];
 $seguro = $_POST['seguro'];
 $costo = $_POST['costo_total'];
 
-$ciudad2 = $_POST['ciudad2'];
+if (isset($_POST['ciudad2'])) {
+    $ciudad2 = $_POST['ciudad2'];
+}
+
 if (isset($_POST['provincia'])) {
     $provincia = $_POST['provincia'];
 }

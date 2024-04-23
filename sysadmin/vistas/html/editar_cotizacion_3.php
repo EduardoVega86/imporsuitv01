@@ -852,7 +852,7 @@ while ($r = $query->fetch_object()) {
                                                                         <select onchange="" class="datos form-control formulario" id="provinica" name="provinica" required>
                                                                             <option value="">Provincia *</option>
                                                                             <?php
-                                                                            $sql2 = "select * from provincia_laar ";
+                                                                            $sql2 = "SELECT provincia, MIN(id_cotizacion) AS id_cotizacion, MAX(codigo_provincia_laar) as codigo_provincia_laar FROM ciudad_cotizacion WHERE id_pais = '$pais' GROUP BY provincia; ";
                                                                             $query2 = mysqli_query($conexion, $sql2);
 
                                                                             while ($row2 = mysqli_fetch_array($query2)) {
