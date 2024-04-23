@@ -134,42 +134,125 @@ $respuesta = mysqli_fetch_row($respuesta);
                                     </div>
                                 </div>
                             </div>
-                            <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
-                                <div class="d-flex flex-row">
-                                    <div class="grid items-center">
-                                        <img src="https://www.gob.ec/sites/default/files/styles/medium/public/2023-05/logo.png?itok=PpIW0csl" width="65px" alt="img">
-                                        <h5 class="text-left font-bold">Facturación Electrónica
+                            <div class="row">
+                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                    <div class="d-flex flex-row">
+                                        <div class="grid items-center">
+                                            <img src="https://www.gob.ec/sites/default/files/styles/medium/public/2023-05/logo.png?itok=PpIW0csl" width="65px" alt="img">
+                                            <h5 class="text-left font-bold">Facturación Electrónica
+                                        </div>
+                                        <?php
+                                        if ((empty($row_perfil[19]))) {
+                                        ?>
+                                            <div class="items-rigth d-flex flex-row">
+                                                <div class="items-center d-flex flex-column">
+                                                    <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                    <p class="text-right font-bold fs-9">Firma</p>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <div class="items-rigth d-flex flex-row">
+                                                <div class="items-center d-flex flex-column">
+                                                    <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                    <p class="text-right font-bold fs-9 text-success">Firma</p>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        } ?>
                                     </div>
-                                    <?php
-                                    if ((empty($row_perfil[19]))) {
-                                    ?>
-                                        <div class="items-rigth d-flex flex-row">
-                                            <div class="items-center d-flex flex-column">
-                                                <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
-                                                <p class="text-right font-bold fs-9">Firma</p>
-                                            </div>
-                                        </div>
-                                    <?php
-                                    } else {
-                                    ?>
-                                        <div class="items-rigth d-flex flex-row">
-                                            <div class="items-center d-flex flex-column">
-                                                <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
-                                                <p class="text-right font-bold fs-9 text-success">Firma</p>
-                                            </div>
-                                        </div>
-                                    <?php
-                                    } ?>
+                                    </h3>
+                                    <p>Configura los datos de tu empresa para la facturación electrónica con el SRI.</p>
+                                    <div class="d-flex flex-column gap-1">
+                                        <a href="../html/empresa.php" class="btn btn-outline-primary">Editar Perfil</a>
+                                    </div>
                                 </div>
-                                </h3>
-                                <p>Configura los datos de tu empresa para la facturación electrónica con el SRI.</p>
-                                <div class="d-flex flex-column gap-1">
-                                    <a href="../html/empresa.php" class="btn btn-outline-primary">Editar Perfil</a>
+                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                    <div class="d-flex flex-row items-center">
+
+                                        <img src="https://extensions.vtexassets.com/arquivos/ids/156903-800-auto?v=637443260613970000&width=800&height=auto&aspect=true" width="50px" alt="img">
+                                        <h3 class="text-left font-bold">Google Tag Manager
+
+                                        </h3>
+                                    </div>
+                                    <p>Manten actualizadas tus campañas con nuestra api.</p>
+                                    <div class="d-flex flex-column gap-1">
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#google_tag">
+                                            Conectar
+                                        </button>
+
+                                    </div>
                                 </div>
+                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                    <div class="d-flex flex-row items-center">
+
+                                        <img src="https://fineproxy.org/wp-content/uploads/2023/07/analytics.google.com_logo.png" width="50px" alt="img">
+                                        <h3 class="text-left font-bold">Google Analytics
+
+                                        </h3>
+                                    </div>
+                                    <p>Manten actualizadas tus campañas con nuestra api.</p>
+                                    <div class="d-flex flex-column gap-1">
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#google_analytics">
+                                            Conectar
+                                        </button>
+
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col rounded-5 m-3 py-3 px-4">
-                            </div>
-                            <div class="col rounded-5 m-3 py-3 px-4">
+                            <div class="row" style="width: 100%;">
+                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                    <div class="d-flex flex-row items-center">
+
+                                        <img src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338432_640.png" width="40px" alt="img">
+                                        <h3 class="text-left font-bold">Tiktok
+
+                                        </h3>
+                                    </div>
+                                    <p>Manten actualizadas tus campañas con nuestra api.</p>
+                                    <div class="d-flex flex-column gap-1">
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#tiktok">
+                                            Conectar
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                    <div class="d-flex flex-row items-center">
+
+                                        <img src="https://static.vecteezy.com/system/resources/previews/031/737/215/non_2x/twitter-new-logo-twitter-icons-new-twitter-logo-x-2023-x-social-media-icon-free-png.png" width="50px" alt="img">
+                                        <h3 class="text-left font-bold">X
+
+                                        </h3>
+                                    </div>
+                                    <p>Manten actualizadas tus campañas con nuestra api.</p>
+                                    <div class="d-flex flex-column gap-1">
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#X">
+                                            Conectar
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                    <div class="d-flex flex-row items-center">
+
+                                        <img src="https://clarity.microsoft.com/blog/wp-content/uploads/2022/02/256X256.png" width="50px" alt="img">
+                                        <h3 class="text-left font-bold">Clarity
+
+                                        </h3>
+                                    </div>
+                                    <p>Manten actualizadas tus campañas con nuestra api.</p>
+                                    <div class="d-flex flex-column gap-1">
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#clarity">
+                                            Conectar
+                                        </button>
+
+                                    </div>
+                                </div>
                             </div>
                             <!-- Modal -->
                             <div class="modal fade" id="facebook" tabindex="-1" role="dialog" aria-labelledby="facebookLabel" aria-hidden="true">
@@ -293,6 +376,182 @@ $respuesta = mysqli_fetch_row($respuesta);
                                 </div>
                                 <!-- Final Modal Dropi-->
                             </div>
+                            <!-- Modal Google Tag-->
+                            <div class="modal fade" id="google_tag" tabindex="-1" role="dialog" aria-labelledby="google_tagLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="google_tagLabel">Conectar con Google Tag Manager</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="googleTagForm" class="mb-3 pixelForm">
+
+                                                <span class="mb-5">
+                                                    Introduce tu Script de píxel de Google Tag Manager
+                                                </span>
+                                                <span class="mb-5 font-bold"> <br> Google Tag Manager Pixel</span>
+                                                <div class="form-group mb-3">
+                                                    <textarea type="text" class="form-control " id="pixel_googleTag" name="pixel_googleTag" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                </div>
+                                                <span class="mb-5 d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-success mt-5">
+                                                        Conectar
+                                                    </button>
+                                                </span>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Modal Google Tag-->
+
+                            <!-- Modal Google Analytics-->
+                            <div class="modal fade" id="google_analytics" tabindex="-1" role="dialog" aria-labelledby="google_analyticsLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="google_analyticsLabel">Conectar con Google Analytics</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="googleAnalyticsForm" class="mb-3 pixelForm">
+
+                                                <span class="mb-5">
+                                                    Introduce tu Script de píxel de Google Analytics
+                                                </span>
+                                                <span class="mb-5 font-bold"> <br> Google Analytics Pixel</span>
+                                                <div class="form-group mb-3">
+                                                    <textarea type="text" class="form-control " id="pixel_googleAnalytics" name="pixel_googleAnalytics" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                </div>
+                                                <span class="mb-5 d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-success mt-5">
+                                                        Conectar
+                                                    </button>
+                                                </span>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Modal Google Analytics-->
+                            <!-- Modal Tiktok-->
+                            <div class="modal fade" id="tiktok" tabindex="-1" role="dialog" aria-labelledby="tiktokLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="tiktokLabel">Conectar con Tiktok</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="tiktokForm" class="mb-3 pixelForm">
+
+                                                <span class="mb-5">
+                                                    Introduce tu Script de píxel de Tiktok
+                                                </span>
+                                                <span class="mb-5 font-bold"> <br> Tiktok Pixel</span>
+                                                <div class="form-group mb-3">
+                                                    <textarea type="text" class="form-control " id="pixel_tiktok" name="pixel_tiktok" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                </div>
+                                                <span class="mb-5 d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-success mt-5">
+                                                        Conectar
+                                                    </button>
+                                                </span>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Modal Tiktok-->
+                            <!-- Modal X-->
+                            <div class="modal fade" id="X" tabindex="-1" role="dialog" aria-labelledby="XLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="XLabel">Conectar con X</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="XForm" class="mb-3 pixelForm">
+
+                                                <span class="mb-5">
+                                                    Introduce tu Script de píxel de X
+                                                </span>
+                                                <span class="mb-5 font-bold"> <br> X Pixel</span>
+                                                <div class="form-group mb-3">
+                                                    <textarea type="text" class="form-control " id="pixel_X" name="pixel_X" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                </div>
+                                                <span class="mb-5 d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-success mt-5">
+                                                        Conectar
+                                                    </button>
+                                                </span>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Modal X-->
+                            <!-- Modal clarity-->
+                            <div class="modal fade" id="clarity" tabindex="-1" role="dialog" aria-labelledby="clarityLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-center" id="clarityLabel">Conectar con Clarity</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="clarityForm" class="mb-3 pixelForm">
+
+                                                <span class="mb-5">
+                                                    Introduce tu Script de píxel de Clarity
+                                                </span>
+                                                <span class="mb-5 font-bold"> <br> Clarity Pixel</span>
+                                                <div class="form-group mb-3">
+                                                    <textarea type="text" class="form-control " id="pixel_clarity" name="pixel_clarity" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                </div>
+                                                <span class="mb-5 d-flex justify-content-center">
+                                                    <button type="submit" class="btn btn-success mt-5">
+                                                        Conectar
+                                                    </button>
+                                                </span>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin Modal clarity-->
                         </div>
                     <?php
                 } else {
@@ -330,6 +589,51 @@ $respuesta = mysqli_fetch_row($respuesta);
     <!-- ============================================================== -->
     <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
     <script>
+        $(document).ready(function() {
+            $('.pixelForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize(); // Esto recogerá todos los campos de texto del formulario actual.
+
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/guardar_pixel.php", // Esta es la URL del script PHP para guardar los datos
+                    data: formData,
+                    success: function(response) {
+                        var data = JSON.parse(response);
+                        if (data.status === 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: data.title,
+                                text: data.message,
+                                confirmButtonText: 'Cerrar'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    $('#' + data.modalId).modal('hide'); // Usa el ID del modal devuelto por PHP para cerrar el modal correspondiente
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: data.message,
+                                confirmButtonText: 'Cerrar'
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error de comunicación',
+                            text: 'Hubo un problema al comunicarse con el servidor. Inténtelo de nuevo más tarde.',
+                            confirmButtonText: 'Cerrar'
+                        });
+                    }
+                });
+            });
+        });
+
+
+
         function conectar_pixel(e) {
             e.preventDefault();
             const pixel_id = document.getElementById('pixel').value;
