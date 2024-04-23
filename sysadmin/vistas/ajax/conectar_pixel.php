@@ -13,7 +13,7 @@ $resultado = mysqli_query($conexion, $sql);
 $rw = mysqli_fetch_array($resultado);
 
 if (empty($rw)) {
-    $sql_insert = "INSERT INTO pixel (nombre, pixel) VALUES ('FACEBOOK', '$pixel')";
+    $sql_insert = "INSERT INTO pixel (id_pixel, nombre, pixel) VALUES (1,'FACEBOOK', '$pixel')";
     $resultado_insert = mysqli_query($conexion, $sql_insert);
     if ($resultado_insert) {
         echo json_encode("oki");
