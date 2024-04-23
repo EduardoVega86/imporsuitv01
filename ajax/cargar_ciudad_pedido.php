@@ -50,7 +50,7 @@ if ($pais == 1) {
   <select class="datos form-control" id="ciudad" name="ciudad" required>
     <option value="">Ciudad *</option>
     <?php
-    $sql2 = "SELECT * FROM `ciudad_cotizacion` where provincia = '$id_provincia'";
+    $sql2 = "select * from ciudad_laar where codigoProvincia= '$id_provincia'";
     // echo $sql2;
     $query2 = mysqli_query($conexion, $sql2);
 
@@ -60,8 +60,8 @@ if ($pais == 1) {
     while ($row2 = mysqli_fetch_array($query2)) {
       // echo $row2['provincia'];
       //$id_prov       = $row2['id_prov']; 
-      $ciudad      = $row2['ciudad'];
-      $codigo      = $row2['codigo_ciudad_laar'];
+      $ciudad      = $row2['nombre'];
+      $codigo      = $row2['codigo'];
 
     ?>
       <option value="<?php echo $codigo; ?>"><?php echo $ciudad; ?></option>
