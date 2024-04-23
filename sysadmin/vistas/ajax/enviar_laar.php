@@ -1,5 +1,9 @@
 <?php
 
+require '../db.php';
+require '../php_conexion.php';
+// id_cotizacion por laar.
+
 // Datos de usuario y contraseña
 $usuario = "import.uio.api";
 $contrasena = "Imp@rt*23";
@@ -175,6 +179,9 @@ if ($tipo_origen == 1) {
 
 $nombre_destino = $_POST['nombre_destino'];
 $ciudad_entrega = $_POST['ciudad'];
+
+$ciudad_entrega = get_row('ciudad_cotizacion', 'codigo_ciudad_laar', 'id_cotizacion', $ciudad_entrega);
+
 $direccion = $_POST['direccion'];
 //echo $direccion;
 $referencia = $_POST['referencia'];

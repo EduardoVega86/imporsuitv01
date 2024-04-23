@@ -517,8 +517,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                 icon: "success",
                                                 title: "Guía generada",
                                                 text: "La guía ha sido generada exitosamente",
-                                                showConfirmButton: false,
-                                                timer: 1500
+
                                             }).then(() => {
                                                 window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
                                             });
@@ -902,6 +901,15 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     }
 
     function seleccionar_transportadora(id) {
+        if ($("#precio_laar").text() === "---" && id === 1) {
+            $.Notification.notify('error', 'bottom right', 'ERROR!', 'NO HAY PRECIO DISPONIBLE PARA LAAR')
+            return;
+        }
+        if ($("#precio_servientrega").text() === "---" && id === 3) {
+            $.Notification.notify('error', 'bottom right', 'ERROR!', 'NO HAY PRECIO DISPONIBLE PARA SERVIENTREGA')
+            return;
+        }
+
         $('.card').css('border', 'none');
         $('.interactive-image').css('filter', 'grayscale(100%)');
 

@@ -58,7 +58,7 @@ $query = mysqli_query($conexion, $sql);
     // echo $row2['provincia'];
     //$id_prov       = $row2['id_prov']; 
     $ciudad      = $row2['ciudad'];
-    $codigo      = $row2['codigo_ciudad_laar'];
+    $codigo      = $row2['id_cotizacion'];
 
   ?>
     <option value="<?php echo $codigo; ?>"><?php echo $ciudad; ?></option>
