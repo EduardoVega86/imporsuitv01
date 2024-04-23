@@ -4,7 +4,7 @@ $tienda = $_POST['tienda'];
 
 // Conexión a la base de datos
 $conexion = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
-$sql = "SELECT * FROM cabecera_cuenta_pagar WHERE proveedor = '$tienda' and estado_guia = 7 ORDER BY `cabecera_cuenta_pagar`.`fecha` DESC";
+$sql = "SELECT * FROM cabecera_cuenta_pagar WHERE proveedor = '$tienda' ORDER BY `cabecera_cuenta_pagar`.`fecha` DESC";
 $result = mysqli_query($conexion, $sql);
 
 $dato = "<hr/>";
@@ -18,6 +18,8 @@ $dato .= "<th class='text-center'>GUIA</th>";
 $dato .= "<th class='text-center'>TRANSPORTADORA</th>";
 $dato .= "<th class='text-center'>VALOR DEL PRODUCTO</th>";
 $dato .= "<th class='text-center'>TIENDA</th>";
+$dato .= "<th class='text-center'>ESTADO</th>";
+
 $dato .= "</tr>";
 $dato .= "</thead>";
 $dato .= "<tbody>";
@@ -33,7 +35,7 @@ while ($mostrar = mysqli_fetch_array($result)) {
         $transportadora = "LAAR";
         $background = "bg-warning";
     } else if (strpos($mostrar['guia_laar'], "FAST") === 0) {
-        $transportadora = "FAST";
+        $transportadora = "SPEED";
         $background = "bg-danger";
     } else if (is_numeric($mostrar['guia_laar'])) {
         $transportadora = "SERVIENTREGA";
@@ -43,8 +45,18 @@ while ($mostrar = mysqli_fetch_array($result)) {
     }
     $dato .= "<td class='$background text-center text-white'>" . $transportadora . "</td>"; // Mostrar transportadora
 
-    $dato .= "<td class='text-center'>" . $mostrar['costo'] . "</td>";
+    $dato .= "<td class='text-center'>$" . $mostrar['costo'] . "</td>";
     $dato .= "<td class='text-center'>" . $mostrar['tienda'] . "</td>";
+
+    if ($mostrar['estado_guia'] == 7) {
+        $mostrar['estado_guia'] = "Entregado";
+        $background_estado = "bg-success";
+    } else if ($mostrar['estado_guia'] == 9) {
+        $mostrar['estado_guia'] = "Devolución";
+        $background_estado = "bg-danger";
+    }
+
+    $dato .= "<td class='text-center text-white $background_estado'>" . $mostrar['estado_guia'] . "</td>";
     $dato .= "</tr>";
 }
 
