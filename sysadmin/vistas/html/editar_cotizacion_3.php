@@ -830,7 +830,7 @@ while ($r = $query->fetch_object()) {
                                                                             $i = 1;
                                                                             while ($row2 = mysqli_fetch_array($query2)) {
                                                                                 $id_ciudad       = $row2['id_cotizacion'];
-                                                                                $nombre      = $row2['nombre'];
+                                                                                $nombre      = $row2['ciudad'];
                                                                                 $cod_ciudad      = $row2['id_cotizacion'];
                                                                                 $valor_seleccionado = $ciudaddestino;
                                                                                 $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
