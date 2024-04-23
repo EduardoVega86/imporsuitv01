@@ -60,8 +60,8 @@ if ($pais == 1) {
     while ($row2 = mysqli_fetch_array($query2)) {
       // echo $row2['provincia'];
       //$id_prov       = $row2['id_prov']; 
-      $ciudad      = $row2['nombre'];
-      $codigo      = $row2['codigo'];
+      $ciudad      = $row2['ciudad'];
+      $codigo      = $row2['codigo_ciudad_laar'];
 
     ?>
       <option value="<?php echo $codigo; ?>"><?php echo $ciudad; ?></option>
