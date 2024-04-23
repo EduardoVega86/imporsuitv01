@@ -185,6 +185,9 @@
   .contenedor-landing img {
     width: -webkit-fill-available !important;
   }
+  .contenedor-landing iframe {
+    width: 100% !important;
+  }
 
   .marquee-container {
 
