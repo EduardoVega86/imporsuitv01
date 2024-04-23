@@ -2277,6 +2277,7 @@ mysqli_query($conexion, "UPDATE `perfil` SET `autofactura` = '0' WHERE `perfil`.
 
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `codigo_ciudad_laar` = '201001017006', `codigo_provincia_laar`='201001017' WHERE `ciudad_cotizacion`.`id_cotizacion` = 526;");
 
+mysqli_query($conexion, "ALTER TABLE `ciudad_cotizacion` ADD `id_pais` TINYINT NOT NULL DEFAULT '1' AFTER `codigo_ciudad_servientrega`;");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
