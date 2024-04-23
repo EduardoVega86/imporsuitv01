@@ -1468,7 +1468,7 @@ mysqli_query($conexion, "INSERT INTO `ciudad_cotizacion` (`id_cotizacion`, `prov
 (88, 'CHIMBORAZO', 'ALAUSI', 1, 1, 0, 'TE', 'TE', '0', '', '', '', '', '', '91'),
 (89, 'CHIMBORAZO', 'CAJABAMBA', 1, 1, 0, 'TE', 'TE', '0', '0', '201001008', '201001008005', '0', '0', '678'),
 (90, 'CHIMBORAZO', 'CHAMBO', 1, 1, 0, 'TE', 'TE', '0', '0', '201001008', '201001004008', '0', '0', '241'),
-(91, 'CHIMBORAZO', 'CHUNCHI', 1, 1, 0, 'TE', 'TE', '0', '0', '0', '0', '0', '0', '248'),
+(91, 'CHIMBORAZO', 'CHUNCHI', 1, 0, 0, 'TE', 'TE', '0', '0', '0', '0', '0', '0', '248'),
 (92, 'CHIMBORAZO', 'COLTA', 1, 1, 0, 'TE', 'TE', '0', '0', '201001008', '201001008008', '0', '0', '242'),
 (93, 'CHIMBORAZO', 'CUMANDA/CHIMBORAZO', 1, 1, 0, 'TE', 'TE', '0', '0', '0', '0', '0', '0', '469'),
 (94, 'CHIMBORAZO', 'EL GUANO', 1, 1, 0, 'TE', 'TE', '0', '0', '0', '0', '0', '0', '244'),
