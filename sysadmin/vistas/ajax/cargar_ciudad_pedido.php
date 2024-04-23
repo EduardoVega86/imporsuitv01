@@ -46,7 +46,7 @@ $query = mysqli_query($conexion, $sql);
 <select class="datos form-control formulario" onchange="seleccionarProvincia()" id="ciudad_entrega" name="ciudad_entrega" required>
   <option value="">Ciudad *</option>
   <?php
-  $sql2 = "select * from ciudad_laar where codigoProvincia= '$id_provincia';";
+  $sql2 = "sSELECT * FROM `ciudad_cotizacion` where provincia = '$id_provincia';";
   echo $sql2;
   // echo $sql2;
   $query2 = mysqli_query($conexion, $sql2);
