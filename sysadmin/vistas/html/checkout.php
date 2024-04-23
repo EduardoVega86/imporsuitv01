@@ -179,7 +179,7 @@ $pacientes = 1;
                             <!-- Elemento del formulario -->
                             <!-- TÍTULO DEL FORMULARIO -->
                             <div class="list-group-item" id="tituloFormulario">
-                                <div class="d-flex">
+                                <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         TÍTULO DEL FORMULARIO
                                     </div>
@@ -415,7 +415,7 @@ $pacientes = 1;
                                 <label class="sub_titulos">Nombres y Apellidos</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="icono_nombresApellidos"><i class='bx bxs-user'></i></span>
+                                        <span class="input-group-text" id="icono_nombresApellidosPreview"><i class='bx bxs-user'></i></span>
                                     </div>
                                     <input type="text" class="form-control" id="txt_nombresApellidosPreview" placeholder="Nombre y Apellido">
                                 </div>
@@ -648,6 +648,18 @@ $pacientes = 1;
                         if (key === 'textoBtn_aplicar') {
                             $('#textoBtn_aplicarPreview').text(fieldValue);
                         }
+
+                        // Este es el nuevo bloque de código para manejar el ícono
+                        if (item.content.icono_nombresApellidos) { // Actualizado a la clave correcta
+                            // Actualiza el ícono en la vista previa y la clase 'active'
+                            var icono = item.content.icono_nombresApellidos; // Usando la clave actualizada
+                            $('#icono_nombresApellidosPreview i').attr('class', icono);
+
+                            // Buscar el botón que tiene el mismo ícono y marcarlo como activo
+                            $('#icono_nombresApellidos .icon-btn').removeClass('active').filter(function() {
+                                return $(this).data('value') === icono;
+                            }).addClass('active');
+                        }
                     });
 
                     // Reordena los elementos si es necesario
@@ -715,6 +727,11 @@ $pacientes = 1;
                         item.content[this.id] = $(this).val();
                     }
                 });
+                // Capturar el valor del ícono seleccionado y guardarlo
+                if ($(this).attr('id') === 'nombres_apellidos') {
+                    var iconClass = $('#icono_nombresApellidos .icon-btn.active i').attr('class');
+                    item.content['icono_nombresApellidos'] = iconClass;
+                }
                 itemList.push(item);
             });
 
@@ -777,25 +794,19 @@ $pacientes = 1;
                 }
             });
 
-            // Actualizar el botón principal cuando se selecciona un elemento del menú desplegable
-            $(document).ready(function() {
-                // Manejar el evento de clic en cada botón de ícono
-                $('#icono_nombresApellidos .icon-btn').click(function(event) {
-                    // Prevenir la recarga de la página
-                    event.preventDefault();
+            // Evento de clic en cada botón de ícono
+            $('#icono_nombresApellidos .icon-btn').click(function(event) {
+                event.preventDefault();
 
-                    // Remover la clase 'active' de todos los íconos
-                    $('#icono_nombresApellidos .icon-btn').removeClass('active');
-                    // Añadir la clase 'active' al ícono seleccionado
-                    $(this).addClass('active');
+                $('#icono_nombresApellidos .icon-btn').removeClass('active');
+                $(this).addClass('active');
 
-                    // Opcional: hacer algo con el valor del ícono seleccionado
-                    var iconValue = $(this).data('value');
-                    console.log('Ícono seleccionado:', iconValue);
+                // Obtén el valor del ícono seleccionado y actualiza el icono en la vista previa
+                var iconClass = $(this).find('i').attr('class');
+                $('#icono_nombresApellidosPreview i').attr('class', iconClass);
 
-                    // Si necesitas enviar este valor en un formulario, puedes usar:
-                    // $('input[name="alineacion_titulo"]').val(iconValue);
-                });
+                // Guarda el valor del ícono seleccionado en un campo oculto para que pueda ser guardado
+                $('#hidden_icon_value').val(iconClass);
             });
         });
     </script>

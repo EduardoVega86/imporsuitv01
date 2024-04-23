@@ -175,13 +175,14 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                 <select class="datos form-control formulario" onchange="cargar_provincia_pedido()" id="provinica" name="provinica" required disabled>
                                                                     <option value="">Provincia *</option>
                                                                     <?php
-                                                                    $sql2 = "select * from provincia_laar where id_pais='$pais'";
+                                                                    $sql2 = "select distinct provincia from ciudad_cotizacion where id_pais='1';
+                                                                    ";
 
                                                                     $query2 = mysqli_query($conexion, $sql2);
                                                                     while ($row2 = mysqli_fetch_array($query2)) {
-                                                                        $id_prov = $row2['id_prov'];
+                                                                        $id_prov = $row2['id_cotizacion'];
                                                                         $provincia = $row2['provincia'];
-                                                                        $cod_provincia = $row2['codigo_provincia'];
+                                                                        $cod_provincia = $row2['codigo_provincia_laar'];
 
                                                                         // Obtener el valor almacenado en la tabla orgien_laar
                                                                         $valor_seleccionado = $provinciadestino;
@@ -190,7 +191,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                         $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
 
                                                                         // Imprimir la opción con la marca de "selected" si es el valor almacenado
-                                                                        echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
+                                                                        echo '<option value="' . $cod_provincia . '>' . $provincia . '</option>';
                                                                     }
                                                                     ?>
                                                                 </select>
@@ -205,17 +206,17 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                     <select class="datos form-control formulario" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required disabled>
                                                                         <option value="">Ciudad *</option>
                                                                         <?php
-                                                                        $sql2 = "select * from ciudad_laar ";
+                                                                        $sql2 = "select * from ciudad_cotizacion where id_pais='$pais' ";
                                                                         $query2 = mysqli_query($conexion, $sql2);
                                                                         $rowcount = mysqli_num_rows($query2);
                                                                         $i = 1;
                                                                         while ($row2 = mysqli_fetch_array($query2)) {
-                                                                            $id_ciudad = $row2['id_ciudad'];
-                                                                            $nombre = $row2['nombre'];
-                                                                            $cod_ciudad = $row2['codigo'];
+                                                                            $id_ciudad = $row2['id_cotizacion'];
+                                                                            $nombre = $row2['ciudad'];
+                                                                            $cod_ciudad = $row2['codigo_ciudad_laar'];
                                                                             $valor_seleccionado = $ciudaddestino;
                                                                             $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
-                                                                            echo '<option value="' . $cod_ciudad . '" ' . $selected . '>' . $nombre . '</option>';
+                                                                            echo '<option value="' . $cod_ciudad . '>' . $nombre . '</option>';
                                                                         ?>
                                                                         <?php } ?>
                                                                     </select>
