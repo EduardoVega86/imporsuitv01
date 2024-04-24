@@ -2356,6 +2356,8 @@ mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `codigo_ciudad_laar` = '
 
 mysqli_query($conexion, "ALTER TABLE `ciudad_cotizacion` ADD `id_pais` TINYINT NOT NULL DEFAULT '1' AFTER `codigo_ciudad_servientrega`;");
 
+mysqli_query($conexion, "UPDATE `provincia_laar` SET `provincia` = 'ZAMORA' WHERE `provincia_laar`.`id_prov` = 93422;");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
