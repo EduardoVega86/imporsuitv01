@@ -20,6 +20,7 @@ class Laar extends Controller
 
                     $estado_actual_codigo = 95;
                 }
+                //$this->model->verificarNovedades($novedad);
             }
         } else {
             $estado_actual_codigo = $json_decode['estadoActualCodigo'];

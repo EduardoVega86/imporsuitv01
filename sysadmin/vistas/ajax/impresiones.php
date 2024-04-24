@@ -49,7 +49,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
         if ($tienda == "https://imporshop.imporsuit.com" || $tienda == $server_url || empty($id_factura_origen)) {
             $id_factura_origen = $row['id_factura'];
         }
-        if ($drogshipin == 4 || $drogshipin == 0) {
+        if ($drogshipin == 4) {
             $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' and tienda_venta = '" . $tienda . "'";
             $conexion_destino = mysqli_connect($get_data['DB_HOST'], $get_data['DB_USER'], $get_data['DB_PASS'], $get_data['DB_NAME']);
             if ($conexion_destino->connect_errno) {
@@ -63,6 +63,17 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 exit;
             }
             $id_transporte = $row2['id_transporte'];
+        }
+        if ($drogshipin == 0) {
+            $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' ";
+            $result = mysqli_query($conexion, $sql_command);
+            $row = mysqli_fetch_array($result);
+            if (empty($row)) {
+                array_push($msg, "noexisteguia");
+                echo json_encode($msg);
+                exit;
+            }
+            $id_transporte = $row['id_transporte'];
         } else {
 
             $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "' ";
@@ -294,6 +305,16 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                     } else {
                         $id_transporte = $row2['id_transporte'];
                     }
+                }
+                if ($drogshipin == 0) {
+                    $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "'";
+                    $result = mysqli_query($conexion, $sql_command);
+                    $row = mysqli_fetch_array($result);
+                    if (empty($row)) {
+                        array_push($msg, "noexisteguia");
+                        continue;
+                    }
+                    $id_transporte = $row['id_transporte'];
                 } else {
 
                     $sql_command = "SELECT id_transporte FROM guia_laar WHERE id_pedido = '" . $id_factura_origen . "'";
