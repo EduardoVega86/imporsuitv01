@@ -77,6 +77,10 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $estado    = $_REQUEST['estado'];
         $sWhere .= " and  estado_guia_sistema='$estado'";
     }
+    if (@$_GET['transportadora'] != "") {
+        $transportadora = $_REQUEST['transportadora'];
+        $sWhere .= " and  transporte='$transportadora'";
+    }
 
     $sWhere .= " order by facturas_cot.id_factura desc";
     include 'pagination.php'; //include pagination file
@@ -962,7 +966,13 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $estado    = $_REQUEST['estado'];
         $sWhere .= " and  estado_guia_sistema='$estado'";
     }
+    if (@$_GET['transportadora'] != "") {
+        $transportadora = $_REQUEST['transportadora'];
+        $sWhere .= " and  transporte='$transportadora'";
+    }
 
+    /*     $sWhere .= " and estado_guia_sistema IS NOT NULL";
+ */
     $sWhere .= " order by facturas_cot.id_factura desc";
     include 'pagination.php'; //include pagination file
     //pagination variables

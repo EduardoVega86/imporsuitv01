@@ -93,6 +93,14 @@ $ventas = 1;
                                                         ?>
                                                     </select>
 
+                                                    <select onchange="buscar_transporte(this.value)" name="transporte" id="transporte" class="form-control">
+                                                        <option value="0"> Seleccione Transportadora</option>
+                                                        <option value="LAAR">Laar</option>
+                                                        <option value="IMPORFAST">Speed</option>
+                                                        <option value="SERVIENTREGA">Servientrega</option>
+                                                        <option value="GINTRACOM">Gintracom</option>
+                                                    </select>
+
                                                     <span class="input-group-btn">
                                                         <button type="button" class="btn btn-info waves-effect waves-light" onclick='load(1);'>
                                                             <span class="fa fa-search"></span></button>
@@ -569,74 +577,74 @@ $ventas = 1;
         e.preventDefault();
         let manifiesto_html = `
         <!DOCTYPE html>
-<html lang="en">
+        <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia Impresas</title>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Guia Impresas</title>
 
-<style>
-* {
-            margin: 0;
-            padding: 10px;
-            box-sizing: border-box;
-        }
+        <style>
+        * {
+                    margin: 0;
+                    padding: 10px;
+                    box-sizing: border-box;
+                }
 
-        .section1-table,
-        .section2-table,
-        .section3-table,
-        .products-table,
-        .products-table-inv {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+                .section1-table,
+                .section2-table,
+                .section3-table,
+                .products-table,
+                .products-table-inv {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                }
 
-        .section1-table td,
-        .section2-table td,
-        .section3-table td {
-            border: 1px solid black;
-            padding: 10px;
-        }
+                .section1-table td,
+                .section2-table td,
+                .section3-table td {
+                    border: 1px solid black;
+                    padding: 10px;
+                }
 
-        .products-table th,
-        .products-table td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: left;
-        }
+                .products-table th,
+                .products-table td {
+                    border: 1px solid black;
+                    padding: 10px;
+                    text-align: left;
+                }
 
-        .products-table th {
-            width: 25%;
-        }
+                .products-table th {
+                    width: 25%;
+                }
 
-        .products-table th:last-child {
-            width: 75%;
-        }
+                .products-table th:last-child {
+                    width: 75%;
+                }
 
-        .products-table-inv th,
-        .products-table-inv td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: left;
-        }
+                .products-table-inv th,
+                .products-table-inv td {
+                    border: 1px solid black;
+                    padding: 10px;
+                    text-align: left;
+                }
 
-        .products-table-inv th {
-            width: 75%;
-        }
+                .products-table-inv th {
+                    width: 75%;
+                }
 
-        .products-table-inv th:last-child {
-            width: 25%;
-        }
+                .products-table-inv th:last-child {
+                    width: 25%;
+                }
 
-        .page-break {
-            page-break-before: always;
-        }
-</style>
-</head>
-<body>
-    <main>
+                .page-break {
+                    page-break-before: always;
+                }
+        </style>
+        </head>
+        <body>
+            <main>
         `;
         let checks = document.querySelectorAll("[name='item']:checked");
         if (checks.length == 0) {
