@@ -42,6 +42,11 @@ if (isset($_GET['id_factura'])) {
         $nombredestino            = $rw_factura['nombre'];
         $provinciadestino             = $rw_factura['provincia'];
         $ciudaddestino             = $rw_factura['ciudad_cot'];
+        $ciudaddestinoNombre = get_row('ciudad_laar', 'nombre', 'codigo', $ciudaddestino);
+        if ($ciudaddestinoNombre != 0) {
+            $ciudaddestino = get_row('ciudad_cotizacion', 'id_cotizacion', 'codigo_ciudad_laar', $ciudaddestino);
+        }
+
         $guia_enviada             = $rw_factura['guia_enviada'];
         $drogshipin             = $rw_factura['drogshipin'];
         $tienda            = $rw_factura['tienda'];
