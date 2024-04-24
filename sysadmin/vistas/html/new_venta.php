@@ -158,7 +158,7 @@ include "../modal/buscar_productos_libre.php";
             $image_path           = $row['image_path'];
 												?>
                                                                                                                                       <div  class="col-md-2" >
-                                                                                                                                          <div  style="padding:10px; min-height: 125px"  align="center" class="card agregar_producto" onclick="agregar('<?php echo $id_producto;?>')">
+                                                                                                                                          <div  style="padding:10px; min-height: 125px"  align="center" class="card agregar_producto" onclick="agregar_pos('<?php echo $id_producto;?>')">
     <div  class="card-body">
                                                                                                             <?php
 if ($image_path == null) {
@@ -168,6 +168,8 @@ if ($image_path == null) {
             }
 
             ?>
+        <input type="hidden" class="form-control" style="text-align:right" id="pos_precio_venta_<?php echo $id_producto; ?>"  value="<?php echo $precio_producto; ?>" >
+        <input type="hidden" class="form-control" style="text-align:center" id="pos_cantidad_<?php echo $id_producto; ?>"  value="1" >
         <p style="font-size: 8px; margin-bottom: 0px !important;"><?php echo $nombre_producto; ?></br>
     <?php echo stock_punto($stock_producto); ?>
    <strong> $ <?php echo number_format($precio_producto, 2, '.', ''); ?></strong></p>

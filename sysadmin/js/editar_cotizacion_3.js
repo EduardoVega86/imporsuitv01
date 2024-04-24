@@ -389,7 +389,7 @@ function generar_guia() {
       contentType: false,
       processData: false,
       success: function (response) {
-        $("#resultados").html(response);
+        // $("#resultados").html(response);
         $("#generar_guia_btn").prop("disabled", false);
       },
     });
@@ -448,7 +448,7 @@ function generar_guia() {
       contentType: false,
       processData: false,
       success: function (response) {
-        $("#resultados").html(response);
+        // $("#resultados").html(response);
         $("#generar_guia_btn").prop("disabled", false);
       },
     });
