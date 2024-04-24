@@ -374,7 +374,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001014044, 'colorado', 'TE', 'MANABI', '201001014', 37); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001015001, 'MACAS', 'TO', 'MORONA SANTIAGO', '201001015', 35); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001015002, 'GUALAQUIZA', 'TO', 'MORONA SANTIAGO', '201001015', 48); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001015003, 'YANTZAZA', 'TO', 'ZAMORA CHINCHIPE', '201001021', 48); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001015003, 'YANTZAZA', 'TO', 'ZAMORA', '201001021', 48); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001016001, 'TENA', 'TO', 'NAPO', '201001016', 46); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001016002, 'OÑA', 'TE', 'AZUAY', '201001003', 15); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001016003, 'ARCHIDONA', 'TO', 'NAPO', '201001016', 46); ");
@@ -2356,7 +2356,6 @@ mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `codigo_ciudad_laar` = '
 
 mysqli_query($conexion, "ALTER TABLE `ciudad_cotizacion` ADD `id_pais` TINYINT NOT NULL DEFAULT '1' AFTER `codigo_ciudad_servientrega`;");
 
-mysqli_query($conexion, "UPDATE `provincia_laar` SET `provincia` = 'ZAMORA' WHERE `provincia_laar`.`id_prov` = 93422;");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
