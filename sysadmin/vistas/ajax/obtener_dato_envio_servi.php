@@ -37,10 +37,10 @@ if ($tienda != 'local') {
     $telefono_remitente = $ciudadO['telefono'];
     echo mysqli_error($conexion_prove);
 
-    $sql = "SELECT * FROM ciudad_laar where codigo = '" . $ciudadO['ciudadO'] . "';";
+    $sql = "SELECT * FROM ciudad_cotizacion where id_cotizacion = '" . $ciudadO['ciudadO'] . "';";
     $result = mysqli_query($conexion_prove, $sql);
     $ciudadO = mysqli_fetch_array($result);
-    $ciudad = $ciudadO['nombre'];
+    $ciudad = $ciudadO['ciudad'];
 } else {
     $sql = "SELECT * FROM `origen_laar`";
 
@@ -53,10 +53,10 @@ if ($tienda != 'local') {
     $telefono_remitente = $ciudadO['telefono'];
     echo mysqli_error($conexion);
 
-    $sql = "SELECT * FROM ciudad_laar where codigo = '" . $ciudadO['ciudadO'] . "';";
+    $sql = "SELECT * FROM ciudad_cotizacion where id_cotizacion = '" . $ciudadO['ciudadO'] . "';";
     $result = mysqli_query($conexion, $sql);
     $ciudadO = mysqli_fetch_array($result);
-    $ciudad = $ciudadO['nombre'];
+    $ciudad = $ciudadO['ciudad'];
 }
 
 $result = array(
