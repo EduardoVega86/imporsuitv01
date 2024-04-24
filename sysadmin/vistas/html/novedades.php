@@ -135,7 +135,7 @@ $pacientes = 1;
                             </div>
                         </div>
                         <div style="width: 100%;">
-                            <label for="inputPassword3" class="col-sm-2 col-form-label">Estado</label>
+                            <label style="padding-left: 20px;" for="inputPassword3" class="col-sm-2 col-form-label">Estado</label>
                             <div style="padding-left: 20px;">
                                 <select class="form-control" name="alineacion_titulo" id="alineacion_titulo">
                                     <option value="1">Izquierda </option>
@@ -145,7 +145,7 @@ $pacientes = 1;
                             </div>
                         </div>
                         <div style="width: 100%;">
-                            <label for="inputPassword3" class="col-sm-2 col-form-label">Departamento</label>
+                            <label style="padding-left: 20px;" for="inputPassword3" class="col-sm-2 col-form-label">Departamento</label>
                             <div style="padding-left: 20px;">
                                 <select class="form-control" name="alineacion_titulo" id="alineacion_titulo">
                                     <option value="1">Izquierda </option>
@@ -165,14 +165,15 @@ $pacientes = 1;
                         <table class="table table-sm table-striped">
                             <tr class="info">
 
-                                <th>Orden</th>
-                                <th># de Guia</th>
-                                <th>Detalle</th>
-                                <th>Cliente</th>
-                                <th>Estado</th>
-                                <th>Novedad</th>
-                                <th>Solucion</th>
-                                <th>Traking</th>
+                                <th class="text-center">Orden</th>
+                                <th class="text-center"># de Guia</th>
+                                <th class="text-center">Transportadora</th>
+                                <th class="text-center">Detalle</th>
+                                <th class="text-center">Cliente</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Novedad</th>
+                                <th class="text-center">Solución</th>
+                                <th class="text-center">Tracking</th>
 
                             </tr>
                             <?php
@@ -181,35 +182,46 @@ $pacientes = 1;
                             $query = mysqli_query($conexion, $sql);
                             while ($row = mysqli_fetch_array($query)) {
                                 $id_novedad     = $row['id_novedad'];
-                                $numero_guia       = $row['numero_guia'];
-                                $detalle       = $row['detalle'];
-                                $cliente       = $row['cliente'];
-                                $estado       = $row['estado'];
+                                $numero_guia       = $row['guia_novedad'];
+                                $cliente       = $row['cliente_novedad'];
+                                $estado       = $row['estado_novedad'];
                                 $novedad  = $row['novedad'];
-                                $solucion  = $row['solucion'];
+                                $solucion  = $row['solucion_novedad'];
                                 $tracking  = $row['tracking'];
 
                             ?>
 
 
                                 <tr>
-                                    <td><span class="badge badge-purple"><?php echo $id_novedad; ?></span></td>
+                                    <td class="text-center"><span class="badge badge-purple"><?php echo $id_novedad; ?></span></td>
 
-                                    <td><?php echo $numero_guia; ?></td>
+                                    <td class="text-center"><?php echo $numero_guia; ?></td>
 
-                                    <td><?php echo $detalle; ?></td>
 
-                                    <td><?php echo $cliente ?></td>
+                                    <?php if (strpos($numero_guia, "IMP")  === 0) { ?>
+                                        <td class="bg-warning text-center text-white">LAAR</td>
+                                    <?php } else if (strpos($numero_guia, "FAST") === 0) { ?>
+                                        <td class="bg-danger text-center text-white">SPEED</td>
+                                    <?php } else if (is_numeric($numero_guia)) { ?>
+                                        <td class="bg-success text-center text-white">SERVIENTREGA</td>
+                                    <?php } ?>
 
-                                    <td><?php echo $estado; ?></td>
 
-                                    <td><?php echo $novedad; ?></td>
+                                    <td class="text-center"><?php echo "---"; ?></td>
 
-                                    <td>
-                                        <button type="button" class="btn btn-solucion"><i class='bx bxs-shield-plus'></i> Solucion</button>
+                                    <td class="text-center"><?php echo $cliente ?></td>
+
+                                    <td class="text-center"><?php echo $estado; ?></td>
+
+                                    <td class="text-center"><?php echo $novedad; ?> <i class='bx bxs-down-arrow text-white cursor-pointer'></i></td>
+
+                                    <td class="text-center">
+                                        <button type="button" class="btn  btn-sm btn-solucion"><i class='bx bxs-shield-plus'></i> Solucion</button>
                                     </td>
 
-                                    <td><?php echo $tracking; ?></td>
+                                    <td class="text-center">
+                                        <a target="_blank" href="<?php echo $tracking; ?>" class="btn btn-sm  btn-warning">Ver tracking</a>
+                                    </td>
 
                                 </tr>
                             <?php

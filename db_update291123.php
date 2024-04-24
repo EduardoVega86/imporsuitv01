@@ -2343,15 +2343,24 @@ mysqli_query($conexion, "ALTER TABLE `users` CHANGE `cedula_facturacion` `cedula
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TP' WHERE `ciudad_cotizacion`.`id_cotizacion` = 35;");
 
 mysqli_query($conexion, "CREATE TABLE novedades (
- id_novedad int not null primary key auto_increment,
- numero_guia varchar(10) not null,
- detalle varchar(250) not null, 
- cliente varchar(!20) not null,
- estado int (5) not null,
- novedad text not null,
- solucion text not null,
- tracking text not null,
- transportadora varchar(100)
+	id_novedad int not null primary key auto_increment,
+	guia_novedad varchar(10) not null,
+	cliente_novedad varchar(200) not null,
+	estado_novedad tinyint not null,
+	novedad text null,
+	solucion_novedad text null,
+	tracking text not null
+	
+);");
+
+mysqli_query($conexion, "CREATE TABLE detalle_novedad (
+	id_detalle_novedad int not null primary key auto_increment,
+	codigo_novedad int not null,
+	guia_novedad varchar(10) not null,
+	nombre_novedad text not null,
+	detalle_novedad text not null,
+	observacion text,
+	Foreign key (guia_novedad) REFERENCES novedades(guia_novedad) 
 );");
 
 mysqli_query($conexion, "ALTER TABLE `facturas_ventas` DROP INDEX `numero_cotizacion`;");
