@@ -28,7 +28,9 @@ if (empty($transportadora)) {
 }
 //echo $valor_total;
 if ($transportadora == 1) {
-    $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudad);
+    $valor_base = get_row('ciudad_cotizacion', 'trayecto_laar', 'id_cotizacion', $ciudad);
+    $precio_trayecto = get_row('cobertura_laar', 'precio', 'tipo_cobertura', $valor_base);
+    $valor_base = $precio_trayecto;
 } else if ($transportadora == 2) {
     if ($ciudad == 1) {
         $valor_base = 5.5;

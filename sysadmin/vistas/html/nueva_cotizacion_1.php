@@ -175,15 +175,15 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                 <select class="datos form-control formulario" onchange="cargar_provincia_pedido()" id="provinica" name="provinica" required disabled>
                                                                     <option value="">Provincia *</option>
                                                                     <?php
-                                                                    $sql2 = "SELECT provincia, MIN(id_cotizacion) AS id_cotizacion, MAX(codigo_provincia_laar) as codigo_provincia_laar FROM ciudad_cotizacion WHERE id_pais = '$pais' GROUP BY provincia;";
+                                                                    $sql2 = "select * from provincia_laar where id_pais = $pais";
 
                                                                     $query2 = mysqli_query($conexion, $sql2);
                                                                     while ($row2 = mysqli_fetch_array($query2)) {
 
-                                                                        $id_prov = $row2['id_cotizacion'];
+                                                                        $id_prov = $row2['id_prov'];
 
                                                                         $provincia = $row2['provincia'];
-                                                                        $cod_provincia = $row2['codigo_provincia_laar'];
+                                                                        $cod_provincia = $row2['codigo_provincia'];
 
                                                                         // Imprimir la opción con la marca de "selected" si es el valor almacenado
                                                                         echo '<option value="' . $cod_provincia . '">' . $provincia . '</option>';
