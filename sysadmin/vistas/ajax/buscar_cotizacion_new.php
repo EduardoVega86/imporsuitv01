@@ -570,6 +570,10 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 $span_estado = 'badge-danger';
                                                                                                                                 $estado_guia = 'Anulada';
                                                                                                                                 break;
+                                                                                                                            case '102':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Generado';
+                                                                                                                                break;
                                                                                                                             case '103':
                                                                                                                                 $span_estado = 'badge-purple';
                                                                                                                                 $estado_guia = 'Generada';
@@ -1418,7 +1422,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 $estado_guia = 'Anulado';
                                                                                                                                 break;
                                                                                                                         }
-                                                                                                                    } else if ($estado_guia_for != "0" && is_numeric($guia_numero)) {
+                                                                                                                    } else if (is_numeric($guia_numero)) {
                                                                                                                         switch ($estado_guia_for) {
                                                                                                                             case '100':
                                                                                                                                 $span_estado = 'badge-purple';
@@ -1427,6 +1431,10 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                             case '101':
                                                                                                                                 $span_estado = 'badge-danger';
                                                                                                                                 $estado_guia = 'Anulada';
+                                                                                                                                break;
+                                                                                                                            case '102':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Generado';
                                                                                                                                 break;
                                                                                                                             case '103':
                                                                                                                                 $span_estado = 'badge-purple';
