@@ -400,7 +400,7 @@ if ($response) {
             $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
             echo mysqli_error($conexion_marketplace);
             $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
-            $sql = "UPDATE facturas_cot SET  estado_factura=2
+            $sql = "UPDATE facturas_cot SET  estado_factura=2, guia_enviada=1, transporte='SERVIENTREGA'
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
             $query_update_destino = mysqli_query($conexion_marketplace, $sql);
             echo mysqli_error($destino);
