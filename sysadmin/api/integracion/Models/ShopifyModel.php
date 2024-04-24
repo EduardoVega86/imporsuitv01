@@ -59,8 +59,7 @@ class ShopifyModel extends Query
         $ultima_factura = $this->select($ultima_factura_sql);
         $ultima_factura_numero = $ultima_factura[0]['factura'];
         $ciudad = strtoupper($ciudad);
-        $ciudad_sql = "SELECT codigo FROM ciudad_laar WHERE nombre = '$ciudad';";
-
+        $ciudad_sql = "SELECT id_cotizacion FROM ciudad_cotizacion WHERE ciudad = '$ciudad' AND provincia = '$provincia';";
         $ciudad = $this->select($ciudad_sql);
         $ciudad = $ciudad[0]['codigo'];
         $protocolo = 'https://';
