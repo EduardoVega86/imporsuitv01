@@ -61,10 +61,10 @@ class ShopifyModel extends Query
         $ciudad = strtoupper($ciudad);
         $ciudad_sql = "SELECT id_cotizacion FROM ciudad_cotizacion WHERE ciudad = '$ciudad' AND provincia = '$provincia';";
         $ciudad = $this->select($ciudad_sql);
-        $ciudad = $ciudad[0]['codigo'];
+        $ciudad = $ciudad[0]['id_cotizacion'];
         $protocolo = 'https://';
         $tienda =  $protocolo . $_SERVER['HTTP_HOST'];
-
+        echo "nuevo";
 
         $provincia = strtoupper($provincia);
         $provincia_sql = "SELECT codigo_provincia FROM provincia_laar WHERE provincia = '$provincia';";
