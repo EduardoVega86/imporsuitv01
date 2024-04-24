@@ -2375,7 +2375,14 @@ mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `codigo_ciudad_laar` = '
 
 mysqli_query($conexion, "ALTER TABLE `ciudad_cotizacion` ADD `id_pais` TINYINT NOT NULL DEFAULT '1' AFTER `codigo_ciudad_servientrega`;");
 
+mysqli_query($conexion, "CREATE TABLE `atributo_producto` (
+  `id_atributo` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `atributo` text DEFAULT NULL,
+  UNIQUE KEY `id_atributo` (`id_atributo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
+
+        
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
