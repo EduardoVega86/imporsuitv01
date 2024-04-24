@@ -175,22 +175,18 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                 <select class="datos form-control formulario" onchange="cargar_provincia_pedido()" id="provinica" name="provinica" required disabled>
                                                                     <option value="">Provincia *</option>
                                                                     <?php
-                                                                    $sql2 = "select * from provincia_laar where id_pais='$pais'";
+                                                                    $sql2 = "select * from provincia_laar where id_pais = $pais";
 
                                                                     $query2 = mysqli_query($conexion, $sql2);
                                                                     while ($row2 = mysqli_fetch_array($query2)) {
+
                                                                         $id_prov = $row2['id_prov'];
+
                                                                         $provincia = $row2['provincia'];
                                                                         $cod_provincia = $row2['codigo_provincia'];
 
-                                                                        // Obtener el valor almacenado en la tabla orgien_laar
-                                                                        $valor_seleccionado = $provinciadestino;
-
-                                                                        // Verificar si el valor actual coincide con el almacenado en la tabla
-                                                                        $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
-
                                                                         // Imprimir la opción con la marca de "selected" si es el valor almacenado
-                                                                        echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
+                                                                        echo '<option value="' . $cod_provincia . '">' . $provincia . '</option>';
                                                                     }
                                                                     ?>
                                                                 </select>
@@ -205,17 +201,17 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                     <select class="datos form-control formulario" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required disabled>
                                                                         <option value="">Ciudad *</option>
                                                                         <?php
-                                                                        $sql2 = "select * from ciudad_laar ";
+                                                                        $sql2 = "select * from ciudad_cotizacion where id_pais='$pais' ";
                                                                         $query2 = mysqli_query($conexion, $sql2);
                                                                         $rowcount = mysqli_num_rows($query2);
                                                                         $i = 1;
                                                                         while ($row2 = mysqli_fetch_array($query2)) {
-                                                                            $id_ciudad = $row2['id_ciudad'];
-                                                                            $nombre = $row2['nombre'];
-                                                                            $cod_ciudad = $row2['codigo'];
+                                                                            $id_ciudad = $row2['id_cotizacion'];
+                                                                            $nombre = $row2['ciudad'];
+                                                                            $cod_ciudad = $row2['codigo_ciudad_laar'];
                                                                             $valor_seleccionado = $ciudaddestino;
                                                                             $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
-                                                                            echo '<option value="' . $cod_ciudad . '" ' . $selected . '>' . $nombre . '</option>';
+                                                                            echo '<option value="' . $cod_ciudad . '>' . $nombre . '</option>';
                                                                         ?>
                                                                         <?php } ?>
                                                                     </select>
@@ -521,8 +517,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                 icon: "success",
                                                 title: "Guía generada",
                                                 text: "La guía ha sido generada exitosamente",
-                                                showConfirmButton: false,
-                                                timer: 1500
+
                                             }).then(() => {
                                                 window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
                                             });
@@ -906,6 +901,15 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     }
 
     function seleccionar_transportadora(id) {
+        if ($("#precio_laar").text() === "---" && id === 1) {
+            $.Notification.notify('error', 'bottom right', 'ERROR!', 'NO HAY PRECIO DISPONIBLE PARA LAAR')
+            return;
+        }
+        if ($("#precio_servientrega").text() === "---" && id === 3) {
+            $.Notification.notify('error', 'bottom right', 'ERROR!', 'NO HAY PRECIO DISPONIBLE PARA SERVIENTREGA')
+            return;
+        }
+
         $('.card').css('border', 'none');
         $('.interactive-image').css('filter', 'grayscale(100%)');
 
@@ -965,7 +969,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
     }
 
     function cargar_provincia_pedido() {
-        var id_provincia = $('#provinica').val();
+        var id_provincia = $('#provinica option:selected').text();
         $.ajax({
             url: "../ajax/cargar_ciudad_pedido.php",
             type: "POST",
@@ -1173,8 +1177,27 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                     precio_speed = precio_speed.replace('$', '');
                     let total_speed = parseFloat(precio_speed) + 1;
                     $('#aplica').text(`$6.50`);
-                } else
-                if ($('#ciudad_entrega option:selected').text() == "TUMBACO") {
+                } else if ($('#ciudad_entrega option:selected').text() == "TUMBACO") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "PIFO") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "SANGOLQUI") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "SAN RAFAEL") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "CONOCOTO") {
                     let precio_speed = $("#precio_laar").text();
                     precio_speed = precio_speed.replace('$', '');
                     let total_speed = parseFloat(precio_speed) + 1;
@@ -1185,6 +1208,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 }
             })
         $('#generar_guia_btn').removeAttr('disabled');
+
     }
 
     function calcular_gintra(id_ciudad, recaudo) {

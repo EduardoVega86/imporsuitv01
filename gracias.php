@@ -57,7 +57,7 @@ if (empty($_POST['session'])) {
     $contenido = '';
     $pais = get_row('perfil', 'pais', 'id_perfil', 1);
     if ($pais == 1) {
-        $direccion = get_row('provincia_laar', 'provincia', 'codigo_provincia', $provincia) . ' ' . get_row('ciudad_laar', 'nombre', 'codigo', $ciudad) . ' ' . $calle_principal . ' ' . $calle_secundaria . ' ' . $referencia;
+        $direccion = get_row('provincia_laar', 'provincia', 'codigo_provincia', $provincia) . ' ' . get_row('ciudad_cotizacion', 'ciudad', 'id_cotizacion', $ciudad) . ' ' . $calle_principal . ' ' . $calle_secundaria . ' ' . $referencia;
     } else {
         $direccion = get_row('provincia_laar', 'provincia', 'codigo_provincia', $provincia) . ' ' .  $ciudad . ' ' . $calle_principal . ' ' . $calle_secundaria . ' ' . $referencia;
     }

@@ -147,6 +147,11 @@ $pacientes = 1;
         color: #757575;
         /* Color del icono */
     }
+
+    .icon-btn.active i {
+        color: white;
+        /* O puedes usar #FFFFFF */
+    }
 </style>
 <?php require 'includes/header_end.php'; ?>
 
@@ -179,7 +184,7 @@ $pacientes = 1;
                             <!-- Elemento del formulario -->
                             <!-- TÍTULO DEL FORMULARIO -->
                             <div class="list-group-item" id="tituloFormulario">
-                                <div class="d-flex">
+                                <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         TÍTULO DEL FORMULARIO
                                     </div>
@@ -319,7 +324,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin CODIGOS DE DESCUENTO -->
                             <!-- NOMBRES Y APELLIDOS -->
-                            <div class="list-group-item" id="nombres_apellidos">
+                            <div class="list-group-item" id="nombresApellidos">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
                                     NOMBRES Y APELLIDOS
@@ -336,12 +341,14 @@ $pacientes = 1;
                                             <label for="txt_nombresApellidos">Texto Interno</label>
                                             <input type="text" class="form-control" id="txt_nombresApellidos" placeholder="">
                                         </div>
+                                        <!-- 
                                         <div class="form-check mt-3">
                                             <input class="form-check-input" type="checkbox" value="" id="mostrarIcon_nombresApellidos" checked>
                                             <label class="form-check-label" for="mostrarIcon_nombresApellidos">
                                                 Mostrar ícono de campo
                                             </label>
                                         </div>
+                                        -->
                                         <div class="btn-group" id="icono_nombresApellidos">
                                             <button class="btn btn-secondary icon-btn active" data-value="bxs-user"><i class='bx bxs-user'></i></button>
                                             <button class="btn btn-secondary icon-btn" data-value="bx-user"><i class='bx bx-user'></i></button>
@@ -353,6 +360,36 @@ $pacientes = 1;
                                 </div>
                             </div>
                             <!-- Fin NOMBRES Y APELLIDOS -->
+                            <!-- TELÉFONO -->
+                            <div class="list-group-item" id="telefono">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                    TELÉFONO
+                                    <span>
+                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                    </span>
+                                </div>
+                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="txt_telefono">Texto Interno</label>
+                                            <input type="text" class="form-control" id="txt_telefono" placeholder="">
+                                        </div>
+
+                                        <div class="btn-group" id="icono_telefono">
+                                            <button class="btn btn-secondary icon-btn active" data-value="bxs-user"><i class='bx bxs-phone-call'></i></button>
+                                            <button class="btn btn-secondary icon-btn" data-value="bx-user"><i class='bx bxl-whatsapp'></i></button>
+                                            <button class="btn btn-secondary icon-btn" data-value="bxs-user-detail"><i class='bx bx-phone-call'></i></button>
+                                        </div>
+
+                                        <!-- Añade más campos según sea necesario -->
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Fin TELÉFONO -->
                         </div>
                     </div>
                 </div>
@@ -409,18 +446,29 @@ $pacientes = 1;
                                     </button>
                                 </div>
                             </div>
-
-                            <div class="form-group" id="nombres_apellidosPreview" style="position: relative; padding-top: 10px;">
+                            <!-- Nombre y apellidos -->
+                            <div class="form-group" id="nombresApellidosPreview" style="position: relative; padding-top: 10px;">
                                 <hr />
                                 <label class="sub_titulos">Nombres y Apellidos</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="icono_nombresApellidos"><i class='bx bxs-user'></i></span>
+                                        <span class="input-group-text" id="icono_nombresApellidosPreview"><i class='bx bxs-user'></i></span>
                                     </div>
                                     <input type="text" class="form-control" id="txt_nombresApellidosPreview" placeholder="Nombre y Apellido">
                                 </div>
                             </div>
-
+                            <!-- Fin Nombre y apellidos -->
+                            <!-- Telefono -->
+                            <div class="form-group" id="telefonoPreview" style="position: relative; padding-top: 10px;">
+                                <label class="sub_titulos">Teléfono</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="icono_telefonoPreview"><i class='bx bxs-phone-call'></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="txt_telefonoPreview" placeholder="Teléfono">
+                                </div>
+                            </div>
+                            <!-- Fin Telefono -->
                         </div>
                     </div>
                 </div>
@@ -573,6 +621,12 @@ $pacientes = 1;
                 previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
             });
 
+            const txt_telefonoInput = document.getElementById('txt_telefono');
+            txt_telefonoInput.addEventListener('input', function() {
+                var previewInput = document.getElementById('txt_telefonoPreview');
+                previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
+            });
+
         });
 
         // Funcion para que consuma los datos de checkout.json y los utilice
@@ -583,119 +637,93 @@ $pacientes = 1;
 
         function loadAndSetInitialData() {
             $.getJSON('../json/checkout.json', function(data) {
-                data.forEach(function(item) {
-                    Object.keys(item.content).forEach(function(key) {
-                        var field = $('#' + key);
-                        var fieldValue = item.content[key];
-                        var previewField = $('#' + key + 'Preview');
-
-                        // Actualiza el valor del campo si existe
-                        if (field.length) {
-                            if (field.is(':checkbox')) {
-                                field.prop('checked', fieldValue === 'on');
-                            } else {
-                                field.val(fieldValue).change(); // Agrega .change() para disparar el evento y actualizar la vista previa
-                            }
-                        } else {
-                            console.warn('No se encontró el campo para', key);
-                        }
-
-                        // Ajustar visibilidad basada en el estado almacenado
-                        if (item.estado === '0') {
-                            $('#' + item.id_elemento + 'Preview').hide(); // Asegúrate de que los IDs coincidan
-                        } else {
-                            $('#' + item.id_elemento + 'Preview').show();
-                        }
-
-                        // Actualizar la vista previa si existe
-                        if (previewField.length) {
-                            // Actualiza el placeholder específicamente para 'etiqueta_descuentoPreview'
-                            if (key === 'etiqueta_descuento') {
-                                $('#etiqueta_descuentoPreview').attr('placeholder', fieldValue);
-                            } else {
-                                previewField.text(fieldValue);
-                            }
-                            // Actualiza el placeholder específicamente para 'txt_nombresApellidosPreview'
-                            if (key === 'txt_nombresApellidos') {
-                                $('#txt_nombresApellidosPreview').attr('placeholder', fieldValue);
-                            } else {
-                                previewField.text(fieldValue);
-                            }
-                        } else {
-                            console.warn('No se encontró el campo de vista previa para', key);
-                        }
-
-                        // Actualiza la vista previa si existe
-                        if (previewField.length) {
-                            previewField.text(fieldValue);
-                        } else {
-                            console.warn('No se encontró el campo de vista previa para', key);
-                        }
-
-                        // Si el campo es el select de alineación, actualiza también la alineación del texto en la vista previa
-                        if (key === 'alineacion_titulo') {
-                            updateTextAlignment(fieldValue);
-                        }
-                        // Actualizar colores según los valores cargados
-                        if (key === 'colorTxt_titulo') {
-                            $('#texto_tituloPreview').css('color', fieldValue);
-                        }
-                        if (key === 'colorBtn_aplicar') {
-                            $('#textoBtn_aplicarPreview').css('background-color', fieldValue);
-                        }
-
-                        // Actualizar los textos específicos y colores en la vista previa
-                        if (key === 'textoBtn_aplicar') {
-                            $('#textoBtn_aplicarPreview').text(fieldValue);
-                        }
-                    });
-
-                    // Reordena los elementos si es necesario
-                    reorderElement($('#' + item.id_elemento), item.posicion, '.list-group');
-                    reorderElement($('#' + item.id_elemento + 'Preview'), item.posicion, '#previewContainer');
+                data.forEach(item => {
+                    processItem(item);
                 });
-
-                // Disparar eventos para actualizar la vista previa
-                $('input, select').each(function() {
-                    $(this).trigger('input');
-                });
-
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                console.error('Error al cargar el archivo JSON:', textStatus, errorThrown);
-            });
+            }).fail(handleLoadingError);
         }
 
-        // Función para actualizar la alineación del texto según el valor seleccionado
-        function updateTextAlignment(value) {
-            const tituloPreview = document.getElementById('tituloFormularioPreview');
-            switch (value) {
-                case '1': // Izquierda
-                    tituloPreview.style.textAlign = 'left';
-                    break;
-                case '2': // Centro
-                    tituloPreview.style.textAlign = 'center';
-                    break;
-                case '3': // Derecha
-                    tituloPreview.style.textAlign = 'right';
-                    break;
-                default:
-                    tituloPreview.style.textAlign = 'left'; // Valor por defecto
-                    break;
+        function processItem(item) {
+            Object.keys(item.content).forEach(key => {
+                updateFieldAndPreview(key, item.content[key], item.id_elemento);
+            });
+            toggleVisibility(item.estado, item.id_elemento);
+            reorderElements(item.id_elemento, item.posicion);
+        }
+
+        function updateFieldAndPreview(key, value, id_elemento) {
+            const field = $('#' + key);
+            const previewField = $('#' + key + 'Preview');
+
+            updateFieldValue(field, value);
+            updatePreviewField(key, previewField, value);
+
+            if (key === 'alineacion_titulo') {
+                updateTextAlignment(value);
+            } else if (key.startsWith('color')) {
+                updateColor(key, value);
             }
         }
 
+        function updateFieldValue(field, value) {
+            if (field.is(':checkbox')) {
+                field.prop('checked', value === 'on');
+            } else {
+                field.val(value).change(); // Trigger change for preview updates
+            }
+        }
 
+        function updatePreviewField(key, previewField, value) {
+            if (!previewField.length) {
+                console.warn('No preview field found for', key);
+                return;
+            }
+
+            if (key.includes('txt_')) {
+                previewField.attr('placeholder', value);
+            } else if (key.includes('icono')) {
+                previewField.html("<i class='" + value + "'></i>");
+            } else {
+                previewField.text(value);
+            }
+        }
+
+        function toggleVisibility(state, id_elemento) {
+            const preview = $('#' + id_elemento + 'Preview');
+            state === '0' ? preview.hide() : preview.show();
+        }
+
+        function reorderElements(id_elemento, position) {
+            const element = $('#' + id_elemento);
+            const preview = $('#' + id_elemento + 'Preview');
+            reorderElement(element, position, '.list-group');
+            reorderElement(preview, position, '#previewContainer');
+        }
 
         function reorderElement(element, position, containerSelector) {
-            if (element.length && element.index() !== position) {
+            if (element.index() !== position) {
                 element.detach();
-                if (position === 0) {
-                    $(containerSelector).prepend(element);
-                } else {
-                    $(containerSelector).children().eq(position - 1).after(element);
-                }
+                position === 0 ? $(containerSelector).prepend(element) : $(containerSelector).children().eq(position - 1).after(element);
             }
         }
+
+        function updateTextAlignment(value) {
+            const textAlign = value === '1' ? 'left' : value === '2' ? 'center' : 'right';
+            $('#tituloFormularioPreview').css('text-align', textAlign);
+        }
+
+        function updateColor(key, value) {
+            if (key === 'colorTxt_titulo') {
+                $('#texto_tituloPreview').css('color', value);
+            } else if (key === 'colorBtn_aplicar') {
+                $('#textoBtn_aplicarPreview').css('background-color', value);
+            }
+        }
+
+        function handleLoadingError(jqXHR, textStatus, errorThrown) {
+            console.error('Error loading JSON:', textStatus, errorThrown);
+        }
+
 
         // Funcion para boton guardar
 
@@ -705,20 +733,28 @@ $pacientes = 1;
                 var item = {
                     id_elemento: $(this).attr('id'),
                     posicion: index,
-                    estado: $(this).data('estado') || '1', // Usar '1' como valor por defecto si no está definido
+                    estado: $(this).data('estado') || '1', // Usar '1' como valor por defecto
                     content: {}
                 };
+
+                // Capturar valores de inputs, selects, y checkboxes
                 $(this).find('input, select').each(function() {
-                    if ($(this).is(':checkbox')) {
-                        item.content[this.id] = $(this).is(':checked') ? 'on' : 'off';
-                    } else {
-                        item.content[this.id] = $(this).val();
-                    }
+                    var key = this.id;
+                    var value = $(this).is(':checkbox') ? ($(this).is(':checked') ? 'on' : 'off') : $(this).val();
+                    item.content[key] = value;
                 });
+
+                // Generalización para capturar íconos activos
+                $(this).find('.icon-btn.active i').each(function() {
+                    var iconKey = $(this).closest('.btn-group').attr('id'); // Asume que el btn-group tiene un ID
+                    var iconClass = $(this).attr('class');
+                    item.content[iconKey] = iconClass;
+                });
+
                 itemList.push(item);
             });
 
-            // Envía la información al servidor para guardar en el archivo JSON
+            // Enviar la información al servidor
             $.ajax({
                 url: '../ajax/actualizar_checkout.php',
                 type: 'POST',
@@ -732,10 +768,9 @@ $pacientes = 1;
                 }
             });
         }
+
         $(document).ready(function() {
-            $('#saveFormState').click(function() {
-                saveFormState();
-            });
+            $('#saveFormState').click(saveFormState);
         });
 
         // accion del select
@@ -767,37 +802,36 @@ $pacientes = 1;
             });
 
         });
+        //boton de inconos
         $(document).ready(function() {
+            /*
             // Cambiar la visibilidad del grupo de botones basado en el checkbox
             $('#mostrarIcon_nombresApellidos').change(function() {
                 if ($(this).is(':checked')) {
-                    $('.btn-group').show();
+                    $('#icono_nombresApellidos').show();
                 } else {
-                    $('.btn-group').hide();
+                    $('#icono_nombresApellidos').hide();
                 }
             });
+            */
 
-            // Actualizar el botón principal cuando se selecciona un elemento del menú desplegable
-            $(document).ready(function() {
-                // Manejar el evento de clic en cada botón de ícono
-                $('#icono_nombresApellidos .icon-btn').click(function(event) {
-                    // Prevenir la recarga de la página
-                    event.preventDefault();
-
-                    // Remover la clase 'active' de todos los íconos
-                    $('#icono_nombresApellidos .icon-btn').removeClass('active');
-                    // Añadir la clase 'active' al ícono seleccionado
-                    $(this).addClass('active');
-
-                    // Opcional: hacer algo con el valor del ícono seleccionado
-                    var iconValue = $(this).data('value');
-                    console.log('Ícono seleccionado:', iconValue);
-
-                    // Si necesitas enviar este valor en un formulario, puedes usar:
-                    // $('input[name="alineacion_titulo"]').val(iconValue);
-                });
-            });
+            // Evento de clic en cada botón de íconos
+            setupIconButtons('icono_nombresApellidos', 'icono_nombresApellidosPreview');
+            setupIconButtons('icono_telefono', 'icono_telefonoPreview');
         });
+        // funcion generalizada para iconos
+        function setupIconButtons(containerId, previewId) {
+            // Agrega evento de clic a cada botón de ícono dentro del contenedor especificado
+            $('#' + containerId + ' .icon-btn').click(function(event) {
+                event.preventDefault();
+                // Elimina la clase 'active' de todos los botones y la añade al botón actualmente clickeado
+                $('#' + containerId + ' .icon-btn').removeClass('active');
+                $(this).addClass('active');
+                // Obtiene el valor del ícono seleccionado y actualiza el ícono en la vista previa
+                var iconClass = $(this).find('i').attr('class');
+                $('#' + previewId).html("<i class='" + iconClass + "'></i>");
+            });
+        }
     </script>
     <?php require 'includes/footer_end.php'
     ?>

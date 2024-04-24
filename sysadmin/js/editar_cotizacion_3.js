@@ -69,6 +69,10 @@ function agregar(id) {
       $("#resultados").html(datos);
 
       calcular_guia($("#cod").val());
+      var id_provincia = $("#ciudad_entrega").val();
+      var id_producto = $("#cod").val();
+
+      calcular_servi(id_provincia, id_producto);
     },
   });
 }
@@ -385,7 +389,7 @@ function generar_guia() {
       contentType: false,
       processData: false,
       success: function (response) {
-        $("#resultados").html(response);
+        // $("#resultados").html(response);
         $("#generar_guia_btn").prop("disabled", false);
       },
     });
@@ -444,7 +448,7 @@ function generar_guia() {
       contentType: false,
       processData: false,
       success: function (response) {
-        $("#resultados").html(response);
+        // $("#resultados").html(response);
         $("#generar_guia_btn").prop("disabled", false);
       },
     });

@@ -2,15 +2,17 @@
     {
         "id_elemento": "tituloFormulario",
         "posicion": 0,
+        "estado": "1",
         "content": {
-            "texto_titulo": "PAGA AL RECIBIR EN CAASGSB",
+            "texto_titulo": "PAGA AL RECIBIR EN casahhhhh",
             "alineacion_titulo": "1",
-            "": "#000000"
+            "colorTxt_titulo": "#000000"
         }
     },
     {
         "id_elemento": "resumenTotal",
         "posicion": 1,
+        "estado": "1",
         "content": {
             "subtotal": "Subtotal",
             "envio": "Gratis",
@@ -21,6 +23,7 @@
     {
         "id_elemento": "tarifasEnvio",
         "posicion": 2,
+        "estado": "1",
         "content": {
             "titulo_tarifa": "Método de envío",
             "gratis": "Gratis"
@@ -29,11 +32,22 @@
     {
         "id_elemento": "codigosDescuento",
         "posicion": 3,
+        "estado": "1",
         "content": {
             "descuentos": "Descuentos",
             "etiqueta_descuento": "Codigo de descuento",
             "textoBtn_aplicar": "Aplicar",
-            "": "#000000"
+            "colorBtn_aplicar": "#000000"
+        }
+    },
+    {
+        "id_elemento": "nombres_apellidos",
+        "posicion": 4,
+        "estado": "1",
+        "content": {
+            "txt_nombresApellidos": "Nombres y Apellidos",
+            "mostrarIcon_nombresApellidos": "on",
+            "icono_nombresApellidos": "bx bxs-user"
         }
     }
 ]

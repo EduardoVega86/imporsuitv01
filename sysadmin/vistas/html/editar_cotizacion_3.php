@@ -42,6 +42,11 @@ if (isset($_GET['id_factura'])) {
         $nombredestino            = $rw_factura['nombre'];
         $provinciadestino             = $rw_factura['provincia'];
         $ciudaddestino             = $rw_factura['ciudad_cot'];
+        $ciudaddestinoNombre = get_row('ciudad_laar', 'nombre', 'codigo', $ciudaddestino);
+        if ($ciudaddestinoNombre != 0) {
+            $ciudaddestino = get_row('ciudad_cotizacion', 'id_cotizacion', 'codigo_ciudad_laar', $ciudaddestino);
+        }
+
         $guia_enviada             = $rw_factura['guia_enviada'];
         $drogshipin             = $rw_factura['drogshipin'];
         $tienda            = $rw_factura['tienda'];
@@ -821,7 +826,7 @@ while ($r = $query->fetch_object()) {
                                                                         <select onchange="seleccionarProvincia()" class="datos form-control formulario" id="ciudad_entrega" name="ciudad_entrega" required>
                                                                             <option value="">Ciudad *</option>
                                                                             <?php
-                                                                            $sql2 = "select * from ciudad_laar ";
+                                                                            $sql2 = "SELECT * FROM `ciudad_cotizacion` ";
                                                                             //echo $sql2;
                                                                             $query2 = mysqli_query($conexion, $sql2);
 
@@ -829,9 +834,9 @@ while ($r = $query->fetch_object()) {
                                                                             //echo $rowcount;
                                                                             $i = 1;
                                                                             while ($row2 = mysqli_fetch_array($query2)) {
-                                                                                $id_ciudad       = $row2['id_ciudad'];
-                                                                                $nombre      = $row2['nombre'];
-                                                                                $cod_ciudad      = $row2['codigo'];
+                                                                                $id_ciudad       = $row2['id_cotizacion'];
+                                                                                $nombre      = $row2['ciudad'];
+                                                                                $cod_ciudad      = $row2['id_cotizacion'];
                                                                                 $valor_seleccionado = $ciudaddestino;
                                                                                 $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
 
@@ -852,7 +857,7 @@ while ($r = $query->fetch_object()) {
                                                                         <select onchange="" class="datos form-control formulario" id="provinica" name="provinica" required>
                                                                             <option value="">Provincia *</option>
                                                                             <?php
-                                                                            $sql2 = "select * from provincia_laar ";
+                                                                            $sql2 = "select * from provincia_laar where id_pais = $pais";
                                                                             $query2 = mysqli_query($conexion, $sql2);
 
                                                                             while ($row2 = mysqli_fetch_array($query2)) {
@@ -1322,25 +1327,25 @@ while ($r = $query->fetch_object()) {
         var id_provincia = $('#ciudad_entrega').val();
         let recaudo = $('#cod').val();
         calcular_servi(id_provincia, recaudo);
-        // calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
+        calcular_guia(recaudo);
+        // calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);S
 
-        $.ajax({
-            url: "../ajax/cargar_provincia_pedido.php",
-            type: "POST",
-            data: {
-                ciudad: id_provincia,
-            },
-            dataType: 'text',
-            success: function(data) {
-                $('#provinica').val(data).trigger('change');
-                $('#provinica option[value=' + data + ']').attr({
-                    selected: true
-                });
-                let precio_total = $('#precio_total').val();
+        /*  $.ajax({
+             url: "../ajax/cargar_provincia_pedido.php",
+             type: "POST",
+             data: {
+                 ciudad: id_provincia,
+             },
+             dataType: 'text',
+             success: function(data) {
+                 $('#provinica').val(data).trigger('change');
+                 $('#provinica option[value=' + data + ']').attr({
+                     selected: true
+                 });
+                 let precio_total = $('#precio_total').val();
 
-                calcular_guia(recaudo);
-            }
-        })
+             }
+         }) */
     }
 
     $("#ciudad_entrega").select2({
@@ -1514,6 +1519,26 @@ while ($r = $query->fetch_object()) {
                     $('#aplica').text(`$6.50`);
                 } else
                 if ($('#ciudad_entrega option:selected').text() == "TUMBACO") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "PIFO") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "SANGOLQUI") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "SAN RAFAEL") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "CONOCOTO") {
                     let precio_speed = $("#precio_laar").text();
                     precio_speed = precio_speed.replace('$', '');
                     let total_speed = parseFloat(precio_speed) + 1;
