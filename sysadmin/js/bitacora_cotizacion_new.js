@@ -57,6 +57,7 @@ function load(page) {
   var tienda = $("#tienda_q").val();
   var estado = $("#estado_q").val();
   var numero = $("#numero_q").val();
+  var transportadora = $("#transporte").val();
   var url = "";
 
   if (tienda != 0) {
@@ -68,7 +69,9 @@ function load(page) {
       "&tienda=" +
       tienda +
       "&numero=" +
-      numero;
+      numero +
+      "&transportadora=" +
+      transportadora;
   } else if (estado != 0) {
     url =
       "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
@@ -78,7 +81,9 @@ function load(page) {
       "&estado=" +
       estado +
       "&numero=" +
-      numero;
+      numero +
+      "&transportadora=" +
+      transportadora;
   } else if (tienda != 0 && estado != 0) {
     url =
       "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
@@ -89,6 +94,56 @@ function load(page) {
       tienda +
       "&estado=" +
       estado +
+      "&numero=" +
+      numero +
+      "&transportadora=" +
+      transportadora;
+  }
+  if (tienda != 0 && estado != 0 && numero != 0) {
+    url =
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda +
+      "&estado=" +
+      estado +
+      "&numero=" +
+      numero +
+      "&transportadora=" +
+      transportadora;
+  }
+  if (tienda != 0 && numero != 0) {
+    url =
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda +
+      "&numero=" +
+      numero +
+      "&transportadora=" +
+      transportadora;
+  }
+  if (transportadora != 0 && numero != 0) {
+    url =
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
+      "&transportadora=" +
+      transportadora +
+      "&numero=" +
+      numero;
+  }
+  if (transportadora == 0 && numero != 0 && tienda == 0 && estado == 0) {
+    url =
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&q=" +
+      q +
       "&numero=" +
       numero;
   } else {
@@ -492,3 +547,50 @@ $(document).on("click", ".ver", function () {
   $("#placa").val(placa);
   $("#empresa").val(empresa);
 });
+
+function buscar_transporte(transporte) {
+  // alert(tienda)
+  var q = $("#q").val();
+  var tienda = $("#tienda_q").val();
+  var estado = $("#estado_q").val();
+  var numero = $("#numero_q").val();
+  if (tienda == 0) {
+    tienda = "";
+  }
+  if (estado == 0) {
+    estado = "";
+  }
+  if (numero == 0) {
+    numero = "";
+  }
+
+  page = 1;
+  $("#loader").fadeIn("slow");
+  $.ajax({
+    url:
+      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
+      page +
+      "&transportadora=" +
+      transporte +
+      "&q=" +
+      q +
+      "&tienda=" +
+      tienda +
+      "&estado=" +
+      estado +
+      "&numero=" +
+      numero +
+      "&filtro=" +
+      filtroG,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({
+        html: true,
+      });
+    },
+  });
+}

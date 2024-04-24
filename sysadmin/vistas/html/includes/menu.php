@@ -216,6 +216,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
 											
 							<li><a href="../html/new_venta.php">Punto de Venta</a></li>
+                                                        <li><a href="../html/bitacora_ventas.php">Listado de Facturas</a></li>
 						
 
 

@@ -332,7 +332,7 @@ if (isset($guia)) {
         $query_insertar_destino = mysqli_query($conexion_destino, $sql_insertar_guia_destino);
         $id_fact_destino = get_row_destino($conexion_destino, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
         // echo $id_fact_destino;
-        $sql = "UPDATE facturas_cot SET  estado_factura=1, guia_enviada=1, transporte='IMPORFAST'
+        $sql = "UPDATE facturas_cot SET  estado_factura=1, `guia_enviada`=1, `transporte`='SPEED', `estado_guia_sistema`= 100
                                 WHERE id_factura='" . $id_fact_destino . "'";
         // echo $sql;
         $query_update_destino = mysqli_query($conexion_destino, $sql);
@@ -356,7 +356,7 @@ if (isset($guia)) {
         $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
 
         $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
-        $sql = "UPDATE facturas_cot SET  estado_factura=1, guia_enviada=1, transporte='IMPORFAST'
+        $sql = "UPDATE facturas_cot SET  estado_factura=1, `guia_enviada`=1, `transporte`='SPEED', `estado_guia_sistema`= 1
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
         $query_update_destino = mysqli_query($conexion_marketplace, $sql);
     } else {
@@ -401,7 +401,7 @@ if (isset($guia)) {
         $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
 
         $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
-        $sql = "UPDATE facturas_cot SET  estado_factura=2 , guia_enviada=1, transporte='IMPORFAST'
+        $sql = "UPDATE facturas_cot SET  estado_factura=2 , `guia_enviada`=1, `transporte`='SPEED', `estado_guia_sistema`= 100
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
         $query_update_destino = mysqli_query($conexion_marketplace, $sql);
 
