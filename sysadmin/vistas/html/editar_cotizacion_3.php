@@ -857,13 +857,13 @@ while ($r = $query->fetch_object()) {
                                                                         <select onchange="" class="datos form-control formulario" id="provinica" name="provinica" required>
                                                                             <option value="">Provincia *</option>
                                                                             <?php
-                                                                            $sql2 = "SELECT provincia, MIN(id_cotizacion) AS id_cotizacion, MAX(codigo_provincia_laar) as codigo_provincia_laar FROM ciudad_cotizacion WHERE id_pais = '$pais' GROUP BY provincia; ";
+                                                                            $sql2 = "select * from provincia_laar where id_pais = $pais";
                                                                             $query2 = mysqli_query($conexion, $sql2);
 
                                                                             while ($row2 = mysqli_fetch_array($query2)) {
-                                                                                $id_prov = $row2['id_cotizacion'];
+                                                                                $id_prov = $row2['id_prov'];
                                                                                 $provincia = $row2['provincia'];
-                                                                                $cod_provincia = $row2['codigo_provincia_laar'];
+                                                                                $cod_provincia = $row2['codigo_provincia'];
 
                                                                                 $valor_seleccionado = $provinciadestino;
 
@@ -1327,25 +1327,25 @@ while ($r = $query->fetch_object()) {
         var id_provincia = $('#ciudad_entrega').val();
         let recaudo = $('#cod').val();
         calcular_servi(id_provincia, recaudo);
-        // calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
+        calcular_guia(recaudo);
+        // calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);S
 
-        $.ajax({
-            url: "../ajax/cargar_provincia_pedido.php",
-            type: "POST",
-            data: {
-                ciudad: id_provincia,
-            },
-            dataType: 'text',
-            success: function(data) {
-                $('#provinica').val(data).trigger('change');
-                $('#provinica option[value=' + data + ']').attr({
-                    selected: true
-                });
-                let precio_total = $('#precio_total').val();
+        /*  $.ajax({
+             url: "../ajax/cargar_provincia_pedido.php",
+             type: "POST",
+             data: {
+                 ciudad: id_provincia,
+             },
+             dataType: 'text',
+             success: function(data) {
+                 $('#provinica').val(data).trigger('change');
+                 $('#provinica option[value=' + data + ']').attr({
+                     selected: true
+                 });
+                 let precio_total = $('#precio_total').val();
 
-                calcular_guia(recaudo);
-            }
-        })
+             }
+         }) */
     }
 
     $("#ciudad_entrega").select2({

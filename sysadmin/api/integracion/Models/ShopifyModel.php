@@ -64,7 +64,7 @@ class ShopifyModel extends Query
         $ciudad = $ciudad[0]['id_cotizacion'];
         $protocolo = 'https://';
         $tienda =  $protocolo . $_SERVER['HTTP_HOST'];
-
+        echo "nuevo";
 
         $provincia = strtoupper($provincia);
         $provincia_sql = "SELECT codigo_provincia FROM provincia_laar WHERE provincia = '$provincia';";
