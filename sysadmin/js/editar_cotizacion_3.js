@@ -69,6 +69,10 @@ function agregar(id) {
       $("#resultados").html(datos);
 
       calcular_guia($("#cod").val());
+      var id_provincia = $("#ciudad_entrega").val();
+      var id_producto = $("#cod").val();
+
+      calcular_servi(id_provincia, id_producto);
     },
   });
 }

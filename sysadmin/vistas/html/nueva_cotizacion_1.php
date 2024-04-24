@@ -1208,6 +1208,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                 }
             })
         $('#generar_guia_btn').removeAttr('disabled');
+
     }
 
     function calcular_gintra(id_ciudad, recaudo) {

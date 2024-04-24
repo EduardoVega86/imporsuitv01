@@ -87,6 +87,17 @@ function agregar(id) {
     success: function (datos) {
       //alert(datos);
       $("#resultados").html(datos);
+      if (
+        $("#ciudad_entrega").val() == 0 ||
+        $("#ciudad_entrega").val() == null ||
+        $("#ciudad_entrega").val() == ""
+      ) {
+      } else {
+        calcular_guia($("#cod").val());
+        var id_provincia = $("#ciudad_entrega").val();
+        var id_producto = $("#cod").val();
+        calcular_servi(id_provincia, id_producto);
+      }
       //alert($("#valor_total_").val());
     },
   });
