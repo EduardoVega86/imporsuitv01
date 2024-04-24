@@ -201,7 +201,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                     //echo $provincia;
                     $ciudad_cot   = $row['ciudad_cot'];
                     //echo $ciudad_cot;
-                    $ciudad_cot   = get_row('cotizacion', 'ciudad', 'id_cotizacion', $ciudad_cot);
+                    $ciudad_cot   = get_row('ciudad_cotizacion', 'ciudad', 'id_cotizacion', $ciudad_cot);
                     if ($ciudad_cot == 0 || $ciudad_cot == '' || $ciudad_cot == null) {
                         $ciudad_cot = get_row('ciudad_laar', 'nombre', 'codigo', $row['ciudad_cot']);
                     }
