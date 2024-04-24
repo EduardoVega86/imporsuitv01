@@ -70,13 +70,36 @@ $respuesta = mysqli_fetch_row($respuesta);
                                     </div>
                                 </div>
                                 <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
-                                    <div class="grid items-center">
-
+                                    <div class="d-flex flex-row items-center">
                                         <img src="https://cdn.icon-icons.com/icons2/2429/PNG/512/facebook_logo_icon_147291.png" width="30px" alt="img">
-                                        <h3 class="text-left font-bold">Facebook
-                                    </div>
+                                        <h3 class="text-left font-bold">Facebook</h3>
+                                        <div class="ml-auto d-flex">
+                                            <?php
+                                            $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM pixel  where id_pixel=1");
+                                            $row         = mysqli_fetch_array($count_query);
+                                            $numrows     = $row['numrows'];
 
-                                    </h3>
+                                            if ($numrows == 0) {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9">Desconectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9 text-success">Conectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } ?>
+                                        </div>
+                                    </div>
                                     <p>Manten actualizadas tus campañas con nuestra api.</p>
                                     <div class="d-flex flex-column gap-1">
                                         <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#facebook">
@@ -172,9 +195,33 @@ $respuesta = mysqli_fetch_row($respuesta);
                                     <div class="d-flex flex-row items-center">
 
                                         <img src="https://extensions.vtexassets.com/arquivos/ids/156903-800-auto?v=637443260613970000&width=800&height=auto&aspect=true" width="50px" alt="img">
-                                        <h3 class="text-left font-bold">Google Tag Manager
+                                        <h3 class="text-left font-bold">Google Tag Manager</h3>
+                                        <div class="ml-auto d-flex">
+                                            <?php
+                                            $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM pixel  where id_pixel=2");
+                                            $row         = mysqli_fetch_array($count_query);
+                                            $numrows     = $row['numrows'];
 
-                                        </h3>
+                                            if ($numrows == 0) {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9">Desconectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9 text-success">Conectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } ?>
+                                        </div>
                                     </div>
                                     <p>Manten actualizadas tus campañas con nuestra api.</p>
                                     <div class="d-flex flex-column gap-1">
@@ -188,9 +235,33 @@ $respuesta = mysqli_fetch_row($respuesta);
                                     <div class="d-flex flex-row items-center">
 
                                         <img src="https://fineproxy.org/wp-content/uploads/2023/07/analytics.google.com_logo.png" width="50px" alt="img">
-                                        <h3 class="text-left font-bold">Google Analytics
+                                        <h3 class="text-left font-bold">Google Analytics</h3>
+                                        <div class="ml-auto d-flex">
+                                            <?php
+                                            $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM pixel  where id_pixel=3");
+                                            $row         = mysqli_fetch_array($count_query);
+                                            $numrows     = $row['numrows'];
 
-                                        </h3>
+                                            if ($numrows == 0) {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9">Desconectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9 text-success">Conectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } ?>
+                                        </div>
                                     </div>
                                     <p>Manten actualizadas tus campañas con nuestra api.</p>
                                     <div class="d-flex flex-column gap-1">
@@ -207,9 +278,33 @@ $respuesta = mysqli_fetch_row($respuesta);
                                     <div class="d-flex flex-row items-center">
 
                                         <img src="https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338432_640.png" width="40px" alt="img">
-                                        <h3 class="text-left font-bold">Tiktok
+                                        <h3 class="text-left font-bold">Tiktok</h3>
+                                        <div class="ml-auto d-flex">
+                                            <?php
+                                            $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM pixel  where id_pixel=4");
+                                            $row         = mysqli_fetch_array($count_query);
+                                            $numrows     = $row['numrows'];
 
-                                        </h3>
+                                            if ($numrows == 0) {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9">Desconectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9 text-success">Conectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } ?>
+                                        </div>
                                     </div>
                                     <p>Manten actualizadas tus campañas con nuestra api.</p>
                                     <div class="d-flex flex-column gap-1">
@@ -224,9 +319,33 @@ $respuesta = mysqli_fetch_row($respuesta);
                                     <div class="d-flex flex-row items-center">
 
                                         <img src="https://static.vecteezy.com/system/resources/previews/031/737/215/non_2x/twitter-new-logo-twitter-icons-new-twitter-logo-x-2023-x-social-media-icon-free-png.png" width="50px" alt="img">
-                                        <h3 class="text-left font-bold">X
+                                        <h3 class="text-left font-bold">X</h3>
+                                        <div class="ml-auto d-flex">
+                                            <?php
+                                            $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM pixel  where id_pixel=5");
+                                            $row         = mysqli_fetch_array($count_query);
+                                            $numrows     = $row['numrows'];
 
-                                        </h3>
+                                            if ($numrows == 0) {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9">Desconectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9 text-success">Conectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } ?>
+                                        </div>
                                     </div>
                                     <p>Manten actualizadas tus campañas con nuestra api.</p>
                                     <div class="d-flex flex-column gap-1">
@@ -241,9 +360,33 @@ $respuesta = mysqli_fetch_row($respuesta);
                                     <div class="d-flex flex-row items-center">
 
                                         <img src="https://clarity.microsoft.com/blog/wp-content/uploads/2022/02/256X256.png" width="50px" alt="img">
-                                        <h3 class="text-left font-bold">Clarity
+                                        <h3 class="text-left font-bold">Clarity</h3>
+                                        <div class="ml-auto d-flex">
+                                            <?php
+                                            $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM pixel  where id_pixel=6");
+                                            $row         = mysqli_fetch_array($count_query);
+                                            $numrows     = $row['numrows'];
 
-                                        </h3>
+                                            if ($numrows == 0) {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/259/PNG/128/ic_remove_circle_outline_128_28748.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9">Desconectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <div class="items-center d-flex flex-column justify-content-end">
+                                                    <div class="items-center d-flex flex-column">
+                                                        <img src="https://cdn.icon-icons.com/icons2/894/PNG/512/Tick_Mark_Circle_icon-icons.com_69145.png" class="justify-content-center" width="20px" alt="img">
+                                                        <p class="text-right font-bold fs-9 text-success">Conectado</p>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            } ?>
+                                        </div>
                                     </div>
                                     <p>Manten actualizadas tus campañas con nuestra api.</p>
                                     <div class="d-flex flex-column gap-1">
@@ -609,6 +752,7 @@ $respuesta = mysqli_fetch_row($respuesta);
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     $('#' + data.modalId).modal('hide'); // Usa el ID del modal devuelto por PHP para cerrar el modal correspondiente
+                                    location.reload(); // Recargar la página
                                 }
                             });
                         } else {

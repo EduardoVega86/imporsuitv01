@@ -29,19 +29,20 @@ $image_path     = $rw['image_path'];
 			<div class="widget-bg-color-icon card-box">
 				<!--<img class="card-img-top img-fluid" src="../../assets/images/small/img2.jpg" alt="Card image cap">-->
 				<?php
-if ($image_path == null) {
-    echo '<img class="card-img-top img-fluid" src="../../img/productos/default.jpg">';
-} else {
-    echo '<img src="' . $image_path . '" class="card-img-top img-fluid">';
-}
+				if ($image_path == null) {
+					echo '<img class="card-img-top img-fluid" src="../../img/productos/default.jpg">';
+				} else {
+					echo '<img src="' . $image_path . '" class="card-img-top img-fluid">';
+				}
 
-?>
+				?>
 				<div class="text-center">
-				<div class="alert alert-danger" align="center">
-						<strong>Existencia: <?php echo $stock; ?></strong>
+					<div class="alert-danger" align="center" style="padding-top: 10px; padding-bottom: 10px;">
+						<strong>Existencia: <span id="existencia_producto"><?php echo $stock; ?></span></strong>
 					</div>
-					<button type="button" class="btn btn-success btn-block btn-lg waves-effect waves-light" data-toggle="modal" data-target="#add-stock"><i class="fa fa-edit"></i> Agregar Stock</button>
-														<button type="button" class="btn btn-danger btn-block btn-lg waves-effect waves-light" data-toggle="modal" data-target="#remove-stock"><i class="fa fa-trash"></i> Eliminar Stock</button>
+
+					<button type="button" class="btn btn-success btn-block btn-md waves-effect waves-light" data-toggle="modal" data-target="#add-stock"><i class="fa fa-edit"></i> Agregar Stock</button>
+					<button type="button" class="btn btn-danger btn-block btn-md waves-effect waves-light" data-toggle="modal" data-target="#remove-stock"><i class="fa fa-trash"></i> Eliminar Stock</button>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -80,11 +81,10 @@ if ($image_path == null) {
 						</div>
 
 						<div class="col-xs-1 ">
-							<div class="btn-group pull-center">
-								<?php if ($permisos_ver == 1) {?>
-								<button type="button"  onclick="reporte();" class="btn btn-default btn-rounded waves-effect waves-light" title="Imprimir"><i class='fa fa-print'></i> Imprimir</button>
-								<?php }?>
-							</div>
+							<button onclick="descargarExcel()" class="btn btn-excel">
+								<i class='bx bxs-spreadsheet'></i> Descargar en Excel
+							</button>
+
 						</div>
 
 					</div>
@@ -106,54 +106,53 @@ if ($image_path == null) {
 
 </div>
 <script>
-	$(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2();
-    });
+	$(function() {
+		//Initialize Select2 Elements
+		$(".select2").select2();
+	});
 	$(function() {
 		load(1);
 
-//Date range picker
-$('.daterange').daterangepicker({
-	buttonClasses: ['btn', 'btn-sm'],
-	applyClass: 'btn-success',
-	cancelClass: 'btn-default',
-	locale: {
-		format: "DD/MM/YYYY",
-		separator: " - ",
-		applyLabel: "Aplicar",
-		cancelLabel: "Cancelar",
-		fromLabel: "Desde",
-		toLabel: "Hasta",
-		customRangeLabel: "Custom",
-		daysOfWeek: [
-		"Do",
-		"Lu",
-		"Ma",
-		"Mi",
-		"Ju",
-		"Vi",
-		"Sa"
-		],
-		monthNames: [
-		"Enero",
-		"Febrero",
-		"Marzo",
-		"Abril",
-		"Mayo",
-		"Junio",
-		"Julio",
-		"Agosto",
-		"Septiembre",
-		"Octubre",
-		"Noviembre",
-		"Diciembre"
-		],
-		firstDay: 1
-	},
-	opens: "right"
+		//Date range picker
+		$('.daterange').daterangepicker({
+			buttonClasses: ['btn', 'btn-sm'],
+			applyClass: 'btn-success',
+			cancelClass: 'btn-default',
+			locale: {
+				format: "DD/MM/YYYY",
+				separator: " - ",
+				applyLabel: "Aplicar",
+				cancelLabel: "Cancelar",
+				fromLabel: "Desde",
+				toLabel: "Hasta",
+				customRangeLabel: "Custom",
+				daysOfWeek: [
+					"Do",
+					"Lu",
+					"Ma",
+					"Mi",
+					"Ju",
+					"Vi",
+					"Sa"
+				],
+				monthNames: [
+					"Enero",
+					"Febrero",
+					"Marzo",
+					"Abril",
+					"Mayo",
+					"Junio",
+					"Julio",
+					"Agosto",
+					"Septiembre",
+					"Octubre",
+					"Noviembre",
+					"Diciembre"
+				],
+				firstDay: 1
+			},
+			opens: "right"
 
-});
-});
-
+		});
+	});
 </script>
