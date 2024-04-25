@@ -12,7 +12,7 @@ include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 //$user_id = $_SESSION['id_users'];
 get_cadena($user_id);
-$modulo = "Bodegas Empresa";
+$modulo = "Productos";
 permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 $sql = "SELECT latitud, longitud FROM bodega";
