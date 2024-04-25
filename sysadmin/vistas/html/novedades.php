@@ -355,8 +355,10 @@ $pacientes = 1;
                 ' <div style="border-left:1px solid #000;height:200px"></div> ' +
                 '<div class="formulario">' +
                 '<form id="updateNovedadForm">' +
+                '<input type="hidden" name="guia" value="' + guia + '">' +
+                '<input type="hidden" name="transporte" value="' + button.data('transporte') + '">' +
                 '<strong>Actualizar Novedad:</strong>' +
-                '<div><input type="text" class="form-control" name="nuevaNovedad" placeholder="Ingrese nueva novedad"></div>' +
+                '<div><input type="text" class="form-control" name="observacion" placeholder="Ingrese nueva novedad"></div>' +
                 '<div><button type="submit" class="btn w-100 btn-primary mt-2">Enviar</button></div>' +
                 '</form>' +
                 '</div>' +
@@ -372,7 +374,7 @@ $pacientes = 1;
 
                 $.ajax({
                     type: 'POST',
-                    url: '../gestion_novedades.php', // Cambia esto por la URL de tu endpoint
+                    url: '../ajax/gestion_novedades.php', // Cambia esto por la URL de tu endpoint
                     data: formData,
                     success: function(response) {
                         // Aquí puedes manejar la respuesta del servidor

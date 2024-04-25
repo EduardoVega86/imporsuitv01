@@ -2349,7 +2349,8 @@ mysqli_query($conexion, "CREATE TABLE novedades (
 	estado_novedad tinyint not null,
 	novedad text null,
 	solucion_novedad text null,
-	tracking text not null
+	tracking text not null,
+	fecha_novedad date not null default current_timestamp
 	
 );");
 
@@ -2382,7 +2383,7 @@ mysqli_query($conexion, "CREATE TABLE `atributo_producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 
-        
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");

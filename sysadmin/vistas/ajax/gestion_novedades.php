@@ -1,17 +1,16 @@
 <?php
-
-$guia = $_POST['guia'];
-$observacion = $_POST['observacion'];
-
-
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-echo $guia;
 
-/* $url = "https://servientrega-ecuador.appsiscore.com/app/ws/confirmaciones.php?wsdl";
+$guia = $_POST['guia'];
+$observacion = $_POST['observacion'];
+$transporte = $_POST['transporte'];
+if ($transporte == 'SERVIENTREGA') {
 
-$xml = <<<XML
+    $url = "https://servientrega-ecuador.appsiscore.com/app/ws/confirmaciones.php?wsdl";
+
+    $xml = <<<XML
 <soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
 xmlns:ws="https://servientrega-ecuador.appsiscore.com/app/ws">
@@ -29,16 +28,16 @@ xmlns:ws="https://servientrega-ecuador.appsiscore.com/app/ws">
 </soapenv:Envelope>
 XML;
 
-$ch = curl_init($url);
+    $ch = curl_init($url);
 
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: text/xml'));
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-$response = curl_exec($ch);
+    $response = curl_exec($ch);
 
-curl_close($ch);
+    curl_close($ch);
 
-echo $response;
- */
+    echo $response;
+}
