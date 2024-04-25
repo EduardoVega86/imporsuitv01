@@ -443,7 +443,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "DELETE FROM `provincia_laar`;");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('TUNGURAHUA', '201001019'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('PICHINCHA', '201001001'); ");
-mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('SANTO DOMINGO DE LOS TSACHILAS', '201001024'); ");
+mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('SANTO DOMINGO', '201001024'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('IMBABURA', '201001011'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('GUAYAS', '201001002'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('MANABI', '201001014'); ");
