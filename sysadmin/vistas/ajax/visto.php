@@ -42,8 +42,10 @@ if ($cod == 0 || $cod == 3 || $cod == 1) {
         $valor_pendiente = $rw_cabecera['valor_pendiente'];
         $mt_recibir = $monto_recibir + $costo;
         $vl_pendiente = $valor_pendiente + $costo;
-        $update_cabecera = "UPDATE cabecera_cuenta_pagar SET monto_recibir = '$mt_recibir', valor_pendiente = '$vl_pendiente' WHERE guia_laar = 'PROVEEDOR' and tienda = '$tienda_proveedor'";
-        $resultado_update = mysqli_query($conexion, $update_cabecera);
+        if ($rw['estado_guia'] != 9) {
+            $update_cabecera = "UPDATE cabecera_cuenta_pagar SET monto_recibir = '$mt_recibir', valor_pendiente = '$vl_pendiente' WHERE guia_laar = 'PROVEEDOR' and tienda = '$tienda_proveedor'";
+            $resultado_update = mysqli_query($conexion, $update_cabecera);
+        }
     }
     $consultar_cabecera = "SELECT * from cabecera_cuenta_pagar where guia_laar = 'REFERIDO' and tienda = '$tienda_proveedor'";
     $resultado_cabecera = mysqli_query($conexion, $consultar_cabecera);
