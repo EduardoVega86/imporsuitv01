@@ -37,6 +37,15 @@ while ($r = $query_vendedor->fetch_object()) {$vendedor[] = $r;}
     cursor: pointer;
     background-color: lightskyblue;
   }
+  .content_left_right {
+      display: flex;
+    }
+ .fijo {
+  position: -webkit-sticky !important; /* Para soporte en Safari */
+  position: sticky !important;
+  top: 0; /* Ajustar si es necesario */
+  //z-index: 1020; /* Bootstrap utiliza 1030 para la navbar, así que usa un valor más bajo */
+}
 </style>
 <!-- Begin page -->
 <div id="wrapper" class="forced enlarged"> <!-- DESACTIVA EL MENU -->
@@ -86,7 +95,7 @@ include "../modal/buscar_productos_libre.php";
     include "../modal/caja.php";
     include "../modal/anular_factura.php";
     ?>
-									<div class="row">
+									<div class="row content_left_right">
 										<div class="col-lg-6">
 											<div class="card-box">
 
@@ -157,7 +166,7 @@ include "../modal/buscar_productos_libre.php";
             $tienda      = $row['tienda'];
             $image_path           = $row['image_path'];
 												?>
-                                                                                                                                      <div  class="col-md-2" >
+                                                                                                                                      <div  class="col-md-3" >
                                                                                                                                           <div  style="padding:10px; min-height: 125px"  align="center" class="card agregar_producto" onclick="agregar_pos('<?php echo $id_producto;?>')">
     <div  class="card-body">
                                                                                                             <?php
@@ -194,7 +203,7 @@ if ($image_path == null) {
 
 										</div>
 
-										<div class="col-lg-6">
+                                                                            <div style="" class="fijo col-lg-6">
 											<div class="card-box">
 												<div class="widget-chart">
 													<form role="form" id="datos_factura">
@@ -549,6 +558,5 @@ function printFactura(id_factura) {
   }
 </script>
 
-<?php require 'includes/footer_end.php'
-?>
+
 
