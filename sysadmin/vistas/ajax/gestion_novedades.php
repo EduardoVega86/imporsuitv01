@@ -2,7 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-
+require_once "../db.php";
+require_once "../php_conexion.php";
 $guia = $_POST['guia'];
 $observacion = $_POST['observacion'];
 $transporte = $_POST['transporte'];
@@ -40,4 +41,13 @@ XML;
     curl_close($ch);
 
     echo $response;
+}
+
+
+$sql = "UPDATE novedades SET solucion_novedad = '$observacion' WHERE guia_novedad = '$guia'";
+$result = mysqli_query($conexion, $sql);
+if ($result) {
+    echo "Novedad solucionada";
+} else {
+    echo "Error al solucionar la novedad";
 }
