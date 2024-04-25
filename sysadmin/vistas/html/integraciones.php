@@ -537,7 +537,22 @@ $respuesta = mysqli_fetch_row($respuesta);
                                                 </span>
                                                 <span class="mb-5 font-bold"> <br> Google Tag Manager Pixel</span>
                                                 <div class="form-group mb-3">
-                                                    <textarea type="text" class="form-control " id="pixel_googleTag" name="pixel_googleTag" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                    <?php
+                                                    $count_query = mysqli_query($conexion, "SELECT pixel, count(*) AS numrows FROM pixel  where id_pixel=2");
+                                                    $row         = mysqli_fetch_array($count_query);
+                                                    $numrows     = $row['numrows'];
+                                                    $pixel       = htmlspecialchars($row['pixel']); // Escapa el contenido para hacerlo seguro en HTML
+
+                                                    if ($numrows == 0) {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;">Script de píxel de Google Tag Manager</textarea>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <span class="mb-5 d-flex justify-content-center">
                                                     <button type="submit" class="btn btn-success mt-5">
@@ -573,7 +588,22 @@ $respuesta = mysqli_fetch_row($respuesta);
                                                 </span>
                                                 <span class="mb-5 font-bold"> <br> Google Analytics Pixel</span>
                                                 <div class="form-group mb-3">
-                                                    <textarea type="text" class="form-control " id="pixel_googleAnalytics" name="pixel_googleAnalytics" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                    <?php
+                                                    $count_query = mysqli_query($conexion, "SELECT pixel, count(*) AS numrows FROM pixel  where id_pixel=3");
+                                                    $row         = mysqli_fetch_array($count_query);
+                                                    $numrows     = $row['numrows'];
+                                                    $pixel       = htmlspecialchars($row['pixel']); // Escapa el contenido para hacerlo seguro en HTML
+
+                                                    if ($numrows == 0) {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;">Script de píxel de Google Analytics</textarea>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <span class="mb-5 d-flex justify-content-center">
                                                     <button type="submit" class="btn btn-success mt-5">
@@ -608,7 +638,22 @@ $respuesta = mysqli_fetch_row($respuesta);
                                                 </span>
                                                 <span class="mb-5 font-bold"> <br> Tiktok Pixel</span>
                                                 <div class="form-group mb-3">
-                                                    <textarea type="text" class="form-control " id="pixel_tiktok" name="pixel_tiktok" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                    <?php
+                                                    $count_query = mysqli_query($conexion, "SELECT pixel, count(*) AS numrows FROM pixel  where id_pixel=4");
+                                                    $row         = mysqli_fetch_array($count_query);
+                                                    $numrows     = $row['numrows'];
+                                                    $pixel       = htmlspecialchars($row['pixel']); // Escapa el contenido para hacerlo seguro en HTML
+
+                                                    if ($numrows == 0) {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;">Script de píxel de Tiktok</textarea>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <span class="mb-5 d-flex justify-content-center">
                                                     <button type="submit" class="btn btn-success mt-5">
@@ -643,7 +688,22 @@ $respuesta = mysqli_fetch_row($respuesta);
                                                 </span>
                                                 <span class="mb-5 font-bold"> <br> X Pixel</span>
                                                 <div class="form-group mb-3">
-                                                    <textarea type="text" class="form-control " id="pixel_X" name="pixel_X" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                    <?php
+                                                    $count_query = mysqli_query($conexion, "SELECT pixel, count(*) AS numrows FROM pixel  where id_pixel=5");
+                                                    $row         = mysqli_fetch_array($count_query);
+                                                    $numrows     = $row['numrows'];
+                                                    $pixel       = htmlspecialchars($row['pixel']); // Escapa el contenido para hacerlo seguro en HTML
+
+                                                    if ($numrows == 0) {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;">Script de píxel de X</textarea>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <span class="mb-5 d-flex justify-content-center">
                                                     <button type="submit" class="btn btn-success mt-5">
@@ -678,7 +738,22 @@ $respuesta = mysqli_fetch_row($respuesta);
                                                 </span>
                                                 <span class="mb-5 font-bold"> <br> Clarity Pixel</span>
                                                 <div class="form-group mb-3">
-                                                    <textarea type="text" class="form-control " id="pixel_clarity" name="pixel_clarity" value="Script de píxel de Google Tag" autocomplete="off" style="height: 110px;"></textarea>
+                                                <?php
+                                                    $count_query = mysqli_query($conexion, "SELECT pixel, count(*) AS numrows FROM pixel  where id_pixel=6");
+                                                    $row         = mysqli_fetch_array($count_query);
+                                                    $numrows     = $row['numrows'];
+                                                    $pixel       = htmlspecialchars($row['pixel']); // Escapa el contenido para hacerlo seguro en HTML
+
+                                                    if ($numrows == 0) {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;">Script de píxel de Clarity</textarea>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                                 <span class="mb-5 d-flex justify-content-center">
                                                     <button type="submit" class="btn btn-success mt-5">

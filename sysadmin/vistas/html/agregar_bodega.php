@@ -52,18 +52,7 @@ permisos($modulo, $cadena_permisos);
                                                                                         
                                                                                     
     ?>
-                                                                                    <select  class='form-control' name='empresa' id='empresa' required>
-												<option value="">-- Selecciona cliente--</option>
-												<?php
-
-    $query_categoria = mysqli_query($conexion, "select * from users where cargo_users=4 order by apellido_users;");
-    while ($rw = mysqli_fetch_array($query_categoria)) {
-        ?>
-													<option value="<?php echo $rw['id_users']; ?>"><?php echo $rw['apellido_users']; ?></option>
-													<?php
-}
-    ?>
-											</select>
+                                                                                    
                                                                                                                                    <?php
                                                                                         
                                                                                     }else{
