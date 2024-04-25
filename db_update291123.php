@@ -443,7 +443,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "DELETE FROM `provincia_laar`;");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('TUNGURAHUA', '201001019'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('PICHINCHA', '201001001'); ");
-mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('SANTO DOMINGO DE LOS TSACHILAS', '201001024'); ");
+mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('SANTO DOMINGO', '201001024'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('IMBABURA', '201001011'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('GUAYAS', '201001002'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('MANABI', '201001014'); ");
@@ -1441,7 +1441,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (55,'CANAR','COJITAMBO',1,0,1,'TE','0','TE','0','201001005','201001005007','1024','57688','692'),
 	 (56,'CARCHI','CRISTOBAL COLON',1,0,0,'TE','0','0','0','0','0','0','0','272'),
 	 (57,'CARCHI','CUESACA',1,0,0,'TE','0','0','0','0','0','0','0','704'),
-	 (58,'CANAR','DELEG',1,1,0,'TE','TE','0','0','0','0','0','0','679'),
+	 (58,'CANAR','DELEG',1,0,0,'TE','0','0','0','0','0','0','0','679'),
 	 (59,'CANAR','DUCUR',1,1,0,'TE','TE','0','0','0','0','0','0','514'),
 	 (60,'CARCHI','EL ANGEL',1,1,0,'TE','TE','0','0','201001006','201001006003','0','0','273');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
@@ -2310,6 +2310,16 @@ mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `cobertura_laar` = '1', 
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TE' WHERE `ciudad_cotizacion`.`id_cotizacion` = 230;");
 mysqli_query($conexion, "ALTER TABLE `users` ADD `cedula_facturacion` VARCHAR(13) NOT NULL AFTER `fecha_actualizacion`, ADD `correo_facturacion` VARCHAR(150) NOT NULL AFTER `cedula_facturacion`, ADD `direccion_facturacion` VARCHAR(200) NOT NULL AFTER `correo_facturacion`;");
 
+mysqli_query($conexion, "CREATE TABLE `cobertura_gintracom` (
+	`id_cobertura` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`trayecto` varchar(10) NOT NULL,
+	`precio` float NOT NULL
+  );");
+
+mysqli_query($conexion, "INSERT INTO `cobertura_gintracom` (`id_cobertura`, `trayecto`, `precio`) VALUES
+	(1, 'TN', 5),
+	(2, 'TE', 6)
+	;");
 
 mysqli_query($conexion, "ALTER TABLE `tmp_ventas` ADD `descripcion` TEXT NULL AFTER `id_producto`;");
 
@@ -2339,7 +2349,8 @@ mysqli_query($conexion, "CREATE TABLE novedades (
 	estado_novedad tinyint not null,
 	novedad text null,
 	solucion_novedad text null,
-	tracking text not null
+	tracking text not null,
+	fecha_novedad date not null default current_timestamp
 	
 );");
 
@@ -2372,7 +2383,7 @@ mysqli_query($conexion, "CREATE TABLE `atributo_producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
 
-        
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
