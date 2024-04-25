@@ -42,10 +42,6 @@ $sql = "select * from pixel where id_pixel= 1";
 $query = mysqli_query($conexion, $sql);
 $row = mysqli_fetch_array($query);
 
-$sql_pixeles = "SELECT * FROM pixel WHERE id_pixel > 1";
-$query_pixeles = mysqli_query($conexion, $sql);
-$row_pixeles = mysqli_fetch_array($query_pixeles);
-
 ?>
 
 <!-- Meta Pixel Code -->
@@ -74,16 +70,18 @@ $row_pixeles = mysqli_fetch_array($query_pixeles);
    fbq('track', 'PageView');
    fbq('track', 'ViewContent');
 </script>
+
+<?php
+$sql_pixeles = "SELECT * FROM pixel WHERE id_pixel > 1";
+$query_pixeles = mysqli_query($conexion, $sql_pixeles);
+
+while ($row_pixeles = mysqli_fetch_array($query_pixeles)) {
+   $pixel = $row_pixeles['pixel'];
+   echo $pixel; // Asegúrate de que $pixel contiene el script correcto y no necesita más procesamiento.
+}
+?>
+
 <noscript>
    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=260280873723650&ev=PageView&noscript=1" /></noscript>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- End Meta Pixel Code -->
-
-<?php
-while ($row_pixeles = mysqli_fetch_array($query_pixeles)) {
-   $pixel          = $row_pixeles['pixel'];
-   echo $pixel;
-?>
-<?php
-}
-?>
