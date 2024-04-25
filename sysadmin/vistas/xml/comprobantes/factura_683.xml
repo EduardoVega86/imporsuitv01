@@ -3,36 +3,36 @@
         <infoTributaria>
             <ambiente>2</ambiente>
             <tipoEmision>1</tipoEmision>
-            <razonSocial>IMPORTADORA</razonSocial>
-            <nombreComercial>RAZON SOCIAL</nombreComercial>
-            <ruc>1104623507001</ruc>
-            <claveAcceso>2203202401110462350700120011000000080180000068319</claveAcceso>
+            <razonSocial>VEGA RIVAS EDUARDO JAVIER</razonSocial>
+            <nombreComercial>VEGA RIVAS EDUARDO JAVIER</nombreComercial>
+            <ruc>1715882211001</ruc>
+            <claveAcceso>1904202401171588221100120010010000702420000068311</claveAcceso>
             <codDoc>01</codDoc>
             <estab>001</estab>
-            <ptoEmi>100</ptoEmi>
-            <secuencial>000008018</secuencial>
-            <dirMatriz>AV COLON Y DIEGO DE ALMAGRO</dirMatriz>
+            <ptoEmi>001</ptoEmi>
+            <secuencial>000070242</secuencial>
+            <dirMatriz>AV RUMICHACA Y SOLANDA</dirMatriz>
         </infoTributaria>
         <infoFactura>
-            <fechaEmision>22/03/2024</fechaEmision>
-            <dirEstablecimiento>AV COLON Y DIEGO DE ALMAGRO</dirEstablecimiento>
+            <fechaEmision>19/04/2024</fechaEmision>
+            <dirEstablecimiento>AV RUMICHACA Y SOLANDA</dirEstablecimiento>
             <obligadoContabilidad>NO</obligadoContabilidad>       
             <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
-            <razonSocialComprador>Eduardo Vega</razonSocialComprador>
-            <identificacionComprador>0490041877001</identificacionComprador>
-            <direccionComprador>Solanda Rumichca</direccionComprador><totalSinImpuestos>25.00</totalSinImpuestos><totalDescuento>0</totalDescuento><totalConImpuestos> <totalImpuesto>
-                                    <codigo>2</codigo>
-                                    <codigoPorcentaje>0</codigoPorcentaje>
-                                    <baseImponible>25.00</baseImponible>
-                                    <valor>0.00</valor>
-                                </totalImpuesto></totalConImpuestos>        
+            <razonSocialComprador>DANIEL BONILLA</razonSocialComprador>
+            <identificacionComprador>1793168264001</identificacionComprador>
+            <direccionComprador>SOLANDA</direccionComprador><totalSinImpuestos>1.00</totalSinImpuestos><totalDescuento>0</totalDescuento><totalConImpuestos> <totalImpuesto>
+                                <codigo>2</codigo>
+                                <codigoPorcentaje>2</codigoPorcentaje>
+                                <baseImponible>1.00</baseImponible>
+                                <valor>0.13</valor>
+                             </totalImpuesto></totalConImpuestos>        
             <propina>0.00</propina>        
-            <importeTotal>25.00</importeTotal>
+            <importeTotal>1.13</importeTotal>
             <moneda>DOLAR</moneda>
             <pagos>
                 <pago>
                     <formaPago>01</formaPago>
-                    <total>25.00</total>
+                    <total>1.13</total>
                     <plazo>1</plazo>
                     <unidadTiempo>Dias</unidadTiempo>
                 </pago>            
@@ -40,24 +40,24 @@
             <valorRetIva>0.00</valorRetIva>
             <valorRetRenta>0.00</valorRetRenta>
         </infoFactura><detalles><detalle>
-        <codigoPrincipal>10026</codigoPrincipal>
-        <codigoAuxiliar>10026</codigoAuxiliar>
-        <descripcion>TRES MOLDES DE SILICONA Y 100 PAPELES ANTIADHERENTES PARA FREIDORA DE AIRE, HORNO CONVENCIONAL Y MICROONDAS</descripcion>
+        <codigoPrincipal>10001</codigoPrincipal>
+        <codigoAuxiliar>10001</codigoAuxiliar>
+        <descripcion>PRUEBA SIN IVA</descripcion>
         <cantidad>1</cantidad>
-        <precioUnitario>25</precioUnitario>            
+        <precioUnitario>0.8929</precioUnitario>            
         <descuento>0</descuento>
-        <precioTotalSinImpuesto>25.00</precioTotalSinImpuesto><impuestos>
+        <precioTotalSinImpuesto>1</precioTotalSinImpuesto><impuestos>
                 <impuesto>
                     <codigo>2</codigo>
-                    <codigoPorcentaje>0</codigoPorcentaje>
-                    <tarifa>0</tarifa>
-                    <baseImponible>25.00</baseImponible>
-                    <valor>0.00</valor>
+                    <codigoPorcentaje>4</codigoPorcentaje>
+                    <tarifa>15</tarifa>
+                    <baseImponible>1</baseImponible>
+                    <valor>0.15</valor>
                 </impuesto></impuestos></detalle>
             </detalles>
         <infoAdicional>
-            <campoAdicional nombre="Direccion">Solanda Rumichca</campoAdicional>
-            <campoAdicional nombre="Telefono">0987654321</campoAdicional>		
-            <campoAdicional nombre="Email">.edu.vega86@gmail.com</campoAdicional>
+            <campoAdicional nombre="Direccion">SOLANDA</campoAdicional>
+            <campoAdicional nombre="Telefono">0999263107</campoAdicional>		
+            <campoAdicional nombre="Email">edu.vega86@gmail.com</campoAdicional>
         </infoAdicional>
     </factura>

@@ -81,7 +81,7 @@ if ($action == 'ajax') {
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 ?>
         <div class="table-responsive">
-            <table class="table table-sm table-striped">
+            <table id="solicitudes" class="table table-sm table-striped">
                 <tr class="info">
                     <th>ID</th>
                     <th></th>
@@ -207,7 +207,7 @@ if ($action == 'ajax') {
                     <input type="hidden" value="<?php echo $url2; ?>" id="url2<?php echo $id_producto; ?>">
                     <input type="hidden" value="<?php echo $texto_boton2; ?>" id="texto_boton2<?php echo $id_producto; ?>">
                     <input type="hidden" value="<?php echo $descripcion2; ?>" id="descripcion2<?php echo $id_producto; ?>">
-                    <tr>
+                    <tr onclick="variables(<?php echo $id_producto; ?>)" id="solicitud<?php echo $id_producto; ?>">
                         <td><span class="badge badge-purple"><?php echo $id_producto; ?></span>
 
                         </td>
@@ -347,6 +347,7 @@ if ($action == 'ajax') {
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <?php if ($permisos_ver == 1) { ?>
                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');"><i class='fa fa-edit'></i> Editar</a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#stock_ad" onclick="producto_id(<?php echo $id_producto; ?>)" data-id="<?php echo $id_edificio; ?>"><i class='fa fa-edit'></i> Características</a>
                                     <?php }
                                     if ($permisos_editar == 1) { ?>
                                         <!--<a class="dropdown-item" href="historial.php?id=<?php echo $id_producto; ?>"><i class='fa fa-calendar'></i> Historial</a>-->
