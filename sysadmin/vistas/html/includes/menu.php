@@ -208,23 +208,23 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 											<li><a href="../html/caja.php">Caja</a></li>
 										</ul>
 									</li-->
-<li class="has_sub">
+				<li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-desktop"></i><span> POS
 						</span> <span class="menu-arrow"></span></a>
 
 					<ul class="list-unstyled">
 						<!--li><a href="../html/new_cotizacion.php">Agregar Pedido</a></li-->
-											
-							<li><a href="../html/new_venta.php">Punto de Venta</a></li>
-                                                        <li><a href="../html/bitacora_ventas.php">Listado de Facturas</a></li>
-						
+
+						<li><a href="../html/new_venta.php">Punto de Venta</a></li>
+						<li><a href="../html/bitacora_ventas.php">Listado de Facturas</a></li>
+
 
 
 
 
 					</ul>
 				</li>
-                                
+
 				<li class="has_sub">
 					<a href="javascript:void(0);" class="waves-effect waves-primary"><i class="ti-receipt"></i><span> Pedidos
 						</span> <span class="menu-arrow"></span></a>
@@ -247,7 +247,9 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 							<li><a href="../html/bitacora_externa.php">Pedidos Externos</a></li>
 
 						<?php } ?>
-
+						<li>
+							<a href="../html/novedades.php">Novedades</a>
+						</li>
 
 
 					</ul>
