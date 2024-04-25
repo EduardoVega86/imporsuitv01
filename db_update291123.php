@@ -1441,7 +1441,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (55,'CANAR','COJITAMBO',1,0,1,'TE','0','TE','0','201001005','201001005007','1024','57688','692'),
 	 (56,'CARCHI','CRISTOBAL COLON',1,0,0,'TE','0','0','0','0','0','0','0','272'),
 	 (57,'CARCHI','CUESACA',1,0,0,'TE','0','0','0','0','0','0','0','704'),
-	 (58,'CANAR','DELEG',1,1,0,'TE','TE','0','0','0','0','0','0','679'),
+	 (58,'CANAR','DELEG',1,0,0,'TE','0','0','0','0','0','0','0','679'),
 	 (59,'CANAR','DUCUR',1,1,0,'TE','TE','0','0','0','0','0','0','514'),
 	 (60,'CARCHI','EL ANGEL',1,1,0,'TE','TE','0','0','201001006','201001006003','0','0','273');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
