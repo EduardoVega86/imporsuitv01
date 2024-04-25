@@ -20,7 +20,6 @@ permisos($modulo, $cadena_permisos);
 $title          = "Pedidos";
 $Ventas         = 1;
 $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
-
 if (isset($_GET['id_factura'])) {
     $id_factura  = intval($_GET['id_factura']);
     $campos      = "clientes.id_cliente, clientes.nombre_cliente, clientes.fiscal_cliente, clientes.email_cliente, facturas_cot.id_vendedor, facturas_cot.fecha_factura, facturas_cot.condiciones,facturas_cot.transporte, facturas_cot.validez, facturas_cot.numero_factura, facturas_cot.nombre,facturas_cot.telefono, facturas_cot.provincia,facturas_cot.c_principal,facturas_cot.c_secundaria,facturas_cot.referencia, facturas_cot.observacion, facturas_cot.ciudad_cot, facturas_cot.guia_enviada, facturas_cot.drogshipin, facturas_cot.tienda";
@@ -46,30 +45,22 @@ if (isset($_GET['id_factura'])) {
         if ($ciudaddestinoNombre != 0) {
             $ciudaddestino = get_row('ciudad_cotizacion', 'id_cotizacion', 'codigo_ciudad_laar', $ciudaddestino);
         }
-
         $guia_enviada             = $rw_factura['guia_enviada'];
         $drogshipin             = $rw_factura['drogshipin'];
         $tienda            = $rw_factura['tienda'];
-
         $direccion = $rw_factura['c_principal'] . ' ' . $rw_factura['c_secundaria'];
         $referencia = $rw_factura['referencia'];
         $telefono = $rw_factura['telefono'];
         $observacion = $rw_factura['observacion'];
-
         $transporte = $rw_factura['transporte'];
         echo $transporte;
         //calcular segun la ciudad
         $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
-
         // if()
         $valor_base = get_row('ciudad_laar', 'precio', 'codigo', $ciudaddestino);
-
         if ($guia_enviada == 1) {
             $valor_base = get_row('guia_laar', 'costoflete', 'id_pedido', $id_factura);
         }
-
-
-
         $_SESSION['id_factura']     = $id_factura;
         $_SESSION['numero_factura'] = $numero_factura;
     } else {
@@ -87,9 +78,7 @@ while ($r = $query->fetch_object()) {
     $tipo[] = $r;
 }
 ?>
-
 <?php require 'includes/header_start.php'; ?>
-
 <?php require 'includes/header_end.php'; ?>
 <style>
     .stepwizard-step p {
@@ -119,8 +108,6 @@ while ($r = $query->fetch_object()) {
         width: 100%;
         height: 1px;
         background-color: #ccc;
-
-
     }
 
     .image-bn {
@@ -150,37 +137,26 @@ while ($r = $query->fetch_object()) {
 
     .formulario {
         border-radius: 25px;
-
     }
 </style>
 <!-- Begin page -->
 
 <div id="wrapper" class="forced enlarged">
-
     <?php
-
-
     require 'includes/menu.php';
     // echo $guia_enviada;
     if ($guia_enviada == 1) {
-
-
         @$guia_numero = get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
         $url = 'https://api.laarcourier.com:9727/guias/' . $guia_numero;
-
         // echo  $url;                       
-
         $curl = curl_init($url);
-
         // Establecer opciones para la solicitud cURL
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             'Accept: application/json'
         ]);
-
         // Realizar la solicitud GET
         $response = curl_exec($curl);
-
         // Verificar si hubo algún error en la solicitud
         if ($response === false) {
             echo 'Error en la solicitud: ' . curl_error($curl);
@@ -192,7 +168,6 @@ while ($r = $query->fetch_object()) {
                 //echo 'Estado Actual: ' . $data['estadoActual'];
                 switch ($data['estadoActualCodigo']) {
                     case '1':
-
                         $span_estado = 'badge-danger';
                         $estado_guia = 'Anulado';
                         break;
@@ -232,12 +207,10 @@ while ($r = $query->fetch_object()) {
                 // echo 'No se pudo obtener el estadoActual';
             }
         }
-
         // Cerrar la sesión cURL
         curl_close($curl);
     }
     ?>
-
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
@@ -269,19 +242,16 @@ while ($r = $query->fetch_object()) {
                                         <input type="hidden" id="pedido_facturar" value="<?php echo $id_factura ?>">
                                         <div class="col-lg-6">
                                             <div class="card-box">
-
                                                 <div class="widget-chart">
                                                     <div id="resultados_ajaxf" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->
                                                     <form class="form-horizontal" role="form" id="barcode_form">
                                                         <input type="hidden" value="<?php echo $valor_base; ?>" id="costo_envio" name="costo_envio">
                                                         <?php if ($guia_enviada != 1) { ?>
-
                                                             <div class="form-group row  align-items-md-baseline">
                                                                 <label for="barcode_qty" class="col-md-1 control-label">Cant:</label>
                                                                 <div class="col-md-2">
                                                                     <input type="text" class="form-control formulario" id="barcode_qty" value="1" autocomplete="off">
                                                                 </div>
-
                                                                 <label for="condiciones" class="control-label">Codigo:</label>
                                                                 <div class="col-md-5" align="left">
                                                                     <div class="input-group">
@@ -292,22 +262,18 @@ while ($r = $query->fetch_object()) {
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-2">
-
                                                                     <button type="button" accesskey="a" class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#buscar">
                                                                         <span class="fa fa-search"></span> Buscar
                                                                     </button>
-
                                                                 </div>
                                                             </div>
                                                         <?php
                                                         }
                                                         ?>
                                                     </form>
-
                                                     <div class="table-responsive">
                                                         <div id="resultados" class='col-md-12' style="margin-top:10px"></div>
                                                         <?php if ($guia_enviada == 1) {
-
                                                         ?>
                                                             <table class="table table-sm table-striped">
                                                                 <tr>
@@ -328,10 +294,8 @@ while ($r = $query->fetch_object()) {
                                                                         ?>
                                                                             <img width="100px" src="../../img_sistema/gintra.png" alt="" />
                                                                         <?php
-
                                                                         }
                                                                         ?>
-
                                                                     </th>
                                                                     <th></th>
                                                                 </tr>
@@ -375,20 +339,13 @@ while ($r = $query->fetch_object()) {
                                                         <?php
                                                         }
                                                         ?>
-
-
-
                                                     </div>
-
                                                 </div>
                                             </div>
                                             <div id="valor_envio">
-
                                             </div>
                                         </div>
-
                                         <div class="col-lg-6">
-
                                             <?php if (@$guia_enviada == 1) {
                                                 if (@$data['estadoActualCodigo'] == '8') {
                                             ?>
@@ -398,7 +355,6 @@ while ($r = $query->fetch_object()) {
                                                         </div>
                                                         <div class="text-right">
                                                             <h5 class="text-dark text-center"><b class=" text-danger">Guía Anulada</b></h5>
-
                                                         </div>
                                                         <div class="clearfix"></div>
                                                     </div>
@@ -413,7 +369,6 @@ while ($r = $query->fetch_object()) {
                                                             </div>
                                                             <div class="text-right">
                                                                 <h5 class="text-dark text-center"><b class=" text-danger">Guía Anulada</b></h5>
-
                                                             </div>
                                                             <div class="clearfix"></div>
                                                         </div>
@@ -436,52 +391,34 @@ while ($r = $query->fetch_object()) {
                                                             <input id="seguro" type="hidden" name="seguro">
                                                             <input id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
                                                             <input type="hidden" id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">
-
-
-
                                                         </form>
                                                         <div class="row">
                                                             <div align="center" class="col-md-3">
                                                                 </br>
-
                                                                 <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
                                                             </div>
-
                                                             <div align="center" class="col-md-3">
                                                                 </br>
-
-
                                                                 <button style="cursor: pointer;" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt="" /><br>Cancelar guia</button>
                                                             </div>
                                                             <div align="center" class="col-md-3">
                                                                 </br>
                                                                 <?php
                                                                 if (get_row('facturas_cot', 'facturada', 'id_factura', $id_factura) == 1) {
-
                                                                 ?>
-
                                                                     <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class="btn form-control"> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
                                                                 <?php
-
                                                                 } else {
-
-
                                                                 ?>
-
                                                                     <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
                                                                 <?php
-
                                                                 }
                                                                 ?>
                                                             </div>
-
                                                         </div>
                                                         <div style="margin-top: 10px" id="factura_conguia" class="row">
-
                                                         </div>
-
                                                     <?php
-
                                                     }
                                                 } else if (is_numeric($guia_numero)) {
                                                     $estadoGuia  = get_row('guia_laar', 'estado_guia', 'id_pedido', $id_factura);
@@ -493,7 +430,6 @@ while ($r = $query->fetch_object()) {
                                                             </div>
                                                             <div class="text-right">
                                                                 <h5 class="text-dark text-center"><b class=" text-danger">Guía Anulada</b></h5>
-
                                                             </div>
                                                             <div class="clearfix"></div>
                                                         </div>
@@ -516,52 +452,34 @@ while ($r = $query->fetch_object()) {
                                                             <input id="seguro" type="hidden" name="seguro">
                                                             <input id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
                                                             <input type="hidden" id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">
-
-
-
                                                         </form>
                                                         <div class="row">
                                                             <div align="center" class="col-md-3">
                                                                 </br>
-
                                                                 <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
                                                             </div>
-
                                                             <div align="center" class="col-md-3">
                                                                 </br>
-
-
                                                                 <button style="cursor: pointer;" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt="" /><br>Cancelar guia</button>
                                                             </div>
                                                             <div align="center" class="col-md-3">
                                                                 </br>
                                                                 <?php
                                                                 if (get_row('facturas_cot', 'facturada', 'id_factura', $id_factura) == 1) {
-
                                                                 ?>
-
                                                                     <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class="btn form-control"> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
                                                                 <?php
-
                                                                 } else {
-
-
                                                                 ?>
-
                                                                     <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
                                                                 <?php
-
                                                                 }
                                                                 ?>
                                                             </div>
-
                                                         </div>
                                                         <div style="margin-top: 10px" id="factura_conguia" class="row">
-
                                                         </div>
-
                                                     <?php
-
                                                     }
                                                 } else if (strpos($guia_numero, "I00") === 0) {
                                                     $estadoGuia  = get_row('guia_laar', 'estado_guia', 'id_pedido', $id_factura);
@@ -573,7 +491,6 @@ while ($r = $query->fetch_object()) {
                                                             </div>
                                                             <div class="text-right">
                                                                 <h5 class="text-dark text-center"><b class=" text-danger">Guía Anulada</b></h5>
-
                                                             </div>
                                                             <div class="clearfix"></div>
                                                         </div>
@@ -596,55 +513,36 @@ while ($r = $query->fetch_object()) {
                                                             <input id="seguro" type="hidden" name="seguro">
                                                             <input id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
                                                             <input type="hidden" id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">
-
-
-
                                                         </form>
                                                         <div class="row">
                                                             <div align="center" class="col-md-3">
                                                                 </br>
-
                                                                 <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
                                                             </div>
-
                                                             <div align="center" class="col-md-3">
                                                                 </br>
-
-
                                                                 <button style="cursor: pointer;" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt="" /><br>Cancelar guia</button>
                                                             </div>
                                                             <div align="center" class="col-md-3">
                                                                 </br>
                                                                 <?php
                                                                 if (get_row('facturas_cot', 'facturada', 'id_factura', $id_factura) == 1) {
-
                                                                 ?>
-
                                                                     <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class="btn form-control"> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
                                                                 <?php
-
                                                                 } else {
-
-
                                                                 ?>
-
                                                                     <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
                                                                 <?php
-
                                                                 }
                                                                 ?>
                                                             </div>
-
                                                         </div>
                                                         <div style="margin-top: 10px" id="factura_conguia" class="row">
-
                                                         </div>
-
                                                     <?php
-
                                                     }
                                                 } else {
-
                                                     $url = get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura);
                                                     $traking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura);
                                                     ?>
@@ -662,8 +560,6 @@ while ($r = $query->fetch_object()) {
                                                         <input type="hidden" name="servi_impuesto" id="servi_impuesto">
                                                         <input type="hidden" name="servi_otros" id="servi_otros">
                                                         <input type="hidden" name="origen_texto" id="origen_texto">
-
-
                                                         <input type="hidden" id="nombredestino" name="nombredestino" class="form-control" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                         <input type="hidden" id="identificacion" name="identificacion" value="">
                                                         <input type="hidden" id="provinica" name="provinica" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
@@ -677,63 +573,43 @@ while ($r = $query->fetch_object()) {
                                                         <input id="seguro" type="hidden" name="seguro">
                                                         <input id="valorasegurado" type="hidden" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
                                                         <input type="hidden" id="observacion" name="observacion" class="form-control" value="<?php echo $observacion; ?>">
-
-
-
                                                     </form>
                                                     <div class="row">
                                                         <div align="center" class="col-md-3">
                                                             </br>
-
                                                             <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
                                                         </div>
                                                         <div align="center" class="col-md-3">
                                                             </br>
-
                                                             <button> <a style="cursor: pointer;" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/5.png" alt="" /><br>Ver estado</a></button>
                                                         </div>
                                                         <div align="center" class="col-md-3">
                                                             </br>
-
-
                                                             <button style="cursor: pointer;" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')" type="button" href="<?php echo $traking; ?>" target="blank" class=""> <img width="80%" src="../../img_sistema/cancelar.jpeg" alt="" /><br>Cancelar guia</button>
                                                         </div>
                                                         <div align="center" class="col-md-3">
                                                             </br>
-
-
                                                             <?php
                                                             if (get_row('facturas_cot', 'facturada', 'id_factura', $id_factura) == 1) {
-
                                                             ?>
-
                                                                 <a style="cursor: pointer;" href="bitacora_ventas.php" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Ver facturas</a>
                                                             <?php
                                                             } else {
-
                                                             ?>
-
                                                                 <button style="cursor: pointer;" onclick="agregar_datos_factura1()" type="button" href="#" target="blank" class=""> <img width="80%" src="../../img_sistema/fac.jpg" alt="" /><br>Facturar</button>
                                                             <?php
-
                                                             }
                                                             ?>
                                                         </div>
-
                                                     </div>
-
-
                                                     <div style="margin-top: 10px" id="factura_conguia" class="row">
-
                                                     </div>
-
                                                 <?php
                                                 }
                                             } else {
                                                 ?>
                                                 <div class="card-box">
                                                     <div class="widget-chart">
-
                                                         <H5><strong>DATOS PARA LA GUIA</strong></H5>
                                                         <form role="form" id="datos_pedido">
                                                             <input type="hidden" id="transp" name="transp">
@@ -750,20 +626,17 @@ while ($r = $query->fetch_object()) {
                                                             <input type="hidden" name="servi_otros" id="servi_otros">
                                                             <input type="hidden" name="origen_texto" id="origen_texto">
                                                             <input type="hidden" name="id_pedido_cot" id="id_pedido_cot">
-
                                                             <?php if ($_SERVER['HTTP_HOST'] == 'localhost') {
                                                                 $destino = new mysqli('localhost', 'root', '', 'master');
                                                             } else {
                                                                 $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
                                                             }
-
                                                             if ($drogshipin == 1) {
                                                                 $url_subdominio = $tienda;
                                                             } else {
                                                                 $url_subdominio = $_SERVER['HTTP_HOST'];
                                                                 $url_subdominio = 'https://imporshop.imporsuit.com';
                                                             }
-
                                                             //echo 'ads'.$url_subdominio;
                                                             @$full = get_row_destino($destino, 'plataformas', 'full_f', 'url_imporsuit', $url_subdominio);
                                                             //if()
@@ -774,52 +647,56 @@ while ($r = $query->fetch_object()) {
                                                             if ($full == 1) {
                                                             ?>
                                                                 <div class="row">
-
                                                                     <div class="col-md-6">
-
-
                                                                         <select onchange="tipo_transportadora()" class="datos form-control" id="transportadora" name="transportadora" hidden required>
                                                                             <option value="">Seleccione transportadora</option>
                                                                             <option value="1" selected>Transportadoa Laar</option>
                                                                             <option value="2">Speed</option>
-
-
                                                                         </select>
-
                                                                     </div>
-
                                                                 </div>
                                                             <?php
-
                                                             } else {
                                                             ?>
                                                                 <input type="hidden" id="transportadora" name="transportadora" value="1">
                                                             <?php
                                                             }
                                                             ?>
-
                                                             <div class="row">
-
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Nombre Destinatario </span>
                                                                     <input id="nombredestino" name="nombredestino" class="form-control formulario" value="<?php echo $nombredestino; ?>">
-
                                                                 </div>
-
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Cedula </span>
                                                                     <input id="identificacion" name="identificacion" class="form-control formulario" placeholder="Ingrese Identificacion" value="">
-
                                                                 </div>
-
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Teléfono </span>
                                                                     <input id="telefono" name="telefono" class="form-control formulario" value="<?php echo $telefono; ?>">
-
                                                                 </div>
-
                                                             </div>
                                                             <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div id="div_ciudad_local">
+                                                                        <span class="help-block">Provincia </span>
+                                                                        <select onchange="cargar_provincia_pedido()" class="datos form-control formulario" id="provinica" name="provinica" required>
+                                                                            <option value="">Provincia *</option>
+                                                                            <?php
+                                                                            $sql2 = "select * from provincia_laar where id_pais = $pais";
+                                                                            $query2 = mysqli_query($conexion, $sql2);
+                                                                            while ($row2 = mysqli_fetch_array($query2)) {
+                                                                                $id_prov = $row2['id_prov'];
+                                                                                $provincia = $row2['provincia'];
+                                                                                $cod_provincia = $row2['codigo_provincia'];
+                                                                                $valor_seleccionado = $provinciadestino;
+                                                                                $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
+                                                                                echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
+                                                                            }
+                                                                            ?>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Ciudad </span>
                                                                     <div id="div_ciudad">
@@ -829,7 +706,6 @@ while ($r = $query->fetch_object()) {
                                                                             $sql2 = "SELECT * FROM `ciudad_cotizacion` ";
                                                                             //echo $sql2;
                                                                             $query2 = mysqli_query($conexion, $sql2);
-
                                                                             $rowcount = mysqli_num_rows($query2);
                                                                             //echo $rowcount;
                                                                             $i = 1;
@@ -839,42 +715,14 @@ while ($r = $query->fetch_object()) {
                                                                                 $cod_ciudad      = $row2['id_cotizacion'];
                                                                                 $valor_seleccionado = $ciudaddestino;
                                                                                 $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
-
                                                                                 // Imprimir la opción con la marca de "selected" si es el valor almacenado
                                                                                 echo '<option value="' . $cod_ciudad . '" ' . $selected . '>' . $nombre . '</option>';
-
                                                                             ?>
-
                                                                             <?php } ?>
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <div id="div_ciudad_local">
 
-
-                                                                        <span class="help-block">Provincia </span>
-                                                                        <select onchange="" class="datos form-control formulario" id="provinica" name="provinica" required>
-                                                                            <option value="">Provincia *</option>
-                                                                            <?php
-                                                                            $sql2 = "select * from provincia_laar where id_pais = $pais";
-                                                                            $query2 = mysqli_query($conexion, $sql2);
-
-                                                                            while ($row2 = mysqli_fetch_array($query2)) {
-                                                                                $id_prov = $row2['id_prov'];
-                                                                                $provincia = $row2['provincia'];
-                                                                                $cod_provincia = $row2['codigo_provincia'];
-
-                                                                                $valor_seleccionado = $provinciadestino;
-
-                                                                                $selected = ($valor_seleccionado == $cod_provincia) ? 'selected' : '';
-
-                                                                                echo '<option value="' . $cod_provincia . '" ' . $selected . '>' . $provincia . '</option>';
-                                                                            }
-                                                                            ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
                                                                 <div class="col-md-4">
                                                                     <span class="help-block">Dirección </span>
                                                                     <input id="direccion_destino" name="direccion_destino" class="form-control formulario" value="<?php echo $direccion; ?>">
@@ -967,7 +815,6 @@ while ($r = $query->fetch_object()) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                         <div class="row justify-content-center items-center mt-3 text-center">
                                                             <?php
@@ -983,9 +830,7 @@ while ($r = $query->fetch_object()) {
                                                             <?php
                                                             }
                                                             ?>
-
                                                         </div>
-
                                                         </form>
                                                     </div>
                                                 </div>
@@ -1013,25 +858,15 @@ while ($r = $query->fetch_object()) {
 <?php
                 }
 ?>
-
 </div>
-
 </div>
-
 <?php require 'includes/pie.php'; ?>
-
 </div>
-
-
 </div>
-
-
 <?php require 'includes/footer_start.php'
 ?>
-
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/editar_cotizacion_3.js"></script>
-
 <script>
     $(function() {
         $("#nombre_cliente").autocomplete({
@@ -1046,7 +881,6 @@ while ($r = $query->fetch_object()) {
             }
         });
     });
-
     $("#nombre_cliente").on("keydown", function(event) {
         if (event.keyCode == $.ui.keyCode.LEFT || event.keyCode == $.ui.keyCode.RIGHT || event.keyCode == $.ui.keyCode.UP || event.keyCode == $.ui.keyCode.DOWN || event.keyCode == $.ui.keyCode.DELETE || event.keyCode == $.ui.keyCode.BACKSPACE) {
             $("#id_cliente").val("");
@@ -1068,16 +902,12 @@ while ($r = $query->fetch_object()) {
             allowClear: true,
         });
     });
-
     $(document).ready(function() {
         $("#ciudad_entrega").select2({
             placeholder: "Selecciona una opción",
             allowClear: true,
         });
     });
-
-
-
     $(function() {
         $("#nombre_cliente").autocomplete({
             source: "../ajax/autocomplete/clientes.php",
@@ -1092,7 +922,6 @@ while ($r = $query->fetch_object()) {
             }
         });
     });
-
     $("#nombre_cliente").on("keydown", function(event) {
         if (event.keyCode == $.ui.keyCode.LEFT || event.keyCode == $.ui.keyCode.RIGHT || event.keyCode == $.ui.keyCode.UP || event.keyCode == $.ui.keyCode.DOWN || event.keyCode == $.ui.keyCode.DELETE || event.keyCode == $.ui.keyCode.BACKSPACE) {
             $("#id_cliente").val("");
@@ -1122,7 +951,6 @@ while ($r = $query->fetch_object()) {
             $('#valorasegurado').removeAttr('disabled', 'disabled');
             $('#seguro').removeAttr('disabled', 'disabled');
         }
-
         $.ajax({
             url: "../ajax/cargar_ciudad_transportadora.php", // Url to which the request is send
             type: "POST", // Type of request to be send, called as method
@@ -1139,8 +967,7 @@ while ($r = $query->fetch_object()) {
     }
 
     function cargar_provincia_pedido() {
-
-        var id_provincia = $('#provinica').val();
+        var id_provincia = $('#provinica option:selected').text();
         //alert($('#provinica').val())
         //var data = new FormData(formulario);
         $.ajax({
@@ -1200,7 +1027,6 @@ while ($r = $query->fetch_object()) {
                     mywindow.print();
                     mywindow.close();
                 }
-
             });
         }
     }
@@ -1227,7 +1053,6 @@ while ($r = $query->fetch_object()) {
                     mywindow.print();
                     mywindow.close();
                 } // /success function
-
             }); // /ajax function to fetch the printable order
         } // /if orderId
     } // /print order function
@@ -1258,7 +1083,6 @@ while ($r = $query->fetch_object()) {
     }
 
     function agregar_datos_factura1() {
-
         //alert()
         id_pedido = $("#pedido_facturar").val();
         $.ajax({
@@ -1273,7 +1097,6 @@ while ($r = $query->fetch_object()) {
                 getval(1)
                 //$("#load_img")
             } // /success function
-
         }); // /ajax function to fetch the printable order
     }
 
@@ -1281,7 +1104,6 @@ while ($r = $query->fetch_object()) {
         // alert(sel);
         $.Notification.notify('success', 'bottom center', 'NOTIFICACIÓN', 'CAMBIO DE COMPROBANTE')
         $("#outer_comprobante").load("../ajax/carga_correlativos.php?id_comp=" + sel);
-
     }
     $(document).ready(function() {
         $(".UpperCase").on("keypress", function() {
@@ -1305,7 +1127,6 @@ while ($r = $query->fetch_object()) {
     function seleccionar_transportadora(id) {
         $('.card').css('border', 'none');
         $('.interactive-image').css('filter', 'grayscale(100%)');
-
         $('#card' + id).css('border', '2px solid #154289');
         $('#tr' + id).css('filter', 'none');
         $('#transp').val(id);
@@ -1329,7 +1150,6 @@ while ($r = $query->fetch_object()) {
         calcular_servi(id_provincia, recaudo);
         calcular_guia(recaudo);
         // calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);S
-
         /*  $.ajax({
              url: "../ajax/cargar_provincia_pedido.php",
              type: "POST",
@@ -1343,7 +1163,6 @@ while ($r = $query->fetch_object()) {
                      selected: true
                  });
                  let precio_total = $('#precio_total').val();
-
              }
          }) */
     }
@@ -1357,7 +1176,6 @@ while ($r = $query->fetch_object()) {
         let ciudadOrigen = ""
         let tienda = window.location.search.split("=")[1];
         id_provincia = $('#ciudad_entrega').val();
-
         $.ajax({
             url: "../ajax/obtener_dato_envio_servi_t.php",
             type: "POST",
@@ -1376,7 +1194,6 @@ while ($r = $query->fetch_object()) {
                         ciudad: id_provincia,
                     },
                     success: function(data) {
-
                         let datos_envio = JSON.parse(data);
                         ciudadOrigen = datos_envio["ciudad"];
                         $('#nombre_remitente').val(datos_envio["nombre_remitente"]);
@@ -1399,9 +1216,7 @@ while ($r = $query->fetch_object()) {
                             success: function(data) {
                                 let parser = new DOMParser();
                                 let xmlDoc = parser.parseFromString(data, "text/xml");
-
                                 let resultString = xmlDoc.getElementsByTagName("Result")[0].childNodes[0].nodeValue;
-
                                 let resultDoc = parser.parseFromString(resultString, "text/xml");
 
                                 function getNumericValueFromTag(tagName) {
@@ -1417,7 +1232,6 @@ while ($r = $query->fetch_object()) {
                                 let valorComision = getNumericValueFromTag("valor_comision");
                                 let otros = getNumericValueFromTag("otros");
                                 let impuesto = getNumericValueFromTag("impuesto");
-
                                 $('#servi_impuesto').val(impuesto);
                                 $('#servi_otros').val(otros);
                                 $('#servi_seguro').val(seguro);
@@ -1468,7 +1282,6 @@ while ($r = $query->fetch_object()) {
                                                 total_servi = precio;
                                             }
                                             $('#precio_servientrega').text(`$${parseFloat(total_servi).toFixed(2)}`);
-
                                         }
                                     })
                                 } else {
@@ -1483,7 +1296,6 @@ while ($r = $query->fetch_object()) {
     }
 
     function calcular_guia(recaudo) {
-
         let precio_total = $('#valor_total_').val();
         let provinica = $('#provinica').val();
         let ciudad_entrega = $('#ciudad_entrega').val();
@@ -1545,7 +1357,6 @@ while ($r = $query->fetch_object()) {
                     $('#aplica').text(`$6.50`);
                 } else {
                     $('#aplica').text(`NO APLICA`);
-
                 }
             })
         $('#generar_guia_btn').removeAttr('disabled');
@@ -1553,7 +1364,6 @@ while ($r = $query->fetch_object()) {
     }
 
     function calcular_guia_1(recaudo) {
-
         let precio_total = $('#valor_total_').val();
         let provinica = $('#provinica').val();
         let ciudad_entrega = $('#ciudad_entrega').val();
@@ -1593,17 +1403,34 @@ while ($r = $query->fetch_object()) {
                     precio_speed = precio_speed.replace('$', '');
                     let total_speed = parseFloat(precio_speed) + 1;
                     $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "PIFO") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "SANGOLQUI") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "SAN RAFAEL") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
+                } else if ($('#ciudad_entrega option:selected').text() == "CONOCOTO") {
+                    let precio_speed = $("#precio_laar").text();
+                    precio_speed = precio_speed.replace('$', '');
+                    let total_speed = parseFloat(precio_speed) + 1;
+                    $('#aplica').text(`$6.50`);
                 } else {
                     $('#aplica').text(`NO APLICA`);
-
                 }
             })
         $('#generar_guia_btn').removeAttr('disabled');
-
     }
 
     function calcular_guia_2() {
-
         nombre_destino = $('#nombredestino').val(); //CIERRA LA MODAL
         ciudad = $('#ciudad_entrega').val();;
         //alert(ciudad);
@@ -1648,21 +1475,16 @@ while ($r = $query->fetch_object()) {
                 dataType: 'text',
                 success: function(response) {
                     //alert(response)
-
                     $('#valor_envio').html(response);
                 } // /success function
-
             }); // /ajax function to fetch the printable order
         } // /if orderId
     }
-
     //promesa en 3s 
-
     setTimeout(() => {
         calcular_guia_1(1);
         calcular_servi(1, 1);
         //calcular_gintra($("#ciudad_entrega option:selected").text(), 1);
-
     }, 1000);
 
     function calcular_gintra(id_ciudad, recaudo) {
@@ -1682,21 +1504,16 @@ while ($r = $query->fetch_object()) {
                 } else {
                     //de texto a numero
                     precio = parseFloat(precio);
-
-                    console.log(precio);
                     if (recaudo == 1) {
                         precio = ($('#valor_total_').val() * 0.03) + precio;
                         $('#precio_gintra').text(`$${precio}`);
                     } else {
                         $('#precio_gintra').text(`$${precio}`);
-
                     }
                 }
             }
         })
-
     }
 </script>
-
 <?php require 'includes/footer_end.php'
 ?>
