@@ -39,110 +39,128 @@ permisos($modulo, $cadena_permisos);
           Agregar Dirección
           <button class="btn btn-danger" onclick="colocarMarcadorUbicacionActual()">Usar ubicación actual</button>
 
-							</h3>
-<?php if ($permisos_ver == 1) {
-    ?>
-                             <div class="row">
-                            <div class="col-md-3">
-                                <form id="formularioDatos" method="post" action="../ajax/guardar_bodega.php">
-       
-				<div class="form-group row">
-										<div class="col-md-12">
-                                                                                    <?php if ($rol == 1) {
-                                                                                        
-                                                                                    
-    ?>
-                                                                                    <select  class='form-control' name='empresa' id='empresa' required>
-												<option value="">-- Selecciona cliente--</option>
-												<?php
-
-    $query_categoria = mysqli_query($conexion, "select * from users where cargo_users=4 order by apellido_users;");
-    while ($rw = mysqli_fetch_array($query_categoria)) {
+        </h3>
+        <?php if ($permisos_ver == 1) {
         ?>
-													<option value="<?php echo $rw['id_users']; ?>"><?php echo $rw['apellido_users']; ?></option>
-													<?php
-}
-    ?>
-											</select>
-                                                                                                                                   <?php
-                                                                                        
-                                                                                    }else{
-    ?>
-                                                                                    <input id="empresa" name="empresa" class="form-control " type="hidden" value="<?php echo $user_id; ?>">
-                                 <?php
-                                                                                        
-                                                                                    }
-    ?>
-											<br>
-                                                                                        <input id="nombre" name="nombre" class="form-control " type="text" placeholder="Nombre de la destinatario" required>
-                                                                                            <br>
-                                                                                             <input id="direccion" name="direccion" class="form-control " type="text" placeholder="Ingresa una dirección">
-                                                                                            <br>
-                                                                                           
-                                                                                           
-                                                                                            <select onchange="cambio_provincia()" class='form-control' name='provincia' id='provincia' required>
-												<option value="">-- Selecciona Provincia--</option>
-												<?php
+          <div class="row">
+            <div class="col-md-3">
+              <form id="formularioDatos" method="post" action="../ajax/guardar_bodega.php">
 
-    $query_categoria = mysqli_query($conexion, "select distinct provincia, codigo_provincia from localidad order by codigo_parroquia;");
-    while ($rw = mysqli_fetch_array($query_categoria)) {
-        ?>
-													<option value="<?php echo $rw['codigo_provincia']; ?>"><?php echo $rw['provincia']; ?></option>
-													<?php
-}
-    ?>
-											</select>
-                                                                                          <br> 
-                                                                                          <div id="div_canton">
-                                                                                              <select   class='form-control' name='canton' id='canton' required>
-												<option value="">-- Selecciona Cantón--</option>
-												
-											</select>   
-                                                                                            </div>
-                                                                                          <br> 
-                                                                                          <div id="div_parroquia">
-                                                                                              <select   class='form-control' name='parroquia' id='parroquia' required>
-												<option value="">-- Selecciona Parroquia--</option>
-												
-											</select>   
-                                                                                            </div>
-                                                                                             <br> 
-                                                                                            <input readonly id="direccion_completa" name="direccion_completa" class="form-control" type="text" placeholder="Ingresa una dirección">
-                                                                                           
-                                                                                            <br> 
-                                                                                             <input readonly id="nombre_contacto" name="nombre_contacto" class="form-control " type="text" placeholder="Ingrese Contacto">
-                                                                                             <br> 
-                                                                                             <input readonly id="telefono" name="telefono" class="form-control " type="text" placeholder="Telefono de contacto">
-                                                                                            <br> 
-                                                                                            <input readonly id="numero_casa" name="numero_casa" class="form-control " type="text" placeholder="Numeracion">
-                                                                                              <br>
-                                                                                              <input readonly id="referencia" name="referencia" class="form-control " type="text" placeholder="Ingrese referencia"> 
-                                                                                            <div class="input-group">
-                                                                                            
-													<?php
-                                                                                                        //echo '<h2>'. get_row('edificio', 'nombre', 'id_edificio', $id_edificio).'</h2>';
-                                                                                                        ?>
-												</div>
-                                                                                    	</div>
-                                    </div>
-                                   <div class="form-group row">
-										<div class="col-md-12">
-											<div class="input-group">
-                                                                                           
-                                                                                            <input readonly id="latitud" name="latitud" class="form-control" type="text" placeholder="Latitud">
-                                                                                            <input readonly id="longitud" name="longitud" class="form-control" type="text" placeholder="Longitud">   
-                                                                                    </div>
-                                                                                    </div>
-                                       </div>
-                                                                                   <div class="form-group row">
-										<div class="col-md-12">
-											<div class="input-group">
-                                                                                      
-                                                                                               
-                                                                                    </div>
-											</div>
-											
-											
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <?php if ($rol == 1) {
+
+
+                    ?>
+                      <select class='form-control' name='empresa' id='empresa' required>
+                        <option value="">-- Selecciona cliente--</option>
+                        <?php
+
+                        $query_categoria = mysqli_query($conexion, "select * from users where cargo_users=4 order by apellido_users;");
+                        while ($rw = mysqli_fetch_array($query_categoria)) {
+                        ?>
+                          <option value="<?php echo $rw['id_users']; ?>"><?php echo $rw['apellido_users']; ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    <?php
+
+                    } else {
+                    ?>
+                      <input id="empresa" name="empresa" class="form-control " type="hidden" value="<?php echo $user_id; ?>">
+                    <?php
+
+                    }
+                    ?>
+                    <br>
+                    <input id="nombre" name="nombre" class="form-control " type="text" placeholder="Nombre de la Bodega" required>
+                    <br>
+                    <input id="direccion" name="direccion" class="form-control " type="text" placeholder="Ingresa una dirección">
+                    <br>
+
+
+                    <div>
+                      <span class="help-block">Provincia </span>
+                      <select class="datos form-control " onchange="cargar_provincia_pedido()" id="provinica" name="provinica" required>
+                        <option value="">Provincia *</option>
+                        <?php
+                        $sql2 = "select * from provincia_laar where id_pais = $pais";
+
+                        $query2 = mysqli_query($conexion, $sql2);
+                        while ($row2 = mysqli_fetch_array($query2)) {
+
+                          $id_prov = $row2['id_prov'];
+
+                          $provincia = $row2['provincia'];
+                          $cod_provincia = $row2['codigo_provincia'];
+
+                          // Imprimir la opción con la marca de "selected" si es el valor almacenado
+                          echo '<option value="' . $cod_provincia . '">' . $provincia . '</option>';
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <br>
+                    <div>
+                      <span class="help-block">Ciudad </span>
+                      <div id="div_ciudad" onclick="verify()">
+                        <select class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required disabled>
+                          <option value="">Ciudad *</option>
+                          <?php
+                          $sql2 = "select * from ciudad_cotizacion where id_pais='$pais' ";
+                          $query2 = mysqli_query($conexion, $sql2);
+                          $rowcount = mysqli_num_rows($query2);
+                          $i = 1;
+                          while ($row2 = mysqli_fetch_array($query2)) {
+                            $id_ciudad = $row2['id_cotizacion'];
+                            $nombre = $row2['ciudad'];
+                            $cod_ciudad = $row2['codigo_ciudad_laar'];
+                            $valor_seleccionado = $ciudaddestino;
+                            $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
+                            echo '<option value="' . $cod_ciudad . '>' . $nombre . '</option>';
+                          ?>
+                          <?php } ?>
+                        </select>
+                      </div>
+                    </div>
+                    <br>
+                    <input readonly id="direccion_completa" name="direccion_completa" class="form-control" type="text" placeholder="Ingresa una dirección">
+
+                    <br>
+                    <input id="nombre_contacto" name="nombre_contacto" class="form-control " type="text" placeholder="Ingrese Contacto">
+                    <br>
+                    <input id="telefono" name="telefono" class="form-control " type="text" placeholder="Telefono de contacto">
+                    <br>
+                    <input id="numero_casa" name="numero_casa" class="form-control " type="text" placeholder="Numero de Casa">
+                    <br>
+                    <input id="referencia" name="referencia" class="form-control " type="text" placeholder="Ingrese referencia">
+                    <div class="input-group">
+
+                      <?php
+                      //echo '<h2>'. get_row('edificio', 'nombre', 'id_edificio', $id_edificio).'</h2>';
+                      ?>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <div class="input-group">
+
+                      <input readonly id="latitud" name="latitud" class="form-control" type="text" placeholder="Latitud">
+                      <input readonly id="longitud" name="longitud" class="form-control" type="text" placeholder="Longitud">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <div class="input-group">
+
+
+                    </div>
+                  </div>
+
+
 
                 </div>
                 <input class="btn btn-primary" type="submit" value="Guardar">

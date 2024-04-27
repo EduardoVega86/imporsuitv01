@@ -26,7 +26,7 @@ if ($action == 'ajax') {
     $aColumns     = array('nombre'); //Columnas de busqueda
     $sTable       = "bodega";
     $sWhere       = "where id_empresa=$user_id";
-   
+
     if ($_GET['q'] != "") {
         $sWhere = "and (";
         for ($i = 0; $i < count($aColumns); $i++) {
@@ -34,7 +34,6 @@ if ($action == 'ajax') {
         }
         $sWhere = substr_replace($sWhere, "", -3);
         $sWhere .= ')';
-
     }
 
     $sWhere .= " order by nombre asc";
@@ -58,100 +57,126 @@ if ($action == 'ajax') {
     //loop through fetched data
     if ($numrows > 0) {
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
-        ?>
+?>
         <div class="table-responsive">
-          <table class="table table-sm table-striped">
-            <tr  class="info">
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Direccion</th>
-                <th>Localidad</th>
-                 <th>Responsable</th>
-                 <th>Telefono</th>
-                 
-               
-                             
-                <th class='text-right'>Acciones</th>
+            <table class="table table-sm table-striped">
+                <tr class="info">
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Localidad</th>
+                    <th>Responsable</th>
+                    <th>Telefono</th>
 
-            </tr>
-            <?php
-while ($row = mysqli_fetch_array($query)) {
-            $id          = $row['id'];
-            $nombre      = $row['nombre'];
-            $direccion      = $row['direccion'];
-            $localidad = $row['localidad'];
-            $responsable      = $row['responsable'];
-            $contacto      = $row['contacto'];
-            
-           
-            //$id_imp_producto      = $row['id_imp_producto'];
-           /* if ($status_producto == 1) {
+
+
+                    <th class='text-right'>Acciones</th>
+
+                </tr>
+                <?php
+                while ($row = mysqli_fetch_array($query)) {
+                    $id          = $row['id'];
+                    $nombre      = $row['nombre'];
+                    $direccion      = $row['direccion'];
+                    $localidad = $row['localidad'];
+                    $responsable      = $row['responsable'];
+                    $contacto      = $row['contacto'];
+
+
+                    //$id_imp_producto      = $row['id_imp_producto'];
+                    /* if ($status_producto == 1) {
                 $estado = "<span class='badge badge-success'>Activo</span>";
             } else {
                 $estado = "<span class='badge badge-danger'>Inactivo</span>";
             }*/
-            ?>
+                ?>
 
-               
-                <input type="hidden" value="<?php echo $nombre; ?>" id="nombre<?php echo $id_edificio; ?>">
-                <input type="hidden" value="<?php echo $direccion; ?>" id="direccion<?php echo $id_edificio; ?>">
-                <input type="hidden" value="<?php echo $telefono; ?>" id="telefono<?php echo $id_edificio; ?>">
-                <input type="hidden" value="<?php echo $fecha_contrato; ?>" id="fecha<?php echo $id_edificio; ?>">
-                
+
+                    <input type="hidden" value="<?php echo $nombre; ?>" id="nombre<?php echo $id_edificio; ?>">
+                    <input type="hidden" value="<?php echo $direccion; ?>" id="direccion<?php echo $id_edificio; ?>">
+                    <input type="hidden" value="<?php echo $telefono; ?>" id="telefono<?php echo $id_edificio; ?>">
+                    <input type="hidden" value="<?php echo $fecha_contrato; ?>" id="fecha<?php echo $id_edificio; ?>">
+
+                    <tr>
+                        <td><span class="badge badge-purple"><?php echo $id; ?></span></td>
+
+
+                        <td><?php echo $nombre; ?></td>
+                        <td><?php echo $direccion; ?></td>
+                        <td><?php echo $localidad; ?></td>
+                        <td><?php echo $responsable; ?></td>
+                        <td><?php echo $contacto; ?></td>
+
+                        <td>
+
+                            <div class="btn-group dropdown pull-right">
+                                <button type="button" class="btn btn-warning btn-rounded waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <?php if ($permisos_ver == 1) { ?>
+                                        <a class="dropdown-item" href="../html/editar_bodega.php?id_bodega=<?php echo $id; ?>"><i class='fa fa-edit'></i> Editar</a>
+                                    <?php }
+                                    if ($permisos_editar == 1) { ?>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id; ?>"><i class='fa fa-trash'></i> Borrar</a>
+                                    <?php }
+                                    ?>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
                 <tr>
-                    <td><span class="badge badge-purple"><?php echo $id; ?></span></td>
-                   
-               
-                    <td ><?php echo $nombre; ?></td>
-                    <td ><?php echo $direccion; ?></td>
-                    <td ><?php echo $localidad; ?></td>
-                    <td ><?php echo $responsable; ?></td>
-                    <td ><?php echo $contacto; ?></td>
-                    
-                    <td >
+                    <td colspan=12><span class="pull-right">
+                            <?php
+                            echo paginate($reload, $page, $total_pages, $adjacents);
+                            ?></span></td>
+                </tr>
+            </table>
+        </div>
 
-                      <div class="btn-group dropdown pull-right">
-                        <button type="button" class="btn btn-warning btn-rounded waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                           <?php if ($permisos_ver == 1) {?>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_edificio; ?>');carga_img('<?php echo $id_edificio; ?>');"><i class='fa fa-edit'></i> Editar</a>
-                           <?php }
-            if ($permisos_editar == 1) {?>
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#stock_ad" onclick="servicio_id(<?php echo $id_edificio; ?>)" data-id="<?php echo $id_edificio; ?>"><i class='fa fa-edit'></i> Servicios</a>
-                           <!--<a class="dropdown-item" href="historial.php?id=<?php echo $id_producto; ?>"><i class='fa fa-calendar'></i> Historial</a>-->
-                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_edificio; ?>"><i class='fa fa-trash'></i> Borrar</a>
-                           
-                           <?php }
-            ?>
-
-
-                       </div>
-                   </div>
-
-               </td>
-           </tr>
-           <?php
-}
-        ?>
-       <tr>
-        <td colspan=12><span class="pull-right">
-            <?php
-echo paginate($reload, $page, $total_pages, $adjacents);
-        ?></span></td>
-        </tr>
-    </table>
-</div>
-<?php
-}
-//Este else Fue agregado de Prueba de prodria Quitar
+    <?php
+    }
+    //Este else Fue agregado de Prueba de prodria Quitar
     else {
-        ?>
-    <div class="alert alert-warning alert-dismissible" role="alert" align="center">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong>Aviso!</strong> No hay Registro de Producto
-  </div>
-  <?php
-}
-// fin else
+    ?>
+        <div class="alert alert-warning alert-dismissible" role="alert" align="center">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Aviso!</strong> No hay Registro de Producto
+        </div>
+<?php
+    }
+    // fin else
 }
 ?>
+
+<script>
+$(document).ready(function(){
+    $('#dataDelete').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Botón que activó el modal
+        var id = button.data('id'); // Extraer información de atributos data-*
+        var modal = $(this);
+        modal.find('.modal-footer #deleteButton').data('id', id); // Asignar el id al botón dentro del modal
+    });
+});
+</script>
+
+<script>
+$('#deleteButton').click(function() {
+    var id = $(this).data('id'); // Obtener el id desde el botón de eliminar dentro del modal
+    $.ajax({
+        url: '../ajax/eliminar_bodega.php', // Ruta al script PHP que procesará la eliminación
+        type: 'POST',
+        data: {id: id},
+        success: function(response) {
+            // Cerrar modal
+            $('#dataDelete').modal('hide');
+
+            // Opcional: Actualizar la vista o redirigir
+            location.reload(); // Esto recargará la página para actualizar la lista
+        }
+    });
+});
+</script>
+
