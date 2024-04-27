@@ -54,9 +54,7 @@ permisos($modulo, $cadena_permisos);
 
 <?php
 if ($permisos_editar == 1) {
-        include '../modal/registro_cliente.php';
-        include "../modal/editar_cliente.php";
-        include "../modal/eliminar_cliente.php";
+        include "../modal/eliminar_bodega.php";
     }
     ?>
 

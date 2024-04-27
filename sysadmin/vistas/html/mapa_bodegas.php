@@ -13,7 +13,7 @@ include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 //$user_id = $_SESSION['id_users'];
 get_cadena($user_id);
-$modulo = "Bodegas Empresa";
+$modulo = "Bodegas";
 permisos($modulo, $cadena_permisos);
 $sql = "SELECT * FROM bodega where id_empresa=$user_id";
 $resultado = $conexion->query($sql);
@@ -25,7 +25,7 @@ if ($resultado->num_rows > 0) {
   }
 }
 
-$conexion->close();
+
 ?>
 <?php require 'includes/header_start.php';?>
 
