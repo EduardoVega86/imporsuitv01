@@ -545,5 +545,55 @@ class LaarModel extends Query
 
     public function verificarNovedades($novedad)
     {
+        $cod_novedad = $novedad["codigoTipoNovedad"];
+        $no_guia = $novedad["noGuia"];
+        $cliente  = $novedad["para"];
+        $detalle = $novedad["nombreDetalleNovedad"];
+
+        $tracking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia= . $no_guia";
+
+        $sql  = "INSERT INTO `novedades`(`id_novedad`, `guia_novedad`, `cliente_novedad`, `estado_novedad`, `novedad`, `solucion_novedad`, `tracking`) VALUES (NULL,?,?,?,?,?,?)";
+        $datos = array($no_guia, $cliente, $cod_novedad, $detalle, $tracking);
+        $query = $this->insert($sql, $datos);
+        if ($query) {
+            echo json_encode('ok');
+            // enviar correo
+
+            $tienda_venta = $this->select("SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'");
+            $tienda_venta = $tienda_venta[0]['tienda_venta'];
+            $conexion_proveedor = $this->obtener_conexion($tienda_venta);
+
+
+            $sql_correo = "SELECT * from users where id_users='1'";
+            $sql_correo = mysqli_query($conexion_proveedor, $sql_correo);
+            $sql_correo = mysqli_fetch_array($sql_correo);
+            $correo = $sql_correo['email_users'];
+            if ($correo === "root@mail.com") {
+            } else {
+                require_once '../../PHPMailer/Mail_devolucion.php';
+                $mail = new PHPMailer();
+                $mail->isSMTP();
+                $mail->SMTPDebug = $smtp_debug;
+                $mail->Host = $smtp_host;
+                $mail->SMTPAuth = true;
+                $mail->Username = $smtp_user;
+                $mail->Password = $smtp_pass;
+                $mail->Port = 465;
+                $mail->SMTPSecure = $smtp_secure;
+                $mail->isHTML(true);
+                $mail->CharSet = 'UTF-8';
+                $mail->setFrom($smtp_from, $smtp_from_name);
+                $mail->addAddress($correo);
+                $mail->Subject = 'Novedad Pedido';
+                $mail->Body = $message_body_pedido;
+                if ($mail->send()) {
+                    //echo "Correo enviado";
+                } else {
+                    echo "Error al enviar el correo: " . $mail->ErrorInfo;
+                }
+            }
+        } else {
+            echo json_encode('error');
+        }
     }
 }
