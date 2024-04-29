@@ -108,6 +108,31 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
         overflow-y: auto;
         /* Permite desplazamiento vertical si es necesario */
     }
+
+    /* slider */
+    .carousel-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.1);
+        /* Cambia el color y la opacidad según necesites */
+        z-index: 1;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .carousel-caption {
+        z-index: 2;
+        /* Asegura que el texto está sobre la capa oscura */
+        position: relative;
+    }
 </style>
 <?php require 'includes/header_end.php'; ?>
 
@@ -286,26 +311,39 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                             </div>
                         </div>
 
-                        <div class="slider" style="width: 60%; margin-bottom:20px;">
+                        <!-- Slider infinito -->
+                        <div class="slider" style="width: 60%; margin-bottom:20px; background-color:white;">
                             <div id="miSlider" class="carousel slide" data-ride="carousel">
                                 <!-- Indicadores -->
                                 <ol class="carousel-indicators">
-                                    <li data-target="#miSlider" data-slide-to="0" class="active"></li>
-                                    <li data-target="#miSlider" data-slide-to="1"></li>
-                                    <li data-target="#miSlider" data-slide-to="2"></li>
+                                    <?php
+                                    $sql = "SELECT * FROM banner_marketplace";
+                                    $result = $conexion->query($sql);
+                                    $i = 0;
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo '<li data-target="#miSlider" data-slide-to="' . $i . '"' . ($i == 0 ? ' class="active"' : '') . '></li>';
+                                        $i++;
+                                    }
+                                    ?>
                                 </ol>
 
                                 <!-- Slides -->
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="https://png.pngtree.com/background/20230524/original/pngtree-sad-pictures-for-desktop-hd-backgrounds-picture-image_2705986.jpg" class="d-block w-100" alt="...">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://png.pngtree.com/background/20230524/original/pngtree-sad-pictures-for-desktop-hd-backgrounds-picture-image_2705986.jpg" class="d-block w-100" alt="...">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://png.pngtree.com/background/20230524/original/pngtree-sad-pictures-for-desktop-hd-backgrounds-picture-image_2705986.jpg" class="d-block w-100" alt="...">
-                                    </div>
+                                    <?php
+                                    $first = true;
+                                    $result = $conexion->query($sql); // Volver a ejecutar la consulta
+                                    while ($row = $result->fetch_assoc()) {
+                                        $alignment = ['1' => 'text-left', '2' => 'text-center', '3' => 'text-right'][$row['alineacion']] ?? 'text-center';
+                                        echo '<div class="carousel-item' . ($first ? ' active' : '') . '">';
+                                        echo '<img src="' . $row['fondo_banner'] . '" class="d-block w-100" alt="...">';
+                                        echo '<div class="carousel-caption d-none d-md-block ' . $alignment . '">';
+                                        echo '<h5>' . $row['titulo'] . '</h5>';
+                                        echo '<p>' . $row['texto_banner'] . '</p>';
+                                        echo '<a href="' . $row['enlace_boton'] . '" class="btn btn-primary">' . $row['texto_boton'] . '</a>';
+                                        echo '</div></div>';
+                                        $first = false;
+                                    }
+                                    ?>
                                 </div>
 
                                 <!-- Controles -->
@@ -319,6 +357,8 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                 </a>
                             </div>
                         </div>
+
+                        <!-- Fin de Slider infinito -->
                     </div>
                     <!-- end row -->
 

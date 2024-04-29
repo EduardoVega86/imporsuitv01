@@ -25,7 +25,7 @@ if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $aColumns = array('titulo'); //Columnas de busqueda
-    $sTable   = "banner_adicional";
+    $sTable   = "banner_marketplace";
     $sWhere   = "";
     
     $sWhere .= " order by id";
@@ -99,7 +99,7 @@ while ($row = mysqli_fetch_array($query)) {
                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarLinea" onclick="obtener_datos_banner('<?php echo $id; ?>');"><i class='fa fa-edit'></i> Editar</a>
                    <?php }
             if (($permisos_eliminar == 1)) {?>
-                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete"  onclick="eliminar('<?php echo $id; ?>',' banner_adicional', 'id');"><i class='fa fa-trash'></i> Borrar</a>
+                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete"  onclick="eliminar('<?php echo $id; ?>',' banner_marketplace', 'id');"><i class='fa fa-trash'></i> Borrar</a>
                    <?php }
             ?>
 
