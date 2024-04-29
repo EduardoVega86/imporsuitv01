@@ -343,8 +343,6 @@ $pacientes = 1;
 
             var camposAdicionales = "";
             if (tracking.includes("laar")) {
-                camposAdicionales = "<div><input type='text' class='form-control' name='campoEspecificoLaar' placeholder='Campo específico para Laar'></div>";
-            } else if (tracking.includes("servientrega")) {
                 camposAdicionales = '<div><input type="text" class="form-control" name="ciudad" disabled /> </div> ' +
                     '<div><input type="text" class="form-control" name="direccion" disabled /> </div> ' +
                     '<div><input type="text" class="form-control" name="telefono" disabled /> </div> ' +
@@ -355,6 +353,9 @@ $pacientes = 1;
                     '<div><input type="text" class="form-control" name="referencia" disabled /> </div> ' +
                     '<div><input type="text" class="form-control" name="observacion" disabled /> </div> ' +
                     '<div><input type="text" class="form-control" name="novedad" placeholder="Solución a la novedad" /> </div>';
+
+            } else if (tracking.includes("servientrega")) {
+                camposAdicionales = '<div><input type="text" class="form-control" name="observacion" placeholder="Ingrese nueva novedad"></div>'
             }
             modal.find('.modal-title').text('Novedad para la guía ' + guia);
 
