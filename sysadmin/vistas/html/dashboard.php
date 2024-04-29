@@ -18,6 +18,11 @@ permisos($modulo, $cadena_permisos);
 $title  = "Inicio";
 $Inicio = 1;
 //Archivo de funciones PHP
+// dominio mas protocolo
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+
+$dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
+
 require_once "../funciones.php";
 $usu            = $_SESSION['id_users'];
 $users_users    = get_row('users', 'usuario_users', 'id_users', $usu);
