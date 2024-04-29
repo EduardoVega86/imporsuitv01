@@ -1456,7 +1456,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (69,'CARCHI','LA PAZ',1,0,0,'TE','0','0','0','0','0','0','0','276'),
 	 (70,'CANAR','LA PUNTILLA/CANAR',1,0,0,'TR','0','0','0','0','0','0','0','502');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
-	 (71,'CANAR','LA TRONCAL',1,0,1,'TE','0','TN','0','201001005','201001005002','1024','56282','52'),
+	 (71,'CANAR','LA TRONCAL',1,1,1,'TE','TE','TN','0','201001005','201001005002','1024','56282','52'),
 	 (72,'CANAR','LAS LAJAS',0,0,0,'TE','0','0','0','0','0','0','0','0'),
 	 (73,'CANAR','LUIS CORDERO',0,0,1,'0','0','TE','0','0','0','1024','59065','0'),
 	 (74,'CANAR','MANUEL J. CALLE',0,0,1,'0','0','TE','0','0','0','1024','59066','0'),

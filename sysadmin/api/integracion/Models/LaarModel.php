@@ -544,18 +544,25 @@ class LaarModel extends Query
     }
 
     public function verificarNovedades($novedad)
+
     {
+        print_r($novedad);
+        echo "ebtre a verificar novedades";
         $cod_novedad = $novedad["codigoTipoNovedad"];
         $no_guia = $novedad["noGuia"];
         $cliente  = $novedad["para"];
         $detalle = $novedad["nombreDetalleNovedad"];
 
-        $tracking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia= . $no_guia";
+        $tienda_venta = $this->select("SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'");
+        $tienda_venta = $tienda_venta[0]['tienda_venta'];
+        $conexion_proveedor = $this->obtener_conexion($tienda_venta);
+        $tracking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . $no_guia;
 
-        $sql  = "INSERT INTO `novedades`(`id_novedad`, `guia_novedad`, `cliente_novedad`, `estado_novedad`, `novedad`, `solucion_novedad`, `tracking`) VALUES (NULL,?,?,?,?,?,?)";
-        $datos = array($no_guia, $cliente, $cod_novedad, $detalle, $tracking);
-        $query = $this->insert($sql, $datos);
-        if ($query) {
+        $sql = "INSERT INTO `novedades` (`guia_novedad`, `cliente_novedad`, `estado_novedad`, `novedad`,  `tracking`) VALUES ( ?, ?, ?, ?, ?)";
+        $stmt = $conexion_proveedor->prepare($sql);
+        $stmt->bind_param("sssss", $no_guia, $cliente, $cod_novedad, $detalle, $tracking);
+
+        if ($stmt->execute()) {
             echo json_encode('ok');
             // enviar correo
 
@@ -584,7 +591,7 @@ class LaarModel extends Query
                 $mail->CharSet = 'UTF-8';
                 $mail->setFrom($smtp_from, $smtp_from_name);
                 $mail->addAddress($correo);
-                $mail->Subject = 'Novedad Pedido';
+                $mail->Subject = 'Novedad Pedido | Laar Courier';
                 $mail->Body = $message_body_pedido;
                 if ($mail->send()) {
                     //echo "Correo enviado";

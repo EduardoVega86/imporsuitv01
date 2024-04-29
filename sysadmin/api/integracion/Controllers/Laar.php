@@ -2,7 +2,6 @@
 
 class Laar extends Controller
 {
-
     public function index()
     {
         $json = file_get_contents('php://input');
@@ -10,6 +9,11 @@ class Laar extends Controller
         print_r($json_decode['novedades']);
         if (count($json_decode['novedades']) > 0) {
             foreach ($json_decode['novedades'] as $novedad) {
+                $novedad["noGuia"] = $json_decode['noGuia'];
+                $novedad["para"] = $json_decode['para'];
+                if ($novedad['codigoTipoNovedad'] != 43) {
+                    $this->model->verificarNovedades($novedad);
+                }
                 if ($novedad['codigoTipoNovedad'] == 42 || $novedad['codigoTipoNovedad'] == 96) {
                     $estado_actual_codigo = 9;
                     break;
@@ -17,10 +21,8 @@ class Laar extends Controller
                     $estado_actual_codigo = 7;
                 }
                 if ($novedad['codigoTipoNovedad'] == 95) {
-
                     $estado_actual_codigo = 95;
                 }
-                //$this->model->verificarNovedades($novedad);
             }
         } else {
             $estado_actual_codigo = $json_decode['estadoActualCodigo'];
