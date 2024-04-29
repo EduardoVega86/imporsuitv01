@@ -129,7 +129,7 @@ if ($permisos_editar == 1) {
 			</div>
 			<!-- end content -->
 
-			<?php require 'includes/pie.php';?>
+			
 
 		</div>
 		<!-- ============================================================== -->
