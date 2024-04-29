@@ -340,7 +340,15 @@ $pacientes = 1;
 
             // Actualiza el contenido del modal.
             var modal = $(this);
+
+            var camposAdicionales = "";
+            if (tracking.includes("laar")) {
+                camposAdicionales = "<div><input type='text' class='form-control' name='campoEspecificoLaar' placeholder='Campo específico para Laar'></div>";
+            } else if (tracking.includes("servientrega")) {
+                camposAdicionales = '<div><input type="text" class="form-control" name="observacion" placeholder="Ingrese nueva novedad"></div>'
+            }
             modal.find('.modal-title').text('Novedad para la guía ' + guia);
+
             modal.find('#modalContent').html(
                 '<div class="d-flex flex-row justify-content-between">' +
                 '<div>' +
@@ -358,7 +366,7 @@ $pacientes = 1;
                 '<input type="hidden" name="guia" value="' + guia + '">' +
                 '<input type="hidden" name="transporte" value="' + button.data('transporte') + '">' +
                 '<strong>Actualizar Novedad:</strong>' +
-                '<div><input type="text" class="form-control" name="observacion" placeholder="Ingrese nueva novedad"></div>' +
+                camposAdicionales +
                 '<div><button type="submit" class="btn w-100 btn-primary mt-2">Enviar</button></div>' +
                 '</form>' +
                 '</div>' +
