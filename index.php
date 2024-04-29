@@ -582,6 +582,13 @@ if ($filaDestacados['total'] == 0) {
          </div>
       </div>
 
+      <?php
+         $sql = "SELECT * FROM testimonios";
+         $query = mysqli_query($conexion, $sql);
+         $count = mysqli_num_rows($query);
+         if ($count != 0) {
+         ?>
+
       <div class="container mt-4 testimonios">
 
          <h1 style="text-align: center">Testimonios</h1>
@@ -591,7 +598,7 @@ if ($filaDestacados['total'] == 0) {
             <div class="owl-carousel owl-theme">
                <?php
                include './auditoria.php';
-               $sql = "SELECT * FROM testimonios WHERE id_producto=-1";
+               $sql = "SELECT * FROM testimonios";
                $query = mysqli_query($conexion, $sql);
                while ($row = mysqli_fetch_array($query)) {
                   $id_testimonio = $row['id_testimonio'];
@@ -638,7 +645,8 @@ if ($filaDestacados['total'] == 0) {
          </script>
          <!-- Fin Testimonios -->
       </div>
-
+      <?php
+      } ?>
       <!-- FOOTER -->
       <!-- Botón flotante para WhatsApp -->
       <?php

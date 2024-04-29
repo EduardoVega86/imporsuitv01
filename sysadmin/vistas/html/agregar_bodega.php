@@ -288,7 +288,7 @@ permisos($modulo, $cadena_permisos);
     </div>
     <!-- end content -->
 
-    <?php require 'includes/pie.php'; ?>
+    
 
   </div>
   <!-- ============================================================== -->

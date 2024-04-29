@@ -64,7 +64,7 @@ if ($action == 'ajax') {
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Direccion</th>
-                    <th>Localidad</th>
+                    <th>Ciudad</th>
                     <th>Responsable</th>
                     <th>Telefono</th>
 
@@ -103,7 +103,10 @@ if ($action == 'ajax') {
 
                         <td><?php echo $nombre; ?></td>
                         <td><?php echo $direccion; ?></td>
-                        <td><?php echo $localidad; ?></td>
+                        <?php
+                            $ciudad = get_row('ciudad_cotizacion','ciudad','id_cotizacion',$localidad);
+                            ?>
+                        <td><?php echo $ciudad; ?></td>
                         <td><?php echo $responsable; ?></td>
                         <td><?php echo $contacto; ?></td>
 
