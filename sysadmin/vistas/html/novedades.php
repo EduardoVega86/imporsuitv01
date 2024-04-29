@@ -77,14 +77,14 @@ $pacientes = 1;
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="novedadLabel">Novedad</h5>
-                                <button type="button" class="btn-close" onclick="cerrarModal()" data-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" onclick="" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" id="boody">
                                 <!-- Aquí va el contenido que quieras mostrar en el modal -->
                                 <p id="modalContent">Aquí va la información de la tienda.</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" onclick="cerrarModal()" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-secondary" onclick="" data-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
                     </div>
@@ -328,18 +328,37 @@ $pacientes = 1;
         });
     </script>
     <script>
+        $(document).on('click', '[data-toggle="modal"]', function(event) {
+            event.stopImmediatePropagation(); // Detiene la propagación del evento
+            var button = $(this); // Botón que activó el modal
+            var modalId = button.data('target'); // El ID del modal a abrir
+
+            var modalElement = $(modalId);
+            var modalData = modalElement.data('bs.modal');
+
+            // Verifica si el modal está en transición
+            if (!modalData || !modalData._isTransitioning) {
+                modalElement.modal('show');
+            } else {
+                // Si el modal está en transición, espera un poco y luego intenta abrirlo
+                setTimeout(function() {
+                    if (!modalData._isTransitioning) {
+                        modalElement.modal('show');
+                    }
+                }, 300); // Ajusta este tiempo si es necesario
+            }
+        });
+
         $('#novedad').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); // Botón que activó el modal
-            var id = button.data('id'); // Extrae la información de los atributos de datos
+            var id = button.data('id');
             var guia = button.data('guia');
             var cliente = button.data('cliente');
             var estado = button.data('estado');
             var novedad = button.data('novedad');
             var solucion = button.data('solucion');
             var tracking = button.data('tracking');
-
-            // Actualiza el contenido del modal.
-            var modal = $(this);
+            var transporte = button.data('transporte');
 
             var camposAdicionales = "";
             if (tracking.includes("laar")) {
@@ -357,8 +376,9 @@ $pacientes = 1;
             } else if (tracking.includes("servientrega")) {
                 camposAdicionales = '<div><input type="text" class="form-control" name="observacion" placeholder="Ingrese nueva novedad"></div>'
             }
-            modal.find('.modal-title').text('Novedad para la guía ' + guia);
 
+            var modal = $(this);
+            modal.find('.modal-title').text('Novedad para la guía ' + guia);
             modal.find('#modalContent').html(
                 '<div class="d-flex flex-row justify-content-between">' +
                 '<div>' +
@@ -382,19 +402,60 @@ $pacientes = 1;
                 '</div>' +
                 '</div>'
             );
+            if (tracking.includes("fenix")) {
+                let formData = new FormData();
+                formData.append('guia', guia);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '../ajax/consultar_guia_laar.php', // Cambia esto por la URL de tu endpoint
+                    data: formData,
+                    contentType: false, // The content type used when sending data to the server.
+                    cache: false, // To unable request pages to be cached
+                    processData: false, // To send DOMDocument or non processed data file it is set to false
+                    success: function(response) {
+                        // Aquí puedes manejar la respuesta del servidor
+                        let data = JSON.parse(response);
+                        data = data.destino
+                        modal.find('#modalContent').html(
+                            '<div class="d-flex flex-row justify-content-between">' +
+                            '<div>' +
+                            '<strong>ID:</strong> ' + id +
+                            '<br><strong>Cliente:</strong> ' + cliente +
+                            '<br><strong>Estado:</strong> ' + estado +
+                            '<br><strong>Transportadora:</strong> ' + button.data('transporte') +
+                            '<br><strong>Novedad:</strong> ' + novedad +
+                            '<br><strong>Solución:</strong> ' + solucion +
+                            '<br><strong>Tracking:</strong> <a href="' + tracking + '" target="_blank">Ver tracking</a>' +
+                            '</div>' +
+                            ' <div style="border-left:1px solid #000;height:200px"></div> ' +
+                            '<div class="formulario d-flex flex-column">' +
+                            '<form id="updateNovedadForm">' +
+                            '<input type="hidden" name="guia" value="' + guia + '">' +
+                            '<input type="hidden" name="transporte" value="' + button.data('transporte') + '">' +
+                            '<strong>Actualizar Novedad:</strong>' +
+                            '<div><input type="text" class="form-control" name="ciudad" value="' + data.ciudad + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="direccion" value="' + data.c_principal + " " + data.c_secundaria + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="telefono" value="' + data.telefono + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="celular" value="' + data.celular + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="numeracion" value="' + data.numeracion + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="referencia" value="' + data.referencia + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="observacion" value="' + data.observacion + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="novedad" placeholder="Solución a la novedad" /> </div>' +
+                            '<div><button type="submit" class="btn w-100 btn-primary mt-2">Enviar</button></div>' +
+                            '</form>' +
+                            '</div>' +
+                            '</div>'
+                        );
+
+                    },
+                });
+            }
         });
-        if (tracking.includes("laar")) {
-            $.ajax({
-                type: 'POST',
-                url: '../ajax/consultar_guia_laar.php', // Cambia esto por la URL de tu endpoint
-                data: formData,
-                success: function(response) {
-                    // Aquí puedes manejar la respuesta del servidor
-                    alert('Datos enviados correctamente');
-                    $('#novedad').modal('hide'); // Cierra el modal
-                },
-            });
-        }
+
+
+
+
 
         $(document).ready(function() {
             // Manejar el envío del formulario
