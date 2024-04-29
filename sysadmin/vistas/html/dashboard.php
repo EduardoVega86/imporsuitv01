@@ -339,7 +339,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                         echo '<div class="carousel-caption d-none d-md-block ' . $alignment . '">';
                                         echo '<h5 style="color: white;">' . $row['titulo'] . '</h5>';
                                         echo '<p style="color: white;">' . $row['texto_banner'] . '</p>';
-                                        echo '<a style="color: white; background-color: #171931;" href="' . $row['enlace_boton'] . '" class="btn btn-primary">' . $row['texto_boton'] . '</a>';
+                                        echo '<a style="color: white; background-color: #171931; border-color: #171931;" href="' . $row['enlace_boton'] . '" class="btn btn-primary">' . $row['texto_boton'] . '</a>';
                                         echo '</div></div>';
                                         $first = false;
                                     }
