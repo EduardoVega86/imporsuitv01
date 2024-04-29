@@ -2116,7 +2116,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (669,'SANTO DOMINGO','RÍO TOACHI ',0,0,1,'0','0','TE','0','0','0','4126','59163','0'),
 	 (670,'SANTO DOMINGO','SAN JACINTO DEL BUA',1,0,0,'TE','0','0','0','0','0','0','0','745');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
-	 (671,'SANTO DOMINGO','SANTO DOMINGO',1,1,1,'TE','TE','TN','0','0','0','4126','56434','11'),
+	 (671,'SANTO DOMINGO','SANTO DOMINGO',1,1,1,'TE','TE','TN','0','201001024','201001001004','4126','56434','11'),
 	 (672,'SANTO DOMINGO','VALLE HERMOSO',1,1,0,'TE','TE','0','0','0','0','0','0','665'),
 	 (673,'SANTO DOMINGO','VILLEGAS',0,1,0,'0','TE','0','0','0','0','0','0','0'),
 	 (674,'SUCUMBIOS','7 DE JULIO',1,0,1,'TE','0','TE','0','0','0','1041','58022','666'),
