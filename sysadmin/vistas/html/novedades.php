@@ -345,7 +345,16 @@ $pacientes = 1;
             if (tracking.includes("laar")) {
                 camposAdicionales = "<div><input type='text' class='form-control' name='campoEspecificoLaar' placeholder='Campo específico para Laar'></div>";
             } else if (tracking.includes("servientrega")) {
-                camposAdicionales = '<div><input type="text" class="form-control" name="observacion" placeholder="Ingrese nueva novedad"></div>'
+                camposAdicionales = '<div><input type="text" class="form-control" name="ciudad" disabled /> </div> ' +
+                    '<div><input type="text" class="form-control" name="direccion" disabled /> </div> ' +
+                    '<div><input type="text" class="form-control" name="telefono" disabled /> </div> ' +
+                    '<div><input type="text" class="form-control" name="celular" disabled /> </div> ' +
+                    '<div><input type="text" class="form-control" name="c_principal" disabled /> </div> ' +
+                    '<div><input type="text" class="form-control" name="c_secundaria" disabled /> </div> ' +
+                    '<div><input type="text" class="form-control" name="numeracion" disabled /> </div> ' +
+                    '<div><input type="text" class="form-control" name="referencia" disabled /> </div> ' +
+                    '<div><input type="text" class="form-control" name="observacion" disabled /> </div> ' +
+                    '<div><input type="text" class="form-control" name="novedad" placeholder="Solución a la novedad" /> </div>';
             }
             modal.find('.modal-title').text('Novedad para la guía ' + guia);
 
@@ -373,6 +382,18 @@ $pacientes = 1;
                 '</div>'
             );
         });
+        if (tracking.includes("laar")) {
+            $.ajax({
+                type: 'POST',
+                url: '../ajax/consultar_guia_laar.php', // Cambia esto por la URL de tu endpoint
+                data: formData,
+                success: function(response) {
+                    // Aquí puedes manejar la respuesta del servidor
+                    alert('Datos enviados correctamente');
+                    $('#novedad').modal('hide'); // Cierra el modal
+                },
+            });
+        }
 
         $(document).ready(function() {
             // Manejar el envío del formulario

@@ -23,6 +23,8 @@ $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' 
 
 $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
 
+$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+
 require_once "../funciones.php";
 $usu            = $_SESSION['id_users'];
 $users_users    = get_row('users', 'usuario_users', 'id_users', $usu);
@@ -36,6 +38,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
 <style>
     .card-box {
         border-radius: 0.5rem !important;
@@ -136,11 +139,11 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             <i class="ti-receipt text-success"></i>
                                         </div>
                                         <div class="text-right">
-                                        <?php 
-                                        $query = mysqli_query($conexion, "SELECT COUNT(*) as count FROM facturas_cot");
-                                        $rw = mysqli_fetch_array($query);
-                                        $total_ventas = $rw['count'];
-                                        ?>
+                                            <?php
+                                            $query = mysqli_query($conexion, "SELECT COUNT(*) as count FROM facturas_cot");
+                                            $rw = mysqli_fetch_array($query);
+                                            $total_ventas = $rw['count'];
+                                            ?>
                                             <h5 class="text-dark text-center"><b id="total_pedido_filtro" class="counter text-success"><?php echo $total_ventas; ?></b></h5>
                                             <p class="text-muted mb-0">Total Ventas</p>
                                         </div>
@@ -157,11 +160,11 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             <i class="bx bx-receipt text-pink"></i>
                                         </div>
                                         <div class="text-right">
-                                        <?php 
-                                        $query = mysqli_query($conexion, "SELECT COUNT(*) as count FROM guia_laar");
-                                        $rw = mysqli_fetch_array($query);
-                                        $total_guias = $rw['count'];
-                                        ?>
+                                            <?php
+                                            $query = mysqli_query($conexion, "SELECT COUNT(*) as count FROM guia_laar");
+                                            $rw = mysqli_fetch_array($query);
+                                            $total_guias = $rw['count'];
+                                            ?>
                                             <h5 class="text-dark text-center"><b class="counter text-pink"><?php echo $total_guias; ?></b></h5>
                                             <p class="text-muted mb-0">Total Guias</p>
                                         </div>
@@ -180,8 +183,8 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             <i class=" ti-wallet text-info"></i>
                                         </div>
                                         <div class="text-right">
-                                        <?php 
-                                        $query = mysqli_query($conexion, "SELECT 
+                                            <?php
+                                            $query = mysqli_query($conexion_marketplace, "SELECT 
                                         SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
                                         SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
                                         SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
@@ -192,16 +195,17 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             MAX(total_venta) AS total_venta, 
                                             MAX(valor_pendiente) AS total_pendiente, 
                                             MAX(valor_cobrado) AS total_cobrado, 
-                                            MAX(monto_recibir) AS monto_recibir 
+                                            MAX(monto_recibir) AS monto_recibir
                                         FROM cabecera_cuenta_pagar 
                                         WHERE tienda = '$dominio_completo' 
                                             AND visto = '1'
                                         GROUP BY numero_factura
                                     ) AS subquery;");
-                                        $rw = mysqli_fetch_array($query);
-                                        $total_recaudo = $rw['total_ventas'];
-                                        ?>
-                                            <h5 class="text-dark"><b class="counter text-info"><?php echo $total_recaudo; ?></b></h5>
+                                            $rw = mysqli_fetch_array($query);
+                                            $total_recaudo = $rw['total_ventas'];
+                                            $total_recaudo_formateado = number_format($total_recaudo, 2, '.', ',');
+                                            ?>
+                                            <h5 class="text-dark"><b class="counter text-info">$ <?php echo $total_recaudo_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Total Recaudo</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -233,7 +237,31 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             <i class=" ti-back-left text-info"></i>
                                         </div>
                                         <div class="text-right">
-                                            <h5 class="text-dark"><b class="counter text-info"><?php total_ingresos(); ?></b></h5>
+                                            <?php
+                                            $query = mysqli_query($conexion_marketplace, "SELECT 
+                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
+                                             SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
+                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir,
+                                             (SELECT SUM(monto_recibir) as devolucion from cabecera_cuenta_pagar where visto =1 and estado_guia = 9 and tienda = '$dominio_completo') as devolucion
+                                             FROM (
+                                                SELECT 
+                                                numero_factura, 
+                                                MAX(total_venta) AS total_venta, 
+                                                MAX(valor_pendiente) AS total_pendiente, 
+                                                MAX(valor_cobrado) AS total_cobrado, 
+                                                MAX(monto_recibir) AS monto_recibir 
+                                                FROM cabecera_cuenta_pagar 
+                                                WHERE tienda = '$dominio_completo' 
+                                                AND visto = '1'
+                                            GROUP BY numero_factura
+                                             ) AS subquery;");
+                                            $rw = mysqli_fetch_array($query);
+                                            $total_devoluciones = $rw['devolucion'];
+                                            $total_devoluciones_formateado = number_format($total_devoluciones, 2, '.', ',');
+                                            ?>
+                                            <h5 class="text-dark"><b class="counter text-info">$ <?php echo $total_devoluciones_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Devoluciones</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -924,16 +952,29 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
         })
 
     }
-
     //dashboard ventan mensuales
+    <?php
+    $query_fecha = "SELECT fecha_factura, SUM(monto_factura) AS total_venta FROM facturas_cot WHERE fecha_factura >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) GROUP BY fecha_factura ORDER BY fecha_factura ASC";
+    $result = mysqli_query($conexion, $query_fecha);
+
+    $fechas = [];
+    $ventas = [];
+    while ($row_fecha = mysqli_fetch_assoc($result)) {
+        $fechas[] = date('j M', strtotime($row_fecha['fecha_factura'])); // Formatea la fecha como '1 Nov'
+        $ventas[] = $row_fecha['total_venta'];
+    }
+    ?>
+    var fechas = <?php echo json_encode($fechas); ?>;
+    var ventas = <?php echo json_encode($ventas); ?>;
+
     var ctx = document.getElementById('salesChart').getContext('2d');
     var salesChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['1 Nov', '8 Nov', '15 Nov', '22 Nov', '29 Nov'], // Tus etiquetas de fecha aquí
+            labels: fechas, // Tus etiquetas de fecha aquí
             datasets: [{
-                label: 'Ventas este año',
-                data: [10, 25, 20, 30, 40], // Tus datos de ventas aquí
+                label: 'Ventas este mes',
+                data: ventas, // Tus datos de ventas aquí
                 fill: true, // Habilita el sombreado debajo de la línea
                 backgroundColor: 'rgba(0, 123, 255, 0.2)', // Color de fondo con transparencia para el sombreado
                 borderColor: 'rgba(0, 123, 255, 1)',
@@ -942,19 +983,30 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false, // Asegura que el gráfico se adapte al contenedor
             scales: {
                 y: {
                     beginAtZero: true
                 }
             },
             plugins: {
-                legend: {
-                    labels: {
-                        color: 'black' // Color de texto para la leyenda
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'xy'
                     }
                 }
-            },
-            maintainAspectRatio: false // Asegura que el gráfico se adapte al contenedor
+            }
         }
     });
 </script>
