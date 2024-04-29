@@ -558,49 +558,81 @@ class LaarModel extends Query
         $conexion_proveedor = $this->obtener_conexion($tienda_venta);
         $tracking = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . $no_guia;
 
-        $sql = "INSERT INTO `novedades` (`guia_novedad`, `cliente_novedad`, `estado_novedad`, `novedad`,  `tracking`) VALUES ( ?, ?, ?, ?, ?)";
-        $stmt = $conexion_proveedor->prepare($sql);
-        $stmt->bind_param("sssss", $no_guia, $cliente, $cod_novedad, $detalle, $tracking);
+        $existe = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' ";
+        $existe = mysqli_query($conexion_proveedor, $existe);
+        $existe = mysqli_fetch_array($existe);
 
-        if ($stmt->execute()) {
-            echo json_encode('ok');
-            // enviar correo
-
-            $tienda_venta = $this->select("SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'");
-            $tienda_venta = $tienda_venta[0]['tienda_venta'];
-            $conexion_proveedor = $this->obtener_conexion($tienda_venta);
-
-
-            $sql_correo = "SELECT * from users where id_users='1'";
-            $sql_correo = mysqli_query($conexion_proveedor, $sql_correo);
-            $sql_correo = mysqli_fetch_array($sql_correo);
-            $correo = $sql_correo['email_users'];
-            if ($correo === "root@mail.com") {
+        if ($existe) {
+            $sql = "UPDATE novedades SET estado_novedad = ?, novedad = ?, tracking = ? WHERE guia_novedad = ?";
+            $stmt = $conexion_proveedor->prepare($sql);
+            $stmt->bind_param("ssss", $cod_novedad, $detalle, $tracking, $no_guia);
+            if ($stmt->execute()) {
+                echo json_encode('ok');
+                $data = array($cod_novedad, $detalle, $tracking, $no_guia);
+                $query = $this->update($sql, $data);
             } else {
-                require_once '../../PHPMailer/Mail_devolucion.php';
-                $mail = new PHPMailer();
-                $mail->isSMTP();
-                $mail->SMTPDebug = $smtp_debug;
-                $mail->Host = $smtp_host;
-                $mail->SMTPAuth = true;
-                $mail->Username = $smtp_user;
-                $mail->Password = $smtp_pass;
-                $mail->Port = 465;
-                $mail->SMTPSecure = $smtp_secure;
-                $mail->isHTML(true);
-                $mail->CharSet = 'UTF-8';
-                $mail->setFrom($smtp_from, $smtp_from_name);
-                $mail->addAddress($correo);
-                $mail->Subject = 'Novedad Pedido | Laar Courier';
-                $mail->Body = $message_body_pedido;
-                if ($mail->send()) {
-                    //echo "Correo enviado";
-                } else {
-                    echo "Error al enviar el correo: " . $mail->ErrorInfo;
-                }
+                echo json_encode('error');
             }
         } else {
-            echo json_encode('error');
+
+            $sql = "INSERT INTO `novedades` (`guia_novedad`, `cliente_novedad`, `estado_novedad`, `novedad`,  `tracking`) VALUES ( ?, ?, ?, ?, ?)";
+            $stmt = $conexion_proveedor->prepare($sql);
+            $stmt->bind_param("sssss", $no_guia, $cliente, $cod_novedad, $detalle, $tracking);
+
+            if ($stmt->execute()) {
+                echo json_encode('ok');
+                // enviar correo
+                $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' ";
+                $existe_m = $this->select($existe_m);
+                $existe_m = count($existe_m);
+                if ($existe_m > 0) {
+                    $sql_u = "UPDATE novedades SET estado_novedad = ?, novedad = ?, tracking = ? WHERE guia_novedad = ?";
+                    $data = array($cod_novedad, $detalle, $tracking, $no_guia);
+                    $query = $this->update($sql_u, $data);
+                } else {
+
+
+                    $sql = "INSERT INTO `novedades` (`guia_novedad`, `cliente_novedad`, `estado_novedad`, `novedad`,  `tracking`, `tienda`) VALUES ( ?, ?, ?, ?, ?, ?)";
+                    $data = array($no_guia, $cliente, $cod_novedad, $detalle, $tracking, $tienda_venta);
+                    $query = $this->insert($sql, $data);
+                }
+
+                $tienda_venta = $this->select("SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'");
+                $tienda_venta = $tienda_venta[0]['tienda_venta'];
+                $conexion_proveedor = $this->obtener_conexion($tienda_venta);
+
+
+                $sql_correo = "SELECT * from users where id_users='1'";
+                $sql_correo = mysqli_query($conexion_proveedor, $sql_correo);
+                $sql_correo = mysqli_fetch_array($sql_correo);
+                $correo = $sql_correo['email_users'];
+                if ($correo === "root@mail.com") {
+                } else {
+                    require_once '../../PHPMailer/Mail_devolucion.php';
+                    $mail = new PHPMailer();
+                    $mail->isSMTP();
+                    $mail->SMTPDebug = $smtp_debug;
+                    $mail->Host = $smtp_host;
+                    $mail->SMTPAuth = true;
+                    $mail->Username = $smtp_user;
+                    $mail->Password = $smtp_pass;
+                    $mail->Port = 465;
+                    $mail->SMTPSecure = $smtp_secure;
+                    $mail->isHTML(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->setFrom($smtp_from, $smtp_from_name);
+                    $mail->addAddress($correo);
+                    $mail->Subject = 'Novedad Pedido | Laar Courier';
+                    $mail->Body = $message_body_pedido;
+                    if ($mail->send()) {
+                        //echo "Correo enviado";
+                    } else {
+                        echo "Error al enviar el correo: " . $mail->ErrorInfo;
+                    }
+                }
+            } else {
+                echo json_encode('error');
+            }
         }
     }
 }

@@ -38,7 +38,7 @@ if ($filtro == 'mayor_menor') {
     <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Pagados</button>
 </div>
 <div class="table-responsive">
-    <table class="table table-sm table table-condensed table-hover table-striped ">
+    <table class="table-sm table table-condensed table-hover table-striped ">
         <tr>
             <th><i class="ti-check-box"></i></th>
             <th>Factura</th>
