@@ -117,7 +117,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.3);
         /* Cambia el color y la opacidad según necesites */
         z-index: 1;
     }
@@ -337,9 +337,9 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                         echo '<div class="carousel-item' . ($first ? ' active' : '') . '">';
                                         echo '<img src="' . $row['fondo_banner'] . '" class="d-block w-100" alt="...">';
                                         echo '<div class="carousel-caption d-none d-md-block ' . $alignment . '">';
-                                        echo '<h5>' . $row['titulo'] . '</h5>';
-                                        echo '<p>' . $row['texto_banner'] . '</p>';
-                                        echo '<a href="' . $row['enlace_boton'] . '" class="btn btn-primary">' . $row['texto_boton'] . '</a>';
+                                        echo '<h5 style="color: white;">' . $row['titulo'] . '</h5>';
+                                        echo '<p style="color: white;">' . $row['texto_banner'] . '</p>';
+                                        echo '<a style="color: white; background-color: #171931; border-color: #171931;" href="' . $row['enlace_boton'] . '" class="btn btn-primary">' . $row['texto_boton'] . '</a>';
                                         echo '</div></div>';
                                         $first = false;
                                     }
