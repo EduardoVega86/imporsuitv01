@@ -161,8 +161,8 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                 <?php if ($permisos_ver == 1) {
                     include '../modal/registro_horizontal.php';
                     include '../modal/eliminar_horizontal.php';
-                    include '../modal/registro_banner.php';
-                    include '../modal/editar_banner.php';
+                    include '../modal/registro_banner_marketplace.php';
+                    include '../modal/editar_banner_marketplace.php';
                     include '../modal/editar_caracteristica.php';
                     include '../modal/editar_testimonio.php';
                     include "../modal/imagen_testimonio.php";
@@ -187,13 +187,13 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                                             <div class="col">
                                                 <div class="card-box caja">
 
-                                                    <div class="row ">
+                                                    <!-- <div class="row ">
                                                         <div class="col-sm-6">
                                                             <div class="form-group row">
                                                                 <label for="inputPassword3" class="col-sm-2 col-form-label">Filtro</label>
                                                                 <div class="col-sm-10">
-                                                                    <input type="range" class="input-change" id="banner_opacidad" name="banner_opacidad" min="0" max="1" step="0.1" value="<?php echo $row["banner_opacidad"]; ?>" oninput="valorRango.value = banner_opacidad.value">
-                                                                    <output id="valorRango"><?php echo $row["banner_opacidad"]; ?></output>
+                                                                    <input type="range" class="input-change" id="banner_opacidad" name="banner_opacidad" min="0" max="1" step="0.1" value="<?php // echo $row["banner_opacidad"]; ?>" oninput="valorRango.value = banner_opacidad.value">
+                                                                    <output id="valorRango"><?php // echo $row["banner_opacidad"]; ?></output>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -202,11 +202,11 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                                                             <div class="form-group row">
                                                                 <label for="inputPassword3" class="col-sm-2 col-form-label">Color</label>
                                                                 <div class="col-sm-10">
-                                                                    <input style="width: 100px; height: 40px;" class="input-change" type="color" name="banner_color_filtro" value="<?php echo $row["banner_color_filtro"]; ?>">
+                                                                    <input style="width: 100px; height: 40px;" class="input-change" type="color" name="banner_color_filtro" value="<?php // echo $row["banner_color_filtro"]; ?>">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="btn-group pull-right">
                                                         <button type="button" class="btn btn-success waves-effect waves-light formulario" data-toggle="modal" data-target="#nuevoBanner"><i class="fa fa-plus"></i> </button>
                                                     </div>
@@ -678,7 +678,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
             var parametros = $(this).serialize();
             $.ajax({
                 type: "POST",
-                url: "../ajax/nuevo_banner.php",
+                url: "../ajax/nuevo_banner_marketplace.php",
                 data: parametros,
                 beforeSend: function(objeto) {
                     $("#resultados_ajax").html(
@@ -738,7 +738,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
             // Llamada AJAX
             $.ajax({
                 type: "POST",
-                url: "../ajax/editar_banner_modal.php", // Asegúrate de reemplazar 'tu_archivo_destino.php' por la ruta correcta a tu archivo PHP
+                url: "../ajax/editar_banner_marketplace_modal.php", // Asegúrate de reemplazar 'tu_archivo_destino.php' por la ruta correcta a tu archivo PHP
                 data: datosParaEnviar,
                 success: function(response) {
                     $("#editar_linea").html(response);
@@ -780,12 +780,41 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
             }
         }
 
+        function upload_image_banner_marketplace() {
+
+            var inputFileImage = document.getElementById("imagefile_marketplace");
+            var file = inputFileImage.files[0];
+            if ((typeof file === "object") && (file !== null)) {
+                $("#load_img_marketplace").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+                var data = new FormData();
+                data.append('imagefile_marketplace', file);
+                // Asegúrate de obtener el valor de mod_id y añadirlo a FormData
+                var modId = document.getElementById('mod_id').value; // Obtiene el valor
+                data.append('mod_id', modId); // Añade mod_id a FormData
+
+                $.ajax({
+                    url: "../ajax/imagen_ajax_banner_marketplace.php", // Url to which the request is send
+                    type: "POST", // Type of request to be send, called as method
+                    data: data, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                    contentType: false, // The content type used when sending data to the server.
+                    cache: false, // To unable request pages to be cached
+                    processData: false, // To send DOMDocument or non processed data file it is set to false
+                    success: function(data) // A function to be called if request succeeds
+                    {
+                        $("#load_img_marketplace").html(data);
+                        load_banner(1);
+                        recargarIframe();
+                    }
+                });
+            }
+        }
+
         $("#editar_linea").submit(function(event) {
             $("#actualizar_datos").attr("disabled", true);
             var parametros = $(this).serialize();
             $.ajax({
                 type: "POST",
-                url: "../ajax/editar_banner.php",
+                url: "../ajax/editar_banner_marketplace.php",
                 data: parametros,
                 beforeSend: function(objeto) {
                     $("#resultados_ajax2").html(
