@@ -171,14 +171,6 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                 ?>
 
                     <form class="form-horizontal" role="form" id="perfil" enctype="multipart/form-data">
-                        
-                        <div style="background-color: lightyellow" class="card-box">
-                            <a href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf"></a>
-                            <label class="form-check-label" for="flexSwitchCheckChecked"><strong>Deseas ser proveedor de Imporsuit?</strong><br><a target="blank" href="../../doc/Términos y Condiciones para Proveedores de Imporsuit.pdf">Leer términos y condiciones</a> <br>Al marcar esta casilla, usted acepta y se compromete a cumplir con los Términos y Condiciones. </label>
-                            <input style="width: 30px; height: 30px" class="" type="checkbox" role="switch" id="proveedor" <?php if (get_row('perfil', 'habilitar_proveedor', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
-                            <?php $vista_previa = $protocol . $_SERVER['HTTP_HOST'] . $sistema_url . "/index_1.php"; ?>
-
-                        </div><br>
 
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
@@ -190,51 +182,13 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                                     </h4>
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                    <div class="panel-body">
+                                    <div class="panel-body" style="padding-left: 20px; padding-right: 20px;">
                                         <div class="row">
-                                            <div class="col-md-3 caja">
-
-
-                                                <div id='load_img2' align="center">
-                                                    <strong>BANNER HOME</strong>
-                                                    <img src="<?php echo $row['banner']; ?>" class="img-responsive" alt="profile-image" width="200px">
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <input class="form-control input-change" data-buttonText="Logo" type="file" name="imagefile2" id="imagefile2" onchange="upload_image_banner();">
-                                                </div>
-
-
-
-
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div style="" class="card-box caja">
+                                            <div class="col">
+                                                <div class="card-box caja">
 
                                                     <div class="row ">
                                                         <div class="col-sm-6">
-                                                            <div class="form-group row">
-                                                                <label for="inputPassword3" class="col-sm-2 col-form-label">Titulo</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control UpperCase input-change" name="titulo_slider" value="<?php echo $row["titulo_slider"]; ?>" autocomplete="off">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group row">
-                                                                <label for="inputPassword3" class="col-sm-2 col-form-label">Boton</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control UpperCase input-change" name="texto_btn_slider" value="<?php echo $row["texto_btn_slider"]; ?>" autocomplete="off">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group row">
-                                                                <label for="inputPassword3" class="col-sm-2 col-form-label">Enlace Boton</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" name="enlace_btn_slider" value="<?php echo $row["enlace_btn_slider"]; ?>" autocomplete="off">
-                                                                </div>
-                                                            </div>
-
                                                             <div class="form-group row">
                                                                 <label for="inputPassword3" class="col-sm-2 col-form-label">Filtro</label>
                                                                 <div class="col-sm-10">
@@ -242,32 +196,9 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                                                                     <output id="valorRango"><?php echo $row["banner_opacidad"]; ?></output>
                                                                 </div>
                                                             </div>
-
-
-
-
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <textarea type="text" class="form-control " name="texto_slider" value="<?php echo $row["texto_slider"]; ?>" autocomplete="off"><?php echo $row["texto_slider"]; ?></textarea>
-                                                            <span class="help-block">Subtitulo </span>
-                                                            <div class="form-group row">
-                                                                <label for="inputPassword3" class="col-sm-2 col-form-label">Alineacion</label>
-                                                                <div class="col-sm-10">
-                                                                    <?php $alineacion = $row["alineacion_slider"]; ?>
-                                                                    <select class="form-control" name="alineacion_slider">
-                                                                        <option value="1" <?php if ($alineacion == 1 or $alineacion == 0) {
-                                                                                                echo 'selected';
-                                                                                            } ?>>Izquierda </option>
 
-                                                                        <option value="2" <?php if ($alineacion == 2) {
-                                                                                                echo 'selected';
-                                                                                            } ?>>Centro </option>
-                                                                        <option value="3" <?php if ($alineacion == 3) {
-                                                                                                echo 'selected';
-                                                                                            } ?>>Derecha </option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
                                                             <div class="form-group row">
                                                                 <label for="inputPassword3" class="col-sm-2 col-form-label">Color</label>
                                                                 <div class="col-sm-10">
@@ -643,7 +574,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
             var q = $("#q").val();
             $("#loader").fadeIn('slow');
             $.ajax({
-                url: '../ajax/buscar_banner.php?action=ajax&page=' + page + '&q=' + q,
+                url: '../ajax/buscar_banner_marketplace.php?action=ajax&page=' + page + '&q=' + q,
                 beforeSend: function(objeto) {
                     $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
                 },
