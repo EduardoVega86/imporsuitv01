@@ -160,7 +160,6 @@ class LaarModel extends Query
     public function pedidoEntragado($no_guia, $estado_actual_codigo)
     {
         $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
-        print_r($numero_factura_verificar);
         $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
         $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
         $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
@@ -177,7 +176,7 @@ class LaarModel extends Query
         $tienda_venta = $query[0]['tienda_venta'];
         $query = "SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'";
         $query = $this->select($query);
-        print_r($query);
+
         $numero_factura = $query[0]['numero_factura'];
         $fecha = $query[0]['fecha_factura'];
         $nombre_cliente = $query[0]['nombre'];
@@ -546,7 +545,7 @@ class LaarModel extends Query
     public function verificarNovedades($novedad)
 
     {
-        print_r($novedad);
+
         echo "ebtre a verificar novedades";
         $cod_novedad = $novedad["codigoTipoNovedad"];
         $no_guia = $novedad["noGuia"];
@@ -568,10 +567,30 @@ class LaarModel extends Query
             $stmt->bind_param("ssss", $cod_novedad, $detalle, $tracking, $no_guia);
             if ($stmt->execute()) {
                 echo json_encode('ok');
+                echo "se actualizo la novedad";
                 $data = array($cod_novedad, $detalle, $tracking, $no_guia);
                 $query = $this->update($sql, $data);
             } else {
                 echo json_encode('error');
+            }
+            $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' ";
+            $existe_m = $this->select($existe_m);
+
+            $existe_m = count($existe_m);
+
+            if (!empty($existe_m)) {
+                echo "dx";
+                $sql_u = "UPDATE novedades SET estado_novedad = ?, novedad = ?, tracking = ? WHERE guia_novedad = ?";
+                $data = array($cod_novedad, $detalle, $tracking, $no_guia);
+                $query = $this->update($sql_u, $data);
+                echo "se actualizo la novedad";
+            } else {
+
+                echo "XD";
+                $sql = "INSERT INTO `novedades` (`guia_novedad`, `cliente_novedad`, `estado_novedad`, `novedad`,  `tracking`, `tienda`) VALUES ( ?, ?, ?, ?, ?, ?)";
+                $data = array($no_guia, $cliente, $cod_novedad, $detalle, $tracking, $tienda_venta);
+                $query = $this->insert($sql, $data);
+                echo "se inserto la novedad";
             }
         } else {
 
@@ -584,17 +603,22 @@ class LaarModel extends Query
                 // enviar correo
                 $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' ";
                 $existe_m = $this->select($existe_m);
+
                 $existe_m = count($existe_m);
-                if ($existe_m > 0) {
+
+                if (!empty($existe_m)) {
+                    echo "dx";
                     $sql_u = "UPDATE novedades SET estado_novedad = ?, novedad = ?, tracking = ? WHERE guia_novedad = ?";
                     $data = array($cod_novedad, $detalle, $tracking, $no_guia);
                     $query = $this->update($sql_u, $data);
+                    echo "se actualizo la novedad";
                 } else {
 
-
+                    echo "XD";
                     $sql = "INSERT INTO `novedades` (`guia_novedad`, `cliente_novedad`, `estado_novedad`, `novedad`,  `tracking`, `tienda`) VALUES ( ?, ?, ?, ?, ?, ?)";
                     $data = array($no_guia, $cliente, $cod_novedad, $detalle, $tracking, $tienda_venta);
                     $query = $this->insert($sql, $data);
+                    echo "se inserto la novedad";
                 }
 
                 $tienda_venta = $this->select("SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'");
