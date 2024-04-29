@@ -2058,7 +2058,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (616,'PICHINCHA','VALLE DE LOS CHILLOS',0,1,0,'0','TL','0','0','201001001','201001001039','0','0','0'),
 	 (617,'PICHINCHA','YARUQUI',0,1,1,'0','TS','TE','0','201001001','201001001037','1040','59160','453'),
 	 (618,'PICHINCHA','ZAMBISA',0,1,0,'0','TS','0','0','201001001','201001001058','0','0','648'),
-	 (619,'SANTA ELENA','LA LIBERTAD',1,0,1,'TR','0','TN','0','201001023','201001002013','4125','56435','14'),
+	 (619,'SANTA ELENA','LA LIBERTAD',1,1,1,'TR','TP','TN','0','201001023','201001002013','4125','56435','14'),
 	 (620,'SANTA ELENA','LIBERTADOR BOLIVAR',1,1,0,'TE','TE','0','0','201001023','201001023010','0','0','653');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (621,'LOJA','QUILANGA',1,0,0,'TE','0','0','0','0','0','0','0','755'),
