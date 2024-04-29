@@ -252,10 +252,16 @@ $pacientes = 1;
                                             $btncolor = "btn-success";
                                             $transporte = "SERVIENTREGA";
                                         }
+                                        if (strpos($numero_guia, "IMP") !== 0) {
+
                                         ?>
-                                        <button type="button" class="btn btn-sm <?php echo $btncolor; ?>" data-toggle="modal" data-target="#novedad" data-id="<?php echo htmlspecialchars($id_novedad); ?>" data-guia="<?php echo htmlspecialchars($numero_guia); ?>" data-cliente="<?php echo htmlspecialchars($cliente); ?>" data-estado="<?php echo htmlspecialchars($estado); ?>" data-novedad="<?php echo htmlspecialchars($novedad); ?>" data-solucion="<?php echo htmlspecialchars($solucion); ?>" data-tracking="<?php echo htmlspecialchars($tracking); ?>" data-transporte="<?php echo htmlspecialchars($transporte); ?>">
-                                            <i class='bx bxs-shield-plus'> </i> Solución
-                                        </button>
+
+                                            <button type="button" class="btn btn-sm <?php echo $btncolor; ?>" data-toggle="modal" data-target="#novedad" data-id="<?php echo htmlspecialchars($id_novedad); ?>" data-guia="<?php echo htmlspecialchars($numero_guia); ?>" data-cliente="<?php echo htmlspecialchars($cliente); ?>" data-estado="<?php echo htmlspecialchars($estado); ?>" data-novedad="<?php echo htmlspecialchars($novedad); ?>" data-solucion="<?php echo htmlspecialchars($solucion); ?>" data-tracking="<?php echo htmlspecialchars($tracking); ?>" data-transporte="<?php echo htmlspecialchars($transporte); ?>">
+                                                <i class='bx bxs-shield-plus'> </i> Solución
+                                            </button>
+                                        <?php } else {
+                                            echo "Proximamente";
+                                        } ?>
                                     </td>
 
                                     <td class="text-center">
