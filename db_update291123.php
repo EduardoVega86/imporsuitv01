@@ -1479,7 +1479,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (90,'CHIMBORAZO','CHUNCHI',1,1,0,'TE','TE','0','0','0','0','0','0','248');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (91,'CHIMBORAZO','COLTA',1,1,0,'TE','TE','0','0','201001008','201001008008','0','0','242'),
-	 (92,'CHIMBORAZO','CUMANDA/CHIMBORAZO',1,1,0,'TE','TE','0','201001008','201001008012','0','0','0','469'),
+	 (92,'CHIMBORAZO','CUMANDA/CHIMBORAZO',1,1,0,'TE','TE','0','0','201001008','201001008012','0','0','469'),
 	 (93,'CHIMBORAZO','EL GUANO',1,1,0,'TE','TE','0','0','0','0','0','0','244'),
 	 (94,'CHIMBORAZO','FLORES',0,0,1,'0','0','TE','0','0','0','1026','59068','0'),
 	 (95,'CHIMBORAZO','GUAMOTE',1,1,0,'TE','TE','0','0','201001008','201001008007','0','0','243'),
