@@ -9,9 +9,9 @@ class Laar extends Controller
         print_r($json_decode['novedades']);
         if (count($json_decode['novedades']) > 0) {
             foreach ($json_decode['novedades'] as $novedad) {
-                $novedad["noGuia"] = $json_decode['noGuia'];
-                $novedad["para"] = $json_decode['para'];
                 if ($novedad['codigoTipoNovedad'] != 43) {
+                    $novedad["noGuia"] = $json_decode['noGuia'];
+                    $novedad["para"] = $json_decode['para'];
                     $this->model->verificarNovedades($novedad);
                 }
                 if ($novedad['codigoTipoNovedad'] == 42 || $novedad['codigoTipoNovedad'] == 96) {
