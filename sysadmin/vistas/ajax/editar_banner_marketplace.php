@@ -18,6 +18,8 @@ if (empty($_POST['mod_id'])) {
     $id = $_POST['mod_id'];
     @$posicion = $_POST['mod_posicion'];
 
+    $conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+
     //$sql = "UPDATE caracteristicas_tienda SET texto='" . $nombre . "' where id=$id";
     $sql = "UPDATE banner_marketplace SET 
             texto_banner='$texto_slider2', 
@@ -27,11 +29,11 @@ if (empty($_POST['mod_id'])) {
             alineacion='$alineacion'
         WHERE id=$id";
     // echo $sql;                        
-    $query_update = mysqli_query($conexion, $sql);
+    $query_update = mysqli_query($conexion_marketplace, $sql);
     if ($query_update) {
         $messages[] = "Linea ha sido actualizada con Exito.";
     } else {
-        $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion);
+        $errors[] = "Lo siento algo ha salido mal intenta nuevamente." . mysqli_error($conexion_marketplace);
     }
 } else {
     $errors[] = "Error desconocido.";

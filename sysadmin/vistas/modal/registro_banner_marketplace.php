@@ -1,5 +1,6 @@
 <?php
-if (isset($conexion)) {
+$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+if (isset($conexion_marketplace)) {
 ?>
     <div id="nuevoBanner" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-xl">

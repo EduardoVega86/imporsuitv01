@@ -2,7 +2,8 @@
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
 $modId = $_POST['id'];
-$query_empresa = mysqli_query($conexion, "select * from banner_marketplace where id=$modId");
+$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+$query_empresa = mysqli_query($conexion_marketplace, "select * from banner_marketplace where id=$modId");
 $row           = mysqli_fetch_array($query_empresa);
 $id_banner = $row['fondo_banner'];
 

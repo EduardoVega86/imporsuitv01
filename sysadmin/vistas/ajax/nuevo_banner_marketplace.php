@@ -11,6 +11,7 @@ include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a 
     $enlace_btn_slider2 = $_POST["enlace_btn_slider"];
     $texto_slider2 = $_POST['texto_slider'];
     $alineacion = $_POST['alineacion2'];
+    $conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 
     //$posicion      = $_POST["posicion"];
 
@@ -18,7 +19,7 @@ include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a 
 
        $sql = "INSERT INTO banner_marketplace (texto_banner,titulo,texto_boton,enlace_boton,alineacion)
        VALUES ('$texto_slider2','$titulo_slider2','$texto_btn_slider2','$enlace_btn_slider2','$alineacion')";
-        $query_new_insert = mysqli_query($conexion, $sql);
+        $query_new_insert = mysqli_query($conexion_marketplace, $sql);
 
         if ($query_new_insert) {
             $messages[] = "Texto ha sido ingresada con Exito.";

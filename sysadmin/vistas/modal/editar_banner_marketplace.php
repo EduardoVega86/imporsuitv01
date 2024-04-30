@@ -1,8 +1,9 @@
 <?php
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
+$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 
-if (isset($conexion)) {
+if (isset($conexion_marketplace)) {
 ?>
     <div id="editarLinea" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-xl">
