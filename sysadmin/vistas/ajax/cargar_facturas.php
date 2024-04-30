@@ -178,7 +178,13 @@ if ($filtro == 'mayor_menor') {
                     ?>
                 </td>
                 <td class="text-center">
-                    <a href="<?php echo $url_ticket . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-receipt"></i></a>
+                    <?php
+                    if (is_numeric($rws['guia_laar'])) {
+                        echo "-";
+                    } else {
+                        echo '<a href="' . $url_ticket . $rws['guia_laar'] . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-receipt"></i></a>';
+                    }
+                    ?>
                 </td>
                 <td class="text-center">
                     <button onclick="ver_detalles('<?php echo $rws['numero_factura']; ?>')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>
