@@ -7,6 +7,7 @@ $smtp_user = 'info@imporfactoryusa.com';
 $smtp_pass = 'Mark2demasiado.';
 $smtp_from = $smtp_user;
 $smtp_from_name = 'ImporSuit';
+$smtp_subjet = 'Novedad de pedido';
 $message_body_pedido = '<!DOCTYPE html>
 <html lang="es">
 
