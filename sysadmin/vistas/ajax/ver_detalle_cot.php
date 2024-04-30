@@ -57,7 +57,7 @@ if ($rw["guia_enviada"] == 1) {
     }
     $rw_guia = mysqli_fetch_array($query_guia);
 
-    $rw["cod"] = $rw_guia["cod"];
+    $rw["cod"] = @$rw_guia["cod"];
     $rw["tienda"] = get_row("facturas_cot", "tienda", "numero_factura", $nf);
     $rw["guia"] = $rw_guia["guia_laar"];
 }

@@ -419,6 +419,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                                     ultimos_pedidos();
                                                     ?>
                                                 </tbody>
+                                                <div id="modal_cot"></div>
                                             </table>
                                         </div><!-- /.table-responsive -->
                                         <div class="box-footer clearfix">
