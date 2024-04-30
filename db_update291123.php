@@ -2301,7 +2301,7 @@ mysqli_query($conexion, "INSERT INTO `cobertura_laar` (`id_cobertura`, `tipo_cob
 ");
 
 mysqli_query($conexion, "INSERT INTO `cobertura_laar` (`id_cobertura`, `tipo_cobertura`, `costo`, `precio`) VALUES
-(6, 'GAL', 15,15");
+(6, 'GAL', 15,15)");
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TP', `trayecto_gintracom` = 'TN' WHERE `ciudad_cotizacion`.`id_cotizacion` = 239;");
 mysqli_query($conexion, "ALTER TABLE `dropi` CHANGE `pais_id` `pais_id` INT NOT NULL DEFAULT '0';");
 
