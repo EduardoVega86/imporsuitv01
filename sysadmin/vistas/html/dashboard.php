@@ -1276,7 +1276,7 @@ if ($query_ciudades_despacho) {
         data: {
             labels: ['Corn Flakes', 'Cheerios', 'Life', 'Kix'],
             datasets: [{
-                label: 'Ciudad con mas despacho',
+                label: 'Productos mas solicitados',
                 data: [3, 5, 2, 6],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)'
