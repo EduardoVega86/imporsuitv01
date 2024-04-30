@@ -32,6 +32,44 @@ $cargo_users    = get_row('users', 'cargo_users', 'id_users', $usu);
 $nombre_users   = get_row('users', 'nombre_users', 'id_users', $usu);
 $apellido_users = get_row('users', 'apellido_users', 'id_users', $usu);
 $email_users    = get_row('users', 'email_users', 'id_users', $usu);
+
+
+// Consulta ciudades con mayor despacho
+$ciudades_despacho = [];
+
+
+// Realizamos la consulta
+$query_ciudades_despacho = mysqli_query($conexion, "SELECT ciudad, SUM(total_envios) AS total_envios, MAX(ciudad_codigo) AS ciudad_codigo FROM (
+    SELECT COUNT(gl.ciudadD) AS total_envios, gl.ciudadD AS ciudad_codigo, cc.ciudad, 
+    CASE 
+        WHEN LENGTH(gl.ciudadD) = 3 THEN 'Sí' 
+        ELSE 'No' 
+    END AS es_otra_ciudad 
+    FROM guia_laar gl 
+    JOIN ciudad_cotizacion cc ON (LENGTH(gl.ciudadD) = 3 AND gl.ciudadD = cc.id_cotizacion) OR (LENGTH(gl.ciudadD) > 3 AND gl.ciudadD = cc.codigo_ciudad_laar) 
+    WHERE gl.estado_guia NOT IN (9, 500, 501, 502, 503) 
+      AND gl.ciudadO IS NOT NULL 
+      AND gl.ciudadD != '' 
+    GROUP BY gl.ciudadD, cc.ciudad, es_otra_ciudad 
+) AS subquery 
+GROUP BY ciudad 
+ORDER BY total_envios DESC 
+LIMIT 5");
+
+// Verificamos si la consulta fue exitosa
+if ($query_ciudades_despacho) {
+    // Iteramos sobre cada fila del resultado
+    while ($row = mysqli_fetch_assoc($query_ciudades_despacho)) {
+        // Agregamos cada fila al array
+        $ciudades_despacho[] = $row;
+    }
+} else {
+    // Manejo de error en caso de que la consulta falle
+    echo "Error: " . mysqli_error($conexion);
+}
+
+
+
 ?>
 <?php require 'includes/header_start.php'; ?>
 <!-- grafico -->
@@ -386,7 +424,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                     </div>
                     <!-- end row -->
 
-                    <div class="d-flex flex-row">
+                    <div class="d-flex flex-row" style="padding-bottom: 50px;">
 
                         <div class="col-lg-4">
                             <div class="portlet portlet-fixed-height">
@@ -423,7 +461,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             </table>
                                         </div><!-- /.table-responsive -->
                                         <div class="box-footer clearfix">
-                                            <a href="bitacora_cotizacion.php" class="btn btn-sm btn-danger btn-flat pull-right">Ver todas las Ventas</a>
+                                            <a href="bitacora_cotizacion_new.php" class="btn btn-sm btn-danger btn-flat pull-right">Ver todas las Ventas</a>
                                         </div><!-- /.box-footer -->
                                     </div>
                                 </div>
@@ -503,8 +541,88 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                             </div>
 
                         </div>
-
                     </div>
+
+                    <div class="d-flex flex-row">
+                        <div class="d-flex flex-column" style="width: 35%;">
+                            <div class="d-flex flex-row">
+                                <div class="col">
+
+                                    <div class="widget-bg-color-icon card-box">
+                                        <div class="bg-icon bg-icon-success pull-left">
+                                            <i class="ti-receipt text-success"></i>
+                                        </div>
+                                        <div class="text-right">
+                                            <?php
+                                            $query = mysqli_query($conexion_marketplace, "SELECT 
+                                            SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
+                                            SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
+                                            SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+                                            SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+                                            SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir,
+                                            (SELECT SUM(total_venta) as ticket from cabecera_cuenta_pagar where visto =1 and estado_guia = 7 and tienda = '$dominio_completo') as ticket
+                                            FROM (
+                                               SELECT 
+                                               numero_factura, 
+                                               MAX(total_venta) AS total_venta, 
+                                               MAX(valor_pendiente) AS total_pendiente, 
+                                               MAX(valor_cobrado) AS total_cobrado, 
+                                               MAX(monto_recibir) AS monto_recibir 
+                                               FROM cabecera_cuenta_pagar 
+                                               WHERE tienda = '$dominio_completo' 
+                                               AND visto = '1'
+                                           GROUP BY numero_factura
+                                            ) AS subquery;");
+                                            $rw = mysqli_fetch_array($query);
+                                            $total_ventas = $rw['total_ventas'];
+                                            $ticket_promedio = $rw['ticket'];
+
+                                            // Calcular el porcentaje del ticket promedio del total de ventas
+                                            if ($total_ventas > 0) {  // Asegurar que no haya división por cero
+                                                $porcentaje_ticket = ($ticket_promedio / $total_ventas) * 100;
+                                            } else {
+                                                $porcentaje_ticket = 0; // Si total_ventas es 0, el porcentaje no puede calcularse
+                                            }
+                                            ?>
+                                            <h5 class="text-dark"><b id="total_pedido_filtro" class="counter text-success"><?php echo  number_format($porcentaje_ticket, 2); ?> %</b></h5>
+                                            <p class="text-muted mb-0">Ticket promedio</p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row" style="justify-content: center; height:95%;">
+                                <div class="card-box" style="width: 95%;">
+                                    <canvas id="ciudad_mas_despacho" style="height:200px !important; width:450px !important;"></canvas>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div style="width: 65%;">
+                            <div class="card-box" style="height: 95%;">
+                                <h5 class="text-dark  header-title m-t-0 m-b-30">Grafica</h5>
+                                <div class="d-flex flex-row">
+                                    <div class="widget-chart text-center">
+                                        <div class='row'>
+                                            <div class='col-md-4'>
+
+                                            </div>
+                                        </div>
+                                        <div id="chart_div3" style="height: 300px;"></div>
+                                    </div>
+                                    <div class="card-box" style="width: 95%;">
+                                        <canvas id="productos_mas_salida" style="height:200px !important; width:450px !important;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                     <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -1096,6 +1214,85 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
             },
         });
     }
+
+    // grafica mas despacho 
+
+    var datosCiudades = <?php echo json_encode($ciudades_despacho); ?>;
+
+    // Preparar arrays para labels y datos
+    var labels = datosCiudades.map(function(item) {
+        return item.ciudad;
+    });
+    var datos = datosCiudades.map(function(item) {
+        return item.total_envios;
+    });
+
+    // Inicializamos el gráfico
+    var canvas = document.getElementById('ciudad_mas_despacho');
+    var ctx = canvas.getContext('2d');
+    var ciudad_mas_despacho = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels, // Usamos las ciudades como etiquetas
+            datasets: [{
+                label: 'Ciudad con mas despacho',
+                data: datos, // Usamos los totales de envíos como datos
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+
+    //productos_mas_salida
+    var canvas2 = document.getElementById('productos_mas_salida');
+    canvas2.style.width = '350px';
+    canvas2.style.height = '200px';
+    canvas2.width = 350;
+    canvas2.height = 200;
+
+    var ctx2 = canvas2.getContext('2d');
+    var productos_mas_salida = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Corn Flakes', 'Cheerios', 'Life', 'Kix'],
+            datasets: [{
+                label: 'Ciudad con mas despacho',
+                data: [3, 5, 2, 6],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1 // Define la escala de los ticks en el eje Y
+                    }
+                }
+            }
+        }
+    });
 </script>
 
 
