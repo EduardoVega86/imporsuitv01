@@ -245,7 +245,31 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             <i class="ti-truck text-purple"></i>
                                         </div>
                                         <div class="text-right">
-                                            <h5 class="text-dark text-center"><b class="counter text-purple"><?php total_cxc(); ?></b></h5>
+                                        <?php
+                                            $query = mysqli_query($conexion_marketplace, "SELECT 
+                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
+                                             SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
+                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir,
+                                             (SELECT SUM(precio_envio) as total_fletes from cabecera_cuenta_pagar where visto =1 and estado_guia = 9 and tienda = '$dominio_completo') as total_fletes
+                                             FROM (
+                                                SELECT 
+                                                numero_factura, 
+                                                MAX(total_venta) AS total_venta, 
+                                                MAX(valor_pendiente) AS total_pendiente, 
+                                                MAX(valor_cobrado) AS total_cobrado, 
+                                                MAX(monto_recibir) AS monto_recibir 
+                                                FROM cabecera_cuenta_pagar 
+                                                WHERE tienda = '$dominio_completo' 
+                                                AND visto = '1'
+                                            GROUP BY numero_factura
+                                             ) AS subquery;");
+                                            $rw = mysqli_fetch_array($query);
+                                            $total_fletes = $rw['total_fletes'];
+                                            $total_fletes_formateado = number_format($total_fletes, 2, '.', ',');
+                                            ?>
+                                            <h5 class="text-dark text-center"><b class="counter text-purple"><?php echo $total_fletes; ?></b></h5>
                                             <p class="text-muted mb-0">Total Fletes</p>
                                         </div>
                                         <div class="clearfix"></div>
