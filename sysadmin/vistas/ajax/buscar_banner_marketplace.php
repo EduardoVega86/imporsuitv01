@@ -18,12 +18,14 @@ permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 //Archivo de funciones PHP
 require_once "../funciones.php";
+
+$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 $id_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
 $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
-    $q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
+    $q        = mysqli_real_escape_string($conexion_marketplace, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     $aColumns = array('titulo'); //Columnas de busqueda
     $sTable   = "banner_marketplace";
     $sWhere   = "";
@@ -36,7 +38,7 @@ if ($action == 'ajax') {
     $adjacents = 4; //gap between pages after number of adjacents
     $offset    = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
-    $count_query = mysqli_query($conexion, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+    $count_query = mysqli_query($conexion_marketplace, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
     $row         = mysqli_fetch_array($count_query);
     $numrows     = $row['numrows'];
     $total_pages = ceil($numrows / $per_page);
@@ -44,7 +46,7 @@ if ($action == 'ajax') {
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
     //echo $sql;
-    $query = mysqli_query($conexion, $sql);
+    $query = mysqli_query($conexion_marketplace, $sql);
     //loop through fetched data
     if ($numrows > 0) {
 

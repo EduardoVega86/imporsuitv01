@@ -3,6 +3,7 @@
     /* Connect To Database*/
     require_once "../db.php";
     require_once "../php_conexion.php";
+    $conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
     if (isset($_FILES["imagefile_marketplace"])) {
 
         $target_dir    = "../../img/";
@@ -29,14 +30,14 @@
                 $logo_update = "";
             }
             $sql              = "UPDATE banner_marketplace SET $logo_update WHERE id='$id';";
-            $query_new_insert = mysqli_query($conexion, $sql);
+            $query_new_insert = mysqli_query($conexion_marketplace, $sql);
 
             if ($query_new_insert) {
     ?>
                 <img class="img-responsive" width="100%" src="../../img/<?php echo $image_name; ?>" alt="Logo">
     <?php
             } else {
-                $errors[] = "Lo sentimos, actualización falló. Intente nuevamente. " . mysqli_error($conexion);
+                $errors[] = "Lo sentimos, actualización falló. Intente nuevamente. " . mysqli_error($conexion_marketplace);
             }
         }
     }

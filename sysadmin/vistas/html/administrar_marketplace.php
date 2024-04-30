@@ -10,7 +10,9 @@ $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
 $modulo = "Configuracion";
 permisos($modulo, $cadena_permisos);
-$query_empresa = mysqli_query($conexion, "select * from perfil where id_perfil=1");
+$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+
+$query_empresa = mysqli_query($conexion_marketplace, "select * from perfil where id_perfil=1");
 $row           = mysqli_fetch_array($query_empresa);
 
 $favicon = $row['favicon'];

@@ -380,7 +380,7 @@ if ($query_ciudades_despacho) {
                                 <ol class="carousel-indicators">
                                     <?php
                                     $sql = "SELECT * FROM banner_marketplace";
-                                    $result = $conexion->query($sql);
+                                    $result = $conexion_marketplace->query($sql);
                                     $i = 0;
                                     while ($row = $result->fetch_assoc()) {
                                         echo '<li data-target="#miSlider" data-slide-to="' . $i . '"' . ($i == 0 ? ' class="active"' : '') . '></li>';
@@ -393,7 +393,7 @@ if ($query_ciudades_despacho) {
                                 <div class="carousel-inner">
                                     <?php
                                     $first = true;
-                                    $result = $conexion->query($sql); // Volver a ejecutar la consulta
+                                    $result = $conexion_marketplace->query($sql); // Volver a ejecutar la consulta
                                     while ($row = $result->fetch_assoc()) {
                                         $alignment = ['1' => 'text-left', '2' => 'text-center', '3' => 'text-right'][$row['alineacion']] ?? 'text-center';
                                         echo '<div class="carousel-item' . ($first ? ' active' : '') . '">';
