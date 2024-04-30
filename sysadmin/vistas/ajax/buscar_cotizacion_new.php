@@ -790,6 +790,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 $span_estado = 'badge-success';
                                                                                                                                 $estado_guia = 'Entregado';
                                                                                                                                 break;
+
+                                                                                                                            case '400':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+
                                                                                                                             case '401':
                                                                                                                                 $span_estado = 'badge-success';
                                                                                                                                 $estado_guia = 'Entregado';
@@ -1649,6 +1655,10 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 $estado_guia = 'Entregado';
                                                                                                                                 break;
                                                                                                                             case '351':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entregado';
+                                                                                                                                break;
+                                                                                                                            case '400':
                                                                                                                                 $span_estado = 'badge-success';
                                                                                                                                 $estado_guia = 'Entregado';
                                                                                                                                 break;
