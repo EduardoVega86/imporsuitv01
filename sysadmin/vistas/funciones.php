@@ -381,7 +381,7 @@ function ultimos_pedidos()
         $total             = number_format($rw['monto_factura'], 2);
     ?>
         <tr>
-            <td><a href="editar_venta.php?id_factura=<?php echo $id_factura; ?>" data-toggle="tooltip" title="Ver Factura"><label class='badge badge-primary'><?php echo $numero_factura; ?></label></a></td>
+            <td><button onclick="ver_detalle_cot('<?php echo $numero_factura ?>')" class="btn btn-sm btn-outline-primary"> <?php echo $numero_factura; ?></button></td>
             <td><?php echo $fecha; ?></td>
             <td class='text-left'><b><?php echo $id_moneda . '' . $total; ?></b></td>
         </tr>

@@ -181,8 +181,8 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                 <div class="col">
 
                                     <div class="widget-bg-color-icon card-box">
-                                        <div class="bg-icon bg-icon-danger pull-left">
-                                            <i class="bx bx-receipt text-pink"></i>
+                                        <div class="bg-icon bg-icon-warning pull-left">
+                                            <i class="bx bx-receipt text-warning"></i>
                                         </div>
                                         <div class="text-right">
                                             <?php
@@ -190,7 +190,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             $rw = mysqli_fetch_array($query);
                                             $total_guias = $rw['count'];
                                             ?>
-                                            <h5 class="text-dark text-center"><b class="counter text-pink"><?php echo $total_guias; ?></b></h5>
+                                            <h5 class="text-dark text-center"><b class="counter text-warning"><?php echo $total_guias; ?></b></h5>
                                             <p class="text-muted mb-0">Total Guias</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -245,14 +245,14 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             <i class="ti-truck text-purple"></i>
                                         </div>
                                         <div class="text-right">
-                                        <?php
+                                            <?php
                                             $query = mysqli_query($conexion_marketplace, "SELECT 
                                              SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
                                              SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
                                              SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
                                              SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
                                              SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir,
-                                             (SELECT SUM(precio_envio) as total_fletes from cabecera_cuenta_pagar where visto =1 and estado_guia = 9 and tienda = '$dominio_completo') as total_fletes
+                                             (SELECT SUM(precio_envio) as total_fletes from cabecera_cuenta_pagar where visto =1 and tienda = '$dominio_completo') as total_fletes
                                              FROM (
                                                 SELECT 
                                                 numero_factura, 
@@ -269,7 +269,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             $total_fletes = $rw['total_fletes'];
                                             $total_fletes_formateado = number_format($total_fletes, 2, '.', ',');
                                             ?>
-                                            <h5 class="text-dark text-center"><b class="counter text-purple"><?php echo $total_fletes; ?></b></h5>
+                                            <h5 class="text-dark text-center"><b class="counter text-purple">$ <?php echo $total_fletes_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Total Fletes</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -282,8 +282,8 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                 <div class="col">
 
                                     <div class="widget-bg-color-icon card-box fadeInDown animated">
-                                        <div class="bg-icon bg-icon-primary pull-left">
-                                            <i class=" ti-back-left text-info"></i>
+                                        <div class="bg-icon bg-icon-danger pull-left">
+                                            <i class=" ti-back-left text-danger"></i>
                                         </div>
                                         <div class="text-right">
                                             <?php
@@ -310,7 +310,7 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
                                             $total_devoluciones = $rw['devolucion'];
                                             $total_devoluciones_formateado = number_format($total_devoluciones, 2, '.', ',');
                                             ?>
-                                            <h5 class="text-dark"><b class="counter text-info">$ <?php echo $total_devoluciones_formateado; ?></b></h5>
+                                            <h5 class="text-dark"><b class="counter text-danger">$ <?php echo $total_devoluciones_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Devoluciones</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -1073,6 +1073,28 @@ $email_users    = get_row('users', 'email_users', 'id_users', $usu);
             }
         }
     });
+
+    function ver_detalle_cot(numero_factura) {
+        // alert(numero_factura)
+        var parametros = {
+            action: "ajax",
+            numero_factura: numero_factura,
+        };
+        $.ajax({
+            type: "POST",
+            url: "../ajax/ver_detalle_cot.php",
+
+            data: parametros,
+            beforeSend: function(objeto) {
+                $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            },
+            success: function(data) {
+                $("#loader").html("");
+                $("#modal_cot").html(data);
+                $("#Modal").modal("show");
+            },
+        });
+    }
 </script>
 
 
