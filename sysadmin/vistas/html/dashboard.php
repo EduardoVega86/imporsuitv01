@@ -221,7 +221,7 @@ if ($query_ciudades_despacho) {
                                             $rw = mysqli_fetch_array($query);
                                             $total_ventas = $rw['count'];
                                             ?>
-                                            <h5 class="text-dark"><b id="total_pedido_filtro" class="counter text-success"><?php echo $total_ventas; ?></b></h5>
+                                            <h5 class="text-dark"><b id="total_ventas" class="counter text-success"><?php echo $total_ventas; ?></b></h5>
                                             <p class="text-muted mb-0">Total Ventas</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -263,7 +263,7 @@ if ($query_ciudades_despacho) {
                                             $rw = mysqli_fetch_array($query);
                                             $total_guias = $rw['count'];
                                             ?>
-                                            <h5 class="text-dark"><b class="counter text-warning"><?php echo $total_guias; ?></b></h5>
+                                            <h5 class="text-dark"><b id="total_guias" class="counter text-warning"><?php echo $total_guias; ?></b></h5>
                                             <p class="text-muted mb-0">Total Guias</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -307,7 +307,7 @@ if ($query_ciudades_despacho) {
                                             $total_recaudo = $monto_ventas + $ganancias_proveedor;
                                             $total_recaudo_formateado = number_format($total_recaudo, 2, '.', ',');
                                             ?>
-                                            <h5 class="text-dark"><b class="counter text-info">$ <?php echo $total_recaudo_formateado; ?></b></h5>
+                                            <h5 class="text-dark"><b id="total_recaudo" class="counter text-info">$ <?php echo $total_recaudo_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Total Recaudo</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -350,7 +350,7 @@ if ($query_ciudades_despacho) {
                                             $total_fletes = $rw['total_fletes'];
                                             $total_fletes_formateado = number_format($total_fletes, 2, '.', ',');
                                             ?>
-                                            <h5 class="text-dark"><b class="counter text-purple">$ <?php echo $total_fletes_formateado; ?></b></h5>
+                                            <h5 class="text-dark"><b id="total_fletes" class="counter text-purple">$ <?php echo $total_fletes_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Total Fletes</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -389,7 +389,7 @@ if ($query_ciudades_despacho) {
                                             $total_devoluciones = $rw['devolucion'];
                                             $total_devoluciones_formateado = number_format($total_devoluciones, 2, '.', ',');
                                             ?>
-                                            <h5 class="text-dark"><b class="counter text-danger">$ <?php echo $total_devoluciones_formateado; ?></b></h5>
+                                            <h5 class="text-dark"><b id="devoluciones" class="counter text-danger">$ <?php echo $total_devoluciones_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Devoluciones</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -922,10 +922,17 @@ if ($query_ciudades_despacho) {
             $("#loader").html("<img src='../../img/ajax-loader.gif'>");
         },
         success: function(data) {
-            $("#total_pedido_filtro").html(data); // Asegúrate de que este es el contenedor correcto para mostrar los resultados
+            var results = JSON.parse(data);
+            $("#total_pedido_filtro").html(results.total_pedidos);
+            $("#total_ventas").html(results.total_ventas);
+            $("#total_guias").html(results.total_guias);
+            $("#total_recaudo").html(results.total_recaudo);
+            $("#total_fletes").html(results.total_fletes);
+            $("#devoluciones").html(results.devoluciones);
         }
     });
 }
+
 
     
 </script>
