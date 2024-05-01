@@ -19,16 +19,24 @@ $rw         = mysqli_fetch_array($count);
 //si tiene letras o caracteres especiales separarlos y sumarle 1
 $product_id = $rw['codigo'];
 //si posee letras hacer
-if (preg_match('/[A-Za-z]/', $product_id)) {
-	$letras     = preg_replace('/[^A-Za-z]/', '', $product_id);
-	$numero     = preg_replace('/[^0-9]/', '', $product_id);
+if (preg_match('/([A-Za-z-]+)(\d+)$/', $product_id, $matches)) {
+	$letras = $matches[1]; // Captura letras y guiones
+	$numero = $matches[2]; // Captura la parte numérica
+
+	// Incrementar el número
 	$numero++;
+
+	// Mantener el formato original de las letras (con guiones)
 	$letras = strtoupper($letras);
-	$letras = str_pad($letras, 3, "0", STR_PAD_RIGHT);
+
+	// Asegurarse de que el número tenga al menos 3 dígitos
 	$numero = str_pad($numero, 3, "0", STR_PAD_LEFT);
+
+	// Combinar letras y número para formar el nuevo ID de producto
 	$product_id = $letras . $numero;
 } else {
-	$product_id = $product_id + 1;
+	// Si el código no tiene letras (solo números), simplemente incrementar
+	$product_id = str_pad($product_id + 1, 3, "0", STR_PAD_LEFT);
 }
 
 //consulta para elegir el impuesto en la modal
@@ -684,23 +692,24 @@ while ($r = $query->fetch_object()) {
 	}
 
 	$(document).ready(function() {
-    $('#activar_destacados').change(function() {
-        var id = this.checked ? 1 : 0; // Simplifica la asignación de ID basado en el estado del checkbox
+		$('#activar_destacados').change(function() {
+			var id = this.checked ? 1 : 0; // Simplifica la asignación de ID basado en el estado del checkbox
 
-        $.ajax({
-            type: "GET",
-            url: "../ajax/activar_destacados.php",
-            data: { id: id }, // Uso de un objeto para pasar datos es más limpio y menos propenso a errores
-            beforeSend: function() {
-                $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
-            },
-            success: function(datos) {
-                $("#resultados").html(datos);
-            }
-        });
-    });
-});
-
+			$.ajax({
+				type: "GET",
+				url: "../ajax/activar_destacados.php",
+				data: {
+					id: id
+				}, // Uso de un objeto para pasar datos es más limpio y menos propenso a errores
+				beforeSend: function() {
+					$("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+				},
+				success: function(datos) {
+					$("#resultados").html(datos);
+				}
+			});
+		});
+	});
 </script>
 <?php require 'includes/footer_end.php'
 ?>
