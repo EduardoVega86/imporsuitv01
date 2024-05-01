@@ -619,9 +619,9 @@ if ($query_ciudades_despacho) {
                                         </div>
                                         <div id="chart_div3" style="height: 300px;"></div>
                                     </div>
-                                    <div class="card-box" style="width: 95%;">
+                                    <!-- <div class="card-box" style="width: 95%;">
                                         <canvas id="productos_mas_salida" style="height:200px !important; width:450px !important;"></canvas>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
