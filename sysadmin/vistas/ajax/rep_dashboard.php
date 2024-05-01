@@ -27,10 +27,25 @@ if ($action == 'ajax') {
     $results = [];
 
     // Total de pedidos
-    $query_pedidos = "SELECT COUNT(*) AS total FROM facturas_cot WHERE date(fecha_factura) BETWEEN '$fecha_inicial' AND '$fecha_final'";
-    $res_pedidos = mysqli_query($conexion, $query_pedidos);
-    $row_pedidos = mysqli_fetch_assoc($res_pedidos);
-    $results['total_pedidos'] = number_format($row_pedidos['total'], 2);
+    $query_pedidos = "SELECT * FROM facturas_cot WHERE date(fecha_factura) BETWEEN '$fecha_inicial' AND '$fecha_final'";
+    $abonoQuery  = $conexion->query($query_pedidos);
+    $total_abono = 0;
+    while ($abonoResult = $abonoQuery->fetch_assoc()) {
+        $total_abono += $abonoResult['monto_factura'];
+    }
+    $results['total_pedidos'] = '$ '.number_format($total_abono, 2);
+
+    // Total de ventas
+    $query_ventas = "SELECT COUNT(*) as count FROM facturas_cot WHERE date(fecha_factura) BETWEEN '$fecha_inicial' AND '$fecha_final'";
+    $res_ventas = mysqli_query($conexion, $query_ventas);
+    $row_ventas = mysqli_fetch_assoc($res_ventas);
+    $results['total_ventas'] = number_format($row_ventas['count'], 2);
+    
+    // Total de guias
+    $query_guias = "SELECT COUNT(*) as count FROM guia_laar WHERE fecha BETWEEN '$fecha_inicial' AND '$fecha_final'";
+    $res_guias = mysqli_query($conexion, $query_guias);
+    $row_guias = mysqli_fetch_assoc($res_guias);
+    $results['total_guias'] = number_format($row_guias['count'], 2);
 
     // Consulta general para ventas, guías, recaudos, fletes, y devoluciones
     $query_general = "SELECT 
@@ -44,15 +59,16 @@ if ($action == 'ajax') {
                     WHERE tienda = '$dominio_completo' 
                     AND visto = '1'
                     AND fecha BETWEEN '$fecha_inicial' AND '$fecha_final'";
-    $res_general = mysqli_query($conexion, $query_general);
+
+    $res_general = mysqli_query($conexion_marketplace, $query_general);
+    if (!$res_general) {
+        die('Error de consulta: ' . mysqli_error($conexion_marketplace));
+    }
     $row_general = mysqli_fetch_assoc($res_general);
 
-    $results['total_ventas'] = number_format($row_general['ventas'], 2);
-    $results['total_guias'] = number_format($row_general['pendiente'], 2); // Ejemplo, ajusta según corresponda
     $results['total_recaudo'] = number_format($row_general['monto_recibir'], 2);
     $results['total_fletes'] = number_format($row_general['fletes'], 2);
     $results['devoluciones'] = number_format($row_general['devoluciones'], 2);
 
     echo json_encode($results);
 }
-?>
