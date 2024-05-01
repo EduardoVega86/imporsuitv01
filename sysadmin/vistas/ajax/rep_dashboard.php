@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 include "is_logged.php";  // Archivo comprueba si el usuario está logueado
 require_once "../db.php";
 require_once "../php_conexion.php";
@@ -7,6 +9,12 @@ require_once "../funciones.php";
 
 $user_id = $_SESSION['id_users'];
 $action  = $_REQUEST['action'] ?? '';
+
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+
+$dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
+
+$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 
 if ($action == 'ajax') {
     $daterange = mysqli_real_escape_string($conexion, strip_tags($_REQUEST['range'], ENT_QUOTES));
@@ -27,8 +35,8 @@ if ($action == 'ajax') {
     // Consulta general para ventas, guías, recaudos, fletes, y devoluciones
     $query_general = "SELECT 
                         SUM(CASE WHEN numero_factura NOT LIKE 'proveedor%' AND numero_factura NOT LIKE 'referido%' THEN total_venta ELSE 0 END) AS ventas,
-                        SUM(total_pendiente) AS pendiente,
-                        SUM(total_cobrado) AS cobrado,
+                        SUM(valor_pendiente) AS pendiente,
+                        SUM(valor_cobrado) AS cobrado,
                         SUM(monto_recibir) AS monto_recibir,
                         (SELECT SUM(precio_envio) FROM cabecera_cuenta_pagar WHERE visto = 1 AND tienda = '$dominio_completo' AND fecha BETWEEN '$fecha_inicial' AND '$fecha_final') AS fletes,
                         (SELECT SUM(monto_recibir) FROM cabecera_cuenta_pagar WHERE visto = 1 AND estado_guia = 9 AND tienda = '$dominio_completo' AND fecha BETWEEN '$fecha_inicial' AND '$fecha_final') AS devoluciones

@@ -306,6 +306,8 @@ if ($query_ciudades_despacho) {
 
                                             $total_recaudo = $monto_ventas + $ganancias_proveedor;
                                             $total_recaudo_formateado = number_format($total_recaudo, 2, '.', ',');
+                                            if (empty($total_recaudo_formateado))
+                                            $total_recaudo_formateado = 0;
                                             ?>
                                             <h5 class="text-dark"><b id="total_recaudo" class="counter text-info">$ <?php echo $total_recaudo_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Total Recaudo</p>
