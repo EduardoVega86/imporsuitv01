@@ -395,13 +395,18 @@ if ($query_ciudades_despacho) {
                                     $first = true;
                                     $result = $conexion_marketplace->query($sql); // Volver a ejecutar la consulta
                                     while ($row = $result->fetch_assoc()) {
+                                       $banner= $row['fondo_banner'];
+                                       $banner= "https://marketplace.imporsuit.com/sysadmin/". str_replace("../../","",$banner);
+                    
                                         $alignment = ['1' => 'text-left', '2' => 'text-center', '3' => 'text-right'][$row['alineacion']] ?? 'text-center';
                                         echo '<div class="carousel-item' . ($first ? ' active' : '') . '">';
-                                        echo '<img src="' . $row['fondo_banner'] . '" class="d-block w-100" alt="...">';
+                                        echo '<img src="' . $banner . '" class="d-block w-100" alt="...">';
                                         echo '<div class="carousel-caption d-none d-md-block ' . $alignment . '">';
                                         echo '<h5 style="color: white;">' . $row['titulo'] . '</h5>';
                                         echo '<p style="color: white;">' . $row['texto_banner'] . '</p>';
-                                        echo '<a style="color: white; background-color: #171931; border-color: #171931;" href="' . $row['enlace_boton'] . '" class="btn btn-primary">' . $row['texto_boton'] . '</a>';
+                                         if (!empty($row['texto_boton'])) { 
+                                            echo '<a style="color: white; background-color: #171931; border-color: #171931;" href="' . $row['enlace_boton'] . '" class="btn btn-primary">' . $row['texto_boton'] . '</a>';
+                                         }
                                         echo '</div></div>';
                                         $first = false;
                                     }
@@ -614,9 +619,9 @@ if ($query_ciudades_despacho) {
                                         </div>
                                         <div id="chart_div3" style="height: 300px;"></div>
                                     </div>
-                                    <div class="card-box" style="width: 95%;">
+                                    <!-- <div class="card-box" style="width: 95%;">
                                         <canvas id="productos_mas_salida" style="height:200px !important; width:450px !important;"></canvas>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -1271,7 +1276,7 @@ if ($query_ciudades_despacho) {
         data: {
             labels: ['Corn Flakes', 'Cheerios', 'Life', 'Kix'],
             datasets: [{
-                label: 'Ciudad con mas despacho',
+                label: 'Productos mas solicitados',
                 data: [3, 5, 2, 6],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)'

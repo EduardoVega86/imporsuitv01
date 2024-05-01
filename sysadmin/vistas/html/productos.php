@@ -43,17 +43,19 @@ while ($r = $query->fetch_object()) {
 
 <?php require 'includes/header_end.php'; ?>
 <style>
-    .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
-        background-color: #171931 !important;
-        color: white !important;
-    }
-    .modal .modal-dialog .modal-title{
-        color:white;
-    }
-    .modal .modal-dialog .modal-content .modal-header{
-       background-color: #171931 !important; 
-    }
+	.nav-tabs .nav-item.show .nav-link,
+	.nav-tabs .nav-link.active {
+		background-color: #171931 !important;
+		color: white !important;
+	}
 
+	.modal .modal-dialog .modal-title {
+		color: white;
+	}
+
+	.modal .modal-dialog .modal-content .modal-header {
+		background-color: #171931 !important;
+	}
 </style>
 <!-- Begin page -->
 <div id="wrapper" class="forced enlarged"> <!-- DESACTIVA EL MENU -->
@@ -95,7 +97,7 @@ while ($r = $query->fetch_object()) {
 										include "../modal/editar_producto_2.php";
 										include "../modal/eliminar_producto.php";
 										include "../modal/registro_landing.php";
-                                                                                include "../modal/registro_atributo.php";
+										include "../modal/registro_atributo.php";
 									}
 									?>
 
@@ -128,13 +130,18 @@ while ($r = $query->fetch_object()) {
 											</div>
 											<div class="col-md-2">
 												<span id="loader"></span>
+												<div class="">
+													<input class="input-change" type="checkbox" role="switch" id="activar_destacados" <?php if (get_row('perfil', 'activar_destacados', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
+													<label class="form-check-label" for="flexSwitchCheckChecked">Habilitar Destacados</label>
+												</div>
 											</div>
 
 											<div class="col-md-2">
+
 												<div class="btn-group pull-right">
 													<button type="button" class="btn btn-success btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#nuevoProducto"><i class="fa fa-plus"></i> Agregar</button>
 												</div>
-                                                                                            <div class="btn-group pull-right">
+												<div class="btn-group pull-right">
 													<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
 												</div>
 
@@ -164,14 +171,14 @@ while ($r = $query->fetch_object()) {
 										</div>
 									</form>
 									<div class="datos_ajax_delete"></div><!-- Datos ajax Final -->
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-									<div class='outer_div'></div><!-- Carga los datos ajax -->
-</div>
-                                                                            </div>
-                                                                        <div class="row">
-                                                                         <div class='outer_div_variedades'></div>   
-                                                                        </div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class='outer_div'></div><!-- Carga los datos ajax -->
+										</div>
+									</div>
+									<div class="row">
+										<div class='outer_div_variedades'></div>
+									</div>
 
 
 								</div>
@@ -594,85 +601,106 @@ while ($r = $query->fetch_object()) {
 		xhr.send();
 
 	}
-        
-        
-        function producto_id(id){
-            //alert(id)
-               $('#id_producto').val(id);
-                $.ajax({
-		        url: '../ajax/buscar_atributo_producto.php?action=ajax&id_producto=' + id,
-		        beforeSend: function(objeto) {
-		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
-		        },
-		        success: function(data) {
-		            $("#stock_lista").html(data);
-		            $('#loader').html('');
-		        }
-		    })
-        }
-        function agrega_atributo(){
-        
-           id=$('#id_producto').val()
-           
-           
-           atributo=$('#atributo').val()
-         //  alert(servicio);
-              $.ajax({
-		        url: '../ajax/buscar_atributo_producto.php?action=agrega&id_producto=' + id+'&atributo='+atributo,
-		        beforeSend: function(objeto) {
-		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
-		        },
-		        success: function(data) {
-		            $("#stock_lista").html(data);
-		            $('#loader').html('');
-                            $('#atributo').val('');
-		        }
-		    })  
-             
-        }
-        function eliminar_stock(id_stock){
-        
-          //alert(id)
-          id=$('#id_producto').val()
-              $.ajax({
-		        url: '../ajax/buscar_atributo_producto.php?action=elimina&id_stock=' + id_stock+'&id_producto='+id,
-		        beforeSend: function(objeto) {
-		            $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
-		        },
-		        success: function(data) {
-		            $("#stock_lista").html(data);
-		            $('#loader').html('');
-		        }
-		    })  
-             
-        }
-        
-        function variables(id){
-                       // alert();
-                        fila='#solicitud'+id
-                        page=1;
-                        $("#usuarioseleccionado").val(id);
-                        $("#usuariocamion").val(id);
-                        
-                        id= $("#usuarioseleccionado").val();
-                        
-                         var q = $("#q2").val();
-                        $('#solicitudes tr').css('background-color', '');
-                        $(fila).css('background-color', 'lightblue');
-                        
-                         $.ajax({
-		        url: '../ajax/buscar_documentos_socio.php?action=ajax&page=' + page + '&id_usuario=' + id,
-		        beforeSend: function(objeto) {
-		           // $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
-		        },
-		        success: function(data) {
-		            $(".outer_div2").html(data).fadeIn('slow');
-                              $(".outer_div3").html('').fadeIn('slow');
-		            $('#loader').html('');
-		        }
-		    })
-                   
-                }
+
+
+	function producto_id(id) {
+		//alert(id)
+		$('#id_producto').val(id);
+		$.ajax({
+			url: '../ajax/buscar_atributo_producto.php?action=ajax&id_producto=' + id,
+			beforeSend: function(objeto) {
+				$('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+			},
+			success: function(data) {
+				$("#stock_lista").html(data);
+				$('#loader').html('');
+			}
+		})
+	}
+
+	function agrega_atributo() {
+
+		id = $('#id_producto').val()
+
+
+		atributo = $('#atributo').val()
+		//  alert(servicio);
+		$.ajax({
+			url: '../ajax/buscar_atributo_producto.php?action=agrega&id_producto=' + id + '&atributo=' + atributo,
+			beforeSend: function(objeto) {
+				$('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+			},
+			success: function(data) {
+				$("#stock_lista").html(data);
+				$('#loader').html('');
+				$('#atributo').val('');
+			}
+		})
+
+	}
+
+	function eliminar_stock(id_stock) {
+
+		//alert(id)
+		id = $('#id_producto').val()
+		$.ajax({
+			url: '../ajax/buscar_atributo_producto.php?action=elimina&id_stock=' + id_stock + '&id_producto=' + id,
+			beforeSend: function(objeto) {
+				$('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+			},
+			success: function(data) {
+				$("#stock_lista").html(data);
+				$('#loader').html('');
+			}
+		})
+
+	}
+
+	function variables(id) {
+		// alert();
+		fila = '#solicitud' + id
+		page = 1;
+		$("#usuarioseleccionado").val(id);
+		$("#usuariocamion").val(id);
+
+		id = $("#usuarioseleccionado").val();
+
+		var q = $("#q2").val();
+		$('#solicitudes tr').css('background-color', '');
+		$(fila).css('background-color', 'lightblue');
+
+		$.ajax({
+			url: '../ajax/buscar_documentos_socio.php?action=ajax&page=' + page + '&id_usuario=' + id,
+			beforeSend: function(objeto) {
+				// $('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+			},
+			success: function(data) {
+				$(".outer_div2").html(data).fadeIn('slow');
+				$(".outer_div3").html('').fadeIn('slow');
+				$('#loader').html('');
+			}
+		})
+
+	}
+
+	$(document).ready(function() {
+    $('#activar_destacados').change(function() {
+        var id = this.checked ? 1 : 0; // Simplifica la asignación de ID basado en el estado del checkbox
+
+        $.ajax({
+            type: "GET",
+            url: "../ajax/activar_destacados.php",
+            data: { id: id }, // Uso de un objeto para pasar datos es más limpio y menos propenso a errores
+            beforeSend: function() {
+                $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            },
+            success: function(datos) {
+                $("#resultados").html(datos);
+            }
+        });
+    });
+});
+
 </script>
 <?php require 'includes/footer_end.php'
 ?>

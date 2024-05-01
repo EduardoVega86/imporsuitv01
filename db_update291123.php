@@ -2390,6 +2390,8 @@ mysqli_query($conexion, "ALTER TABLE `novedades` ADD `fecha` DATETIME NULL DEFAU
 
 mysqli_query($conexion, "CREATE TABLE banner_marketplace ( id bigint(20) unsigned auto_increment NOT NULL PRIMARY KEY, fondo_banner text DEFAULT NULL NULL, titulo text DEFAULT NULL NULL, texto_banner text DEFAULT NULL NULL, texto_boton text DEFAULT NULL NULL, enlace_boton text DEFAULT NULL NULL, alineacion int(11) DEFAULT NULL NULL );");
 
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `activar_destacados` VARCHAR(100) NOT NULL DEFAULT '1' AFTER `boton_compra_flotante`;");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
