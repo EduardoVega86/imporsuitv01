@@ -198,6 +198,13 @@ if ($query_ciudades_despacho) {
             <div class="container">
                 <?php if ($permisos_ver == 1) {
                 ?>
+                    <div class="input-group" style="width: 20%;">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" onchange="cambiar()" class="form-control daterange pull-right" value="<?php echo  date('d/m/Y') . ' - ' . date('d/m/Y'); ?>" id="range" readonly>
+
+                    </div>
                     <br>
                     <div class="d-flex flex-row">
                         <div class="d-flex flex-column" style="width: 40%;">
@@ -290,7 +297,14 @@ if ($query_ciudades_despacho) {
                                         GROUP BY numero_factura
                                     ) AS subquery;");
                                             $rw = mysqli_fetch_array($query);
-                                            $total_recaudo = $rw['total_ventas'];
+                                            $monto_ventas = $rw['total_ventas'];
+
+
+                                            $query2 = mysqli_query($conexion_marketplace, "SELECT * FROM cabecera_cuenta_pagar WHERE visto = '1' and tienda like '$dominio_completo%' and numero_factura like 'Proveedor%'");
+                                            $rw2 = mysqli_fetch_array($query2);
+                                            $ganancias_proveedor = $rw2['monto_recibir'];
+
+                                            $total_recaudo = $monto_ventas + $ganancias_proveedor;
                                             $total_recaudo_formateado = number_format($total_recaudo, 2, '.', ',');
                                             ?>
                                             <h5 class="text-dark"><b class="counter text-info">$ <?php echo $total_recaudo_formateado; ?></b></h5>
@@ -895,26 +909,25 @@ if ($query_ciudades_despacho) {
     }
 
     function cambiar() {
-        //alert($("#range").val());
-        var range = $("#range").val();
-        var parametros = {
-            "action": "ajax",
-            'range': range
-        };
-        $("#loader").fadeIn('slow');
-        $.ajax({
-            url: '../ajax/rep_principal.php',
-            data: parametros,
-            beforeSend: function(objeto) {
-                $("#loader").html("<img src='../../img/ajax-loader.gif'>");
-            },
-            success: function(data) {
-                //$(".outer_div").html(data).fadeIn('slow');
-                $("#total_pedido_filtro").html(data);
-            }
-        })
+    var range = $("#range").val(); // Obtén el valor del input de rango de fechas
+    var parametros = {
+        "action": "ajax",
+        'range': range
+    };
+    $("#loader").fadeIn('slow');
+    $.ajax({
+        url: '../ajax/rep_dashboard.php',
+        data: parametros,
+        beforeSend: function(objeto) {
+            $("#loader").html("<img src='../../img/ajax-loader.gif'>");
+        },
+        success: function(data) {
+            $("#total_pedido_filtro").html(data); // Asegúrate de que este es el contenedor correcto para mostrar los resultados
+        }
+    });
+}
 
-    }
+    
 </script>
 <script>
     google.charts.load('current', {
