@@ -302,12 +302,16 @@ if ($query_ciudades_despacho) {
 
                                             $query2 = mysqli_query($conexion_marketplace, "SELECT * FROM cabecera_cuenta_pagar WHERE visto = '1' and tienda like '$dominio_completo%' and numero_factura like 'Proveedor%'");
                                             $rw2 = mysqli_fetch_array($query2);
-                                            $ganancias_proveedor = $rw2['monto_recibir'];
+
+
+                                            if ($rw2) { // Verifica si hay al menos una fila
+                                                $ganancias_proveedor = $rw2['monto_recibir'];
+                                            } else {
+                                                $ganancias_proveedor = 0; // Ajusta a 0 si no hay resultados
+                                            }
 
                                             $total_recaudo = $monto_ventas + $ganancias_proveedor;
                                             $total_recaudo_formateado = number_format($total_recaudo, 2, '.', ',');
-                                            if (empty($total_recaudo_formateado))
-                                            $total_recaudo_formateado = 0;
                                             ?>
                                             <h5 class="text-dark"><b id="total_recaudo" class="counter text-info">$ <?php echo $total_recaudo_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Total Recaudo</p>
@@ -911,32 +915,35 @@ if ($query_ciudades_despacho) {
     }
 
     function cambiar() {
-    var range = $("#range").val(); // Obtén el valor del input de rango de fechas
-    var parametros = {
-        "action": "ajax",
-        'range': range
-    };
-    $("#loader").fadeIn('slow');
-    $.ajax({
-        url: '../ajax/rep_dashboard.php',
-        data: parametros,
-        beforeSend: function(objeto) {
-            $("#loader").html("<img src='../../img/ajax-loader.gif'>");
-        },
-        success: function(data) {
-            var results = JSON.parse(data);
-            $("#total_pedido_filtro").html(results.total_pedidos);
-            $("#total_ventas").html(results.total_ventas);
-            $("#total_guias").html(results.total_guias);
-            $("#total_recaudo").html(results.total_recaudo);
-            $("#total_fletes").html(results.total_fletes);
-            $("#devoluciones").html(results.devoluciones);
-        }
-    });
-}
+        var range = $("#range").val(); // Obtén el valor del input de rango de fechas
+        var parametros = {
+            "action": "ajax",
+            'range': range
+        };
+        $("#loader").fadeIn('slow');
+        $.ajax({
+            url: '../ajax/rep_dashboard.php',
+            data: parametros,
+            beforeSend: function(objeto) {
+                $("#loader").html("<img src='../../img/ajax-loader.gif'>");
+            },
+            success: function(data) {
+                try {
+                    var results = JSON.parse(data);
+                    $("#total_pedido_filtro").html(results.total_pedidos);
+                    $("#total_ventas").html(results.total_ventas);
+                    $("#total_guias").html(results.total_guias);
+                    $("#total_recaudo").html(results.total_recaudo);
+                    $("#total_fletes").html(results.total_fletes);
+                    $("#devoluciones").html(results.devoluciones);
+                } catch (e) {
+                    console.error("Error parsing response:", e);
+                    console.log("Response data:", data);
+                }
+            }
 
-
-    
+        });
+    }
 </script>
 <script>
     google.charts.load('current', {
