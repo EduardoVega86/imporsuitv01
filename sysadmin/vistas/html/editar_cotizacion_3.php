@@ -290,7 +290,7 @@ while ($r = $query->fetch_object()) {
                                                                         ?>
                                                                             <img width="100px" src="../../img_sistema/servi.png" alt="" />
                                                                         <?php
-                                                                        } else if ($transporte === "INTERRAPIDISIMO") {
+                                                                        } else if ($transporte === "GINTRACOM") {
                                                                         ?>
                                                                             <img width="100px" src="../../img_sistema/gintra.png" alt="" />
                                                                         <?php

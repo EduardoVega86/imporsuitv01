@@ -1229,6 +1229,8 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                         $badge_transportadoras .= "badge-warning";
                     } else if ($transportadora == "IMPORFAST") {
                         $badge_transportadoras .= "badge-danger";
+                    } else if ($transportadora == "GINTRACOM") {
+                        $badge_transportadoras .= "badge-danger";
                     }
                     ?>
                     <tr class="align-middle">
@@ -1687,6 +1689,8 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 $estado_guia = 'Devolución';
                                                                                                                                 break;
                                                                                                                         }
+                                                                                                                    } else if (strpos($guia_numero, "I00") === 0) {
+                                                                                                                        $span_estado = 'badge-danger';
                                                                                                                     } else {
                                                                                                                         $guia_numero = '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
                                                                                                                         $traking = '';
@@ -1725,9 +1729,20 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                     ?>
                                     <?php
                                                                                                                         }
+                                                                                                                    } else if (strncmp($guia_numero, "I00", 3) === 0) {
+                                                                                                                        $tracking = "https://ec.gintracom.site/web/site/tracking?guia=" . $guia_numero . "&tipo=GUIA";
+                                    ?>
+
+                                    <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
+                                    <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
+                                    <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
+                                <?php
+
+
+
                                                                                                                     } else if (is_numeric($guia_numero)) {
                                                                                                                         $tracking = "https://www.servientrega.com.ec/Tracking/?guia=" . $guia_numero . "&tipo=GUIA"
-                                    ?>
+                                ?>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
 
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
