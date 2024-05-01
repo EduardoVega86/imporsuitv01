@@ -382,8 +382,12 @@ if ($filaDestacados['total'] == 0) {
 
       </div>
 
+      <?php
+      $activar_destacados = get_row('perfil', 'activar_destacados', 'id_perfil', 1);
+      if ($activar_destacados == 1) { ?>
       <div class="degraded-line"></div>
-
+      
+         
       <div class="container mt-4">
          <h1 style="text-align: center">Destacados</h1>
          <br>
@@ -524,6 +528,7 @@ if ($filaDestacados['total'] == 0) {
          </script>
          <!-- Fin Productos -->
       </div>
+      <?php } ?>
 
       <!-- Iconos -->
       <div class="container" style="margin-bottom: 20px;">
