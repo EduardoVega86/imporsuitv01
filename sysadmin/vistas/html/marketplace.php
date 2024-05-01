@@ -132,8 +132,8 @@ while ($r = $query->fetch_object()) {
 														$query_tienda = mysqli_query($destino, "select distinct tienda from productos order by tienda");
 														while ($rw = mysqli_fetch_array($query_tienda)) {
 														?>
-															<option value="<?php echo $rw['tienda']; ?>"><?php $subdomain = str_replace(array('http://','https://', '.imporsuit.com'), '', $rw['tienda']);
-															echo strtoupper($subdomain); ?></option>
+															<option value="<?php echo $rw['tienda']; ?>"><?php $subdomain = str_replace(array('http://', 'https://', '.imporsuit.com'), '', $rw['tienda']);
+																											echo strtoupper($subdomain); ?></option>
 														<?php
 														}
 														?>
@@ -160,16 +160,16 @@ while ($r = $query->fetch_object()) {
 									<div class='outer_div'></div><!-- Carga los datos ajax -->
 
 
-<div class="col-md-4 input-group ">
-                                        <label for="numero_q">Desplegar: </label>
-                                        <select onchange="buscar_numero(this.value)" name="numero_q" style="background-color: #0275d8; color:white;" class="form-control formulario" id="numero_q">
-                                            <option value="12"> 12 </option>
-                                            <option value="24"> 24 </option>
-                                            <option value="48"> 48 </option>
-                                            <option value="96"> 96 </option>
+									<div class="col-md-4 input-group ">
+										<label for="numero_q">Desplegar: </label>
+										<select onchange="buscar_numero(this.value)" name="numero_q" style="background-color: #0275d8; color:white;" class="form-control formulario" id="numero_q">
+											<option value="12"> 12 </option>
+											<option value="24"> 24 </option>
+											<option value="48"> 48 </option>
+											<option value="96"> 96 </option>
 
-                                        </select>
-                                    </div>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -212,15 +212,16 @@ while ($r = $query->fetch_object()) {
 <script type="text/javascript" src="../../js/js_marketplace.js"></script>
 
 <script>
-	   $(document).ready(function() {
-        $("#tienda_p").select2({
-            placeholder: "Selecciona una opción",
-            allowClear: true,
-            // Puedes añadir más opciones de configuración aquí
-        });
+	$(document).ready(function() {
+		$("#tienda_p").select2({
+			placeholder: "Selecciona una opción",
+			allowClear: true,
+			// Puedes añadir más opciones de configuración aquí
+		});
 
 
-    });
+	});
+
 	function precio_venta() {
 		var profit = $("#utilidad").val();
 		var buying_price = $("#costo").val();
@@ -545,48 +546,47 @@ while ($r = $query->fetch_object()) {
 		var categoria = $("#categoria").val();
 		VentanaCentrada('../pdf/documentos/rep_productos.php?daterange=' + daterange + "&categoria=" + categoria, 'Reporte', '', '800', '600', 'true');
 	}
-        
-        function buscar_numero(numero) {
-  // alert(tienda)
-  var q = $("#q").val();
-  var tienda = $("#tienda_p").val();
-  var categoria = $("#categoria").val();
-  if (tienda == 0) {
-    tienda = "";
-  }
-  if (numero == 0) {
-    numero = "";
-  } 
-  
-    
-  page = 1;
-  $("#loader").fadeIn("slow");
-  $.ajax({
-    url:
-      "../ajax/buscar_prod_marketplace.php?action=ajax&page=" +
-      page +
-      "&numero=" +
-      numero +
-      "&q=" +
-      q +
-      "&tienda=" +
-      tienda +
-      "&categoria=" +
-      categoria,
-      
- 
-    beforeSend: function (objeto) {
-      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
-    },
-    success: function (data) {
-      $(".outer_div").html(data).fadeIn("slow");
-      $("#loader").html("");
-      $('[data-toggle="tooltip"]').tooltip({
-        html: true,
-      });
-    },
-  });
-}
+
+	function buscar_numero(numero) {
+		// alert(tienda)
+		var q = $("#q").val();
+		var tienda = $("#tienda_p").val();
+		var categoria = $("#categoria").val();
+		if (tienda == 0) {
+			tienda = "";
+		}
+		if (numero == 0) {
+			numero = "";
+		}
+
+
+		page = 1;
+		$("#loader").fadeIn("slow");
+		$.ajax({
+			url: "../ajax/buscar_prod_marketplace.php?action=ajax&page=" +
+				page +
+				"&numero=" +
+				numero +
+				"&q=" +
+				q +
+				"&tienda=" +
+				tienda +
+				"&categoria=" +
+				categoria,
+
+
+			beforeSend: function(objeto) {
+				$("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+			},
+			success: function(data) {
+				$(".outer_div").html(data).fadeIn("slow");
+				$("#loader").html("");
+				$('[data-toggle="tooltip"]').tooltip({
+					html: true,
+				});
+			},
+		});
+	}
 </script>
 <?php require 'includes/footer_end.php'
 ?>

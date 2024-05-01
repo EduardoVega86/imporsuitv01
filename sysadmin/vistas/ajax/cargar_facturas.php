@@ -129,7 +129,7 @@ if ($filtro == 'mayor_menor') {
                     break;
             }
 
-            $url_servi_guia = "https://www.servientrega.com.ec/Tracking/?guia=" . $rws['guia_laar'] . "&tipo=GUIA";
+            $url_servi_guia = "https://servientrega-ecuador.appsiscore.com/app/app-cliente/cons_publica.php?guia=" . $rws['guia_laar'];
 
 
 
