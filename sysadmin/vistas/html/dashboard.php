@@ -171,6 +171,13 @@ if ($query_ciudades_despacho) {
         /* Asegura que el texto está sobre la capa oscura */
         position: relative;
     }
+
+    #chart_div2 {
+        min-width: 550px;
+        /* Asegura un mínimo de ancho */
+        min-height: 300px;
+        /* Asegura un mínimo de altura */
+    }
 </style>
 <?php require 'includes/header_end.php'; ?>
 
@@ -207,7 +214,7 @@ if ($query_ciudades_despacho) {
                                             $rw = mysqli_fetch_array($query);
                                             $total_ventas = $rw['count'];
                                             ?>
-                                            <h5 class="text-dark text-center"><b id="total_pedido_filtro" class="counter text-success"><?php echo $total_ventas; ?></b></h5>
+                                            <h5 class="text-dark"><b id="total_pedido_filtro" class="counter text-success"><?php echo $total_ventas; ?></b></h5>
                                             <p class="text-muted mb-0">Total Ventas</p>
                                         </div>
                                         <div class="clearfix"></div>
@@ -215,6 +222,27 @@ if ($query_ciudades_despacho) {
 
                                 </div>
 
+                                <div class="col">
+                                    <a href="cxp.php">
+                                        <div class="widget-bg-color-icon card-box">
+                                            <div class="bg-icon bg-icon-success pull-left">
+                                                <i class="ti-calendar text-success"></i>
+                                            </div>
+                                            <div class="text-right">
+                                                <h5 class="text-dark text-center"><b id="total_pedido_filtro" class="counter text-success"><?php total_pedidos(date('d/m/Y'), date('d/m/Y')); ?></b></h5>
+                                                <p class="text-muted mb-0">Total Pedidos</p>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+
+
+
+                            </div>
+
+
+                            <div class="d-flex flex-row">
 
                                 <div class="col">
 
@@ -228,17 +256,14 @@ if ($query_ciudades_despacho) {
                                             $rw = mysqli_fetch_array($query);
                                             $total_guias = $rw['count'];
                                             ?>
-                                            <h5 class="text-dark text-center"><b class="counter text-warning"><?php echo $total_guias; ?></b></h5>
+                                            <h5 class="text-dark"><b class="counter text-warning"><?php echo $total_guias; ?></b></h5>
                                             <p class="text-muted mb-0">Total Guias</p>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
 
                                 </div>
-                            </div>
 
-
-                            <div class="d-flex flex-row">
                                 <div class="col">
 
                                     <div class="widget-bg-color-icon card-box fadeInDown animated">
@@ -276,6 +301,10 @@ if ($query_ciudades_despacho) {
 
                                 </div>
 
+
+                            </div>
+
+                            <div class="d-flex flex-row">
                                 <div class="col">
 
                                     <div class="widget-bg-color-icon card-box">
@@ -285,13 +314,13 @@ if ($query_ciudades_despacho) {
                                         <div class="text-right">
                                             <?php
                                             $query = mysqli_query($conexion_marketplace, "SELECT 
-                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
-                                             SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
-                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
-                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
-                                             SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir,
-                                             (SELECT SUM(precio_envio) as total_fletes from cabecera_cuenta_pagar where visto =1 and tienda = '$dominio_completo') as total_fletes
-                                             FROM (
+                                            SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
+                                            SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
+                                            SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+                                            SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+                                            SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir,
+                                            (SELECT SUM(precio_envio) as total_fletes from cabecera_cuenta_pagar where visto =1 and tienda = '$dominio_completo') as total_fletes
+                                            FROM (
                                                 SELECT 
                                                 numero_factura, 
                                                 MAX(total_venta) AS total_venta, 
@@ -301,22 +330,20 @@ if ($query_ciudades_despacho) {
                                                 FROM cabecera_cuenta_pagar 
                                                 WHERE tienda = '$dominio_completo' 
                                                 AND visto = '1'
-                                            GROUP BY numero_factura
-                                             ) AS subquery;");
+                                                GROUP BY numero_factura
+                                                ) AS subquery;");
                                             $rw = mysqli_fetch_array($query);
                                             $total_fletes = $rw['total_fletes'];
                                             $total_fletes_formateado = number_format($total_fletes, 2, '.', ',');
                                             ?>
-                                            <h5 class="text-dark text-center"><b class="counter text-purple">$ <?php echo $total_fletes_formateado; ?></b></h5>
+                                            <h5 class="text-dark"><b class="counter text-purple">$ <?php echo $total_fletes_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Total Fletes</p>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
 
                                 </div>
-                            </div>
 
-                            <div class="d-flex flex-row">
                                 <div class="col">
 
                                     <div class="widget-bg-color-icon card-box fadeInDown animated">
@@ -356,20 +383,6 @@ if ($query_ciudades_despacho) {
 
                                 </div>
 
-                                <div class="col">
-
-                                    <div class="widget-bg-color-icon card-box">
-                                        <div class="bg-icon bg-icon-purple pull-left">
-                                            <i class="ti-dashboard text-purple"></i>
-                                        </div>
-                                        <div class="text-right">
-                                            <h5 class="text-dark text-center"><b class="counter text-purple"><?php total_cxc(); ?></b></h5>
-                                            <p class="text-muted mb-0"> Fulfillment</p>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-
-                                </div>
                             </div>
                         </div>
 
@@ -395,18 +408,18 @@ if ($query_ciudades_despacho) {
                                     $first = true;
                                     $result = $conexion_marketplace->query($sql); // Volver a ejecutar la consulta
                                     while ($row = $result->fetch_assoc()) {
-                                       $banner= $row['fondo_banner'];
-                                       $banner= "https://marketplace.imporsuit.com/sysadmin/". str_replace("../../","",$banner);
-                    
+                                        $banner = $row['fondo_banner'];
+                                        $banner = "https://marketplace.imporsuit.com/sysadmin/" . str_replace("../../", "", $banner);
+
                                         $alignment = ['1' => 'text-left', '2' => 'text-center', '3' => 'text-right'][$row['alineacion']] ?? 'text-center';
                                         echo '<div class="carousel-item' . ($first ? ' active' : '') . '">';
                                         echo '<img src="' . $banner . '" class="d-block w-100" alt="...">';
                                         echo '<div class="carousel-caption d-none d-md-block ' . $alignment . '">';
                                         echo '<h5 style="color: white;">' . $row['titulo'] . '</h5>';
                                         echo '<p style="color: white;">' . $row['texto_banner'] . '</p>';
-                                         if (!empty($row['texto_boton'])) { 
+                                        if (!empty($row['texto_boton'])) {
                                             echo '<a style="color: white; background-color: #171931; border-color: #171931;" href="' . $row['enlace_boton'] . '" class="btn btn-primary">' . $row['texto_boton'] . '</a>';
-                                         }
+                                        }
                                         echo '</div></div>';
                                         $first = false;
                                     }
@@ -592,6 +605,21 @@ if ($query_ciudades_despacho) {
                                             <h5 class="text-dark"><b id="total_pedido_filtro" class="counter text-success"><?php echo  number_format($porcentaje_ticket, 2); ?> %</b></h5>
                                             <p class="text-muted mb-0">Ticket promedio</p>
                                         </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                </div>
+                                <div class="col">
+
+                                    <div class="widget-bg-color-icon card-box">
+                                        <div class="bg-icon bg-icon-purple pull-left">
+                                            <i class="ti-dashboard text-purple"></i>
+                                        </div>
+                                        <div class="text-right">
+                                            <h5 class="text-dark"><b class="counter text-purple"><?php total_cxc(); ?></b></h5>
+                                            <p class="text-muted mb-0"> Fulfillment</p>
+                                        </div>
                                         <div class="clearfix"></div>
                                     </div>
 
@@ -618,6 +646,21 @@ if ($query_ciudades_despacho) {
                                             </div>
                                         </div>
                                         <div id="chart_div3" style="height: 300px;"></div>
+                                    </div>
+                                    <div class="widget-chart text-center" style="width: 100%;">
+                                        <div class='row'>
+                                            <div class='col'>
+                                                <select class="form-control" id="periodo2" onchange="drawVisualization2();">
+                                                    <?php
+                                                    for ($anio = (date("Y")); 2016 <= $anio; $anio--) {
+                                                        echo "<option value=" . $anio . ">Período:" . $anio . "</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="chart_div2" style="height: 300px; width:55%"></div>
+
                                     </div>
                                     <!-- <div class="card-box" style="width: 95%;">
                                         <canvas id="productos_mas_salida" style="height:200px !important; width:450px !important;"></canvas>
@@ -934,8 +977,8 @@ if ($query_ciudades_despacho) {
     });
 
     function drawVisualization2() {
-        // Some raw data (not necessarily accurate)
-        var periodo = $("#periodo2").val(); //Datos que enviaremos para generar una consulta en la base de datos
+        // Obtener datos del periodo
+        var periodo = $("#periodo2").val(); // Datos que enviaremos para generar una consulta en la base de datos
         var jsonData = $.ajax({
             url: 'comparativa2.php',
             data: {
@@ -946,13 +989,13 @@ if ($query_ciudades_despacho) {
             async: false
         }).responseText;
 
+        // Convertir datos JSON a un objeto
         var obj = jQuery.parseJSON(jsonData);
         var data = google.visualization.arrayToDataTable(obj);
 
-
-
+        // Opciones de configuración del gráfico
         var options = {
-            title: 'PEDIDOS VS VENTAS' + periodo,
+            title: 'PEDIDOS VS VENTAS ' + periodo, // Asegúrate de añadir un espacio después de 'VENTAS'
             vAxis: {
                 title: 'Monto'
             },
@@ -964,13 +1007,17 @@ if ($query_ciudades_despacho) {
                 5: {
                     type: 'line'
                 }
-            }
+            },
+            height: 300, // Altura en píxeles
+            width: '55%' // Ancho como porcentaje
         };
 
+        // Crear y dibujar el gráfico
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
         google.visualization.events.addListener(chart, 'error', errorHandler);
         chart.draw(data, options);
     }
+
 
 
 
