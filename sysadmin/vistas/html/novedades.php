@@ -252,16 +252,12 @@ $pacientes = 1;
                                             $btncolor = "btn-success";
                                             $transporte = "SERVIENTREGA";
                                         }
-                                        if (strpos($numero_guia, "IMP") !== 0) {
-
                                         ?>
 
-                                            <button type="button" class="btn btn-sm <?php echo $btncolor; ?>" data-toggle="modal" data-target="#novedad" data-id="<?php echo htmlspecialchars($id_novedad); ?>" data-guia="<?php echo htmlspecialchars($numero_guia); ?>" data-cliente="<?php echo htmlspecialchars($cliente); ?>" data-estado="<?php echo htmlspecialchars($estado); ?>" data-novedad="<?php echo htmlspecialchars($novedad); ?>" data-solucion="<?php echo htmlspecialchars($solucion); ?>" data-tracking="<?php echo htmlspecialchars($tracking); ?>" data-transporte="<?php echo htmlspecialchars($transporte); ?>">
-                                                <i class='bx bxs-shield-plus'> </i> Solución
-                                            </button>
-                                        <?php } else {
-                                            echo "Proximamente";
-                                        } ?>
+                                        <button type="button" class="btn btn-sm <?php echo $btncolor; ?>" data-toggle="modal" data-target="#novedad" data-id="<?php echo htmlspecialchars($id_novedad); ?>" data-guia="<?php echo htmlspecialchars($numero_guia); ?>" data-cliente="<?php echo htmlspecialchars($cliente); ?>" data-estado="<?php echo htmlspecialchars($estado); ?>" data-novedad="<?php echo htmlspecialchars($novedad); ?>" data-solucion="<?php echo htmlspecialchars($solucion); ?>" data-tracking="<?php echo htmlspecialchars($tracking); ?>" data-transporte="<?php echo htmlspecialchars($transporte); ?>">
+                                            <i class='bx bxs-shield-plus'> </i> Solución
+                                        </button>
+
                                     </td>
 
                                     <td class="text-center">
@@ -440,10 +436,12 @@ $pacientes = 1;
                             '<input type="hidden" name="guia" value="' + guia + '">' +
                             '<input type="hidden" name="transporte" value="' + button.data('transporte') + '">' +
                             '<strong>Actualizar Novedad:</strong>' +
+                            '<div><input type="text" class="form-control" name="nombre" value="' + data.nombre + '" disabled /> </div> ' +
                             '<div><input type="text" class="form-control" name="ciudad" value="' + data.ciudad + '" disabled /> </div> ' +
                             '<div><input type="text" class="form-control" name="direccion" value="' + data.c_principal + " " + data.c_secundaria + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="direccion1" value="' + data.c_secundaria + " " + data.c_secundaria + '" disabled /> </div> ' +
                             '<div><input type="text" class="form-control" name="telefono" value="' + data.telefono + '" disabled /> </div> ' +
-                            '<div><input type="text" class="form-control" name="celular" value="' + data.celular + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="celular" value="' + data.telefono + '" disabled /> </div> ' +
                             '<div><input type="text" class="form-control" name="numeracion" value="' + data.numeracion + '" disabled /> </div> ' +
                             '<div><input type="text" class="form-control" name="referencia" value="' + data.referencia + '" disabled /> </div> ' +
                             '<div><input type="text" class="form-control" name="observacion" value="' + data.observacion + '" disabled /> </div> ' +
