@@ -211,22 +211,55 @@ if ($query_ciudades_despacho) {
         min-height: 300px;
         /* Asegura un mínimo de altura */
     }
-    
+
     /* reponsive*/
-    .seccion_informacion{
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+        /* Evita desbordamiento horizontal */
+    }
+
+    /* Estilo para la sección de información para que ocupe todo el ancho */
+    .seccion_informacion {
         display: flex;
         flex-direction: row;
+        width: 100%;
+        /* Asegura que ocupe todo el ancho */
     }
-    .fecha{
+
+    .fecha {
         width: 20% !important;
     }
+
+    .seccion_cuadros_dashboard {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+    }
+
+    .seccion_slider {
+        width: 60%;
+    }
+
     @media (max-width: 768px) {
-        .seccion_informacion{
-        flex-direction: column  ;
-    }
-    .fecha{
-        width: 100% !important;
-    }
+        .seccion_informacion {
+            flex-direction: column;
+        }
+
+        .fecha {
+            width: 100% !important;
+        }
+
+        .seccion_cuadros_dashboard {
+            width: 100%;
+        }
+
+        .seccion_slider {
+            width: 100%;
+        }
     }
 </style>
 <?php require 'includes/header_end.php'; ?>
@@ -257,7 +290,7 @@ if ($query_ciudades_despacho) {
                     </div>
                     <br>
                     <div class="seccion_informacion">
-                        <div class="d-flex flex-column" style="width: 40%;">
+                        <div class="seccion_cuadros_dashboard">
                             <div class="d-flex flex-row">
                                 <div class="col">
 
@@ -457,7 +490,7 @@ if ($query_ciudades_despacho) {
                         </div>
 
                         <!-- Slider infinito -->
-                        <div class="slider" style="width: 60%; margin-bottom:20px; background-color:white;">
+                        <div class="slider seccion_slider" style="margin-bottom:20px; background-color:white;">
                             <div id="miSlider" class="carousel slide" data-ride="carousel">
                                 <!-- Indicadores -->
                                 <ol class="carousel-indicators">
