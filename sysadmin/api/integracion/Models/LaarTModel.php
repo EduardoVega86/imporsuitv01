@@ -19,17 +19,13 @@ class LaarModel extends Query
     public function processGuiaStatus($no_guia, $estado_actual_codigo)
     {
         $this->updateMarketplace($no_guia, $estado_actual_codigo);
-    }
-
-    public function cambiarEstado($no_guia, $estado_actual_codigo)
-    {
-        $this->cambiarEstados($no_guia, $estado_actual_codigo);
         if ($estado_actual_codigo == 7) {
             $this->pedidoEntragado($no_guia, $estado_actual_codigo);
         } else if ($estado_actual_codigo == 9) {
             $this->pedidoDevolucion($no_guia, $estado_actual_codigo);
         }
     }
+    /* 
     protected function conectarProveedor($proveedor)
     {
         $contrasena = $proveedor;
@@ -42,7 +38,8 @@ class LaarModel extends Query
         }
         return $proveedor_connect;
     }
-    protected function conectarMarketplace()
+ */
+    /*   protected function conectarMarketplace()
     {
         # Conexi贸n a la base de datos de marketplace
         $market_connect = mysqli_connect(MARKETPLACE, MARKETPLACE_USER, MARKETPLACE_PASSWORD, MARKETPLACE_DB);
@@ -51,7 +48,7 @@ class LaarModel extends Query
         }
         return $market_connect;
     }
-
+ */
     /*  public function actualizarTiendaVenta($no_guia, $estado_actual_codigo)
     {
         $tienda_ventas = $this->conectarProveedor($this->buscarTiendaVenta($no_guia));
@@ -149,11 +146,6 @@ class LaarModel extends Query
         $query = "SELECT tienda_proveedor FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
         $dominiotienda = $query[0]['tienda_proveedor'];
-        $dominiotienda = str_replace("https://", "", $dominiotienda);
-        $dominiotienda = str_replace("http://", "", $dominiotienda);
-        $dominiotienda = str_replace(".com", "", $dominiotienda);
-        $dominiotienda = str_replace(".imporsuit", "", $dominiotienda);
-        $dominiotienda = "imporsuit_" . $dominiotienda;
         return  $dominiotienda;
     }
 
@@ -162,20 +154,17 @@ class LaarModel extends Query
         $query = "SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
         $dominiotienda = $query[0]['tienda_venta'];
-        $dominiotienda = str_replace("https://", "", $dominiotienda);
-        $dominiotienda = str_replace("http://", "", $dominiotienda);
-        $dominiotienda = str_replace(".com", "", $dominiotienda);
-        $dominiotienda = str_replace(".imporsuit", "", $dominiotienda);
-        $dominiotienda = "imporsuit_" . $dominiotienda;
         return  $dominiotienda;
     }
 
     public function pedidoEntragado($no_guia, $estado_actual_codigo)
     {
+        $tienda_venta = $this->buscarTiendaVenta($no_guia);
+        $tienda_proveedor = $this->buscarProveedor($no_guia);
+
         $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
-        $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
         $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
-        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
+        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedidoverificar'");
         $numero_factura_verificar = $numero_factura[0]['numero_factura'];
         $verificar = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura_verificar'");
         $verificar = count($verificar);
@@ -183,13 +172,7 @@ class LaarModel extends Query
             echo json_encode('ya_existe');
             exit;
         }
-        $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
-        $query = $this->select($query);
-        $id_pedido = $query[0]['id_pedido'];
-        $tienda_venta = $query[0]['tienda_venta'];
-        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'";
-        $query = $this->select($query);
-
+        $query = $this->select("SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedidoverificar'");
         $numero_factura = $query[0]['numero_factura'];
         $fecha = $query[0]['fecha_factura'];
         $nombre_cliente = $query[0]['nombre'];
@@ -199,8 +182,7 @@ class LaarModel extends Query
         $ciudad_cot = $query[0]['ciudad_cot'];
         $id_factura = $query[0]['id_factura'];
         $id_pedido_origen = $query[0]['id_factura_origen'];
-        $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'";
-        $tieneGuias_query = $this->select($tieneGuias_sql);
+        $tieneGuias_query = $this->select("SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $tieneGuias = count($tieneGuias_query);
         if (empty($tieneGuias)) {
             echo json_encode('no_guias');
@@ -213,6 +195,15 @@ class LaarModel extends Query
         $costo_total = $costo_total[0]['costo_producto'];
         $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
         $valor_base = $valor_base[0]['precio'];
+        if ($valor_base == null || $valor_base == 0) {
+            $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudadD'");
+            if ($valor_base == null || $valor_base == 0) {
+                $valor_base = $this->select("SELECT trayecto_laar from ciudad_cotizacion where id_cotizacion = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_laar'];
+                $valor_base = $this->select("SELECT precio from cobertura_laar where tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+            }
+        }
         if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
             $conexion_tiend  = $this->obtener_conexion($tienda_venta);
             $sql_tipo = "SELECT * FROM `guia_laar` where guia_laar ='" . $no_guia . "'";
@@ -272,7 +263,11 @@ class LaarModel extends Query
 
     public function pedidoDevolucion($no_guia, $estado_actual_codigo)
     {
-        $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
+        //verificar si ya existe la guia en la tabla de cuenta por pagar
+        $tienda_venta =
+
+
+            $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
         $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
         $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
         $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");

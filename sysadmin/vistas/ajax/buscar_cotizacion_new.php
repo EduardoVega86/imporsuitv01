@@ -1691,6 +1691,8 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                         }
                                                                                                                     } else if (strpos($guia_numero, "I00") === 0) {
                                                                                                                         $span_estado = 'badge-danger';
+                                                                                                                        $url = "https://guias.imporsuit.com/Gintracom/label/" . $guia_numero;
+                                                                                                                        $tracking = "https://ec.gintracom.site/web/site/tracking?guia=" . $guia_numero . "&tipo=GUIA";
                                                                                                                     } else {
                                                                                                                         $guia_numero = '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
                                                                                                                         $traking = '';
@@ -1735,7 +1737,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class="badge <?php echo $span_estado; ?>"><?php echo $estado_guia; ?></span></a><BR>
                                     <a style="cursor: pointer;" href="<?php echo $url; ?>" target="blank"><span class=""><?php echo $guia_numero; ?></span></a><BR>
-                                    <a style="cursor: pointer;" href="<?php echo $traking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
+                                    <a style="cursor: pointer;" href="<?php echo $tracking; ?>" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>
                                 <?php
 
 
