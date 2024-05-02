@@ -247,9 +247,9 @@ if ($action == 'ajax') {
                 <input type="hidden" value="<?php echo $image_path; ?>" id="image_path<?php echo $id_producto; ?>">
 
                 <?php
-                $count_tienda = mysqli_query($conexion_marketplace, "SELECT * AS numrows FROM proveedor  WHERE id_proveedor = $id_proveedor");
+                $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM proveedor  WHERE id_proveedor = $id_proveedor");
                 $row_tienda = mysqli_fetch_array($count_tienda);
-                $telefono_tienda     = $row_tienda['telefono_proveedor'];
+                $telefono_tienda     = $row_tienda['whatsapp'];
                 
                 ?>
 

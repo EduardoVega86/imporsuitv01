@@ -215,7 +215,7 @@ if (isset($conexion)) {
 								</div>
 								<li style="font-size: 22px;"><strong>Stock:</strong> <input type="text" id="mod_stock" style="color: #3EDF2B; font-weight: bold;" class="info-input_stock" readonly></li>
 								<hr class="styled-hr">
-								<li style="font-size: 22px;"><strong>Proveedor:</strong> <input type="text" id="mod_telefono_tienda"  class="info-input_stock" readonly></li>
+								<!-- <li style="font-size: 22px;"><strong>Proveedor:</strong> <input type="text" id="mod_telefono_tienda"  class="info-input_stock" readonly></li> -->
 						</ul>
 
 					</div>
