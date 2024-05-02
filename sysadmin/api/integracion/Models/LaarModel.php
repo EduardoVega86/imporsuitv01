@@ -198,7 +198,9 @@ class LaarModel extends Query
         $producto_id = $producto_id[0]['id_producto'];
         $costo_total = $this->select("SELECT costo_producto FROM productos WHERE id_producto = '$producto_id'");
         $costo_total = $costo_total[0]['costo_producto'];
-        $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
+        $valor_base = $this->select("SELECT trayecto_laar from ciudad_cotizacion where id_cotizacion = '$ciudad_cot'");
+        $valor_base = $valor_base[0]['trayecto_laar'];
+        $valor_base = $this->select("SELECT precio FROM cobertura_laar WHERE tipo_cobertura = '$valor_base'");
         $valor_base = $valor_base[0]['precio'];
         if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
             $conexion_tiend  = $this->obtener_conexion($tienda_venta);
