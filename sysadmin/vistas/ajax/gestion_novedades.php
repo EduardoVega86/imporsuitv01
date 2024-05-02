@@ -54,7 +54,7 @@ if ($transporte == 'SERVIENTREGA') {
 
     // Configuración de la solicitud cURL para obtener el token
     $token_ch = curl_init($token_url);
-    curl_setopt($token_ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($token_ch, CURLOPT_CUSTOMREQUEST, "PUT");
     curl_setopt($token_ch, CURLOPT_POSTFIELDS, $auth_data);
     curl_setopt($token_ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($token_ch, CURLOPT_HTTPHEADER, array(

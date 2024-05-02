@@ -364,15 +364,15 @@ $pacientes = 1;
 
             var camposAdicionales = "";
             if (tracking.includes("laar")) {
-                camposAdicionales = '<div><input type="text" class="form-control" name="ciudad" disabled /> </div> ' +
-                    '<div><input type="text" class="form-control" name="direccion" disabled /> </div> ' +
-                    '<div><input type="text" class="form-control" name="telefono" disabled /> </div> ' +
-                    '<div><input type="text" class="form-control" name="celular" disabled /> </div> ' +
-                    '<div><input type="text" class="form-control" name="c_principal" disabled /> </div> ' +
-                    '<div><input type="text" class="form-control" name="c_secundaria" disabled /> </div> ' +
-                    '<div><input type="text" class="form-control" name="numeracion" disabled /> </div> ' +
-                    '<div><input type="text" class="form-control" name="referencia" disabled /> </div> ' +
-                    '<div><input type="text" class="form-control" name="observacion" disabled /> </div> ' +
+                camposAdicionales = '<div><input type="text" class="form-control" name="ciudad" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="direccion" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="telefono" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="celular" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="c_principal" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="c_secundaria" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="numeracion" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="referencia" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="observacion" /> </div> ' +
                     '<div><input type="text" class="form-control" name="novedad" placeholder="Solución a la novedad" /> </div>';
 
             } else if (tracking.includes("servientrega")) {
@@ -436,15 +436,15 @@ $pacientes = 1;
                             '<input type="hidden" name="guia" value="' + guia + '">' +
                             '<input type="hidden" name="transporte" value="' + button.data('transporte') + '">' +
                             '<strong>Actualizar Novedad:</strong>' +
-                            '<div><input type="text" class="form-control" name="nombre" value="' + data.nombre + '" disabled /> </div> ' +
-                            '<div><input type="text" class="form-control" name="ciudad" value="' + data.ciudad + '" disabled /> </div> ' +
-                            '<div><input type="text" class="form-control" name="direccion" value="' + data.c_principal + " " + data.c_secundaria + '" disabled /> </div> ' +
-                            '<div><input type="text" class="form-control" name="direccion1" value="' + data.c_secundaria + " " + data.c_secundaria + '" disabled /> </div> ' +
-                            '<div><input type="text" class="form-control" name="telefono" value="' + data.telefono + '" disabled /> </div> ' +
-                            '<div><input type="text" class="form-control" name="celular" value="' + data.telefono + '" disabled /> </div> ' +
-                            '<div><input type="text" class="form-control" name="numeracion" value="' + data.numeracion + '" disabled /> </div> ' +
-                            '<div><input type="text" class="form-control" name="referencia" value="' + data.referencia + '" disabled /> </div> ' +
-                            '<div><input type="text" class="form-control" name="observacion" value="' + data.observacion + '" disabled /> </div> ' +
+                            '<div><input type="text" class="form-control" name="nombre" value="' + data.nombre + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="ciudad" value="' + data.ciudad + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="direccion" value="' + data.c_principal + " " + data.c_secundaria + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="direccion1" value="' + data.c_secundaria + " " + data.c_secundaria + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="telefono" value="' + data.telefono + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="celular" value="' + data.telefono + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="numeracion" value="' + data.numeracion + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="referencia" value="' + data.referencia + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="observacion" value="' + data.observacion + '" /> </div> ' +
                             '<div><input type="text" class="form-control" name="novedad" placeholder="Solución a la novedad" /> </div>' +
                             '<div><button type="submit" class="btn w-100 btn-primary mt-2">Enviar</button></div>' +
                             '</form>' +
