@@ -250,13 +250,15 @@ if ($action == 'ajax') {
 
                 <?php
 
-                $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataforma WHERE id_proveedor = " . $id_proveedor);
+                $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataformas WHERE url_imporsuit LIKE '%" . $tienda ."%'");
                 $row_tienda         = mysqli_fetch_array($count_tienda);
                 $telefono_tienda    = $row_tienda['whatsapp'];
+                $telefonoFormateado = formatPhoneNumber($telefono_tienda);
 
                 ?>
 
-                <input type="hidden" value="<?php echo $telefono_tienda; ?>" id="telefono_tienda<?php echo $id_producto; ?>">
+                <input type="hidden" value="<?php echo $telefonoFormateado; ?>" id="telefono_tienda<?php echo $id_producto; ?>">
+                <input type="hidden" value="<?php echo $tienda; ?>" id="tienda<?php echo $id_producto; ?>">
             <?php
             }
             ?>
@@ -291,4 +293,23 @@ if ($action == 'ajax') {
     }
     // fin else
 }
+
+function formatPhoneNumber($number)
+      {
+         // Eliminar caracteres no numéricos excepto el signo +
+         $number = preg_replace('/[^\d+]/', '', $number);
+
+         // Verificar si el número ya tiene el código de país +593
+         if (!preg_match('/^\+593/', $number)) {
+            // Si el número comienza con 0, quitarlo
+            if (strpos($number, '0') === 0) {
+               $number = substr($number, 1);
+            }
+            // Agregar el código de país +593 al inicio del número
+            $number = '+593' . $number;
+         }
+
+         return $number;
+      }
+
 ?>

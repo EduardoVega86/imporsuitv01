@@ -36,7 +36,7 @@ if (isset($conexion)) {
 			/* Ajusta el ancho según sea necesario */
 			color: black;
 			/* Color del texto */
-			font-size:22px;
+			font-size: 22px;
 			/* Tamaño del texto */
 			padding: 2px;
 			/* Espaciado interno, ajusta según sea necesario */
@@ -184,6 +184,25 @@ if (isset($conexion)) {
 				padding-left: 00px;
 			}
 		}
+
+		#mod_telefono_tienda {
+			color: blue;
+			/* Establece el color del texto a azul */
+			border: none;
+			/* Elimina el borde */
+			background-color: transparent;
+			/* Fondo transparente */
+			cursor: pointer;
+			/* Cambia el cursor a forma de mano para indicar que es un enlace */
+			transition: color 0.3s ease;
+			/* Transición suave para el cambio de color */
+		}
+
+		/* Estilo para el input del número de teléfono al pasar el mouse */
+		#mod_telefono_tienda:hover {
+			color: deepskyblue;
+			/* Cambia el color a un azul más claro al pasar el mouse */
+		}
 	</style>
 	<div id="editarProducto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog modal-lg">
@@ -215,7 +234,12 @@ if (isset($conexion)) {
 								</div>
 								<li style="font-size: 22px;"><strong>Stock:</strong> <input type="text" id="mod_stock" style="color: #3EDF2B; font-weight: bold;" class="info-input_stock" readonly></li>
 								<hr class="styled-hr">
-								<li style="font-size: 22px;"><strong>Proveedor:</strong> <input type="text" id="mod_telefono_tienda"  class="info-input_stock" readonly></li>
+								<li style="font-size: 22px;"><strong>Proveedor:</strong> <input type="text" id="mod_tienda" class="info-input_stock" readonly></li>
+								<li>
+									<a id="link-telefono-tienda" href="#" target="_blank">
+										<input type="text" id="mod_telefono_tienda" class="info-input_stock" readonly>
+									</a>
+								</li>
 						</ul>
 
 					</div>
