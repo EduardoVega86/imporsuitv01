@@ -211,6 +211,23 @@ if ($query_ciudades_despacho) {
         min-height: 300px;
         /* Asegura un mínimo de altura */
     }
+    
+    /* reponsive*/
+    .seccion_informacion{
+        display: flex;
+        flex-direction: row;
+    }
+    .fecha{
+        width: 20% !important;
+    }
+    @media (max-width: 768px) {
+        .seccion_informacion{
+        flex-direction: column  ;
+    }
+    .fecha{
+        width: 100% !important;
+    }
+    }
 </style>
 <?php require 'includes/header_end.php'; ?>
 
@@ -231,7 +248,7 @@ if ($query_ciudades_despacho) {
             <div class="container">
                 <?php if ($permisos_ver == 1) {
                 ?>
-                    <div class="input-group" style="width: 20%;">
+                    <div class="input-group fecha">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
@@ -239,7 +256,7 @@ if ($query_ciudades_despacho) {
 
                     </div>
                     <br>
-                    <div class="d-flex flex-row">
+                    <div class="seccion_informacion">
                         <div class="d-flex flex-column" style="width: 40%;">
                             <div class="d-flex flex-row">
                                 <div class="col">
@@ -495,7 +512,7 @@ if ($query_ciudades_despacho) {
                     </div>
                     <!-- end row -->
 
-                    <div class="d-flex flex-row" style="padding-bottom: 50px;">
+                    <div class="seccion_informacion" style="padding-bottom: 50px;">
 
                         <div class="col-lg-4">
                             <div class="portlet portlet-fixed-height">
@@ -614,7 +631,7 @@ if ($query_ciudades_despacho) {
                         </div>
                     </div>
 
-                    <div class="d-flex flex-row">
+                    <div class="seccion_informacion">
                         <div class="d-flex flex-column" style="width: 35%;">
                             <div class="d-flex flex-row">
                                 <div class="col">

@@ -191,6 +191,7 @@ while ($row = mysqli_fetch_array($query)) {
                 <input type="hidden" value="<?php echo $url2; ?>" id="url2<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $texto_boton2; ?>" id="texto_boton2<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $descripcion2; ?>" id="descripcion2<?php echo $id_producto; ?>">
+                <input type="hidden" value="<?php echo $image_path; ?>" id="image_path<?php echo $id_producto; ?>">
                 <tr>
                     <td><span class="badge badge-purple"><?php echo $id_producto; ?></span></td>
                     <td class='text-center'>
