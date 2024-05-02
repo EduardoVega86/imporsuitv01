@@ -8,7 +8,7 @@ include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a 
 /* Connect To Database*/
 require_once "../db.php";
 require_once "../php_conexion.php";
-
+$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 // Configuracin de la base de datos de destino
 if ($_SERVER['HTTP_HOST'] == 'localhost') {
     $destino = new mysqli('localhost', 'root', '', 'master');
@@ -248,8 +248,15 @@ if ($action == 'ajax') {
                 <input type="hidden" value="<?php echo $descripcion2; ?>" id="descripcion2<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $image_path; ?>" id="image_path<?php echo $id_producto; ?>">
 
+                <?php
 
+                $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataforma WHERE id_proveedor = " . $id_proveedor);
+                $row_tienda         = mysqli_fetch_array($count_tienda);
+                $telefono_tienda    = $row_tienda['whatsapp'];
 
+                ?>
+
+                <input type="hidden" value="<?php echo $telefono_tienda; ?>" id="telefono_tienda<?php echo $id_producto; ?>">
             <?php
             }
             ?>
