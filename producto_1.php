@@ -574,11 +574,11 @@ if ($formato == 3) {
         <div class="left-column">
 
           <div class="slider_producto">
-            <div class="d-flex flex-column" style="max-width: 200px !important;">
+            <div class="d-flex flex-column" style="width: 100%;;">
               <!-- Indicadores del carrusel para las miniaturas -->
-              <div class="list-group" style="max-width: 200px !important;" id="list-tab" role="tablist">
+              <div class="list-group"  id="list-tab" role="tablist">
 
-                <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                   <img src="<?php
                             $subcadena = "http";
                             if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
@@ -595,7 +595,7 @@ if ($formato == 3) {
                 if (strpos(strtolower($url_a1), strtolower($subcadena)) === 0) {
                   // Es una URL externa, asumimos que la imagen existe
                   if (!empty($url_a1)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $url_a1; ?>" class="img-thumbnail">
                     </a>
                   <?php }
@@ -603,7 +603,7 @@ if ($formato == 3) {
                   // Es una ruta local, verificamos si el archivo existe
                   $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a1);
                   if (!empty($url_a1) && file_exists($rutaLocal)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
                     </a>
                 <?php }
@@ -617,7 +617,7 @@ if ($formato == 3) {
                 if (strpos(strtolower($url_a2), strtolower($subcadena)) === 0) {
                   // Es una URL externa, asumimos que la imagen existe
                   if (!empty($url_a2)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $url_a2; ?>" class="img-thumbnail">
                     </a>
                   <?php }
@@ -625,7 +625,7 @@ if ($formato == 3) {
                   // Es una ruta local, verificamos si el archivo existe
                   $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a2);
                   if (!empty($url_a2) && file_exists($rutaLocal)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
                     </a>
                 <?php }
@@ -639,7 +639,7 @@ if ($formato == 3) {
                 if (strpos(strtolower($url_a3), strtolower($subcadena)) === 0) {
                   // Es una URL externa, asumimos que la imagen existe
                   if (!empty($url_a3)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $url_a3; ?>" class="img-thumbnail">
                     </a>
                   <?php }
@@ -647,7 +647,7 @@ if ($formato == 3) {
                   // Es una ruta local, verificamos si el archivo existe
                   $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a3);
                   if (!empty($url_a3) && file_exists($rutaLocal)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
                     </a>
                 <?php }
@@ -661,7 +661,7 @@ if ($formato == 3) {
                 if (strpos(strtolower($url_a4), strtolower($subcadena)) === 0) {
                   // Es una URL externa, asumimos que la imagen existe
                   if (!empty($url_a4)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $url_a4; ?>" class="img-thumbnail">
                     </a>
                   <?php }
@@ -669,7 +669,7 @@ if ($formato == 3) {
                   // Es una ruta local, verificamos si el archivo existe
                   $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a4);
                   if (!empty($url_a4) && file_exists($rutaLocal)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
                     </a>
                 <?php }
@@ -683,7 +683,7 @@ if ($formato == 3) {
                 if (strpos(strtolower($url_a5), strtolower($subcadena)) === 0) {
                   // Es una URL externa, asumimos que la imagen existe
                   if (!empty($url_a5)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $url_a5; ?>" class="img-thumbnail">
                     </a>
                   <?php }
@@ -691,7 +691,7 @@ if ($formato == 3) {
                   // Es una ruta local, verificamos si el archivo existe
                   $rutaLocal = 'sysadmin/' . str_replace("../..", "", $url_a5);
                   if (!empty($url_a5) && file_exists($rutaLocal)) { ?>
-                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
+                    <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                       <img src="<?php echo $rutaLocal; ?>" class="img-thumbnail">
                     </a>
                 <?php }

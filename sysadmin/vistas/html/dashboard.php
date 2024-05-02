@@ -155,7 +155,7 @@ if ($query_ciudades_despacho) {
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0);
         /* Cambia el color y la opacidad según necesites */
         z-index: 1;
     }
@@ -170,6 +170,39 @@ if ($query_ciudades_despacho) {
         z-index: 2;
         /* Asegura que el texto está sobre la capa oscura */
         position: relative;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: auto;
+        /* mantiene la relación de aspecto */
+        display: block;
+        object-fit: cover;
+        /* Asegura que la imagen cubra el área sin distorsionarse */
+        max-height: 500px;
+        /* Puedes ajustar esto según tus necesidades */
+    }
+
+    .carousel-caption h5 {
+        font-size: 1.5rem;
+        /* Tamaño por defecto */
+    }
+
+    .carousel-caption p {
+        font-size: 1rem;
+        /* Tamaño por defecto */
+    }
+
+    @media (max-width: 768px) {
+        .carousel-caption h5 {
+            font-size: 1rem;
+            /* Más pequeño en dispositivos móviles */
+        }
+
+        .carousel-caption p {
+            font-size: 0.8rem;
+            /* Más pequeño en dispositivos móviles */
+        }
     }
 
     #chart_div2 {
