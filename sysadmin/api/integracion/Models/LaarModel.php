@@ -16,6 +16,22 @@ class LaarModel extends Query
         parent::__construct();
     }
 
+    public function buscarProveedorUrl($no_guia)
+    {
+        $query = "SELECT tienda_proveedor FROM guia_laar WHERE guia_laar = '$no_guia'";
+        $query = $this->select($query);
+        $dominiotienda = $query[0]['tienda_proveedor'];
+        return  $dominiotienda;
+    }
+
+    public function buscarTiendaVentaUrl($no_guia)
+    {
+        $query = "SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
+        $query = $this->select($query);
+        $dominiotienda = $query[0]['tienda_venta'];
+        return  $dominiotienda;
+    }
+
     public function cambiarEstado($no_guia, $estado_actual_codigo)
     {
         $this->cambiarEstados($no_guia, $estado_actual_codigo);
@@ -198,10 +214,41 @@ class LaarModel extends Query
         $producto_id = $producto_id[0]['id_producto'];
         $costo_total = $this->select("SELECT costo_producto FROM productos WHERE id_producto = '$producto_id'");
         $costo_total = $costo_total[0]['costo_producto'];
-        $valor_base = $this->select("SELECT trayecto_laar from ciudad_cotizacion where id_cotizacion = '$ciudad_cot'");
-        $valor_base = $valor_base[0]['trayecto_laar'];
-        $valor_base = $this->select("SELECT precio FROM cobertura_laar WHERE tipo_cobertura = '$valor_base'");
-        $valor_base = $valor_base[0]['precio'];
+
+        if (strlen($ciudad_cot) > 4) {
+            echo $ciudad_cot;
+            if (strpos($ciudad_cot, "IMP") === 0) {
+                $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['precio'];
+            } else if (is_numeric($no_guia)) {
+                echo $ciudad_cot;
+                $valor_base = $this->select("SELECT trayecto_servientrega from ciudad_cotizacion where codigo_ciudad_laar = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_servientrega'];
+                echo $valor_base . "<br>";
+                $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+                echo $valor_base;
+            }
+        } else {
+            if (strpos($no_guia, "IMP") === 0) {
+
+                echo $ciudad_cot;
+                $valor_base = $this->select("SELECT trayecto_laar from ciudad_cotizacion where id_cotizacion = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_laar'];
+                echo $valor_base;
+                $valor_base = $this->select("SELECT precio FROM cobertura_laar WHERE tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+                echo $valor_base;
+            } else if (is_numeric($no_guia)) {
+                echo $ciudad_cot;
+                $valor_base = $this->select("SELECT trayecto_servientrega from ciudad_cotizacion where id_cotizacion = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_servientrega'];
+                echo $valor_base . "<br>";
+                $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+                echo $valor_base;
+            }
+        }
         if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
             $conexion_tiend  = $this->obtener_conexion($tienda_venta);
             $sql_tipo = "SELECT * FROM `guia_laar` where guia_laar ='" . $no_guia . "'";
@@ -249,8 +296,18 @@ class LaarModel extends Query
             }
         }
         $monto_recibir = number_format($monto_recibir, 2);
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`,`cod`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod);
+
+        $tienda_venta = $this->buscarTiendaVentaUrl($no_guia);
+        $tienda_proveedor = $this->buscarProveedorUrl($no_guia);
+
+        if ($tienda_venta == $tienda_proveedor) {
+            $url_proveedor = " ";
+        } else {
+            $url_proveedor = $tienda_proveedor;
+        }
+
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`,`cod`,`proveedor`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod, $url_proveedor);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
         if ($query_insertar_cc) {
             echo json_encode('ok');
@@ -340,8 +397,17 @@ class LaarModel extends Query
             $monto_recibir = 0 - $costo_envio;
         }
         $monto_recibir = number_format($monto_recibir, 2);
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`, `cod`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod);
+        $tienda_venta = $this->buscarTiendaVentaUrl($no_guia);
+        $tienda_proveedor = $this->buscarProveedorUrl($no_guia);
+
+        if ($tienda_venta == $tienda_proveedor) {
+            $url_proveedor = " ";
+        } else {
+            $url_proveedor = $tienda_proveedor;
+        }
+
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`, `cod`, `proveedor`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod, $url_proveedor);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
         // enviar correo
         $sql_correo = "SELECT * from users where id_users='1'";
