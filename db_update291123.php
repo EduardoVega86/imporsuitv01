@@ -1629,7 +1629,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (226,'GUAYAS','EL EMPALME/GUAYAS',1,0,1,'TE','TE','TE','','201001002','201001002069','1031','56328','767'),
 	 (227,'GUAYAS','EL MORRO',1,0,0,'TE','0','0','','201001002','','1031','','118'),
 	 (228,'GUAYAS','EL TRIUNFO/GUAYAS',1,1,1,'TR','TE','TE','','201001002','201001002007','1031','56329','26'),
-	 (229,'GUAYAS','ELOY ALFARO - DURÁN',0,1,0,'0','TE','0','0','0','0','0','0','719'),
+	 (229,'GUAYAS','ELOY ALFARO - DURÁN',0,1,0,'0','TE','0','0','201001002','201001002076','0','0','719'),
 	 (230,'GUAYAS','ENGABAO',1,0,0,'TE','0','0','','201001002','','1031','','554');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (231,'GUAYAS','GENERAL ANTONIO ELIZALDE',1,0,0,'TE','0','0','','201001002','','1031','','720'),

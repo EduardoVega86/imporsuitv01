@@ -25,62 +25,6 @@ class LaarModel extends Query
             $this->pedidoDevolucion($no_guia, $estado_actual_codigo);
         }
     }
-    /* 
-    protected function conectarProveedor($proveedor)
-    {
-        $contrasena = $proveedor;
-        if ($proveedor == 'imporsuit_imporshop') {
-            $contrasena = 'E?c7Iij&885Y';
-        }
-        $proveedor_connect = mysqli_connect('localhost', $proveedor, $contrasena, $proveedor);
-        if (!$proveedor_connect) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-        return $proveedor_connect;
-    }
- */
-    /*   protected function conectarMarketplace()
-    {
-        # Conexi贸n a la base de datos de marketplace
-        $market_connect = mysqli_connect(MARKETPLACE, MARKETPLACE_USER, MARKETPLACE_PASSWORD, MARKETPLACE_DB);
-        if (!$market_connect) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-        return $market_connect;
-    }
- */
-    /*  public function actualizarTiendaVenta($no_guia, $estado_actual_codigo)
-    {
-        $tienda_ventas = $this->conectarProveedor($this->buscarTiendaVenta($no_guia));
-        $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
-        $result = mysqli_query($tienda_ventas, $sql);
-        $sql = "SELECT id_pedido, tienda_proveedor FROM guia_laar WHERE guia_laar ='$no_guia'";
-        $query = $this->select($sql);
-        $id_pedido = $query[0]['id_pedido'];
-        $tienda_venta = $query[0]['tienda_proveedor'];
-        $sql = "UPDATE `facturas_cot` SET `estado_guia_sistema` = '$estado_actual_codigo' WHERE id_factura ='$id_pedido' AND tienda = '$tienda_venta'";
-        $result = mysqli_query($tienda_ventas, $sql);
-        echo mysqli_error($tienda_ventas);
-        mysqli_close($tienda_ventas);
-        return $result;
-    }
-
-    public function actualizarProveedor($no_guia, $estado_actual_codigo)
-    {
-
-        $proveedor = $this->conectarProveedor($this->buscarProveedor($no_guia));
-        $sql = "UPDATE guia_laar SET estado_guia ='$estado_actual_codigo' WHERE guia_laar ='$no_guia'";
-        $result = mysqli_query($proveedor, $sql);
-        $sql = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar ='$no_guia'";
-        $query = $this->select($sql);
-        $id_pedido = $query[0]['id_pedido'];
-        $tienda_proveedor = $query[0]['tienda_venta'];
-        $sql = "UPDATE facturas_cot SET estado_guia_sistema ='$estado_actual_codigo' WHERE id_factura_origen ='$id_pedido' AND tienda = '$tienda_proveedor'";
-        $result = mysqli_query($proveedor, $sql);
-        echo mysqli_error($proveedor);
-        mysqli_close($proveedor);
-        return $result;
-    } */
 
     public function updateMarketplace($no_guia, $estado_actual_codigo)
     {
@@ -250,9 +194,16 @@ class LaarModel extends Query
                 $monto_recibir = $total_guia - $valor_base - $costo_guia;
             }
         }
+
+        if ($tienda_venta === $tienda_proveedor) {
+            $url_proveedor = " ";
+        } else {
+            $url_proveedor = $tienda_venta;
+        }
+
         $monto_recibir = number_format($monto_recibir, 2);
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`,`cod`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod);
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`,`cod`,`proveedor`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod, $url_proveedor);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
         if ($query_insertar_cc) {
             echo json_encode('ok');
@@ -264,13 +215,11 @@ class LaarModel extends Query
     public function pedidoDevolucion($no_guia, $estado_actual_codigo)
     {
         //verificar si ya existe la guia en la tabla de cuenta por pagar
-        $tienda_venta =
-
-
-            $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
-        $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
+        $tienda_venta = $this->buscarTiendaVenta($no_guia);
+        $tienda_proveedor = $this->buscarProveedor($no_guia);
+        $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
         $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
-        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
+        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedidoverificar'");
         $numero_factura_verificar = $numero_factura[0]['numero_factura'];
         $verificar = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura_verificar'");
         $verificar = count($verificar);
@@ -278,12 +227,10 @@ class LaarModel extends Query
             echo json_encode('ya_existe');
             exit;
         }
-        $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
-        $query = $this->select($query);
+        $query = $this->select("SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'");
         $id_pedido = $query[0]['id_pedido'];
         $tienda_venta = $query[0]['tienda_venta'];
-        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'";
-        $query = $this->select($query);
+        $query = $this->select("SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'");
         $numero_factura = $query[0]['numero_factura'];
         $fecha = $query[0]['fecha_factura'];
         $nombre_cliente = $query[0]['nombre'];
@@ -294,8 +241,7 @@ class LaarModel extends Query
         $id_factura = $query[0]['id_factura'];
         $id_pedido_origen = $query[0]['id_factura_origen'];
         $cod = $query[0]['cod'];
-        $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'";
-        $tieneGuias_query = $this->select($tieneGuias_sql);
+        $tieneGuias_query = $this->select("SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $tieneGuias = count($tieneGuias_query);
         if (empty($tieneGuias)) {
             echo json_encode('no_guias');
@@ -346,56 +292,24 @@ class LaarModel extends Query
             $monto_recibir = 0 - $costo_envio;
         }
         $monto_recibir = number_format($monto_recibir, 2);
-        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`, `cod`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
-        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod);
+        if ($tienda_venta === $tienda_proveedor) {
+            $url_proveedor = " ";
+        } else {
+            $url_proveedor = $tienda_venta;
+        }
+        $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`, `cod`,`proveedor`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
+        $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod, $url_proveedor);
         $query_insertar_cc = $this->insert($sql_cc, $datos);
         // enviar correo
-        $sql_correo = "SELECT * from users where id_users='1'";
-        $sql_correo = mysqli_query($conexion_proveedor, $sql_correo);
-        $sql_correo = mysqli_fetch_array($sql_correo);
-        $correo = $sql_correo['email_users'];
-        if ($correo === "root@mail.com") {
-        } else {
-            require_once '../../PHPMailer/Mail_devolucion.php';
-            $mail = new PHPMailer();
-            $mail->isSMTP();
-            $mail->SMTPDebug = $smtp_debug;
-            $mail->Host = $smtp_host;
-            $mail->SMTPAuth = true;
-            $mail->Username = $smtp_user;
-            $mail->Password = $smtp_pass;
-            $mail->Port = 465;
-            $mail->SMTPSecure = $smtp_secure;
-            $mail->isHTML(true);
-            $mail->CharSet = 'UTF-8';
-            $mail->setFrom($smtp_from, $smtp_from_name);
-            $mail->addAddress($correo);
-            $mail->Subject = 'Novedad Pedido';
-            $mail->Body = $message_body_pedido;
-            if ($mail->send()) {
-                //echo "Correo enviado";
-            } else {
-                echo "Error al enviar el correo: " . $mail->ErrorInfo;
-            }
-        }
+        $this->sendMail($no_guia, "devolucion");
+
+
         if ($query_insertar_cc) {
             echo json_encode('ok');
         } else {
             echo json_encode('error');
         }
     }
-
-    public function actualizarTablas($no_guia, $estado_actual_codigo)
-    {
-    }
-
-    public function cambiarEstados($no_guia, $estado_actual_codigo)
-    {
-        /*  $this->actualizarTiendaVenta($no_guia, $estado_actual_codigo);
-        $this->actualizarProveedor($no_guia, $estado_actual_codigo); */
-        $this->actualizarMarketplace($no_guia, $estado_actual_codigo);
-    }
-
     public function establecer_guia($numero_factura)
     {
         $datos_para_laar = $this->select("SELECT tienda, id_factura_origen FROM facturas_cot WHERE numero_factura = '$numero_factura'");
@@ -425,10 +339,11 @@ class LaarModel extends Query
 
     public function devolucion($no_guia, $estado_actual_codigo)
     {
+        $tienda_venta = $this->buscarTiendaVenta($no_guia);
+        $tienda_proveedor = $this->buscarProveedor($no_guia);
         $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' ");
-        $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
         $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
-        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
+        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedidoverificar'");
         $numero_factura_verificar = $numero_factura[0]['numero_factura'];
         $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
         $query = $this->select($query);
@@ -497,8 +412,13 @@ class LaarModel extends Query
                 echo json_encode('error');
             }
         } else {
-            $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-            $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia);
+            if ($tienda_venta === $tienda_proveedor) {
+                $url_proveedor = " ";
+            } else {
+                $url_proveedor = $tienda_venta;
+            }
+            $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`,`proveedor`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+            $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $url_proveedor);
             $query_insertar_cc = $this->insert($sql_cc, $datos);
             if ($query_insertar_cc) {
                 echo json_encode('ok');
