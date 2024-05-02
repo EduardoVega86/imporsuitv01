@@ -13,7 +13,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
 } else {
     $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 }
-
+$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 //Archivo de funciones PHP
 include "../funciones.php";
 //Inicia Control de Permisos
@@ -170,7 +170,26 @@ if ($action == 'ajax') {
                             </p>
                             <span class="text-link" onclick="abrirModalTienda('<?php echo $tienda; ?>')" data-bs-toggle="modal" data-bs-target="#tiendaModal"><strong>Proveedor:</strong> <?php echo $tienda ?></strong></span>
 
+                            <!-- modal proveedor -->
+                            <div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="tiendaModalLabel">Información de la Tienda</h5>
+                                            <button type="button" class="btn-close" onclick="cerrarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" id="boody">
+                                            <!-- Aquí va el contenido que quieras mostrar en el modal -->
+                                            <p id="modalContent">Aquí va la información de la tienda.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" onclick="cerrarModal()" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!-- fin modal proveedor -->
                             <div width="100%" class="d-flex gap-3 justify-content-center">
 
 
@@ -227,7 +246,14 @@ if ($action == 'ajax') {
                 <input type="hidden" value="<?php echo $descripcion2; ?>" id="descripcion2<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $image_path; ?>" id="image_path<?php echo $id_producto; ?>">
 
+                <?php
+                $count_tienda = mysqli_query($conexion_marketplace, "SELECT * AS numrows FROM proveedor  WHERE id_proveedor = $id_proveedor");
+                $row_tienda = mysqli_fetch_array($count_tienda);
+                $telefono_tienda     = $row_tienda['telefono_proveedor'];
+                
+                ?>
 
+                <input type="hidden" value="<?php echo $telefono_tienda; ?>" id="telefono_tienda<?php echo $id_producto; ?>">
 
             <?php
             }

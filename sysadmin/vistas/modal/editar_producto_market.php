@@ -25,6 +25,28 @@ if (isset($conexion)) {
 			/* Cambia el cursor para que no parezca editable */
 		}
 
+		.info-input_stock {
+			border: none;
+			/* Elimina el borde */
+			outline: none;
+			/* Elimina el resaltado al enfocar */
+			background: none;
+			/* Fondo transparente */
+			width: 100%;
+			/* Ajusta el ancho según sea necesario */
+			color: black;
+			/* Color del texto */
+			font-size:22px;
+			/* Tamaño del texto */
+			padding: 2px;
+			/* Espaciado interno, ajusta según sea necesario */
+		}
+
+		.info-input_stock[readonly] {
+			cursor: default;
+			/* Cambia el cursor para que no parezca editable */
+		}
+
 		/* Elimina las viñetas de las listas */
 		ul {
 			list-style-type: none;
@@ -186,9 +208,14 @@ if (isset($conexion)) {
 							<h3>Información</h4>
 								<li style="font-size: 20px;"><strong>Código del Producto:</strong> <input type="text" id="mod_codigo" class="info-input" readonly></li>
 								<li style="font-size: 20px;"><strong>Nombre Producto:</strong> <input type="text" id="mod_nombre" class="info-input" readonly></li>
-								<li style="font-size: 20px;"><strong>Stock:</strong> <input type="text" id="mod_stock" class="info-input" readonly></li>
-								<li style="font-size: 20px;"><strong>Precio:</strong> <input type="text" id="mod_precio" class="info-input" readonly></li>
-								<li style="font-size: 20px;"><strong>Precio Sugerido:</strong> <input type="text" id="mod_precioe" class="info-input" readonly></li>
+
+								<div class="d-flex flex-row">
+									<li style="font-size: 20px; border-right: 1px solid #dee2e6;"><strong>Precio:</strong> <input type="text" id="mod_precio" class="info-input" readonly></li>
+									<li style="font-size: 20px; padding-left:10px"><strong>Precio Sugerido:</strong> <input type="text" id="mod_precioe" class="info-input" readonly></li>
+								</div>
+								<li style="font-size: 22px;"><strong>Stock:</strong> <input type="text" id="mod_stock" style="color: #3EDF2B; font-weight: bold;" class="info-input_stock" readonly></li>
+								<hr class="styled-hr">
+								<li style="font-size: 22px;"><strong>Proveedor:</strong> <input type="text" id="mod_telefono_tienda"  class="info-input_stock" readonly></li>
 						</ul>
 
 					</div>

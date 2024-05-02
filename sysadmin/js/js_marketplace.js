@@ -190,6 +190,7 @@ function obtener_datos(id) {
   var formato = $("#formato" + id).val();
   var estado = $("#estado" + id).val();
   var image_path = $("#image_path" + id).val();
+  var telefono_tienda = $("#telefono_tienda" + id).val();
 
   $("#mod_id").val(id);
   $("#mod_codigo").val(codigo_producto);
@@ -204,15 +205,17 @@ function obtener_datos(id) {
   $("#mod_impuesto").val(impuesto_producto);
   $("#mod_costo").val(costo_producto);
   $("#mod_utilidad").val(utilidad_producto);
-  $("#mod_precio").val(precio_producto);
-  $("#mod_preciom").val(precio_mayoreo);
-  $("#mod_precioe").val(precio_especial);
-  $("#mod_precion").val(precio_normal);
+  $("#mod_precio").val('$ '+precio_producto);
+  $("#mod_preciom").val('$ '+precio_mayoreo);
+  $("#mod_precioe").val('$ '+precio_especial);
+  $("#mod_precion").val('$ '+precio_normal);
   $("#mod_stock").val(stock_producto);
   $("#mod_minimo").val(stock_min_producto);
   $("#id_imp2").val(id_imp_producto);
   $("#mod_estado").val(estado);
   $("#mod_image_path").attr("src", image_path);
+  $("#mod_telefono_tienda").val(telefono_tienda);
+  
 }
 
 function obtener_datos_landing(id) {
