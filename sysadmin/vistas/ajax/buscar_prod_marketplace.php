@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
@@ -13,7 +15,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
 } else {
     $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 }
-$conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+
 //Archivo de funciones PHP
 include "../funciones.php";
 //Inicia Control de Permisos
@@ -246,14 +248,7 @@ if ($action == 'ajax') {
                 <input type="hidden" value="<?php echo $descripcion2; ?>" id="descripcion2<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $image_path; ?>" id="image_path<?php echo $id_producto; ?>">
 
-                <?php
-                $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM proveedor  WHERE id_proveedor = $id_proveedor");
-                $row_tienda = mysqli_fetch_array($count_tienda);
-                $telefono_tienda     = $row_tienda['whatsapp'];
-                
-                ?>
 
-                <input type="hidden" value="<?php echo $telefono_tienda; ?>" id="telefono_tienda<?php echo $id_producto; ?>">
 
             <?php
             }
