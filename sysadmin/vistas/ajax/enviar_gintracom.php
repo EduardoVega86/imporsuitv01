@@ -43,7 +43,7 @@ $server_url = $protocol . $_SERVER['HTTP_HOST'];
 $date_added = date("Y-m-d H:i:s");
 
 $sql = "INSERT INTO `guia_laar` (`tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`, `estado_guia`) "
-    . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1',3);";
+    . "VALUES ( '$server_url', '', '', '$date_added', '1.3', '1', '1',4);";
 $query = mysqli_query($destino, $sql);
 
 $ultimoid_market = mysqli_insert_id($destino);
@@ -238,7 +238,7 @@ if ($response) {
     @$url = "https://guias.imporsuit.com/Gintracom/label/" .  $guia_sistema;
     //$guia=1;
     if (isset($guia)) {
-        $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', transporte='SERVIENTREGA' WHERE `id_factura` = $id_pedido_cot";
+        $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', `transporte`='GINTRACOM' WHERE `id_factura` = $id_pedido_cot";
         echo $sql_update;
         //echo $sql_update;
         $query_update = mysqli_query($conexion, $sql_update);
@@ -324,7 +324,7 @@ if ($response) {
 
             $id_fact_destino = get_row_destino($conexion_destino, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
             // echo $id_fact_destino;
-            $sql = "UPDATE facturas_cot SET  estado_factura=2
+            $sql = "UPDATE facturas_cot SET  estado_factura=2, guia_enviada=1, transporte='GINTRACOM'
                                 WHERE id_factura='" . $id_fact_destino . "'";
             // echo $sql;
             $query_update_destino = mysqli_query($conexion_destino, $sql);
@@ -349,7 +349,7 @@ if ($response) {
             $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
             echo mysqli_error($conexion_marketplace);
             $id_fact_marketplace = get_row_destino($conexion_marketplace, 'facturas_cot', 'id_factura', 'id_factura_origen', $id_pedido_cot);
-            $sql = "UPDATE facturas_cot SET  estado_factura=2
+            $sql = "UPDATE facturas_cot SET  estado_factura=2, guia_enviada=1, transporte='GINTRACOM'
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
             $query_update_destino = mysqli_query($conexion_marketplace, $sql);
             echo mysqli_error($conexion_marketplace);
@@ -368,7 +368,7 @@ if ($response) {
       `tipoServicio`= '201202002002013',`noPiezas`= '$cantidad_total', `peso`= '2',
           `valorDeclarado`= '$valorasegurado', `contiene`= '$productos_guia',`cod` = '$cod_guia',
               `costoflete`= '$costo_envio',`costoproducto`= '$valor_total',
-                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '100', `id_transporte`='3'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
+                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '100', `id_transporte`='4'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
 ";
             //            $sql_insertar_guia_marketplace = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
             //            `identificacionO`,`ciudadO`, `nombreO`,

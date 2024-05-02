@@ -1,4 +1,5 @@
 <?php
+
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
 require_once "../funciones.php"; //Contiene funcion que conecta a la base de datos
@@ -14,7 +15,7 @@ $rw = mysqli_fetch_array($resultado);
 $visto = $rw['visto'];
 $cod = $rw['cod'];
 
-if ($cod == 0 || $cod == 3 || $cod == 1) {
+if ($cod == 0 || $cod == 2 || $cod == 3 || $cod == 1) {
     $es_proveedor = "SELECT * FROM cabecera_cuenta_pagar WHERE id_cabecera = '$id_cabecera'";
 
     $guia_laar = $rw['guia_laar'];
