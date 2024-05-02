@@ -1,107 +1,211 @@
 <?php
 if (isset($conexion)) {
-    ?>
+?>
+	<style>
+		/* Estilos para la lista y los inputs para que parezcan texto plano */
+		.info-input {
+			border: none;
+			/* Elimina el borde */
+			outline: none;
+			/* Elimina el resaltado al enfocar */
+			background: none;
+			/* Fondo transparente */
+			width: 100%;
+			/* Ajusta el ancho según sea necesario */
+			color: black;
+			/* Color del texto */
+			font-size: 18px;
+			/* Tamaño del texto */
+			padding: 2px;
+			/* Espaciado interno, ajusta según sea necesario */
+		}
+
+		.info-input[readonly] {
+			cursor: default;
+			/* Cambia el cursor para que no parezca editable */
+		}
+
+		/* Elimina las viñetas de las listas */
+		ul {
+			list-style-type: none;
+			/* Elimina las viñetas */
+			padding: 0;
+			/* Elimina el padding predeterminado si es necesario */
+			margin: 0;
+			/* Elimina el margen predeterminado si es necesario */
+		}
+
+		/* Aplica subrayado a los textos en negritas */
+		strong {
+			text-decoration: underline;
+			/* Subraya el texto */
+		}
+
+		.info-input_descripcion {
+			width: 100%;
+			/* Ajusta el ancho al contenedor */
+			height: auto;
+			/* Altura automática según el contenido */
+			background: none;
+			/* Sin fondo */
+			border: none;
+			/* Sin bordes */
+			outline: none;
+			/* Sin contorno al enfocar */
+			resize: none;
+			/* No permitir redimensionamiento */
+			overflow: hidden;
+			/* Oculta la barra de desplazamiento si no es necesaria */
+			padding: 0;
+			/* Sin padding para mantener el estilo uniforme */
+			white-space: pre-wrap;
+			/* Conserva los espacios y saltos de línea */
+			font-family: inherit;
+			/* Hereda la fuente del documento */
+			font-size: inherit;
+			/* Hereda el tamaño de fuente del documento */
+		}
+
+		.styled-hr {
+			border: none;
+			/* Elimina el borde predeterminado */
+			height: 1px;
+			/* Establece la altura de la línea */
+			background-color: #dee2e6;
+			/* Define el color de la línea, similar al de tu imagen */
+			margin: 0px 0;
+			/* Agrega espacio vertical antes y después del hr */
+		}
+
+		.view.overlay {
+			width: 100%;
+			/* Asegura que el contenedor de la imagen ocupe todo el ancho disponible */
+		}
+
+		.card-img-top {
+			max-width: 100%;
+			/* Hace que la imagen nunca sea más ancha que su contenedor */
+			height: 400px;
+			/* Mantiene la proporción de la imagen ajustando su altura automáticamente */
+		}
+
+		/* Estilo para el contenedor principal */
+		div[style*="flex: 1; display: flex;"] {
+			flex-direction: column;
+			/* Cambia la dirección del flex a columna en dispositivos móviles si es necesario */
+			padding: 10px;
+			/* Ajusta el padding para dispositivos móviles */
+		}
+
+		@media (max-width: 768px) {
+
+			/* Estilos específicos para móviles */
+			div[style*="flex: 1; display: flex;"] {
+				padding-left: 0;
+				/* Elimina el padding izquierdo en móviles para más espacio */
+				align-items: center;
+				/* Centra los elementos horizontalmente */
+			}
+		}
+
+		/* Estilos base que aplican a cualquier tamaño de pantalla */
+		.modal-body {
+			display: flex;
+			flex-direction: row-reverse;
+			/* Predeterminadamente en modo columna */
+		}
+
+		.info-section,
+		.image-section {
+			width: 100%;
+		}
+
+		.info-section {
+			padding-right: 20px;
+			border-right: 1px solid #dee2e6;
+		}
+
+		.image-section {
+			padding-left: 20px;
+		}
+
+		.image-section {
+			display: flex;
+			/* Activa flexbox */
+			justify-content: center;
+			/* Centra horizontalmente */
+			align-items: center;
+			/* Centra verticalmente */
+			height: 100%;
+			/* Opcional: establece una altura si es necesario */
+		}
+
+		/* Media query para pantallas mayores a 768px */
+		@media (max-width: 763px) {
+			.card-img-top {
+				height: 300px;
+				padding-bottom: 10px;
+				/* Mantiene la proporción de la imagen ajustando su altura automáticamente */
+			}
+
+			.modal-body {
+				flex-direction: column;
+				/* Cambia a modo fila para pantallas grandes */
+			}
+
+			.info-section {
+				padding-right: 0px;
+				border-right: 0px solid #dee2e6;
+			}
+
+			.image-section {
+				padding-left: 00px;
+			}
+		}
+	</style>
 	<div id="editarProducto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h4 class="modal-title"><i class='fa fa-edit'></i> Información Técnica</h4>
+					<h5 class="modal-title text-center" id="facebookLabel">Descripción del Producto</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" method="post" id="editar_producto" name="editar_producto">
-						<div id="resultados_ajax2"></div>
-
-						<ul class="nav nav-tabs">
-							
-							
-<!--							<li class="nav-item">
-								<a href="#img2" data-toggle="tab" aria-expanded="true" class="nav-link">
-									Imagen
-								</a>
-							</li>
-                                                        <li class="nav-item">
-								<a href="#imagenes" data-toggle="tab" aria-expanded="true" class="nav-link">
-									Imagenes Adicionales
-								</a>
-							</li>-->
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane fade show active" id="mod_info">
-
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label for="mod_codigo" class="control-label">Código:</label>
-											<input disabled type="text" class="form-control" id="mod_codigo" name="mod_codigo"  autocomplete="off" required>
-											<input id="mod_id" name="mod_id" type='hidden'>
-										</div>
-									</div>
-									<div class="col-md-8">
-										<div class="form-group">
-											<label for="mod_nombre" class="control-label">Nombre:</label>
-                                                                                        <input disabled type="text" class="form-control UpperCase" id="mod_nombre" name="mod_nombre" autocomplete="off" required>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<label disabled for="mod_descripcion" class="control-label">Descripción</label>
-											<textarea disabled class="form-control UpperCase"  id="mod_descripcion" name="mod_descripcion" maxlength="255"  autocomplete="off"></textarea>
-										</div>
-									</div>
-                                                                    <div class="col-md-6"></div>
-								</div>
-								
-                                                            
-								
-
-							</div>
-							
-<!--							<div class="tab-pane fade" id="img2">
-
-								<div class="outer_img"></div>
-
-
-							</div>-->
-                                                    
-<!--                                                    <div class="tab-pane fade" id="imagenes">
-
-								
-                                                            
-                                                          <div class="outer_img_a1"></div>
-                                                          <div class="outer_img_a2"></div>
-                                                          <div class="outer_img_a3"></div>
-                                                          <div class="outer_img_a4"></div>
-                                                          <div class="outer_img_a5"></div>
-                                                           
-                                                          
-                                                           
-                                                        
-                                                          
-                                                            
-                                                        
-                                                          
-                                                            
-                                                        
-                                                          
-                                                            
-								
-
-							</div>-->
-
+					<!-- imagen -->
+					<div class="image-section">
+						<div class="view overlay">
+							<img class="card-img-top" id="mod_image_path">
 						</div>
-
-
+					</div>
+					<!-- fin imagen -->
+					<hr class="styled-hr">
+					<div class="info-section">
+						<ul>
+							<h3>Información</h4>
+								<li style="font-size: 20px;"><strong>Código del Producto:</strong> <input type="text" id="mod_codigo" class="info-input" readonly></li>
+								<li style="font-size: 20px;"><strong>Nombre Producto:</strong> <input type="text" id="mod_nombre" class="info-input" readonly></li>
+								<li style="font-size: 20px;"><strong>Stock:</strong> <input type="text" id="mod_stock" class="info-input" readonly></li>
+								<li style="font-size: 20px;"><strong>Precio:</strong> <input type="text" id="mod_precio" class="info-input" readonly></li>
+								<li style="font-size: 20px;"><strong>Precio Sugerido:</strong> <input type="text" id="mod_precioe" class="info-input" readonly></li>
+						</ul>
 
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
-						<button type="submit" class="btn btn-primary waves-effect waves-light" id="actualizar_datos">Actualizar</button>
-					</div>
-				</form>
+
+
+				</div>
+				<hr class="styled-hr">
+				<div style="padding-left: 20px; padding-bottom: 20px;">
+					<h3>Descripción</h4>
+						<textarea id="mod_descripcion" class="info-input_descripcion" readonly></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				</div>
 			</div>
 		</div>
-	</div><!-- /.modal -->
-	<?php
+	</div>
+<?php
 }
 ?>
