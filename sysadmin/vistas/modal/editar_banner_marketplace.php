@@ -43,7 +43,7 @@ if (isset($conexion_marketplace)) {
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span class="help-block">Texto del slider dd</span>
+                                    <span class="help-block">Texto del slider</span>
                                     <input type="text" class="form-control " name="texto_slider_edit" id="texto_slider_edit" >
 
                                     <div class="form-group row">
