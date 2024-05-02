@@ -618,7 +618,7 @@ class LaarModel extends Query
         $cod_novedad = $novedad["codigoTipoNovedad"];
         $no_guia = $novedad["noGuia"];
         $cliente  = $novedad["para"];
-        $detalle = $novedad["nombreDetalleNovedad"];
+        $detalle = $novedad["nombreTipoNovedad"];
 
         $tienda_venta = $this->select("SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'");
         $tienda_venta = $tienda_venta[0]['tienda_venta'];
