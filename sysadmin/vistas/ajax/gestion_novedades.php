@@ -42,6 +42,7 @@ if ($transporte == 'SERVIENTREGA') {
 
     echo $response;
 } else if ($transporte === "LAAR") {
+    $token = "";
 
     // Datos de usuario y contraseña
     $usuario = "import.uio.api";
@@ -54,7 +55,7 @@ if ($transporte == 'SERVIENTREGA') {
 
     // Configuración de la solicitud cURL para obtener el token
     $token_ch = curl_init($token_url);
-    curl_setopt($token_ch, CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_setopt($token_ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($token_ch, CURLOPT_POSTFIELDS, $auth_data);
     curl_setopt($token_ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($token_ch, CURLOPT_HTTPHEADER, array(
@@ -76,6 +77,7 @@ if ($transporte == 'SERVIENTREGA') {
     // Procesar la respuesta del servicio web para obtener el token
     if ($token_response) {
         $token_data = json_decode($token_response, true);
+        print_r($token_data);
         $token = $token_data['token']; // Suponiendo que el token se encuentra en la respuesta
         // Ahora tenemos el token que debemos enviar en la cabecera Bearer
         // a otro servicio web
@@ -94,6 +96,15 @@ if ($transporte == 'SERVIENTREGA') {
     $novedad    = $_POST['novedad'];
     $nombre    = $_POST['nombre'];
     $novedad   = $_POST['novedad'];
+    if (strlen($ciudad) > 4) {
+    } else {
+        $conexion = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
+        $sql = "SELECT * FROM ciudad_cotizacion WHERE id_cotizacion = '$ciudad'";
+        $result = mysqli_query($conexion, $sql);
+        $row = mysqli_fetch_array($result);
+        $ciudad = $row['codigo_ciudad_laar'];
+        echo $ciudad;
+    }
     $data = array(
         'guia' => $guia,
         "destino" => array(
@@ -119,10 +130,13 @@ if ($transporte == 'SERVIENTREGA') {
     $ch = curl_init();
     //establecer la URL y otras opciones apropiadas
     curl_setopt($ch, CURLOPT_URL, "https://api.laarcourier.com:9727/guias/datos/actualizar");
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Authorization: Bearer ' . $token));
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT"); // Establecer el método HTTP como PUT
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Adjuntar el cuerpo JSON
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(  // Configurar encabezados HTTP necesarios para la API
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $token  // Suponiendo que tienes una variable $token para el acceso
+    ));
     //capturar la URL y pasarla al navegador
     $result = curl_exec($ch);
     //cerrar curl
