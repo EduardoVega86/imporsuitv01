@@ -17,6 +17,7 @@ get_cadena($user_id);
 $modulo = "Ventas";
 permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
+
 $title          = "Pedidos";
 $Ventas         = 1;
 $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
