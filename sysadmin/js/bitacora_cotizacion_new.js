@@ -153,7 +153,9 @@ function load(page) {
       "&q=" +
       q +
       "&numero=" +
-      numero;
+      numero +
+      "&transportadora=" +
+      transportadora;
   }
 
   url = url + "&filtro=" + filtroG;
@@ -394,6 +396,7 @@ function buscar_numero(numero) {
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
   var estado = $("#estado_q").val();
+  var transportadora = $("#transporte").val();
   if (tienda == 0) {
     tienda = "";
   }
@@ -402,6 +405,9 @@ function buscar_numero(numero) {
   }
   if (estado == 0) {
     estado = "";
+  }
+  if (transportadora == 0) {
+    transportadora = "";
   }
 
   page = 1;
