@@ -80,30 +80,34 @@ if (empty($_GET['id'])) {
             $tienda = $fila['tienda'];
             $drogshipin = $fila['drogshipin'];
 
-            if (
-                isset($_SERVER['HTTPS']) &&
-                ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
-                isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-                $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
-            ) {
-                $protocol = 'https://';
-            } else {
-                $protocol = 'http://';
+            if (strpos($image_path, '../..') === 0) {
+
+
+                if (
+                    isset($_SERVER['HTTPS']) &&
+                    ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+                    isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+                    $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'
+                ) {
+                    $protocol = 'https://';
+                } else {
+                    $protocol = 'http://';
+                }
+                $image_path = str_replace('../..', 'sysadmin', $image_path);
+
+                $server_url = $protocol . $_SERVER['HTTP_HOST'];
+
+                if ($_SERVER['HTTP_HOST'] == 'localhost') {
+                    $carpeta = '/imporsuitv01';
+                } else {
+                    $carpeta = '';
+                }
+
+
+
+
+                $image_path = $server_url . $carpeta . '/' . $image_path;
             }
-            $image_path = str_replace('../..', 'sysadmin', $image_path);
-
-            $server_url = $protocol . $_SERVER['HTTP_HOST'];
-
-            if ($_SERVER['HTTP_HOST'] == 'localhost') {
-                $carpeta = '/imporsuitv01';
-            } else {
-                $carpeta = '';
-            }
-
-
-
-
-            $image_path = $server_url . $carpeta . '/' . $image_path;
             //echo $image_path;
 
             $insert_query = "INSERT INTO `productos` (`id_producto`, `codigo_producto`, `nombre_producto`, "
