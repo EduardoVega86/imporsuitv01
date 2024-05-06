@@ -23,8 +23,7 @@
       $("body").removeClass("fixed-left").addClass("fixed-left-void");
       // Cambia a la imagen cuando el menú está en estado "enlarged"
       $("#mi-imagen").attr("src", "https://marketplace.imporsuit.com/sysadmin/img/logo_imporsuit.png");
-      $("#mi-imagen").attr("width", "40px");
-      $("#mi-imagen").attr("height", "40px");
+      $("#mi-imagen").css("cssText", "width: 40px !important; height: 40px");
     } else if (
       !$("#wrapper").hasClass("enlarged") &&
       $("body").hasClass("fixed-left-void")
@@ -35,7 +34,7 @@
         "src",
         "https://marketplace.imporsuit.com/sysadmin/img/LOGOS-IMPORSUIT.png"
       );
-      $("#mi-imagen").attr("width", "100px");
+      $("#mi-imagen").css("cssText", "width: 100px !important;");
     }
     // Fin imagen logo
     if (
