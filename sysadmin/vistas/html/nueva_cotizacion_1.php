@@ -779,113 +779,113 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
             $.Notification.notify('error', 'bottom right', 'ERROR!', 'EL SERVICIO NO ESTÁ DISPONIBLE EN ESTE MOMENTO')
 
         }
-        /*  if (transportadora === "4") {
-             //obtienne el formulario
-             var formulario = document.getElementById('formulario');
-             //crea un objeto FormData
-             if (document.querySelector("#valorasegurado").value === "") {
-                 document.querySelector("#valorasegurado").value = 0;
-             }
-             var data = new FormData(formulario);
-             data.append("nombre_destino", document.getElementById('nombred').value);
-             data.append("celular", document.getElementById('telefonod').value);
-             data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
-             data.append("valor_total", document.getElementById('valor_total_').value);
-             data.append("cantidad_total", document.getElementById('cantidad_total').value);
-             data.append("costo_total", document.getElementById('costo_total').value);
-             data.append("ciudad", document.getElementById('ciudad_entrega').value);
-             data.append("productos_guia", document.getElementById('productos_guia').value);
-             data.append("identificacion", "0");
-             data.append("seguro", document.getElementById('asegurar_producto').value);
-             data.append("contenido", document.getElementById('producto_name').textContent) + "x" + document.getElementById('producto_qty').textContent;
+        if (transportadora === "4") {
+            //obtienne el formulario
+            var formulario = document.getElementById('formulario');
+            //crea un objeto FormData
+            if (document.querySelector("#valorasegurado").value === "") {
+                document.querySelector("#valorasegurado").value = 0;
+            }
+            var data = new FormData(formulario);
+            data.append("nombre_destino", document.getElementById('nombred').value);
+            data.append("celular", document.getElementById('telefonod').value);
+            data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
+            data.append("valor_total", document.getElementById('valor_total_').value);
+            data.append("cantidad_total", document.getElementById('cantidad_total').value);
+            data.append("costo_total", document.getElementById('costo_total').value);
+            data.append("ciudad", document.getElementById('ciudad_entrega').value);
+            data.append("productos_guia", document.getElementById('productos_guia').value);
+            data.append("identificacion", "0");
+            data.append("seguro", document.getElementById('asegurar_producto').value);
+            data.append("contenido", document.getElementById('producto_name').textContent) + "x" + document.getElementById('producto_qty').textContent;
 
-             $.ajax({
-                 url: "../../../ingresar_pedido_1.php",
-                 type: "POST",
-                 data: data,
-                 contentType: false,
-                 processData: false,
-                 success: function(response) {
-                     console.log(response);
-                     let [guia, precio] = response.split(',');
-                     $('#guia').val(guia);
-                     $('#precio').val(precio);
-                     $('#modal_vuelto').modal('show');
-                     $.ajax({
-                         url: '../ajax/calcular_guia.php',
-                         type: 'post',
-                         data: data,
-                         contentType: false,
-                         processData: false,
-                         success: function(response) {
-                             $('#resultados').html(response);
-                             $('#generar_guia_btn').prop('disabled', false);
-                             $.ajax({
-                                 url: "../ajax/ultimo_pedido.php",
-                                 type: "POST",
-                                 data: data,
-                                 contentType: false,
-                                 processData: false,
-                                 success: function(response) {
-                                     $('#id_pedido_cot_').val(response);
-                                     data.set('id_pedido_cot', response);
-                                     let ciudad_texto = $('#ciudad_entrega option:selected').text();
-                                     let destino_texto = $('#destino_c').val();
-                                     data.append('ciudad_texto', ciudad_texto);
-                                     data.append('destino_texto', destino_texto);
+            $.ajax({
+                url: "../../../ingresar_pedido_1.php",
+                type: "POST",
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    let [guia, precio] = response.split(',');
+                    $('#guia').val(guia);
+                    $('#precio').val(precio);
+                    $('#modal_vuelto').modal('show');
+                    $.ajax({
+                        url: '../ajax/calcular_guia.php',
+                        type: 'post',
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            $('#resultados').html(response);
+                            $('#generar_guia_btn').prop('disabled', false);
+                            $.ajax({
+                                url: "../ajax/ultimo_pedido.php",
+                                type: "POST",
+                                data: data,
+                                contentType: false,
+                                processData: false,
+                                success: function(response) {
+                                    $('#id_pedido_cot_').val(response);
+                                    data.set('id_pedido_cot', response);
+                                    let ciudad_texto = $('#ciudad_entrega option:selected').text();
+                                    let destino_texto = $('#destino_c').val();
+                                    data.append('ciudad_texto', ciudad_texto);
+                                    data.append('destino_texto', destino_texto);
 
-                                     $.ajax({
-                                         url: "../ajax/generar_gintracom.php",
-                                         type: "POST",
-                                         data: data,
-                                         contentType: false,
-                                         processData: false,
-                                         success: function(response) {
-                                             Swal.fire({
-                                                 icon: "info",
-                                                 title: "Por favor espere",
-                                                 text: "Estamos generando la guía",
-                                                 showConfirmButton: false,
-                                                 didOpen: () => {
-                                                     Swal.showLoading();
-                                                 }
-                                             })
-                                             response = JSON.parse(response);
+                                    $.ajax({
+                                        url: "../ajax/generar_gintracom.php",
+                                        type: "POST",
+                                        data: data,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function(response) {
+                                            Swal.fire({
+                                                icon: "info",
+                                                title: "Por favor espere",
+                                                text: "Estamos generando la guía",
+                                                showConfirmButton: false,
+                                                didOpen: () => {
+                                                    Swal.showLoading();
+                                                }
+                                            })
+                                            response = JSON.parse(response);
 
-                                             $id_gintracom = response["guia"];
-                                             data.append('id_gintracom', $id_gintracom);
-                                             $.ajax({
-                                                 url: "../ajax/enviar_gintracom.php",
-                                                 type: "POST",
-                                                 data: data,
-                                                 contentType: false,
-                                                 processData: false,
-                                                 success: function(response) {
-                                                     Swal.fire({
-                                                         icon: "success",
-                                                         title: "Guía generada",
-                                                         text: "La guía ha sido generada exitosamente",
-                                                         showConfirmButton: true,
-                                                     }).then((result) => {
-                                                         if (result.isConfirmed) {
-                                                             window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
-                                                         }
-                                                     })
-                                                 }
-                                             })
-                                         }
+                                            $id_gintracom = response["guia"];
+                                            data.append('id_gintracom', $id_gintracom);
+                                            $.ajax({
+                                                url: "../ajax/enviar_gintracom.php",
+                                                type: "POST",
+                                                data: data,
+                                                contentType: false,
+                                                processData: false,
+                                                success: function(response) {
+                                                    Swal.fire({
+                                                        icon: "success",
+                                                        title: "Guía generada",
+                                                        text: "La guía ha sido generada exitosamente",
+                                                        showConfirmButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            window.location.href = `./editar_cotizacion_3.php?id_factura=` + $('#id_pedido_cot_').val();
+                                                        }
+                                                    })
+                                                }
+                                            })
+                                        }
 
-                                     })
-                                 }
-                             });
-                         }
+                                    })
+                                }
+                            });
+                        }
 
-                     });
-                 }
-             });
+                    });
+                }
+            });
 
 
-         } */
+        }
 
     }
 
@@ -1003,7 +1003,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 
         calcular_guia(recaudo);
         calcular_servi(id_provincia, recaudo);
-        //calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
+        calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
         /*  $.ajax({
             url: "../ajax/cargar_provincia_pedido.php",
             type: "POST",
