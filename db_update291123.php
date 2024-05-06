@@ -1542,7 +1542,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (147,'COTOPAXI','TOACASO',1,0,1,'TE','0','TE','0','0','0','1027','57729','532'),
 	 (148,'COTOPAXI','YANAYACU',1,0,0,'TE','0','0','0','0','0','0','0','533'),
 	 (149,'EL ORO','3 CERRITOS PASAJE',1,0,0,'TE','0','','','','','','','534'),
-	 (150,'EL ORO','ARENILLAS',1,1,0,'TE','TE','','','','','','','65');");
+	 (150,'EL ORO','ARENILLAS',1,1,0,'TE','TE','','','201001009','201001009006','','','65');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (151,'EL ORO','BARBONES',0,0,1,'0','0','TE','','','','1028','57734',''),
 	 (152,'EL ORO','BELLAVISTA/EL ORO',0,0,1,'0','0','TE','0','0','0','1028','59076','0'),
