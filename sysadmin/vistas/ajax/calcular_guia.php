@@ -6,7 +6,7 @@ require_once "../php_conexion.php";
 require_once "../funciones.php";
 
 @$ciudad = $_POST['ciudad'];
-$valor_total = $_POST['valor_total'];
+@$valor_total = $_POST['valor_total'];
 $cantidad_total = $_POST['cantidad_total'];
 $cod = $_POST['cod'];
 $seguro = $_POST['seguro'];

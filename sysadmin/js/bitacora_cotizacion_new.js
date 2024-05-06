@@ -204,7 +204,9 @@ function buscar(tienda) {
       "&numero=" +
       numero +
       "&filtro=" +
-      filtroG,
+      filtroG +
+      "&transportadora=" +
+      transportadora,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -247,7 +249,9 @@ function buscar_estado(estado) {
       "&numero=" +
       numero +
       "&filtro=" +
-      filtroG,
+      filtroG +
+      "&transportadora=" +
+      transportadora,
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -415,7 +419,9 @@ function buscar_numero(numero) {
       "&estado=" +
       estado +
       "&filtro=" +
-      filtroG,
+      filtroG +
+      "&transportadora=" +
+      transportadora,
 
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
@@ -484,6 +490,9 @@ const filtrarRegistros = (filtro) => {
   }
   if (numero != 0) {
     url = url + "&numero=" + numero;
+  }
+  if (transportadora != 0) {
+    url = url + "&transportadora=" + transportadora;
   }
   $("#loader").fadeIn("slow");
   $.ajax({
