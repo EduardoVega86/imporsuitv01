@@ -274,6 +274,20 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                           </div>
                         </div>
 
+                        <div class="row">
+
+                          <div class="form-group">
+                            <label for="inputPassword3" class="col-lg-13 col-form-label">-- Elige un pais --</label>
+                            <div class="col-lg-13">
+                              <select class="form-control" name="pais" id="pais">
+                                <option value="EC">🇪🇨 Ecuador</option> <!-- Ecuador-->
+                                <option value="PE">🇵🇪 Perú</option> <!-- Peru-->
+                                <option value="CO">🇨🇴 Colombia</option> <!-- Colombia-->
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
                       <div class="col-md-5 caja">
                         <div class="">
@@ -841,7 +855,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
         }
         $.ajax({
           type: "GET",
-          url: "../ajax/habilitar_envioGratis_checkout.php",
+          url: "../ajax.php",
           data: "id=" + id,
           beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
