@@ -21,7 +21,7 @@ if ($filtro == 'mayor_menor') {
 $rw = mysqli_fetch_array($consultar);
 $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=";
 $url_ticket = "https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=";
-
+$url_ticket_f = "https://fast.imporsuit.com/GenerarGuia/descargar/";
 
 
 if ($filtro == 'mayor_menor') {
@@ -181,6 +181,8 @@ if ($filtro == 'mayor_menor') {
                     <?php
                     if (is_numeric($rws['guia_laar'])) {
                         echo "-";
+                    } elseif (strpos($rws['guia_laar'], "FAST") === 0) {
+                        echo '<a href="' . $url_ticket_f . $rws['guia_laar'] . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-receipt"></i></a>';
                     } else {
                         echo '<a href="' . $url_ticket . $rws['guia_laar'] . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-receipt"></i></a>';
                     }
