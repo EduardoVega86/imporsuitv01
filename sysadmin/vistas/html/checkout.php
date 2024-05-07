@@ -1,4 +1,4 @@
-<?php
+    <?php
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
     header("location: ../../login.php");
@@ -390,6 +390,118 @@ $pacientes = 1;
                                 </div>
                             </div>
                             <!-- Fin TELÉFONO -->
+                            <!-- CALLE PRINCIPAL -->
+                            <div class="list-group-item" id="calle_principal">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                    CALLE PRINCIPAL
+                                    <span>
+                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                    </span>
+                                </div>
+                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="titulo_calle_principal">Titulo</label>
+                                            <input type="text" class="form-control" id="titulo_calle_principal" placeholder="">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txt_calle_principal">Texto Interno</label>
+                                            <input type="text" class="form-control" id="txt_calle_principal" placeholder="">
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Fin CALLE PRINCIPAL -->
+                            <!-- CALLE secundaria -->
+                            <div class="list-group-item" id="calle_secundaria">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                    CALLE SEGUNDARIA
+                                    <span>
+                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                    </span>
+                                </div>
+                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="titulo_calle_secundaria">Titulo</label>
+                                            <input type="text" class="form-control" id="titulo_calle_secundaria" placeholder="">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txt_calle_secundaria">Texto Interno</label>
+                                            <input type="text" class="form-control" id="txt_calle_secundaria" placeholder="">
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Fin CALLE secundaria -->
+                            <!-- BARRIO O REFERENCIA -->
+                            <div class="list-group-item" id="barrio_referencia">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                    BARRIO O REFERENCIA
+                                    <span>
+                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                    </span>
+                                </div>
+                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="titulo_barrio_referencia">Titulo</label>
+                                            <input type="text" class="form-control" id="titulo_barrio_referencia" placeholder="">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txt_barrio_referencia">Texto Interno</label>
+                                            <input type="text" class="form-control" id="txt_barrio_referencia" placeholder="">
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Fin BARRIO O REFERENCIA -->
+                            <!-- Comentario -->
+                            <div class="list-group-item" id="comentario">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                    Comentario
+                                    <span>
+                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                    </span>
+                                </div>
+                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="titulo_comentario">Titulo</label>
+                                            <input type="text" class="form-control" id="titulo_comentario" placeholder="">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txt_comentario">Texto Interno</label>
+                                            <input type="text" class="form-control" id="txt_comentario" placeholder="">
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Fin Comentario -->
                         </div>
                     </div>
                 </div>
@@ -469,6 +581,38 @@ $pacientes = 1;
                                 </div>
                             </div>
                             <!-- Fin Telefono -->
+                            <!-- calle_principal -->
+                            <div class="form-group" id="calle_principalPreview" style="position: relative; padding-top: 10px;">
+                                <label id="titulo_calle_principalPreview">Calle Principal</label>
+                                <div class="">
+                                    <input type="text" class="form-control" id="txt_calle_principalPreview" placeholder="">
+                                </div>
+                            </div>
+                            <!-- Fin calle_principal -->
+                            <!-- calle_secundaria -->
+                            <div class="form-group" id="calle_secundariaPreview" style="position: relative; padding-top: 10px;">
+                                <label id="titulo_calle_secundariaPreview">Calle Secundaria</label>
+                                <div class="">
+                                    <input type="text" class="form-control" id="txt_calle_secundariaPreview" placeholder="">
+                                </div>
+                            </div>
+                            <!-- Fin calle_secundaria -->
+                            <!-- barrio_referencia -->
+                            <div class="form-group" id="barrio_referenciaPreview" style="position: relative; padding-top: 10px;">
+                                <label id="titulo_barrio_referenciaPreview">Barrio o Referencia</label>
+                                <div class="">
+                                    <input type="text" class="form-control" id="txt_barrio_referenciaPreview" placeholder="">
+                                </div>
+                            </div>
+                            <!-- Fin barrio_referencia -->
+                            <!-- comentario -->
+                            <div class="form-group" id="comentarioPreview" style="position: relative; padding-top: 10px;">
+                                <label id="titulo_comentarioPreview">Barrio o Referencia</label>
+                                <div class="">
+                                    <input type="text" class="form-control" id="txt_comentarioPreview" placeholder="">
+                                </div>
+                            </div>
+                            <!-- Fin comentario -->
                         </div>
                     </div>
                 </div>
@@ -624,6 +768,50 @@ $pacientes = 1;
             const txt_telefonoInput = document.getElementById('txt_telefono');
             txt_telefonoInput.addEventListener('input', function() {
                 var previewInput = document.getElementById('txt_telefonoPreview');
+                previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
+            });
+            
+            const titulo_calle_principalInput = document.getElementById('titulo_calle_principal');
+            titulo_calle_principalInput.addEventListener('input', function() {
+                document.getElementById('titulo_calle_principalPreview').textContent = this.value;
+            });
+
+            const txt_calle_principalInput = document.getElementById('txt_calle_principal');
+            txt_calle_principalInput.addEventListener('input', function() {
+                var previewInput = document.getElementById('txt_calle_principalPreview');
+                previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
+            });
+
+            const titulo_calle_secundariaInput = document.getElementById('titulo_calle_secundaria');
+            titulo_calle_secundariaInput.addEventListener('input', function() {
+                document.getElementById('titulo_calle_secundariaPreview').textContent = this.value;
+            });
+
+            const txt_calle_secundariaInput = document.getElementById('txt_calle_secundaria');
+            txt_calle_secundariaInput.addEventListener('input', function() {
+                var previewInput = document.getElementById('txt_calle_secundariaPreview');
+                previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
+            });
+
+            const titulo_barrio_referenciaInput = document.getElementById('titulo_barrio_referencia');
+            titulo_barrio_referenciaInput.addEventListener('input', function() {
+                document.getElementById('titulo_barrio_referenciaPreview').textContent = this.value;
+            });
+
+            const txt_barrio_referenciaInput = document.getElementById('txt_barrio_referencia');
+            txt_barrio_referenciaInput.addEventListener('input', function() {
+                var previewInput = document.getElementById('txt_barrio_referenciaPreview');
+                previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
+            });
+
+            const titulo_comentarioInput = document.getElementById('titulo_comentario');
+            titulo_comentarioInput.addEventListener('input', function() {
+                document.getElementById('titulo_comentarioPreview').textContent = this.value;
+            });
+
+            const txt_comentarioInput = document.getElementById('txt_comentario');
+            txt_comentarioInput.addEventListener('input', function() {
+                var previewInput = document.getElementById('txt_comentarioPreview');
                 previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
             });
 

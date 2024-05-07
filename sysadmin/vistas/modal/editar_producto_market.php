@@ -229,7 +229,7 @@ if (isset($conexion)) {
 								<li style="font-size: 20px;"><strong>Nombre Producto:</strong> <input type="text" id="mod_nombre" class="info-input" readonly></li>
 
 								<div class="d-flex flex-row">
-									<li style="font-size: 20px; border-right: 1px solid #dee2e6;"><strong>Precio:</strong> <input type="text" id="mod_precio" class="info-input" readonly></li>
+									<li style="font-size: 20px; border-right: 1px solid #dee2e6;"><strong>Precio Proveedor:</strong> <input type="text" id="mod_costo" class="info-input" readonly></li>
 									<li style="font-size: 20px; padding-left:10px"><strong>Precio Sugerido:</strong> <input type="text" id="mod_precioe" class="info-input" readonly></li>
 								</div>
 								<li style="font-size: 22px;"><strong>Stock:</strong> <input type="text" id="mod_stock" style="color: #3EDF2B; font-weight: bold;" class="info-input_stock" readonly></li>
