@@ -2382,7 +2382,9 @@ mysqli_query($conexion, "CREATE TABLE `atributos` (
   UNIQUE KEY `id_atributo` (`id_atributo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
-mysqli_query($conexion, "INSERT INTO `atributos` (`id_atributo`, `nombre_atributo`) VALUES (NULL, 'TALLA'), (NULL, 'COLOR'), (NULL, 'MARCA'), (NULL, 'MODELO'), (NULL, 'MATERIAL'), (NULL, 'CAPACIDAD');");
+
+mysqli_query($conexion, "DELETE from atributos;");
+mysqli_query($conexion, "INSERT INTO `atributos` (`id_atributo`, `nombre_atributo`) VALUES (1, 'TALLA'), (2, 'COLOR'), (3, 'MARCA'), (4, 'MODELO'), (5, 'MATERIAL'), (6, 'CAPACIDAD');");
 mysqli_query($conexion, "ALTER TABLE `novedades` ADD `fecha` DATETIME NULL DEFAULT CURRENT_TIMESTAMP AFTER `tracking`;");
 
 
