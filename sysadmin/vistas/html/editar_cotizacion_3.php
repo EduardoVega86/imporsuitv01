@@ -12,6 +12,7 @@ require_once "../funciones.php";
 require_once "../funciones_destino.php";
 //Inicia Control de Permisos 
 include "../permisos.php";
+
 $user_id = $_SESSION['id_users'];
 get_cadena($user_id);
 $modulo = "Ventas";

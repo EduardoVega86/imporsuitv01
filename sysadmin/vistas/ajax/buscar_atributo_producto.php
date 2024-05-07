@@ -1,8 +1,6 @@
 <?php
 /*-------------------------
-Autor: Delmar Lopez
-Web: www.digitalsolution.com
-Mail: softwysop@gmail.com
+Autor: Eduardo Vega
 ---------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
@@ -47,8 +45,8 @@ if ($action == 'elimina') {
   
     //$q        = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
     //$aColumns = array(); //Columnas de busqueda
-    $sTable   = "atributo_producto";
-    $sWhere   = "where  id_producto=".$_REQUEST['id_producto'];
+    $sTable   = "atributos";
+    $sWhere   = "";
     
     include 'pagination.php'; //include pagination file
     //pagination variables
@@ -63,43 +61,76 @@ if ($action == 'elimina') {
 
 
         ?>
+
 <div style="padding-left: 10px; padding-right: 10px" class="table-responsive">
-              <table class="table table-bordered table-striped table-sm">
-                <tr  class="info">
-                    
-                    <th class='text-center'>ATRIBUTO</th>
-                    <th class='text-center' style="width: 36px;"></th>
-                </tr>
-                <?php
-while ($row = mysqli_fetch_array($query)) {
-     $id_atributo    = $row['id_atributo'];
-            $atributo     = $row['atributo'];
+    <form id="miFormulario">
+    <table class="table table-bordered table-striped table-sm">
+       
+
+        <tr class="info">
+            <th class='text-center'>ATRIBUTO</th>
+            <th class='text-center' ></th>
+        </tr>
+        <?php
+        while ($row = mysqli_fetch_array($query)) {
+            $id_atributo = $row['id_atributo'];
+            $atributo = $row['nombre_atributo'];
           
-            
-            ?>
-                    <tr>
-                       
-                            <td><?php echo $atributo; ?></td>
-                      
-                        
-                        
-                        
-                        
-                        
-                        <td class='text-center'>
-                        <a class='btn btn-danger' href="#" title="Eliminar Stock" onclick="eliminar_stock('<?php echo $id_atributo ?>')"><i class="fa fa-trash"></i>
-                        </a>
-                        </td>
-                    </tr>
-                    <?php
-}
         ?>
-             
-              </table>
-            </div>
-            <?php
+            <tr>
+                <td style="width: 10%;"><?php echo htmlspecialchars($atributo); ?></td>
+                <td style="width: 50%;" class='text-left'>
+                <?php
+                  $sql2="select * from variedades where id_atributo=$id_atributo";
+                  //echo $sql2 ;
+             $query2 = mysqli_query($conexion, $sql2);
+            while ($row2 = mysqli_fetch_array($query2)) {
+                 $id_variedad = $row2['id_variedad'];
+                echo "<span style='margin-left:5px' class='badge badge-primary'>".strtoupper($row2['variedad'])."<a href='#' style='margin-left:5px; margin-bottom:15px' onclick='eliminar_var(".$id_variedad.")'>x</a></span>";
+            }?>
+                     </td>
+                <td style="width: 40%;" class='text-left'>
+                    <input type="text" class="form-control descripcion_id formulario" style="text-align:center; font-size:10px;" value="" id="<?php echo $id_atributo; ?>">
+                </td>
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
+        </form>
+</div>
+<script>
+ $(".descripcion_id").on("change", function(event) {
+           //   alert()
+         id_tmp = $(this).attr("id");
+        descripcion = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "../ajax/nuevo_variable.php",
+            data: "id_tmp=" + id_tmp + "&descripcion=" + descripcion,
+            success: function(datos) {
+               $("#resultados").load("../ajax/agregar_tmp.php");
+               $.Notification.notify('success','bottom center','EXITO!', 'ATRIBUTO ACTUALIZADO CORRECTAMENTE')
+                   document.getElementById('miFormulario').reset();
+                   producto_id();
 
+           }
+       });
+    });
+    
+    function eliminar_var(id){
+         $.ajax({
+            type: "POST",
+            url: "../ajax/eliminar_variable.php",
+            data: "id_tmp=" + id,
+            success: function(datos) {
+               //$("#resultados").load("../ajax/agregar_tmp.php");
+               $.Notification.notify('success','bottom center','EXITO!', 'ATRIBUTO ACTUALIZADO CORRECTAMENTE')
+                   document.getElementById('miFormulario').reset();
+                   producto_id();
 
-// fin else
-
-?>
+           }
+       });
+    }
+    
+    </script>

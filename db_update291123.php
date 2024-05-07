@@ -2224,7 +2224,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (767,'AZUAY','ZONA FRANCA',0,1,0,'','TE','','','','','','',''),
 	 (768,'CHIMBORAZO','SANTA ROSA DE AGUA CLARA',0,0,0,'TE','0','0','0','0','0','0','0','0'),
 	 (769,'CHIMBORAZO','YARUQUIES',1,1,1,'TE','TE','TN','0','201001008','201001008011','1026','57711','680'),
-	 (770,'EL ORO','SANTA ROSA',1,1,0,'TE','TE','0','0','0','0','0','0','32');");
+	 (770,'EL ORO','SANTA ROSA',1,1,0,'TE','TE','0','0','201001009','201001009009','0','0','32');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (771,'GUAYAS','VELASCO IBARRA (EL EMPALME)',0,1,0,'0','TE','0','0','201001002','201001002069','0','0','0'),
 	 (772,'GUAYAS','VILLA NUEVA',1,0,0,'TE','0','0','0','0','0','0','0','565'),
@@ -2385,7 +2385,9 @@ mysqli_query($conexion, "CREATE TABLE `atributos` (
   UNIQUE KEY `id_atributo` (`id_atributo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
-mysqli_query($conexion, "INSERT INTO `atributos` (`id_atributo`, `nombre_atributo`) VALUES (NULL, 'TALLA'), (NULL, 'COLOR'), (NULL, 'MARCA'), (NULL, 'MODELO'), (NULL, 'MATERIAL'), (NULL, 'CAPACIDAD');");
+
+mysqli_query($conexion, "DELETE from atributos;");
+mysqli_query($conexion, "INSERT INTO `atributos` (`id_atributo`, `nombre_atributo`) VALUES (1, 'TALLA'), (2, 'COLOR'), (3, 'MARCA'), (4, 'MODELO'), (5, 'MATERIAL'), (6, 'CAPACIDAD');");
 mysqli_query($conexion, "ALTER TABLE `novedades` ADD `fecha` DATETIME NULL DEFAULT CURRENT_TIMESTAMP AFTER `tracking`;");
 
 mysqli_query($conexion, "CREATE TABLE banner_marketplace ( id bigint(20) unsigned auto_increment NOT NULL PRIMARY KEY, fondo_banner text DEFAULT NULL NULL, titulo text DEFAULT NULL NULL, texto_banner text DEFAULT NULL NULL, texto_boton text DEFAULT NULL NULL, enlace_boton text DEFAULT NULL NULL, alineacion int(11) DEFAULT NULL NULL );");
