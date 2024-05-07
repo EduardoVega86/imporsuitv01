@@ -132,10 +132,10 @@ while ($r = $query->fetch_object()) {
 
 											<div class="col-md-2">
 												<div class="btn-group pull-right">
-													<button type="button" class="btn btn-success btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#nuevoProducto"><i class="fa fa-plus"></i> Agregar</button>
+													<button type="button" class="btn btn-success btn-rounded waves-effect waves-light"  data-toggle="modal" data-target="#nuevoProducto"><i class="fa fa-plus"></i> Agregar</button>
 												</div>
                                                                                             <div class="btn-group pull-right">
-													<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
+													<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" onclick="producto_id()"  data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
 												</div>
 
 											</div>
@@ -215,6 +215,10 @@ while ($r = $query->fetch_object()) {
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/productos.js"></script>
 <script>
+    
+         
+
+
 	function precio_venta() {
 		var profit = $("#utilidad").val();
 		var buying_price = $("#costo").val();
@@ -596,9 +600,10 @@ while ($r = $query->fetch_object()) {
 	}
         
         
-        function producto_id(id){
-            //alert(id)
-               $('#id_producto').val(id);
+        function producto_id(){
+            //alert('entra')
+              // $('#id_producto').val(id);
+               id=1;
                 $.ajax({
 		        url: '../ajax/buscar_atributo_producto.php?action=ajax&id_producto=' + id,
 		        beforeSend: function(objeto) {
