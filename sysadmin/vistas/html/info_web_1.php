@@ -237,7 +237,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
 
                           <div class="col-sm-12">
                             <span class="help-block" style="font-size: 10px"> DESCRIPCION</span>
-                            <input type="text" class="form-control UpperCase input-change" name="giro" value="<?php echo $row['giro_empresa'] ?>"autocomplete="off">
+                            <input type="text" class="form-control UpperCase input-change" name="giro" value="<?php echo $row['giro_empresa'] ?>" autocomplete="off">
                           </div>
                         </div>
                         <div class="row">
@@ -274,6 +274,20 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                           </div>
                         </div>
 
+                        <div class="row">
+
+                          <div class="form-group">
+                            <label for="inputPassword3" class="col-lg-13 col-form-label">-- Elige un pais --</label>
+                            <div class="col-lg-13">
+                              <select class="form-control" name="pais" id="pais">
+                                <option value="EC">🇪🇨 Ecuador</option> <!-- Ecuador-->
+                                <option value="PE">🇵🇪 Perú</option> <!-- Peru-->
+                                <option value="CO">🇨🇴 Colombia</option> <!-- Colombia-->
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
                       </div>
                       <div class="col-md-5 caja">
                         <div class="">
@@ -284,12 +298,11 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                           <button type="button" class="btn btn-success waves-effect waves-light formulario" data-toggle="modal" data-target="#nuevaFlotante"><i class="fa fa-plus"></i> </button>
                         </div>
                         <div class='outer_div_flotante'></div>
-
-                        <!--   <div class="">
-                          <input class="input-change" type="checkbox" role="switch" id="flotar_comprar_ahora" <?php if (get_row('perfil', 'boton_compra_flotante', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
-                          <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar Boton de Comprar Ahora</label>
+                        <div class="">
+                          <input class="input-change" type="checkbox" role="switch" id="envioGratis_checkout" <?php if (get_row('perfil', 'envioGratis_checkout', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
+                          <label class="form-check-label" for="flexSwitchCheckChecked">Habilitar Envío Gratis en boton comprar ahora</label>
                         </div>
-                        -->
+
 
                         <div class="">
                           <input class="input-change" type="checkbox" role="switch" id="flotar_ws" <?php if (get_row('perfil', 'whatsapp_flotante', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
@@ -464,7 +477,8 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                         <div class="col-md-1">
 
                           <span style="font-size: 10px" class="help-block">Footer:</span>
-                          <input class="colores input-change" type="color" name="color_footer" value="<?php //echo $row["color_footer"]; ?>">
+                          <input class="colores input-change" type="color" name="color_footer" value="<?php //echo $row["color_footer"]; 
+                                                                                                      ?>">
 
                         </div>
                         -->
@@ -487,7 +501,8 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                         <!-- 
                         <div class="col-sm-1">
                           <span style="font-size: 10px" class="help-block">Footer:</span>
-                          <input class="colores input-change" type="color" name="texto_footer" value="<?php // echo $row["texto_footer"]; ?>">
+                          <input class="colores input-change" type="color" name="texto_footer" value="<?php // echo $row["texto_footer"]; 
+                                                                                                      ?>">
 
                         </div>
                         -->
@@ -831,8 +846,8 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
         });
 
       }
-    
-      if (this.id === "flotar_comprar_ahora") {
+
+      if (this.id === "envioGratis_checkout") {
         if (this.checked) {
           id = 1;
         } else {
@@ -840,7 +855,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
         }
         $.ajax({
           type: "GET",
-          url: "../ajax/habilitar_btnComprar_flotante.php",
+          url: "../ajax.php",
           data: "id=" + id,
           beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');

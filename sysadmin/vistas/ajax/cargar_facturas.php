@@ -21,6 +21,8 @@ if ($filtro == 'mayor_menor') {
 $rw = mysqli_fetch_array($consultar);
 $url_guia = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=";
 $url_ticket = "https://api.laarcourier.com:9727/guias/pdfs/DescargarV2?guia=";
+$url_ticket_f = "https://fast.imporsuit.com/GenerarGuia/descargar/";
+
 
 if ($filtro == 'mayor_menor') {
     $band = "btn-primary";
@@ -127,6 +129,9 @@ if ($filtro == 'mayor_menor') {
                     break;
             }
 
+            $url_servi_guia = "https://servientrega-ecuador.appsiscore.com/app/app-cliente/cons_publica.php?guia=" . $rws['guia_laar'];
+
+
 
             $ganancias_imporsuit = $rws['precio_envio'] - (($tarifa * 1.12) * 1.03);
             if ($ganancias_imporsuit > 0) {
@@ -164,10 +169,24 @@ if ($filtro == 'mayor_menor') {
                     <?php } ?>
                 </td>
                 <td class="text-center">
-                    <a href="<?php echo $url_guia . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>
+                    <?php
+                    if (is_numeric($rws['guia_laar'])) {
+                        echo '<a href="' . $url_servi_guia . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>';
+                    } else {
+                        echo '<a href="' . $url_guia . $rws['guia_laar'] . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>';
+                    }
+                    ?>
                 </td>
                 <td class="text-center">
-                    <a href="<?php echo $url_ticket . $rws['guia_laar']; ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-receipt"></i></a>
+                    <?php
+                    if (is_numeric($rws['guia_laar'])) {
+                        echo "-";
+                    } elseif (strpos($rws['guia_laar'], "FAST") === 0) {
+                        echo '<a href="' . $url_ticket_f . $rws['guia_laar'] . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-receipt"></i></a>';
+                    } else {
+                        echo '<a href="' . $url_ticket . $rws['guia_laar'] . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-receipt"></i></a>';
+                    }
+                    ?>
                 </td>
                 <td class="text-center">
                     <button onclick="ver_detalles('<?php echo $rws['numero_factura']; ?>')" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></button>

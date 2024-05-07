@@ -33,14 +33,14 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001001, 'QUITO', 'TP', 'PICHINCHA', '201001001', 1);");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001002, 'CAYAMBE', 'TP', 'PICHINCHA', '201001001', 22);");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001003, 'TABACUNDO', 'TE', 'PICHINCHA', '201001001', 22); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001004, 'SANTO DOMINGO', 'TP', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 45); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001004, 'SANTO DOMINGO', 'TP', 'SANTO DOMINGO', '201001024', 45); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001005, 'SANGOLQUI', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001006, 'SAN RAFAEL', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001007, 'EL QUINCHE', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001008, 'MACHACHI', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001009, 'CUMBAYA', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001010, 'SAN MIGUEL DE LOS BANCOS', 'TE', 'PICHINCHA', '201001001', 1); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001011, 'LA CONCORDIA', 'TS', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 56); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001011, 'LA CONCORDIA', 'TS', 'SANTO DOMINGO', '201001024', 56); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001012, 'PEDRO V. MALDONADO', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001013, 'PUERTO QUITO', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001014, 'GUAYLLABAMBA', 'TE', 'PICHINCHA', '201001001', 1); ");
@@ -63,7 +63,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001036, 'PINTAG', 'TS', 'PICHINCHA', '201001001', 1);  ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001037, 'YARUQUI', 'TS', 'PICHINCHA', '201001001', 1);  ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001039, 'VALLE DE LOS CHILLOS', 'TS', 'PICHINCHA', '201001001', 1);  ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001040, 'VALLE HERMOSO', 'TE', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 56);  ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001040, 'VALLE HERMOSO', 'TE', 'SANTO DOMINGO', '201001024', 56);  ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001041, 'PUSUQUI', 'TS', 'PICHINCHA', '201001001', 1);  ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001042, 'AYORA', 'TE', 'PICHINCHA', '201001001', 22);  ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001043, 'AZCASUBI VIA AL QUINCHE', 'TE', 'PICHINCHA', '201001001', 1); ");
@@ -79,8 +79,8 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001056, 'TABABELA', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001057, 'UYUMBICHO', 'TS', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001058, 'ZAMBISA', 'TS', 'PICHINCHA', '201001001', 1); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001059, 'MONTERREY', 'TE', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 56); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001060, 'LAS VILLEGAS', 'TE', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 56); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001059, 'MONTERREY', 'TE', 'SANTO DOMINGO', '201001024', 56); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001060, 'LAS VILLEGAS', 'TE', 'SANTO DOMINGO', '201001024', 56); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001061, 'CUZUBAMBA', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001062, 'ASCAZUBI', 'TE', 'PICHINCHA', '201001001', 1); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001001063, 'CHECA', 'TE', 'PICHINCHA', '201001001', 1); ");
@@ -435,11 +435,11 @@ mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, prov
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023019, 'Punta Centinela', 'TE', 'SANTA ELENA', '201001023', 33); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023020, 'El Tambo Santa Elena', 'TE', 'SANTA ELENA', '201001023', 33); ");
 mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001023021, 'SANTA ROSA SANTA ELENA', 'TE', 'SANTA ELENA', '201001023', 33); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024004, 'KM 14 QUEVEDO', 'TS', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 45); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024005, 'KM 24 QUEVEDO', 'TS', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 45); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024006, 'KM 38.5 QUEVEDO', 'TS', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 45); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024007, 'KM 41 QUEVEDO', 'TS', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 45); ");
-mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024008, 'LUZ DE AMERICA', 'TS', 'SANTO DOMINGO DE LOS TSACHILAS', '201001024', 45); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024004, 'KM 14 QUEVEDO', 'TS', 'SANTO DOMINGO', '201001024', 45); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024005, 'KM 24 QUEVEDO', 'TS', 'SANTO DOMINGO', '201001024', 45); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024006, 'KM 38.5 QUEVEDO', 'TS', 'SANTO DOMINGO', '201001024', 45); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024007, 'KM 41 QUEVEDO', 'TS', 'SANTO DOMINGO', '201001024', 45); ");
+mysqli_query($conexion, "INSERT INTO ciudad_laar (codigo, nombre, trayecto, provincia, codigoProvincia, codigor) VALUES (201001024008, 'LUZ DE AMERICA', 'TS', 'SANTO DOMINGO', '201001024', 45); ");
 mysqli_query($conexion, "DELETE FROM `provincia_laar`;");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('TUNGURAHUA', '201001019'); ");
 mysqli_query($conexion, "INSERT INTO provincia_laar (provincia, codigo_provincia) VALUES ('PICHINCHA', '201001001'); ");
@@ -1479,7 +1479,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (90,'CHIMBORAZO','CHUNCHI',1,1,0,'TE','TE','0','0','0','0','0','0','248');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (91,'CHIMBORAZO','COLTA',1,1,0,'TE','TE','0','0','201001008','201001008008','0','0','242'),
-	 (92,'CHIMBORAZO','CUMANDA/CHIMBORAZO',1,1,0,'TE','TE','0','0','0','0','0','0','469'),
+	 (92,'CHIMBORAZO','CUMANDA/CHIMBORAZO',1,1,0,'TE','TE','0','0','201001008','201001008012','0','0','469'),
 	 (93,'CHIMBORAZO','EL GUANO',1,1,0,'TE','TE','0','0','0','0','0','0','244'),
 	 (94,'CHIMBORAZO','FLORES',0,0,1,'0','0','TE','0','0','0','1026','59068','0'),
 	 (95,'CHIMBORAZO','GUAMOTE',1,1,0,'TE','TE','0','0','201001008','201001008007','0','0','243'),
@@ -1542,7 +1542,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (147,'COTOPAXI','TOACASO',1,0,1,'TE','0','TE','0','0','0','1027','57729','532'),
 	 (148,'COTOPAXI','YANAYACU',1,0,0,'TE','0','0','0','0','0','0','0','533'),
 	 (149,'EL ORO','3 CERRITOS PASAJE',1,0,0,'TE','0','','','','','','','534'),
-	 (150,'EL ORO','ARENILLAS',1,1,0,'TE','TE','','','','','','','65');");
+	 (150,'EL ORO','ARENILLAS',1,1,0,'TE','TE','','','201001009','201001009006','','','65');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (151,'EL ORO','BARBONES',0,0,1,'0','0','TE','','','','1028','57734',''),
 	 (152,'EL ORO','BELLAVISTA/EL ORO',0,0,1,'0','0','TE','0','0','0','1028','59076','0'),
@@ -1629,7 +1629,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (226,'GUAYAS','EL EMPALME/GUAYAS',1,0,1,'TE','TE','TE','','201001002','201001002069','1031','56328','767'),
 	 (227,'GUAYAS','EL MORRO',1,0,0,'TE','0','0','','201001002','','1031','','118'),
 	 (228,'GUAYAS','EL TRIUNFO/GUAYAS',1,1,1,'TR','TE','TE','','201001002','201001002007','1031','56329','26'),
-	 (229,'GUAYAS','ELOY ALFARO - DURÁN',0,1,0,'0','TE','0','0','0','0','0','0','719'),
+	 (229,'GUAYAS','ELOY ALFARO - DURÁN',0,1,0,'0','TE','0','0','201001002','201001002076','0','0','719'),
 	 (230,'GUAYAS','ENGABAO',1,0,0,'TE','0','0','','201001002','','1031','','554');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (231,'GUAYAS','GENERAL ANTONIO ELIZALDE',1,0,0,'TE','0','0','','201001002','','1031','','720'),
@@ -1954,7 +1954,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (521,'NAPO','SAN PABLO DE USHPAYACU',0,0,1,'0','0','TE','0','0','0','1037','59106','0'),
 	 (522,'NAPO','TAZAYACU',1,0,0,'TE','0','0','0','0','0','0','0','742'),
 	 (523,'NAPO','TENA',1,1,1,'TE','TO','TN','0','201001016','201001016001','1037','56417','78'),
-	 (524,'ORELLANA','EL COCA',1,0,1,'TE','0','TN','0','201001017','201001017002','1038','57943','38'),
+	 (524,'ORELLANA','EL COCA',1,1,1,'TE','TO','TN','0','201001017','201001017002','1038','57943','38'),
 	 (525,'ORELLANA','JOYA DE LOS SACHAS',1,1,1,'TE','TO','TN','0','201001017','201001017006','1038','56420','291'),
 	 (526,'ORELLANA','LORETO',1,1,0,'TE','TO','0','0','201001017','201001017016','0','0','116'),
 	 (527,'ORELLANA','PUERTO FRANCISCO DE ORELLANA (EL COCA)',0,0,1,'0','0','TN','0','0','0','1038','57318','0'),
@@ -2058,7 +2058,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (616,'PICHINCHA','VALLE DE LOS CHILLOS',0,1,0,'0','TL','0','0','201001001','201001001039','0','0','0'),
 	 (617,'PICHINCHA','YARUQUI',0,1,1,'0','TS','TE','0','201001001','201001001037','1040','59160','453'),
 	 (618,'PICHINCHA','ZAMBISA',0,1,0,'0','TS','0','0','201001001','201001001058','0','0','648'),
-	 (619,'SANTA ELENA','LA LIBERTAD',1,0,1,'TR','0','TN','0','201001023','201001002013','4125','56435','14'),
+	 (619,'SANTA ELENA','LA LIBERTAD',1,1,1,'TR','TP','TN','0','201001023','201001002013','4125','56435','14'),
 	 (620,'SANTA ELENA','LIBERTADOR BOLIVAR',1,1,0,'TE','TE','0','0','201001023','201001023010','0','0','653');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (621,'LOJA','QUILANGA',1,0,0,'TE','0','0','0','0','0','0','0','755'),
@@ -2116,7 +2116,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (669,'SANTO DOMINGO','RÍO TOACHI ',0,0,1,'0','0','TE','0','0','0','4126','59163','0'),
 	 (670,'SANTO DOMINGO','SAN JACINTO DEL BUA',1,0,0,'TE','0','0','0','0','0','0','0','745');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
-	 (671,'SANTO DOMINGO','SANTO DOMINGO',1,1,1,'TE','TE','TN','0','0','0','4126','56434','11'),
+	 (671,'SANTO DOMINGO','SANTO DOMINGO',1,1,1,'TE','TE','TN','0','201001024','201001001004','4126','56434','11'),
 	 (672,'SANTO DOMINGO','VALLE HERMOSO',1,1,0,'TE','TE','0','0','0','0','0','0','665'),
 	 (673,'SANTO DOMINGO','VILLEGAS',0,1,0,'0','TE','0','0','0','0','0','0','0'),
 	 (674,'SUCUMBIOS','7 DE JULIO',1,0,1,'TE','0','TE','0','0','0','1041','58022','666'),
@@ -2297,8 +2297,11 @@ mysqli_query($conexion, "INSERT INTO `cobertura_laar` (`id_cobertura`, `tipo_cob
 (2, 'TE', 3.5, 5.5),
 (3, 'TL', 2.8, 3.5),
 (4, 'TS', 3.5, 5.5),
-(5, 'TO', 3.5, 5.5);");
+(5, 'TO', 3.5, 5.5);
+");
 
+mysqli_query($conexion, "INSERT INTO `cobertura_laar` (`id_cobertura`, `tipo_cobertura`, `costo`, `precio`) VALUES
+(6, 'GAL', 15,15)");
 mysqli_query($conexion, "UPDATE `ciudad_cotizacion` SET `trayecto_laar` = 'TP', `trayecto_gintracom` = 'TN' WHERE `ciudad_cotizacion`.`id_cotizacion` = 239;");
 mysqli_query($conexion, "ALTER TABLE `dropi` CHANGE `pais_id` `pais_id` INT NOT NULL DEFAULT '0';");
 
@@ -2387,6 +2390,13 @@ mysqli_query($conexion, "DELETE from atributos;");
 mysqli_query($conexion, "INSERT INTO `atributos` (`id_atributo`, `nombre_atributo`) VALUES (1, 'TALLA'), (2, 'COLOR'), (3, 'MARCA'), (4, 'MODELO'), (5, 'MATERIAL'), (6, 'CAPACIDAD');");
 mysqli_query($conexion, "ALTER TABLE `novedades` ADD `fecha` DATETIME NULL DEFAULT CURRENT_TIMESTAMP AFTER `tracking`;");
 
+mysqli_query($conexion, "CREATE TABLE banner_marketplace ( id bigint(20) unsigned auto_increment NOT NULL PRIMARY KEY, fondo_banner text DEFAULT NULL NULL, titulo text DEFAULT NULL NULL, texto_banner text DEFAULT NULL NULL, texto_boton text DEFAULT NULL NULL, enlace_boton text DEFAULT NULL NULL, alineacion int(11) DEFAULT NULL NULL );");
+
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `activar_destacados` VARCHAR(100) NOT NULL DEFAULT '1' AFTER `boton_compra_flotante`;");
+
+mysqli_query($conexion, "ALTER TABLE `perfil` ADD `envioGratis_checkout` VARCHAR(100) NOT NULL DEFAULT '1' AFTER `activar_destacados`;");
+
+mysqli_query($conexion, "ALTER TABLE `novedades` CHANGE `estado_novedad` `estado_novedad` INT NOT NULL;");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 

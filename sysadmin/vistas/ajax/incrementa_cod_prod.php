@@ -1,38 +1,35 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
-/* Connect To Database*/
+include 'is_logged.php'; // Archivo verifica que el usuario que intenta acceder a la URL está logueado
+
+/* Connect To Database */
 require_once "../db.php";
 require_once "../php_conexion.php";
-$query_id = mysqli_query($conexion, "SELECT RIGHT(codigo_producto,6) as codigo FROM productos
-  ORDER BY codigo_producto DESC LIMIT 1")
+$query_id = mysqli_query($conexion, "SELECT codigo_producto FROM productos ORDER BY codigo_producto DESC LIMIT 1")
   or die('error ' . mysqli_error($conexion));
 $count = mysqli_num_rows($query_id);
 
 if ($count != 0) {
-
   $data_id = mysqli_fetch_assoc($query_id);
-  // seprara el codigo de la factura para incrementar
+  $codigo  = $data_id['codigo_producto']; // Obtener el código completo
 
-  $codigo  = $data_id['codigo'];
-  if (preg_match('/[A-Za-z]/', $codigo)) {
+  // Utiliza una expresión regular para separar las partes de letras con guiones y números
+  if (preg_match('/^([A-Za-z-]*)(\d+)$/', $codigo, $matches)) {
+    $prefix = $matches[1]; // Esto captura el prefijo que podría incluir letras y guiones
+    $numero = $matches[2]; // Esto captura la parte numérica
 
-    $letra = preg_replace('/[^A-Za-z]+/', '', $codigo);
-    $numero = preg_replace('/[^0-9]+/', '', $codigo);
-    $numero = $numero + 1;
-    $letra = strtoupper($letra);
-    $letra = str_pad($letra, 3, "0", STR_PAD_RIGHT);
-    $numero = str_pad($numero, 3, "0", STR_PAD_LEFT);
-    $codigo = $letra . $numero;
+    // Incrementar el número
+    $numero++;
+
+    // Reensamblar el código
+    $codigo = $prefix . str_pad($numero, strlen($matches[2]), "0", STR_PAD_LEFT);
   } else {
-    $codigo = $codigo + 1;
+    // Si el código no contiene letras o guiones, simplemente incrementar
+    $codigo++;
   }
 } else {
-  $codigo = 1;
+  $codigo = 1; // Inicializar a 1 si no hay productos
 }
 
-$buat_id = str_pad($codigo, 5, STR_PAD_LEFT);
-$codigo  = "$buat_id";
-
-echo '<input type="text" class="form-control" autocomplete="off" id="codigo" value="' . $codigo . '" name="codigo" >';
+echo '<input type="text" class="form-control" autocomplete="off" id="codigo" value="' . $codigo . '" name="codigo">';

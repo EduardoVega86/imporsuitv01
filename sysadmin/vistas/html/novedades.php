@@ -77,14 +77,14 @@ $pacientes = 1;
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="novedadLabel">Novedad</h5>
-                                <button type="button" class="btn-close" onclick="cerrarModal()" data-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" onclick="" data-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" id="boody">
                                 <!-- Aquí va el contenido que quieras mostrar en el modal -->
                                 <p id="modalContent">Aquí va la información de la tienda.</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" onclick="cerrarModal()" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-secondary" onclick="" data-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
                     </div>
@@ -253,9 +253,11 @@ $pacientes = 1;
                                             $transporte = "SERVIENTREGA";
                                         }
                                         ?>
+
                                         <button type="button" class="btn btn-sm <?php echo $btncolor; ?>" data-toggle="modal" data-target="#novedad" data-id="<?php echo htmlspecialchars($id_novedad); ?>" data-guia="<?php echo htmlspecialchars($numero_guia); ?>" data-cliente="<?php echo htmlspecialchars($cliente); ?>" data-estado="<?php echo htmlspecialchars($estado); ?>" data-novedad="<?php echo htmlspecialchars($novedad); ?>" data-solucion="<?php echo htmlspecialchars($solucion); ?>" data-tracking="<?php echo htmlspecialchars($tracking); ?>" data-transporte="<?php echo htmlspecialchars($transporte); ?>">
                                             <i class='bx bxs-shield-plus'> </i> Solución
                                         </button>
+
                                     </td>
 
                                     <td class="text-center">
@@ -328,27 +330,57 @@ $pacientes = 1;
         });
     </script>
     <script>
+        $(document).on('click', '[data-toggle="modal"]', function(event) {
+            event.stopImmediatePropagation(); // Detiene la propagación del evento
+            var button = $(this); // Botón que activó el modal
+            var modalId = button.data('target'); // El ID del modal a abrir
+
+            var modalElement = $(modalId);
+            var modalData = modalElement.data('bs.modal');
+
+            // Verifica si el modal está en transición
+            if (!modalData || !modalData._isTransitioning) {
+                modalElement.modal('show');
+            } else {
+                // Si el modal está en transición, espera un poco y luego intenta abrirlo
+                setTimeout(function() {
+                    if (!modalData._isTransitioning) {
+                        modalElement.modal('show');
+                    }
+                }, 300); // Ajusta este tiempo si es necesario
+            }
+        });
+
         $('#novedad').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); // Botón que activó el modal
-            var id = button.data('id'); // Extrae la información de los atributos de datos
+            var id = button.data('id');
             var guia = button.data('guia');
             var cliente = button.data('cliente');
             var estado = button.data('estado');
             var novedad = button.data('novedad');
             var solucion = button.data('solucion');
             var tracking = button.data('tracking');
-
-            // Actualiza el contenido del modal.
-            var modal = $(this);
+            var transporte = button.data('transporte');
 
             var camposAdicionales = "";
             if (tracking.includes("laar")) {
-                camposAdicionales = "<div><input type='text' class='form-control' name='campoEspecificoLaar' placeholder='Campo específico para Laar'></div>";
+                camposAdicionales = '<div><input type="text" class="form-control" name="ciudad" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="direccion" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="telefono" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="celular" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="c_principal" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="c_secundaria" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="numeracion" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="referencia" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="observacion" /> </div> ' +
+                    '<div><input type="text" class="form-control" name="novedad" placeholder="Solución a la novedad" /> </div>';
+
             } else if (tracking.includes("servientrega")) {
                 camposAdicionales = '<div><input type="text" class="form-control" name="observacion" placeholder="Ingrese nueva novedad"></div>'
             }
-            modal.find('.modal-title').text('Novedad para la guía ' + guia);
 
+            var modal = $(this);
+            modal.find('.modal-title').text('Novedad para la guía ' + guia);
             modal.find('#modalContent').html(
                 '<div class="d-flex flex-row justify-content-between">' +
                 '<div>' +
@@ -372,7 +404,62 @@ $pacientes = 1;
                 '</div>' +
                 '</div>'
             );
+            if (tracking.includes("fenix")) {
+                let formData = new FormData();
+                formData.append('guia', guia);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '../ajax/consultar_guia_laar.php', // Cambia esto por la URL de tu endpoint
+                    data: formData,
+                    contentType: false, // The content type used when sending data to the server.
+                    cache: false, // To unable request pages to be cached
+                    processData: false, // To send DOMDocument or non processed data file it is set to false
+                    success: function(response) {
+                        // Aquí puedes manejar la respuesta del servidor
+                        let data = JSON.parse(response);
+                        data = data.destino
+                        modal.find('#modalContent').html(
+                            '<div class="d-flex flex-row justify-content-between">' +
+                            '<div>' +
+                            '<strong>ID:</strong> ' + id +
+                            '<br><strong>Cliente:</strong> ' + cliente +
+                            '<br><strong>Estado:</strong> ' + estado +
+                            '<br><strong>Transportadora:</strong> ' + button.data('transporte') +
+                            '<br><strong>Novedad:</strong> ' + novedad +
+                            '<br><strong>Solución:</strong> ' + solucion +
+                            '<br><strong>Tracking:</strong> <a href="' + tracking + '" target="_blank">Ver tracking</a>' +
+                            '</div>' +
+                            ' <div style="border-left:1px solid #000;height:200px"></div> ' +
+                            '<div class="formulario d-flex flex-column">' +
+                            '<form id="updateNovedadForm">' +
+                            '<input type="hidden" name="guia" value="' + guia + '">' +
+                            '<input type="hidden" name="transporte" value="' + button.data('transporte') + '">' +
+                            '<strong>Actualizar Novedad:</strong>' +
+                            '<div><input type="text" class="form-control" name="nombre" value="' + data.nombre + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="ciudad" value="' + data.ciudad + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="direccion" value="' + data.c_principal + " " + data.c_secundaria + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="direccion1" value="' + data.c_secundaria + " " + data.c_secundaria + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="telefono" value="' + data.telefono + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="celular" value="' + data.telefono + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="numeracion" value="' + data.numeracion + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="referencia" value="' + data.referencia + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="observacion" value="' + data.observacion + '" /> </div> ' +
+                            '<div><input type="text" class="form-control" name="novedad" placeholder="Solución a la novedad" /> </div>' +
+                            '<div><button type="submit" class="btn w-100 btn-primary mt-2">Enviar</button></div>' +
+                            '</form>' +
+                            '</div>' +
+                            '</div>'
+                        );
+
+                    },
+                });
+            }
         });
+
+
+
+
 
         $(document).ready(function() {
             // Manejar el envío del formulario

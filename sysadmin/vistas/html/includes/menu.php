@@ -145,7 +145,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 			<ul>
 
 				<li>
-					<a href="principal.php" class="waves-effect waves-primary"><i class="ti-home"></i><span> Inicio </span></a>
+					<a href="dashboard.php" class="waves-effect waves-primary"><i class="ti-home"></i><span> Inicio </span></a>
 				</li>
 				<li>
 					<a href="marketplace.php" class="waves-effect waves-primary"><i class="ti-import"></i><span> Marketplace </span></a>
@@ -346,6 +346,12 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
 					</ul>
 				</li>
+
+				<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
+				<li>
+					<a href="administrar_marketplace.php" class="waves-effect waves-primary"><i class="ti-home"></i><span> Adminmistrar tiendas </span></a>
+				</li>
+				<?php } ?>
 
 				<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
 					<li>

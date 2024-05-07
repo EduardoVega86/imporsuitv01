@@ -23,6 +23,11 @@ if (isset($conexion)) {
 									Precios y Stock
 								</a>
 							</li>
+                                                        <li id="tabInventarioVariable" style="display:none" class="nav-item">
+								<a href="#variable" data-toggle="tab" aria-expanded="true" class="nav-link">
+									Inventario variable
+								</a>
+							</li>
 
 
 						</ul>
@@ -181,18 +186,37 @@ if (isset($conexion)) {
 								<div class="row">
 									
 
-									<div class="col-md-6">
+									<div class="col-md-4">
 										<div class="form-group">
 											<label for="precionla" class="control-label">¿Precio Referencial?</label>
 											<input type="checkbox" name="precioech" id="precionla">
 											<div class="form-group">
 
-												<label for="precion" class="control-label">P Referencial:</label>
+												
 												<input type="text" class="form-control" id="precion" name="precion" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" value="0" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12" disabled>
 											</div>
 										</div>
 									</div>
-
+                                                                    <div class="col-md-4">
+										<div class="form-group">
+											<label for="inv" class="control-label">Maneja Inventario:</label>
+											<select class="form-control" id="inv" name="inv" required>
+												<option value="">- Selecciona -</option>
+												<option value="0">Si</option>
+												<option value="1">No</option>
+											</select>
+										</div>
+									</div>
+<div class="col-md-4">
+										<div class="form-group">
+											<label for="inv" class="control-label">Producto Variable:</label>
+                                                                                        <select onchange="visualiza(this.value)" class="form-control" id="inv" name="inv" required>
+												<option value="">- Selecciona -</option>
+												<option value="0">Si</option>
+                                                                                                <option value="1" selected>No</option>
+											</select>
+										</div>
+									</div>
 									<script>
 										
 										
@@ -210,16 +234,7 @@ if (isset($conexion)) {
 								</div>
 
 								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label for="inv" class="control-label">Maneja Inventario:</label>
-											<select class="form-control" id="inv" name="inv" required>
-												<option value="">- Selecciona -</option>
-												<option value="0">Si</option>
-												<option value="1">No</option>
-											</select>
-										</div>
-									</div>
+									
 									<div class="col-md-4">
 										<div class="form-group">
 											<label for="stock" class="control-label">Stock Inicial:</label>
@@ -238,7 +253,11 @@ if (isset($conexion)) {
 
 
 							</div>
+<div class="tab-pane fade show active" id="variable">
 
+								<div class="row ">
+                                                                    </div>
+    </div>
 							<div class="tab-pane fade" id="img">
 
 								<div class="row">
@@ -278,6 +297,19 @@ if (isset($conexion)) {
 			</div>
 		</div>
 	</div><!-- /.modal -->
+        <script>
+        function visualiza(valor) {
+           //alert(valor) 
+   // var selectElement = document.querySelector('select');
+    var tabInventarioVariable = document.getElementById('tabInventarioVariable');
+    //alert(selectElement.value);
+    if (valor === '0') {
+        tabInventarioVariable.style.display = 'block'; // o 'flex' si tu diseño lo requiere
+    } else if (valor === '1') {
+        tabInventarioVariable.style.display = 'none';
+    }
+}
+</script>
 <?php
 }
 ?>

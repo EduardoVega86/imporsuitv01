@@ -596,11 +596,11 @@ $respuesta = mysqli_fetch_row($respuesta);
 
                                                     if ($numrows == 0) {
                                                     ?>
-                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;">Script de píxel de Google Analytics</textarea>
+                                                        <textarea class="form-control" id="pixel_googleAnalytics" name="pixel_googleAnalytics" autocomplete="off" style="height: 110px;">Script de píxel de Google Analytics</textarea>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
+                                                        <textarea class="form-control" id="pixel_googleAnalytics" name="pixel_googleAnalytics" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
                                                     <?php
                                                     }
                                                     ?>
@@ -646,11 +646,11 @@ $respuesta = mysqli_fetch_row($respuesta);
 
                                                     if ($numrows == 0) {
                                                     ?>
-                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;">Script de píxel de Tiktok</textarea>
+                                                        <textarea class="form-control" id="pixel_tiktok" name="pixel_tiktok" autocomplete="off" style="height: 110px;">Script de píxel de Tiktok</textarea>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
+                                                        <textarea class="form-control" id="pixel_tiktok" name="pixel_tiktok" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
                                                     <?php
                                                     }
                                                     ?>
@@ -696,11 +696,11 @@ $respuesta = mysqli_fetch_row($respuesta);
 
                                                     if ($numrows == 0) {
                                                     ?>
-                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;">Script de píxel de X</textarea>
+                                                        <textarea class="form-control" id="pixel_X" name="pixel_X" autocomplete="off" style="height: 110px;">Script de píxel de X</textarea>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
+                                                        <textarea class="form-control" id="pixel_X" name="pixel_X" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
                                                     <?php
                                                     }
                                                     ?>
@@ -746,11 +746,11 @@ $respuesta = mysqli_fetch_row($respuesta);
 
                                                     if ($numrows == 0) {
                                                     ?>
-                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;">Script de píxel de Clarity</textarea>
+                                                        <textarea class="form-control" id="pixel_clarity" name="pixel_clarity" autocomplete="off" style="height: 110px;">Script de píxel de Clarity</textarea>
                                                     <?php
                                                     } else {
                                                     ?>
-                                                        <textarea class="form-control" id="pixel_googleTag" name="pixel_googleTag" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
+                                                        <textarea class="form-control" id="pixel_clarity" name="pixel_clarity" autocomplete="off" style="height: 110px;"><?php echo $pixel; ?></textarea>
                                                     <?php
                                                     }
                                                     ?>

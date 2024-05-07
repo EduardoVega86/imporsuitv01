@@ -10,7 +10,7 @@ require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de 
 //Archivo de funciones PHP
 require_once "../funciones.php";
 require_once "../funciones_destino.php";
-//Inicia Control de Permisos
+//Inicia Control de Permisos 
 include "../permisos.php";
 
 $user_id = $_SESSION['id_users'];
@@ -18,6 +18,7 @@ get_cadena($user_id);
 $modulo = "Ventas";
 permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
+
 $title          = "Pedidos";
 $Ventas         = 1;
 $nombre_usuario = get_row('users', 'usuario_users', 'id_users', $user_id);
@@ -291,12 +292,13 @@ while ($r = $query->fetch_object()) {
                                                                         ?>
                                                                             <img width="100px" src="../../img_sistema/servi.png" alt="" />
                                                                         <?php
-                                                                        } else if ($transporte === "INTERRAPIDISIMO") {
+                                                                        } else if ($transporte === "GINTRACOM") {
                                                                         ?>
                                                                             <img width="100px" src="../../img_sistema/gintra.png" alt="" />
                                                                         <?php
                                                                         }
                                                                         ?>
+
                                                                     </th>
                                                                     <th></th>
                                                                 </tr>
@@ -518,7 +520,7 @@ while ($r = $query->fetch_object()) {
                                                         <div class="row">
                                                             <div align="center" class="col-md-3">
                                                                 </br>
-                                                                <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
+                                                                <button> <a style="cursor: pointer;" type="" href="<?php echo $url; ?>" target="_blank" class=""><img width="80%" src="../../img_sistema/4.png" alt="" /><br>Imprimir Guía</a></button>
                                                             </div>
                                                             <div align="center" class="col-md-3">
                                                                 </br>
@@ -1152,22 +1154,22 @@ while ($r = $query->fetch_object()) {
         let recaudo = $('#cod').val();
         calcular_servi(id_provincia, recaudo);
         calcular_guia(recaudo);
-        // calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);S
+        calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
         /*  $.ajax({
-             url: "../ajax/cargar_provincia_pedido.php",
-             type: "POST",
-             data: {
-                 ciudad: id_provincia,
-             },
-             dataType: 'text',
-             success: function(data) {
-                 $('#provinica').val(data).trigger('change');
-                 $('#provinica option[value=' + data + ']').attr({
-                     selected: true
-                 });
-                 let precio_total = $('#precio_total').val();
-             }
-         }) */
+            url: "../ajax/cargar_provincia_pedido.php",
+            type: "POST",
+            data: {
+                ciudad: id_provincia,
+            },
+            dataType: 'text',
+            success: function(data) {
+                $('#provinica').val(data).trigger('change');
+                $('#provinica option[value=' + data + ']').attr({
+                    selected: true
+                });
+                let precio_total = $('#precio_total').val();
+            }
+        }) */
     }
 
     $("#ciudad_entrega").select2({
@@ -1487,7 +1489,7 @@ while ($r = $query->fetch_object()) {
     setTimeout(() => {
         calcular_guia_1(1);
         calcular_servi(1, 1);
-        //calcular_gintra($("#ciudad_entrega option:selected").text(), 1);
+        calcular_gintra($("#ciudad_entrega option:selected").text(), 1);
     }, 1000);
 
     function calcular_gintra(id_ciudad, recaudo) {

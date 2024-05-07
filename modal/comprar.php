@@ -20,7 +20,13 @@
     <form method="post" action="gracias.php" id="formulario">
       <div id="gracias" class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">ENVÍO GRATIS 🚨</h5>
+          <?php
+          $envioGratis_checkout = get_row('perfil', 'envioGratis_checkout', 'id_perfil', 1);
+          if ($envioGratis_checkout == 1) { ?>
+            <h5 class="modal-title" id="exampleModalLabel">ENVÍO GRATIS 🚨</h5>
+          <?php }else{ ?>
+            <h5 class="modal-title" id="exampleModalLabel">COMPLETA TU COMPRA 🚨</h5>
+            <?php }?>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div id="resultados" class="modal-body">

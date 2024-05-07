@@ -236,10 +236,15 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                         <span style="float: right" class=""><?php echo $simbolo_moneda . number_format($total_factura, 2); ?></span>
                     </div>
 
-                    <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
-                        <span class="_rsi-modal-checkout-line-title">Envío</span>
-                        <strong style="float: right" class="">Gratis</strong>
-                    </div>
+                    <?php
+                    $envioGratis_checkout = get_row('perfil', 'envioGratis_checkout', 'id_perfil', 1);
+                    if ($envioGratis_checkout == 1) { ?>
+                        <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
+                            <span class="_rsi-modal-checkout-line-title">Envío</span>
+                            <strong style="float: right" class="">Gratis</strong>
+                        </div>
+                    <?php } ?>
+
                     <hr>
                     <div class="" data-checkout-line="total" data-order-total="2999" data-partial-total-for-checkout="2999">
                         <strong class="">Total</strong><strong style="float: right" class=""><?php echo $simbolo_moneda . number_format($total_factura, 2); ?></strong>
