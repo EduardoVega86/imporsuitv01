@@ -924,7 +924,6 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
         } else if (id === 2) {
             $.Notification.notify('custom', 'bottom right', 'RECUERDA!', 'SPEED REALIZA ENTREGAS EL MISMO DÍA!')
         } else if (id === 3) {
-            $.Notification.notify('error', 'bottom right', 'ERROR!', 'EL SERVICIO DE SERVIENTREGA ESTA EN MANTENIMIENTO!')
             $("#costo_envio").val($("#precio_servientrega").text());
         }
     }
