@@ -855,7 +855,7 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
         }
         $.ajax({
           type: "GET",
-          url: "../ajax.php",
+          url: "../ajax/habilitar_envioGratis_checkout.php",
           data: "id=" + id,
           beforeSend: function(objeto) {
             $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
