@@ -125,7 +125,7 @@ $pacientes = 1;
         /* Ajusta el grosor de la línea */
         background-color: #000;
         /* Ajusta el color de la línea */
-        margin: 20px 0;
+        margin: 15px 0;
         /* Ajusta el espaciado vertical de la línea */
     }
 
@@ -659,12 +659,14 @@ $pacientes = 1;
                                 </div>
                             </div>
                             <div id="tarifasEnvioPreview">
+                            <hr />
                                 <p id="titulo_tarifaPreview" style="font-weight:bold;">Método de envío</p>
                                 <div class="caja_transparente d-flex flex-row">
                                     <!-- <input type="radio" name="metodoEnvio" checked> -->
                                     <label for="envioGratisPreview"> Envío gratis</label>
                                     <label id="gratisPreview" style="width: 60%; text-align: end; font-weight:bold;">Gratis</label>
                                 </div>
+                                <hr />
                             </div>
                             <!-- código de descuento -->
                             <div class="discount-code-container" id="codigosDescuentoPreview">
@@ -683,7 +685,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin código de descuento -->
                             <!-- Nombre y apellidos -->
-                            <div class="form-group" id="nombresApellidosPreview" style="position: relative; padding-top: 10px;">
+                            <div class="form-group" id="nombresApellidosPreview" style="position: relative; padding-top: 5px;">
 
                                 <label class="sub_titulos">Nombres y Apellidos</label>
                                 <div class="input-group">
@@ -695,7 +697,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin Nombre y apellidos -->
                             <!-- Telefono -->
-                            <div class="form-group" id="telefonoPreview" style="position: relative; padding-top: 10px;">
+                            <div class="form-group" id="telefonoPreview" style="position: relative; padding-top: 3px;">
                                 <label class="sub_titulos">Teléfono</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -706,7 +708,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin Telefono -->
                             <!-- calle_principal -->
-                            <div class="form-group" id="calle_principalPreview" style="position: relative; padding-top: 10px;">
+                            <div class="form-group" id="calle_principalPreview" style="position: relative; padding-top: 3px;">
                                 <label class="sub_titulos" id="titulo_calle_principalPreview">Calle Principal</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="txt_calle_principalPreview" placeholder="">
@@ -714,7 +716,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin calle_principal -->
                             <!-- calle_secundaria -->
-                            <div class="form-group" id="calle_secundariaPreview" style="position: relative; padding-top: 10px;">
+                            <div class="form-group" id="calle_secundariaPreview" style="position: relative; padding-top: 3px;">
                                 <label class="sub_titulos" id="titulo_calle_secundariaPreview">Calle Secundaria</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="txt_calle_secundariaPreview" placeholder="">
@@ -722,7 +724,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin calle_secundaria -->
                             <!-- barrio_referencia -->
-                            <div class="form-group" id="barrio_referenciaPreview" style="position: relative; padding-top: 10px;">
+                            <div class="form-group" id="barrio_referenciaPreview" style="position: relative; padding-top: 3px;">
                                 <label class="sub_titulos" id="titulo_barrio_referenciaPreview">Barrio o Referencia</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="txt_barrio_referenciaPreview" placeholder="">
@@ -730,7 +732,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin barrio_referencia -->
                             <!-- provincia -->
-                            <div class="form-group" id="provinciaPreview" style="position: relative; padding-top: 10px;">
+                            <div class="form-group" id="provinciaPreview" style="position: relative; padding-top: 3px;">
                                 <label class="sub_titulos" id="titulo_provinciaPreview">Provincia</label>
                                 <div class="">
                                     <select class="datos form-control " onchange="cargar_provincia_pedido()" id="provinica" name="provinica" required>
@@ -755,7 +757,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin provincia -->
                             <!-- ciudad -->
-                            <div class="form-group" id="ciudadPreview" style="position: relative; padding-top: 10px;">
+                            <div class="form-group" id="ciudadPreview" style="position: relative; padding-top: 3px;">
                                 <label class="sub_titulos" id="titulo_ciudadPreview">Ciudad</label>
                                 <div>
                                     <div id="div_ciudad" onclick="verify()">
@@ -781,7 +783,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin ciudad -->
                             <!-- comentario -->
-                            <div class="form-group" id="comentarioPreview" style="position: relative; padding-top: 10px;">
+                            <div class="form-group" id="comentarioPreview" style="position: relative; padding-top: 3px;">
                                 <label class="sub_titulos" id="titulo_comentarioPreview">Barrio o Referencia</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="txt_comentarioPreview" placeholder="">
