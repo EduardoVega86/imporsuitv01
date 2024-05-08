@@ -234,7 +234,7 @@
 							<div class="form-group" id="provinciaPreview" style="position: relative; padding-top: 10px;">
 								<label class="sub_titulos" id="titulo_provinciaPreview">Provincia</label>
 								<div class="">
-									<select class="datos form-control " onchange="cargar_provincia_pedido()" id="provinica" name="provinica" required>
+									<select class="datos form-control " onchange="cargar_provincia_pedido()" id="provinica" name="provinica" >
 										<option value="">Provincia *</option>
 										<?php
 										$pais = get_row('perfil', 'pais', 'id_perfil', 1);
@@ -261,7 +261,7 @@
 								<label class="sub_titulos" id="titulo_ciudadPreview">Ciudad</label>
 								<div>
 									<div id="div_ciudad" onclick="verify()">
-										<select class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required disabled>
+										<select class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()"  disabled>
 											<option value="">Ciudad *</option>
 											<?php
 											$sql2 = "select * from ciudad_cotizacion where id_pais='$pais' ";
