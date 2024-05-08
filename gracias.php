@@ -44,14 +44,14 @@ if (empty($_POST['session'])) {
 } else if (!empty($_POST['cliente'])) {
 
     $session_id     = $_POST['session'];
-    $nombre     = $_POST['nombre'];
-    $telefono    = $_POST['telefono'];
-    $calle_principal    = $_POST['calle_principal'];
-    $calle_secundaria    = $_POST['calle_secundaria'];
-    $referencia    = $_POST['referencia'];
+    $nombre     = $_POST['txt_nombresApellidosPreview'];
+    $telefono    = $_POST['txt_telefonoPreview'];
+    $calle_principal    = $_POST['txt_calle_principalPreview'];
+    $calle_secundaria    = $_POST['txt_calle_secundariaPreview'];
+    $referencia    = $_POST['txt_barrio_referenciaPreview'];
     $provincia     = $_POST['provinica'];
-    $ciudad     = $_POST['ciudad'];
-    $observacion     = $_POST['observacion'];
+    $ciudad     = $_POST['ciudad_entrega'];
+    $observacion     = $_POST['txt_comentarioPreview'];
 
     $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
     $contenido = '';
@@ -752,8 +752,8 @@ include './includes/head_1.php';
     <main style="background-color: #f9f9f9; padding-top: 100px; padding-bottom:30px;">
         <div class="contenido">
             <div style="text-align: center; font-size: 70px">
-                <input type="hidden" id="nombre" name='nombre' value="<?php echo $nombre; ?>">
-                <input type="hidden" id="telefono" value="<?php echo $telefono; ?>">
+                <input type="hidden" id="txt_nombresApellidosPreview" name='txt_nombresApellidosPreview' value="<?php echo $nombre; ?>">
+                <input type="hidden" id="txt_telefonoPreview" value="<?php echo $telefono; ?>">
                 <input type="hidden" id="direccion" value="<?php echo $direccion; ?>">
                 <input type="hidden" id="contenido" value="<?php echo $contenido_productos; ?>">
 

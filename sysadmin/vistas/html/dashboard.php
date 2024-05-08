@@ -438,6 +438,9 @@ if ($query_ciudades_despacho) {
                                             $rw = mysqli_fetch_array($query);
                                             $total_fletes = $rw['total_fletes'];
                                             $total_fletes_formateado = number_format($total_fletes, 2, '.', ',');
+                                            if(empty($total_fletes_formateado)){
+                                                $total_fletes_formateado =0;
+                                            }
                                             ?>
                                             <h5 class="text-dark"><b id="total_fletes" class="counter text-purple">$ <?php echo $total_fletes_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Total Fletes</p>
@@ -477,6 +480,9 @@ if ($query_ciudades_despacho) {
                                             $rw = mysqli_fetch_array($query);
                                             $total_devoluciones = $rw['devolucion'];
                                             $total_devoluciones_formateado = number_format($total_devoluciones, 2, '.', ',');
+                                            if (empty($total_devoluciones_formateado)){
+                                                $total_devoluciones_formateado = 0;
+                                            }
                                             ?>
                                             <h5 class="text-dark"><b id="devoluciones" class="counter text-danger">$ <?php echo $total_devoluciones_formateado; ?></b></h5>
                                             <p class="text-muted mb-0">Devoluciones</p>

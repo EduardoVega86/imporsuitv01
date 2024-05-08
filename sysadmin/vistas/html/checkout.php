@@ -1,4 +1,6 @@
-    <?php
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
     header("location: ../../login.php");
@@ -152,6 +154,29 @@ $pacientes = 1;
         color: white;
         /* O puedes usar #FFFFFF */
     }
+
+    .form-group {
+        margin: 0 !important;
+    }
+
+    .btn_comprar {
+        border-radius: 0.5rem;
+        padding: 10px;
+    }
+
+    /* CSS para tachar codigo de descuentro*/
+    #codigosDescuento_temporal .d-flex {
+        text-decoration: line-through;
+        color: red;
+        /* Cambia el color del texto a rojo */
+    }
+
+    #codigosDescuento_temporal button {
+        pointer-events: none;
+        /* Desactiva los eventos del ratón, haciendo los botones no clickeables */
+        opacity: 0.5;
+        /* Cambia la opacidad para mostrar que están desactivados */
+    }
 </style>
 <?php require 'includes/header_end.php'; ?>
 
@@ -169,22 +194,13 @@ $pacientes = 1;
             <div class="container d-flex flex-row">
                 <div class="left-column">
                     <div class="container mt-5">
-                        <!-- Instrucciones -->
-                        <div class="alert alert-secondary">
-                            <ul>
-                                <li>Los bloques rojos están desactivados en tu formulario. Usa el botón del ojo para habilitarlos.</li>
-                                <li>Los bloques blancos están activos en tu formulario.</li>
-                                <li>Clica en el botón lápiz para editar un bloque.</li>
-                                <li>Clica en los botones de flechas para cambiar la posición de un bloque.</li>
-                            </ul>
-                        </div>
 
                         <!-- Lista de componentes del formulario -->
                         <div class="list-group">
                             <!-- Elemento del formulario -->
                             <!-- TÍTULO DEL FORMULARIO -->
                             <div class="list-group-item" id="tituloFormulario">
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <div>
                                         TÍTULO DEL FORMULARIO
                                     </div>
@@ -224,17 +240,21 @@ $pacientes = 1;
                             <!-- Fin TÍTULO DEL FORMULARIO -->
 
                             <!-- Resumen Total... -->
-                            <div class="list-group-item" id="resumenTotal">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                    RESUMEN TOTAL
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                            <div class="list-group-item" id="resumenTotal" style="display: none;">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        RESUMEN TOTAL
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                
                                 <div class="edit-section hidden">
                                     <form>
                                         <div class="form-group">
@@ -253,24 +273,26 @@ $pacientes = 1;
                                             <input type="checkbox" class="form-check-input" id="impuestos">
                                             <label class="form-check-label" for="impuestos">Mostrar mensaje adicional sobre impuestos</label>
                                         </div>
-                                        <!-- Añade más campos según sea necesario -->
+                                        
                                     </form>
-                                    <small class="form-text text-muted">
-                                        Importante: cambiar el color de fondo de este bloque podría afectar negativamente a su tasa de conversión.
-                                    </small>
+                                    
                                 </div>
                             </div>
                             <!-- Fin Resumen Total... -->
                             <!-- TARIFAS DE ENVIO. -->
                             <div class="list-group-item" id="tarifasEnvio">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                    TARIFAS DE ENVIO
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        TARIFAS DE ENVIO
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <!-- Sección oculta que se mostrará al hacer clic en editar -->
                                 <div class="edit-section hidden">
@@ -289,17 +311,21 @@ $pacientes = 1;
                             </div>
                             <!-- Fin TARIFAS DE ENVIO -->
                             <!-- CODIGOS DE DESCUENTO -->
-                            <div class="list-group-item" id="codigosDescuento">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                    CODIGOS DE DESCUENTO
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                            <div class="list-group-item" id="codigosDescuento_temporal">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility" disabled><i class="fas fa-eye"></i></button>
+                                        CODIGOS DE DESCUENTO
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn" disabled><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up" disabled><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down" disabled><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+
                                 <div class="edit-section hidden">
                                     <form>
                                         <div class="form-group">
@@ -318,21 +344,25 @@ $pacientes = 1;
                                             <label for="colorBtn_aplicar">Color boton aplicar</label>
                                             <input class="colores input-change" type="color" id="colorBtn_aplicar" name="colorBtn_aplicar" value="">
                                         </div>
-                                        <!-- Añade más campos según sea necesario -->
+
                                     </form>
                                 </div>
                             </div>
                             <!-- Fin CODIGOS DE DESCUENTO -->
                             <!-- NOMBRES Y APELLIDOS -->
                             <div class="list-group-item" id="nombresApellidos">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                    NOMBRES Y APELLIDOS
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        NOMBRES Y APELLIDOS
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <!-- Sección oculta que se mostrará al hacer clic en editar -->
                                 <div class="edit-section hidden">
@@ -362,14 +392,18 @@ $pacientes = 1;
                             <!-- Fin NOMBRES Y APELLIDOS -->
                             <!-- TELÉFONO -->
                             <div class="list-group-item" id="telefono">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                    TELÉFONO
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        TELÉFONO
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <!-- Sección oculta que se mostrará al hacer clic en editar -->
                                 <div class="edit-section hidden">
@@ -392,14 +426,18 @@ $pacientes = 1;
                             <!-- Fin TELÉFONO -->
                             <!-- CALLE PRINCIPAL -->
                             <div class="list-group-item" id="calle_principal">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                    CALLE PRINCIPAL
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        CALLE PRINCIPAL
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <!-- Sección oculta que se mostrará al hacer clic en editar -->
                                 <div class="edit-section hidden">
@@ -420,14 +458,18 @@ $pacientes = 1;
                             <!-- Fin CALLE PRINCIPAL -->
                             <!-- CALLE secundaria -->
                             <div class="list-group-item" id="calle_secundaria">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                    CALLE SEGUNDARIA
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        CALLE SEGUNDARIA
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <!-- Sección oculta que se mostrará al hacer clic en editar -->
                                 <div class="edit-section hidden">
@@ -448,14 +490,18 @@ $pacientes = 1;
                             <!-- Fin CALLE secundaria -->
                             <!-- BARRIO O REFERENCIA -->
                             <div class="list-group-item" id="barrio_referencia">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                    BARRIO O REFERENCIA
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        BARRIO O REFERENCIA
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <!-- Sección oculta que se mostrará al hacer clic en editar -->
                                 <div class="edit-section hidden">
@@ -474,16 +520,72 @@ $pacientes = 1;
                                 </div>
                             </div>
                             <!-- Fin BARRIO O REFERENCIA -->
+                            <!-- provincia -->
+                            <div class="list-group-item" id="provincia">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        PROVINCIA
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="titulo_provincia">Titulo</label>
+                                            <input type="text" class="form-control" id="titulo_provincia" placeholder="">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Fin provincia -->
+                            <!-- ciudad -->
+                            <div class="list-group-item" id="ciudad">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        CIUDAD
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="titulo_ciudad">Titulo</label>
+                                            <input type="text" class="form-control" id="titulo_ciudad" placeholder="">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Fin ciudad -->
                             <!-- Comentario -->
                             <div class="list-group-item" id="comentario">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                    Comentario
-                                    <span>
-                                        <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                        <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                    </span>
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        COMENTARIO
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                                 <!-- Sección oculta que se mostrará al hacer clic en editar -->
                                 <div class="edit-section hidden">
@@ -502,6 +604,37 @@ $pacientes = 1;
                                 </div>
                             </div>
                             <!-- Fin Comentario -->
+                            <!-- BOTON DE COMPRA -->
+                            <div class="list-group-item" id="btn_comprar">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        BOTON DE COMPRA
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="textoBtn_comprar">Texto del botón comprar</label>
+                                            <input type="text" class="form-control" id="textoBtn_comprar" placeholder="">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="colorBtn_comprar">Color boton comprar</label>
+                                            <input class="colores input-change" type="color" id="colorBtn_comprar" name="colorBtn_comprar" value="">
+                                        </div>
+                                        <!-- Añade más campos según sea necesario -->
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Fin BOTON DE COMPRA -->
                         </div>
                     </div>
                 </div>
@@ -513,36 +646,34 @@ $pacientes = 1;
                             <div id="tituloFormularioPreview">
                                 <h4 id="texto_tituloPreview">PAGA AL RECIBIR EN CASA!</h4>
                             </div>
-                            <div id="resumenTotalPreview" class="caja_variable">
+                            <div id="" class="caja_variable">
                                 <div class="d-flex flex-row">
-                                    <p id="subtotalPreview">Subtotal</p>
+                                    <p id="">Subtotal</p>
                                     <span style="width: 100%; text-align: end;">$19.99</span>
                                 </div>
                                 <div class="d-flex flex-row">
                                     <p>Envío</p>
-                                    <span id="envioPreview" style="width: 100%; text-align: end; font-weight:bold;">Gratis</span>
+                                    <span id="" style="width: 100%; text-align: end; font-weight:bold;">Gratis</span>
                                 </div>
 
-                                <div class="d-flex flex-row">
-                                    <p id="descuentosPreview">Descuento</p>
-                                    <span style="width: 100%; text-align: end; font-weight:bold; color: red;">- $4.00</span>
-                                </div>
+                                
                                 <hr />
                                 <div class="d-flex flex-row">
-                                    <p id="totalPreview">Total</p>
+                                    <p id="">Total</p>
                                     <span style="width: 100%; text-align: end;">$19.99</span>
                                 </div>
                             </div>
                             <div id="tarifasEnvioPreview">
                                 <p id="titulo_tarifaPreview" style="font-weight:bold;">Método de envío</p>
                                 <div class="caja_transparente d-flex flex-row">
-                                    <input type="radio" name="metodoEnvio" checked>
+                                    <!-- <input type="radio" name="metodoEnvio" checked> -->
                                     <label for="envioGratisPreview"> Envío gratis</label>
                                     <label id="gratisPreview" style="width: 60%; text-align: end; font-weight:bold;">Gratis</label>
                                 </div>
                             </div>
+                            <!-- código de descuento -->
                             <div class="discount-code-container" id="codigosDescuentoPreview">
-                                <!-- Campo de entrada para el código de descuento -->
+
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Código de descuento" id="etiqueta_descuentoPreview" aria-label="Código de descuento">
                                     <div class="input-group-append">
@@ -550,17 +681,15 @@ $pacientes = 1;
                                     </div>
                                 </div>
 
-                                <!-- Código de descuento aplicado -->
+
                                 <div class="applied-discount">
                                     <span class="discount-tag">4SALE $4.00</span>
-                                    <button type="button" class="close" aria-label="Eliminar">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
                                 </div>
                             </div>
+                            <!-- Fin código de descuento -->
                             <!-- Nombre y apellidos -->
                             <div class="form-group" id="nombresApellidosPreview" style="position: relative; padding-top: 10px;">
-                                <hr />
+
                                 <label class="sub_titulos">Nombres y Apellidos</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -583,7 +712,7 @@ $pacientes = 1;
                             <!-- Fin Telefono -->
                             <!-- calle_principal -->
                             <div class="form-group" id="calle_principalPreview" style="position: relative; padding-top: 10px;">
-                                <label id="titulo_calle_principalPreview">Calle Principal</label>
+                                <label class="sub_titulos" id="titulo_calle_principalPreview">Calle Principal</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="txt_calle_principalPreview" placeholder="">
                                 </div>
@@ -591,7 +720,7 @@ $pacientes = 1;
                             <!-- Fin calle_principal -->
                             <!-- calle_secundaria -->
                             <div class="form-group" id="calle_secundariaPreview" style="position: relative; padding-top: 10px;">
-                                <label id="titulo_calle_secundariaPreview">Calle Secundaria</label>
+                                <label class="sub_titulos" id="titulo_calle_secundariaPreview">Calle Secundaria</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="txt_calle_secundariaPreview" placeholder="">
                                 </div>
@@ -599,20 +728,82 @@ $pacientes = 1;
                             <!-- Fin calle_secundaria -->
                             <!-- barrio_referencia -->
                             <div class="form-group" id="barrio_referenciaPreview" style="position: relative; padding-top: 10px;">
-                                <label id="titulo_barrio_referenciaPreview">Barrio o Referencia</label>
+                                <label class="sub_titulos" id="titulo_barrio_referenciaPreview">Barrio o Referencia</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="txt_barrio_referenciaPreview" placeholder="">
                                 </div>
                             </div>
                             <!-- Fin barrio_referencia -->
+                            <!-- provincia -->
+                            <div class="form-group" id="provinciaPreview" style="position: relative; padding-top: 10px;">
+                                <label class="sub_titulos" id="titulo_provinciaPreview">Provincia</label>
+                                <div class="">
+                                    <select class="datos form-control " onchange="cargar_provincia_pedido()" id="provinica" name="provinica" required>
+                                        <option value="">Provincia *</option>
+                                        <?php
+                                        $sql2 = "select * from provincia_laar where id_pais = $pais";
+
+                                        $query2 = mysqli_query($conexion, $sql2);
+                                        while ($row2 = mysqli_fetch_array($query2)) {
+
+                                            $id_prov = $row2['id_prov'];
+
+                                            $provincia = $row2['provincia'];
+                                            $cod_provincia = $row2['codigo_provincia'];
+
+                                            // Imprimir la opción con la marca de "selected" si es el valor almacenado
+                                            echo '<option value="' . $cod_provincia . '">' . $provincia . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Fin provincia -->
+                            <!-- ciudad -->
+                            <div class="form-group" id="ciudadPreview" style="position: relative; padding-top: 10px;">
+                                <label class="sub_titulos" id="titulo_ciudadPreview">Ciudad</label>
+                                <div>
+                                    <div id="div_ciudad" onclick="verify()">
+                                        <select class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" required disabled>
+                                            <option value="">Ciudad *</option>
+                                            <?php
+                                            $sql2 = "select * from ciudad_cotizacion where id_pais='$pais' ";
+                                            $query2 = mysqli_query($conexion, $sql2);
+                                            $rowcount = mysqli_num_rows($query2);
+                                            $i = 1;
+                                            while ($row2 = mysqli_fetch_array($query2)) {
+                                                $id_ciudad = $row2['id_cotizacion'];
+                                                $nombre = $row2['ciudad'];
+                                                $cod_ciudad = $row2['codigo_ciudad_laar'];
+                                                $valor_seleccionado = $ciudaddestino;
+                                                $selected = ($valor_seleccionado == $cod_ciudad) ? 'selected' : '';
+                                                echo '<option value="' . $cod_ciudad . '>' . $nombre . '</option>';
+                                            ?>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin ciudad -->
                             <!-- comentario -->
                             <div class="form-group" id="comentarioPreview" style="position: relative; padding-top: 10px;">
-                                <label id="titulo_comentarioPreview">Barrio o Referencia</label>
+                                <label class="sub_titulos" id="titulo_comentarioPreview">Barrio o Referencia</label>
                                 <div class="">
                                     <input type="text" class="form-control" id="txt_comentarioPreview" placeholder="">
                                 </div>
                             </div>
                             <!-- Fin comentario -->
+                            <!-- Boton Comprar -->
+                            <div id="btn_comprarPreview" style="padding-top: 20px;">
+
+                                <div class="input-group mb-3 d-flex justify-content-center">
+
+                                    <button class="btn_comprar btn-dark" id="textoBtn_comprarPreview" type="button">COMPRAR AHORA</button>
+
+                                </div>
+
+                            </div>
+                            <!-- Fin Boton Comprar -->
                         </div>
                     </div>
                 </div>
@@ -675,6 +866,9 @@ $pacientes = 1;
                 // Cambio del estado y actualización en JSON
                 var estadoActual = previewItem.is(':visible') ? '1' : '0';
                 listItem.data('estado', estadoActual); // Guardar el estado como data attribute
+
+                // Cambiar el ícono dependiendo de la visibilidad
+                $(this).find('i').toggleClass('fa-eye fa-eye-slash');
             });
         });
 
@@ -770,7 +964,7 @@ $pacientes = 1;
                 var previewInput = document.getElementById('txt_telefonoPreview');
                 previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
             });
-            
+
             const titulo_calle_principalInput = document.getElementById('titulo_calle_principal');
             titulo_calle_principalInput.addEventListener('input', function() {
                 document.getElementById('titulo_calle_principalPreview').textContent = this.value;
@@ -813,6 +1007,21 @@ $pacientes = 1;
             txt_comentarioInput.addEventListener('input', function() {
                 var previewInput = document.getElementById('txt_comentarioPreview');
                 previewInput.placeholder = this.value; // Cambiando el placeholder en lugar de textContent
+            });
+
+            const titulo_provinciaInput = document.getElementById('titulo_provincia');
+            titulo_provinciaInput.addEventListener('input', function() {
+                document.getElementById('titulo_provinciaPreview').textContent = this.value;
+            });
+
+            const titulo_ciudadInput = document.getElementById('titulo_ciudad');
+            titulo_ciudadInput.addEventListener('input', function() {
+                document.getElementById('titulo_ciudadPreview').textContent = this.value;
+            });
+
+            const textoBtn_comprarInput = document.getElementById('textoBtn_comprar');
+            textoBtn_comprarInput.addEventListener('input', function() {
+                document.getElementById('textoBtn_comprarPreview').textContent = this.value;
             });
 
         });
@@ -878,7 +1087,16 @@ $pacientes = 1;
 
         function toggleVisibility(state, id_elemento) {
             const preview = $('#' + id_elemento + 'Preview');
-            state === '0' ? preview.hide() : preview.show();
+            const toggleButton = $('#' + id_elemento).find('.toggle-visibility i');
+
+            // Actualiza la visibilidad del elemento
+            if (state === '0') {
+                preview.hide();
+                toggleButton.removeClass('fa-eye').addClass('fa-eye-slash');
+            } else {
+                preview.show();
+                toggleButton.removeClass('fa-eye-slash').addClass('fa-eye');
+            }
         }
 
         function reorderElements(id_elemento, position) {
@@ -905,8 +1123,11 @@ $pacientes = 1;
                 $('#texto_tituloPreview').css('color', value);
             } else if (key === 'colorBtn_aplicar') {
                 $('#textoBtn_aplicarPreview').css('background-color', value);
+            } else if (key === 'colorBtn_comprar') {
+                $('#textoBtn_comprarPreview').css('background-color', value);
             }
         }
+
 
         function handleLoadingError(jqXHR, textStatus, errorThrown) {
             console.error('Error loading JSON:', textStatus, errorThrown);
@@ -917,6 +1138,24 @@ $pacientes = 1;
 
         function saveFormState() {
             var itemList = [];
+
+            // Asegurarte de que siempre incluyes el elemento 'codigosDescuento'
+            var defaultCodigosDescuento = {
+                "id_elemento": "codigosDescuento",
+                "posicion": 3,
+                "estado": "0",
+                "content": {
+                    "descuentos": "Descuentos",
+                    "etiqueta_descuento": "Codigo de descuento",
+                    "textoBtn_aplicar": "Aplicar",
+                    "colorBtn_aplicar": "#00ff59"
+                }
+            };
+
+            // Agregar el elemento por defecto al inicio del arreglo
+            itemList.push(defaultCodigosDescuento);
+
+            // Iterar sobre cada elemento en el DOM
             $('.list-group-item').each(function(index) {
                 var item = {
                     id_elemento: $(this).attr('id'),
@@ -961,6 +1200,53 @@ $pacientes = 1;
             $('#saveFormState').click(saveFormState);
         });
 
+        // Funcion para guardar sin el default
+        /* function saveFormState() {
+            var itemList = [];
+            $('.list-group-item').each(function(index) {
+                var item = {
+                    id_elemento: $(this).attr('id'),
+                    posicion: index,
+                    estado: $(this).data('estado') || '1', // Usar '1' como valor por defecto
+                    content: {}
+                };
+
+                // Capturar valores de inputs, selects, y checkboxes
+                $(this).find('input, select').each(function() {
+                    var key = this.id;
+                    var value = $(this).is(':checkbox') ? ($(this).is(':checked') ? 'on' : 'off') : $(this).val();
+                    item.content[key] = value;
+                });
+
+                // Generalización para capturar íconos activos
+                $(this).find('.icon-btn.active i').each(function() {
+                    var iconKey = $(this).closest('.btn-group').attr('id'); // Asume que el btn-group tiene un ID
+                    var iconClass = $(this).attr('class');
+                    item.content[iconKey] = iconClass;
+                });
+
+                itemList.push(item);
+            });
+
+            // Enviar la información al servidor
+            $.ajax({
+                url: '../ajax/actualizar_checkout.php',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(itemList),
+                success: function(response) {
+                    alert('Los cambios han sido guardados.');
+                },
+                error: function(xhr, status, error) {
+                    alert('Ha ocurrido un error al guardar los cambios.');
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $('#saveFormState').click(saveFormState);
+        }); */
+
         // accion del select
         document.addEventListener('DOMContentLoaded', function() {
             // Asumiendo que el select ya existe cuando carga la página
@@ -987,6 +1273,11 @@ $pacientes = 1;
             // Cambiar el color del botón Aplicar en tiempo real
             $('#colorBtn_aplicar').on('change', function() {
                 $('#textoBtn_aplicarPreview').css('background-color', $(this).val());
+            });
+
+            // Cambiar el color del botón comprar en tiempo real
+            $('#colorBtn_comprar').on('change', function() {
+                $('#textoBtn_comprarPreview').css('background-color', $(this).val());
             });
 
         });
@@ -1020,6 +1311,63 @@ $pacientes = 1;
                 $('#' + previewId).html("<i class='" + iconClass + "'></i>");
             });
         }
+
+        //Provincias y Ciudades
+        function cargar_provincia_pedido() {
+            var id_provincia = $('#provinica option:selected').text();
+            $.ajax({
+                url: "../ajax/cargar_ciudad_pedido_checkout.php",
+                type: "POST",
+                data: {
+                    provinica: id_provincia,
+                },
+                dataType: 'text',
+                success: function(data) {
+                    $('#div_ciudad').html(data);
+                    actualizarSelect();
+                }
+            });
+        }
+
+        function actualizarSelect() {
+            $('#ciudad_entrega').select2('destroy');
+            $('#ciudad_entrega').select2({
+                placeholder: "Selecciona una opción",
+                allowClear: true
+            });
+        }
+
+        function seleccionarProvincia() {
+            var id_provincia = $('#ciudad_entrega').val();
+            let recaudo = $('#cod').val();
+
+            calcular_guia(recaudo);
+            calcular_servi(id_provincia, recaudo);
+            //calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
+            /*  $.ajax({
+                    url: "../ajax/cargar_provincia_pedido.php",
+                    type: "POST",
+                    data: {
+                        ciudad: id_provincia,
+                    },
+                    dataType: 'text',
+                    success: function(data) {
+                        $('#provinica').val(data).trigger('change');
+                        $('#provinica option[value=' + data + ']').attr({
+                            selected: true
+                        });
+                        let precio_total = $('#precio_total').val();
+
+
+                    }
+                })
+            } */
+        }
+
+        $("#ciudad_entrega").select2({
+            placeholder: "Selecciona una opción",
+            allowClear: true,
+        });
     </script>
     <?php require 'includes/footer_end.php'
     ?>

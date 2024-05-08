@@ -44,6 +44,8 @@ if (empty($_POST['nombre_empresa'])) {
     $texto_slider = $_POST["texto_slider"];
     $banner_opacidad = $_POST["banner_opacidad"];
     $banner_color_filtro  = $_POST["banner_color_filtro"];
+
+    $pais = $_POST["pais"];
     
     
     
@@ -51,6 +53,7 @@ if (empty($_POST['nombre_empresa'])) {
     $sql = "UPDATE perfil SET nombre_empresa='" . $nombre_empresa . "',
                                             giro_empresa='" . $giro . "',
                                             fiscal_empresa='" . $fiscal . "',
+                                            pais='" . $pais . "',
                                             telefono='" . $telefono . "',
                                             email='" . $email . "',
                                             direccion='" . $direccion . "',

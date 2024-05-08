@@ -10,14 +10,14 @@ require_once "../sysadmin/vistas/php_conexion.php";
     //Archivo de funciones PHP
     require_once "../sysadmin/vistas/funciones.php";
     $session_id     = $_POST['session'];
-    $nombre     = $_POST['nombre'];
-    $telefono    = $_POST['telefono'];
-    $calle_principal    = $_POST['calle_principal'];
-    $calle_secundaria    = $_POST['calle_secundaria'];
-    $referencia    = $_POST['referencia'];
+    $nombre     = $_POST['txt_nombresApellidosPreview'];
+    $telefono    = $_POST['txt_telefonoPreview'];
+    $calle_principal    = $_POST['txt_calle_principalPreview'];
+    $calle_secundaria    = $_POST['txt_calle_secundariaPreview'];
+    $referencia    = $_POST['txt_barrio_referenciaPreview'];
     $provincia     = $_POST['provinica'];
-    $ciudad     = $_POST['ciudad'];
-    $observacion     = $_POST['observacion'];
+    $ciudad     = $_POST['ciudad_entrega'];
+    $observacion     = $_POST['txt_comentarioPreview'];
     
     $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 //Comprobamos si hay archivos en la tabla temporal
