@@ -279,10 +279,10 @@ if (strpos($currentUrl, $localBaseUrl) !== false) {
                           <div class="form-group">
                             <label for="inputPassword3" class="col-lg-13 col-form-label">-- Elige un pais --</label>
                             <div class="col-lg-13">
-                              <select class="form-control" name="pais" id="pais">
-                                <option value="EC">🇪🇨 Ecuador</option> <!-- Ecuador-->
-                                <option value="PE">🇵🇪 Perú</option> <!-- Peru-->
-                                <option value="CO">🇨🇴 Colombia</option> <!-- Colombia-->
+                              <select class="form-control input-change" name="pais" id="pais">
+                                <option value="1">🇪🇨 Ecuador</option> <!-- Ecuador-->
+                                <option value="2">🇵🇪 Perú</option> <!-- Peru-->
+                                <option value="3">🇨🇴 Colombia</option> <!-- Colombia-->
                               </select>
                             </div>
                           </div>
