@@ -22,9 +22,9 @@ function cargar() {
 }
 function terminar_compra() {
   sesion = $("#session").val();
-  nombre = $("#nombre").val();
-  telefono = $("#telefono").val();
-  ciudad = $("#ciudad").val();
+  nombre = $("#txt_nombresApellidosPreview").val();
+  telefono = $("#txt_telefonoPreview").val();
+  ciudad = $("#ciudad_entrega").val();
   direccion = $("#direccion").val();
   cliente = 1;
   //fbq("track", "Purchase");
@@ -37,11 +37,11 @@ function terminar_compra() {
       sesion +
       "&cliente=" +
       cliente +
-      "&nombre=" +
+      "&txt_nombresApellidosPreview=" +
       nombre +
-      "&telefono=" +
+      "&txt_telefonoPreview=" +
       telefono +
-      "&ciudad=" +
+      "&ciudad_entrega=" +
       ciudad +
       "&direccion=" +
       direccion,
