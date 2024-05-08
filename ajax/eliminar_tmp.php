@@ -225,7 +225,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         ?>
         </div>
         <div class="_rsi-build-block _rsi-build-block-totals-summary">
-            <div style="background-color: #e8ecef; padding: 10px; " class="_rsi-modal-checkout-lines">
+            <div style="background-color: #e8ecef; padding: 10px; border-radius: 0.3rem;" class="_rsi-modal-checkout-lines">
                 <table style="width: 100%">
 
                     <div class="" data-checkout-line="subtotal">

@@ -307,6 +307,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 					<ul class="list-unstyled">
 
 						<li><a href="../html/info_web_1.php">Tienda On Line</a></li>
+						<a href="../html/checkout.php">Editar Checkout de Compra</a>
 						<li><a href="../html/politicas.php">Politicas de Privacidad</a></li>
 						<li><a href="../html/pixel.php">Pixele Seg</a></li>
 						<li><a href="../html/gracias.php">Pagina de Gracias</a></li>
