@@ -292,7 +292,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                                 <!-- Ajuste de ancho al 100% para consistencia -->
                                                                                 <img style="width: 100%;" id="tr4" onclick="seleccionar_transportadora(4)" src="../../img_sistema/gintra.png" class="card-img-top image-bn interactive-image formulario" alt="Selecciona Guia Local">
                                                                                 <div class="card-body" style="text-align: center;">
-                                                                                    <strong id="precio_gintra">PROXIMAMENTE</strong>
+                                                                                    <strong id="precio_gintra">---</strong>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
