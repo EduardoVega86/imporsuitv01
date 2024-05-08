@@ -240,45 +240,8 @@ $pacientes = 1;
                             <!-- Fin TÍTULO DEL FORMULARIO -->
 
                             <!-- Resumen Total... -->
-                            <div class="list-group-item" id="resumenTotal">
-                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
-                                    <div>
-                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
-                                        RESUMEN TOTAL
-                                    </div>
-                                    <div>
-                                        <span>
-                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
-                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <!-- Sección oculta que se mostrará al hacer clic en editar -->
-                                <div class="edit-section hidden">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="subtotal">Texto subtotal</label>
-                                            <input type="text" class="form-control" id="subtotal" placeholder="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="envio">Texto envío</label>
-                                            <input type="text" class="form-control" id="envio" placeholder="">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="total">Texto total</label>
-                                            <input type="text" class="form-control" id="total" placeholder="">
-                                        </div>
-                                        <div class="form-group form-check">
-                                            <input type="checkbox" class="form-check-input" id="impuestos">
-                                            <label class="form-check-label" for="impuestos">Mostrar mensaje adicional sobre impuestos</label>
-                                        </div>
-                                        <!-- Añade más campos según sea necesario -->
-                                    </form>
-                                    <small class="form-text text-muted">
-                                        Importante: cambiar el color de fondo de este bloque podría afectar negativamente a su tasa de conversión.
-                                    </small>
-                                </div>
+                            <div class="hidden" id="resumenTotal">
+                                
                             </div>
                             <!-- Fin Resumen Total... -->
                             <!-- TARIFAS DE ENVIO. -->
@@ -648,7 +611,7 @@ $pacientes = 1;
                             <div id="tituloFormularioPreview">
                                 <h4 id="texto_tituloPreview">PAGA AL RECIBIR EN CASA!</h4>
                             </div>
-                            <div id="resumenTotalPreview" class="caja_variable">
+                            <div id="resumenTotal" class="caja_variable">
                                 <div class="d-flex flex-row">
                                     <p id="subtotalPreview">Subtotal</p>
                                     <span style="width: 100%; text-align: end;">$19.99</span>
@@ -656,11 +619,6 @@ $pacientes = 1;
                                 <div class="d-flex flex-row">
                                     <p>Envío</p>
                                     <span id="envioPreview" style="width: 100%; text-align: end; font-weight:bold;">Gratis</span>
-                                </div>
-
-                                <div class="d-flex flex-row">
-                                    <p id="descuentosPreview">Descuento</p>
-                                    <span style="width: 100%; text-align: end; font-weight:bold; color: red;">- $4.00</span>
                                 </div>
                                 <hr />
                                 <div class="d-flex flex-row">
@@ -913,11 +871,6 @@ $pacientes = 1;
                 document.getElementById('texto_tituloPreview').textContent = this.value;
             });
 
-            // Asume que tienes otro input para la descripción con id='subtotal'
-            const subtotalInput = document.getElementById('subtotal');
-            subtotalInput.addEventListener('input', function() {
-                document.getElementById('subtotalPreview').textContent = this.value;
-            });
 
             // Repite el proceso para otros campos de entrada
             const envioInput = document.getElementById('envio');

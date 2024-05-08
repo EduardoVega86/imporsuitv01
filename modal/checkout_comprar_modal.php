@@ -154,7 +154,7 @@
 							<div id="tituloFormularioPreview">
 								<h4 id="texto_tituloPreview">PAGA AL RECIBIR EN CASA!</h4>
 							</div>
-							<div id="resultados" class="modal-body">
+							<div id="resultados" class="modal-body" style="padding: 5px">
 
 							</div>
 							<div id="tarifasEnvioPreview">
