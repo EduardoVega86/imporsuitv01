@@ -651,11 +651,6 @@ $pacientes = 1;
                                     <p id="">Subtotal</p>
                                     <span style="width: 100%; text-align: end;">$19.99</span>
                                 </div>
-                                <div class="d-flex flex-row">
-                                    <p>Envío</p>
-                                    <span id="" style="width: 100%; text-align: end; font-weight:bold;">Gratis</span>
-                                </div>
-
                                 
                                 <hr />
                                 <div class="d-flex flex-row">
