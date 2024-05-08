@@ -13,27 +13,27 @@ if (!empty($_POST)) {
     
     // Determina qué formulario fue enviado y configura las variables
     if (isset($_POST['pixel_googleTag'])) {
-        $pixel = mysqli_real_escape_string($conexion, $_POST['pixel_googleTag']);
+        $pixel = $_POST['pixel_googleTag'];
         $nombre = 'Google Tag';
         $id_pixel = 2;
         $modalId = 'google_tag';
     } elseif (isset($_POST['pixel_googleAnalytics'])) {
-        $pixel = mysqli_real_escape_string($conexion, $_POST['pixel_googleAnalytics']);
+        $pixel = $_POST['pixel_googleAnalytics'];
         $nombre = 'Google Analytics';
         $id_pixel = 3;
         $modalId = 'google_analytics';
     } elseif (isset($_POST['pixel_tiktok'])) {
-        $pixel = mysqli_real_escape_string($conexion, $_POST['pixel_tiktok']);
+        $pixel =  $_POST['pixel_tiktok'];
         $nombre = 'Tiktok';
         $id_pixel = 4;
         $modalId = 'tiktok';
     }elseif (isset($_POST['pixel_X'])) {
-        $pixel = mysqli_real_escape_string($conexion, $_POST['pixel_X']);
+        $pixel = $_POST['pixel_X'];
         $nombre = 'X';
         $id_pixel = 5;
         $modalId = 'X';
     }elseif (isset($_POST['pixel_clarity'])) {
-        $pixel = mysqli_real_escape_string($conexion, $_POST['pixel_clarity']);
+        $pixel = $_POST['pixel_clarity'];
         $nombre = 'Clarity';
         $id_pixel = 6;
         $modalId = 'clarity';

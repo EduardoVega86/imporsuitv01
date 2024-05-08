@@ -75,10 +75,35 @@ $row = mysqli_fetch_array($query);
 $sql_pixeles = "SELECT * FROM pixel WHERE id_pixel > 1";
 $query_pixeles = mysqli_query($conexion, $sql_pixeles);
 
-while ($row_pixeles = mysqli_fetch_array($query_pixeles)) {
+/* while ($row_pixeles = mysqli_fetch_array($query_pixeles)) {
    $pixel = $row_pixeles['pixel'];
    echo $pixel; // Asegúrate de que $pixel contiene el script correcto y no necesita más procesamiento.
+} */
+
+while ($row_pixeles = mysqli_fetch_array($query_pixeles)) {
+   $pixel = $row_pixeles['pixel'];
+
+   // Palabras clave esperadas en los scripts válidos
+   $palabrasClaveValidas = ['googletag', 'googleanalytics', 'tiktok', 'clarity', 'microsoft'];
+
+   // Convertir el contenido del script a minúsculas para la comparación
+   $pixelMin = strtolower($pixel);
+
+   // Verificar si el script contiene alguna de las palabras clave
+   $esValido = false;
+   foreach ($palabrasClaveValidas as $palabra) {
+       if (stripos($pixelMin, $palabra) !== false) {
+           $esValido = true;
+           break;
+       }
+   }
+
+   if ($esValido) {
+       echo $pixel; // Mostrar solo si el script contiene las palabras clave
+   }
 }
+?>
+
 ?>
 
 <noscript>

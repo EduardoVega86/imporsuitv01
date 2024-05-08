@@ -239,10 +239,10 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                     <?php
                     $envioGratis_checkout = get_row('perfil', 'envioGratis_checkout', 'id_perfil', 1);
                     if ($envioGratis_checkout == 1) { ?>
-                        <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
+                        <!-- <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
                             <span class="_rsi-modal-checkout-line-title">Envío</span>
                             <strong style="float: right" class="">Gratis</strong>
-                        </div>
+                        </div> -->
                     <?php } ?>
 
                     <hr>
