@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
-    header("location: ../../login.php");
-    exit;
+	header("location: ../../login.php");
+	exit;
 }
 /* Connect To Database*/
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
@@ -16,14 +16,14 @@ permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 ?>
 
-<?php require 'includes/header_start.php';?>
+<?php require 'includes/header_start.php'; ?>
 
-<?php require 'includes/header_end.php';?>
+<?php require 'includes/header_end.php'; ?>
 
 <!-- Begin page -->
 <div id="wrapper">
 
-	<?php require 'includes/menu.php';?>
+	<?php require 'includes/menu.php'; ?>
 
 	<!-- ============================================================== -->
 	<!-- Start right Content here -->
@@ -32,40 +32,40 @@ permisos($modulo, $cadena_permisos);
 		<!-- Start content -->
 		<div class="content">
 			<div class="container">
-<?php if ($permisos_ver == 1) {
-    ?>
-				<div class="col-lg-12">
-					<div class="portlet">
-						<div class="portlet-heading bg-primary">
-							<h3 class="portlet-title">
-								Bodegas
-							</h3>
-							<div class="portlet-widgets">
-								<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
-								<span class="divider"></span>
-								<a data-toggle="collapse" data-parent="#accordion1" href="#bg-primary"><i class="ion-minus-round"></i></a>
-								<span class="divider"></span>
-								<a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+				<?php if ($permisos_ver == 1) {
+				?>
+					<div class="col-lg-12">
+						<div class="portlet">
+							<div class="portlet-heading bg-primary">
+								<h3 class="portlet-title">
+									Bodegas
+								</h3>
+								<div class="portlet-widgets">
+									<a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
+									<span class="divider"></span>
+									<a data-toggle="collapse" data-parent="#accordion1" href="#bg-primary"><i class="ion-minus-round"></i></a>
+									<span class="divider"></span>
+									<a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
+								</div>
+								<div class="clearfix"></div>
 							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div id="bg-primary" class="panel-collapse collapse show">
-							<div class="portlet-body">
+							<div id="bg-primary" class="panel-collapse collapse show">
+								<div class="portlet-body">
 
-<?php
-if ($permisos_editar == 1) {
-        include "../modal/eliminar_bodega.php";
-    }
-    ?>
+									<?php
+									if ($permisos_editar == 1) {
+										include "../modal/eliminar_bodega.php";
+									}
+									?>
 
-								<form class="form-horizontal" role="form" id="datos_cotizacion">
-									<div class="form-group row">
-										<div class="col-md-6">
-											<div class="input-group">
-												<input type="text" class="form-control" id="q" placeholder="Buscar por Nombre o RUC/Cedula" onkeyup='load(1);' autocomplete="off">
-												<span class="input-group-btn">
-													<button type="button" class="btn btn-outline-info btn-rounded waves-effect waves-light" onclick='load(1);'>
-														<span class="fa fa-search" ></span></button>
+									<form class="form-horizontal" role="form" id="datos_cotizacion">
+										<div class="form-group row">
+											<div class="col-md-6">
+												<div class="input-group">
+													<input type="text" class="form-control" id="q" placeholder="Buscar por Nombre o RUC/Cedula" onkeyup='load(1);' autocomplete="off">
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-outline-info btn-rounded waves-effect waves-light" onclick='load(1);'>
+															<span class="fa fa-search"></span></button>
 													</span>
 												</div>
 											</div>
@@ -74,15 +74,15 @@ if ($permisos_editar == 1) {
 											</div>
 											<div class="col-md-2">
 												<div class="btn-group pull-right">
-                                                                                                    <a type="button" href="agregar_bodega.php" class="btn btn-success btn-rounded waves-effect waves-light" ><i class="fa fa-user-plus"></i> Agregar</a>
+													<a type="button" href="agregar_bodega.php" class="btn btn-success btn-rounded waves-effect waves-light"><i class="fa fa-user-plus"></i> Agregar</a>
 												</div>
 
 											</div>
 											<div class="col-md-2">
-													<div class="btn-group pull-right">
-														<?php if ($permisos_editar == 1) {?>
+												<div class="btn-group pull-right">
+													<?php if ($permisos_editar == 1) { ?>
 														<div class="btn-group dropup">
-                                                                                                                    <a href="mapa_bodegas.php" aria-expanded="false" class="btn btn-outline-default btn-rounded waves-effect waves-light" >
+															<a href="mapa_bodegas.php" aria-expanded="false" class="btn btn-outline-default btn-rounded waves-effect waves-light">
 																<i class='fa fa-file-text'></i> Ver Mapa
 																<span class="caret">
 																</span>
@@ -96,9 +96,9 @@ if ($permisos_editar == 1) {
 																</a>
 															</div>
 														</div>
-														<?php }?>
-													</div>
+													<?php } ?>
 												</div>
+											</div>
 
 										</div>
 									</form>
@@ -111,65 +111,64 @@ if ($permisos_editar == 1) {
 							</div>
 						</div>
 					</div>
-					<?php
-} else {
-    ?>
-		<section class="content">
-			<div class="alert alert-danger" align="center">
-				<h3>Acceso denegado! </h3>
-				<p>No cuentas con los permisos necesario para acceder a este módulo.</p>
+				<?php
+				} else {
+				?>
+					<section class="content">
+						<div class="alert alert-danger" align="center">
+							<h3>Acceso denegado! </h3>
+							<p>No cuentas con los permisos necesario para acceder a este módulo.</p>
+						</div>
+					</section>
+				<?php
+				}
+				?>
+
 			</div>
-		</section>
-		<?php
-}
-?>
-
-				</div>
-				<!-- end container -->
-			</div>
-			<!-- end content -->
-
-			
-
+			<!-- end container -->
 		</div>
-		<!-- ============================================================== -->
-		<!-- End Right content here -->
-		<!-- ============================================================== -->
+		<!-- end content -->
+
 
 
 	</div>
-	<!-- END wrapper -->
+	<!-- ============================================================== -->
+	<!-- End Right content here -->
+	<!-- ============================================================== -->
 
-	<?php require 'includes/footer_start.php'
+
+</div>
+<!-- END wrapper -->
+
+<?php require 'includes/footer_start.php'
 ?>
-	<!-- ============================================================== -->
-	<!-- Todo el codigo js aqui-->
-	<!-- ============================================================== -->
-	<script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
-	<script type="text/javascript" src="../../js/bodegas.js"></script>
+<!-- ============================================================== -->
+<!-- Todo el codigo js aqui-->
+<!-- ============================================================== -->
+<script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
+<script type="text/javascript" src="../../js/bodegas.js"></script>
 <script>
-       $(document).ready( function () {
-        $(".UpperCase").on("keypress", function () {
-         $input=$(this);
-         setTimeout(function () {
-          $input.val($input.val().toUpperCase());
-         },50);
-        })
-       })
-       function reporte_excel(){
-			var q=$("#q").val();
-			window.location.replace("../excel/rep_clientes.php?q="+q);
-    //VentanaCentrada('../excel/rep_gastos.php?daterange='+daterange+"&employee_id="+employee_id,'Reporte','','500','25','true');+"&tipo="+tipo
-}
+	$(document).ready(function() {
+		$(".UpperCase").on("keypress", function() {
+			$input = $(this);
+			setTimeout(function() {
+				$input.val($input.val().toUpperCase());
+			}, 50);
+		})
+	})
 
-      </script>
-      <script type="text/javascript">
-      	function reporte(){
-		var q=$("#q").val();
-		VentanaCentrada('../pdf/documentos/rep_clientes.php?q='+q,'Reporte','','800','600','true');
+	function reporte_excel() {
+		var q = $("#q").val();
+		window.location.replace("../excel/rep_clientes.php?q=" + q);
+		//VentanaCentrada('../excel/rep_gastos.php?daterange='+daterange+"&employee_id="+employee_id,'Reporte','','500','25','true');+"&tipo="+tipo
 	}
-      </script>
+</script>
+<script type="text/javascript">
+	function reporte() {
+		var q = $("#q").val();
+		VentanaCentrada('../pdf/documentos/rep_clientes.php?q=' + q, 'Reporte', '', '800', '600', 'true');
+	}
+</script>
 
-	<?php require 'includes/footer_end.php'
+<?php require 'includes/footer_end.php'
 ?>
-
