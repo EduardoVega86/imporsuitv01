@@ -219,7 +219,7 @@ $pacientes = 1;
                                             <label for="texto_titulo">Texto</label>
                                             <input type="text" class="form-control" id="texto_titulo" placeholder="">
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="inputPassword3" class="col-sm-2 col-form-label">Alineacion</label>
                                             <div class="col-sm-10">
                                                 <select class="form-control" name="alineacion_titulo" id="alineacion_titulo">
@@ -228,7 +228,7 @@ $pacientes = 1;
                                                     <option value="3">Derecha </option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label for="colorTxt_titulo">Color texto titulo</label>
                                             <input class="colores input-change" type="color" id="colorTxt_titulo" name="colorTxt_titulo" value="">
@@ -254,7 +254,7 @@ $pacientes = 1;
                                         </span>
                                     </div>
                                 </div>
-                                
+
                                 <div class="edit-section hidden">
                                     <form>
                                         <div class="form-group">
@@ -273,9 +273,9 @@ $pacientes = 1;
                                             <input type="checkbox" class="form-check-input" id="impuestos">
                                             <label class="form-check-label" for="impuestos">Mostrar mensaje adicional sobre impuestos</label>
                                         </div>
-                                        
+
                                     </form>
-                                    
+
                                 </div>
                             </div>
                             <!-- Fin Resumen Total... -->
@@ -651,7 +651,7 @@ $pacientes = 1;
                                     <p id="">Subtotal</p>
                                     <span style="width: 100%; text-align: end;">$19.99</span>
                                 </div>
-                                
+
                                 <hr />
                                 <div class="d-flex flex-row">
                                     <p id="">Total</p>
@@ -659,7 +659,7 @@ $pacientes = 1;
                                 </div>
                             </div>
                             <div id="tarifasEnvioPreview">
-                            <hr />
+                                <hr />
                                 <p id="titulo_tarifaPreview" style="font-weight:bold;">Método de envío</p>
                                 <div class="caja_transparente d-flex flex-row">
                                     <!-- <input type="radio" name="metodoEnvio" checked> -->

@@ -153,11 +153,25 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                         <td style="width: 10%">
                             <div class="input-group">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-decrementar" data-id="<?php echo $id_producto; ?>">-</button>
+                                    <button type="button" class="btn btn-default btn-incrementar" data-id="<?php echo $id_producto; ?>">+</button>
                                 </span>
+                                <style>
+                                    .input-cantidad {
+                                        background-color: transparent;
+                                        /* Hace el fondo transparente */
+                                        border: none;
+                                        /* Remueve el borde */
+                                        color: black;
+                                        /* Establece el color del texto */
+                                        outline: none;
+                                        /* Remueve el resaltado al enfocar */
+                                        pointer-events: none;
+                                        /* Evita que el usuario interactúe con el campo */
+                                    }
+                                </style>
                                 <input type="text" name="cantidad[<?php echo $id_producto; ?>]" class="form-control input-cantidad" value="<?php echo $cantidad; ?>" data-id="<?php echo $id_producto; ?>" data-precio="<?php echo $precio_venta_unitario; ?>">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default btn-incrementar" data-id="<?php echo $id_producto; ?>">+</button>
+                                    <button type="button" class="btn btn-default btn-decrementar" data-id="<?php echo $id_producto; ?>">-</button>
                                 </span>
                             </div>
                             <script>

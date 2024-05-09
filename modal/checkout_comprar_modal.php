@@ -144,6 +144,9 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
+				<div id="tituloFormularioPreview">
+					<h4 id="texto_tituloPreview">PAGA AL RECIBIR EN CASA!</h4>
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			</div>
 			<div class="modal-body">
@@ -151,14 +154,12 @@
 					<div id="gracias" class="modal-content">
 						<div id="previewContainer" class="p-3">
 
-							<div id="tituloFormularioPreview">
-								<h4 id="texto_tituloPreview">PAGA AL RECIBIR EN CASA!</h4>
-							</div>
+
 							<div id="resultados" class="modal-body" style="padding: 5px">
 
 							</div>
 							<div id="tarifasEnvioPreview">
-							<hr />
+								<hr />
 								<p id="titulo_tarifaPreview" style="font-weight:bold;">Método de envío</p>
 								<div class="caja_transparente d-flex flex-row">
 									<!-- <input type="radio" name="metodoEnvio" checked> -->
@@ -169,7 +170,7 @@
 							</div>
 							<!--  código de descuento -->
 							<div class="discount-code-container" id="codigosDescuentoPreview">
-							
+
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" placeholder="Código de descuento" id="etiqueta_descuentoPreview" aria-label="Código de descuento">
 									<div class="input-group-append">
@@ -235,7 +236,7 @@
 							<div class="form-group" id="provinciaPreview" style="position: relative; padding-top: 3px;">
 								<label class="sub_titulos" id="titulo_provinciaPreview">Provincia</label>
 								<div class="">
-									<select class="datos form-control " onchange="cargar_provincia_pedido()" id="provinica" name="provinica" >
+									<select class="datos form-control " onchange="cargar_provincia_pedido()" id="provinica" name="provinica">
 										<option value="">Provincia *</option>
 										<?php
 										$pais = get_row('perfil', 'pais', 'id_perfil', 1);
@@ -262,7 +263,7 @@
 								<label class="sub_titulos" id="titulo_ciudadPreview">Ciudad</label>
 								<div>
 									<div id="div_ciudad" onclick="verify()">
-										<select class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()"  disabled>
+										<select class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" disabled>
 											<option value="">Ciudad *</option>
 											<?php
 											$sql2 = "select * from ciudad_cotizacion where id_pais='$pais' ";
