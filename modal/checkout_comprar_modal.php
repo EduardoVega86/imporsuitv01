@@ -99,7 +99,7 @@
 		/* Ajusta el grosor de la línea */
 		background-color: #000;
 		/* Ajusta el color de la línea */
-		margin: 20px 0;
+		margin: 15px 0;
 		/* Ajusta el espaciado vertical de la línea */
 	}
 
@@ -144,6 +144,9 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
+				<div id="tituloFormularioPreview">
+					<h4 id="texto_tituloPreview">PAGA AL RECIBIR EN CASA!</h4>
+				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			</div>
 			<div class="modal-body">
@@ -151,19 +154,19 @@
 					<div id="gracias" class="modal-content">
 						<div id="previewContainer" class="p-3">
 
-							<div id="tituloFormularioPreview">
-								<h4 id="texto_tituloPreview">PAGA AL RECIBIR EN CASA!</h4>
-							</div>
+
 							<div id="resultados" class="modal-body" style="padding: 5px">
 
 							</div>
 							<div id="tarifasEnvioPreview">
+								<hr />
 								<p id="titulo_tarifaPreview" style="font-weight:bold;">Método de envío</p>
 								<div class="caja_transparente d-flex flex-row">
 									<!-- <input type="radio" name="metodoEnvio" checked> -->
 									<label for="envioGratisPreview"> Envío gratis</label>
 									<label id="gratisPreview" style="width: 60%; text-align: end; font-weight:bold;">Gratis</label>
 								</div>
+								<hr />
 							</div>
 							<!--  código de descuento -->
 							<div class="discount-code-container" id="codigosDescuentoPreview">
@@ -182,8 +185,7 @@
 							</div>
 							<!--  código de descuento -->
 							<!-- Nombre y apellidos -->
-							<div class="form-group" id="nombresApellidosPreview" style="position: relative; padding-top: 10px;">
-								<hr />
+							<div class="form-group" id="nombresApellidosPreview" style="position: relative; padding-top: 5px;">
 								<label class="sub_titulos">Nombres y Apellidos</label>
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -196,7 +198,7 @@
 							</div>
 							<!-- Fin Nombre y apellidos -->
 							<!-- Telefono -->
-							<div class="form-group" id="telefonoPreview" style="position: relative; padding-top: 10px;">
+							<div class="form-group" id="telefonoPreview" style="position: relative; padding-top: 3px;">
 								<label class="sub_titulos">Teléfono</label>
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -207,7 +209,7 @@
 							</div>
 							<!-- Fin Telefono -->
 							<!-- calle_principal -->
-							<div class="form-group" id="calle_principalPreview" style="position: relative; padding-top: 10px;">
+							<div class="form-group" id="calle_principalPreview" style="position: relative; padding-top: 3px;">
 								<label class="sub_titulos" id="titulo_calle_principalPreview">Calle Principal</label>
 								<div class="">
 									<input type="text" class="form-control" id="txt_calle_principalPreview" name="txt_calle_principalPreview" placeholder="">
@@ -215,7 +217,7 @@
 							</div>
 							<!-- Fin calle_principal -->
 							<!-- calle_secundaria -->
-							<div class="form-group" id="calle_secundariaPreview" style="position: relative; padding-top: 10px;">
+							<div class="form-group" id="calle_secundariaPreview" style="position: relative; padding-top: 3px;">
 								<label class="sub_titulos" id="titulo_calle_secundariaPreview">Calle Secundaria</label>
 								<div class="">
 									<input type="text" class="form-control" id="txt_calle_secundariaPreview" name="txt_calle_secundariaPreview" placeholder="">
@@ -223,7 +225,7 @@
 							</div>
 							<!-- Fin calle_secundaria -->
 							<!-- barrio_referencia -->
-							<div class="form-group" id="barrio_referenciaPreview" style="position: relative; padding-top: 10px;">
+							<div class="form-group" id="barrio_referenciaPreview" style="position: relative; padding-top: 3px;">
 								<label class="sub_titulos" id="titulo_barrio_referenciaPreview">Barrio o Referencia</label>
 								<div class="">
 									<input type="text" class="form-control" id="txt_barrio_referenciaPreview" name="txt_barrio_referenciaPreview" placeholder="">
@@ -231,10 +233,10 @@
 							</div>
 							<!-- Fin barrio_referencia -->
 							<!-- provincia -->
-							<div class="form-group" id="provinciaPreview" style="position: relative; padding-top: 10px;">
+							<div class="form-group" id="provinciaPreview" style="position: relative; padding-top: 3px;">
 								<label class="sub_titulos" id="titulo_provinciaPreview">Provincia</label>
 								<div class="">
-									<select class="datos form-control " onchange="cargar_provincia_pedido()" id="provinica" name="provinica" >
+									<select class="datos form-control " onchange="cargar_provincia_pedido()" id="provinica" name="provinica">
 										<option value="">Provincia *</option>
 										<?php
 										$pais = get_row('perfil', 'pais', 'id_perfil', 1);
@@ -257,11 +259,11 @@
 							</div>
 							<!-- Fin provincia -->
 							<!-- ciudad -->
-							<div class="form-group" id="ciudadPreview" style="position: relative; padding-top: 10px;">
+							<div class="form-group" id="ciudadPreview" style="position: relative; padding-top: 3px;">
 								<label class="sub_titulos" id="titulo_ciudadPreview">Ciudad</label>
 								<div>
 									<div id="div_ciudad" onclick="verify()">
-										<select class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()"  disabled>
+										<select class="datos form-control" id="ciudad_entrega" name="ciudad_entrega" onchange="seleccionarProvincia()" disabled>
 											<option value="">Ciudad *</option>
 											<?php
 											$sql2 = "select * from ciudad_cotizacion where id_pais='$pais' ";
@@ -283,7 +285,7 @@
 							</div>
 							<!-- Fin ciudad -->
 							<!-- comentario -->
-							<div class="form-group" id="comentarioPreview" style="position: relative; padding-top: 10px;">
+							<div class="form-group" id="comentarioPreview" style="position: relative; padding-top: 3px;">
 								<label class="sub_titulos" id="titulo_comentarioPreview">Barrio o Referencia</label>
 								<div class="">
 									<input type="text" class="form-control" id="txt_comentarioPreview" name="txt_comentarioPreview" placeholder="">
