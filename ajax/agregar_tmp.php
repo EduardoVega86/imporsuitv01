@@ -2,15 +2,14 @@
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
-include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
+include '../sysadmin/vistas/ajax/is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 $session_id = session_id();
 if (isset($_POST['id'])) {$id = $_POST['id'];}
 if (isset($_POST['cantidad'])) {$cantidad = $_POST['cantidad'];}
-/* Connect To Database*/
-require_once "../db.php";
-require_once "../php_conexion.php";
+require_once "../sysadmin/vistas/db.php";
+require_once "../sysadmin/vistas/php_conexion.php";
 //Archivo de funciones PHP
-require_once "../funciones.php";
+require_once "../sysadmin/vistas/funciones.php";
 
 if (!empty($id) and !empty($cantidad)) {
     $id_producto  = get_row('productos', 'id_producto', 'codigo_producto', $id);

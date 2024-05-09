@@ -177,6 +177,80 @@ $pacientes = 1;
         opacity: 0.5;
         /* Cambia la opacidad para mostrar que están desactivados */
     }
+
+    /* animaciones del boton comprar */
+    /* Animación Bounce */
+    .bounce {
+        animation: bounce 1.2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    /* Animación Shake */
+    .shake {
+        animation: shake 6s linear infinite;
+    }
+
+    @keyframes shake {
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        10%,
+        20%,
+        30%,
+        40%,
+        50%,
+        60%,
+        70%,
+        80%,
+        90% {
+            transform: translateX(5px);
+        }
+
+        15%,
+        25%,
+        35%,
+        45%,
+        55%,
+        65%,
+        75%,
+        85%,
+        95% {
+            transform: translateX(-5px);
+        }
+    }
+
+    /* Animación Pulse */
+    .pulse {
+        animation: pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
 </style>
 <?php require 'includes/header_end.php'; ?>
 
@@ -631,6 +705,15 @@ $pacientes = 1;
                                             <input class="colores input-change" type="color" id="colorBtn_comprar" name="colorBtn_comprar" value="">
                                         </div>
                                         <!-- Añade más campos según sea necesario -->
+                                        <div class="form-group">
+                                            <label for="animacionBtn_comprar">Animación del botón</label>
+                                            <select class="form-control" id="animacionBtn_comprar">
+                                                <option value="">Ninguna</option>
+                                                <option value="bounce">Bounce</option>
+                                                <option value="shake">Shake</option>
+                                                <option value="pulse">Pulse</option>
+                                            </select>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -896,6 +979,19 @@ $pacientes = 1;
                 var previewItem = $('#previewContainer').find('#' + listItemID + 'Preview');
                 previewItem.next().after(previewItem);
             });
+
+            //cambiar animacion de boton comprar en tiempo real
+
+            $('#animacionBtn_comprar').change(function() {
+                var animacionSeleccionada = $(this).val();
+                var btnPreview = $('#textoBtn_comprarPreview'); // El ID del botón en el preview
+
+                // Limpiar clases de animación antes de aplicar la nueva
+                btnPreview.removeClass('bounce shake pulse');
+                if (animacionSeleccionada) {
+                    btnPreview.addClass(animacionSeleccionada);
+                }
+            });
         });
         //PREVIEW
         document.addEventListener('DOMContentLoaded', () => {
@@ -1038,34 +1134,56 @@ $pacientes = 1;
         }
 
         function processItem(item) {
-            Object.keys(item.content).forEach(key => {
-                updateFieldAndPreview(key, item.content[key], item.id_elemento);
-            });
-            toggleVisibility(item.estado, item.id_elemento);
-            reorderElements(item.id_elemento, item.posicion);
-        }
+		Object.keys(item.content).forEach(key => {
+			updateFieldAndPreview(key, item.content[key], item.id_elemento);
+		});
+		toggleVisibility(item.estado, item.id_elemento);
+		reorderElements(item.id_elemento, item.posicion);
+	}
 
-        function updateFieldAndPreview(key, value, id_elemento) {
-            const field = $('#' + key);
-            const previewField = $('#' + key + 'Preview');
+	function updateFieldAndPreview(key, value, id_elemento) {
+		const field = $('#' + key);
+		const previewField = $('#' + key + 'Preview');
 
-            updateFieldValue(field, value);
-            updatePreviewField(key, previewField, value);
+		// Aplicar valor al campo y disparar evento change para asegurar cualquier lógica de UI
+		updateFieldValue(field, value);
 
-            if (key === 'alineacion_titulo') {
-                updateTextAlignment(value);
-            } else if (key.startsWith('color')) {
-                updateColor(key, value);
-            }
-        }
+		// Específico para animaciones y colores
+		if (key === 'animacionBtn_comprar') {
+			const btnPreview = $('#textoBtn_comprarPreview');
+			btnPreview.removeClass('bounce shake pulse');
+			btnPreview.addClass(value);
+		} else if (key.startsWith('color')) {
+			// Asegurarse de que se actualice el color directamente en la vista previa adecuadamente
+			applyColor(key, value, previewField);
+		} else if (key.includes('txt_')) {
+			previewField.attr('placeholder', value);
+		} else if (key.includes('icono')) {
+			previewField.html("<i class='" + value + "'></i>");
+		} else {
+			previewField.text(value);
+		}
+	}
 
-        function updateFieldValue(field, value) {
-            if (field.is(':checkbox')) {
-                field.prop('checked', value === 'on');
-            } else {
-                field.val(value).change(); // Trigger change for preview updates
-            }
-        }
+	function applyColor(key, value, previewField) {
+		if (key === 'colorBtn_comprar') {
+			// Aplicar el color directamente al botón de compra en la vista previa
+			$('#textoBtn_comprarPreview').css('background-color', value);
+		} else if (key === 'colorTxt_titulo') {
+			$('#texto_tituloPreview').css('color', value);
+		} else {
+			// Aplica color general si es necesario a otros elementos
+			previewField.css('color', value);
+		}
+	}
+
+	function updateFieldValue(field, value) {
+		if (field.is(':checkbox')) {
+			field.prop('checked', value === 'on');
+		} else {
+			field.val(value).change(); // Trigger change for preview updates
+		}
+	}
 
         function updatePreviewField(key, previewField, value) {
             if (!previewField.length) {
@@ -1168,10 +1286,10 @@ $pacientes = 1;
                     item.content[key] = value;
                 });
 
-                // Generalización para capturar íconos activos
-                $(this).find('.icon-btn.active i').each(function() {
-                    var iconKey = $(this).closest('.btn-group').attr('id'); // Asume que el btn-group tiene un ID
-                    var iconClass = $(this).attr('class');
+                // Captura íconos activos y animaciones
+                $(this).find('.icon-btn.active i, .animation-select').each(function() {
+                    var iconKey = $(this).closest('.btn-group').attr('id') || $(this).attr('id'); // Asume que el btn-group o select tiene un ID
+                    var iconClass = $(this).attr('class') || $(this).val(); // Guarda la clase o el valor seleccionado
                     item.content[iconKey] = iconClass;
                 });
 
@@ -1337,28 +1455,6 @@ $pacientes = 1;
         function seleccionarProvincia() {
             var id_provincia = $('#ciudad_entrega').val();
             let recaudo = $('#cod').val();
-
-            calcular_guia(recaudo);
-            calcular_servi(id_provincia, recaudo);
-            //calcular_gintra($("#ciudad_entrega option:selected").text(), recaudo);
-            /*  $.ajax({
-                    url: "../ajax/cargar_provincia_pedido.php",
-                    type: "POST",
-                    data: {
-                        ciudad: id_provincia,
-                    },
-                    dataType: 'text',
-                    success: function(data) {
-                        $('#provinica').val(data).trigger('change');
-                        $('#provinica option[value=' + data + ']').attr({
-                            selected: true
-                        });
-                        let precio_total = $('#precio_total').val();
-
-
-                    }
-                })
-            } */
         }
 
         $("#ciudad_entrega").select2({
