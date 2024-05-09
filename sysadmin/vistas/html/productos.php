@@ -153,11 +153,7 @@ while ($r = $query->fetch_object()) {
 												<div class="btn-group pull-right">
 													<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" onclick="producto_id()" data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
 
-													<div class="btn-group pull-right">
-														<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
-
-													</div>
-
+													
 												</div>
 												<div class="col-md-2">
 													<div class="btn-group pull-right">
