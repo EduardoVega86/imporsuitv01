@@ -24,6 +24,7 @@ if (isset($_POST['valor_cantidad'])) {
 } else {
     $valor_cantidad = 1;
 }
+$estado_oferta = isset($_POST['estado_oferta']) ? $_POST['estado_oferta'] : 0;
 //echo $descripcion_libre;
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     // consulta para comparar el stock con la cantidad resibida
@@ -45,7 +46,7 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
         // condicion si el stock e menor que la cantidad requerida
         if ($cant > $row['stock_producto'] and $inv == 0) {
             echo "<script>Swal.fire('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
-            $('#resultados').load('../ajax/agregar_tmp.php');
+            ;
             </script>";
         } else {
             $sql          = "UPDATE tmp_ventas SET cantidad_tmp='" . $cant . "', precio_tmp='" . $precio_venta . "' WHERE id_producto='" . $id . "' and session_id='" . $session_id . "'";
@@ -58,7 +59,7 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
         // condicion si el stock e menor que la cantidad requerida
         if ($cantidad > $stock and $inv == 0) {
             echo "<script>Swal.fire('LA CATIDAD SUPERA AL STOCK', 'INTENTAR NUEVAMENTE', 'error')
-             $('#resultados').load('../ajax/agregar_tmp.php');
+             ;
             </script>";
         } else {
             //echo "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id, drogshipin_tmp) VALUES ('$id','$cantidad','$precio_venta','0','$session_id','$drogshipin_tmp')";
@@ -142,15 +143,15 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
                                 if (strpos(strtolower($image_path), strtolower($subcadena)) === 0) {
                                 ?>
-    <?php echo  $image_path . '"'; ?>
-    <?php
+                               <?php echo  $image_path . '"'; ?>
+                               <?php
                                 } else {
-    ?>
-    sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
+                                    ?>
+                               sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
                                                                 }
                                                                     ?> class="_rsi-modal-line-item-image">
-                        </td>
-                        <td style="width: 10%">
+                                                   </td>
+                                                   <td style="width: 10%">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default btn-incrementar" data-id="<?php echo $id_producto; ?>">+</button>
@@ -223,7 +224,8 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                         </td>
                         <td style="width: 50%">
                             <div class="_rsi-modal-line-item-info">
-                                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721" style="font-size: 15px;"><?php echo $nombre_producto; ?></a>
+                                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721" style="font-size: 15px;"><?php echo $nombre_producto;?></a>
+                                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721" style="font-size: 15px;"><?php echo "Estado recibido: " . $estado_oferta;?></a>
                             </div>
                         </td>
                         <td style="width: 10%">
