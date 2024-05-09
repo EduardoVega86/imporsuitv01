@@ -618,12 +618,6 @@ function generar_guia() {
         }
       },
     });
-    $.Notification.notify(
-      "error",
-      "bottom right",
-      "ERROR!",
-      "EL SERVICIO DE SERVIENTREGA ESTA EN MANTENIMIENTO!"
-    );
   }
   if (transportadora === "4") {
     var formulario = document.getElementById("datos_pedido");

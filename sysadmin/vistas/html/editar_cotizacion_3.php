@@ -1141,10 +1141,6 @@ while ($r = $query->fetch_object()) {
             $("#costo_envio").val(costo_envio_sin_signo);
         } else if (id === 2) {
             $.Notification.notify('custom', 'bottom right', 'RECUERDA!', 'SPEED REALIZA ENTREGAS EL MISMO DÍA!')
-        } else if (id === 3) {
-            $.Notification.notify('error', 'bottom right', 'ERROR!', 'EL SERVICIO DE SERVIENTREGA ESTA EN MANTENIMIENTO!')
-            /* 
-                        $("#costo_envio").val($("#precio_servientrega").text()); */
         }
         calcular_guia_2();
     }

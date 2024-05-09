@@ -73,6 +73,9 @@ function load(page) {
       });
     },
   });
+  if (window.location.origin === "https://marketplace.imporsuit.com") {
+    $("#etc").css("display", "none");
+  }
 }
 $("#dataDelete").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget); // Botón que activó el modal
