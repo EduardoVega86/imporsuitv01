@@ -2397,7 +2397,7 @@ mysqli_query($conexion, "ALTER TABLE `perfil` ADD `activar_destacados` VARCHAR(1
 mysqli_query($conexion, "ALTER TABLE `perfil` ADD `envioGratis_checkout` VARCHAR(100) NOT NULL DEFAULT '1' AFTER `activar_destacados`;");
 
 mysqli_query($conexion, "ALTER TABLE `novedades` CHANGE `estado_novedad` `estado_novedad` INT NOT NULL;");
-
+ 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
