@@ -147,41 +147,41 @@ while ($r = $query->fetch_object()) {
 											<div class="col-md-2">
 
 												<div class="btn-group pull-right">
-													<button type="button" class="btn btn-success btn-rounded waves-effect waves-light"  data-toggle="modal" data-target="#nuevoProducto"><i class="fa fa-plus"></i> Agregar</button>
-												</div>
-<<<<<<< HEAD
-                                                                                            <div class="btn-group pull-right">
-													<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" onclick="producto_id()"  data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
-=======
-												<div class="btn-group pull-right">
-													<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
->>>>>>> a47bc9cda945790f588acfbf8a94600db273f3e5
+													<button type="button" class="btn btn-success btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#nuevoProducto"><i class="fa fa-plus"></i> Agregar</button>
 												</div>
 
-											</div>
-											<div class="col-md-2">
 												<div class="btn-group pull-right">
-													<?php if ($permisos_editar == 1) { ?>
-														<div class="btn-group dropup">
-															<button aria-expanded="false" class="btn btn-outline-default btn-rounded waves-effect waves-light" data-toggle="dropdown" type="button">
-																<i class='fa fa-file-text'></i> Reporte
-																<span class="caret">
-																</span>
-															</button>
-															<div class="dropdown-menu">
-																<a class="dropdown-item" href="#" onclick="reporte();">
-																	<i class='fa fa-file-pdf-o'></i> PDF
-																</a>
-																<a class="dropdown-item" href="#" onclick="reporte_excel();">
-																	<i class='fa fa-file-excel-o'></i> Excel
-																</a>
+													<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" onclick="producto_id()" data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
+
+													<div class="btn-group pull-right">
+														<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
+
+													</div>
+
+												</div>
+												<div class="col-md-2">
+													<div class="btn-group pull-right">
+														<?php if ($permisos_editar == 1) { ?>
+															<div class="btn-group dropup">
+																<button aria-expanded="false" class="btn btn-outline-default btn-rounded waves-effect waves-light" data-toggle="dropdown" type="button">
+																	<i class='fa fa-file-text'></i> Reporte
+																	<span class="caret">
+																	</span>
+																</button>
+																<div class="dropdown-menu">
+																	<a class="dropdown-item" href="#" onclick="reporte();">
+																		<i class='fa fa-file-pdf-o'></i> PDF
+																	</a>
+																	<a class="dropdown-item" href="#" onclick="reporte_excel();">
+																		<i class='fa fa-file-excel-o'></i> Excel
+																	</a>
+																</div>
 															</div>
-														</div>
-													<?php } ?>
+														<?php } ?>
+													</div>
 												</div>
-											</div>
 
-										</div>
+											</div>
 									</form>
 									<div class="datos_ajax_delete"></div><!-- Datos ajax Final -->
 									<div class="row">
@@ -235,10 +235,6 @@ while ($r = $query->fetch_object()) {
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/productos.js"></script>
 <script>
-    
-         
-
-
 	function precio_venta() {
 		var profit = $("#utilidad").val();
 		var buying_price = $("#costo").val();
@@ -719,7 +715,6 @@ while ($r = $query->fetch_object()) {
 			});
 		});
 	});
->>>>>>> a47bc9cda945790f588acfbf8a94600db273f3e5
 </script>
 <?php require 'includes/footer_end.php'
 ?>

@@ -137,6 +137,80 @@
 		border-radius: 0.5rem;
 		padding: 10px;
 	}
+
+	/* animaciones del boton comprar */
+	/* Animación Bounce */
+	.bounce {
+		animation: bounce 1.2s ease-in-out infinite;
+	}
+
+	@keyframes bounce {
+
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+
+		50% {
+			transform: translateY(-10px);
+		}
+	}
+
+	/* Animación Shake */
+	.shake {
+		animation: shake 6s linear infinite;
+	}
+
+	@keyframes shake {
+
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+
+		10%,
+		20%,
+		30%,
+		40%,
+		50%,
+		60%,
+		70%,
+		80%,
+		90% {
+			transform: translateX(5px);
+		}
+
+		15%,
+		25%,
+		35%,
+		45%,
+		55%,
+		65%,
+		75%,
+		85%,
+		95% {
+			transform: translateX(-5px);
+		}
+	}
+
+	/* Animación Pulse */
+	.pulse {
+		animation: pulse 1s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0% {
+			transform: scale(1);
+		}
+
+		50% {
+			transform: scale(1.1);
+		}
+
+		100% {
+			transform: scale(1);
+		}
+	}
 </style>
 
 
@@ -343,13 +417,35 @@
 		const field = $('#' + key);
 		const previewField = $('#' + key + 'Preview');
 
+		// Aplicar valor al campo y disparar evento change para asegurar cualquier lógica de UI
 		updateFieldValue(field, value);
-		updatePreviewField(key, previewField, value);
 
-		if (key === 'alineacion_titulo') {
-			updateTextAlignment(value);
+		// Específico para animaciones y colores
+		if (key === 'animacionBtn_comprar') {
+			const btnPreview = $('#textoBtn_comprarPreview');
+			btnPreview.removeClass('bounce shake pulse');
+			btnPreview.addClass(value);
 		} else if (key.startsWith('color')) {
-			updateColor(key, value);
+			// Asegurarse de que se actualice el color directamente en la vista previa adecuadamente
+			applyColor(key, value, previewField);
+		} else if (key.includes('txt_')) {
+			previewField.attr('placeholder', value);
+		} else if (key.includes('icono')) {
+			previewField.html("<i class='" + value + "'></i>");
+		} else {
+			previewField.text(value);
+		}
+	}
+
+	function applyColor(key, value, previewField) {
+		if (key === 'colorBtn_comprar') {
+			// Aplicar el color directamente al botón de compra en la vista previa
+			$('#textoBtn_comprarPreview').css('background-color', value);
+		} else if (key === 'colorTxt_titulo') {
+			$('#texto_tituloPreview').css('color', value);
+		} else {
+			// Aplica color general si es necesario a otros elementos
+			previewField.css('color', value);
 		}
 	}
 
@@ -378,7 +474,16 @@
 
 	function toggleVisibility(state, id_elemento) {
 		const preview = $('#' + id_elemento + 'Preview');
-		state === '0' ? preview.hide() : preview.show();
+		const toggleButton = $('#' + id_elemento).find('.toggle-visibility i');
+
+		// Actualiza la visibilidad del elemento
+		if (state === '0') {
+			preview.hide();
+			toggleButton.removeClass('fa-eye').addClass('fa-eye-slash');
+		} else {
+			preview.show();
+			toggleButton.removeClass('fa-eye-slash').addClass('fa-eye');
+		}
 	}
 
 	function reorderElements(id_elemento, position) {
