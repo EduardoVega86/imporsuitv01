@@ -30,6 +30,9 @@ $("#editar_linea").submit(function (event) {
       }, 2000);
     },
   });
+  if (window.location.origin === "https://marketplace.imporsuit.com") {
+    $("#etc").attr("css", "display: none !important");
+  }
   event.preventDefault();
 });
 function load(page) {

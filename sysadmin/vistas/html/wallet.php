@@ -105,18 +105,21 @@ permisos($modulo, $cadena_permisos);
 
                                         </select>
                                     </div>
-                                    <div id="proveedor">
+                                    <div id="etc">
 
-                                    </div>
-                                    <div class="col-md-4 input-group ">
-                                        <label for="numero_q2">Numero de facturas a ver: </label>
-                                        <select onchange="buscar_numero2(this.value)" name="numero_q2" class="form-control" id="numero_q2">
-                                            <option value="10"> 10 </option>
-                                            <option value="20"> 20 </option>
-                                            <option value="50"> 50 </option>
-                                            <option value="100"> 100 </option>
+                                        <div id="proveedor">
 
-                                        </select>
+                                        </div>
+                                        <div class="col-md-4 input-group ">
+                                            <label for="numero_q2">Numero de facturas a ver: </label>
+                                            <select onchange="buscar_numero2(this.value)" name="numero_q2" class="form-control" id="numero_q2">
+                                                <option value="10"> 10 </option>
+                                                <option value="20"> 20 </option>
+                                                <option value="50"> 50 </option>
+                                                <option value="100"> 100 </option>
+
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 

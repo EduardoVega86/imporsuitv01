@@ -1,0 +1,52 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+
+# Configuración del navegador
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+wait = WebDriverWait(driver, 10)  # Ajustar el tiempo de espera según sea necesario
+
+try:
+    # Abrir la página de login
+    driver.get('https://auth.hostinger.com/login')
+
+    # Esperar a que los elementos estén disponibles
+    username_input = wait.until(EC.presence_of_element_located((By.ID, 'email-input')))
+    password_input = wait.until(EC.presence_of_element_located((By.ID, 'password-input')))
+    login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Log in')]")))
+
+    # Introducir credenciales y hacer clic en login
+    username_input.send_keys('desarrollo1imporfactory@gmail.com')
+    password_input.send_keys('Desarrollo.1')
+    login_button.click()
+
+    # Esperar a que el login se complete y redirigir a la página específica
+    wait.until(EC.url_contains('dashboard'))  # Asegura que el login fue exitoso y redirecciona
+    driver.get('https://hpanel.hostinger.com/external-domain/merkapro.ec/dns')
+
+    # Realizar acciones en la nueva página
+    # Seleccionar el tipo de registro DNS a CNAME
+    select_type = wait.until(EC.element_to_be_clickable((By.ID, 'hdomains_dns_create_record_type')))
+    select_type.click()
+    select_type.send_keys('CNAME')
+    select_type.send_keys(Keys.RETURN)
+
+    # Ingresar el nombre del dominio
+    input_name = wait.until(EC.presence_of_element_located((By.ID, 'hdomains_dns_create_record_name')))
+    input_name.send_keys('subdominio')  # Reemplazar 'subdominio' con el nombre específico
+
+    # Ingresar el objetivo del registro
+    input_target = wait.until(EC.presence_of_element_located((By.ID, 'hdomains_dns_create_record_target')))
+    input_target.send_keys('merkapro.ec')
+
+    # Hacer clic en el botón de añadir registro
+    add_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Add Record')]")))
+    add_button.click()
+
+finally:
+    # Cerrar el navegador después de la sesión
+    driver.quit()
