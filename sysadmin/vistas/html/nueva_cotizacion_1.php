@@ -313,7 +313,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                 <div class="col-md-3">
                                                                     <div class="form-group">
                                                                         <label for="asegurar_producto">
-                                                                            <input class="formulario" style="width: 20px; height: 20px; margin-top: 25px" type="checkbox" id="asegurar_producto" name="asegurar_producto" value="1">
+                                                                            <input class="formulario" style="width: 20px; height: 20px; margin-top: 25px" type="checkbox" id="asegurar_producto" name="asegurar_producto" value="0">
                                                                             Deseo asegurar la mercadería
                                                                         </label>
                                                                     </div>
@@ -543,6 +543,8 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
             }
 
             var data = new FormData(formulario);
+            let checked = document.getElementById('asegurar_producto').checked;
+            checked = checked ? 1 : 0;
             data.append("nombre_destino", document.getElementById('nombred').value);
             data.append("celular", document.getElementById('telefonod').value);
             data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
@@ -552,7 +554,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
             data.append("ciudad", document.getElementById('ciudad_entrega').value);
             data.append("productos_guia", document.getElementById('productos_guia').value);
             data.append("identificacion", "0");
-            data.append("seguro", document.getElementById('asegurar_producto').value);
+            data.append("seguro", checked);
 
             // generar el pedido
             $.ajax({
