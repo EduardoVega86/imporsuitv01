@@ -13,6 +13,16 @@ $(document).ready(function () {
       // Puedes añadir más opciones de configuración aquí
     });
   });
+  // filtro por fechas
+  $("#datepickerInicio .input-group.date").datepicker({
+    format: "yyyy-mm-dd",
+    autoclose: true,
+  });
+
+  $("#datepickerFin .input-group.date").datepicker({
+    format: "yyyy-mm-dd",
+    autoclose: true,
+  });
 });
 $("#editar_linea").submit(function (event) {
   // alert();
@@ -53,112 +63,23 @@ $("#editar_linea").submit(function (event) {
   event.preventDefault();
 });
 function load(page) {
-  var q = $("#q").val();
+  var q = $("#q").val() || ""; // Usar '' como valor predeterminado si no hay entrada
   var tienda = $("#tienda_q").val();
   var estado = $("#estado_q").val();
   var numero = $("#numero_q").val();
   var transportadora = $("#transporte").val();
-  var url = "";
+  var fechaInicio = $("#datepickerInicio input").val() || "";
+  var fechaFin = $("#datepickerFin input").val() || "";
 
-  if (tienda != 0) {
-    url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
-      page +
-      "&q=" +
-      q +
-      "&tienda=" +
-      tienda +
-      "&numero=" +
-      numero +
-      "&transportadora=" +
-      transportadora;
-  } else if (estado != 0) {
-    url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
-      page +
-      "&q=" +
-      q +
-      "&estado=" +
-      estado +
-      "&numero=" +
-      numero +
-      "&transportadora=" +
-      transportadora;
-  } else if (tienda != 0 && estado != 0) {
-    url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
-      page +
-      "&q=" +
-      q +
-      "&tienda=" +
-      tienda +
-      "&estado=" +
-      estado +
-      "&numero=" +
-      numero +
-      "&transportadora=" +
-      transportadora;
-  }
-  if (tienda != 0 && estado != 0 && numero != 0) {
-    url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
-      page +
-      "&q=" +
-      q +
-      "&tienda=" +
-      tienda +
-      "&estado=" +
-      estado +
-      "&numero=" +
-      numero +
-      "&transportadora=" +
-      transportadora;
-  }
-  if (tienda != 0 && numero != 0) {
-    url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
-      page +
-      "&q=" +
-      q +
-      "&tienda=" +
-      tienda +
-      "&numero=" +
-      numero +
-      "&transportadora=" +
-      transportadora;
-  }
-  if (transportadora != 0 && numero != 0) {
-    url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
-      page +
-      "&q=" +
-      q +
-      "&transportadora=" +
-      transportadora +
-      "&numero=" +
-      numero;
-  }
-  if (transportadora == 0 && numero != 0 && tienda == 0 && estado == 0) {
-    url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
-      page +
-      "&q=" +
-      q +
-      "&numero=" +
-      numero;
-  } else {
-    url =
-      "../ajax/buscar_cotizacion_new.php?action=ajax&page=" +
-      page +
-      "&q=" +
-      q +
-      "&numero=" +
-      numero +
-      "&transportadora=" +
-      transportadora;
-  }
-
-  url = url + "&filtro=" + filtroG;
+  var url = "../ajax/buscar_cotizacion_new.php?action=ajax&page=" + page;
+  url += "&q=" + encodeURIComponent(q);
+  if (tienda != 0) url += "&tienda=" + encodeURIComponent(tienda);
+  if (estado != 0) url += "&estado=" + encodeURIComponent(estado);
+  if (numero != 0) url += "&numero=" + encodeURIComponent(numero);
+  if (transportadora != 0)
+    url += "&transportadora=" + encodeURIComponent(transportadora);
+  if (fechaInicio) url += "&fechaInicio=" + encodeURIComponent(fechaInicio);
+  if (fechaFin) url += "&fechaFin=" + encodeURIComponent(fechaFin);
 
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -169,9 +90,11 @@ function load(page) {
     success: function (data) {
       $(".outer_div").html(data).fadeIn("slow");
       $("#loader").html("");
-      $('[data-toggle="tooltip"]').tooltip({
-        html: true,
-      });
+      $('[data-toggle="tooltip"]').tooltip({ html: true });
+    },
+    error: function (xhr, status, error) {
+      console.error("Error en AJAX: " + error);
+      $("#loader").html("");
     },
   });
 }
