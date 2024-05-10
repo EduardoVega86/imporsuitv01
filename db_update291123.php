@@ -2405,6 +2405,8 @@ mysqli_query($conexion, "CREATE TABLE `variedades` (
   UNIQUE KEY `id_variedad` (`id_variedad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
 
+mysqli_query($conexion, "INSERT INTO lineas (id_linea, nombre_linea, descripcion_linea, estado_linea, date_added, online, tipo, padre) VALUES (1000, 'OFERTAS', 'OFERTAS', 1, '2024-05-09 15:27:28', 1, '1', 0);");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");

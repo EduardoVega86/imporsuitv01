@@ -82,6 +82,15 @@ $pacientes = 1;
         background-color: #dedbdb;
     }
 
+    .caja_oferta {
+        padding-top: 10px;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+        border-radius: 0.5rem;
+        background-color: rgba(0, 164, 251, 0.5);
+        /* 50% de opacidad */
+    }
+
     .discount-code-container {
         max-width: 300px;
         /* O el ancho que prefieras */
@@ -718,6 +727,38 @@ $pacientes = 1;
                                 </div>
                             </div>
                             <!-- Fin BOTON DE COMPRA -->
+                            <!-- oferta_adicional -->
+                            <!-- <div class="list-group-item" id="oferta_adicional">
+                                <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+                                    <div>
+                                        <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
+                                        Oferta Adicional
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <button class="btn btn-secondary btn-sm edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-up"><i class="fas fa-arrow-up"></i></button>
+                                            <button class="btn btn-secondary btn-sm move-down"><i class="fas fa-arrow-down"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                               
+                                <div class="edit-section hidden">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="txt_oferta_adicional">Comentario de ofecta adicional</label>
+                                            <input type="text" class="form-control" id="txt_oferta_adicional" placeholder="">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="valor_oferta_adicional">Valor de oferta</label>
+                                            <input type="text" class="form-control" id="valor_oferta_adicional" placeholder="">
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div> -->
+                            <!-- Fin oferta_adicional -->
                         </div>
                     </div>
                 </div>
@@ -992,6 +1033,22 @@ $pacientes = 1;
                     btnPreview.addClass(animacionSeleccionada);
                 }
             });
+
+            // Evento para cambiar el color del texto del título
+            $('#colorTxt_titulo').on('change', function() {
+                $('#texto_tituloPreview').css('color', $(this).val());
+            });
+
+            // Cambiar el color del botón Aplicar en tiempo real
+            $('#colorBtn_aplicar').on('change', function() {
+                $('#textoBtn_aplicarPreview').css('background-color', $(this).val());
+            });
+
+            // Cambiar el color del botón comprar en tiempo real
+            $('#colorBtn_comprar').on('change', function() {
+                console.log("Evento change disparado para colorBtn_comprar");
+                $('#textoBtn_comprarPreview').css('background-color', $(this).val());
+            });
         });
         //PREVIEW
         document.addEventListener('DOMContentLoaded', () => {
@@ -1134,56 +1191,62 @@ $pacientes = 1;
         }
 
         function processItem(item) {
-		Object.keys(item.content).forEach(key => {
-			updateFieldAndPreview(key, item.content[key], item.id_elemento);
-		});
-		toggleVisibility(item.estado, item.id_elemento);
-		reorderElements(item.id_elemento, item.posicion);
-	}
+            Object.keys(item.content).forEach(key => {
+                updateFieldAndPreview(key, item.content[key], item.id_elemento);
+            });
+            toggleVisibility(item.estado, item.id_elemento);
+            reorderElements(item.id_elemento, item.posicion);
+        }
 
-	function updateFieldAndPreview(key, value, id_elemento) {
-		const field = $('#' + key);
-		const previewField = $('#' + key + 'Preview');
+        function updateFieldAndPreview(key, value, id_elemento) {
+            const field = $('#' + key);
+            const previewField = $('#' + key + 'Preview');
 
-		// Aplicar valor al campo y disparar evento change para asegurar cualquier lógica de UI
-		updateFieldValue(field, value);
+            // Aplicar valor al campo y disparar evento change para asegurar cualquier lógica de UI
+            updateFieldValue(field, value);
 
-		// Específico para animaciones y colores
-		if (key === 'animacionBtn_comprar') {
-			const btnPreview = $('#textoBtn_comprarPreview');
-			btnPreview.removeClass('bounce shake pulse');
-			btnPreview.addClass(value);
-		} else if (key.startsWith('color')) {
-			// Asegurarse de que se actualice el color directamente en la vista previa adecuadamente
-			applyColor(key, value, previewField);
-		} else if (key.includes('txt_')) {
-			previewField.attr('placeholder', value);
-		} else if (key.includes('icono')) {
-			previewField.html("<i class='" + value + "'></i>");
-		} else {
-			previewField.text(value);
-		}
-	}
+            // Si el elemento es un input, actualiza el placeholder; si es otro elemento (como label), actualiza su texto
+            if (previewField.is('input')) {
+                previewField.attr('placeholder', value);
+            } else {
+                previewField.text(value);
+            }
+            // Específico para animaciones y colores
+            if (key === 'animacionBtn_comprar') {
+                const btnPreview = $('#textoBtn_comprarPreview');
+                btnPreview.removeClass('bounce shake pulse');
+                btnPreview.addClass(value);
+            } else if (key.startsWith('color')) {
+                // Asegurarse de que se actualice el color directamente en la vista previa adecuadamente
+                applyColor(key, value, previewField);
+            } else if (key.includes('txt_')) {
+                previewField.attr('placeholder', value);
+            } else if (key.includes('icono')) {
+                previewField.html("<i class='" + value + "'></i>");
+            } else {
+                previewField.text(value);
+            }
+        }
 
-	function applyColor(key, value, previewField) {
-		if (key === 'colorBtn_comprar') {
-			// Aplicar el color directamente al botón de compra en la vista previa
-			$('#textoBtn_comprarPreview').css('background-color', value);
-		} else if (key === 'colorTxt_titulo') {
-			$('#texto_tituloPreview').css('color', value);
-		} else {
-			// Aplica color general si es necesario a otros elementos
-			previewField.css('color', value);
-		}
-	}
+        function applyColor(key, value, previewField) {
+            if (key === 'colorBtn_comprar') {
+                // Aplicar el color directamente al botón de compra en la vista previa
+                $('#textoBtn_comprarPreview').css('background-color', value);
+            } else if (key === 'colorTxt_titulo') {
+                $('#texto_tituloPreview').css('color', value);
+            } else {
+                // Aplica color general si es necesario a otros elementos
+                previewField.css('color', value);
+            }
+        }
 
-	function updateFieldValue(field, value) {
-		if (field.is(':checkbox')) {
-			field.prop('checked', value === 'on');
-		} else {
-			field.val(value).change(); // Trigger change for preview updates
-		}
-	}
+        function updateFieldValue(field, value) {
+            if (field.is(':checkbox')) {
+                field.prop('checked', value === 'on');
+            } else {
+                field.val(value).change(); // Trigger change for preview updates
+            }
+        }
 
         function updatePreviewField(key, previewField, value) {
             if (!previewField.length) {
@@ -1380,20 +1443,7 @@ $pacientes = 1;
                         break;
                 }
             });
-            // Evento para cambiar el color del texto del título
-            $('#colorTxt_titulo').on('change', function() {
-                $('#texto_tituloPreview').css('color', $(this).val());
-            });
 
-            // Cambiar el color del botón Aplicar en tiempo real
-            $('#colorBtn_aplicar').on('change', function() {
-                $('#textoBtn_aplicarPreview').css('background-color', $(this).val());
-            });
-
-            // Cambiar el color del botón comprar en tiempo real
-            $('#colorBtn_comprar').on('change', function() {
-                $('#textoBtn_comprarPreview').css('background-color', $(this).val());
-            });
 
         });
         //boton de inconos
