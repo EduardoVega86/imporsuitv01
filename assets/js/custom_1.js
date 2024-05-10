@@ -107,3 +107,31 @@ function eliminar(id) {
     },
   });
 }
+
+$(document).ready(function() {
+  $('#oferta_seleccionada').change(function() {
+    var sesion = $("#session").val();
+    var estado = $(this).is(':checked') ? 1 : 0;
+    console.log("Sesión: ", sesion, "Estado: ", estado); // Depuración para verificar los valores
+
+    $.ajax({
+      url: '../ajax/agregar_tmp_modalventas_1.php',
+      type: 'POST',
+      data: {
+        'estado_oferta': estado,
+        'sesion': sesion
+      },
+      beforeSend: function() {
+        $("#resultados").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+      },
+      success: function(response) {
+        $("#resultados").html(response);
+        console.log('Datos actualizados correctamente.');
+      },
+      error: function(xhr, status, error) {
+        console.error('Error al enviar los datos:', error);
+      }
+    });
+  });
+});
+
