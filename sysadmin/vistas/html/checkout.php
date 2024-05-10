@@ -18,6 +18,7 @@ permisos($modulo, $cadena_permisos);
 //Finaliza Control de Permisos
 $title     = "Categorias";
 $pacientes = 1;
+
 ?>
 
 
@@ -83,9 +84,7 @@ $pacientes = 1;
     }
 
     .caja_oferta {
-        padding-top: 10px;
-        padding-right: 10px !important;
-        padding-left: 10px !important;
+        padding: 10px;
         border-radius: 0.5rem;
         background-color: rgba(0, 164, 251, 0.5);
         /* 50% de opacidad */
@@ -728,7 +727,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin BOTON DE COMPRA -->
                             <!-- oferta_adicional -->
-                            <!-- <div class="list-group-item" id="oferta_adicional">
+                            <div class="list-group-item" id="oferta_adicional">
                                 <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <div>
                                         <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
@@ -757,7 +756,7 @@ $pacientes = 1;
 
                                     </form>
                                 </div>
-                            </div> -->
+                            </div>
                             <!-- Fin oferta_adicional -->
                         </div>
                     </div>
@@ -925,6 +924,12 @@ $pacientes = 1;
 
                             </div>
                             <!-- Fin Boton Comprar -->
+                            <!-- oferta_adicional -->
+                            <div class="form-group caja_oferta" id="oferta_adicionalPreview" style="position: relative; padding-top: 3px;">
+                                <label class="sub_titulos" id="txt_oferta_adicionalPreview">Barrio o Referencia</label>
+                                <label class="sub_titulos" id="valor_oferta_adicionalPreview">Barrio o Referencia</label>
+                            </div>
+                            <!-- Fin oferta_adicional -->
                         </div>
                     </div>
                 </div>
