@@ -544,7 +544,11 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 
             var data = new FormData(formulario);
             let checked = document.getElementById('asegurar_producto').checked;
-            checked = checked ? 1 : 0;
+            if (checked) {
+                checked = $('#valorasegurado').val();
+            } else {
+                checked = 0;
+            }
             data.append("nombre_destino", document.getElementById('nombred').value);
             data.append("celular", document.getElementById('telefonod').value);
             data.append("direccion", document.getElementById('calle_principal').value + ' ' + document.getElementById('calle_secundaria').value);
