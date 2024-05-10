@@ -78,20 +78,21 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $sWhere .= " and  estado_guia_sistema='$estado'";
     }
     if (@$_GET['transportadora'] != "") {
+        echo 'entro a la condicion transporte';
         $transportadora = $_REQUEST['transportadora'];
         $sWhere .= " and  transporte='$transportadora'";
     }
-    if (@$_GET['fechaInicio'] != "") {
-        $fechaInicio = $_REQUEST['fechaInicio'];
-        $sWhere .= " and  transporte='$fechaInicio'";
-    }
     // Añadir las condiciones al SQL solo si ambas fechas están presentes
+    $fechaInicio = @$_GET['fechaInicio'];
+    $fechaFin = @$_GET['fechaFin'];
     if ($fechaInicio != "" && $fechaFin != "") {
+        echo 'entro a la condicion fecha';
         $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio' AND '$fechaFin'";
     }
 
 
     $sWhere .= " order by facturas_cot.id_factura desc";
+
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;

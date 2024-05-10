@@ -14,15 +14,29 @@ $(document).ready(function () {
     });
   });
   // filtro por fechas
-  $("#datepickerInicio .input-group.date").datepicker({
-    format: "yyyy-mm-dd",
+  // Inicializa el datepicker de fecha de inicio
+  $('#datepickerInicio input').datepicker({
+    format: "dd/mm/yyyy",
+    language: "es",
     autoclose: true,
-  });
+    todayHighlight: true
+}).on('changeDate', function(selected) {
+    var minDate = new Date(selected.date.valueOf());
+    $('#datepickerFin input').datepicker('setStartDate', minDate);
+});
 
-  $("#datepickerFin .input-group.date").datepicker({
-    format: "yyyy-mm-dd",
+// Inicializa el datepicker de fecha de fin
+$('#datepickerFin input').datepicker({
+    format: "dd/mm/yyyy",
+    language: "es",
     autoclose: true,
-  });
+    todayHighlight: true
+});
+
+// Manejador para abrir el calendario al hacer clic en el ícono
+$('.input-group-text').click(function() {
+    $(this).parent().prev('input').datepicker('show');
+});
 });
 $("#editar_linea").submit(function (event) {
   // alert();
