@@ -320,7 +320,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <span class="help-block">Valor a asegurar </span>
-                                                                    <input id="valorasegurado" name="valorasegurado" class="form-control" value="" placeholder="Valor a aegurar">
+                                                                    <input id="valorasegurado" name="valorasegurado" class="form-control" placeholder="Valor a aegurar">
                                                                 </div>
                                                             </div>
                                                             <div class="row justify-content-center items-center mt-3 text-center ">
@@ -336,7 +336,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
                                                                         <button style="cursor: pointer;" id="generar_guia_btn" type="button" onclick="generar_guia()" class="btn  w-100 btn-danger" disabled>Generar Guía</button>
                                                                     </div>
                                                                     <div class="col-12 col-sm-6 col-md-3 mb-3">
-                                                                        <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn w-100  btn-primary">Facturar</button>
+                                                                        <!--      <button style="cursor: pointer;" type="button" onclick="calcular_guia()" class="btn w-100  btn-primary">Facturar</button> -->
                                                                     </div>
                                                             </div>
                                                         <?php
