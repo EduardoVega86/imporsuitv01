@@ -592,7 +592,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                               <div class="card">
                                 <div class="card-header" id="heading-<?php echo htmlspecialchars($categoria_acordion['nombre_linea']); ?>">
                                   <h5 class="mb-0">
-                                    <button type="button" class="btn" onclick="window.location.href='categoria_1.php?id_cat=<?php echo urlencode($categoria_acordion['id_linea']); ?>'">
+                                    <button type="button" class="btn" style="font-size: 12px;" onclick="window.location.href='categoria_1.php?id_cat=<?php echo urlencode($categoria_acordion['id_linea']); ?>'">
                                       <?php echo htmlspecialchars($categoria_acordion['nombre_linea']); ?>
                                     </button>
                                   </h5>
@@ -674,7 +674,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="card">
                           <div class="card-header" id="heading-<?php echo htmlspecialchars($categoria_acordion['nombre_linea']); ?>">
                             <h5 class="mb-0">
-                              <button type="button" class="btn" onclick="window.location.href='categoria_1.php?id_cat=<?php echo urlencode($categoria_acordion['id_linea']); ?>'">
+                              <button type="button" class="btn" style="font-size: 12px;" onclick="window.location.href='categoria_1.php?id_cat=<?php echo urlencode($categoria_acordion['id_linea']); ?>'">
                                 <?php echo htmlspecialchars($categoria_acordion['nombre_linea']); ?>
                               </button>
                             </h5>
