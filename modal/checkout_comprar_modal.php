@@ -432,7 +432,6 @@
 </div><!-- /.modal -->
 
 <script>
-	
 
 	// Funcion para que consuma los datos de checkout.json y los utilice
 

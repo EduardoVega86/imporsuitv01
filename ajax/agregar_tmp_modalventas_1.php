@@ -1,7 +1,5 @@
 <?php
-
 //include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
-
 /* Connect To Database*/
 require_once "../sysadmin/vistas/db.php";
 require_once "../sysadmin/vistas/php_conexion.php";
@@ -25,7 +23,33 @@ if (isset($_POST['valor_cantidad'])) {
     $valor_cantidad = 1;
 }
 $estado_oferta = isset($_POST['estado_oferta']) ? $_POST['estado_oferta'] : 0;
+$session_id = $_POST['sesion'];
 //echo $descripcion_libre;
+if ($estado_oferta == 1) {
+    $sql3 = "select * from productos where id_linea_producto = 1000 ";
+    $query3 = mysqli_query($conexion, $sql3);
+
+    while ($row = mysqli_fetch_array($query3)) {
+        $id_producto_oferta = $row["id_producto"];
+        $nombre_producto_oferta = $row["nombre_producto"];
+        $costo_producto_oferta = $row["costo_producto"];
+        $drogshipin_oferta_tmp = $row["drogshipin"];
+        $insert_tmp = mysqli_query($conexion, "INSERT INTO tmp_ventas (id_producto,cantidad_tmp,precio_tmp,desc_tmp,session_id, drogshipin_tmp) VALUES ('$id_producto_oferta',1,'$costo_producto_oferta','0','$session_id','$drogshipin_oferta_tmp')");
+    }
+} else {
+    $sql3 = "SELECT * FROM productos WHERE id_linea_producto = 1000";
+    $query3 = mysqli_query($conexion, $sql3);
+
+    while ($row = mysqli_fetch_array($query3)) {
+        $id_producto_oferta = $row["id_producto"];
+        $query_eliminar = mysqli_query($conexion, "SELECT id_tmp FROM tmp_ventas WHERE id_producto = '$id_producto_oferta'");
+
+        if ($row_eliminar = mysqli_fetch_array($query_eliminar)) {
+            $id_tmp_eliminar = $row_eliminar["id_tmp"];
+            $delete = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE id_tmp = '$id_tmp_eliminar'");
+        }
+    }
+}
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
     // consulta para comparar el stock con la cantidad resibida
     $query = mysqli_query($conexion, "select stock_producto, drogshipin, inv_producto from productos where id_producto = '$id'");
@@ -69,6 +93,8 @@ if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
         // fin codicion cantaidad
     }
 }
+
+
 if (isset($_GET['id'])) //codigo elimina un elemento del array
 {
     $id_tmp = intval($_GET['id']);
@@ -88,7 +114,12 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
     $subtotal       = 0;
     $sql            = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
     $cantidad_total = 0;
+
     while ($row = mysqli_fetch_array($sql)) {
+        if ($row['id_linea_producto'] == 1000) {
+            continue; // Salta a la siguiente iteración del bucle si el id_linea_producto es 1000
+        }
+
         $id_tmp          = $row["id_tmp"];
         $codigo_producto = $row['codigo_producto'];
         $id_producto     = $row['id_producto'];
@@ -146,12 +177,12 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                <?php echo  $image_path . '"'; ?>
                                <?php
                                 } else {
-                                    ?>
+                                ?>
                                sysadmin/<?php echo str_replace("../..", "", $image_path) ?>" <?php
-                                                                }
-                                                                    ?> class="_rsi-modal-line-item-image">
-                                                   </td>
-                                                   <td style="width: 10%">
+                                                                                            }
+                                                                                                ?> class="_rsi-modal-line-item-image">
+                        </td>
+                        <td style="width: 10%">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-default btn-incrementar" data-id="<?php echo $id_producto; ?>">+</button>
@@ -224,8 +255,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                         </td>
                         <td style="width: 50%">
                             <div class="_rsi-modal-line-item-info">
-                                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721" style="font-size: 15px;"><?php echo $nombre_producto;?></a>
-                                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721" style="font-size: 15px;"><?php echo "Estado recibido: " . $estado_oferta;?></a>
+                                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721" style="font-size: 15px;"><?php echo $nombre_producto; ?></a>
                             </div>
                         </td>
                         <td style="width: 10%">
@@ -241,15 +271,38 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
     }
     $total_factura = $subtotal + $total_impuesto;
 
+    $subtotal = $total_factura;
+
         ?>
         </div>
         <div class="_rsi-build-block _rsi-build-block-totals-summary">
             <div style="background-color: #e8ecef; padding: 10px; border-radius: 0.3rem;" class="_rsi-modal-checkout-lines">
                 <table style="width: 100%">
 
+                    <?php
+                    if ($estado_oferta == 1) {
+                        $sql3 = "select * from productos where id_linea_producto = 1000 ";
+                        $query3 = mysqli_query($conexion, $sql3);
+
+                        while ($row = mysqli_fetch_array($query3)) {
+                            $id_producto_oferta = $row["id_producto"];
+                            $nombre_producto_oferta = $row["nombre_producto"];
+                            $costo_producto_oferta = $row["costo_producto"];
+                            $drogshipin_oferta_tmp = $row["drogshipin"];
+
+                            $total_factura = $total_factura + $costo_producto_oferta;
+                    ?>
+                    <div class="" data-checkout-line="subtotal">
+                        <span style="text-align: left" class=""><?php echo $nombre_producto_oferta; ?></span>
+                        <span style="float: right" class=""><?php echo $simbolo_moneda . number_format($costo_producto_oferta, 2); ?></span>
+                    </div>
+                    <?php
+                        }
+                    }
+                    ?>
                     <div class="" data-checkout-line="subtotal">
                         <span style="text-align: left" class="">Subtotal</span>
-                        <span style="float: right" class=""><?php echo $simbolo_moneda . number_format($total_factura, 2); ?></span>
+                        <span style="float: right" class=""><?php echo $simbolo_moneda . number_format($subtotal, 2); ?></span>
                     </div>
 
                     <?php
