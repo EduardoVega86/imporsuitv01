@@ -2407,6 +2407,26 @@ mysqli_query($conexion, "CREATE TABLE `variedades` (
 
 mysqli_query($conexion, "INSERT INTO lineas (id_linea, nombre_linea, descripcion_linea, estado_linea, date_added, online, tipo, padre) VALUES (1000, 'OFERTAS', 'OFERTAS', 1, '2024-05-09 15:27:28', 1, '1', 0);");
 
+mysqli_query($conexion,"CREATE TABLE `bodega` (
+	`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+	`nombre` varchar(1500) NOT NULL,
+	`id_empresa` int(11) NOT NULL,
+	`longitud` double NOT NULL,
+	`latitud` double NOT NULL,
+	`direccion` varchar(1500) NOT NULL,
+	`num_casa` varchar(100) NOT NULL,
+	`referencia` varchar(1500) NOT NULL,
+	`responsable` varchar(100) NOT NULL,
+	`contacto` varchar(1000) NOT NULL,
+	`localidad` varchar(100) NOT NULL,
+	`provincia` varchar(100) NOT NULL,
+	UNIQUE KEY `id` (`id`)
+  ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
+  
+mysqli_query($conexion, "INSERT INTO bodega (nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES ('GINTRACON', 1050, -78.4831961, -0.1419421, 'Av. Galo Plaza Lasso N52-107 y, Quito 170512, Ecuador', 'N52-107', 'Av. Galo Plaza Lasso N52-107 y, Quito 170512, Ecuador', 'GINTRACON', '0990547325', '552', '201001001');");
+
+mysqli_query($conexion, "INSERT INTO bodega (nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES ('IMPORSHOP', 53, -78.54404699112396, -0.25643436166077654, 'PFV4+C98, C. O, Quito 170131, Ecuador', 'S1645', 'PFV4+C98, C. O, Quito 170131, Ecuador', 'IMPORSHOP', '0998979214', '552', '201001001');");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
