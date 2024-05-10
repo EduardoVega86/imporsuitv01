@@ -2423,7 +2423,7 @@ mysqli_query($conexion,"CREATE TABLE `bodega` (
 	UNIQUE KEY `id` (`id`)
   ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
 
-mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES (1,'Bodega Local', 1050, 0, 0, '', '', '', 'Bodega Local', '', '552', '201001001');");
+mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES (1,'Bodega Local', 1, 0, 0, '', '', '', 'Bodega Local', '', '552', '201001001');");
 
 mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES (101,'GINTRACON', 1050, -78.4831961, -0.1419421, 'Av. Galo Plaza Lasso N52-107 y, Quito 170512, Ecuador', 'N52-107', 'Av. Galo Plaza Lasso N52-107 y, Quito 170512, Ecuador', 'GINTRACON', '0990547325', '552', '201001001');");
 
