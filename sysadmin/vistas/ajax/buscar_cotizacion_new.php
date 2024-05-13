@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 
 use Illuminate\Support\Str;
 
@@ -87,9 +85,17 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $fechaFin = @$_GET['fechaFin'];
         $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio' AND '$fechaFin'";
     }
-    // Imprimir y detener la ejecución para depuración
-    echo $sWhere;
-    exit;
+    // Recoger el valor de filtroSolucion
+    $filtroSolucion = isset($_GET['filtroSolucion']) ? (int)$_GET['filtroSolucion'] : 0;
+
+    // Usar este valor en tu consulta SQL o lógica de filtro
+    if ($filtroSolucion == 1) {
+        // Añadir condiciones SQL específicas para cuando el checkbox está marcado
+        $sWhere .= " AND alguna_condicion_especifica = 'valor_especifico'";
+    } else {
+        // Manejar el caso cuando el checkbox no está marcado si es necesario
+        $sWhere .= ""; // Ajusta según lo que necesites hacer en este caso
+    }
 
     $sWhere .= " order by facturas_cot.id_factura desc";
 
@@ -111,6 +117,9 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+
+
+
     $empresas = mysqli_query($conexion, "SELECT * FROM empresa_envio");
     //echo $sql;
     $query = mysqli_query($conexion, $sql);

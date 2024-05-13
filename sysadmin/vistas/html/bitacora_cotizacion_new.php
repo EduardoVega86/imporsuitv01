@@ -76,18 +76,16 @@ $ventas = 1;
                                     <div class="d-flex flex-column">
                                         <div class="d-flex flex-row justify-content-start">
                                             <div class="form-check mr-3">
-                                                <input type="checkbox" class="form-check-input" id="filtroOrden" name="filtroOrden">
-                                                <label class="form-check-label" for="filtroOrden">Filtrar por Fecha de la Orden</label>
+                                                
                                             </div>
                                             <div class="form-check">
                                                 <input type="checkbox" class="form-check-input" id="filtroSolucion" name="filtroSolucion">
-                                                <label class="form-check-label" for="filtroSolucion">Filtrar por Fecha de Solución</label>
+                                                <label class="form-check-label" for="filtroSolucion">Impresas</label>
                                             </div>
                                         </div>
                                         <div class="form-check mt-2 d-flex flex-row-reverse">
                                             <div>
-                                                <input type="checkbox" class="form-check-input" id="filtroNovedad" name="filtroNovedad">
-                                                <label class="form-check-label" for="filtroNovedad">Filtrar por Fecha de Novedad</label>
+                                                
                                             </div>
                                         </div>
                                     </div>
