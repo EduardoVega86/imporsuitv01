@@ -639,7 +639,7 @@ class LaarModel extends Query
                 $data = array($cod_novedad, $detalle, $tracking, $no_guia);
                 $query = $this->update($sql, $data);
             } else {
-                echo json_encode('error');
+                echo mysqli_error($conexion_proveedor);
             }
             $sql2 = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
             $sql2 = mysqli_query($conexion_proveedor, $sql2);
@@ -653,7 +653,7 @@ class LaarModel extends Query
                     echo json_encode('ok');
                     echo "se inserto la novedad";
                 } else {
-                    echo json_encode('error');
+                    echo mysqli_error($conexion_proveedor);
                 }
             } else {
                 $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
@@ -663,7 +663,7 @@ class LaarModel extends Query
                     echo json_encode('ok');
                     echo "se actualizo la novedad";
                 } else {
-                    echo json_encode('error');
+                    echo mysqli_error($conexion_proveedor);
                 }
             }
 
