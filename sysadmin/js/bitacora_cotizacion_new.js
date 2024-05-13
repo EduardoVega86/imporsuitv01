@@ -82,35 +82,36 @@ function load(page) {
   var fechaInicio = $("#datepickerInicio input").val() || "";
   var fechaFin = $("#datepickerFin input").val() || "";
 
-  // Recoger el estado del checkbox
-  var filtroSolucion = $("#filtroSolucion").is(":checked") ? 1 : 0;
+  // Obtener el estado del checkbox
+  var filtroImpresas = $("#envioGratis_checkout").is(":checked") ? 1 : 0;
 
   var url = "../ajax/buscar_cotizacion_new.php?action=ajax&page=" + page;
   url += "&q=" + encodeURIComponent(q);
   if (tienda != 0) url += "&tienda=" + encodeURIComponent(tienda);
   if (estado != 0) url += "&estado=" + encodeURIComponent(estado);
   if (numero != 0) url += "&numero=" + encodeURIComponent(numero);
-  if (transportadora != 0) url += "&transportadora=" + encodeURIComponent(transportadora);
+  if (transportadora != 0)
+    url += "&transportadora=" + encodeURIComponent(transportadora);
   if (fechaInicio) url += "&fechaInicio=" + encodeURIComponent(fechaInicio);
   if (fechaFin) url += "&fechaFin=" + encodeURIComponent(fechaFin);
-  // Enviar el estado del checkbox
-  url += "&filtroSolucion=" + filtroSolucion;
+  "&filtroImpresas=" + filtroImpresas; // Enviar el estado del checkbox
+  
 
   $("#loader").fadeIn("slow");
   $.ajax({
-      url: url,
-      beforeSend: function (objeto) {
-          $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
-      },
-      success: function (data) {
-          $(".outer_div").html(data).fadeIn("slow");
-          $("#loader").html("");
-          $('[data-toggle="tooltip"]').tooltip({ html: true });
-      },
-      error: function (xhr, status, error) {
-          console.error("Error en AJAX: " + error);
-          $("#loader").html("");
-      },
+    url: url,
+    beforeSend: function (objeto) {
+      $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+    },
+    success: function (data) {
+      $(".outer_div").html(data).fadeIn("slow");
+      $("#loader").html("");
+      $('[data-toggle="tooltip"]').tooltip({ html: true });
+    },
+    error: function (xhr, status, error) {
+      console.error("Error en AJAX: " + error);
+      $("#loader").html("");
+    },
   });
 }
 
