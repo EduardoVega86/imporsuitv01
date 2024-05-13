@@ -2429,26 +2429,6 @@ mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, l
 
 mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES (102 ,'IMPORSHOP', 53, -78.54404699112396, -0.25643436166077654, 'PFV4+C98, C. O, Quito 170131, Ecuador', 'S1645', 'PFV4+C98, C. O, Quito 170131, Ecuador', 'IMPORSHOP', '0998979214', '552', '201001001');");
 
-mysqli_query($conexion, "CREATE TABLE `detalle_novedad` (
-	`id_detalle_novedad` int NOT NULL,
-	`codigo_novedad` int NOT NULL,
-	`guia_novedad` varchar(10) NOT NULL,
-	`nombre_novedad` text NOT NULL,
-	`detalle_novedad` text NOT NULL,
-	`observacion` text
-  );");
-mysqli_query($conexion, "ALTER TABLE `detalle_novedad`
-	ADD PRIMARY KEY (`id_detalle_novedad`),
-	ADD KEY `guia_novedad` (`guia_novedad`);
-  	");
-
-mysqli_query($conexion, "ALTER TABLE `detalle_novedad`
-	MODIFY `id_detalle_novedad` int NOT NULL AUTO_INCREMENT;
-  ");
-
-mysqli_query($conexion, "ALTER TABLE `detalle_novedad`
-	ADD CONSTRAINT `detalle_novedad_ibfk_1` FOREIGN KEY (`guia_novedad`) REFERENCES `novedades` (`guia_novedad`);");
-
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
