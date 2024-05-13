@@ -611,14 +611,14 @@ class LaarModel extends Query
     }
 
     public function verificarNovedades($novedad)
-
     {
-
         echo "ebtre a verificar novedades";
         $cod_novedad = $novedad["codigoTipoNovedad"];
         $no_guia = $novedad["noGuia"];
         $cliente  = $novedad["para"];
         $detalle = $novedad["nombreTipoNovedad"];
+        $observacion = $novedad["observacion"];
+        $detalles = $novedad["nombreDetalleNovedad"];
 
         $tienda_venta = $this->select("SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'");
         $tienda_venta = $tienda_venta[0]['tienda_venta'];
@@ -641,6 +641,32 @@ class LaarModel extends Query
             } else {
                 echo json_encode('error');
             }
+            $sql2 = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia'";
+            $sql2 = mysqli_query($conexion_proveedor, $sql2);
+            $sql2 = mysqli_fetch_array($sql2);
+
+            if (empty($sql2)) {
+                $sql = "INSERT INTO `detalle_novedad` (`codigo_novedad`, `guia_novedad`, `nombre_novedad`, `detalle_novedad`, `observacion`) VALUES ( ?, ?, ?, ?, ?)";
+                $stmt = $conexion_proveedor->prepare($sql);
+                $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                if ($stmt->execute()) {
+                    echo json_encode('ok');
+                    echo "se inserto la novedad";
+                } else {
+                    echo json_encode('error');
+                }
+            } else {
+                $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
+                $stmt = $conexion_proveedor->prepare($sql);
+                $stmt->bind_param("ssssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
+                if ($stmt->execute()) {
+                    echo json_encode('ok');
+                    echo "se actualizo la novedad";
+                } else {
+                    echo json_encode('error');
+                }
+            }
+
             $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' ";
             $existe_m = $this->select($existe_m);
 
@@ -652,6 +678,22 @@ class LaarModel extends Query
                 $data = array($cod_novedad, $detalle, $tracking, $no_guia);
                 $query = $this->update($sql_u, $data);
                 echo "se actualizo la novedad";
+
+                $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia'";
+                $sql_s = $this->select($sql_s);
+                $sql_s = count($sql_s);
+
+                if (empty($sql_s)) {
+                    $sql = "INSERT INTO `detalle_novedad` (`codigo_novedad`, `guia_novedad`, `nombre_novedad`, `detalle_novedad`, `observacion`) VALUES ( ?, ?, ?, ?, ?)";
+                    $data = array($cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                    $query = $this->insert($sql, $data);
+                    echo "se inserto la novedad";
+                } else {
+                    $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
+                    $data = array($cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
+                    $query = $this->update($sql, $data);
+                    echo "se actualizo la novedad";
+                }
             } else {
 
                 echo "XD";
@@ -659,6 +701,22 @@ class LaarModel extends Query
                 $data = array($no_guia, $cliente, $cod_novedad, $detalle, $tracking, $tienda_venta);
                 $query = $this->insert($sql, $data);
                 echo "se inserto la novedad";
+
+                $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia'";
+                $sql_s = $this->select($sql_s);
+                $sql_s = count($sql_s);
+
+                if (empty($sql_s)) {
+                    $sql = "INSERT INTO `detalle_novedad` (`codigo_novedad`, `guia_novedad`, `nombre_novedad`, `detalle_novedad`, `observacion`) VALUES ( ?, ?, ?, ?, ?)";
+                    $data = array($cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                    $query = $this->insert($sql, $data);
+                    echo "se inserto la novedad";
+                } else {
+                    $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
+                    $data = array($cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
+                    $query = $this->update($sql, $data);
+                    echo "se actualizo la novedad";
+                }
             }
         } else {
 
@@ -680,6 +738,22 @@ class LaarModel extends Query
                     $data = array($cod_novedad, $detalle, $tracking, $no_guia);
                     $query = $this->update($sql_u, $data);
                     echo "se actualizo la novedad";
+
+                    $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia'";
+                    $sql_s = $this->select($sql_s);
+                    $sql_s = count($sql_s);
+
+                    if (empty($sql_s)) {
+                        $sql = "INSERT INTO `detalle_novedad` (`codigo_novedad`, `guia_novedad`, `nombre_novedad`, `detalle_novedad`, `observacion`) VALUES ( ?, ?, ?, ?, ?)";
+                        $data = array($cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                        $query = $this->insert($sql, $data);
+                        echo "se inserto la novedad";
+                    } else {
+                        $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
+                        $data = array($cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
+                        $query = $this->update($sql, $data);
+                        echo "se actualizo la novedad";
+                    }
                 } else {
 
                     echo "XD";
@@ -687,6 +761,22 @@ class LaarModel extends Query
                     $data = array($no_guia, $cliente, $cod_novedad, $detalle, $tracking, $tienda_venta);
                     $query = $this->insert($sql, $data);
                     echo "se inserto la novedad";
+
+                    $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia'";
+                    $sql_s = $this->select($sql_s);
+                    $sql_s = count($sql_s);
+
+                    if (empty($sql_s)) {
+                        $sql = "INSERT INTO `detalle_novedad` (`codigo_novedad`, `guia_novedad`, `nombre_novedad`, `detalle_novedad`, `observacion`) VALUES ( ?, ?, ?, ?, ?)";
+                        $data = array($cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                        $query = $this->insert($sql, $data);
+                        echo "se inserto la novedad";
+                    } else {
+                        $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
+                        $data = array($cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
+                        $query = $this->update($sql, $data);
+                        echo "se actualizo la novedad";
+                    }
                 }
 
                 $tienda_venta = $this->select("SELECT tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'");
