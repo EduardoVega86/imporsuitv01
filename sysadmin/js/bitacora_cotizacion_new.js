@@ -1,42 +1,39 @@
 var filtroG = "todas";
 $(document).ready(function () {
   load(1);
-  $.ajax({
-    type: "POST",
-    url: "../ajax/verificar_guias_pendientes.php",
-    success: function (r) {},
+
+  $("#tienda_q").select2({
+    placeholder: "Selecciona una opción",
+    allowClear: true,
+    // Puedes añadir más opciones de configuración aquí
   });
-  $(document).ready(function () {
-    $("#tienda_q").select2({
-      placeholder: "Selecciona una opción",
-      allowClear: true,
-      // Puedes añadir más opciones de configuración aquí
-    });
-  });
+
   // filtro por fechas
   // Inicializa el datepicker de fecha de inicio
-  $('#datepickerInicio input').datepicker({
-    format: "dd/mm/yyyy",
+  $("#datepickerInicio input")
+    .datepicker({
+      format: "yyyy-mm-dd",
+      language: "es",
+      autoclose: true,
+      todayHighlight: true,
+    })
+    .on("changeDate", function (selected) {
+      var minDate = new Date(selected.date.valueOf());
+      $("#datepickerFin input").datepicker("setStartDate", minDate);
+    });
+
+  // Inicializa el datepicker de fecha de fin
+  $("#datepickerFin input").datepicker({
+    format: "yyyy-mm-dd",
     language: "es",
     autoclose: true,
-    todayHighlight: true
-}).on('changeDate', function(selected) {
-    var minDate = new Date(selected.date.valueOf());
-    $('#datepickerFin input').datepicker('setStartDate', minDate);
-});
+    todayHighlight: true,
+  });
 
-// Inicializa el datepicker de fecha de fin
-$('#datepickerFin input').datepicker({
-    format: "dd/mm/yyyy",
-    language: "es",
-    autoclose: true,
-    todayHighlight: true
-});
-
-// Manejador para abrir el calendario al hacer clic en el ícono
-$('.input-group-text').click(function() {
-    $(this).parent().prev('input').datepicker('show');
-});
+  // Manejador para abrir el calendario al hacer clic en el ícono
+  $(".input-group-text").click(function () {
+    $(this).parent().prev("input").datepicker("show");
+  });
 });
 $("#editar_linea").submit(function (event) {
   // alert();
