@@ -2407,7 +2407,7 @@ mysqli_query($conexion, "CREATE TABLE `variedades` (
 
 mysqli_query($conexion, "INSERT INTO lineas (id_linea, nombre_linea, descripcion_linea, estado_linea, date_added, online, tipo, padre) VALUES (1000, 'OFERTAS', 'OFERTAS', 1, '2024-05-09 15:27:28', 1, '1', 0);");
 
-mysqli_query($conexion,"CREATE TABLE `bodega` (
+mysqli_query($conexion, "CREATE TABLE `bodega` (
 	`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 	`nombre` varchar(1500) NOT NULL,
 	`id_empresa` int(11) NOT NULL,
