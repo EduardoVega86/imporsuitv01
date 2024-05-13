@@ -92,9 +92,9 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     if (isset($_GET['filtroImpresas'])) {
         $filtroImpresas = (int)$_GET['filtroImpresas'];
         if ($filtroImpresas == 1) {
-            $sWhere .= " AND facturas_cot.impresa = 1";
+            $sWhere .= " AND facturas_cot.impreso = 1";
         } else if ($filtroImpresas == 0) {
-            $sWhere .= " AND facturas_cot.impresa = 0";
+            $sWhere .= " AND facturas_cot.impreso = 0";
         }
     }
 

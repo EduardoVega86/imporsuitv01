@@ -34,6 +34,11 @@ $(document).ready(function () {
   $(".input-group-text").click(function () {
     $(this).parent().prev("input").datepicker("show");
   });
+
+  // Añadir event listener para cambios en el checkbox
+  $('#envioGratis_checkout').change(function() {
+    load(1); // Llamar a la función 'load' con la página actual como argumento, asumiendo que usas paginación
+});
 });
 $("#editar_linea").submit(function (event) {
   // alert();
@@ -94,7 +99,7 @@ function load(page) {
     url += "&transportadora=" + encodeURIComponent(transportadora);
   if (fechaInicio) url += "&fechaInicio=" + encodeURIComponent(fechaInicio);
   if (fechaFin) url += "&fechaFin=" + encodeURIComponent(fechaFin);
-  "&filtroImpresas=" + filtroImpresas; // Enviar el estado del checkbox
+  url += "&filtroImpresas=" + filtroImpresas; // Asegúrate de que esta línea esté correctamente concatenada
   
 
   $("#loader").fadeIn("slow");
@@ -120,6 +125,7 @@ function buscar(tienda) {
   var q = $("#q").val();
   var estado = $("#estado_q").val();
   var numero = $("#numero_q").val();
+  var transportadora = $("#transporte").val();
   if (tienda == 0) {
     tienda = "";
   }
@@ -128,6 +134,9 @@ function buscar(tienda) {
   }
   if (numero == 0) {
     numero = "";
+  }
+  if (transportadora == 0) {
+    transportadora = "";
   }
 
   page = 1;
@@ -166,6 +175,7 @@ function buscar_estado(estado) {
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
   var numero = $("#numero_q").val();
+  var transportadora = $("#transporte").val();
   if (tienda == 0) {
     tienda = "";
   }
@@ -174,6 +184,9 @@ function buscar_estado(estado) {
   }
   if (numero == 0) {
     numero = "";
+  }
+  if (transportadora == 0) {
+    transportadora = "";
   }
   page = 1;
   $("#loader").fadeIn("slow");
