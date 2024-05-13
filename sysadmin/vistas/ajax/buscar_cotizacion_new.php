@@ -85,16 +85,17 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $fechaFin = @$_GET['fechaFin'];
         $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio' AND '$fechaFin'";
     }
-    // Recoger el valor de filtroSolucion
-    $filtroSolucion = isset($_GET['filtroSolucion']) ? (int)$_GET['filtroSolucion'] : 0;
 
-    // Usar este valor en tu consulta SQL o lógica de filtro
-    if ($filtroSolucion == 1) {
-        // Añadir condiciones SQL específicas para cuando el checkbox está marcado
-        $sWhere .= " AND alguna_condicion_especifica = 'valor_especifico'";
-    } else {
-        // Manejar el caso cuando el checkbox no está marcado si es necesario
-        $sWhere .= ""; // Ajusta según lo que necesites hacer en este caso
+    // Recibir el valor del checkbox, asumiendo que se envía como 'filtroImpresas'
+    $filtroImpresas = isset($_GET['filtroImpresas']) ? (int)$_GET['filtroImpresas'] : null; // Usar null como predeterminado si no se envía
+    // Aquí añadimos la lógica para el filtro de facturas impresas o no impresas
+    if (isset($_GET['filtroImpresas'])) {
+        $filtroImpresas = (int)$_GET['filtroImpresas'];
+        if ($filtroImpresas == 1) {
+            $sWhere .= " AND facturas_cot.impresa = 1";
+        } else if ($filtroImpresas == 0) {
+            $sWhere .= " AND facturas_cot.impresa = 0";
+        }
     }
 
     $sWhere .= " order by facturas_cot.id_factura desc";

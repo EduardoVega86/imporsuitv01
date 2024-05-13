@@ -75,18 +75,8 @@ $ventas = 1;
                                     </div>
                                     <div class="d-flex flex-column">
                                         <div class="d-flex flex-row justify-content-start">
-                                            <div class="form-check mr-3">
-                                                
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="filtroSolucion" name="filtroSolucion">
-                                                <label class="form-check-label" for="filtroSolucion">Impresas</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-check mt-2 d-flex flex-row-reverse">
-                                            <div>
-                                                
-                                            </div>
+                                            <input class="input-change" type="checkbox" role="switch" id="envioGratis_checkout">
+                                            <label class="form-check-label" for="flexSwitchCheckChecked">Facturas Impresas</label>
                                         </div>
                                     </div>
                                 </div>
