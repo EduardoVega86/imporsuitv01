@@ -39,9 +39,8 @@ class ShopifyModel extends Query
         return $query;
     }
 
-    public function insertarPedido($nombre, $apellido, $principal, $secundaria, $provincia, $ciudad, $codigo_postal, $pais, $telefono, $email, $total, $line_items)
+    public function insertarPedido($nombre, $apellido, $principal, $secundaria, $provincia, $ciudad, $codigo_postal, $pais, $telefono, $email, $total, $line_items, $discount)
     {
-
         date_default_timezone_set('America/Guayaquil');
 
         //verifica si existe el producto
@@ -53,8 +52,7 @@ class ShopifyModel extends Query
             echo "no existe";
             return false;
         }
-
-
+        $total = $total - $discount;
         $ultima_factura_sql = "SELECT MAX(numero_factura) AS factura FROM facturas_cot;";
         $ultima_factura = $this->select($ultima_factura_sql);
         $ultima_factura_numero = $ultima_factura[0]['factura'];
@@ -122,6 +120,7 @@ class ShopifyModel extends Query
             $nombre_producto = $value['name'];
             $cantidad = $value['quantity'];
             $precio = $value['price'];
+            $precio = $precio - $discount;
             $sku = $value['sku'];
             echo "debug2";
             echo $es_drogshipin;
