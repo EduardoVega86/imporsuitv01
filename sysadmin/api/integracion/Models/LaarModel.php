@@ -641,7 +641,7 @@ class LaarModel extends Query
             } else {
                 echo json_encode('error');
             }
-            $sql2 = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia'";
+            $sql2 = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
             $sql2 = mysqli_query($conexion_proveedor, $sql2);
             $sql2 = mysqli_fetch_array($sql2);
 
@@ -679,7 +679,7 @@ class LaarModel extends Query
                 $query = $this->update($sql_u, $data);
                 echo "se actualizo la novedad";
 
-                $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia'";
+                $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
                 $sql_s = $this->select($sql_s);
                 $sql_s = count($sql_s);
 
@@ -702,7 +702,7 @@ class LaarModel extends Query
                 $query = $this->insert($sql, $data);
                 echo "se inserto la novedad";
 
-                $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia'";
+                $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
                 $sql_s = $this->select($sql_s);
                 $sql_s = count($sql_s);
 
@@ -727,7 +727,7 @@ class LaarModel extends Query
             if ($stmt->execute()) {
                 echo json_encode('ok');
                 // enviar correo
-                $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' ";
+                $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
                 $existe_m = $this->select($existe_m);
 
                 $existe_m = count($existe_m);
@@ -762,7 +762,7 @@ class LaarModel extends Query
                     $query = $this->insert($sql, $data);
                     echo "se inserto la novedad";
 
-                    $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia'";
+                    $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
                     $sql_s = $this->select($sql_s);
                     $sql_s = count($sql_s);
 
