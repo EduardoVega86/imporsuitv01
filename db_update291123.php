@@ -2430,6 +2430,22 @@ mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, l
 
 mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES (102 ,'IMPORSHOP', 53, -78.54404699112396, -0.25643436166077654, 'PFV4+C98, C. O, Quito 170131, Ecuador', 'S1645', 'PFV4+C98, C. O, Quito 170131, Ecuador', 'IMPORSHOP', '0998979214', '552', '201001001');");
 
+mysqli_query($conexion, "CREATE TABLE `combos` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`nombre` varchar(100) NOT NULL,
+	`id_empresa` int NOT NULL,
+	`valor` double NOT NULL,
+	UNIQUE KEY `id` (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
+
+mysqli_query($conexion, "CREATE TABLE `detalle_combo` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`id_combo` int NOT NULL,
+	`id_producto` int  NULL,
+	`cantidad` int  NULL,
+	UNIQUE KEY `id` (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 echo json_encode("ok");
