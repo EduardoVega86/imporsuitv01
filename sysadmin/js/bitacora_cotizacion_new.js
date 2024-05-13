@@ -36,9 +36,14 @@ $(document).ready(function () {
   });
 
   // Añadir event listener para cambios en el checkbox
-  $('#envioGratis_checkout').change(function() {
-    load(1); // Llamar a la función 'load' con la página actual como argumento, asumiendo que usas paginación
-});
+  // Inicializar marca de manipulación
+  $("#envioGratis_checkout").data("waschecked", false);
+
+  // Establecer la marca cuando el checkbox cambia
+  $("#envioGratis_checkout").change(function () {
+    $(this).data("waschecked", true); // Marcar como manipulado
+    load(1); // Llama a la función load inmediatamente si deseas aplicar el filtro instantáneamente
+  });
 });
 $("#editar_linea").submit(function (event) {
   // alert();
@@ -88,7 +93,11 @@ function load(page) {
   var fechaFin = $("#datepickerFin input").val() || "";
 
   // Obtener el estado del checkbox
-  var filtroImpresas = $("#envioGratis_checkout").is(":checked") ? 1 : 0;
+  // Verificar si el checkbox ha sido manipulado
+  var filtroImpresas;
+  if ($("#envioGratis_checkout").data("waschecked") == true) {
+    filtroImpresas = $("#envioGratis_checkout").is(":checked") ? 1 : 0;
+  }
 
   var url = "../ajax/buscar_cotizacion_new.php?action=ajax&page=" + page;
   url += "&q=" + encodeURIComponent(q);
@@ -99,8 +108,7 @@ function load(page) {
     url += "&transportadora=" + encodeURIComponent(transportadora);
   if (fechaInicio) url += "&fechaInicio=" + encodeURIComponent(fechaInicio);
   if (fechaFin) url += "&fechaFin=" + encodeURIComponent(fechaFin);
-  url += "&filtroImpresas=" + filtroImpresas; // Asegúrate de que esta línea esté correctamente concatenada
-  
+  if (filtroImpresas !== undefined) url += "&filtroImpresas=" + filtroImpresas;
 
   $("#loader").fadeIn("slow");
   $.ajax({
