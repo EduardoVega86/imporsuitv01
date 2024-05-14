@@ -222,7 +222,7 @@ if ($action == 'ajax') {
                 <input type="hidden" value="<?php echo $id_proveedor; ?>" id="proveedor_producto<?php echo $id_producto; ?>">
                 <!--<input type="hidden" value="<?php echo $med_producto; ?>" id="med_producto<?php echo $id_producto; ?>">-->
                 <input type="hidden" value="<?php echo $inv_producto; ?>" id="inv_producto<?php echo $id_producto; ?>">
-                <input type="hidden" value="<?php echo $impuesto_producto; ?>" id="impuesto_producto<?php echo $id_producto; ?>">
+                <input type="hidden" value="<?php echo @$impuesto_producto; ?>" id="impuesto_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $stock_producto; ?>" id="stock_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $stock_min_producto; ?>" id="stock_min_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $status_producto; ?>" id="estado<?php echo $id_producto; ?>">
@@ -250,9 +250,9 @@ if ($action == 'ajax') {
 
                 <?php
 
-                $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataformas WHERE url_imporsuit LIKE '%" . $tienda ."%'");
+                $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataformas WHERE url_imporsuit LIKE '%" . $tienda . "%'");
                 $row_tienda         = mysqli_fetch_array($count_tienda);
-                $telefono_tienda    = $row_tienda['whatsapp'];
+                $telefono_tienda    = @$row_tienda['whatsapp'];
                 $telefonoFormateado = formatPhoneNumber($telefono_tienda);
 
                 ?>

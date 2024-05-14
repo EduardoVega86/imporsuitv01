@@ -2354,7 +2354,6 @@ mysqli_query($conexion, "CREATE TABLE novedades (
 	solucion_novedad text null,
 	tracking text not null,
 	fecha_novedad date not null default current_timestamp
-	
 );");
 
 mysqli_query($conexion, "CREATE TABLE detalle_novedad (
@@ -2366,6 +2365,8 @@ mysqli_query($conexion, "CREATE TABLE detalle_novedad (
 	observacion text,
 	Foreign key (guia_novedad) REFERENCES novedades(guia_novedad) 
 );");
+
+mysqli_query($conexion, "ALTER TABLE `novedades` ADD UNIQUE(`guia_novedad`);");
 
 mysqli_query($conexion, "ALTER TABLE `facturas_ventas` DROP INDEX `numero_cotizacion`;");
 mysqli_query($conexion, "ALTER TABLE `detalle_fact_ventas` ADD `descripcion_detalle` TEXT NOT NULL AFTER `importe_venta`;");
@@ -2407,7 +2408,7 @@ mysqli_query($conexion, "CREATE TABLE `variedades` (
 
 mysqli_query($conexion, "INSERT INTO lineas (id_linea, nombre_linea, descripcion_linea, estado_linea, date_added, online, tipo, padre) VALUES (1000, 'OFERTAS', 'OFERTAS', 1, '2024-05-09 15:27:28', 1, '1', 0);");
 
-mysqli_query($conexion,"CREATE TABLE `bodega` (
+mysqli_query($conexion, "CREATE TABLE `bodega` (
 	`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 	`nombre` varchar(1500) NOT NULL,
 	`id_empresa` int(11) NOT NULL,
@@ -2422,10 +2423,28 @@ mysqli_query($conexion,"CREATE TABLE `bodega` (
 	`provincia` varchar(100) NOT NULL,
 	UNIQUE KEY `id` (`id`)
   ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
-  
-mysqli_query($conexion, "INSERT INTO bodega (nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES ('GINTRACON', 1050, -78.4831961, -0.1419421, 'Av. Galo Plaza Lasso N52-107 y, Quito 170512, Ecuador', 'N52-107', 'Av. Galo Plaza Lasso N52-107 y, Quito 170512, Ecuador', 'GINTRACON', '0990547325', '552', '201001001');");
 
-mysqli_query($conexion, "INSERT INTO bodega (nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES ('IMPORSHOP', 53, -78.54404699112396, -0.25643436166077654, 'PFV4+C98, C. O, Quito 170131, Ecuador', 'S1645', 'PFV4+C98, C. O, Quito 170131, Ecuador', 'IMPORSHOP', '0998979214', '552', '201001001');");
+mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES (1,'Bodega Local', 1, 0, 0, '', '', '', 'Bodega Local', '', '552', '201001001');");
+
+mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES (101,'GINTRACON', 1050, -78.4831961, -0.1419421, 'Av. Galo Plaza Lasso N52-107 y, Quito 170512, Ecuador', 'N52-107', 'Av. Galo Plaza Lasso N52-107 y, Quito 170512, Ecuador', 'GINTRACON', '0990547325', '552', '201001001');");
+
+mysqli_query($conexion, "INSERT INTO bodega (id, nombre, id_empresa, longitud, latitud, direccion, num_casa, referencia, responsable, contacto, localidad, provincia) VALUES (102 ,'IMPORSHOP', 53, -78.54404699112396, -0.25643436166077654, 'PFV4+C98, C. O, Quito 170131, Ecuador', 'S1645', 'PFV4+C98, C. O, Quito 170131, Ecuador', 'IMPORSHOP', '0998979214', '552', '201001001');");
+
+mysqli_query($conexion, "CREATE TABLE `combos` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`nombre` varchar(100) NOT NULL,
+	`id_empresa` int NOT NULL,
+	`valor` double NOT NULL,
+	UNIQUE KEY `id` (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
+
+mysqli_query($conexion, "CREATE TABLE `detalle_combo` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`id_combo` int NOT NULL,
+	`id_producto` int  NULL,
+	`cantidad` int  NULL,
+	UNIQUE KEY `id` (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 

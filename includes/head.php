@@ -52,7 +52,7 @@ $base_url = $protocol . '://' . $domain;
    <link href="ccs/style_ini.css" rel="stylesheet" type="text/css" />
    <link href="ccs/base.css?v=108207397045790613361693673626" rel="stylesheet" type="text/css" media="all" />
    <?php
-   $sql = "select * from pixel";
+   $sql = "select * from pixel where   id_pixel = 1";
    $query = mysqli_query($conexion, $sql);
    $row = mysqli_fetch_array($query);
 
@@ -60,6 +60,7 @@ $base_url = $protocol . '://' . $domain;
 
    <!-- Meta Pixel Code -->
    <script>
+      let verificador = "<?php echo $row['pixel'] ?>";
       ! function(f, b, e, v, n, t, s) {
          if (f.fbq) return;
          n = f.fbq = function() {
@@ -80,7 +81,9 @@ $base_url = $protocol . '://' . $domain;
          'https://connect.facebook.net/en_US/fbevents.js');
       //track imporsuit
       fbq('init', '1868724866850222');
-      fbq('init', '<?php echo $row['pixel'] ?>');
+      if (verificador != "") {
+         fbq('init', "<?php echo $row['pixel'] ?>");
+      }
       fbq('track', 'PageView');
       fbq('track', 'ViewContent');
    </script>

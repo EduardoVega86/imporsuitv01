@@ -239,16 +239,21 @@
 							<div id="resultados" class="modal-body" style="padding: 5px">
 
 							</div>
-							<div id="tarifasEnvioPreview">
-								<hr />
-								<p id="titulo_tarifaPreview" style="font-weight:bold;">Método de envío</p>
-								<div class="caja_transparente d-flex flex-row">
-									<!-- <input type="radio" name="metodoEnvio" checked> -->
-									<label for="envioGratisPreview"> Envío gratis</label>
-									<label id="gratisPreview" style="width: 60%; text-align: end; font-weight:bold;">Gratis</label>
+							<?php
+							$envioGratis_checkout = get_row('perfil', 'envioGratis_checkout', 'id_perfil', 1);
+							if ($envioGratis_checkout == 1) { ?>
+								<div id="tarifasEnvioPreview">
+									<hr />
+									<p id="titulo_tarifaPreview" style="font-weight:bold;">Método de envío</p>
+									<div class="caja_transparente d-flex flex-row">
+										<!-- <input type="radio" name="metodoEnvio" checked> -->
+										<label for="envioGratisPreview"> Envío gratis</label>
+										<label id="gratisPreview" style="width: 60%; text-align: end; font-weight:bold;">Gratis</label>
+									</div>
+									<hr />
 								</div>
-								<hr />
-							</div>
+							<?php } ?>
+
 							<!--  código de descuento -->
 							<div class="discount-code-container" id="codigosDescuentoPreview">
 
@@ -432,7 +437,6 @@
 </div><!-- /.modal -->
 
 <script>
-
 	// Funcion para que consuma los datos de checkout.json y los utilice
 
 	document.addEventListener('DOMContentLoaded', function() {

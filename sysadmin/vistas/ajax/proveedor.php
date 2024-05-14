@@ -4,7 +4,8 @@ $tienda = $_POST['tienda'];
 
 // Conexión a la base de datos
 $conexion = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
-$sql = "SELECT * FROM cabecera_cuenta_pagar WHERE proveedor = '$tienda' ORDER BY `cabecera_cuenta_pagar`.`fecha` DESC";
+echo $tienda;
+$sql = "SELECT * FROM cabecera_cuenta_pagar WHERE proveedor like '%$tienda%' and visto=1 ORDER BY `cabecera_cuenta_pagar`.`fecha` DESC";
 $result = mysqli_query($conexion, $sql);
 
 $dato = "<hr/>";

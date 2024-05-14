@@ -7,7 +7,7 @@ require_once "../funciones.php";
 $nombre_producto = isset($_GET['nombre_producto']) ? $_GET['nombre_producto'] : '';
 
 // Utiliza LIKE para filtrar los productos según las letras ingresadas
-$sql = "SELECT * FROM productos WHERE drogshipin=0 and nombre_producto LIKE '%" . mysqli_real_escape_string($conexion, $nombre_producto) . "%'";
+$sql = "SELECT * FROM productos WHERE drogshipin=0 and inv_producto=0 and nombre_producto LIKE '%" . mysqli_real_escape_string($conexion, $nombre_producto) . "%'";
 
 $query = mysqli_query($conexion, $sql);
 

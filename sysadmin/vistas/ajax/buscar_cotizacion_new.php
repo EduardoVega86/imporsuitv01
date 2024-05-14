@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 
 use Illuminate\Support\Str;
 
@@ -81,17 +79,27 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $transportadora = $_REQUEST['transportadora'];
         $sWhere .= " and  transporte='$transportadora'";
     }
-    if (@$_GET['fechaInicio'] != "") {
-        $fechaInicio = $_REQUEST['fechaInicio'];
-        $sWhere .= " and  transporte='$fechaInicio'";
-    }
     // Añadir las condiciones al SQL solo si ambas fechas están presentes
-    if ($fechaInicio != "" && $fechaFin != "") {
+    if (!empty($_GET['fechaInicio'])  && !empty($_GET['fechaFin'])) {
+        $fechaInicio = @$_GET['fechaInicio'];
+        $fechaFin = @$_GET['fechaFin'];
         $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio' AND '$fechaFin'";
     }
 
+    // Recibir el valor del checkbox, asumiendo que se envía como 'filtroImpresas'
+    $filtroImpresas = isset($_GET['filtroImpresas']) ? (int)$_GET['filtroImpresas'] : null; // Usar null como predeterminado si no se envía
+    // Aquí añadimos la lógica para el filtro de facturas impresas o no impresas
+    if (isset($_GET['filtroImpresas'])) {
+        $filtroImpresas = (int)$_GET['filtroImpresas'];
+        if ($filtroImpresas == 1) {
+            $sWhere .= " AND facturas_cot.impreso = 1";
+        } else if ($filtroImpresas == 0) {
+            $sWhere .= " AND facturas_cot.impreso is null";
+        }
+    }
 
     $sWhere .= " order by facturas_cot.id_factura desc";
+
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
@@ -110,6 +118,9 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+
+
+
     $empresas = mysqli_query($conexion, "SELECT * FROM empresa_envio");
     //echo $sql;
     $query = mysqli_query($conexion, $sql);

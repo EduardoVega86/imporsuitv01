@@ -1,27 +1,48 @@
 var filtroG = "todas";
 $(document).ready(function () {
   load(1);
-  $.ajax({
-    type: "POST",
-    url: "../ajax/verificar_guias_pendientes.php",
-    success: function (r) {},
-  });
-  $(document).ready(function () {
-    $("#tienda_q").select2({
-      placeholder: "Selecciona una opción",
-      allowClear: true,
-      // Puedes añadir más opciones de configuración aquí
-    });
-  });
-  // filtro por fechas
-  $("#datepickerInicio .input-group.date").datepicker({
-    format: "yyyy-mm-dd",
-    autoclose: true,
+
+  $("#tienda_q").select2({
+    placeholder: "Selecciona una opción",
+    allowClear: true,
+    // Puedes añadir más opciones de configuración aquí
   });
 
-  $("#datepickerFin .input-group.date").datepicker({
+  // filtro por fechas
+  // Inicializa el datepicker de fecha de inicio
+  $("#datepickerInicio input")
+    .datepicker({
+      format: "yyyy-mm-dd",
+      language: "es",
+      autoclose: true,
+      todayHighlight: true,
+    })
+    .on("changeDate", function (selected) {
+      var minDate = new Date(selected.date.valueOf());
+      $("#datepickerFin input").datepicker("setStartDate", minDate);
+    });
+
+  // Inicializa el datepicker de fecha de fin
+  $("#datepickerFin input").datepicker({
     format: "yyyy-mm-dd",
+    language: "es",
     autoclose: true,
+    todayHighlight: true,
+  });
+
+  // Manejador para abrir el calendario al hacer clic en el ícono
+  $(".input-group-text").click(function () {
+    $(this).parent().prev("input").datepicker("show");
+  });
+
+  // Añadir event listener para cambios en el checkbox
+  // Inicializar marca de manipulación
+  $("#envioGratis_checkout").data("waschecked", false);
+
+  // Establecer la marca cuando el checkbox cambia
+  $("#envioGratis_checkout").change(function () {
+    $(this).data("waschecked", true); // Marcar como manipulado
+    load(1); // Llama a la función load inmediatamente si deseas aplicar el filtro instantáneamente
   });
 });
 $("#editar_linea").submit(function (event) {
@@ -71,6 +92,13 @@ function load(page) {
   var fechaInicio = $("#datepickerInicio input").val() || "";
   var fechaFin = $("#datepickerFin input").val() || "";
 
+  // Obtener el estado del checkbox
+  // Verificar si el checkbox ha sido manipulado
+  var filtroImpresas;
+  if ($("#envioGratis_checkout").data("waschecked") == true) {
+    filtroImpresas = $("#envioGratis_checkout").is(":checked") ? 1 : 0;
+  }
+
   var url = "../ajax/buscar_cotizacion_new.php?action=ajax&page=" + page;
   url += "&q=" + encodeURIComponent(q);
   if (tienda != 0) url += "&tienda=" + encodeURIComponent(tienda);
@@ -80,6 +108,7 @@ function load(page) {
     url += "&transportadora=" + encodeURIComponent(transportadora);
   if (fechaInicio) url += "&fechaInicio=" + encodeURIComponent(fechaInicio);
   if (fechaFin) url += "&fechaFin=" + encodeURIComponent(fechaFin);
+  if (filtroImpresas !== undefined) url += "&filtroImpresas=" + filtroImpresas;
 
   $("#loader").fadeIn("slow");
   $.ajax({
@@ -104,6 +133,7 @@ function buscar(tienda) {
   var q = $("#q").val();
   var estado = $("#estado_q").val();
   var numero = $("#numero_q").val();
+  var transportadora = $("#transporte").val();
   if (tienda == 0) {
     tienda = "";
   }
@@ -112,6 +142,9 @@ function buscar(tienda) {
   }
   if (numero == 0) {
     numero = "";
+  }
+  if (transportadora == 0) {
+    transportadora = "";
   }
 
   page = 1;
@@ -150,6 +183,7 @@ function buscar_estado(estado) {
   var q = $("#q").val();
   var tienda = $("#tienda_q").val();
   var numero = $("#numero_q").val();
+  var transportadora = $("#transporte").val();
   if (tienda == 0) {
     tienda = "";
   }
@@ -158,6 +192,9 @@ function buscar_estado(estado) {
   }
   if (numero == 0) {
     numero = "";
+  }
+  if (transportadora == 0) {
+    transportadora = "";
   }
   page = 1;
   $("#loader").fadeIn("slow");
@@ -410,6 +447,7 @@ const filtrarRegistros = (filtro) => {
   var tienda = $("#tienda_q").val();
   var estado = $("#estado_q").val();
   var numero = $("#numero_q").val();
+  var transportadora = $("#transporte").val();
   url = url + "&filtro=" + filtro;
   if (tienda != 0) {
     url = url + "&tienda=" + tienda;

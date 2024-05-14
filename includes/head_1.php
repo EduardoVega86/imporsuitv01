@@ -46,6 +46,7 @@ $row = mysqli_fetch_array($query);
 
 <!-- Meta Pixel Code -->
 <script>
+   let verificador = "<?php echo $row['pixel'] ?>";
    ! function(f, b, e, v, n, t, s) {
       if (f.fbq) return;
       n = f.fbq = function() {
@@ -66,7 +67,9 @@ $row = mysqli_fetch_array($query);
       'https://connect.facebook.net/en_US/fbevents.js');
    //track imporsuit
    fbq('init', '1868724866850222');
-   fbq('init', '<?php echo $row['pixel'] ?>');
+   if (verificador != "") {
+      fbq('init', '<?php echo $row['pixel'] ?>');
+   }
    fbq('track', 'PageView');
    fbq('track', 'ViewContent');
 </script>
@@ -92,18 +95,16 @@ while ($row_pixeles = mysqli_fetch_array($query_pixeles)) {
    // Verificar si el script contiene alguna de las palabras clave
    $esValido = false;
    foreach ($palabrasClaveValidas as $palabra) {
-       if (stripos($pixelMin, $palabra) !== false) {
-           $esValido = true;
-           break;
-       }
+      if (stripos($pixelMin, $palabra) !== false) {
+         $esValido = true;
+         break;
+      }
    }
 
    if ($esValido) {
-       echo $pixel; // Mostrar solo si el script contiene las palabras clave
+      echo $pixel; // Mostrar solo si el script contiene las palabras clave
    }
 }
-?>
-
 ?>
 
 <noscript>
