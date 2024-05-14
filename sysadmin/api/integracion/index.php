@@ -1,5 +1,13 @@
 <?php
-require_once 'Config/Config.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+    if (strpos($data["noGuia"], "MKP") === 0) {
+        require_once 'Config/ConfigMKP.php';
+    } else {
+        require_once 'Config/Config.php';
+    }
+}
+
 $rute = !empty($_GET['url']) ? $_GET['url'] : 'Home/index';
 $array = explode('/', $rute);
 $controller = $array[0];
