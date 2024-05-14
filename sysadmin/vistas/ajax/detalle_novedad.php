@@ -2,21 +2,41 @@
 require_once "../db.php"; //Contiene las variables de configuracion para conectar a la base de datos
 require_once "../php_conexion.php"; //Contiene funcion que conecta a la base de datos
 
-$data = file_get_contents('php://input');
 
-$json = json_decode($data, true);
-
-$guia = $json['guia'];
+$guia = $_POST['guia'];
 
 $consulta = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$guia'";
-$result = $conexion->query($consulta);
+$result = mysqli_query($conexion, $consulta);
+$tabla = "<table class='table table-bordered table-striped'>";
+$tabla .= "<thead>";
+$tabla .= "<tr>";
+$tabla .= "<th>Id</th>";
+$tabla .= "<th>Guia</th>";
+$tabla .= "<th>Nombre</th>";
+$tabla .= "<th>Detalle</th>";
+$tabla .= "<th>Observacion</th>";
+$tabla .= "</tr>";
+$tabla .= "</thead>";
+$tabla .= "<tbody>";
 
-if ($result->num_rows > 0) {
-    $data = array();
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+
+if (mysqli_num_rows($result) > 0) {
+    $response = array();
+    while ($row = mysqli_fetch_array($result)) {
+        $tabla .= "<tr>";
+        $tabla .= "<td>" . $row['id_detalle_novedad'] . "</td>";
+        $tabla .= "<td>" . $row['guia_novedad'] . "</td>";
+        $tabla .= "<td>" . $row['nombre_novedad'] . "</td>";
+        $tabla .= "<td>" . $row['detalle_novedad'] . "</td>";
+        $tabla .= "<td>" . $row['observacion'] . "</td>";
+        $tabla .= "</tr>";
     }
-    echo json_encode($data);
+
+
+    $tabla .= "</tbody>";
+
+    $tabla .= "</table>";
+    echo $tabla;
 } else {
-    echo "0 results";
+    echo "0";
 }
