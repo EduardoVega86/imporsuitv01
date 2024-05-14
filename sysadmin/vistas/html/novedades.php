@@ -90,6 +90,24 @@ $pacientes = 1;
                     </div>
                 </div>
 
+                <div class="modal fade" id="detalleNovedad" tabindex="-1" aria-labelledby="detalleNovedadLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="detalleNovedadLabel">Novedad</h5>
+                                <button type="button" class="btn-close" onclick="" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="boody_detail">
+                                <!-- Aquí va el contenido que quieras mostrar en el modal -->
+                                <p id="modalContent">Aquí va la información de la tienda.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" onclick="" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="caja d-flex flex-column">
                     <div class="d-flex flex-row">
                         <div class="container" style="margin: 0; padding-left: 0;">
@@ -350,6 +368,28 @@ $pacientes = 1;
                 }, 300); // Ajusta este tiempo si es necesario
             }
         });
+
+        $('#detalleNovedad').on("show.bs.modal", function(event) {
+            var button = $(event.relatedTarget); // Botón que activó el modal
+            var id = button.data('id');
+            var guia = button.data('guia');
+
+            $.ajax({
+                type: 'POST',
+                url: '../ajax/detalle_novedad.php', // Cambia esto por la URL de tu endpoint
+                data: {
+                    id: id,
+                    guia: guia
+                },
+                success: function(response) {
+                    // Aquí puedes manejar la respuesta del servidor
+                    $('#boody_detail').html(response);
+                },
+                error: function() {
+                    alert('Error al cargar los datos');
+                }
+            });
+        })
 
         $('#novedad').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); // Botón que activó el modal

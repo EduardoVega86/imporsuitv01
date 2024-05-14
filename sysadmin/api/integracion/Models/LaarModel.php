@@ -813,7 +813,7 @@ class LaarModel extends Query
                     }
                 }
             } else {
-                echo json_encode('error');
+                echo json_encode('errors');
             }
         }
     }
