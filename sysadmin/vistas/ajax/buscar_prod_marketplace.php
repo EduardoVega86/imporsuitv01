@@ -16,6 +16,7 @@ if ($_SERVER['HTTP_HOST'] == 'localhost') {
     $destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
 }
 
+
 //Archivo de funciones PHP
 include "../funciones.php";
 //Inicia Control de Permisos
@@ -165,12 +166,18 @@ if ($action == 'ajax') {
                             <p class="card-text"><strong>Stock</strong> <?php echo stock($stock_producto); ?></br>
                                 <strong>Precio Proveedor:</strong> $ <?php echo number_format($costo_producto, 2, '.', ''); ?></br>
                                 <strong>Precio Sugerido:</strong> $ <?php echo number_format($precio_especial, 2, '.', ''); ?></br>
-                                <?php $tienda = str_replace('https://', '', $tienda);
-                                $tienda = str_replace('http://', '', $tienda);
-                                $tienda = str_replace('.imporsuit.com', '', $tienda);
-                                $tienda = strtoupper($tienda); ?>
+                                <?php 
+                                $tienda_mostrar = str_replace('https://', '', $tienda);
+                                $tienda_mostrar = str_replace('http://', '', $tienda_mostrar);
+                                $tienda_mostrar = str_replace('.imporsuit.com', '', $tienda_mostrar);
+                                $tienda_mostrar = strtoupper($tienda_mostrar); 
+                                
+                                $server_url_mostrar = str_replace('https://', '', $server_url);
+                                $server_url_mostrar = str_replace('http://', '', $server_url_mostrar);
+                                $server_url_mostrar = str_replace('.imporsuit.com', '', $server_url_mostrar);
+                                $server_url_mostrar = strtoupper($server_url_mostrar); ?>
                             </p>
-                            <span class="text-link" onclick="abrirModalTienda('<?php echo $tienda; ?>')" data-bs-toggle="modal" data-bs-target="#tiendaModal"><strong>Proveedor:</strong> <?php echo $tienda ?></strong></span>
+                            <span class="text-link" onclick="abrirModalTienda('<?php echo $tienda; ?>')" data-bs-toggle="modal" data-bs-target="#tiendaModal"><strong>Proveedor:</strong> <?php echo $tienda_mostrar ?></strong></span>
 
                             <!-- modal proveedor -->
                             <div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
@@ -197,7 +204,10 @@ if ($action == 'ajax') {
 
 
                                 <a data-toggle="modal" style="width: 100%" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');" class="btn bg-info text-white formulario">Descripcion</a>
-                            </div><br> <?php if ($tienda <> $server_url) {
+                            </div><br> <?php 
+                            
+                                  
+                            if ($tienda_mostrar <> $server_url_mostrar) {
                                         ?>
 
                                 <a class='btn btn-primary formulario' style="width: 100%" href="../ajax/importar.php?id=<?php echo $id_producto; ?>" title="Importar" onclick="recibir(<?php echo $id_producto ?>)">
@@ -217,7 +227,7 @@ if ($action == 'ajax') {
                 <input type="hidden" value="<?php echo $online; ?>" id="online<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $codigo_producto; ?>" id="codigo_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $nombre_producto; ?>" id="nombre_producto<?php echo $id_producto; ?>">
-                <input type="hidden" value="<?php echo $descripcion_producto; ?>" id="descripcion_producto<?php echo $id_producto; ?>">
+                <input type="hidden" value="<?php echo @$descripcion_producto; ?>" id="descripcion_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $linea_producto; ?>" id="linea_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $id_proveedor; ?>" id="proveedor_producto<?php echo $id_producto; ?>">
                 <!--<input type="hidden" value="<?php echo $med_producto; ?>" id="med_producto<?php echo $id_producto; ?>">-->
@@ -252,7 +262,7 @@ if ($action == 'ajax') {
 
                 $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataformas WHERE url_imporsuit LIKE '%" . $tienda ."%'");
                 $row_tienda         = mysqli_fetch_array($count_tienda);
-                $telefono_tienda    = $row_tienda['whatsapp'];
+                $telefono_tienda    = @$row_tienda['whatsapp'];
                 $telefonoFormateado = formatPhoneNumber($telefono_tienda);
 
                 ?>
