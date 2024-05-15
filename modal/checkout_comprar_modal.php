@@ -391,44 +391,56 @@
 									$image_path2 = $row["image_path"];
 									$costo_producto2 = $row["costo_producto"];
 							?>
-									<div class="caja_oferta">
-										<label class="sub_titulos">Deseas la siguiente oferta:</label>
-										<div class="d-flex flex-row justify-content-between align-items-center" style="width: 100%;">
-											<div class="d-flex align-items-center"> <!-- Contenedor para el checkbox y la imagen -->
-												<input type="checkbox" class="mr-2" id="oferta_seleccionada" name="oferta_seleccionada" style="margin-top: 0;"> <!-- Checkbox -->
-												<img style="width: 67px" src="<?php
-																				$subcadena2 = "http";
-																				if (strpos(strtolower($image_path2), strtolower($subcadena2)) === 0) {
-																					echo $image_path2 . '"';
-																				} else {
-																					echo 'sysadmin/' . str_replace("../..", "", $image_path2) . '"';
-																				} ?>" class="_rsi-modal-line-item-image">
-											</div>
-											<div>
-												<label class="sub_titulos" style="text-align: center;"><?php echo $nombre_producto2; ?></label>
-											</div>
-											<div>
-												<label class="sub_titulos" style="text-align: right;">$ <?php echo $costo_producto2; ?></label>
+									<div id="oferta_adicionalPreview" style="padding-top: 10px;">
+										<div class="caja_oferta">
+											<label class="sub_titulos">Deseas la siguiente oferta:</label>
+											<div class="d-flex flex-row justify-content-between align-items-center" style="width: 100%;">
+												<div class="d-flex align-items-center"> <!-- Contenedor para el checkbox y la imagen -->
+													<input type="checkbox" class="mr-2" id="oferta_seleccionada" name="oferta_seleccionada" style="margin-top: 0;"> <!-- Checkbox -->
+													<img style="width: 67px" src="<?php
+																					$subcadena2 = "http";
+																					if (strpos(strtolower($image_path2), strtolower($subcadena2)) === 0) {
+																						echo $image_path2 . '"';
+																					} else {
+																						echo 'sysadmin/' . str_replace("../..", "", $image_path2) . '"';
+																					} ?>" class="_rsi-modal-line-item-image">
+												</div>
+												<div>
+													<label class="sub_titulos" style="text-align: center;"><?php echo $nombre_producto2; ?></label>
+												</div>
+												<div>
+													<label class="sub_titulos" style="text-align: right;">$ <?php echo $costo_producto2; ?></label>
+												</div>
 											</div>
 										</div>
 									</div>
-								<?php } ?>
-							<?php } ?>
+								<?php
+								}
+							} else {
+								?>
+								<div id="oferta_adicionalPreview" style="padding-top: 10px;">
+									<div class="" id="oferta_adicionalPreview">
+									</div>
+								</div>
+							<?php
+							}
+							?>
 							<!-- Fin Ofertas -->
+
 						</div>
-					</div>
-					<div class="modal-footer">
-						<!-- Boton Comprar -->
-						<div id="btn_comprarPreview" style="padding-top: 20px;">
+						<div class="modal-footer">
+							<!-- Boton Comprar -->
+							<div id="btn_comprarPreview" style="padding-top: 20px;">
 
-							<div class="input-group mb-3 d-flex justify-content-center">
+								<div class="input-group mb-3 d-flex justify-content-center">
 
-								<button class="btn_comprar btn-dark" id="textoBtn_comprarPreview" type="submit">COMPRAR AHORA</button>
+									<button class="btn_comprar btn-dark" id="textoBtn_comprarPreview" type="submit">COMPRAR AHORA</button>
+
+								</div>
 
 							</div>
-
+							<!-- Fin Boton Comprar -->
 						</div>
-						<!-- Fin Boton Comprar -->
 					</div>
 			</div>
 			</form>
