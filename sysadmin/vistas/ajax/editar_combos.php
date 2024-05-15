@@ -2,11 +2,8 @@
 include 'is_logged.php';
 if (empty($_POST['mod_nombre_combo'])) {
     $errors[] = "Nombre del combo vacío";
-} else if (empty($_POST['mod_valor_combo'])) {
-    $errors[] = "Valor de combo vacío";
 } else if (
-    !empty($_POST['mod_nombre_combo']) &&
-    !empty($_POST['mod_valor_combo'])
+    !empty($_POST['mod_nombre_combo'])
 ) {
     /* Connect To Database*/
     require_once "../db.php";
@@ -15,12 +12,10 @@ if (empty($_POST['mod_nombre_combo'])) {
     require_once "../funciones.php";
     // escaping, additionally removing everything that could be (html/javascript-) code
     $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["mod_nombre_combo"], ENT_QUOTES)));
-    $valor            = floatval($_POST['mod_valor_combo']);
 
     $query_update = '';
 
-    $sql             = "UPDATE combos SET nombre='" . $nombre . "',
-                                        valor='" . $valor . "'";
+    $sql             = "UPDATE combos SET nombre='" . $nombre . "'";
     //echo $sql;
     $query_update = mysqli_query($conexion, $sql);
 

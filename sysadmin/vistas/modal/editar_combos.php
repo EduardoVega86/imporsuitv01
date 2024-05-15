@@ -24,12 +24,6 @@ if (isset($conexion)) {
                                             <input type="text" class="form-control UpperCase" id="mod_nombre_combo" name="mod_nombre_combo" autocomplete="off" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="mod_valor_combo" class="control-label">valor:</label>
-                                            <input type="text" class="form-control" id="mod_valor_combo" name="mod_valor_combo" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="12" required>
-                                        </div>
-                                    </div>
 
                                 </div>
 
