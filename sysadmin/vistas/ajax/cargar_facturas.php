@@ -55,6 +55,7 @@ if ($filtro == 'mayor_menor') {
             <th>Monto Pendiente</th>
             <th>Numero Guia</th>
             <th>Guia</th>
+            <th>Estado</th>
             <th>Ticket</th>
             <th>Ver</th>
             <th>Editar</th>
@@ -167,6 +168,14 @@ if ($filtro == 'mayor_menor') {
                     <?php } else { ?>
                         <span class="badge badge-purple">Sin Recaudo</span>
                     <?php } ?>
+                </td>
+                <td id="estados_laar_<?php echo $rws['guia_laar'] ?>" class="text-center">
+                    <?php
+                    if (strpos($rws['guia_laar'], "IMP") === 0) {
+                        echo "<script> validar_laar('" . $rws['guia_laar'] . "', '" . $numero_factura . "')</script>";
+                    }
+                    ?>
+                    PROXIMAMENTE
                 </td>
                 <td class="text-center">
                     <?php
