@@ -2356,6 +2356,16 @@ mysqli_query($conexion, "CREATE TABLE novedades (
 	fecha_novedad date not null default current_timestamp
 );");
 
+mysqli_query($conexion, "DELETE FROM novedades
+WHERE id_novedad NOT IN (
+    SELECT * FROM (
+        SELECT MAX(id_novedad) AS id
+        FROM novedades
+        GROUP BY guia_novedad
+    ) AS temp
+);");
+mysqli_query($conexion, "ALTER TABLE `novedades` ADD UNIQUE(`guia_novedad`);");
+
 mysqli_query($conexion, "CREATE TABLE detalle_novedad (
 	id_detalle_novedad int not null primary key auto_increment,
 	codigo_novedad int not null,
@@ -2366,7 +2376,6 @@ mysqli_query($conexion, "CREATE TABLE detalle_novedad (
 	Foreign key (guia_novedad) REFERENCES novedades(guia_novedad) 
 );");
 
-mysqli_query($conexion, "ALTER TABLE `novedades` ADD UNIQUE(`guia_novedad`);");
 
 mysqli_query($conexion, "ALTER TABLE `facturas_ventas` DROP INDEX `numero_cotizacion`;");
 mysqli_query($conexion, "ALTER TABLE `detalle_fact_ventas` ADD `descripcion_detalle` TEXT NOT NULL AFTER `importe_venta`;");
@@ -2447,5 +2456,9 @@ mysqli_query($conexion, "CREATE TABLE `detalle_combo` (
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
+
+
+
+
 
 echo json_encode("ok");
