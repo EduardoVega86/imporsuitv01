@@ -2457,11 +2457,9 @@ mysqli_query($conexion, "CREATE TABLE `detalle_combo` (
 
 mysqli_query($conexion, "ALTER TABLE `combos` ADD `id_producto_combo` INT NOT NULL AFTER `valor`;");
 
-mysqli_query($conexion, "ALTER TABLE `combos` DROP `valor`;");
 
 mysqli_query($conexion, "ALTER TABLE `combos` DROP `id_empresa`;");
 
-mysqli_query($conexion, "ALTER TABLE `detalle_combo` ADD `valor` DOUBLE NOT NULL AFTER `cantidad`;");
 
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
