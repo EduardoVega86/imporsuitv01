@@ -727,7 +727,7 @@ $pacientes = 1;
                             </div>
                             <!-- Fin BOTON DE COMPRA -->
                             <!-- oferta_adicional -->
-                            <div class="list-group-item" id="oferta_adicional">
+                            <!-- <div class="list-group-item" id="oferta_adicional">
                                 <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
                                     <div>
                                         <button class="btn btn-secondary btn-sm toggle-visibility"><i class="fas fa-eye"></i></button>
@@ -756,7 +756,7 @@ $pacientes = 1;
 
                                     </form>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- Fin oferta_adicional -->
                         </div>
                     </div>
@@ -926,8 +926,8 @@ $pacientes = 1;
                             <!-- Fin Boton Comprar -->
                             <!-- oferta_adicional -->
                             <div class="form-group caja_oferta" id="oferta_adicionalPreview" style="position: relative; padding-top: 3px;">
-                                <label class="sub_titulos" id="txt_oferta_adicionalPreview">Barrio o Referencia</label>
-                                <label class="sub_titulos" id="valor_oferta_adicionalPreview">Barrio o Referencia</label>
+                                <label class="sub_titulos" id="">Titulo de oferta - </label>
+                                <label class="sub_titulos" id="">Precio de oferta</label>
                             </div>
                             <!-- Fin oferta_adicional -->
                         </div>
