@@ -364,6 +364,7 @@ function generar_guia() {
     );
 
     data.set("celular", $("#telefono").val());
+    data.append("celular", $("#telefono").val());
 
     data.append(
       "valor_total",
