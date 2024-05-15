@@ -36,7 +36,9 @@ async function validar_laar(guia, cot) {
       );
     },
     success: function (data) {
-      const estado_laar = document.querySelector("#estados_laar_" + cot);
+      const estado_laar = document.querySelector(
+        "#estados_laar_" + resultado["noGuia"]
+      );
       let color_badge = "";
 
       if (resultado["estado_codigo"] == 1) {

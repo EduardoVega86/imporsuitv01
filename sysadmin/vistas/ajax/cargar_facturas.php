@@ -54,8 +54,8 @@ if ($filtro == 'mayor_menor') {
             <th>Monto Cobrado</th>
             <th>Monto Pendiente</th>
             <th>Numero Guia</th>
-            <th>Guia</th>
             <th>Estado</th>
+            <th>Guia</th>
             <th>Ticket</th>
             <th>Ver</th>
             <th>Editar</th>
