@@ -362,6 +362,9 @@ function generar_guia() {
       "direccion",
       document.getElementById("direccion_destino").value
     );
+
+    data.set("celular", $("#telefono").val());
+
     data.append(
       "valor_total",
       Math.round(document.getElementById("valor_total_").value)
