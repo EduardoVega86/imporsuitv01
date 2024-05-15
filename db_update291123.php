@@ -2455,6 +2455,8 @@ mysqli_query($conexion, "CREATE TABLE `detalle_combo` (
 	UNIQUE KEY `id` (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;");
 
+mysqli_query($conexion, "ALTER TABLE `combos` ADD `id_producto_combo` INT NOT NULL AFTER `valor`;");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 
