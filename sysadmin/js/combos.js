@@ -171,11 +171,9 @@ $("#eliminarDatos").submit(function (event) {
 function obtener_datos(id) {
   //alert(id)
   var nombre_combo = $("#nombre_combo" + id).val();
-  var valor_combo = $("#valor_combo" + id).val();
 
   $("#mod_id_combo").val(id);
   $("#mod_nombre_combo").val(nombre_combo);
-  $("#mod_valor_combo").val(valor_combo);
 }
 
 function obtener_datos_landing(id) {

@@ -2,13 +2,10 @@
 include 'is_logged.php';
 if (empty($_POST['nombre'])) {
     $errors[] = "Nombre del combo vacío";
-} else if (empty($_POST['valor'])) {
-    $errors[] = "Valor de combo vacío";
 } else if (empty($_POST['selected_product_id'])) {
     $errors[] = "Producto de combo vacío";
 } else if (
     !empty($_POST['nombre']) &&
-    !empty($_POST['valor']) &&
     !empty($_POST['selected_product_id'])
 ) {
     /* Connect To Database*/
@@ -18,12 +15,11 @@ if (empty($_POST['nombre'])) {
     require_once "../funciones.php";
     // escaping, additionally removing everything that could be (html/javascript-) code
     $nombre      = mysqli_real_escape_string($conexion, (strip_tags($_POST["nombre"], ENT_QUOTES)));
-    $valor            = floatval($_POST['valor']);
     $id_producto = $_POST['selected_product_id'];
 
     $query_new_insert = '';
 
-    $sql              = "INSERT INTO combos (nombre, valor, id_producto_combo) VALUES ('$nombre','$valor','$id_producto')";
+    $sql              = "INSERT INTO combos (nombre, id_producto_combo) VALUES ('$nombre','$id_producto')";
     $query_new_insert = mysqli_query($conexion, $sql);
 
     if ($query_new_insert) {

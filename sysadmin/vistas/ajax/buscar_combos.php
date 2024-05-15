@@ -63,7 +63,6 @@ if ($action == 'ajax') {
                 <tr class="info">
                     <th class='text-center'>ID</th>
                     <th class='text-center'>Nombre</th>
-                    <th style="text-align: center" colspan="1">Valor</th>
                     <th class='text-center'>Nombre Producto</th>
                     <th class='text-center'></th>
                     <th class='text-center'>Visualizar combo</th>
@@ -81,7 +80,6 @@ if ($action == 'ajax') {
                 while ($row = mysqli_fetch_array($query)) {
                     $id_combo         = $row['id'];
                     $nombre_combo      = $row['nombre'];
-                    $valor_combo      = $row['valor'];
                     $id_producto_combo_principal = $row['id_producto_combo'];
 
                     $nombre_producto_principal = get_row('productos', 'nombre_producto', 'id_producto', $id_producto_combo_principal);
@@ -89,7 +87,6 @@ if ($action == 'ajax') {
                 ?>
 
                     <input type="hidden" value="<?php echo $nombre_combo; ?>" id="nombre_combo<?php echo $id_combo; ?>">
-                    <input type="hidden" value="<?php echo $valor_combo; ?>" id="valor_combo<?php echo $id_combo; ?>">
 
                     <tr class='text-center' data-id_combo="<?php echo $id_combo; ?>">
                         <td><span class="badge badge-purple"><?php echo $id_combo; ?></span>
@@ -98,8 +95,6 @@ if ($action == 'ajax') {
 
                         <td class='text-center'><?php echo $nombre_combo; ?></td>
 
-
-                        <td class='text-center'><span><?php echo $simbolo_moneda . '' . number_format($valor_combo, 2); ?></span></td>
 
                         <td class='text-center'><?php echo $nombre_producto_principal; ?></td>
 
