@@ -17,6 +17,11 @@ permisos($modulo, $cadena_permisos);
 $id_combo    = intval($_REQUEST['id_combo']);
 $_SESSION['id'] = $id_combo;
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
+
+$sql_combo_principal = "SELECT * FROM combos WHERE id = $id_combo";
+//echo $sql_combo_principal;
+$query_combo_principal = mysqli_query($conexion, $sql_combo_principal);
+$row_combo_principal = mysqli_fetch_array($query_combo_principal)
 ?>
 
 <div class="d-flex flex-row">
@@ -57,7 +62,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                         //echo $sql;
 
                         // Consulta para verificar si el producto ya está en detalle_combo
-                        $sql_check = "SELECT 1 FROM detalle_combo WHERE id_producto = '$id_producto'";
+                        $sql_check = "SELECT 1 FROM detalle_combo WHERE id_producto = '$id_producto' AND id_combo = '$id_combo'";
                         $query_check = mysqli_query($conexion, $sql_check);
                         if (mysqli_fetch_array($query_check)) {
                             // Si encuentra el producto en detalle_combo, salta al siguiente producto
@@ -178,6 +183,13 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                     }
                     ?>
                 </table>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="valor_combo" class="control-label">Precio del Combo:</label>
+                        <input type="text" class="form-control UpperCase" id="valor_combo" name="valor_combo" autocomplete="off" value="<?php echo $row_combo_principal['valor']; ?>">
+                    </div>
+                    <button class="btn btn-primary" id="btnGuardar">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -201,5 +213,26 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 dec_value.val(current_val - 1);
             }
         });
+
+        $(document).ready(function() {
+            $('#btnGuardar').click(function() {
+                var valorCombo = $('#valor_combo').val(); // Obtener el valor del input de combo
+
+                $.ajax({
+                    type: "POST",
+                    url: "../ajax/nuevo_combo.php", // Ruta al script PHP que procesará los datos
+                    data: {
+                        valor_combo: valorCombo // Añadir el valor del combo al objeto de datos
+                    },
+                    success: function(data) {
+                        alert('Valor guardado con éxito: ' + data);
+                    },
+                    error: function() {
+                        alert('Error al guardar el valor.');
+                    }
+                });
+            });
+        });
+
     });
 </script>
