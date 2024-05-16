@@ -55,6 +55,7 @@ if ($filtro == 'mayor_menor') {
             <th>Monto Pendiente</th>
             <th>Numero Guia</th>
             <th>Estado</th>
+            <th>Peso</th>
             <th>Guia</th>
             <th>Ticket</th>
             <th>Ver</th>
@@ -177,6 +178,16 @@ if ($filtro == 'mayor_menor') {
                     ?>
                     PROXIMAMENTE
                 </td>
+
+                <td id="estados_laar__<?php echo $rws['guia_laar'] ?>" class="text-center">
+                    <?php
+                    if (strpos($rws['guia_laar'], "IMP") === 0) {
+                        echo "<script> validar_laar('" . $rws['guia_laar'] . "', '" . $numero_factura . "')</script>";
+                    }
+                    ?>
+                    PROXIMAMENTE
+                </td>
+
                 <td class="text-center">
                     <?php
                     if (is_numeric($rws['guia_laar'])) {

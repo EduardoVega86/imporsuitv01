@@ -1728,6 +1728,26 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 break;
                                                                                                                         }
                                                                                                                     } else if (strpos($guia_numero, "I00") === 0) {
+
+                                                                                                                        switch ($estado_guia_for) {
+                                                                                                                            case '1':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Generada';
+                                                                                                                                break;
+                                                                                                                            case '2':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'En Transito';
+                                                                                                                                break;
+                                                                                                                            case '3':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entragado';
+                                                                                                                                break;
+                                                                                                                            case '4':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulado';
+                                                                                                                                break;
+                                                                                                                        }
+
                                                                                                                         $span_estado = 'badge-danger';
                                                                                                                         $url = "https://guias.imporsuit.com/Gintracom/label/" . $guia_numero;
                                                                                                                         $tracking = "https://ec.gintracom.site/web/site/tracking?guia=" . $guia_numero . "&tipo=GUIA";
