@@ -90,7 +90,67 @@ if ($action == 'ajax') {
     if ($numrows > 0) {
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 ?>
+ <style>
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 10px;
+    border: 1px solid #ccc; /* Opcional: agrega un borde sutil */
+    border-radius: 8px; /* Opcional: bordes redondeados para una apariencia más suave */
+}
 
+.card-img-top {
+    height: 150px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1; /* Permite que el cuerpo de la tarjeta crezca para llenar el espacio */
+    padding: 10px;
+}
+
+.card-title, .card-text {
+    font-size: 12px;
+    margin-bottom: 5px; /* Espacio entre elementos del texto */
+}
+
+/* Mejora el estilo de los botones */
+.btn {
+    width: 100%; /* Hace que todos los botones ocupen todo el ancho */
+    padding: 8px 0; /* Añade padding vertical para más visibilidad */
+    margin-top: 5px; /* Espacio encima del primer botón */
+    border-radius: 4px; /* Bordes redondeados para los botones */
+    text-align: center; /* Asegura que el texto esté centrado */
+    background-color: #007bff; /* Color de fondo para botones principales */
+    color: white; /* Color de texto para botones principales */
+    border: none; /* Elimina el borde predeterminado */
+    cursor: pointer;
+}
+
+.btn:last-child {
+    background-color: #ffc107; /* Color diferente para el último botón, opcional */
+}
+
+.card-text {
+    overflow: hidden; /* Evita desbordamientos de texto */
+    text-overflow: ellipsis; /* Pone puntos suspensivos si el texto es muy largo */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* Limita el texto a tres líneas */
+}
+
+.text-link {
+    cursor: pointer; /* Hace el texto clickeable */
+    color: #007bff; /* Color para simular un enlace */
+}
+
+
+ </style>
         <div class="row">
             <?php
             while ($row = mysqli_fetch_array($query)) {
@@ -150,80 +210,68 @@ if ($action == 'ajax') {
 
 
                 <div class="col-md-2">
-                    <div style="padding:10px" align="center" class="card caja">
-                        <?php
+    <div style="padding:10px" align="center" class="card caja">
+        <?php
+        if ($image_path == null) {
+            echo '<img src="../../img_sistema/LOGOS-IMPORSUIT.jpg" class="formulario card-img-top">';
+        } else {
+            echo '<img src="' . $image_path . '" class="formulario card-img-top">';
+        }
+        ?>
+        <div class="card-body">
+            <h5 class="card-title"><strong><?php echo strtoupper($nombre_producto); ?></strong></h5>
+            <p class="card-text">
+                <strong>Stock:</strong> <?php echo stock($stock_producto); ?><br>
+                <strong>Precio Proveedor:</strong> $ <?php echo number_format($costo_producto, 2, '.', ''); ?><br>
+                <strong>Precio Sugerido:</strong> $ <?php echo number_format($precio_especial, 2, '.', ''); ?><br>
+                <?php 
+                $tienda_mostrar = str_replace('https://', '', $tienda);
+                $tienda_mostrar = str_replace('http://', '', $tienda_mostrar);
+                $tienda_mostrar = str_replace('.imporsuit.com', '', $tienda_mostrar);
+                $tienda_mostrar = strtoupper($tienda_mostrar); 
 
-                        if ($image_path == null) {
-                            echo '<img src="../../img_sistema/LOGOS-IMPORSUIT.jpg" class="formulario" width="100%">';
-                        } else {
-
-                            echo '<img src="' . $image_path . '" class="formulario" width="100%" style="max-height:280px; max-height:280px !important;">';
-                        }
-
-                        ?>
-                        <div class="card-body">
-                            <h5 class="card-title"><strong><?php echo $nombre_producto; ?></strong></h5>
-                            <p class="card-text"><strong>Stock</strong> <?php echo stock($stock_producto); ?></br>
-                                <strong>Precio Proveedor:</strong> $ <?php echo number_format($costo_producto, 2, '.', ''); ?></br>
-                                <strong>Precio Sugerido:</strong> $ <?php echo number_format($precio_especial, 2, '.', ''); ?></br>
-                                <?php 
-                                $tienda_mostrar = str_replace('https://', '', $tienda);
-                                $tienda_mostrar = str_replace('http://', '', $tienda_mostrar);
-                                $tienda_mostrar = str_replace('.imporsuit.com', '', $tienda_mostrar);
-                                $tienda_mostrar = strtoupper($tienda_mostrar); 
-                                
-                                $server_url_mostrar = str_replace('https://', '', $server_url);
-                                $server_url_mostrar = str_replace('http://', '', $server_url_mostrar);
-                                $server_url_mostrar = str_replace('.imporsuit.com', '', $server_url_mostrar);
-                                $server_url_mostrar = strtoupper($server_url_mostrar); ?>
-                            </p>
-                            <span class="text-link" onclick="abrirModalTienda('<?php echo $tienda; ?>')" data-bs-toggle="modal" data-bs-target="#tiendaModal"><strong>Proveedor:</strong> <?php echo $tienda_mostrar ?></strong></span>
-
-                            <!-- modal proveedor -->
-                            <div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="tiendaModalLabel">Información de la Tienda</h5>
-                                            <button type="button" class="btn-close" onclick="cerrarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body" id="boody">
-                                            <!-- Aquí va el contenido que quieras mostrar en el modal -->
-                                            <p id="modalContent">Aquí va la información de la tienda.</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" onclick="cerrarModal()" data-bs-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- fin modal proveedor -->
-                            <div width="100%" class="d-flex gap-3 justify-content-center">
-
-
-
-                                <a data-toggle="modal" style="width: 100%" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');" class="btn bg-info text-white formulario">Descripcion</a>
-                            </div><br> <?php 
-                            
-                                  
-                            if ($tienda_mostrar <> $server_url_mostrar) {
-                                        ?>
-
-                                <a class='btn btn-primary formulario' style="width: 100%" href="../ajax/importar.php?id=<?php echo $id_producto; ?>" title="Importar" onclick="recibir(<?php echo $id_producto ?>)">
-                                    Importar
-                                </a>
-
-                            <?php } else {
-                            ?>
-                                <a class='btn btn-warning formulario' style="width: 100%" target="blank" href="nueva_cotizacion_1.php?id=local&id_producto=<?php echo $id_producto_origen; ?>&precio_importacion=<?php echo $precio_especial; ?>" title="Guia" onclick="recibir(<?php echo $id_producto ?>)">
-                                    Generar Guía
-                                </a>
-                            <?php }
-                            ?>
+                $server_url_mostrar = str_replace('https://', '', $server_url);
+                $server_url_mostrar = str_replace('http://', '', $server_url_mostrar);
+                $server_url_mostrar = str_replace('.imporsuit.com', '', $server_url_mostrar);
+                $server_url_mostrar = strtoupper($server_url_mostrar);
+                ?>
+                <strong>Proveedor:</strong> <?php echo $tienda_mostrar ?>
+            </p>
+            <span style="font-size: 12px" class="text-link" onclick="abrirModalTienda('<?php echo $tienda; ?>')" data-bs-toggle="modal" data-bs-target="#tiendaModal"><strong>Proveedor:</strong> <?php echo $tienda_mostrar ?></span>
+            <!-- modal proveedor -->
+            <div class="modal fade" id="tiendaModal" tabindex="-1" aria-labelledby="tiendaModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="tiendaModalLabel">Información de la Tienda</h5>
+                            <button type="button" class="btn-close" onclick="cerrarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="boody">
+                            <p id="modalContent">Aquí va la información de la tienda.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" onclick="cerrarModal()" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- fin modal proveedor -->
+            <div class="d-flex gap-3 justify-content-center">
+                <a data-toggle="modal" style="width: 100%" data-target="#editarProducto" onclick="obtener_datos('<?php echo $id_producto; ?>');carga_img('<?php echo $id_producto; ?>');" class="btn bg-info text-white formulario">Descripcion</a>
+               </div>
+            <div class="d-flex gap-3 justify-content-center">
+                <?php
+                if ($tienda_mostrar != $server_url_mostrar) {
+                    echo "<a class='btn btn-primary formulario' style='width: 100%' href='../ajax/importar.php?id=$id_producto' title='Importar' onclick='recibir($id_producto)'>Importar</a>";
+                } else {
+                    echo "<a class='btn btn-warning formulario' style='width: 100%' target='_blank' href='nueva_cotizacion_1.php?id=local&id_producto=$id_producto_origen&precio_importacion=$precio_especial' title='Guia' onclick='recibir($id_producto)'>Generar Guía</a>";
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+
                 <input type="hidden" value="<?php echo $online; ?>" id="online<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $codigo_producto; ?>" id="codigo_producto<?php echo $id_producto; ?>">
                 <input type="hidden" value="<?php echo $nombre_producto; ?>" id="nombre_producto<?php echo $id_producto; ?>">
