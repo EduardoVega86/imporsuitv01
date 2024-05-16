@@ -41,6 +41,9 @@ async function validar_laar(guia, cot) {
       const estado_laar = document.querySelector(
         "#estados_laar_" + resultado["noGuia"]
       );
+      const peso_laar = document.querySelector(
+        "#estados_laar__" + resultado["noGuia"]
+      );
       let color_badge = "";
 
       if (resultado["estado_codigo"] == 1) {
@@ -73,6 +76,7 @@ async function validar_laar(guia, cot) {
         color_badge = `<span class='badge badge-danger'><span>Con Novedad</span></span><BR>`;
       }
       estado_laar.innerHTML = color_badge;
+      peso_laar.innerHTML = resultado["pesoKilos"];
     },
   });
 }

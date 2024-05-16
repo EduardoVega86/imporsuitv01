@@ -84,7 +84,7 @@ $ventas = 1;
                                             <div style=" padding-top: 10px;">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-info waves-effect waves-light" onclick='load(1);'>
-                                                       Buscar  <span class="fa fa-search"></span></button>
+                                                        Buscar <span class="fa fa-search"></span></button>
                                                 </span>
                                             </div>
                                         </div>
@@ -240,6 +240,7 @@ $ventas = 1;
         if (guia == 0) {
             return false;
         }
+
         let data = await fetch('https://api.laarcourier.com:9727/guias/' + guia, {
             method: 'GET',
         })
