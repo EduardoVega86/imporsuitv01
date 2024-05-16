@@ -79,7 +79,7 @@ async function validar_laar(guia, cot) {
         color_badge = `<span class='badge badge-danger'><span>Con Novedad</span></span><BR>`;
       }
       estado_laar.innerHTML = color_badge;
-      peso_laar.innerHTML = resultado["pesoKilos"];
+      peso_laar.innerHTML = resultado["pesoKilos"] + kg;
     },
   });
 }
