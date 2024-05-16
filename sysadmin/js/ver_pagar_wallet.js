@@ -1,87 +1,111 @@
 async function validar_laar(guia, cot) {
   console.log(cot);
-  let data = await fetch("https://api.laarcourier.com:9727/guias/" + guia, {
-    method: "GET",
-  });
-  let result = await data.json();
-  let resultado = [];
-  if (result["novedades"].length > 0) {
-    result["novedades"].forEach((element) => {
-      if (
-        element["codigoTipoNovedad"] == 42 ||
-        element["codigoTipoNovedad"] == 96
-      ) {
-        resultado["estado_codigo"] = 9;
-        //sale del ciclo
-        return false;
-      } else {
-        resultado["estado_codigo"] = result["estadoActualCodigo"];
+
+  try {
+    let response = await fetch(
+      "https://api.laarcourier.com:9727/guias/" + guia,
+      {
+        method: "GET",
       }
+    );
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    let result = await response.json();
+    let resultado = {};
+
+    if (result.novedades.length > 0) {
+      for (let element of result.novedades) {
+        if (
+          element.codigoTipoNovedad == 42 ||
+          element.codigoTipoNovedad == 96
+        ) {
+          resultado.estado_codigo = 9;
+          break;
+        } else {
+          resultado.estado_codigo = result.estadoActualCodigo;
+        }
+      }
+    } else {
+      resultado.estado_codigo = result.estadoActualCodigo;
+    }
+
+    resultado.pesoKilos = Math.round(result.pesoKilos);
+    resultado.noGuia = result.noGuia;
+
+    $.ajax({
+      url: "../ajax/guardar_guia_wallet.php",
+      type: "POST",
+      data: {
+        guia: resultado.noGuia,
+        estado: resultado.estado_codigo,
+        peso: resultado.pesoKilos,
+      },
+      beforeSend: function (objeto) {
+        $("#estados_laar_" + resultado.noGuia).html(
+          '<img src="../../img/ajax-loader.gif"> Cargando...'
+        );
+        $("#estados_laar__" + resultado.noGuia).html(
+          '<img src="../../img/ajax-loader.gif"> Cargando...'
+        );
+      },
+      success: function (data) {
+        const estado_laar = document.querySelector(
+          "#estados_laar_" + resultado.noGuia
+        );
+        const peso_laar = document.querySelector(
+          "#estados_laar__" + resultado.noGuia
+        );
+
+        const estadoMap = {
+          1: "Anulado",
+          2: "Por recolectar",
+          3: "Recolectado",
+          4: "En bodega",
+          5: "En Transito",
+          6: "Zona de Entrega",
+          7: "Entregado",
+          8: "Anulado",
+          9: "Devolucion",
+          10: "Facturado",
+          11: "En Transito",
+          12: "En Transito",
+          13: "En Transito",
+          14: "Con Novedad",
+        };
+
+        const badgeClassMap = {
+          1: "badge-danger",
+          2: "badge-purple",
+          3: "badge-purple",
+          4: "badge-purple",
+          5: "badge-warning",
+          6: "badge-purple",
+          7: "badge-purple",
+          8: "badge-danger",
+          9: "badge-danger",
+          10: "badge-purple",
+          11: "badge-warning",
+          12: "badge-warning",
+          13: "badge-warning",
+          14: "badge-danger",
+        };
+
+        const estado = estadoMap[resultado.estado_codigo];
+        const badgeClass = badgeClassMap[resultado.estado_codigo];
+
+        estado_laar.innerHTML = `<span class='badge ${badgeClass}'><span>${estado}</span></span><br>`;
+        peso_laar.innerHTML = resultado.pesoKilos + "kg";
+      },
+      error: function (xhr, status, error) {
+        console.error("Error al guardar la guía: ", status, error);
+      },
     });
-  } else {
-    resultado["estado_codigo"] = result["estadoActualCodigo"];
+  } catch (error) {
+    console.error("Error fetching data: ", error);
   }
-  resultado["pesoKilos"] = Math.round(result["pesoKilos"]);
-  resultado["noGuia"] = result["noGuia"];
-
-  $.ajax({
-    url: "../ajax/guardar_guia_wallet.php",
-    type: "POST",
-    data: {
-      guia: resultado["noGuia"],
-      estado: resultado["estado_codigo"],
-      peso: resultado["pesoKilos"],
-    },
-    beforeSend: function (objeto) {
-      $("#estados_laar_" + resultado["noGuia"]).html(
-        '<img src="../../img/ajax-loader.gif"> Cargando...'
-      );
-      $("#estados_laar__" + resultado["noGuia"]).html(
-        '<img src="../../img/ajax-loader.gif"> Cargando...'
-      );
-    },
-    success: function (data) {
-      const estado_laar = document.querySelector(
-        "#estados_laar_" + resultado["noGuia"]
-      );
-      const peso_laar = document.querySelector(
-        "#estados_laar__" + resultado["noGuia"]
-      );
-      let color_badge = "";
-
-      if (resultado["estado_codigo"] == 1) {
-        color_badge = `<span class='badge badge-danger'><span> Anulado</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 2) {
-        color_badge = `<span class='badge badge-purple'>Por recolectar</span><BR>`;
-      } else if (resultado["estado_codigo"] == 3) {
-        color_badge = `<span class='badge badge-purple'><span>Recolectado</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 4) {
-        color_badge = `<span class='badge badge-purple'><span>En bodega</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 5) {
-        color_badge = `<span class='badge badge-warning'><span>En Transito</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 6) {
-        color_badge = `<span class='badge badge-purple'><span>Zona de Entrega</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 7) {
-        color_badge = `<span class='badge badge-purple'><span>Entregado</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 8) {
-        color_badge = `<span class='badge badge-danger'><span>Anulado</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 9) {
-        color_badge = `<span class='badge badge-danger'><span>Devolucion</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 10) {
-        color_badge = `<span class='badge badge-purple'><span>Facturado</span></span><BR> `;
-      } else if (resultado["estado_codigo"] == 11) {
-        color_badge = `<span class='badge badge-warning'><span>En Transito</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 12) {
-        color_badge = `<span class='badge badge-warning'><span>En Transito</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 13) {
-        color_badge = `<span class='badge badge-warning'><span>En Transito</span></span><BR>`;
-      } else if (resultado["estado_codigo"] == 14) {
-        color_badge = `<span class='badge badge-danger'><span>Con Novedad</span></span><BR>`;
-      }
-      estado_laar.innerHTML = color_badge;
-      peso_laar.innerHTML = resultado["pesoKilos"] + "kg";
-    },
-  });
 }
 
 $(document).ready(function () {
