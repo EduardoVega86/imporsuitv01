@@ -762,7 +762,7 @@ class LaarModel extends Query
                     $query = $this->insert($sql, $data);
                     echo "se inserto la novedad";
 
-                    $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia' and estado_novedad = '$cod_novedad'";
+                    $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
                     $sql_s = $this->select($sql_s);
                     $sql_s = count($sql_s);
                     echo $sql_s;
