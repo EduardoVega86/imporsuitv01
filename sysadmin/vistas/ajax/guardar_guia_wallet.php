@@ -10,7 +10,7 @@ $estado = $datos['estado'];
 $guia = $datos['guia'];
 $cot = $datos['cot'];
 $peso = $datos['peso'];
-$sql = "UPDATE cabecera_cuenta_pagar SET estado_pedido = '$estado' WHERE guia_laar = '$guia' AND peso = '$peso' ";
+$sql = "UPDATE cabecera_cuenta_pagar SET estado_pedido = '$estado', peso = '$peso' WHERE guia_laar = '$guia' ";
 $result = mysqli_query($conexion, $sql);
 $result_cot = mysqli_query($conexion, $sql_cot);
 if ($result) {
