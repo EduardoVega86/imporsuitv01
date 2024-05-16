@@ -727,7 +727,7 @@ class LaarModel extends Query
             if ($stmt->execute()) {
                 echo json_encode('ok');
                 // enviar correo
-                $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
+                $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' and estado_novedad = '$cod_novedad'";
                 $existe_m = $this->select($existe_m);
 
                 $existe_m = count($existe_m);
@@ -762,10 +762,10 @@ class LaarModel extends Query
                     $query = $this->insert($sql, $data);
                     echo "se inserto la novedad";
 
-                    $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
+                    $sql_s = "SELECT * FROM detalle_novedad WHERE guia_novedad = '$no_guia' and estado_novedad = '$cod_novedad'";
                     $sql_s = $this->select($sql_s);
                     $sql_s = count($sql_s);
-
+                    echo $sql_s;
                     if (empty($sql_s)) {
                         $sql = "INSERT INTO `detalle_novedad` (`codigo_novedad`, `guia_novedad`, `nombre_novedad`, `detalle_novedad`, `observacion`) VALUES ( ?, ?, ?, ?, ?)";
                         $data = array($cod_novedad, $no_guia, $detalle, $detalles, $observacion);
