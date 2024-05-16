@@ -21,14 +21,16 @@ async function validar_laar(guia, cot) {
   } else {
     resultado["estado_codigo"] = result["estadoActualCodigo"];
   }
+  resultado["pesoKilos"] = Math.round(result["pesoKilo"]);
   resultado["noGuia"] = result["noGuia"];
 
   $.ajax({
-    url: "../ajax/guardar_guia_new.php",
+    url: "../ajax/guardar_guia_wallet.php",
     type: "POST",
     data: {
       guia: resultado["noGuia"],
       estado: resultado["estado_codigo"],
+      peso: resultado["pesoKilos"],
     },
     beforeSend: function (objeto) {
       $("#estados_laar_" + resultado["noGuia"]).html(
