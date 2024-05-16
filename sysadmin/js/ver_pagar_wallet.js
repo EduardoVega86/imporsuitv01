@@ -21,7 +21,7 @@ async function validar_laar(guia, cot) {
   } else {
     resultado["estado_codigo"] = result["estadoActualCodigo"];
   }
-  resultado["pesoKilos"] = Math.round(result["pesoKilo"]);
+  resultado["pesoKilos"] = Math.round(result["pesoKilos"]);
   resultado["noGuia"] = result["noGuia"];
 
   $.ajax({
