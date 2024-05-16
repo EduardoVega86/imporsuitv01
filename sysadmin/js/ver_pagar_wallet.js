@@ -36,6 +36,9 @@ async function validar_laar(guia, cot) {
       $("#estados_laar_" + resultado["noGuia"]).html(
         '<img src="../../img/ajax-loader.gif"> Cargando...'
       );
+      $("#estados_laar__" + resultado["noGuia"]).html(
+        '<img src="../../img/ajax-loader.gif"> Cargando...'
+      );
     },
     success: function (data) {
       const estado_laar = document.querySelector(
