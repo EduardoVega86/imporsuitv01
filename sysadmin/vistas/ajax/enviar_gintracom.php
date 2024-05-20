@@ -265,7 +265,7 @@ if ($response) {
             . "'','$telefono','$celular',"
             . "'201202002002013','$cantidad_total','2',"
             . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-            . "'0','$observacion','$costo_total',100, 4)";
+            . "'0','$observacion','$costo_total',1, 4)";
         //echo $sql_insertar_guia;
         $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
         echo mysqli_error($conexion);
@@ -313,7 +313,7 @@ if ($response) {
             . "'','$telefono','$celular',"
             . "'201202002002013','$cantidad_total','2',"
             . "'$valorasegurado','$productos_guia','$cod_guia','$costo_envio','$valor_total',"
-            . "'0','$observacion','$costo_total',100, 4)";
+            . "'0','$observacion','$costo_total',1, 4)";
         //echo $sql_insertar_guia_destino;
         //echo $tipo_origen;
         if ($tipo_origen == 1) {
@@ -343,7 +343,7 @@ if ($response) {
       `tipoServicio`= '201202002002013',`noPiezas`= '$cantidad_total', `peso`= '2',
           `valorDeclarado`= '$valorasegurado', `contiene`= '$productos_guia',`cod` = '$cod_guia',
               `costoflete`= '$costo_envio',`costoproducto`= '$valor_total',
-                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '100', `id_transporte`= '3'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
+                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '1', `id_transporte`= '4'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
 ";
             // echo $sql_insertar_guia;
             $query_insertar_marketplace = mysqli_query($conexion_marketplace, $sql_insertar_guia_marketplace);
@@ -368,7 +368,7 @@ if ($response) {
       `tipoServicio`= '201202002002013',`noPiezas`= '$cantidad_total', `peso`= '2',
           `valorDeclarado`= '$valorasegurado', `contiene`= '$productos_guia',`cod` = '$cod_guia',
               `costoflete`= '$costo_envio',`costoproducto`= '$valor_total',
-                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '100', `id_transporte`='4'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
+                  `comentario`= '$observacion',`valor_costo`= '$costo_total',`estado_guia`= '1', `id_transporte`='4'  WHERE `guia_laar`.`id_guia` = '$ultimoid_market'
 ";
             //            $sql_insertar_guia_marketplace = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
             //            `identificacionO`,`ciudadO`, `nombreO`,

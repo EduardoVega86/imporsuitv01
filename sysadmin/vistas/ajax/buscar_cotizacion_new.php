@@ -1000,6 +1000,24 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $transportadora = $_REQUEST['transportadora'];
         $sWhere .= " and  transporte='$transportadora'";
     }
+    // Añadir las condiciones al SQL solo si ambas fechas están presentes
+    if (!empty($_GET['fechaInicio'])  && !empty($_GET['fechaFin'])) {
+        $fechaInicio = @$_GET['fechaInicio'];
+        $fechaFin = @$_GET['fechaFin'];
+        $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio' AND '$fechaFin'";
+    }
+
+    // Recibir el valor del checkbox, asumiendo que se envía como 'filtroImpresas'
+    $filtroImpresas = isset($_GET['filtroImpresas']) ? (int)$_GET['filtroImpresas'] : null; // Usar null como predeterminado si no se envía
+    // Aquí añadimos la lógica para el filtro de facturas impresas o no impresas
+    if (isset($_GET['filtroImpresas'])) {
+        $filtroImpresas = (int)$_GET['filtroImpresas'];
+        if ($filtroImpresas == 1) {
+            $sWhere .= " AND facturas_cot.impreso = 1";
+        } else if ($filtroImpresas == 0) {
+            $sWhere .= " AND facturas_cot.impreso is null";
+        }
+    }
 
     /*     $sWhere .= " and estado_guia_sistema IS NOT NULL";
  */
@@ -1710,6 +1728,26 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 break;
                                                                                                                         }
                                                                                                                     } else if (strpos($guia_numero, "I00") === 0) {
+
+                                                                                                                        switch ($estado_guia_for) {
+                                                                                                                            case '1':
+                                                                                                                                $span_estado = 'badge-purple';
+                                                                                                                                $estado_guia = 'Generada';
+                                                                                                                                break;
+                                                                                                                            case '2':
+                                                                                                                                $span_estado = 'badge-warning';
+                                                                                                                                $estado_guia = 'En Transito';
+                                                                                                                                break;
+                                                                                                                            case '3':
+                                                                                                                                $span_estado = 'badge-success';
+                                                                                                                                $estado_guia = 'Entragado';
+                                                                                                                                break;
+                                                                                                                            case '4':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulado';
+                                                                                                                                break;
+                                                                                                                        }
+
                                                                                                                         $span_estado = 'badge-danger';
                                                                                                                         $url = "https://guias.imporsuit.com/Gintracom/label/" . $guia_numero;
                                                                                                                         $tracking = "https://ec.gintracom.site/web/site/tracking?guia=" . $guia_numero . "&tipo=GUIA";
