@@ -295,8 +295,8 @@ while ($row = mysqli_fetch_array($query)) {
 
       .left-column,
       .right-column {
-        width: 100%;
-        padding: 10px;
+        width: 100% !important;
+        padding: 10px !important;
       }
 
       .precios_producto {
@@ -326,7 +326,7 @@ while ($row = mysqli_fetch_array($query)) {
       }
 
       .left-column {
-        position: static;
+        position: static !important;
         /* Para compatibilidad con Safari */
       }
 
@@ -577,7 +577,7 @@ if ($formato == 3) {
           <div class="slider_producto">
             <div class="d-flex flex-column" style="width: 100%;;">
               <!-- Indicadores del carrusel para las miniaturas -->
-              <div class="list-group"  id="list-tab" role="tablist">
+              <div class="list-group" id="list-tab" role="tablist">
 
                 <a class="list-group-item list-group-item-action active" style="max-width: 100px !important; max-height: 100px !important; padding:0;" id="list-image1-list" data-toggle="list" href="#list-image1" role="tab" aria-controls="image1">
                   <img src="<?php
@@ -904,10 +904,10 @@ if ($formato == 3) {
   if ($ws_flotante == 1) { ?>
     <a style="" class="btn-flotante-producto texto_boton" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
       <span style="margin-top: 10px">COMPRAR AHORA </span></a>
-  <?php } */?>
+  <?php } */ ?>
 
   <a style="" class="btn-flotante-producto texto_boton" href="#" onclick="agregar_tmp(<?php echo $id_producto; ?>, <?php echo $precio_especial; ?>)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      <span style="margin-top: 10px">COMPRAR AHORA </span></a>
+    <span style="margin-top: 10px">COMPRAR AHORA </span></a>
 
   <footer class="footer-contenedor">
     <?php
