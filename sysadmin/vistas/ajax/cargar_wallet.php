@@ -75,6 +75,7 @@ foreach ($rows as $row) {
         } else if ($row['estado_guia'] == 4) {
             $data["noGuia"] = $row['guia_laar'];
             $data["estadoActualCodigo"] = 9;
+
             $data["novedades"] = array(
 
                 array(
