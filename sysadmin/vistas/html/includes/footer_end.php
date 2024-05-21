@@ -42,6 +42,8 @@ if (!empty($datos)) {
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr@4.6.13/dist/l10n/es.js"></script>
 <?php
 }
 ?>
