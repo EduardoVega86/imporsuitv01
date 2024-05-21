@@ -75,6 +75,21 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
         if ($numrows > 0 && $dominio_actual == 'marketplace.imporsuit') {
 ?>
+            <!-- activar modal -->
+            <div class="">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dataUpdate">
+                    Actualizar Datos
+                </button>
+            </div>
+            <!-- modal -->
+
+            <div class="modal fade" id="dataUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="thead-light">
