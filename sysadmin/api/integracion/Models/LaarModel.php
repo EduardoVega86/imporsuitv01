@@ -692,11 +692,31 @@ class LaarModel extends Query
                     $data = array($cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                     $query = $this->insert($sql, $data);
                     echo "se inserto la novedad";
+
+                    //bind
+                    $stmt = $conexion_proveedor->prepare($sql);
+                    $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                    if ($stmt->execute()) {
+                        echo json_encode('ok');
+                        echo "se inserto la novedad";
+                    } else {
+                        echo mysqli_error($conexion_proveedor);
+                    }
                 } else {
                     $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
                     $data = array($cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                     $query = $this->update($sql, $data);
                     echo "se actualizo la novedad";
+
+                    //bind
+                    $stmt = $conexion_proveedor->prepare($sql);
+                    $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                    if ($stmt->execute()) {
+                        echo json_encode('ok');
+                        echo "se inserto la novedad";
+                    } else {
+                        echo mysqli_error($conexion_proveedor);
+                    }
                 }
             } else {
 
@@ -714,12 +734,33 @@ class LaarModel extends Query
                     $sql = "INSERT INTO `detalle_novedad` (`codigo_novedad`, `guia_novedad`, `nombre_novedad`, `detalle_novedad`, `observacion`) VALUES ( ?, ?, ?, ?, ?)";
                     $data = array($cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                     $query = $this->insert($sql, $data);
+
+                    //bind
+                    $stmt = $conexion_proveedor->prepare($sql);
+                    $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                    if ($stmt->execute()) {
+                        echo json_encode('ok');
+                        echo "se inserto la novedad";
+                    } else {
+                        echo mysqli_error($conexion_proveedor);
+                    }
+
                     echo "se inserto la novedad";
                 } else {
                     $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
                     $data = array($cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                     $query = $this->update($sql, $data);
                     echo "se actualizo la novedad";
+
+                    //bind
+                    $stmt = $conexion_proveedor->prepare($sql);
+                    $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                    if ($stmt->execute()) {
+                        echo json_encode('ok');
+                        echo "se inserto la novedad";
+                    } else {
+                        echo mysqli_error($conexion_proveedor);
+                    }
                 }
             }
         } else {
@@ -752,11 +793,29 @@ class LaarModel extends Query
                         $data = array($cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                         $query = $this->insert($sql, $data);
                         echo "se inserto la novedad";
+                        //bind 
+                        $stmt = $conexion_proveedor->prepare($sql);
+                        $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                        if ($stmt->execute()) {
+                            echo json_encode('ok');
+                            echo "se inserto la novedad";
+                        } else {
+                            echo mysqli_error($conexion_proveedor);
+                        }
                     } else {
                         $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
                         $data = array($cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                         $query = $this->update($sql, $data);
                         echo "se actualizo la novedad";
+                        //bind
+                        $stmt = $conexion_proveedor->prepare($sql);
+                        $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                        if ($stmt->execute()) {
+                            echo json_encode('ok');
+                            echo "se inserto la novedad";
+                        } else {
+                            echo mysqli_error($conexion_proveedor);
+                        }
                     }
                 } else {
 
@@ -775,11 +834,29 @@ class LaarModel extends Query
                         $data = array($cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                         $query = $this->insert($sql, $data);
                         echo "se inserto la novedad";
+                        //
+                        $stmt = $conexion_proveedor->prepare($sql);
+                        $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                        if ($stmt->execute()) {
+                            echo json_encode('ok');
+                            echo "se inserto la novedad";
+                        } else {
+                            echo mysqli_error($conexion_proveedor);
+                        }
                     } else {
                         $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
                         $data = array($cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                         $query = $this->update($sql, $data);
                         echo "se actualizo la novedad";
+                        //bind
+                        $stmt = $conexion_proveedor->prepare($sql);
+                        $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                        if ($stmt->execute()) {
+                            echo json_encode('ok');
+                            echo "se inserto la novedad";
+                        } else {
+                            echo mysqli_error($conexion_proveedor);
+                        }
                     }
                 }
 
