@@ -90,19 +90,55 @@ function agregar_tmp(id, precio_venta) {
   });
 }
 
-function eliminar(id) {
-  sesion = $("#session").val();
-  //alert(sesion)
+function agregar_combo_tmp(producto, descuento_porcentaje, session_id) {
+  let cantidad = producto.cantidad;
+  let id = producto.id_producto;
+  let precio_venta = producto.precio_especial * (1 - (descuento_porcentaje / 100));
+
+  //Fin validacion
+  // alert(id);
+  $.ajax({
+      type: "POST",
+      url: "ajax/agregar_tmp_modalventas_1.php",
+      data:
+          "id=" +
+          id +
+          "&precio_venta=" +
+          precio_venta +
+          "&cantidad=" +
+          cantidad +
+          "&operacion=" +
+          2 +
+          "&sesion=" +
+          session_id,
+      beforeSend: function (objeto) {
+          $("#resultados").html(
+              '<img src="../../img/ajax-loader.gif"> Cargando...'
+          );
+          // total = $("#total_c").val();
+          //$("#q").val();
+          // alert(total)
+      },
+      success: function (datos) {
+          // alert(datos)
+          $("#resultados").html(datos);
+      },
+  });
+}
+
+function eliminar(id, estado) {
+  var sesion = $("#session").val();
+
   $.ajax({
     type: "GET",
     url: "ajax/eliminar_tmp.php",
-    data: "id=" + id + "&sesion=" + sesion,
-    beforeSend: function (objeto) {
+    data: "id=" + id + "&sesion=" + sesion + "&estado_oferta=" + estado,
+    beforeSend: function(objeto) {
       $("#resultados").html(
         '<img src="../../img/ajax-loader.gif"> Cargando...'
       );
     },
-    success: function (datos) {
+    success: function(datos) {
       $("#resultados").html(datos);
     },
   });
@@ -134,4 +170,5 @@ $(document).ready(function() {
     });
   });
 });
+
 

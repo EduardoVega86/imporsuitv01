@@ -1,4 +1,7 @@
 <?php
+/*-----------------------
+Autor: Tony Plaza
+----------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /*Inicia validacion del lado del servidor*/
 
@@ -21,9 +24,103 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 $sql_combo_principal = "SELECT * FROM combos WHERE id = $id_combo";
 //echo $sql_combo_principal;
 $query_combo_principal = mysqli_query($conexion, $sql_combo_principal);
-$row_combo_principal = mysqli_fetch_array($query_combo_principal)
+$row_combo_principal = mysqli_fetch_array($query_combo_principal);
+
+$estado_combo_principal = $row_combo_principal['estado_combo'];
+$valor_principal = $row_combo_principal['valor'];
 ?>
 
+<style>
+    .caja_combo {
+        padding: 20px;
+        border-radius: 25px;
+        -webkit-box-shadow: -2px 5px 5px 0px rgba(0, 0, 0, 0.23);
+        -moz-box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
+        box-shadow: -2px 2px 5px 0px rgba(0, 0, 0, 0.23);
+        background-color: white;
+    }
+
+    .title_combo {
+        font-size: 20px;
+        color: black;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .price_combo {
+        font-size: 18px;
+        color: blue;
+        float: right;
+    }
+
+    .discount_combo {
+        color: green;
+    }
+
+    .subtotal_combo {
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    .total_combo {
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .product-box {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .product-image {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+    }
+
+    .product-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .product-price {
+        font-size: 24px;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .product-old-price {
+        text-decoration: line-through;
+        color: #999;
+        margin-right: 10px;
+    }
+
+    .product-discount {
+        margin-top: 10px;
+        color: white;
+        background-color: #007bff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    .align-end {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .caja_variable {
+        padding: 10px;
+        border-radius: 0.5rem;
+        background-color: #dedbdb;
+    }
+</style>
 <div class="d-flex flex-row">
     <div>
         <div class="col-lg-12 col-md-6">
@@ -56,7 +153,7 @@ $row_combo_principal = mysqli_fetch_array($query_combo_principal)
                         $id_producto         = $row['id_producto'];
                         $nombre_producto = $row['nombre_producto'];
                         $image_path = $row['image_path'];
-                        $costo_producto = $row['costo_producto'];
+                        $precio_especial = $row['valor1_producto'];
 
                         $sql = "SELECT * FROM productos WHERE id_linea_producto != 1000";
                         //echo $sql;
@@ -88,7 +185,7 @@ $row_combo_principal = mysqli_fetch_array($query_combo_principal)
 
                             <td class="text-wrap" style="max-width: 50px;"><?php echo $nombre_producto; ?></td>
 
-                            <td class='text-center'><span><?php echo $simbolo_moneda . '' . number_format($costo_producto, 2); ?></span></td>
+                            <td class='text-center'><span><?php echo $simbolo_moneda . '' . number_format($precio_especial, 2); ?></span></td>
 
                             <td>
                                 <div class="input-group">
@@ -125,6 +222,7 @@ $row_combo_principal = mysqli_fetch_array($query_combo_principal)
                         <th style="text-align: center">ID producto</th>
                         <th></th>
                         <th style="text-align: center">Nombre Producto</th>
+                        <th style="text-align: center">Precio</th>
                         <th style="text-align: center" colspan="1">Cantidad</th>
 
                         <th class='text-right'>Mover</th>
@@ -137,6 +235,7 @@ $row_combo_principal = mysqli_fetch_array($query_combo_principal)
                         $conexion_destino = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
                     }
 
+                    $suma_total_precio = 0;
                     //main query to fetch the data
                     $sql   = "SELECT * FROM  detalle_combo WHERE id_combo= $id_combo";
                     //echo $sql;
@@ -146,6 +245,7 @@ $row_combo_principal = mysqli_fetch_array($query_combo_principal)
                         $id_producto_combo         = $row['id_producto'];
                         $nombre_producto_combo = get_row('productos', 'nombre_producto', 'id_producto', $id_producto_combo);
                         $image_path_combo = get_row('productos', 'image_path', 'id_producto', $id_producto_combo);
+                        $precio_especial_combo = get_row('productos', 'valor1_producto', 'id_producto', $id_producto_combo);
                         $cantidad_combo      = $row['cantidad'];
 
                     ?>
@@ -164,12 +264,17 @@ $row_combo_principal = mysqli_fetch_array($query_combo_principal)
                                 } else {
                                     echo '<img src="' . $image_path_combo . '" class="" width="60">';
                                 }
-
                                 ?>
-                                <!--<img src="<?php echo $image_path_combo; ?>" alt="Product Image" class='rounded-circle' width="60">-->
+
                             </td>
 
                             <td><?php echo $nombre_producto_combo; ?></td>
+
+                            <td class='text-center'><span><?php echo $simbolo_moneda . '' . number_format($precio_especial_combo, 2); ?></span></td>
+                            <?php
+                            $precio_total_cantidad = $precio_especial_combo * $cantidad_combo;
+                            $suma_total_precio = $suma_total_precio + $precio_total_cantidad;
+                            ?>
 
                             <td style="text-align: center"><?php echo $cantidad_combo; ?></td>
 
@@ -183,12 +288,107 @@ $row_combo_principal = mysqli_fetch_array($query_combo_principal)
                     }
                     ?>
                 </table>
-                <div class="col-md-5">
-                    <div class="form-group">
-                        <label for="valor_combo" class="control-label">Precio del Combo:</label>
-                        <input type="text" class="form-control UpperCase" id="valor_combo" name="valor_combo" autocomplete="off" value="<?php echo $row_combo_principal['valor']; ?>">
+                <div class="d-flex flex-column">
+                    <div class="d-flex flex-row">
+                        <div class="col-sm-4">
+                            <label for="valor_combo" class="control-label">Tipo de descuento</label>
+                            <select class="form-control" name="estado_combo" id="estado_combo">
+                                <option value="1" <?php echo $estado_combo_principal == '1' ? 'selected' : ''; ?>>Porcentaje</option>
+                                <option value="2" <?php echo $estado_combo_principal == '2' ? 'selected' : ''; ?>>Valor fijo</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="valor_combo" class="control-label">valor del descuento:</label>
+                                <input type="text" class="form-control UpperCase" id="valor_combo" name="valor_combo" autocomplete="off" value="<?php echo $valor_principal; ?>">
+                            </div>
+                        </div>
                     </div>
                     <button class="btn btn-primary" id="btnGuardar">Guardar</button>
+                </div>
+
+                <br>
+                <?php
+                $sql_principal   = "SELECT * FROM  combos WHERE id= $id_combo";
+                //echo $sql;
+                $query_principal = mysqli_query($conexion, $sql_principal);
+                $row_principal = mysqli_fetch_array($query_principal);
+                $estado_combo_principal         = $row_principal['estado_combo'];
+                $nombre_combo_principal         = $row_principal['nombre'];
+                $valor_combo_principal         = $row_principal['valor'];
+                $id_producto_combo_principal = $row_principal['id_producto_combo'];
+                if (empty($row_principal['image_path'])){
+                $imagen_principal = get_row('productos', 'image_path', 'id_producto', $id_producto_combo_principal);
+                }else{
+                    $imagen_principal =  $row_principal['image_path'];
+                }
+                ?>
+
+                <div class="container" style="padding-top: 10px; padding-bottom: 10px;">
+                    <div class="caja_combo">
+                        <div class="title_combo"><strong>PAGA AL RECIBIR EN CASA! POCAS UNIDADES</strong></div>
+                        <div class="product-box">
+                            <?php
+                            if ($estado_combo_principal == 1) {
+                            ?>
+                                <div style="padding-right: 20px;">
+                                    <?php
+                                    if ($imagen_principal == null) {
+                                        echo '<img src="../../img/productos/default.jpg" class="" width="60">';
+                                    } else {
+                                        echo '<img src="' . $imagen_principal . '" class="" width="60">';
+                                    }
+                                    ?>
+                                </div>
+                                <div class="product-details">
+                                    <div class="d-flex flex-column">
+                                        <div><?php echo $nombre_combo_principal; ?></div>
+                                        <div class="product-discount" style="width: 115px;">Ahorra <?php echo $valor_combo_principal; ?>%</div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="product-old-price">$ <?php echo $suma_total_precio; ?></span>
+                                        <?php
+                                        $precio_total = $suma_total_precio * (1 - ($valor_combo_principal / 100));
+                                        ?>
+                                        <span class="product-price">$<?php echo $precio_total; ?></span>
+                                    </div>
+                                </div>
+                            <?php
+                            } else {
+                            ?>
+                                <div style="padding-right: 20px;">
+                                    <?php
+                                    if ($imagen_principal == null) {
+                                        echo '<img src="../../img/productos/default.jpg" class="" width="60">';
+                                    } else {
+                                        echo '<img src="' . $imagen_principal . '" class="" width="60">';
+                                    }
+                                    ?>
+                                </div>
+                                <div class="product-details">
+                                    <div class="d-flex flex-column">
+                                        <div><?php echo $nombre_combo_principal; ?></div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="product-old-price">$ <?php echo $suma_total_precio; ?></span>
+                                        <?php
+                                        $precio_total = $suma_total_precio - $valor_combo_principal;
+                                        ?>
+                                        <span class="product-price">$<?php echo $precio_total; ?></span>
+                                    </div>
+
+                                </div>
+                            <?php
+                            }
+                            ?>
+                        </div>
+                        <br>
+                        <div class="caja_variable">
+                            <div class="subtotal_combo">Subtotal <span class="price_combo">$<?php echo $precio_total; ?></span></div>
+                            <div class="subtotal_combo">Envío <span class="price_combo">Gratis</span></div>
+                            <div class="total_combo">Total <span class="price_combo">$<?php echo $precio_total; ?></span></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -217,15 +417,28 @@ $row_combo_principal = mysqli_fetch_array($query_combo_principal)
         $(document).ready(function() {
             $('#btnGuardar').click(function() {
                 var valorCombo = $('#valor_combo').val(); // Obtener el valor del input de combo
+                var idCombo = $('#id_combo').val(); // Obtener el valor del input de combo
+                var estadoCombo = $('#estado_combo').val(); // Obtener el valor del select del tipo de descuento
 
                 $.ajax({
                     type: "POST",
                     url: "../ajax/nuevo_combo.php", // Ruta al script PHP que procesará los datos
                     data: {
-                        valor_combo: valorCombo // Añadir el valor del combo al objeto de datos
+                        valor_combo: valorCombo, // Añadir el valor del combo al objeto de datos
+                        id_combo: idCombo, // Añadir el valor del combo al objeto de datos
+                        estado_combo: estadoCombo // Añadir el tipo de descuento al objeto de datos
                     },
                     success: function(data) {
-                        alert('Valor guardado con éxito: ' + data);
+                        $("#outer_div_detalle_combo").load(
+                            "../ajax/carga_detalle_combo.php?id_combo=" + idCombo,
+                            function(response, status, xhr) {
+                                if (status == "error") {
+                                    console.error("Error: " + xhr.status + " " + xhr.statusText);
+                                } else {
+                                    // alert("Producto agregado correctamente!");
+                                }
+                            }
+                        );
                     },
                     error: function() {
                         alert('Error al guardar el valor.');

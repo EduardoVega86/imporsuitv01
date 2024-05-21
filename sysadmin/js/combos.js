@@ -4,16 +4,18 @@ $(document).ready(function () {
 
 function load(page) {
   var q = $("#q").val();
-  var categoria = $("#categoria").val();
+  var id_producto = $("#select_producto").val(); // Obtener el valor del producto seleccionado
+
   $("#loader").fadeIn("slow");
+
   $.ajax({
-    url:
-      "../ajax/buscar_combos.php?action=ajax&page=" +
-      page +
-      "&q=" +
-      q +
-      "&categoria=" +
-      categoria,
+    url: "../ajax/buscar_combos.php",
+    data: {
+      action: "ajax",
+      page: page,
+      q: q,
+      id_producto: id_producto, // Incluir el id del producto seleccionado
+    },
     beforeSend: function (objeto) {
       $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
     },
@@ -32,26 +34,20 @@ $("#guardar_combo").submit(function (event) {
   event.preventDefault(); // Prevenir el envío normal del formulario
   $("#guardar_datos").attr("disabled", true);
 
+  var formData = new FormData(this); // Crear una instancia de FormData con el formulario
+
   // Agregar el ID del producto seleccionado al formulario si es necesario
   if ($(".product-checkbox:checked").length > 0) {
     var selectedProductId = $(".product-checkbox:checked").val();
-    // Asegúrate de que el campo exista en el formulario o añade un campo oculto si es necesario
-    $("<input>")
-      .attr({
-        type: "hidden",
-        id: "selected_product_id",
-        name: "selected_product_id",
-        value: selectedProductId,
-      })
-      .appendTo("#guardar_combo");
+    formData.append("selected_product_id", selectedProductId); // Agregar el ID del producto al FormData
   }
-
-  var parametros = $(this).serialize(); // Serializar los datos del formulario
 
   $.ajax({
     type: "POST",
     url: "../ajax/nuevo_combo.php",
-    data: parametros,
+    data: formData,
+    contentType: false, // Importante: No establecer el tipo de contenido, jQuery lo hará por nosotros
+    processData: false, // Importante: No procesar los datos, jQuery lo hará por nosotros
     beforeSend: function (objeto) {
       $("#resultados_ajax").html(
         '<img src="../../img/ajax-loader.gif"> Cargando...'
@@ -76,13 +72,17 @@ $("#guardar_combo").submit(function (event) {
 });
 
 $("#editar_producto1").submit(function (event) {
-  //alert()
+  event.preventDefault(); // Prevenir el envío normal del formulario
   $("#actualizar_datos").attr("disabled", true);
-  var parametros = $(this).serialize();
+
+  var formData = new FormData(this); // Crear una instancia de FormData con el formulario
+
   $.ajax({
     type: "POST",
     url: "../ajax/editar_combos.php",
-    data: parametros,
+    data: formData,
+    contentType: false, // Importante: No establecer el tipo de contenido, jQuery lo hará por nosotros
+    processData: false, // Importante: No procesar los datos, jQuery lo hará por nosotros
     beforeSend: function (objeto) {
       $("#resultados_ajax2").html(
         '<img src="../../img/ajax-loader.gif"> Cargando...'
@@ -92,7 +92,7 @@ $("#editar_producto1").submit(function (event) {
       $("#resultados_ajax2").html(datos);
       $("#actualizar_datos").attr("disabled", false);
       load(1);
-      //desaparecer la alerta
+      // Desaparecer la alerta
       window.setTimeout(function () {
         $(".alert")
           .fadeTo(500, 0)
@@ -102,7 +102,6 @@ $("#editar_producto1").submit(function (event) {
       }, 5000);
     },
   });
-  event.preventDefault();
 });
 
 $("#editar_landing").submit(function (event) {

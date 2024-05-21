@@ -1,8 +1,8 @@
 <?php
 
-/*-------------------------
-Autor: Eduardo Vega
----------------------------*/
+/*-----------------------
+Autor: Tony Plaza
+----------------------------*/
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
 require_once "../db.php";
@@ -21,13 +21,14 @@ $action = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUES
 if ($action == 'ajax') {
     // escaping, additionally removing everything that could be (html/javascript-) code
     $q            = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-    $id_categoria = intval($_REQUEST['categoria']);
-    $aColumns     = array('nombre'); //Columnas de busqueda
+    $id_producto  = intval($_REQUEST['id_producto']); // ID del producto seleccionado
+    $aColumns     = array('nombre'); // Columnas de búsqueda
     $sTable       = "combos";
     $sWhere       = "";
 
-    if ($_GET['q'] != "") {
-        $sWhere = "where (";
+    // Construcción de la cláusula WHERE para la búsqueda por nombre
+    if (!empty($q)) {
+        $sWhere = "WHERE (";
         for ($i = 0; $i < count($aColumns); $i++) {
             $sWhere .= $aColumns[$i] . " LIKE '%" . $q . "%' OR ";
         }
@@ -35,7 +36,14 @@ if ($action == 'ajax') {
         $sWhere .= ')';
     }
 
-    $sWhere .= " order by nombre asc";
+    // Añadir la búsqueda por ID de producto
+    if ($id_producto != 0) {
+        if (empty($sWhere)) {
+            $sWhere = "WHERE id_producto_combo = $id_producto";
+        } else {
+            $sWhere .= " AND id_producto_combo = $id_producto";
+        }
+    }
 
     include 'pagination.php'; //include pagination file
     //pagination variables
@@ -58,7 +66,7 @@ if ($action == 'ajax') {
     if ($numrows > 0) {
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 ?>
-        <div class="table-responsive">
+        <div class="table-responsive" style="max-height: 620px; overflow:auto;">
             <table id="solicitudes" class="table table-sm table-striped">
                 <tr class="info">
                     <th class='text-center'>ID</th>
@@ -83,7 +91,11 @@ if ($action == 'ajax') {
                     $id_producto_combo_principal = $row['id_producto_combo'];
 
                     $nombre_producto_principal = get_row('productos', 'nombre_producto', 'id_producto', $id_producto_combo_principal);
-                    $image_path_principal = get_row('productos', 'image_path', 'id_producto', $id_producto_combo_principal);
+                    if (empty($row['image_path'])) {
+                        $image_path_principal = get_row('productos', 'image_path', 'id_producto', $id_producto_combo_principal);
+                    } else {
+                        $image_path_principal = $row['image_path'];
+                    }
                 ?>
 
                     <input type="hidden" value="<?php echo $nombre_combo; ?>" id="nombre_combo<?php echo $id_combo; ?>">
@@ -99,16 +111,16 @@ if ($action == 'ajax') {
                         <td class='text-center'><?php echo $nombre_producto_principal; ?></td>
 
                         <td class='text-center'>
-                                <?php
-                                if ($image_path_principal == null) {
-                                    echo '<img src="../../img/productos/default.jpg" class="" width="60">';
-                                } else {
-                                    echo '<img src="' . $image_path_principal . '" class="" width="60">';
-                                }
+                            <?php
+                            if ($image_path_principal == null) {
+                                echo '<img src="../../img/productos/default.jpg" class="" width="60">';
+                            } else {
+                                echo '<img src="' . $image_path_principal . '" class="" width="60">';
+                            }
 
-                                ?>
-                                <!--<img src="<?php echo $image_path_principal; ?>" alt="Product Image" class='rounded-circle' width="60">-->
-                            </td>
+                            ?>
+                            <!--<img src="<?php echo $image_path_principal; ?>" alt="Product Image" class='rounded-circle' width="60">-->
+                        </td>
 
                         <td class='text-center'>
                             <button type="button" class="btn btn-solucion" onclick="ajustarCombo(this);"><i class='bx bxs-shield-plus'></i> Ajustar Productos</button>
@@ -130,8 +142,6 @@ if ($action == 'ajax') {
                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $id_combo; ?>"><i class='fa fa-trash'></i> Borrar</a>
                                     <?php }
                                     ?>
-
-
                                 </div>
                             </div>
 
