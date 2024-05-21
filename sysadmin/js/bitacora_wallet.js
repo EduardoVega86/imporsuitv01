@@ -1,6 +1,18 @@
 var filtroG = "mayor_menor";
 $(document).ready(function () {
   load(1);
+  flatpickr("#start-date", {
+    dateFormat: "Y-m-d",
+    locale: "es",
+    maxDate: "today",
+    disableMobile: "true",
+  });
+  flatpickr("#end-date", {
+    dateFormat: "Y-m-d",
+    locale: "es",
+    maxDate: "today",
+    disableMobile: "true",
+  });
 });
 $("#editar_linea").submit(function (event) {
   // alert();
