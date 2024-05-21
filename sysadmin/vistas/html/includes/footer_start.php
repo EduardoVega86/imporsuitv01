@@ -21,8 +21,8 @@
 <script src="../../assets/js/jquery.nicescroll.js"></script>
 <script src="../../assets/js/jquery.scrollTo.min.js"></script>
 <script src="../../assets/plugins/switchery/switchery.min.js"></script>
-<script src="../../assets/plugins/select2/select2.min.js" type="text/javascript"></script>
-
+<!-- <script src="../../assets/plugins/select2/select2.min.js" type="text/javascript"></script>
+ -->
 <!-- Include Date Range Picker -->
 <script src="../../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="../../assets/plugins/moment/moment.js"> </script>

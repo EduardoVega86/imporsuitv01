@@ -1,4 +1,7 @@
 <?php
+/*-----------------------
+Autor: Tony Plaza
+----------------------------*/
 session_start();
 if (!isset($_SESSION['user_login_status']) and $_SESSION['user_login_status'] != 1) {
 	header("location: ../../login.php");
@@ -116,8 +119,31 @@ while ($r = $query->fetch_object()) {
 
 									<div class="d-flex flex-row" style="width: 100%;">
 
-										<div class="d-flex flex-column border-left" style="width: 40%;">
+										<div class="d-flex flex-column border-left" style="width: 35%;">
 											<div class="row">
+												<div class="col-md-8">
+													<div class="input-group mb-3">
+														<select class="form-control select2" id="select_producto" style="width: 100%;">
+															<option value="" selected>Seleccione un producto</option>
+															<?php
+															// Consulta para obtener los IDs únicos de productos en la tabla combos
+															$sql = "SELECT DISTINCT id_producto_combo FROM combos";
+															$result = $conexion->query($sql);
+
+															// Verificar si se obtuvieron resultados
+															if ($result->num_rows > 0) {
+																// Recorrer los resultados y crear las opciones del select
+																while ($row = $result->fetch_assoc()) {
+																	$nombre_producto = get_row('productos', 'nombre_producto', 'id_producto', $row['id_producto_combo']);
+																	$image_path_producto = get_row('productos', 'image_path', 'id_producto', $row['id_producto_combo']);
+
+																	echo '<option value="' . $row['id_producto_combo'] . '" data-image="' . $image_path_producto . '">' . $nombre_producto . '</option>';
+																}
+															}
+															?>
+														</select>
+													</div>
+												</div>
 												<div class="col-md-8">
 													<div class="input-group">
 														<input type="text" class="form-control" id="q" placeholder="Código o Nombre" onkeyup='load(1);'>
@@ -137,13 +163,13 @@ while ($r = $query->fetch_object()) {
 
 
 											<div class="datos_ajax_delete"></div><!-- Datos ajax Final -->
-											<div class="row">
+											<div class="row" style="padding-top: 10px;">
 												<div class="col-md-12">
 													<div class='outer_div'></div><!-- Carga los datos ajax -->
 												</div>
 											</div>
 										</div>
-										<div class="row" style="width: 60%; padding-left:30px;">
+										<div class="row" style="width: 65%; padding-left:30px;">
 											<div id='outer_div_detalle_combo'></div> <!-- Cambiado de clase a ID -->
 										</div>
 
@@ -202,6 +228,33 @@ while ($r = $query->fetch_object()) {
 </script>
 
 <script>
+$(document).ready(function() {
+    function formatState(state) {
+        if (!state.id) {
+            return state.text;
+        }
+
+        var imageUrl = $(state.element).attr('data-image');
+        if (!imageUrl) {
+            console.warn('No se encontró la imagen para el producto: ' + state.text);
+        }
+
+        var $state = $(
+            '<span><img src="' + imageUrl + '" class="img-flag" style="width: 20px; height: 20px; margin-right: 10px;" /> ' + state.text + '</span>'
+        );
+        return $state;
+    }
+
+    $('#select_producto').select2({
+        placeholder: 'Seleccione un producto',
+        allowClear: true,
+        templateResult: formatState,
+        templateSelection: formatState
+    }).on('change', function() {
+        load(1); // Llamar a la función load cuando se cambia la selección
+    });
+});
+
 	function ajustarCombo(button) {
 		var fila = $(button).closest('tr');
 		var id_combo = fila.data('id_combo'); // Asegurarse de que el data attribute se captura correctamente

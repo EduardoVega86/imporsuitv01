@@ -1,4 +1,7 @@
 <?php
+/*-----------------------
+Autor: Tony Plaza
+----------------------------*/
 if (isset($conexion)) {
 ?>
     <div id="editarCombo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -24,7 +27,14 @@ if (isset($conexion)) {
                                             <input type="text" class="form-control UpperCase" id="mod_nombre_combo" name="mod_nombre_combo" autocomplete="off" required>
                                         </div>
                                     </div>
-
+                                    <div class="col-md-8">
+                                        <!-- imagen -->
+                                        <div class="form-group">
+                                            <label for="imagen" class="control-label">Imagen:</label>
+                                            <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                                        </div>
+                                        <!-- imagen -->
+                                    </div>
                                 </div>
 
                             </div>
