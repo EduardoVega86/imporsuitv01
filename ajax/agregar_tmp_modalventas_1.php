@@ -364,7 +364,15 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                 <div class="_rsi-modal-line-item-final-price"><?php echo $simbolo_moneda . number_format($final_items, 2); ?></div>
                             </td>
                             <td style="width: 10%">
+                                <?php
+                                if (isset($_POST['descuento_porcentaje'])) {
+                                    $descuento_porcentaje = $_POST['descuento_porcentaje'];
+                                    $identificado_combo = 1;
+                                ?>
+                                    <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar_combo('<?php echo $id_tmp ?>', '<?php echo $estado_oferta ?>', '<?php echo $identificado_combo ?>')">x</a>
+                                <?php }else{ ?>
                                 <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>', '<?php echo $estado_oferta ?>')">x</a>
+                                <?php } ?>
                         <tr>
                     </table>
                 </div> <br>
@@ -491,10 +499,6 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
     $subtotal = $total_factura;
 
-
-
-
-
     ?>
 
     <div class="_rsi-build-block _rsi-build-block-totals-summary">
@@ -528,12 +532,13 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 </div>
 
                 <?php
-                $envioGratis_checkout = get_row('perfil', 'envioGratis_checkout', 'id_perfil', 1);
-                if ($envioGratis_checkout == 1) { ?>
-                    <!-- <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
-                            <span class="_rsi-modal-checkout-line-title">Envío</span>
-                            <strong style="float: right" class="">Gratis</strong>
-                        </div> -->
+                if (isset($_POST['descuento_porcentaje'])) {
+                    $descuento_porcentaje = $_POST['descuento_porcentaje'];
+                ?>
+                    <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
+                        <span class="_rsi-modal-checkout-line-title" style="color: #28C839;">Descuento</span>
+                        <strong style="float: right; color: #28C839;"><?php echo $simbolo_moneda . number_format($descuento_porcentaje, 2); ?></strong>
+                    </div>
                 <?php } ?>
 
                 <hr>
