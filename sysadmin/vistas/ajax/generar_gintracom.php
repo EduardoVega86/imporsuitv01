@@ -24,7 +24,9 @@ $result_destino = mysqli_query($conexion, "SELECT * FROM `ciudad_cotizacion` WHE
 $row_destino = mysqli_fetch_array($result_destino);
 
 $productos_guias = $_POST['productos_guia'];
-preg_match_all('/([^\dx]+)x(\d+)/', $productos_guias, $coincidencias, PREG_SET_ORDER);
+
+preg_match_all('/(.*?)x(\d+)/', $productos_guias, $coincidencias, PREG_SET_ORDER);
+
 
 $resultado_final = [];
 foreach ($coincidencias as $producto) {
@@ -34,6 +36,7 @@ foreach ($coincidencias as $producto) {
 }
 
 $productos_guias = implode(' | ', $resultado_final);
+
 $observacion = $_POST['observacion'];
 $fecha = date("Y-m-d H:i:s");
 $declarado = $_POST['valor_total'];
