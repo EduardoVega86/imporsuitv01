@@ -2462,6 +2462,10 @@ mysqli_query($conexion, "ALTER TABLE `combos` DROP `id_empresa`;");
 
 mysqli_query($conexion, "ALTER TABLE `combos` ADD `estado_combo` INT NOT NULL DEFAULT '1' AFTER `id_producto_combo`, ADD `image_path` VARCHAR(200) NULL DEFAULT NULL AFTER `estado_combo`;");
 
+mysqli_query($conexion, "ALTER TABLE `combos` CHANGE `valor` `valor` DOUBLE NULL;");
+
+mysqli_query($conexion, "ALTER TABLE `combos` CHANGE `estado_combo` `estado_combo` INT NULL DEFAULT '1';");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 
