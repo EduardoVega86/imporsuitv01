@@ -731,7 +731,7 @@ class LaarModel extends Query
             if ($stmt->execute()) {
                 echo json_encode('ok');
                 // enviar correo
-                $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia' and codigo_novedad = '$cod_novedad'";
+                $existe_m = "SELECT * FROM novedades WHERE guia_novedad = '$no_guia'";
                 $existe_m = $this->select($existe_m);
 
                 $existe_m = count($existe_m);
