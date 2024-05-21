@@ -145,8 +145,12 @@ $valor_principal = $row_combo_principal['valor'];
                     }
 
                     //main query to fetch the data
+                    $idProducto_principal = get_row('combos', 'id_producto_combo', 'id', $id_combo);
+                    $tienda_producto_principal = get_row('productos', 'tienda', 'id_producto', $idProducto_principal);
+                    // Escapamos el valor para evitar inyecciones SQL
+                    $tienda_producto_principal = mysqli_real_escape_string($conexion, $tienda_producto_principal);
 
-                    $sql = "SELECT * FROM productos WHERE id_linea_producto != 1000";
+                    $sql = "SELECT * FROM productos WHERE id_linea_producto != 1000 AND tienda = '$tienda_producto_principal'";
                     //echo $sql;
                     $query = mysqli_query($conexion, $sql);
                     while ($row = mysqli_fetch_array($query)) {
@@ -317,9 +321,9 @@ $valor_principal = $row_combo_principal['valor'];
                 $nombre_combo_principal         = $row_principal['nombre'];
                 $valor_combo_principal         = $row_principal['valor'];
                 $id_producto_combo_principal = $row_principal['id_producto_combo'];
-                if (empty($row_principal['image_path'])){
-                $imagen_principal = get_row('productos', 'image_path', 'id_producto', $id_producto_combo_principal);
-                }else{
+                if (empty($row_principal['image_path'])) {
+                    $imagen_principal = get_row('productos', 'image_path', 'id_producto', $id_producto_combo_principal);
+                } else {
                     $imagen_principal =  $row_principal['image_path'];
                 }
                 ?>

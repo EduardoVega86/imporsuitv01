@@ -110,7 +110,9 @@ function agregar_combo_tmp(producto, descuento_porcentaje, session_id) {
           "&operacion=" +
           2 +
           "&sesion=" +
-          session_id,
+          session_id +
+          "&descuento_porcentaje=" +
+          descuento_porcentaje,
       beforeSend: function (objeto) {
           $("#resultados").html(
               '<img src="../../img/ajax-loader.gif"> Cargando...'
@@ -133,6 +135,24 @@ function eliminar(id, estado) {
     type: "GET",
     url: "ajax/eliminar_tmp.php",
     data: "id=" + id + "&sesion=" + sesion + "&estado_oferta=" + estado,
+    beforeSend: function(objeto) {
+      $("#resultados").html(
+        '<img src="../../img/ajax-loader.gif"> Cargando...'
+      );
+    },
+    success: function(datos) {
+      $("#resultados").html(datos);
+    },
+  });
+}
+
+function eliminar_combo(id, estado, identificado_combo) {
+  var sesion = $("#session").val();
+
+  $.ajax({
+    type: "GET",
+    url: "ajax/eliminar_tmp.php",
+    data: "id=" + id + "&sesion=" + sesion + "&estado_oferta=" + estado + "&identificado_combo=" + identificado_combo,
     beforeSend: function(objeto) {
       $("#resultados").html(
         '<img src="../../img/ajax-loader.gif"> Cargando...'

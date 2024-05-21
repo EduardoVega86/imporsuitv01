@@ -102,6 +102,14 @@ if (isset($_GET['id'])) //codigo elimina un elemento del array
     $id_tmp = intval($_GET['id']);
     $delete = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE id_tmp='" . $id_tmp . "'");
 }
+
+if (isset($_GET['identificado_combo'])) //codigo elimina un elemento del array
+{
+    $session_id = $_GET['sesion'];
+    //eliminar informacion de session tmp
+    $delete = mysqli_query($conexion, "DELETE FROM tmp_ventas WHERE session_id = '$session_id'");
+}
+
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 ?>
 
