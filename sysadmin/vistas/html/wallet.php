@@ -217,6 +217,18 @@ permisos($modulo, $cadena_permisos);
             }
         });
     }
+    flatpickr("#start-date", {
+        dateFormat: "Y-m-d",
+        locale: "es",
+        maxDate: "today",
+        disableMobile: "true",
+    });
+    flatpickr("#end-date", {
+        dateFormat: "Y-m-d",
+        locale: "es",
+        maxDate: "today",
+        disableMobile: "true",
+    });
 
     function cerrarModal() {
         $('#recibos').modal('hide');
