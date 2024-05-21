@@ -577,7 +577,7 @@ class LaarModel extends Query
         $contenido_tienda = file_get_contents($archivo_tienda);
         $get_data = json_decode($contenido_tienda, true);
         if (file_put_contents($archivo_destino_tienda, $contenido_tienda) !== false) {
-            if (strpos($tienda, "merkapro.ec") === 0) {
+            if (strpos($tienda, "merkapro.ec") !== FALSE) {
                 $host_d = "77.37.67.232";
             } else {
                 $host_d = $get_data['DB_HOST'];
