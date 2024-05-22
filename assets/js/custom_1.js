@@ -90,10 +90,12 @@ function agregar_tmp(id, precio_venta) {
   });
 }
 
-function agregar_combo_tmp(producto, descuento_porcentaje, session_id) {
+function agregar_combo_tmp(producto, descuento_porcentaje, session_id, suma_total_precio) {
+
+  descuento_porcentaje = Number(descuento_porcentaje);
   let cantidad = producto.cantidad;
   let id = producto.id_producto;
-  let precio_venta = producto.precio_especial * (1 - (descuento_porcentaje / 100));
+  let precio_venta = producto.precio_especial * (1 - (descuento_porcentaje.toFixed(2) / 100));
 
   //Fin validacion
   // alert(id);
@@ -112,7 +114,9 @@ function agregar_combo_tmp(producto, descuento_porcentaje, session_id) {
           "&sesion=" +
           session_id +
           "&descuento_porcentaje=" +
-          descuento_porcentaje,
+          descuento_porcentaje +
+          "&suma_total_precio=" +
+          suma_total_precio,
       beforeSend: function (objeto) {
           $("#resultados").html(
               '<img src="../../img/ajax-loader.gif"> Cargando...'

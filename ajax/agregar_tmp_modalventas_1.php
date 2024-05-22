@@ -265,7 +265,8 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         </style>
         <div class="_rsi-modal-line-item" data-line-item-variant-id="45622098493721">
             <div class="_rsi-modal-line-item-image-container">
-                <div class="product-box">
+                <!-- <div class="product-box"> -->
+                <div>
                     <table style="width: 100%">
                         <tr>
                             <td style="width: 20%">
@@ -286,9 +287,14 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                             </td>
                             <td style="width: 10%">
                                 <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default btn-incrementar" data-id="<?php echo $id_producto; ?>">+</button>
-                                    </span>
+                                    <?php
+                                    if (!isset($_POST['descuento_porcentaje'])) {
+                                    ?>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-incrementar" data-id="<?php echo $id_producto; ?>">+</button>
+                                        </span>
+
+                                    <?php } ?>
                                     <style>
                                         .input-cantidad {
                                             background-color: transparent;
@@ -304,9 +310,13 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                         }
                                     </style>
                                     <input type="text" name="cantidad[<?php echo $id_producto; ?>]" class="form-control input-cantidad" value="<?php echo $cantidad; ?>" data-id="<?php echo $id_producto; ?>" data-precio="<?php echo $precio_venta_unitario; ?>">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default btn-decrementar" data-id="<?php echo $id_producto; ?>">-</button>
-                                    </span>
+                                    <?php
+                                    if (!isset($_POST['descuento_porcentaje'])) {
+                                    ?>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-decrementar" data-id="<?php echo $id_producto; ?>">-</button>
+                                        </span>
+                                    <?php } ?>
                                 </div>
                                 <script>
                                     $(document).ready(function() {
@@ -369,9 +379,12 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                     $descuento_porcentaje = $_POST['descuento_porcentaje'];
                                     $identificado_combo = 1;
                                 ?>
+                                    <input type="hidden" id="id_tmp" value="<?php echo $id_tmp ?>">
+                                    <input type="hidden" id="estado_oferta" value="<?php echo $estado_oferta ?>">
+                                    <input type="hidden" id="identificado_combo" value="<?php echo $identificado_combo ?>">
                                     <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar_combo('<?php echo $id_tmp ?>', '<?php echo $estado_oferta ?>', '<?php echo $identificado_combo ?>')">x</a>
-                                <?php }else{ ?>
-                                <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>', '<?php echo $estado_oferta ?>')">x</a>
+                                <?php } else { ?>
+                                    <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>', '<?php echo $estado_oferta ?>')">x</a>
                                 <?php } ?>
                         <tr>
                     </table>
@@ -534,10 +547,13 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 <?php
                 if (isset($_POST['descuento_porcentaje'])) {
                     $descuento_porcentaje = $_POST['descuento_porcentaje'];
+                    $suma_total_precio = $_POST['suma_total_precio'];
+                    
+                    $descuento = $suma_total_precio * ($descuento_porcentaje / 100);
                 ?>
                     <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
                         <span class="_rsi-modal-checkout-line-title" style="color: #28C839;">Descuento</span>
-                        <strong style="float: right; color: #28C839;"><?php echo $simbolo_moneda . number_format($descuento_porcentaje, 2); ?></strong>
+                        <strong style="float: right; color: #28C839;"><?php echo $simbolo_moneda . number_format($descuento, 2); ?></strong>
                     </div>
                 <?php } ?>
 
@@ -585,7 +601,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 $('#precio_subtotal').text('$' + precioTotal.toFixed(2));
 
                 for (let i = 0; i < data.productos.length; i++) {
-                    agregar_combo_tmp(data.productos[i], data.descuento_porcentaje, data.session_id);
+                    agregar_combo_tmp(data.productos[i], data.descuento_porcentaje, data.session_id, data.suma_total_precio);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -593,4 +609,14 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             }
         });
     }
+    $(document).ready(function() {
+        $('#exampleModal').on('hidden.bs.modal', function() {
+            const idTmp = $('#id_tmp').val();
+            const estadoOferta = $('#estado_oferta').val();
+            const identificadoCombo = $('#identificado_combo').val();
+            if (identificadoCombo = 1){
+            eliminar_combo(idTmp, estadoOferta, identificadoCombo);
+            }
+        });
+    });
 </script>

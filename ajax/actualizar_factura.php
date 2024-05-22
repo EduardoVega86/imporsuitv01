@@ -62,7 +62,8 @@ if (isset($_POST['id_detalle_combo'])) {
         'productos' => $productos_combo,
         'precio_total' => $precio_total,
         'descuento_porcentaje' => $descuento_porcentaje,
-        'session_id' => $session_id
+        'session_id' => $session_id,
+        'suma_total_precio' => $suma_total_precio
     ];
 
     // Codificar la respuesta en JSON y enviarla
