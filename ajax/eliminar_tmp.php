@@ -528,13 +528,17 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             </div>
 
             <?php
-            $envioGratis_checkout = get_row('perfil', 'envioGratis_checkout', 'id_perfil', 1);
-            if ($envioGratis_checkout == 1) { ?>
-                <!-- <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
-            <span class="_rsi-modal-checkout-line-title">Envío</span>
-            <strong style="float: right" class="">Gratis</strong>
-        </div> -->
-            <?php } ?>
+                if (isset($_POST['descuento_porcentaje'])) {
+                    $descuento_porcentaje = $_POST['descuento_porcentaje'];
+                    $suma_total_precio = $_POST['suma_total_precio'];
+                    
+                    $descuento = $suma_total_precio * ($descuento_porcentaje / 100);
+                ?>
+                    <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
+                        <span class="_rsi-modal-checkout-line-title" style="color: #28C839;">Descuento</span>
+                        <strong style="float: right; color: #28C839;"><?php echo $simbolo_moneda . number_format($descuento, 2); ?></strong>
+                    </div>
+                <?php } ?>
 
             <hr>
             <div class="" data-checkout-line="total" data-order-total="2999" data-partial-total-for-checkout="2999">
@@ -580,7 +584,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 $('#precio_subtotal').text('$' + precioTotal.toFixed(2));
 
                 for (let i = 0; i < data.productos.length; i++) {
-                    agregar_combo_tmp(data.productos[i], data.descuento_porcentaje, data.session_id);
+                    agregar_combo_tmp(data.productos[i], data.descuento_porcentaje, data.session_id, data.suma_total_precio);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
