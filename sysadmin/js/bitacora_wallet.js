@@ -14,6 +14,18 @@ $(document).ready(function () {
     disableMobile: "true",
   });
 });
+$("#update").submit(function (e) {
+  e.preventDefault();
+  var url = "../ajax/cargar_wallet.php";
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: $("#update").serialize(),
+    success: function (data) {
+      $("#result").html(data);
+    },
+  });
+});
 $("#editar_linea").submit(function (event) {
   // alert();
   $("#actualizar_datos").attr("disabled", true);
