@@ -95,7 +95,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <form id="update">
                                     <label for="start-date">Fecha Inicio</label>
                                     <input type="text" id="start-date" name="fecha_desde" class="form-control bg-white border text-dark rounded" placeholder="&#x1F4C5; Fecha Inicio" readonly>
-                                    <button type="button" class="btn btn-primary" id="btnFiltrar">Actualizar</button>
+                                    <button type="submit" class="btn btn-primary" id="btnFiltrar">Actualizar</button>
                                 </form>
                             </div>
                         </div>
