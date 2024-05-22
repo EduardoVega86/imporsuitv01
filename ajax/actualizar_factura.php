@@ -56,14 +56,15 @@ if (isset($_POST['id_detalle_combo'])) {
         $precio_total = $suma_total_precio - $valor_combo_principal;
         $descuento_porcentaje = ($valor_combo_principal / $suma_total_precio) * 100;
     }
-
+    $id_producto_combo_principal = get_row('combos','id_producto_combo','id',$id_combo);
     // Preparar el arreglo final con todos los datos necesarios
     $respuesta = [
         'productos' => $productos_combo,
         'precio_total' => $precio_total,
         'descuento_porcentaje' => $descuento_porcentaje,
         'session_id' => $session_id,
-        'suma_total_precio' => $suma_total_precio
+        'suma_total_precio' => $suma_total_precio,
+        'id_producto_combo_principal' => $id_producto_combo_principal
     ];
 
     // Codificar la respuesta en JSON y enviarla
