@@ -614,7 +614,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         const idTmp = $('#id_tmp').val();
         const estadoOferta = $('#estado_oferta').val();
         const identificadoCombo = $('#identificado_combo').val();
-        if (identificadoCombo == 1) { // Usar doble signo igual para comparación
+        if (identificadoCombo == 1) { 
             eliminar_combo(idTmp, estadoOferta, identificadoCombo);
         }
     });
