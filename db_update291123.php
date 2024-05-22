@@ -2533,6 +2533,11 @@ mysqli_query($conexion, "ALTER TABLE `combos` CHANGE `valor` `valor` DOUBLE NULL
 
 mysqli_query($conexion, "ALTER TABLE `combos` CHANGE `estado_combo` `estado_combo` INT NULL DEFAULT '1';");
 
+mysqli_query($conexion, "CREATE TABLE 'shopify' (
+  'id' int NOT NULL INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  'json' json DEFAULT NULL
+)");
+
 mysqli_close($conexion); // Cerramos la link con la base de datos
 
 
