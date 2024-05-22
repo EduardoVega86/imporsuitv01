@@ -88,15 +88,19 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="tiendaModalLabel">Cargar Wallet</h5>
-                            <button type="button" class="btn-close" onclick="cerrarModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" id="boody">
                             <div class="relative">
-                                <input type="text" id="start-date" class="form-control bg-white border text-dark rounded" placeholder="&#x1F4C5; Fecha Inicio" readonly>
+                                <form id="update">
+                                    <label for="start-date">Fecha Inicio</label>
+                                    <input type="text" id="start-date" name="fecha_desde" class="form-control bg-white border text-dark rounded" placeholder="&#x1F4C5; Fecha Inicio" readonly>
+                                    <button type="button" class="btn btn-primary" id="btnFiltrar">Actualizar</button>
+                                </form>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="cerrarModal()" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -807,6 +811,18 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
     verProveedor();
 
+    $("#update").submit(function(e) {
+        e.preventDefault();
+        var url = "../ajax/cargar_wallet.php";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $("#update").serialize(),
+            success: function(data) {
+                $("#result").html(data);
+            }
+        });
+    });
 
     function filtrarFecha() {
         const buscar_numero2 = document.getElementById('buscar_numero2').value;

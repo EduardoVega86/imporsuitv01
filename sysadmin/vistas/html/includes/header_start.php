@@ -42,6 +42,8 @@ require_once "../funciones.php";
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script src="https://npmcdn.com/flatpickr@4.6.13/dist/l10n/es.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr@4.6.13/dist/themes/material_blue.css">
+
 	<style>
 		.select2-container--default .select2-selection--single {
 			height: 38px;
