@@ -112,7 +112,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             <th class="text-center">Tienda </th>
                             <th class="text-center">Total Venta</th>
                             <th class="text-center">Total Utilidad</th>
-                            <th class="text-center">Guías Pendientes</th>
+                            <!--   <th class="text-center">Guías Pendientes</th> -->
                             <th colspan="3"></th>
                         </tr>
                     </thead>
@@ -148,7 +148,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <td class="text-center"> <a href="pagar_wallet.php?id_factura=<?php echo $id_factura ?>&tienda=<?php echo $tienda ?>"> <?php echo $tienda; ?></a></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_pendiente; ?></td>
-                                <td class="text-center"><?php echo $guias_faltantes; ?></td>
+                                <!--    <td class="text-center"><?php echo $guias_faltantes; ?></td> -->
                                 <td class="text-center">
                                     <div class="btn-group dropdown">
                                         <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
