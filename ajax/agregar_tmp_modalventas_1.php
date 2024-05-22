@@ -115,6 +115,15 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
     $sql            = mysqli_query($conexion, "select * from productos, tmp_ventas where productos.id_producto=tmp_ventas.id_producto and tmp_ventas.session_id='" . $session_id . "'");
     $cantidad_total = 0;
 
+    //boton de regreso a producto principal
+    if (isset($_POST['descuento_porcentaje'])) {
+        $id_producto_combo_principal = $_POST['id_producto_combo_principal'];
+
+        $precio_producto_combo_principal = get_row('productos','valor1_producto','id_producto',$id_producto_combo_principal);
+
+        ?>
+        <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="volver_producto_original(<?php echo $id_producto_combo_principal; ?>, <?php echo $precio_producto_combo_principal; ?>, '<?php echo $session_id; ?>')">x</a>
+    <?php } 
     while ($row = mysqli_fetch_array($sql)) {
         if ($row['id_linea_producto'] == 1000) {
             continue; // Salta a la siguiente iteración del bucle si el id_linea_producto es 1000
@@ -267,6 +276,8 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             <div class="_rsi-modal-line-item-image-container">
                 <!-- <div class="product-box"> -->
                 <div>
+                    
+                        
                     <table style="width: 100%">
                         <tr>
                             <td style="width: 20%">
@@ -382,7 +393,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                     <input type="hidden" id="id_tmp" value="<?php echo $id_tmp ?>">
                                     <input type="hidden" id="estado_oferta" value="<?php echo $estado_oferta ?>">
                                     <input type="hidden" id="identificado_combo" value="<?php echo $identificado_combo ?>">
-                                    <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar_combo('<?php echo $id_tmp ?>', '<?php echo $estado_oferta ?>', '<?php echo $identificado_combo ?>')">x</a>
+                                    <!-- <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar_combo('<?php echo $id_tmp ?>', '<?php echo $estado_oferta ?>', '<?php echo $identificado_combo ?>')">x</a> -->
                                 <?php } else { ?>
                                     <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>', '<?php echo $estado_oferta ?>')">x</a>
                                 <?php } ?>
@@ -548,7 +559,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 if (isset($_POST['descuento_porcentaje'])) {
                     $descuento_porcentaje = $_POST['descuento_porcentaje'];
                     $suma_total_precio = $_POST['suma_total_precio'];
-                    
+
                     $descuento = $suma_total_precio * ($descuento_porcentaje / 100);
                 ?>
                     <div class="_rsi-modal-checkout-line" data-checkout-line="shipping">
@@ -601,7 +612,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 $('#precio_subtotal').text('$' + precioTotal.toFixed(2));
 
                 for (let i = 0; i < data.productos.length; i++) {
-                    agregar_combo_tmp(data.productos[i], data.descuento_porcentaje, data.session_id, data.suma_total_precio);
+                    agregar_combo_tmp(data.productos[i], data.descuento_porcentaje, data.session_id, data.suma_total_precio, data.id_producto_combo_principal);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -610,13 +621,32 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         });
     }
     $(document).ready(function() {
-    $('#exampleModal').on('hidden.bs.modal', function() {
-        const idTmp = $('#id_tmp').val();
-        const estadoOferta = $('#estado_oferta').val();
-        const identificadoCombo = $('#identificado_combo').val();
-        if (identificadoCombo == 1) { 
-            eliminar_combo(idTmp, estadoOferta, identificadoCombo);
-        }
+        $('#exampleModal').on('hidden.bs.modal', function() {
+            const idTmp = $('#id_tmp').val();
+            const estadoOferta = $('#estado_oferta').val();
+            const identificadoCombo = $('#identificado_combo').val();
+            if (identificadoCombo == 1) {
+                eliminar_combo(idTmp, estadoOferta, identificadoCombo);
+            }
+        });
     });
-});
+    
+    function volver_producto_original(idProducto, precioProducto,session_id) {
+  $.ajax({
+      url: 'ajax/limpiar_tmp.php',
+      type: 'POST',
+      dataType: 'json',
+      data: { session_id: session_id },
+      success: function(response) {
+          if (response.success) {
+              agregar_tmp(idProducto, precioProducto);
+          } else {
+              console.error('Error al eliminar tmp_ventas:', response.error);
+          }
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+          console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+      }
+  });
+}
 </script>
