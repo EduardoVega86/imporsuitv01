@@ -72,12 +72,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $sWhere .= " and  tienda='$tienda'";
     }
     if (@$_GET['estado'] != "") {
-        $estado    = $_REQUEST['estado'];
+        $estado = $_REQUEST['estado'];
 
         if ($estado == 100) {
-            $sWhere .= " and  estado_guia_sistema='100' and estado_guia_sistema='102' estado_guia_sistema='103'";
+            $sWhere .= " AND (estado_guia_sistema='100' OR estado_guia_sistema='102' OR estado_guia_sistema='103')";
         } else if ($estado == 200) {
-            $sWhere .= " and  estado_guia_sistema='200' and estado_guia_sistema='201' estado_guia_sistema='202'";
+            $sWhere .= " AND (estado_guia_sistema='200' OR estado_guia_sistema='201' OR estado_guia_sistema='202')";
         } else if ($estado == 300) {
             $sWhere .= " AND estado_guia_sistema BETWEEN 300 AND 351";
         } else if ($estado == 400) {
@@ -85,7 +85,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         } else if ($estado == 500) {
             $sWhere .= " AND estado_guia_sistema BETWEEN 500 AND 502";
         } else {
-            $sWhere .= " and  estado_guia_sistema='$estado'";
+            $sWhere .= " AND estado_guia_sistema='$estado'";
         }
     }
     if (@$_GET['transportadora'] != "") {
@@ -1010,12 +1010,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $sWhere .= " and  tienda='$tienda'";
     }
     if (@$_GET['estado'] != "") {
-        $estado    = $_REQUEST['estado'];
+        $estado = $_REQUEST['estado'];
 
         if ($estado == 100) {
-            $sWhere .= " and  estado_guia_sistema='100' and estado_guia_sistema='102' estado_guia_sistema='103'";
+            $sWhere .= " AND (estado_guia_sistema='100' OR estado_guia_sistema='102' OR estado_guia_sistema='103')";
         } else if ($estado == 200) {
-            $sWhere .= " and  estado_guia_sistema='200' and estado_guia_sistema='201' estado_guia_sistema='202'";
+            $sWhere .= " AND (estado_guia_sistema='200' OR estado_guia_sistema='201' OR estado_guia_sistema='202')";
         } else if ($estado == 300) {
             $sWhere .= " AND estado_guia_sistema BETWEEN 300 AND 351";
         } else if ($estado == 400) {
@@ -1023,7 +1023,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         } else if ($estado == 500) {
             $sWhere .= " AND estado_guia_sistema BETWEEN 500 AND 502";
         } else {
-            $sWhere .= " and  estado_guia_sistema='$estado'";
+            $sWhere .= " AND estado_guia_sistema='$estado'";
         }
     }
     if (@$_GET['transportadora'] != "") {
