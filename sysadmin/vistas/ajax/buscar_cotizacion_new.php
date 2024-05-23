@@ -96,7 +96,13 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     if (!empty($_GET['fechaInicio'])  && !empty($_GET['fechaFin'])) {
         $fechaInicio = @$_GET['fechaInicio'];
         $fechaFin = @$_GET['fechaFin'];
-        $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio' AND '$fechaFin'";
+        if ($fechaInicio == $fechaFin) {
+            // Si las fechas son iguales, asegúrate de incluir toda la fecha completa
+            $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio 00:00:00' AND '$fechaFin 23:59:59'";
+        } else {
+            // Si las fechas son diferentes, usa el rango proporcionado
+            $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio' AND '$fechaFin'";
+        }
     }
 
     // Recibir el valor del checkbox, asumiendo que se envía como 'filtroImpresas'
@@ -1034,7 +1040,13 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     if (!empty($_GET['fechaInicio'])  && !empty($_GET['fechaFin'])) {
         $fechaInicio = @$_GET['fechaInicio'];
         $fechaFin = @$_GET['fechaFin'];
-        $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio' AND '$fechaFin'";
+        if ($fechaInicio == $fechaFin) {
+            // Si las fechas son iguales, asegúrate de incluir toda la fecha completa
+            $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio 00:00:00' AND '$fechaFin 23:59:59'";
+        } else {
+            // Si las fechas son diferentes, usa el rango proporcionado
+            $sWhere .= " AND facturas_cot.fecha_factura BETWEEN '$fechaInicio' AND '$fechaFin'";
+        }
     }
 
     // Recibir el valor del checkbox, asumiendo que se envía como 'filtroImpresas'
@@ -1072,7 +1084,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-    //echo $sql;
+    echo $sql;
     $query = mysqli_query($conexion, $sql);
     $empresas = mysqli_query($conexion, "SELECT * FROM trabajadores_envio where estado=1");
     //loop through fetched data0
