@@ -73,7 +73,20 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     }
     if (@$_GET['estado'] != "") {
         $estado    = $_REQUEST['estado'];
-        $sWhere .= " and  estado_guia_sistema='$estado'";
+
+        if ($estado == 100) {
+            $sWhere .= " and  estado_guia_sistema='100' and estado_guia_sistema='102' estado_guia_sistema='103'";
+        } else if ($estado == 200) {
+            $sWhere .= " and  estado_guia_sistema='200' and estado_guia_sistema='201' estado_guia_sistema='202'";
+        } else if ($estado == 300) {
+            $sWhere .= " AND estado_guia_sistema BETWEEN 300 AND 351";
+        } else if ($estado == 400) {
+            $sWhere .= " AND estado_guia_sistema BETWEEN 400 AND 403";
+        } else if ($estado == 500) {
+            $sWhere .= " AND estado_guia_sistema BETWEEN 500 AND 502";
+        } else {
+            $sWhere .= " and  estado_guia_sistema='$estado'";
+        }
     }
     if (@$_GET['transportadora'] != "") {
         $transportadora = $_REQUEST['transportadora'];
@@ -472,8 +485,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                         echo "Estado no reconocido";
                                                                                                                 }
                                                                                                                 if ($guia_numero != '0') {
-                                                                                                                    if (strpos($guia_numero, "FAST") !== 0)
+                                                                                                                    if (strpos($guia_numero, "IMP") == 0) {
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
+                                                                                                                        echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
+                                                                                                                    } else if (is_numeric($guia_numero)) {
+                                                                                                                        echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
+                                                                                                                    }
 
                                                                                                                     if ($drogshipin == 3 || $drogshipin == 4) {
                                                                                                                         $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
@@ -994,7 +1011,20 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     }
     if (@$_GET['estado'] != "") {
         $estado    = $_REQUEST['estado'];
-        $sWhere .= " and  estado_guia_sistema='$estado'";
+
+        if ($estado == 100) {
+            $sWhere .= " and  estado_guia_sistema='100' and estado_guia_sistema='102' estado_guia_sistema='103'";
+        } else if ($estado == 200) {
+            $sWhere .= " and  estado_guia_sistema='200' and estado_guia_sistema='201' estado_guia_sistema='202'";
+        } else if ($estado == 300) {
+            $sWhere .= " AND estado_guia_sistema BETWEEN 300 AND 351";
+        } else if ($estado == 400) {
+            $sWhere .= " AND estado_guia_sistema BETWEEN 400 AND 403";
+        } else if ($estado == 500) {
+            $sWhere .= " AND estado_guia_sistema BETWEEN 500 AND 502";
+        } else {
+            $sWhere .= " and  estado_guia_sistema='$estado'";
+        }
     }
     if (@$_GET['transportadora'] != "") {
         $transportadora = $_REQUEST['transportadora'];
@@ -1023,7 +1053,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
  */
     $sWhere .= " order by facturas_cot.id_factura desc";
 
-    echo $sWhere;
+
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
@@ -1365,9 +1395,10 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                 if ($guia_numero != '0') {
 
 
-                                                                                                                    if (strpos($guia_numero, "IMP") == 0){
+                                                                                                                    if (strpos($guia_numero, "IMP") == 0) {
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-                                                                                                                    }else if (is_numeric ($guia_numero)){
+                                                                                                                        echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
+                                                                                                                    } else if (is_numeric($guia_numero)) {
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
                                                                                                                     }
                                                                                                                     if ($drogshipin == 3 || $drogshipin == 4) {
