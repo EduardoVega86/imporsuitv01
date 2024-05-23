@@ -1060,9 +1060,9 @@ include './includes/head_1.php';
             //alert($("#contenido").val());
             whatsapp = '%3a%0A' + "<?php echo get_row('perfil', 'whatsapp', 'id_perfil', '1') ?>";
 
-            nombre = '%3a%0A' + '*Nombre:* ' + $("#nombre").val();
+            nombre = '%3a%0A' + '*Nombre:* ' + $("#txt_nombresApellidosPreview").val();
             //  alert('entro');
-            telefono = '%3a%0A' + '*Celular:* ' + ($("#telefono").val());
+            telefono = '%3a%0A' + '*Celular:* ' + ($("#txt_telefonoPreview").val());
 
             direccion = '%3a%0A' + '*Dirección:* ' + ($("#direccion").val());
             comentario = '%3a%0A' + '*Productos:* ' + ($("#contenido").val());

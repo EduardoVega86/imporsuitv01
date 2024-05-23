@@ -122,7 +122,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         $precio_producto_combo_principal = get_row('productos','valor1_producto','id_producto',$id_producto_combo_principal);
 
         ?>
-        <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="volver_producto_original(<?php echo $id_producto_combo_principal; ?>, <?php echo $precio_producto_combo_principal; ?>, '<?php echo $session_id; ?>')">x</a>
+        <a href="#" class='btn btn-danger btn-sm waves-effect waves-light' onclick="volver_producto_original(<?php echo $id_producto_combo_principal; ?>, <?php echo $precio_producto_combo_principal; ?>, '<?php echo $session_id; ?>')"><i class="fas fa-arrow-left"></i></a>
     <?php } 
     while ($row = mysqli_fetch_array($sql)) {
         if ($row['id_linea_producto'] == 1000) {
