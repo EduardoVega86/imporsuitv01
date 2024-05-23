@@ -1022,6 +1022,8 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     /*     $sWhere .= " and estado_guia_sistema IS NOT NULL";
  */
     $sWhere .= " order by facturas_cot.id_factura desc";
+
+    echo $sWhere;
     include 'pagination.php'; //include pagination file
     //pagination variables
     $page      = (isset($_REQUEST['page']) && !empty($_REQUEST['page'])) ? $_REQUEST['page'] : 1;
@@ -1363,9 +1365,11 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                 if ($guia_numero != '0') {
 
 
-                                                                                                                    if ($guia_numero != "guia_local" && strpos($guia_numero, "FAST") !== 0)
+                                                                                                                    if (strpos($guia_numero, "IMP") == 0){
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-
+                                                                                                                    }else if (is_numeric ($guia_numero)){
+                                                                                                                        echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
+                                                                                                                    }
                                                                                                                     if ($drogshipin == 3 || $drogshipin == 4) {
                                                                                                                         $url = get_row_guia('guia_laar', 'url_guia', 'id_pedido', $id_factura_origen . " and tienda_venta like '%" . $tienda . "%'");
 

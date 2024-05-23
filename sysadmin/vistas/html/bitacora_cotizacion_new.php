@@ -131,7 +131,7 @@ $ventas = 1;
                                                     <?php
 
                                                     //echo "select * from estado_guia";
-                                                    $query_categoria = mysqli_query($conexion, "select * from estado_courier where codigo IN (1,2,3,4,5,6,7,8,9,10,14)");
+                                                    $query_categoria = mysqli_query($conexion, "select * from estado_courier where codigo IN (1,2,3,4,5,6,7,8,9,10,14,102,101,100)");
                                                     while ($rw = mysqli_fetch_array($query_categoria)) {
                                                     ?>
                                                         <option value="<?php echo $rw['codigo']; ?>"><?php echo $rw['alias']; ?></option>
@@ -356,6 +356,43 @@ $ventas = 1;
                     color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
 
                 }
+                estado_laar.innerHTML = color_badge;
+
+            }
+        });
+
+    }
+
+    async function validar_servientrega(guia, cot) {
+        $.ajax({
+            url: "../ajax/guardar_guia_new_servientrega.php",
+            type: "POST",
+            data: {
+                "guia": resultado["noGuia"],
+                "estado": resultado["estado_codigo"],
+                "cot": cot
+            },
+            beforeSend: function(objeto) {
+
+                $("#estados_laar_" + cot).html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            },
+            success: function(data) {
+                const estado_laar = document.querySelector("#estados_laar_" + cot);
+                let color_badge = ""
+
+                if (resultado["estado_codigo"] == 102) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-danger'><span> Anulado</span></a><BR>`;
+                } else if (resultado["estado_codigo"] == 101) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-purple'>Por recolectar</a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia}</span> </a><BR>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } else if (resultado["estado_codigo"] == 100) {
+                    color_badge = `<a href='${url_descarga}' class='badge badge-purple'><span>Recolectado</span></a><BR>`
+                    color_badge += `<a href='${url_descarga}' target="blank"><span> ${guia} </span></a>`
+                    color_badge += `<a style="cursor: pointer;" href="${url_VISTA}" target="blank"><img width="40px" src="../../img_sistema/rastreo.png" alt="" /></a>`
+
+                } 
                 estado_laar.innerHTML = color_badge;
 
             }
