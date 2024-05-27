@@ -128,9 +128,16 @@ $ventas = 1;
                                             <div style="padding-left: 20px;">
                                                 <select onchange="buscar_estado(this.value)" name="estado_q" class="form-control" id="estado_q">
                                                     <option value="0"> Seleccione Estado </option>
-                                                    <option value="8">Anuladas LAAR</option>
-                                                    <option value="101">Anuladas Servientrega</option>
-                                                    <option value="4">Anuladas FAST</option>
+                                                    <?php
+
+                                                    //echo "select * from estado_guia";
+                                                    $query_categoria = mysqli_query($conexion, "select * from estado_courier where codigo IN (1,2,3,4,5,6,7,8,9,10,14,100,101,200,300,400.500)");
+                                                    while ($rw = mysqli_fetch_array($query_categoria)) {
+                                                    ?>
+                                                        <option value="<?php echo $rw['codigo']; ?>"><?php echo $rw['alias']; ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -255,7 +262,7 @@ $ventas = 1;
         resultado["noGuia"] = result["noGuia"];
 
         $.ajax({
-            url: "./guias_anuladas_bitacora_cotizacion_new.php",
+            url: "./bitacora_pedidos_new.php",
             type: "POST",
             data: {
                 "guia": resultado["noGuia"],
@@ -876,7 +883,7 @@ $ventas = 1;
 
     }
 </script>
-<script type="text/javascript" src="../../js/guias_anuladas_bitacora_cotizacion_new.js"></script>
+<script type="text/javascript" src="../../js/bitacora_pedidos_new.js"></script>
 <script src="../ajax/js/wallet.js"></script>
 <?php require 'includes/footer_end.php'
 ?>

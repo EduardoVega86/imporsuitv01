@@ -74,20 +74,17 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     if (@$_GET['estado'] != "") {
         $estado = $_REQUEST['estado'];
 
-        if ($estado == 100) {
-            $sWhere .= " AND (estado_guia_sistema='100' OR estado_guia_sistema='102' OR estado_guia_sistema='103')";
-        } else if ($estado == 200) {
-            $sWhere .= " AND (estado_guia_sistema='200' OR estado_guia_sistema='201' OR estado_guia_sistema='202')";
-        } else if ($estado == 300) {
-            $sWhere .= " AND estado_guia_sistema BETWEEN 300 AND 351";
-        } else if ($estado == 400) {
-            $sWhere .= " AND estado_guia_sistema BETWEEN 400 AND 403";
-        } else if ($estado == 500) {
-            $sWhere .= " AND estado_guia_sistema BETWEEN 500 AND 502";
-        } else {
-            $sWhere .= " AND estado_guia_sistema='$estado'";
+        if ($estado == 8){
+            $sWhere .= " AND estado_guia_sistema='8'";
+        }else if ($estado == 101){
+            $sWhere .= " AND estado_guia_sistema='101'";
+        }else if ($estado == 4){
+            $sWhere .= " AND estado_guia_sistema='4'";
         }
+    }else {
+        $sWhere .= " AND (estado_guia_sistema='8' OR estado_guia_sistema='101' OR estado_guia_sistema='4')";
     }
+
     if (@$_GET['transportadora'] != "") {
         $transportadora = $_REQUEST['transportadora'];
         $sWhere .= " and  transporte='$transportadora'";
@@ -1020,20 +1017,18 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     if (@$_GET['estado'] != "") {
         $estado = $_REQUEST['estado'];
 
-        if ($estado == 100) {
-            $sWhere .= " AND (estado_guia_sistema='100' OR estado_guia_sistema='102' OR estado_guia_sistema='103')";
-        } else if ($estado == 200) {
-            $sWhere .= " AND (estado_guia_sistema='200' OR estado_guia_sistema='201' OR estado_guia_sistema='202')";
-        } else if ($estado == 300) {
-            $sWhere .= " AND estado_guia_sistema BETWEEN 300 AND 351";
-        } else if ($estado == 400) {
-            $sWhere .= " AND estado_guia_sistema BETWEEN 400 AND 403";
-        } else if ($estado == 500) {
-            $sWhere .= " AND estado_guia_sistema BETWEEN 500 AND 502";
-        } else {
-            $sWhere .= " AND estado_guia_sistema='$estado'";
+        if ($estado == 8){
+            $sWhere .= " AND estado_guia_sistema='8'";
+        }else if ($estado == 101){
+            $sWhere .= " AND estado_guia_sistema='101'";
+        }else if ($estado == 4){
+            $sWhere .= " AND estado_guia_sistema='4'";
         }
+    }else {
+        $sWhere .= " AND (estado_guia_sistema='8' OR estado_guia_sistema='101' OR estado_guia_sistema='4')";
     }
+
+
     if (@$_GET['transportadora'] != "") {
         $transportadora = $_REQUEST['transportadora'];
         $sWhere .= " and  transporte='$transportadora'";
@@ -1065,7 +1060,6 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
     /*     $sWhere .= " and estado_guia_sistema IS NOT NULL";
  */
-    $sWhere .= " AND estado_guia_sistema='8' AND estado_guia_sistema='101'";
 
     $sWhere .= " order by facturas_cot.id_factura desc";
 
@@ -1088,7 +1082,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     $reload      = '../reportes/facturas.php';
     //main query to fetch the data
     $sql   = "SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-    echo $sql;
+    //echo $sql;
     $query = mysqli_query($conexion, $sql);
     $empresas = mysqli_query($conexion, "SELECT * FROM trabajadores_envio where estado=1");
     //loop through fetched data0
