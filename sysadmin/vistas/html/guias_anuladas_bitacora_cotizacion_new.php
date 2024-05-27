@@ -262,7 +262,7 @@ $ventas = 1;
         resultado["noGuia"] = result["noGuia"];
 
         $.ajax({
-            url: "./guias_bitacora_cotizacion_new.php",
+            url: "./guias_anuladas_bitacora_cotizacion_new.php",
             type: "POST",
             data: {
                 "guia": resultado["noGuia"],
@@ -883,7 +883,7 @@ $ventas = 1;
 
     }
 </script>
-<script type="text/javascript" src="../../js/guias_bitacora_cotizacion_new.js"></script>
+<script type="text/javascript" src="../../js/guias_anuladas_bitacora_cotizacion_new.js"></script>
 <script src="../ajax/js/wallet.js"></script>
 <?php require 'includes/footer_end.php'
 ?>
