@@ -247,6 +247,9 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 							<li><a href="../html/bitacora_externa.php">Pedidos Externos</a></li>
 
 						<?php } ?>
+						
+						<!-- <li><a href="../html/new_cotizacion.php">Guias</a></li> -->
+
 						<li>
 							<a href="../html/novedades.php">Novedades</a>
 						</li>
