@@ -230,7 +230,9 @@ if (empty($_POST['session'])) {
             . "VALUES ( '$factura', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 0); ";
         //echo $sql;
         $insert      = mysqli_query($conexion, $sql);
+        echo mysqli_error($conexion);
 
+        echo mysqli_error($conexion);
         $ultimo_id = mysqli_insert_id($conexion);
         $sql_marketplace = "INSERT INTO `facturas_cot` ( `numero_factura`, `fecha_factura`, `id_cliente`, `id_vendedor`, `condiciones`, `monto_factura`, `estado_factura`, `id_users_factura`, `validez`, `id_sucursal`, `nombre`, `telefono`, `provincia`, `c_principal`, `ciudad_cot`, `c_secundaria`, `referencia`, `observacion`, `guia_enviada`, `transporte`, `drogshipin`, `tienda`, `id_factura_origen`) "
             . "VALUES ( '$factura_marketplace', '$date_added', '$id_cliente', '$id_vendedor', '$condiciones', '$total_factura', '$estado', '$users', '$validez', '1', '$nombre', '$telefono', '$provincia', '$calle_principal', '$ciudad', '$calle_secundaria', '$referencia', '$observacion', '0', '', 4,'$server_url','$ultimo_id'); ";
@@ -481,6 +483,7 @@ GROUP BY tienda;";
                 // echo $sql;
 
                 $insert      = mysqli_query($conexion, $sql);
+                echo mysqli_error($conexion);
                 $ultimo_id = mysqli_insert_id($conexion);
 
                 if (
@@ -502,6 +505,7 @@ GROUP BY tienda;";
                 // echo $sql;
 
                 $insert_destino      = mysqli_query($conexion_destino, $sql_destino);
+                echo mysqli_error($conexion_destino);
 
 
 
@@ -510,6 +514,7 @@ GROUP BY tienda;";
                 // echo $sql;
 
                 $insert_destino      = mysqli_query($conexion_marketplace, $sql_marketplace);
+                echo mysqli_error($conexion_marketplace);
             }
         }
     }
