@@ -325,6 +325,7 @@ function imprimir_factura(id_factura) {
   );
 }
 function generar_guia() {
+  $("#generar_guia_btn").prop("disabled", true);
   $("#id_pedido_cot").val(window.location.href.split("=")[1]);
 
   let monto_total = $("#monto_total_").text();
@@ -366,10 +367,7 @@ function generar_guia() {
     data.set("celular", $("#telefono").val());
     data.append("celular", $("#telefono").val());
 
-    data.append(
-      "valor_total",
-      Math.round(document.getElementById("valor_total_").value)
-    );
+    data.append("valor_total", document.getElementById("valor_total_").value);
     data.append(
       "cantidad_total",
       document.getElementById("cantidad_total").value
@@ -425,10 +423,7 @@ function generar_guia() {
       "direccion",
       document.getElementById("direccion_destino").value
     );
-    data.append(
-      "valor_total",
-      Math.round(document.getElementById("valor_total_").value)
-    );
+    data.append("valor_total", document.getElementById("valor_total_").value);
     data.append(
       "cantidad_total",
       document.getElementById("cantidad_total").value
@@ -486,10 +481,7 @@ function generar_guia() {
       "direccion",
       document.getElementById("direccion_destino").value
     );
-    data.append(
-      "valor_total",
-      Math.round(document.getElementById("valor_total_").value)
-    );
+    data.append("valor_total", document.getElementById("valor_total_").value);
     data.append(
       "cantidad_total",
       document.getElementById("cantidad_total").value
@@ -634,10 +626,7 @@ function generar_guia() {
       "direccion",
       document.getElementById("direccion_destino").value
     );
-    data.append(
-      "valor_total",
-      Math.round(document.getElementById("valor_total_").value)
-    );
+    data.append("valor_total", document.getElementById("valor_total_").value);
     data.append(
       "cantidad_total",
       document.getElementById("cantidad_total").value
