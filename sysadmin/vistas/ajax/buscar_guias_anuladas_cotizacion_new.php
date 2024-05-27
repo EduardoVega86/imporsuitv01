@@ -893,56 +893,17 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             ?>
                         </td>
                         <td class="text-center align-middle">
-                            <?php if ($drogshipin == 3 || $drogshipin == 4) {
-                                if (strpos($guia_numero, "IMP") === 0 && $server_url == "https://marketplace.imporsuit.com") {
-                            ?>
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 8) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                <?php
-                                } else {
 
-
-                                ?>
-
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado_local'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 4) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=4
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema_local");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado_local'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado_local']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
                             <?php
-
-                                }
-                            }
+                            $tienda2   = $row['tienda'];
+                            $conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+                            $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataformas WHERE url_imporsuit LIKE '%" . $tienda2 . "%'");
+                            $row_tienda         = mysqli_fetch_array($count_tienda);
+                            $telefono_tienda    = @$row_tienda['whatsapp'];
+                            $telefonoFormateado = formatPhoneNumber($telefono_tienda);
                             ?>
+                            
+                            <a href="https://wa.me/<?php echo $telefono_tienda ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
 
                         </td>
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
@@ -1868,55 +1829,16 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                         </td>
                         <td class="text-center align-middle">
 
-                            <?php if ($drogshipin == 3 || $drogshipin == 4) {
-                                if (strpos($guia_numero, "IMP") === 0 && $server_url == "https://marketplace.imporsuit.com") {
-
-                            ?>
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 8) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                <?php
-                                } else {
-                                    $conexion_market = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
-                                ?>
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado_local'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 4) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=4
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion_market, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion_market, "select * from estado_guia_sistema_local");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado_local'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado_local']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
                             <?php
-                                }
-                            }
-
+                            $tienda2   = $row['tienda'];
+                            $conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+                            $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataformas WHERE url_imporsuit LIKE '%" . $tienda2 . "%'");
+                            $row_tienda         = mysqli_fetch_array($count_tienda);
+                            $telefono_tienda    = @$row_tienda['whatsapp'];
+                            $telefonoFormateado = formatPhoneNumber($telefono_tienda);
                             ?>
+                            
+                            <a href="https://wa.me/<?php echo $telefono_tienda ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
 
                         </td>
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
