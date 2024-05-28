@@ -236,7 +236,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 						<?php if ($pais == 1) {
 
 						?>
-							<li><a href="../html/bitacora_cotizacion_new.php">Pedidos Ingresados</a></li>
+							<li><a href="../html/bitacora_pedidos_new.php">Pedidos Ingresados</a></li>
 						<?php  } else {
 						?>
 							<li><a href="../html/bitacora_cotizacion_p.php">Pedidos Ingresados</a></li>
@@ -248,7 +248,9 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
 						<?php } ?>
 						
-						<!-- <li><a href="../html/new_cotizacion.php">Guias</a></li> -->
+						<li><a href="../html/guias_bitacora_cotizacion_new.php">Guias</a></li>
+
+						<li><a href="../html/guias_anuladas_bitacora_cotizacion_new.php">Guias anuladas</a></li>
 
 						<li>
 							<a href="../html/novedades.php">Novedades</a>

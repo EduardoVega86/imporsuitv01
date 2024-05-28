@@ -75,14 +75,14 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $estado = $_REQUEST['estado'];
 
         if ($estado == 8){
-            $sWhere .= " AND estado_guia_sistema='8'";
+            $sWhere .= " AND estado_guia_sistema='8' AND transporte LIKE '%LAAR%'";
         }else if ($estado == 101){
-            $sWhere .= " AND estado_guia_sistema='101'";
+            $sWhere .= " AND estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%'";
         }else if ($estado == 4){
-            $sWhere .= " AND estado_guia_sistema='4'";
+            $sWhere .= " AND estado_guia_sistema='4' AND transporte LIKE '%FAST%'";
         }
     }else {
-        $sWhere .= " AND (estado_guia_sistema='8' OR estado_guia_sistema='101' OR estado_guia_sistema='4')";
+        $sWhere .= " AND (estado_guia_sistema='8' AND transporte LIKE '%LAAR%') OR (estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%') OR (estado_guia_sistema='4' AND transporte LIKE '%FAST%')";
     }
 
     if (@$_GET['transportadora'] != "") {
@@ -893,58 +893,17 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             ?>
                         </td>
                         <td class="text-center align-middle">
-                            <?php if ($drogshipin == 3 || $drogshipin == 4) {
-                                if (strpos($guia_numero, "IMP") === 0 && $server_url == "https://marketplace.imporsuit.com") {
-                            ?>
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 8) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                <?php
-                                } else {
-
-
-                                ?>
-
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado_local'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 4) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=4
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema_local");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado_local'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado_local']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
                             <?php
+                            $tienda2   = $row['telefono'];
+                            $telefono_tienda    = $tienda2;
+                            
 
-                                }
-                            }
+                                $telefonoFormateado = formatPhoneNumber($telefono_tienda);
                             ?>
-
+                                <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
+                            
                         </td>
+
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
 
 
@@ -1018,14 +977,14 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $estado = $_REQUEST['estado'];
 
         if ($estado == 8){
-            $sWhere .= " AND estado_guia_sistema='8'";
+            $sWhere .= " AND estado_guia_sistema='8' AND transporte LIKE '%LAAR%'";
         }else if ($estado == 101){
-            $sWhere .= " AND estado_guia_sistema='101'";
+            $sWhere .= " AND estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%'";
         }else if ($estado == 4){
-            $sWhere .= " AND estado_guia_sistema='4'";
+            $sWhere .= " AND estado_guia_sistema='4' AND transporte LIKE '%FAST%'";
         }
     }else {
-        $sWhere .= " AND (estado_guia_sistema='8' OR estado_guia_sistema='101' OR estado_guia_sistema='4')";
+        $sWhere .= " AND (estado_guia_sistema='8' AND transporte LIKE '%LAAR%') OR (estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%') OR (estado_guia_sistema='4' AND transporte LIKE '%FAST%')";
     }
 
 
@@ -1867,58 +1826,17 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             ?>
                         </td>
                         <td class="text-center align-middle">
-
-                            <?php if ($drogshipin == 3 || $drogshipin == 4) {
-                                if (strpos($guia_numero, "IMP") === 0 && $server_url == "https://marketplace.imporsuit.com") {
-
-                            ?>
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 8) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                <?php
-                                } else {
-                                    $conexion_market = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
-                                ?>
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado_local'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 4) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=4
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion_market, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion_market, "select * from estado_guia_sistema_local");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado_local'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado_local']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
                             <?php
-                                }
-                            }
+                            $tienda2   = $row['telefono'];
+                            $telefono_tienda    = $tienda2;
+                            
 
+                                $telefonoFormateado = formatPhoneNumber($telefono_tienda);
                             ?>
-
+                                <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
+                            
                         </td>
+
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
 
 
@@ -1972,3 +1890,26 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     }
     // fin else
 }
+function formatPhoneNumber($number)
+    {
+        // Eliminar caracteres no numéricos excepto el signo +
+        $number = preg_replace('/[^\d+]/', '', $number);
+
+        // Verificar si el número ya tiene el código de país +593
+        if (preg_match('/^\+593/', $number)) {
+            // El número ya está correctamente formateado con +593
+            return $number;
+        } elseif (preg_match('/^593/', $number)) {
+            // El número tiene 593 al inicio pero le falta el +
+            return '+' . $number;
+        } else {
+            // Si el número comienza con 0, quitarlo
+            if (strpos($number, '0') === 0) {
+                $number = substr($number, 1);
+            }
+            // Agregar el código de país +593 al inicio del número
+            $number = '+593' . $number;
+        }
+
+        return $number;
+    }
