@@ -75,14 +75,14 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $estado = $_REQUEST['estado'];
 
         if ($estado == 8){
-            $sWhere .= " AND estado_guia_sistema='8'";
+            $sWhere .= " AND estado_guia_sistema='8' AND transporte LIKE '%LAAR%'";
         }else if ($estado == 101){
-            $sWhere .= " AND estado_guia_sistema='101'";
+            $sWhere .= " AND estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%'";
         }else if ($estado == 4){
-            $sWhere .= " AND estado_guia_sistema='4'";
+            $sWhere .= " AND estado_guia_sistema='4' AND transporte LIKE '%FAST%'";
         }
     }else {
-        $sWhere .= " AND (estado_guia_sistema='8' OR estado_guia_sistema='101' OR estado_guia_sistema='4')";
+        $sWhere .= " AND (estado_guia_sistema='8' AND transporte LIKE '%LAAR%') OR (estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%') OR (estado_guia_sistema='4' AND transporte LIKE '%FAST%')";
     }
 
     if (@$_GET['transportadora'] != "") {
@@ -893,19 +893,17 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             ?>
                         </td>
                         <td class="text-center align-middle">
-
                             <?php
-                            $tienda2   = $row['tienda'];
-                            $conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
-                            $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataformas WHERE url_imporsuit LIKE '%" . $tienda2 . "%'");
-                            $row_tienda         = mysqli_fetch_array($count_tienda);
-                            $telefono_tienda    = @$row_tienda['whatsapp'];
-                            $telefonoFormateado = formatPhoneNumber($telefono_tienda);
-                            ?>
+                            $tienda2   = $row['telefono'];
+                            $telefono_tienda    = $tienda2;
                             
-                            <a href="https://wa.me/<?php echo $telefono_tienda ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
 
+                                $telefonoFormateado = formatPhoneNumber($telefono_tienda);
+                            ?>
+                                <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
+                            
                         </td>
+
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
 
 
@@ -979,14 +977,14 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $estado = $_REQUEST['estado'];
 
         if ($estado == 8){
-            $sWhere .= " AND estado_guia_sistema='8'";
+            $sWhere .= " AND estado_guia_sistema='8' AND transporte LIKE '%LAAR%'";
         }else if ($estado == 101){
-            $sWhere .= " AND estado_guia_sistema='101'";
+            $sWhere .= " AND estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%'";
         }else if ($estado == 4){
-            $sWhere .= " AND estado_guia_sistema='4'";
+            $sWhere .= " AND estado_guia_sistema='4' AND transporte LIKE '%FAST%'";
         }
     }else {
-        $sWhere .= " AND (estado_guia_sistema='8' OR estado_guia_sistema='101' OR estado_guia_sistema='4')";
+        $sWhere .= " AND (estado_guia_sistema='8' AND transporte LIKE '%LAAR%') OR (estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%') OR (estado_guia_sistema='4' AND transporte LIKE '%FAST%')";
     }
 
 
@@ -1828,19 +1826,17 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             ?>
                         </td>
                         <td class="text-center align-middle">
-
                             <?php
-                            $tienda2   = $row['tienda'];
-                            $conexion_marketplace = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
-                            $count_tienda = mysqli_query($conexion_marketplace, "SELECT * FROM plataformas WHERE url_imporsuit LIKE '%" . $tienda2 . "%'");
-                            $row_tienda         = mysqli_fetch_array($count_tienda);
-                            $telefono_tienda    = @$row_tienda['whatsapp'];
-                            $telefonoFormateado = formatPhoneNumber($telefono_tienda);
-                            ?>
+                            $tienda2   = $row['telefono'];
+                            $telefono_tienda    = $tienda2;
                             
-                            <a href="https://wa.me/<?php echo $telefono_tienda ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
 
+                                $telefonoFormateado = formatPhoneNumber($telefono_tienda);
+                            ?>
+                                <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
+                            
                         </td>
+
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
 
 
@@ -1894,3 +1890,26 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     }
     // fin else
 }
+function formatPhoneNumber($number)
+    {
+        // Eliminar caracteres no numéricos excepto el signo +
+        $number = preg_replace('/[^\d+]/', '', $number);
+
+        // Verificar si el número ya tiene el código de país +593
+        if (preg_match('/^\+593/', $number)) {
+            // El número ya está correctamente formateado con +593
+            return $number;
+        } elseif (preg_match('/^593/', $number)) {
+            // El número tiene 593 al inicio pero le falta el +
+            return '+' . $number;
+        } else {
+            // Si el número comienza con 0, quitarlo
+            if (strpos($number, '0') === 0) {
+                $number = substr($number, 1);
+            }
+            // Agregar el código de país +593 al inicio del número
+            $number = '+593' . $number;
+        }
+
+        return $number;
+    }
