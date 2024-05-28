@@ -570,3 +570,20 @@ function buscar_transporte(transporte) {
     },
   });
 }
+function boton_anular(id_factura_origen, numero_factura, transportadora) {
+  $.ajax({
+      url: '../ajax/boton_anular_guia.php',
+      type: 'POST',
+      data: {
+          id_factura_origen: id_factura_origen,
+          numero_factura: numero_factura,
+          transportadora: transportadora
+      },
+      success: function(response) {
+          alert('Database updated successfully!');
+      },
+      error: function(xhr, status, error) {
+          alert('Error: ' + error);
+      }
+  });
+}
