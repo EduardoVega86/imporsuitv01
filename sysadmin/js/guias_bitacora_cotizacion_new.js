@@ -587,3 +587,29 @@ function boton_anular(id_factura_origen, numero_factura, transportadora) {
       }
   });
 }
+function anular_guia(guia, id) {
+
+  id_factura = 1;
+  if (id_factura = 1) {
+      $.ajax({
+          url: '../ajax/eliminar_guia.php',
+          type: 'post',
+          data: {
+              guia: guia,
+              id: id,
+
+          },
+          dataType: 'text',
+          success: function(response) {
+
+              if (response == 'ok') {
+                  location.reload();
+              } else {
+                  alert(response)
+              }
+
+          } // /success function
+
+      }); // /ajax function to fetch the printable order
+  } // /if orderId
+}
