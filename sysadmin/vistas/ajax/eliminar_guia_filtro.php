@@ -9,13 +9,6 @@ $authData = array(
 
 $guia = $_POST['guia'];
 
-if ($guia == 0 && $id ==0){
-    $sql = "UPDATE facturas_cot SET  estado_factura=8
-                                WHERE id_factura='" . $id . "'";
-        $query_update = mysqli_query($conexion, $sql);
-        echo 'ok';
-}
-
 if (strpos($guia, "IMP") !== 0 && !is_numeric($guia)) {
     $authUrl = "https://fast.imporsuit.com/GenerarGuia/anular/" . $guia;
     $authHeaders = array(

@@ -570,17 +570,15 @@ function buscar_transporte(transporte) {
     },
   });
 }
-function anular_guia(guia, id) {
+function anular_guia_pedidos(numero_factura) {
 
   id_factura = 1;
   if (id_factura = 1) {
       $.ajax({
-          url: '../ajax/eliminar_guia_filtro.php',
+          url: '../ajax/eliminar_guia_filtro_pedidos.php',
           type: 'post',
           data: {
-              guia: guia,
-              id: id,
-
+            numero_factura: numero_factura
           },
           dataType: 'text',
           success: function(response) {
