@@ -1815,11 +1815,10 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                 <?php
                                                                                                                     } else {
                                                                                                                         $estado_guia_sistema_noEnviadas = get_row('facturas_cot', 'estado_guia_sistema', 'numero_factura', $numero_factura);
-                                                                                                                        if (($transportadora == null) && ($estado_guia_sistema_noEnviadas ==8)){
+                                                                                                                        if ((empty($transportadora)) && ($estado_guia_sistema_noEnviadas == 8)) {
                                                                                                                             echo "<a href='#' class='badge badge-danger'><span>Anulado</span></a><BR><span class='badge badge-warning text-black'>GUIA NO ENVIADA</span>";
-                                                                                                                            
-                                                                                                                        }else{
-                                                                                                                        echo '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
+                                                                                                                        } else {
+                                                                                                                            echo '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
                                                                                                                         }
                                                                                                                     }
                                 ?>
