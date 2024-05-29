@@ -980,11 +980,11 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
             $sWhere .= " AND estado_guia_sistema='8' AND transporte LIKE '%LAAR%'";
         }else if ($estado == 101){
             $sWhere .= " AND estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%'";
-        }else if ($estado == 4){
-            $sWhere .= " AND estado_guia_sistema='4' AND transporte LIKE '%FAST%'";
         }
     }else {
-        $sWhere .= " AND (estado_guia_sistema='8' AND transporte LIKE '%LAAR%') OR (estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%') OR (estado_guia_sistema='4' AND transporte LIKE '%FAST%')";
+        $sWhere .= " AND ((estado_guia_sistema='8' AND transporte LIKE '%LAAR%')
+              OR (estado_guia_sistema='101' AND transporte LIKE '%SERVIENTREGA%')
+              OR (estado_guia_sistema='8' AND transporte IS NULL))";
     }
 
 
@@ -1814,7 +1814,13 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
                                 <?php
                                                                                                                     } else {
+                                                                                                                        $estado_guia_sistema_noEnviadas = get_row('facturas_cot', 'estado_guia_sistema', 'numero_factura', $numero_factura);
+                                                                                                                        if (($transportadora == null) && ($estado_guia_sistema_noEnviadas ==8)){
+                                                                                                                            echo "<a href='#' class='badge badge-danger'><span>Anulado</span></a><BR><span class='badge badge-warning text-black'>GUIA NO ENVIADA</span>";
+                                                                                                                            
+                                                                                                                        }else{
                                                                                                                         echo '<span class="badge badge-warning text-black">GUIA NO ENVIADA</span>';
+                                                                                                                        }
                                                                                                                     }
                                 ?>
 
