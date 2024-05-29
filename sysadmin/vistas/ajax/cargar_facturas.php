@@ -50,6 +50,7 @@ if ($filtro == 'mayor_menor') {
             <th>Venta total</th>
             <th>Costo</th>
             <th>Precio Envio</th>
+            <th>Full Fillment</th>
             <th>Monto a Recibir</th>
             <th>Monto Cobrado</th>
             <th>Monto Pendiente</th>
@@ -157,6 +158,7 @@ if ($filtro == 'mayor_menor') {
                 <td><?php echo $rws['total_venta']; ?></td>
                 <td><?php echo $rws['costo']; ?></td>
                 <td><?php echo $rws['precio_envio']; ?></td>
+                <td><?php echo $rws['full']; ?></td>
                 <td><?php echo $rws['monto_recibir']; ?></td>
                 <td><?php echo $rws['valor_cobrado']; ?></td>
 
