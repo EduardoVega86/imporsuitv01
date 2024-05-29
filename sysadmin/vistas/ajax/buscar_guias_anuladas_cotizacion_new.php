@@ -491,10 +491,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                         echo "Estado no reconocido";
                                                                                                                 }
                                                                                                                 if ($guia_numero != '0') {
-                                                                                                                    if (strpos($guia_numero, "IMP") == 0) {
+                                                                                                                    if (strpos($guia_numero, "IMP") === 0) {
+                                                                                                                        echo "<script> console.log ('Numero guia: $guia_numero )</script>";
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-                                                                                                                    } else if (is_numeric($guia_numero)) {
+                                                                                                                        
+                                                                                                                    } elseif (ctype_digit($guia_numero)) {
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
                                                                                                                     }
 
@@ -1364,10 +1366,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                 if ($guia_numero != '0') {
 
 
-                                                                                                                    if (strpos($guia_numero, "IMP") == 0) {
+                                                                                                                    if (strpos($guia_numero, "IMP") === 0) {
+                                                                                                                        echo "<script> console.log ('Numero guia: $guia_numero )</script>";
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-                                                                                                                    } else if (is_numeric($guia_numero)) {
+                                                                                                                        
+                                                                                                                    } elseif (ctype_digit($guia_numero)) {
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
                                                                                                                     }
                                                                                                                     if ($drogshipin == 3 || $drogshipin == 4) {

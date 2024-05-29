@@ -117,7 +117,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         }
     }
 
-    $sWhere .= " AND estado_guia_sistema!='8'  AND estado_guia_sistema!='101'";
+    $sWhere .= " AND transporte IS NOT NULL AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
 
     $sWhere .= " order by facturas_cot.id_factura desc";
 
@@ -899,12 +899,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             <?php
                             $tienda2   = $row['telefono'];
                             $telefono_tienda    = $tienda2;
-                            
 
-                                $telefonoFormateado = formatPhoneNumber($telefono_tienda);
+
+                            $telefonoFormateado = formatPhoneNumber($telefono_tienda);
                             ?>
-                                <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
-                            
+                            <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
+
                         </td>
 
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
@@ -1024,7 +1024,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
     /*     $sWhere .= " and estado_guia_sistema IS NOT NULL";
  */
-    $sWhere .= " AND estado_guia_sistema!='8'  AND estado_guia_sistema!='101'";
+    $sWhere .= " AND transporte IS NOT NULL AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
 
     $sWhere .= " order by facturas_cot.id_factura desc";
 
@@ -1367,13 +1367,15 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                     default:
                                                                                                                         echo "Estado no reconocido";
                                                                                                                 }
+                                                                                                                if (is_numeric($guia_numero)) {
+                                                                                                                    echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
+                                                                                                                }
                                                                                                                 if ($guia_numero != '0') {
-
 
                                                                                                                     if (strpos($guia_numero, "IMP") == 0) {
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-                                                                                                                        echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-                                                                                                                    } else if (is_numeric($guia_numero)) {
+                                                                                                                    }
+                                                                                                                    if (is_numeric($guia_numero)) {
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
                                                                                                                     }
                                                                                                                     if ($drogshipin == 3 || $drogshipin == 4) {
@@ -1795,7 +1797,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                     ?>
 
                                     <?php
-                                                                                                                        } else {
+                                                                                                                        }    else {
                                     ?>
                                     <?php
                                                                                                                         }
@@ -1835,12 +1837,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             <?php
                             $tienda2   = $row['telefono'];
                             $telefono_tienda    = $tienda2;
-                            
 
-                                $telefonoFormateado = formatPhoneNumber($telefono_tienda);
+
+                            $telefonoFormateado = formatPhoneNumber($telefono_tienda);
                             ?>
-                                <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
-                            
+                            <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
+
                         </td>
 
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
@@ -1899,25 +1901,25 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
     // fin else
 }
 function formatPhoneNumber($number)
-    {
-        // Eliminar caracteres no numéricos excepto el signo +
-        $number = preg_replace('/[^\d+]/', '', $number);
+{
+    // Eliminar caracteres no numéricos excepto el signo +
+    $number = preg_replace('/[^\d+]/', '', $number);
 
-        // Verificar si el número ya tiene el código de país +593
-        if (preg_match('/^\+593/', $number)) {
-            // El número ya está correctamente formateado con +593
-            return $number;
-        } elseif (preg_match('/^593/', $number)) {
-            // El número tiene 593 al inicio pero le falta el +
-            return '+' . $number;
-        } else {
-            // Si el número comienza con 0, quitarlo
-            if (strpos($number, '0') === 0) {
-                $number = substr($number, 1);
-            }
-            // Agregar el código de país +593 al inicio del número
-            $number = '+593' . $number;
-        }
-
+    // Verificar si el número ya tiene el código de país +593
+    if (preg_match('/^\+593/', $number)) {
+        // El número ya está correctamente formateado con +593
         return $number;
+    } elseif (preg_match('/^593/', $number)) {
+        // El número tiene 593 al inicio pero le falta el +
+        return '+' . $number;
+    } else {
+        // Si el número comienza con 0, quitarlo
+        if (strpos($number, '0') === 0) {
+            $number = substr($number, 1);
+        }
+        // Agregar el código de país +593 al inicio del número
+        $number = '+593' . $number;
     }
+
+    return $number;
+}

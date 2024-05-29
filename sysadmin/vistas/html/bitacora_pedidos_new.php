@@ -348,7 +348,7 @@ $ventas = 1;
     async function validar_servientrega(guia, cot) {
         
         $.ajax({
-            url: "../ajax/guardar_guia_new_ser|vientrega.php",
+            url: "../ajax/guardar_guia_new_servientrega.php",
             type: "POST",
             data: {
                 "guia": guia,
