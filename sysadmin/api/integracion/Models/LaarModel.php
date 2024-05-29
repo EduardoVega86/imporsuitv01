@@ -392,7 +392,7 @@ class LaarModel extends Query
             $valor_base = $valor_base + ($valor_declarado * 0.01);
         }
 
-        if ($tienda_venta == "https://yapando.imporsuit.com" || $tienda_venta == "https://onlytap.imporsuit.com" || $tienda_venta == "https://ecuashop.imporsuit.com" || $tienda_venta == "https://universalmarkethub.imporsuit.com") {
+        if ($tienda_venta == "https://yapando.imporsuit.com" || $tienda_venta == "https://onlytap.imporsuit.com" || $tienda_venta == "https://ecuashop.imporsuit.com") {
             $conexion_tiend  = $this->obtener_conexion($tienda_venta);
             $sql_tipo = "SELECT precio from ciudad_laar where codigo = '$ciudad_cot'";
             $sql_tipo = mysqli_query($conexion_tiend, $sql_tipo);
