@@ -30,6 +30,7 @@ if ($estado_guia == 9) {
         $actualizada = $precio;
     }
     $actualizada *= -1;
+    $actualizada = $actualizada - $full_;
 } else {
     $actualizada = $total_ventassss - $costoss - $precio - $full_;
 }
