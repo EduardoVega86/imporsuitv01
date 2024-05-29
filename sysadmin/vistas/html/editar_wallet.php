@@ -382,7 +382,8 @@ if (isset($_GET['id_factura'])) {
                 venta: total_ventas,
                 precio: precio,
                 costo: costo,
-                id_factura: id_factura
+                id_factura: id_factura,
+                full: $("#full").val()
             },
             dataType: 'text',
             success: function(response) {
