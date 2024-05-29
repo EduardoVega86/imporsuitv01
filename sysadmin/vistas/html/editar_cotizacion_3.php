@@ -388,7 +388,8 @@ while ($r = $query->fetch_object()) {
                                                             <input type="hidden" id="direccion_destino" name="direccion_destino" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                             <input type="hidden" id="referencia" name="referencia" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                             <input type="hidden" id="telefono" name="telefono" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
-                                                            <input id="celular" type="hidden" name="celular" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
+                                                            <input id="
+                                                            " type="hidden" name="celular" value="<?php echo get_row('guia_laar', 'url_guia', 'id_pedido', $id_factura); ?>">
                                                             <input id="numerocasa" type="hidden" name="numerocasa" class="form-control" value="<?php echo $observacion; ?>">
                                                             <input id="cod" type="hidden" name="cod">
                                                             <input id="seguro" type="hidden" name="seguro">
