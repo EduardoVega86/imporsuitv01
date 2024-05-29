@@ -711,7 +711,7 @@ class LaarModel extends Query
 
                     //bind
                     $stmt = $conexion_proveedor->prepare($sql);
-                    $stmt->bind_param("issss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                    $stmt->bind_param("issssi", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                     if ($stmt->execute()) {
                         echo json_encode('ok');
                         echo "se inserto la novedad";
@@ -755,7 +755,7 @@ class LaarModel extends Query
 
                     //bind
                     $stmt = $conexion_proveedor->prepare($sql);
-                    $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                    $stmt->bind_param("issssi", $cod_novedad, $detalle, $detalles, $observacion, $no_gui, $cod_novedad);
                     if ($stmt->execute()) {
                         echo json_encode('ok');
                         echo "se inserto la novedad";
@@ -810,7 +810,7 @@ class LaarModel extends Query
                         echo "se actualizo la novedad";
                         //bind
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("issss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                        $stmt->bind_param("issssi", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";
@@ -851,7 +851,7 @@ class LaarModel extends Query
                         echo "se actualizo la novedad";
                         //bind
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("issss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                        $stmt->bind_param("issssi", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";
