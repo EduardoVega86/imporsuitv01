@@ -234,4 +234,6 @@ if ($filtro == 'mayor_menor') {
             </tr>
         <?php } ?>
     </table>
+
+
 </div>

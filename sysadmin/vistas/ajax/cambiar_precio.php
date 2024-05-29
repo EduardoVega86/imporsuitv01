@@ -35,7 +35,7 @@ if ($estado_guia == 9) {
 }
 
 
-$sql = "UPDATE `cabecera_cuenta_pagar` SET `precio_envio`=$precio, `monto_recibir`='$actualizada', `valor_pendiente`='$actualizada',`total_venta`='$total_ventassss',`costo`='$costoss', `full` ='$full_'  WHERE `numero_factura`='$id_factura'";
+$sql = "UPDATE `cabecera_cuenta_pagar` SET `precio_envio`=$precio, `monto_recibir`='$actualizada', `valor_pendiente`='$actualizada',`total_venta`='$total_ventassss',`costo`='$costoss', `full` =$full_  WHERE `numero_factura`='$id_factura'";
 $resultado = mysqli_query($conexion_marketplace, $sql);
 
 if ($resultado) {
