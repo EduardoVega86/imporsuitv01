@@ -354,13 +354,14 @@ class LaarModel extends Query
         $producto_id = $this->select("SELECT id_producto FROM detalle_fact_cot WHERE id_factura = '$id_factura'");
         $producto_id = $producto_id[0]['id_producto'];
 
-        $datos_productos = $this->select("SELECT * FROM productos WHERE id_producto = '$producto_id'");
+        /* $datos_productos = $this->select("SELECT * FROM productos WHERE id_producto = '$producto_id'");
+        echo $tienda_venta;
         if (empty($datos_productos)) {
             echo json_encode('error: no existe el producto en market');
             exit;
         }
         $costo_total = $datos_productos[0]['costo_producto'];
-        $valor_total = $datos_productos[0]['valor1_producto'];
+        $valor_total = $datos_productos[0]['valor1_producto']; */
 
         if (strlen($ciudad_cot) > 4) {
             if (strpos($ciudad_cot, "IMP") === 0 || strpos($ciudad_cot, "MKP") === 0) {
