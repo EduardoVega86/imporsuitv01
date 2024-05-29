@@ -572,6 +572,7 @@ class LaarModel extends Query
     {
         $send = "testing";
         $protocolo = 'https://';
+        echo $tienda;
         $archivo_tienda =  $tienda . '/sysadmin/vistas/db1.php';
         $archivo_destino_tienda = "../../vistas/db_destino_guia.php";
         $contenido_tienda = file_get_contents($archivo_tienda);
