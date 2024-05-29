@@ -636,7 +636,7 @@ class LaarModel extends Query
         if ($existe) {
             $sql = "UPDATE novedades SET estado_novedad = ?, novedad = ?, tracking = ? WHERE guia_novedad = ?";
             $stmt = $conexion_proveedor->prepare($sql);
-            $stmt->bind_param("ssss", $cod_novedad, $detalle, $tracking, $no_guia);
+            $stmt->bind_param("isss", $cod_novedad, $detalle, $tracking, $no_guia);
             if ($stmt->execute()) {
                 echo json_encode('ok');
                 echo "se actualizo la novedad";
@@ -652,7 +652,7 @@ class LaarModel extends Query
             if (empty($sql2)) {
                 $sql = "INSERT INTO `detalle_novedad` (`codigo_novedad`, `guia_novedad`, `nombre_novedad`, `detalle_novedad`, `observacion`) VALUES ( ?, ?, ?, ?, ?)";
                 $stmt = $conexion_proveedor->prepare($sql);
-                $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                 if ($stmt->execute()) {
                     echo json_encode('ok');
                     echo "se inserto la novedad";
@@ -662,7 +662,7 @@ class LaarModel extends Query
             } else {
                 $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
                 $stmt = $conexion_proveedor->prepare($sql);
-                $stmt->bind_param("ssssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
+                $stmt->bind_param("isssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                 if ($stmt->execute()) {
                     echo json_encode('ok');
                     echo "se actualizo la novedad";
@@ -695,7 +695,7 @@ class LaarModel extends Query
 
                     //bind
                     $stmt = $conexion_proveedor->prepare($sql);
-                    $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                    $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                     if ($stmt->execute()) {
                         echo json_encode('ok');
                         echo "se inserto la novedad";
@@ -710,7 +710,7 @@ class LaarModel extends Query
 
                     //bind
                     $stmt = $conexion_proveedor->prepare($sql);
-                    $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                    $stmt->bind_param("issss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
                     if ($stmt->execute()) {
                         echo json_encode('ok');
                         echo "se inserto la novedad";
@@ -737,7 +737,7 @@ class LaarModel extends Query
 
                     //bind
                     $stmt = $conexion_proveedor->prepare($sql);
-                    $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                    $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                     if ($stmt->execute()) {
                         echo json_encode('ok');
                         echo "se inserto la novedad";
@@ -795,7 +795,7 @@ class LaarModel extends Query
                         echo "se inserto la novedad";
                         //bind 
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                        $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";
@@ -809,7 +809,7 @@ class LaarModel extends Query
                         echo "se actualizo la novedad";
                         //bind
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                        $stmt->bind_param("issss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";
@@ -836,7 +836,7 @@ class LaarModel extends Query
                         echo "se inserto la novedad";
                         //
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                        $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";
@@ -850,7 +850,7 @@ class LaarModel extends Query
                         echo "se actualizo la novedad";
                         //bind
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                        $stmt->bind_param("issss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";
