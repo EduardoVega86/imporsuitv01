@@ -1372,7 +1372,6 @@ $sWhere .= " AND transporte IS NOT NULL AND (estado_guia_sistema NOT IN ('8', '1
 
                                                                                                                     if (strpos($guia_numero, "IMP") == 0) {
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-                                                                                                                        
                                                                                                                     }
                                                                                                                     if (is_numeric($guia_numero)) {
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
