@@ -485,6 +485,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <th class="text-center">Total Venta</th>
                                 <th class="text-center">Costo</th>
                                 <th class="text-center">Precio de Envio</th>
+                                <th class="text-center">Full Fillment</th>
                                 <th class="text-center">Monto a recibir</th>
                                 <th class="text-center">Valor cobrado</th>
                                 <th class="text-center">Valor pendiente</th>
@@ -507,6 +508,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 $estado_factura = $row['estado_pedido'];
                                 $guia_enviada   = $row['guia_enviada'];
                                 $valor_cobrado = $row['valor_cobrado'];
+                                $full = $row['full'];
                                 $valor_pendiente = $row['valor_pendiente'];
                                 $id_factura_origen = $row['id_factura_origen'];
                                 $guia_laar = "select guia_laar from guia_laar where tienda_venta ='$dominio_completo' AND id_pedido = '$id_factura_origen'";
@@ -588,6 +590,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>
+                                    <td class="text-center"><?php echo $simbolo_moneda . $full; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $valor_cobrado; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $valor_pendiente; ?></td>
