@@ -120,7 +120,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 $guia_laar = $row['guia_laar'];
                 array_push($guias_impresas, $guia_laar);
                 $ciudad = $row['ciudadD'];
-                $ciudad_destino = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad);
+                $ciudad_destino = get_row('ciudad_cotizacion', 'ciudad', 'id_cotizacion', $ciudad);
                 $costo_producto = $row[34];
                 $cod = $row[32];
                 if ($cod == 1) {
@@ -131,7 +131,13 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 $transporte = $id_transporte;
                 if ($transporte == 1) {
                     $transporte = 'Laar Courier';
-                } else {
+                } else if ($transporte == 2){
+                    $transporte = 'Speed';
+                } else if ($transporte == 3){
+                    $transporte = 'Servientrega';
+                } else if ($transporte == 4){
+                    $transporte = 'Gintracom';
+                } else{
                     $transporte = 'Motorizado';
                 }
                 $id_producto = $row['id_producto'];
@@ -184,13 +190,13 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 . "
                 <table class='section3-table'>
             <tr>
-                <td>NOMBRE DE AUXILIAR:</td>
+                <td>NOMBRE DE ENCARGADO DEL MANIFIESTO:</td>
             </tr>
             <tr>
                 <td>PLACA DEL VEHICULO:</td>
             </tr>
             <tr>
-                <td>FIRMA DEL AUXILIAR:</td>
+                <td>FIRMA DEL ENCARGADO DEL MANIFIESTO:</td>
             </tr>
         </table>";
 
@@ -342,7 +348,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                         $guia_laar = $row['guia_laar'];
                         array_push($guias_impresas, $guia_laar);
                         $ciudad = $row['ciudadD'];
-                        $ciudad_destino = get_row('ciudad_laar', 'nombre', 'codigo', $ciudad);
+                        $ciudad_destino = get_row('ciudad_cotizacion', 'ciudad', 'id_cotizacion', $ciudad);
                         $costo_producto = $row[34];
                         $cod = $row[32];
                         if ($cod == 1) {
@@ -353,6 +359,12 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                         $transporte = $id_transporte;
                         if ($transporte == 1) {
                             $transporte = 'Laar Courier';
+                        } else if ($transporte == 2){
+                            $transporte = 'Speed';
+                        } else if ($transporte == 3){
+                            $transporte = 'Servientrega';
+                        } else if ($transporte == 4){
+                            $transporte = 'Gintracom';
                         } else {
                             $transporte = 'Motorizado';
                         }
@@ -419,13 +431,13 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 . "
                 <table class='section3-table'>
             <tr>
-                <td>NOMBRE DE AUXILIAR:</td>
+                <td>NOMBRE DE ENCARGADO DEL MANIFIESTO:</td>
             </tr>
             <tr>
                 <td>PLACA DEL VEHICULO:</td>
             </tr>
             <tr>
-                <td>FIRMA DEL AUXILIAR:</td>
+                <td>FIRMA DEL ENCARGADO DEL MANIFIESTO:</td>
             </tr>
         </table>";
 
