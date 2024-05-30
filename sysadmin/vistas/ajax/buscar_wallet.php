@@ -333,6 +333,11 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $row_guias_faltantes = mysqli_fetch_array($query_guias_faltantes);
         $guias_faltantes = $row_guias_faltantes[0];
 
+        $sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$dominio_completo'";
+        $valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
+        $valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
+        $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
+
         if ($numrows > 0) { {
             ?>
                 <form id="filter-form">
@@ -388,22 +393,22 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     <i class="mdi mdi-cash-multiple text-success"></i>
                                     <div class="wid-icon-info text-right">
                                         <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
-                                        <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($total_valor_cobrado, 2); ?></h4>
+                                        <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_pagos, 2); ?></h4>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <?php
                         $url_ubicacion = $_SERVER["HTTP_HOST"];
-                        $sql_deuda = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `valor_pendiente` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                        $sql_deuda = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
                         $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
                         $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
-                        $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(valor_pendiente)'];
+                        $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(monto_recibir)'];
 
-                        $sql_Ganancia = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                        $sql_Ganancia = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' ORDER by monto_recibir ASC;";
                         $valor_total_Ganancia_query = mysqli_query($conexion_db, $sql_Ganancia);
                         $valor_total_Ganancia_SQL = mysqli_fetch_array($valor_total_Ganancia_query);
-                        $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(valor_pendiente)'];
+                        $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(monto_recibir)'];
 
                         ?>
 
@@ -424,7 +429,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <div>
                                     <i class="mdi mdi-exclamation text-danger "></i>
                                     <div class="wid-icon-info text-right">
-                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Deuda total</p>
+                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuentos de Devolución</p>
                                         <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente_deuda, 2); ?></h4>
                                     </div>
                                 </div>
@@ -439,6 +444,12 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                             &nbsp;
                                         </div>
 
+                                        <?php
+                                        if ($valor_total_pagos > $monto_recibir) {
+                                            $total_valor_pendiente = $valor_total_pagos - $total_monto_recibir;
+                                            $total_valor_pendiente *= -1;
+                                        }
+                                        ?>
 
 
                                         <div class="">

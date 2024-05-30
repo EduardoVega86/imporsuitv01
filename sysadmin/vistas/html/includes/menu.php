@@ -21,6 +21,14 @@ $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
 $query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' and visto='1'";
 $total_venta = mysqli_query($marketplace_conexion_2, $query_total_ventas);
 
+$sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$dominio_completo'";
+$valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
+$valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
+$valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
+
+
+
+
 @$total_venta = mysqli_fetch_assoc($total_venta);
 @$total_venta = $total_venta['total_pendiente_a_la_tienda'];
 $color = '';
@@ -33,6 +41,11 @@ if ($total_venta == null) {
 } else {
 
 	$color = 'text-danger';
+}
+if ($valor_total_pagos > $total_venta) {
+	$valor_total_pagos -= $total_venta;
+	$valor_total_pagos *= -1;
+	$total_venta = $valor_total_pagos;
 }
 $total_venta = number_format($total_venta, 2, '.', ',');
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
@@ -247,7 +260,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 							<li><a href="../html/bitacora_externa.php">Pedidos Externos</a></li>
 
 						<?php } ?>
-						
+
 						<li><a href="../html/guias_bitacora_cotizacion_new.php">Guias</a></li>
 
 						<li><a href="../html/guias_anuladas_bitacora_cotizacion_new.php">Guias anuladas</a></li>
@@ -355,9 +368,9 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 				</li>
 
 				<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
-				<li>
-					<a href="administrar_marketplace.php" class="waves-effect waves-primary"><i class="ti-home"></i><span> Adminmistrar tiendas </span></a>
-				</li>
+					<li>
+						<a href="administrar_marketplace.php" class="waves-effect waves-primary"><i class="ti-home"></i><span> Adminmistrar tiendas </span></a>
+					</li>
 				<?php } ?>
 
 				<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
