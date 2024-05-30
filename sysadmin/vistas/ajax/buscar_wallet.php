@@ -2,7 +2,8 @@
 /*-------------------------
 Autor: Eduardo Vega
 ---------------------------*/
-
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 /* Connect To Database*/
