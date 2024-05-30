@@ -62,7 +62,7 @@ $valor_total_monto_recibir = $valor_total_tienda_SQL['monto_recibir'];
 
 <?php
 $url_ubicacion = $_SERVER["HTTP_HOST"];
-$sql_deuda = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `valor_pendiente` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
+$sql_deuda = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `monto_recibir` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
 $valor_total_pendiente_query = mysqli_query($conexion, $sql_deuda);
 $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
 $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(valor_pendiente)'];
