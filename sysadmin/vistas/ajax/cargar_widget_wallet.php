@@ -91,7 +91,7 @@ $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(valor_pendiente)'];
         <div>
             <i class="mdi mdi-exclamation text-danger "></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Deuda total</p>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento devoluciones</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente_deuda, 2); ?></h4>
             </div>
         </div>
