@@ -35,17 +35,6 @@ $valor_total_monto_recibir = $valor_total_tienda_SQL['monto_recibir'];
     </div>
 </div>
 
-<div class="col-lg-12 col-md-6">
-    <div class="card-box widget-icon">
-        <div>
-            <i class="mdi mdi-briefcase-check text-primary"></i>
-            <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
-                <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($valor_total_monto_recibir, 2); ?></h4>
-            </div>
-        </div>
-    </div>
-</div>
 <?php
 $url_ubicacion = $_SERVER["HTTP_HOST"];
 $sql_deuda = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `monto_recibir` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
@@ -57,6 +46,12 @@ $sql_Ganancia = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE ti
 $valor_total_Ganancia_query = mysqli_query($conexion, $sql_Ganancia);
 $valor_total_Ganancia_SQL = mysqli_fetch_array($valor_total_Ganancia_query);
 $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(monto_recibir)'];
+
+$sql_total_pagos = "SELECT SUM(pagos) from pagos where tienda = '$tienda'";
+$valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
+$valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
+$valor_total_pagos = $valor_total_pagos_SQL['SUM(pagos)'];
+
 
 ?>
 
@@ -83,13 +78,26 @@ $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(monto_recibir)'];
         </div>
     </div>
 </div>
+
+<div class="col-lg-12 col-md-6">
+    <div class="card-box widget-icon">
+        <div>
+            <i class="mdi mdi-briefcase-check text-primary"></i>
+            <div class="wid-icon-info text-right">
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
+                <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($valor_total_monto_recibir, 2); ?></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="col-lg-12 col-md-6">
     <div class="card-box widget-icon">
         <div>
             <i class="mdi mdi-cash-multiple text-success"></i>
             <div class="wid-icon-info text-right">
                 <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
-                <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_cobrado, 2); ?></h4>
+                <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_pagos, 2); ?></h4>
             </div>
         </div>
     </div>
