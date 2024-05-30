@@ -228,6 +228,9 @@ class LaarModel extends Query
                 $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
                 $valor_base = $valor_base[0]['precio'];
                 echo $valor_base;
+            } elseif (strpos($ciudad_cot, "MKP") === 0) {
+                $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
+                $valor_base = 5.99;
             }
         } else {
             if (strpos($no_guia, "IMP") === 0) {
@@ -247,6 +250,9 @@ class LaarModel extends Query
                 $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
                 $valor_base = $valor_base[0]['precio'];
                 echo $valor_base;
+            } elseif (strpos($ciudad_cot, "MKP") === 0) {
+                $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
+                $valor_base = 5.99;
             }
         }
         if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
@@ -279,6 +285,9 @@ class LaarModel extends Query
         $drogshipin = $this->select("SELECT drogshipin FROM facturas_cot WHERE tienda ='$tienda_venta' AND id_factura_origen = '$id_pedido_origen'");
         $cod = $this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $cod = $cod[0]['cod'];
+        if (strpos($no_guia, 'MKP') === 0) {
+            $valor_base = 5.99;
+        }
         if ($cod == 1) {
             if ($drogshipin[0]['drogshipin'] == 4 || $drogshipin[0]['drogshipin'] == 0) {
                 $monto_recibir = $total_guia - $valor_base;
@@ -550,6 +559,10 @@ class LaarModel extends Query
                 $valor_base = $valor_base[0]['precio'];
             }
         }
+        if (strpos($no_guia, 'MKP') === 0) {
+            $valor_base = 5.99;
+        }
+
         if ($cod == 1) {
             $valor_base = $valor_base + ($total_guia * 0.03);
         }
@@ -563,6 +576,7 @@ class LaarModel extends Query
         $monto_recibir = number_format($monto_recibir, 2);
 
         $verificar = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura'");
+
         $verificar = count($verificar);
         if ($verificar > 0) {
             $sql_edit = "UPDATE `cabecera_cuenta_pagar` SET `estado_guia` = ?, `estado_pedido` = ?, `total_venta` = ?, `costo` = ?, `precio_envio` = ?, `monto_recibir` = ?, `valor_pendiente` = ? WHERE `numero_factura` = ?";
