@@ -104,6 +104,12 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(pagos)'];
 </div>
 
 
+<?php
+if ($valor_total_pagos > $valor_total_monto_recibir) {
+    $valor_total_pagos = $valor_total_pagos - $valor_total_monto_recibir;
+    $valor_total_pendiente = $valor_total_monto_recibir * -1;
+}
+?>
 
 <div class="col-lg-12 col-md-6">
     <div class="card-box widget-icon">
