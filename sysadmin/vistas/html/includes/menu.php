@@ -23,16 +23,16 @@ $total_venta = mysqli_query($marketplace_conexion_2, $query_total_ventas);
 
 
 
-$sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$dominio_completo'";
-$valor_total_pagos_query = mysqli_query($marketplace_conexion_2, $sql_total_pagos);
-$valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
-$valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
+$sql_total_pagosm = "SELECT SUM(valor) from pagos where tienda = '$dominio_completo'";
+$valor_total_pagos_querym = mysqli_query($marketplace_conexion_2, $sql_total_pagos);
+$valor_total_pagos_SQLm = mysqli_fetch_array($valor_total_pagos_query);
+$valor_total_pagosm = $valor_total_pagos_SQLm['SUM(valor)'];
 
 
 
 
 @$total_venta = mysqli_fetch_assoc($total_venta);
-$monto_recibir = $total_venta['monto_recibir'];
+$monto_recibirm = $total_venta['monto_recibir'];
 @$total_venta = $total_venta['total_pendiente_a_la_tienda'];
 $color = '';
 $pais = get_row('perfil', 'pais', 'id_perfil', 1);
@@ -45,10 +45,10 @@ if ($total_venta == null) {
 
 	$color = 'text-danger';
 }
-if ($valor_total_pagos > $monto_recibir) {
-	$valor_total_pagos -= $monto_recibir;
-	$valor_total_pagos *= -1;
-	$total_venta = $valor_total_pagos;
+if ($valor_total_pagosm > $monto_recibirm) {
+	$valor_total_pagosm -= $monto_recibirm;
+	$valor_total_pagosm *= -1;
+	$total_venta = $valor_total_pagosm;
 }
 $total_venta = number_format($total_venta, 2, '.', ',');
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
