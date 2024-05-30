@@ -109,7 +109,7 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
 <?php
 if ($valor_total_pagos > $valor_total_monto_recibir) {
     $valor_total_pagos = $valor_total_pagos - $valor_total_monto_recibir;
-    $valor_total_pendiente = $valor_total_monto_recibir * -1;
+    $valor_total_pendiente = $valor_total_pagos * -1;
 }
 ?>
 
