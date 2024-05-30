@@ -24,8 +24,8 @@ $total_venta = mysqli_query($marketplace_conexion_2, $query_total_ventas);
 
 
 $sql_total_pagosm = "SELECT SUM(valor) from pagos where tienda = '$dominio_completo'";
-$valor_total_pagos_querym = mysqli_query($marketplace_conexion_2, $sql_total_pagos);
-$valor_total_pagos_SQLm = mysqli_fetch_array($valor_total_pagos_query);
+$valor_total_pagos_querym = mysqli_query($marketplace_conexion_2, $sql_total_pagosm);
+$valor_total_pagos_SQLm = mysqli_fetch_array($valor_total_pagos_querym);
 $valor_total_pagosm = $valor_total_pagos_SQLm['SUM(valor)'];
 
 
