@@ -46,20 +46,6 @@ $valor_total_monto_recibir = $valor_total_tienda_SQL['monto_recibir'];
         </div>
     </div>
 </div>
-
-<div class="col-lg-12 col-md-6">
-    <div class="card-box widget-icon">
-        <div>
-            <i class="mdi mdi-cash-multiple text-success"></i>
-            <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
-                <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_cobrado, 2); ?></h4>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <?php
 $url_ubicacion = $_SERVER["HTTP_HOST"];
 $sql_deuda = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `monto_recibir` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
@@ -97,6 +83,20 @@ $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(monto_recibir)'];
         </div>
     </div>
 </div>
+<div class="col-lg-12 col-md-6">
+    <div class="card-box widget-icon">
+        <div>
+            <i class="mdi mdi-cash-multiple text-success"></i>
+            <div class="wid-icon-info text-right">
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
+                <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_cobrado, 2); ?></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="col-lg-12 col-md-6">
     <div class="card-box widget-icon">
         <div>
