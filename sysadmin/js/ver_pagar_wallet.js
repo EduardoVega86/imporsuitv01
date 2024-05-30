@@ -170,7 +170,7 @@ $("#add_abono").submit(function (event) {
       //cierra la Modal
       $("#outer_div").load("../ajax/ver_pagos.php");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
-      $("#facturas").load("../ajax/cargar_facturas.php");
+      $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
       $("#add-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {
@@ -228,7 +228,7 @@ $("#remove_abono").submit(function (event) {
       //cierra la Modal
       $("#outer_div").load("../ajax/ver_pagos.php");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
-      $("#facturas").load("../ajax/cargar_facturas.php");
+      $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
       $("#remove-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {
@@ -294,7 +294,7 @@ function devolucion(guia_laar) {
           $("#loader").html("");
           $("#outer_div").load("../ajax/ver_pagos.php");
           $("#widgets").load("../ajax/cargar_widget_wallet.php");
-          $("#facturas").load("../ajax/cargar_facturas.php");
+          $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
         },
       });
       Swal.fire("¡Eliminado!", "Su archivo ha sido devuelto.", "success");
@@ -348,7 +348,7 @@ function eliminar(id_cabecera) {
           $("#loader").html("");
           $("#outer_div").load("../ajax/ver_pagos.php");
           $("#widgets").load("../ajax/cargar_widget_wallet.php");
-          $("#facturas").load("../ajax/cargar_facturas.php");
+          $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
         },
       });
       Swal.fire("¡Eliminado!", "Su archivo ha sido eliminado.", "success");
