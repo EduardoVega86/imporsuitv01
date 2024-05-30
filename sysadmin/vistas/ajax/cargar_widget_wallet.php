@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 include "is_logged.php"; //Acrhivo comprueba si el usuario esta logueado
 
 $tienda = $_SESSION['tienda'];
