@@ -18,8 +18,10 @@ $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' 
 $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
 
 
-$query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' and visto='1'";
+$query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda, SUM(monto_recibir) as monto_recibir FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' and visto='1'";
 $total_venta = mysqli_query($marketplace_conexion_2, $query_total_ventas);
+
+
 
 $sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$dominio_completo'";
 $valor_total_pagos_query = mysqli_query($marketplace_conexion_2, $sql_total_pagos);
@@ -30,6 +32,7 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
 
 
 @$total_venta = mysqli_fetch_assoc($total_venta);
+$monto_recibir = $total_venta['monto_recibir'];
 @$total_venta = $total_venta['total_pendiente_a_la_tienda'];
 $color = '';
 $pais = get_row('perfil', 'pais', 'id_perfil', 1);
@@ -42,8 +45,8 @@ if ($total_venta == null) {
 
 	$color = 'text-danger';
 }
-if ($valor_total_pagos > $total_venta) {
-	$valor_total_pagos -= $total_venta;
+if ($valor_total_pagos > $monto_recibir) {
+	$valor_total_pagos -= $monto_recibir;
 	$valor_total_pagos *= -1;
 	$total_venta = $valor_total_pagos;
 }
