@@ -309,6 +309,9 @@ class LaarModel extends Query
         $tienda_venta = $this->buscarTiendaVentaUrl($no_guia);
         $tienda_proveedor = $this->buscarProveedorUrl($no_guia);
 
+        echo $tienda_venta . "<br>";
+        echo $tienda_proveedor . "<br>";
+
         if ($tienda_venta == $tienda_proveedor) {
             $url_proveedor = " ";
         } else {
