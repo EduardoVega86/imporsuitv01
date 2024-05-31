@@ -275,8 +275,8 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $sql_existe_referido = "SELECT * FROM cabecera_cuenta_pagar WHERE visto = '1' and tienda like '$dominio_completo%' and numero_factura like 'Referido%'";
         $query_existe_referido = mysqli_query($conexion_db, $sql_existe_referido);
         $row_existe_referido = mysqli_fetch_array($query_existe_referido);
-        $existe_referido = $row_existe_referido['numero_factura'];
-        if (empty($existe_referido)) {
+        if (empty($row_existe_referido)) {
+            $existe_referido = $row_existe_referido['numero_factura'];
             $num_fac_referido = "Referido" . $total_referidos;
             $insertar_cabecera = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_pedido, estado_guia, total_venta, valor_pendiente, valor_cobrado, monto_recibir, visto, guia_laar) VALUES ('$total_referidos', NOW(), 'Referido', '$dominio_completo', '1', '7', '0', '0', '0', '0', '1','REFERIDO');";
             $query_insertar_cabecera = mysqli_query($conexion_db, $insertar_cabecera);
@@ -291,8 +291,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $es_referido = "SELECT * FROM plataformas where url_imporsuit like '$dominio_completo%' and refiere is not null";
         $query_es_referido = mysqli_query($conexion_db, $es_referido);
         $row_es_referido = mysqli_fetch_array($query_es_referido);
-        $es_referido = $row_es_referido['refiere'];
-        if ($es_referido != null) {
+        if (empty($row_es_referido)) {
             $es_referidos = 1;
         } else {
             $es_referidos = 0;
@@ -335,7 +334,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $guias_faltantes = $row_guias_faltantes[0];
 
         $sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$dominio_completo'";
-        $valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
+        $valor_total_pagos_query = mysqli_query($conexion_db, $sql_total_pagos);
         $valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
         $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
 
