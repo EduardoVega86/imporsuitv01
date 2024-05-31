@@ -276,7 +276,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $query_existe_referido = mysqli_query($conexion_db, $sql_existe_referido);
         $row_existe_referido = mysqli_fetch_array($query_existe_referido);
         if (empty($row_existe_referido)) {
-            $existe_referido = $row_existe_referido['numero_factura'];
             $num_fac_referido = "Referido" . $total_referidos;
             $insertar_cabecera = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_pedido, estado_guia, total_venta, valor_pendiente, valor_cobrado, monto_recibir, visto, guia_laar) VALUES ('$total_referidos', NOW(), 'Referido', '$dominio_completo', '1', '7', '0', '0', '0', '0', '1','REFERIDO');";
             $query_insertar_cabecera = mysqli_query($conexion_db, $insertar_cabecera);
