@@ -117,7 +117,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         }
     }
 
-    $sWhere .= " AND transporte IS NOT NULL AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
+    $sWhere .= " AND transporte IS NOT NULL AND transporte <> '' AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
 
     $sWhere .= " order by facturas_cot.id_factura desc";
 
@@ -1077,7 +1077,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
     /*     $sWhere .= " and estado_guia_sistema IS NOT NULL";
  */
-    $sWhere .= " AND transporte IS NOT NULL AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
+    $sWhere .= " AND transporte IS NOT NULL AND transporte <> '' AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
 
     $sWhere .= " order by facturas_cot.id_factura desc";
 
@@ -1850,7 +1850,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                     ?>
 
                                     <?php
-                                                                                                                        }    else {
+                                                                                                                        } else {
                                     ?>
                                     <?php
                                                                                                                         }
@@ -1918,15 +1918,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                     <?php } ?>
 
                                     <!-- <a class="dropdown-item" href="#" onclick="boton_anular(<?php echo $id_factura_origen; ?>, <?php echo $numero_factura; ?>, <?php echo $transportadora; ?>)"><i class='fa fa-edit'></i> Anular</a> -->
-                                    <?php 
-                                    $consulta_factura = 0;
-                                     if (empty($id_factura_origen)){
-                                        $consulta_factura = $id_factura;
-                                     }else{
-                                        $consulta_factura = $id_factura_origen;
-                                     }
-                                    ?>
-                                    <a class="dropdown-item" href="#" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $consulta_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $consulta_factura); ?>')"><i class='fa fa-edit'></i> Anular</a>
+                                    <a class="dropdown-item" href="#" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')"><i class='fa fa-edit'></i> Anular</a>
 
                                 </div>
                             </div>
