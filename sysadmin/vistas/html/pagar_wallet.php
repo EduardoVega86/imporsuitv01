@@ -156,7 +156,7 @@ $tiendaN = strtoupper($tiendaN);
                                                             <div class="col-xs-2">
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
-                                                                        <button type="button" class="btn btn-warning waves-effect waves-light" onclick="reseteo()"><i class="fa fa-minus"></i>Resetear Wallet</button>
+                                                                        <button type="button" class="btn btn-warning waves-effect waves-light" onclick="resetar()"><i class="fa fa-minus"></i>Resetear Wallet</button>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -229,6 +229,25 @@ $tiendaN = strtoupper($tiendaN);
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 
+<script>
+    function resetar() {
+        var tienda = '<?php echo $tienda; ?>';
+        $.ajax({
+            url: "../ajax/reiniciar_wallet.php",
+            type: "POST",
+            data: {
+                "tienda": tienda
+            },
+            beforeSend: function(objeto) {
+                $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            },
+            success: function(data) {
+                $("#loader").html('');
+                $("#resultados_ajax").html(data);
+            }
+        });
+    }
+</script>
 
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script src="../../js/ver_pagar_wallet.js"></script>
