@@ -162,6 +162,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <td class="text-center"> <a href="pagar_wallet.php?id_factura=<?php echo $id_factura ?>&tienda=<?php echo $tienda ?>"> <?php echo $tienda; ?></a></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_pendiente; ?></td>
+                                <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
                                 <td class="text-center"><?php echo $guias_faltantes; ?></td>
                                 <td class="text-center">
                                     <div class="btn-group dropdown">
