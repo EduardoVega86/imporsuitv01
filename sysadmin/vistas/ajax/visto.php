@@ -30,7 +30,14 @@ if ($cod == 0 || $cod == 2 || $cod == 3 || $cod == 1) {
     $consulta = "UPDATE cabecera_cuenta_pagar SET visto = '$visto' WHERE id_cabecera = '$id_cabecera'";
     $resultado = mysqli_query($conexion, $consulta);
 
-    $consultar_cod = "SELECT * from guia_laar where guia_laar = '$guia_laar'";
+    if ($rw['proveedor'] != "" || !empty($rw['proveedor'])) {
+        if ($rw["estado_guia"] == 7) {
+            $sql_insert = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`, `valor_cobrado`, `valor_pendiente`, `guia_laar`, `visto`, `cod`, `proveedor`) VALUES ('" . $rw['numero_factura'] . "-P','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $rw['proveedor'] . "','7','" . 0 . "','" . 0 . "','" . 0 . "','" . $rw['monto_recibir'] . "','" . 0 . "','" . $rw['monto_recibir'] . "','" . $rw['guia_laar']   . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
+            $resultado_insert = mysqli_query($conexion, $sql_insert);
+        }
+    }
+
+    /* $consultar_cod = "SELECT * from guia_laar where guia_laar = '$guia_laar'";
     $resultado_cod = mysqli_query($conexion, $consultar_cod);
     $rw_cod = mysqli_fetch_array($resultado_cod);
     $tienda_proveedor = $rw_cod['tienda_proveedor'];
@@ -61,7 +68,7 @@ if ($cod == 0 || $cod == 2 || $cod == 3 || $cod == 1) {
             $update_cabecera = "UPDATE cabecera_cuenta_pagar SET monto_recibir = '$mt_recibir', valor_pendiente = '$vl_pendiente' WHERE guia_laar = 'REFERIDO' and tienda = '$tienda_proveedor'";
             $resultado_update = mysqli_query($conexion, $update_cabecera);
         }
-    }
+    } */
 }
 if ($resultado) {
     echo "Visto";
