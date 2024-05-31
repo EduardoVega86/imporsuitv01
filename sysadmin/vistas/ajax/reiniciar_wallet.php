@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 /* Connect To Database */
 require_once "../db.php";
 require_once "../php_conexion.php";
@@ -41,18 +43,19 @@ foreach ($valores as $valor) {
         'abono' => $valor,
         'forma_pago' => 'Efectivo',
         'img' => 'default.jpg',
+        'tienda' => $tienda
     );
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json',
-    ));
+
     $result = curl_exec($ch);
     if (curl_errno($ch)) {
         echo 'Error en curl: ' . curl_error($ch);
     }
+    echo $result;
+    echo "<br> valor: $valor <br>";
     curl_close($ch);
 }
 
