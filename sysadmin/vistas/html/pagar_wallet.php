@@ -143,21 +143,14 @@ $tiendaN = strtoupper($tiendaN);
                                                             <div class="col-xs-2">
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
-                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#add-stock"><i class="fa fa-plus"></i> Abono</button>
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#add-stock"><i class="fa fa-minus"></i> Pagar</button>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-2">
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
-                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#remove-stock"><i class="fa fa-minus"></i> Deuda</button>
-                                                                    <?php } ?>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-2">
-                                                                <div class="btn-group pull-center">
-                                                                    <?php if ($permisos_ver == 1) { ?>
-                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#saldar-stock"><i class="fa fa-minus"></i> Saldar Deuda</button>
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#remove-stock"><i class="fa fa-plus"></i> Abonos</button>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -165,13 +158,6 @@ $tiendaN = strtoupper($tiendaN);
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
                                                                         <button type="button" class="btn btn-warning waves-effect waves-light" onclick="resetar()"><i class="fa fa-minus"></i>Resetear Wallet</button>
-                                                                    <?php } ?>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-2">
-                                                                <div class="btn-group pull-center">
-                                                                    <?php if ($permisos_ver == 1) { ?>
-                                                                        <button type="button" onclick="reporte();" class="btn btn-default waves-effect waves-light" title="Imprimir"><i class='fa fa-print'></i></button>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
