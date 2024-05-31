@@ -35,6 +35,8 @@ if (isset($conexion)) {
                                     </select>
 
 
+                                    <label for="img">Número de comprobante:</label>
+                                    <input type="text" class="form-control" id="comprobante" name="comprobante" autocomplete="off" required>
                                     <label for="img">Imagen de la factura:</label>
                                     <input type="file" class="form-control" id="img" name="img" accept="image/*" required>
 

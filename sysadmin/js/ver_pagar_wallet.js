@@ -136,6 +136,7 @@ function load(page) {
 $("#add_abono").submit(function (event) {
   $("#guardar_datos").attr("disabled", true);
   var abono = $("#abono").val();
+  let comprobante = $("#comprobante").val();
   //Inicia validacion
   if (isNaN(abono)) {
     $.Notification.notify(
