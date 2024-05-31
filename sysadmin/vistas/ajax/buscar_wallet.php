@@ -153,13 +153,16 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 $monto_recibir = $valor_total_pagos - $monto_recibir;
                                 $monto_recibir *= -1;
                                 $monto_recibir = number_format($monto_recibir, 2);
+                            } else {
+                                $monto_recibir = number_format($monto_recibir, 2);
                             }
+
 
 
                         ?>
 
                             <tr>
-                                <td class="text-center"> <a href="pagar_wallet.php?id_factura=<?php echo $id_factura ?>&tienda=<?php echo $tienda ?>"> <?php echo $tienda; ?></a></td>
+                                <td class="text-center"> <a href="pagar_wallet.php?tienda=<?php echo $tienda ?>"> <?php echo $tienda; ?></a></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_pendiente; ?></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
@@ -173,7 +176,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                             if ($permisos_eliminar == 1) { ?>
                                                 <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                             <?php } ?>
-                                            <a href="pagar_wallet.php?id_factura=<?php echo $id_factura ?>&tienda=<?php echo $tienda ?>" class="dropdown-item"> <i class="ti-wallet"></i> Pagar </a>
+                                            <a href="pagar_wallet.php?tienda=<?php echo $tienda ?>" class="dropdown-item"> <i class="ti-wallet"></i> Pagar </a>
 
                                         </div>
 
