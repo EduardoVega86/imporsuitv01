@@ -444,7 +444,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                         </div>
 
                                         <?php
-                                        if ($valor_total_pagos > $monto_recibir) {
+                                        if ($valor_total_pagos > $total_monto_recibir) {
                                             $total_valor_pendiente = $valor_total_pagos - $total_monto_recibir;
                                             $total_valor_pendiente *= -1;
                                         }
