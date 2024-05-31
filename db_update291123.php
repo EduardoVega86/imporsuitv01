@@ -1447,7 +1447,7 @@ mysqli_query($conexion, "TRUNCATE TABLE `ciudad_cotizacion`;");
 
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (1,'AZUAY','BANOS',1,1,0,'TE','TE','0','0','0','0','0','0','694'),
-	 (2,'AZUAY','CHAULLABAMBA',0,1,0,'0','TE','0','','','','','','0'),
+	 (2,'AZUAY','CHAULLABAMBA',0,1,0,'0','TE','0','0','201001003','201001003016','','','0'),
 	 (3,'AZUAY','Checa/AZUAY',0,1,0,'0','TE','0','','','','','','0'),
 	 (4,'AZUAY','CHILCAPAMBA',0,0,0,'TE','0','0','0','0','0','0','0','0'),
 	 (5,'AZUAY','Chiquintad',0,1,0,'0','TE','0','','','','','',''),
