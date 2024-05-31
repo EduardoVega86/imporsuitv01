@@ -113,6 +113,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             <th class="text-center">Tienda </th>
                             <th class="text-center">Total Venta</th>
                             <th class="text-center">Total Utilidad</th>
+                            <th class="text-center">Saldo Pendiente</th>
                             <th class="text-center">Guías Pendientes</th>
                             <th colspan="3"></th>
                         </tr>
@@ -123,7 +124,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         foreach ($query as $row) {
                             $tienda = $row[0];
 
-                            $total_venta_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' and visto = '1' GROUP BY numero_factura ) as subquery;";
+                            $total_venta_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente, SUM(subquery.monto_recibir) as monto_recibir FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' and visto = '1' GROUP BY numero_factura ) as subquery;";
 
                             $query_total_venta = mysqli_query($conexion, $total_venta_sql);
                             $row_total_venta = mysqli_fetch_array($query_total_venta);
@@ -141,6 +142,18 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             $query_guias_faltantes = mysqli_query($conexion, $guias_faltantes);
                             $row_guias_faltantes = mysqli_fetch_array($query_guias_faltantes);
                             $guias_faltantes = $row_guias_faltantes[0];
+
+                            $sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$tienda'";
+                            $valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
+                            $valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
+                            $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
+
+                            $monto_recibir = $row_total_venta['monto_recibir'];
+                            if ($valor_total_pagos > $monto_recibir) {
+                                $monto_recibir = $valor_total_pagos - $monto_recibir;
+                                $monto_recibir *= -1;
+                                $monto_recibir = number_format($monto_recibir, 2);
+                            }
 
 
                         ?>
