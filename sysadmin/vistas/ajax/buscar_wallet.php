@@ -334,7 +334,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $guias_faltantes = $row_guias_faltantes[0];
 
         $sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$dominio_completo'";
-        $valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
+        $valor_total_pagos_query = mysqli_query($conexion_db, $sql_total_pagos);
         $valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
         $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
 
