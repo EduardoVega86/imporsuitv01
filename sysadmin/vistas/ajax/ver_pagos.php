@@ -21,10 +21,15 @@
     $dominio_actual = str_replace('.net', '', $dominio_actual);
     $action         = (isset($_REQUEST['action']) && $_REQUEST['action'] != null) ? $_REQUEST['action'] : '';
     if ($action == 'ajax' && $dominio_actual == 'marketplace.imporsuit') {
+        $sql = "SELECT * FROM billeteras WHERE tienda = '$tienda'";
+        $query = mysqli_query($conexion, $sql);
+        $rw = mysqli_fetch_array($query);
+        $id_billetera = $rw['id_billetera'];
+
         $daterange = mysqli_real_escape_string($conexion, (strip_tags($_REQUEST['range'], ENT_QUOTES)));
-        $tables = "pagos";
+        $tables = "historial_billetera";
         $campos = "*";
-        $sWhere = "tienda='" . $tienda . "'";
+        $sWhere = "id_billetera = '$id_billetera'";
 
         $sWhere .= " order by id_pago DESC";
 
@@ -53,38 +58,30 @@
             <div class="table-responsive">
                 <table class="table-sm table table-condensed table-hover table-striped ">
                     <tr class="text-center">
-                        <th>Numero documento</th>
+                        <th>#</th>
+                        <th>Tipo</th>
+                        <th>Motivo</th>
+                        <th>Monto</th>
                         <th>Fecha</th>
-                        <th>Valor</th>
-                        <th>Forma de Pago</th>
-                        <th>Recibo</th>
+
                     </tr>
                     <?php
                     $finales = 0;
                     while ($row = mysqli_fetch_array($query)) {
-                        $id_pago = $row['id_pago'];
-                        $numero_documento = $row['numero_documento'];
+                        $id_historial
+                            = $row['id_historial'];
+                        $tipo = $row['tipo'];
+                        $motivo = $row['motivo'];
+                        $monto = $row['monto'];
                         $fecha = $row['fecha'];
-                        $valor = $row['valor'];
-                        $forma_pago = $row['forma_pago'];
-                        $url_factura = $row['imagen'];
                         $finales++;
                     ?>
                         <tr>
-                            <td><?php echo $numero_documento; ?></td>
+                            <td><?php echo $id_historial; ?></td>
+                            <td><?php echo $tipo; ?></td>
+                            <td><?php echo $motivo; ?></td>
+                            <td><?php echo $simbolo_moneda . ' ' . number_format($monto, 2); ?></td>
                             <td><?php echo $fecha; ?></td>
-                            <td><?php echo $simbolo_moneda . ' ' . number_format($valor, 2); ?></td>
-                            <td><?php echo $forma_pago; ?></td>
-                            <?php if ($url_factura == '') {
-                            ?>
-                                <td>Sin recibos</td>
-                            <?php
-                            } else {
-                            ?>
-                                <td><a href="<?php echo $url_factura; ?>" target="_blank"><i class="fa fa-file-pdf-o"></i></a></td>
-                            <?php
-                            }
-                            ?>
 
                         </tr>
                     <?php
