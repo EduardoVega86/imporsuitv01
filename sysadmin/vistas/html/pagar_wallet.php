@@ -156,6 +156,13 @@ $tiendaN = strtoupper($tiendaN);
                                                             <div class="col-xs-2">
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
+                                                                        <button type="button" class="btn btn-warning waves-effect waves-light" onclick="reseteo()"><i class="fa fa-minus"></i>Resetear Wallet</button>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="btn-group pull-center">
+                                                                    <?php if ($permisos_ver == 1) { ?>
                                                                         <button type="button" onclick="reporte();" class="btn btn-default waves-effect waves-light" title="Imprimir"><i class='fa fa-print'></i></button>
                                                                     <?php } ?>
                                                                 </div>
@@ -226,6 +233,24 @@ $tiendaN = strtoupper($tiendaN);
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script src="../../js/ver_pagar_wallet.js"></script>
 <script>
+    function resetar() {
+        var tienda = '<?php echo $tienda; ?>';
+        $.ajax({
+            url: "../ajax/reiniciar_wallet.php",
+            type: "POST",
+            data: {
+                "tienda": tienda
+            },
+            beforeSend: function(objeto) {
+                $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            },
+            success: function(data) {
+                $("#loader").html('');
+                $("#resultados_ajax").html(data);
+            }
+        });
+    }
+
     function reporte() {
         var id_factura = '<?php echo $id_factura; ?>';
         var tienda = '<?php echo $tienda; ?>';
