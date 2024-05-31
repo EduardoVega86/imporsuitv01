@@ -149,7 +149,7 @@ $tiendaN = strtoupper($tiendaN);
                                                             <div class="col-xs-2">
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
-                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#saldar-stock"><i class="fa fa-minus"></i> Deuda</button>
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#saldar-stock"><i class="fa fa-minus"></i> Saldar Deuda</button>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
