@@ -115,6 +115,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             <th class="text-center">Total Utilidad</th>
                             <th class="text-center">Saldo Pendiente</th>
                             <th class="text-center">Guías Pendientes</th>
+                            <th class="text-center">Excel</th>
                             <th colspan="3"></th>
                         </tr>
                     </thead>
@@ -166,6 +167,12 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_pendiente; ?></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
                                 <td class="text-center"><?php echo $guias_faltantes; ?></td>
+                                <td class="text-center">
+                                    <!-- descargar excel -->
+                                    <div class="container">
+                                        <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel('<?php echo $tienda; ?>')">Descargar Excel</button>
+                                    </div>
+                                </td>
                                 <td class="text-center">
                                     <div class="btn-group dropdown">
                                         <button type="button" class="btn btn-warning btn-sm dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"> <i class='fa fa-cog'></i> <i class="caret"></i> </button>
@@ -356,7 +363,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         if ($numrows > 0) { {
             ?>
                 <!-- descargar excel -->
-                <div class="container mt-5">
+                <div class="container">
                     <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel('<?php echo $dominio_completo; ?>')">Descargar Excel</button>
                 </div>
 
@@ -635,7 +642,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         } else {
             ?>
             <!-- descargar excel -->
-            <div class="container mt-5">
+            <div class="container">
                 <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel('<?php echo $dominio_completo; ?>')">Descargar Excel</button>
             </div>
             <div class="row">
@@ -845,26 +852,26 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     }
 
     function descargarExcel(tienda) {
-            fetch(`../ajax/descargar_excel.php?tienda=${encodeURIComponent(tienda)}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.blob();
-                })
-                .then(blob => {
-                    console.log(blob);
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.style.display = 'none';
-                    a.href = url;
-                    a.download = 'datos.csv';
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                })
-                .catch(error => {
-                    alert('Error: ' + error);
-                });
-        }
+        fetch(`../ajax/descargar_excel.php?tienda=${encodeURIComponent(tienda)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                console.log(blob);
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'datos.csv';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+            });
+    }
 </script>

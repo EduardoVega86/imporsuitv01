@@ -49,7 +49,7 @@ $valor_total_Ganancia_query = mysqli_query($conexion, $sql_Ganancia);
 $valor_total_Ganancia_SQL = mysqli_fetch_array($valor_total_Ganancia_query);
 $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(monto_recibir)'];
 
-$sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$tienda'";
+$sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$tienda' and valor >0";
 $valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
 $valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
 $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
@@ -107,6 +107,11 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
 
 
 <?php
+$sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$tienda' and valor";
+$valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
+$valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
+$valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
+
 if ($valor_total_pagos > $valor_total_monto_recibir) {
     $valor_total_pagos = $valor_total_pagos - $valor_total_monto_recibir;
     $valor_total_pendiente = $valor_total_pagos * -1;
