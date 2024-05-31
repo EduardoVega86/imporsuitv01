@@ -1,10 +1,9 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-include 'is_logged.php';
 
 
-$tienda = $_SESSION['tienda'];
+$tienda = $_POST['tienda'];
 require_once "../db.php";
 $cantidad = 0;
 if (empty($_POST['abono'])) {
@@ -24,9 +23,6 @@ if (empty($_POST['abono'])) {
     $nombre_alterado = date("Y-m-d-H-i-s") . "-" . $imagen;
     $url_ubicacion = "https://marketplace.imporsuit.com/sysadmin/img/facturas/" . $nombre_alterado;
 
-
-
-    $user_id  = $_SESSION['id_users'];
     $fecha    = date("Y-m-d H:i:s");
 
     $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` WHERE tienda ='$tienda' AND `valor_pendiente` != 0 AND visto ='1' ORDER by monto_recibir ASC;");
@@ -63,10 +59,7 @@ if (empty($_POST['abono'])) {
             $sql_update = "UPDATE `cabecera_cuenta_pagar` SET `valor_cobrado`='$cobrado', valor_pendiente='$saldo' WHERE `numero_factura`='$numero_factura';";
             $query_update = mysqli_query($conexion, $sql_update);
 
-            if ($i == 0) {
-                $sql_pago = "INSERT INTO `pagos`(`fecha`, `numero_documento`, `valor`, `forma_pago`, `tienda`, `imagen`) VALUES ('$fecha', '$numero_factura', $total_abonado, '$forma_pago', '$tienda', '$url_ubicacion');";
-                $query_pago = mysqli_query($conexion, $sql_pago);
-            }
+
 
             $i++;
 
