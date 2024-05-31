@@ -364,7 +364,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
   <?php
-  include 'modal/comprar.php';
+  /* include 'modal/comprar.php'; */
+  include 'modal/checkout_comprar_modal.php';
   ?>
   <header>
     <nav id="navbarId" style="height: 100px" class="navbar navbar-expand-lg  fixed-top superior ">
