@@ -12,13 +12,13 @@ if (isset($_GET['tienda'])) {
     $tienda = $conexion_marketplace->real_escape_string($_GET['tienda']);
 
     // Consulta a la base de datos
-    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE tienda = '$tienda'";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' AND visto = 1";
     $query = mysqli_query($conexion_marketplace, $sql);
 
     if (mysqli_num_rows($query) > 0) {
         // Configurar cabeceras para la descarga del archivo CSV
         header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename=datos.csv');
+        header('Content-Disposition: attachment; filename="datos.csv"');
         
         $output = fopen('php://output', 'w');
 
@@ -36,6 +36,7 @@ if (isset($_GET['tienda'])) {
         }
 
         fclose($output);
+        exit();  // Asegúrate de cerrar el script después de la salida del archivo
     } else {
         echo "No se encontraron resultados";
     }

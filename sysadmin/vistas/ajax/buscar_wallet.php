@@ -123,7 +123,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         <?php
                         foreach ($query as $row) {
                             $tienda = $row[0];
-
                             $total_venta_sql = "SELECT SUM(subquery.total_venta) as total_ventas, SUM(subquery.total_pendiente) as total_pendiente, SUM(subquery.monto_recibir) as monto_recibir FROM ( SELECT numero_factura, MAX(total_venta) as total_venta, MAX(valor_pendiente) as total_pendiente, MAX(monto_recibir) as monto_recibir FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' and visto = '1' GROUP BY numero_factura ) as subquery;";
 
                             $query_total_venta = mysqli_query($conexion, $total_venta_sql);
@@ -358,7 +357,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
             ?>
                 <!-- descargar excel -->
                 <div class="container mt-5">
-                    <button id="downloadExcel" class="btn btn-success" onclick="descargar_excel(<?php echo $tienda; ?>)">Descargar Excel</button>
+                    <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel('<?php echo $dominio_completo; ?>')">Descargar Excel</button>
                 </div>
 
                 <div class="row">
@@ -637,7 +636,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
             ?>
             <!-- descargar excel -->
             <div class="container mt-5">
-                <button id="downloadExcel" class="btn btn-success" onclick="descargar_excel(<?php echo $tienda; ?>)">Descargar Excel</button>
+                <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel('<?php echo $dominio_completo; ?>')">Descargar Excel</button>
             </div>
             <div class="row">
 
@@ -846,28 +845,26 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     }
 
     function descargarExcel(tienda) {
-        $.ajax({
-            url: '../ajax/descargar_excel.php',
-            type: 'GET',
-            data: {
-                tienda: tienda
-            },
-            xhrFields: {
-                responseType: 'blob'
-            },
-            success: function(response) {
-                var link = document.createElement('a');
-                var url = window.URL.createObjectURL(response);
-                link.href = url;
-                link.download = 'datos.csv';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(url);
-            },
-            error: function(xhr, status, error) {
-                alert('Error: ' + error);
-            }
-        });
-    }
+            fetch(`../ajax/descargar_excel.php?tienda=${encodeURIComponent(tienda)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    console.log(blob);
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'datos.csv';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    alert('Error: ' + error);
+                });
+        }
 </script>
