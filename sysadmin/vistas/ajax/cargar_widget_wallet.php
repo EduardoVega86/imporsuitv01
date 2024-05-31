@@ -98,7 +98,7 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
         <div>
             <i class="mdi mdi-cash-multiple text-success"></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL RETIROS</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_pagos, 2); ?></h4>
             </div>
         </div>
