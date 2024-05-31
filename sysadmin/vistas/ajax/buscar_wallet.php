@@ -153,7 +153,10 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 $monto_recibir = $valor_total_pagos - $monto_recibir;
                                 $monto_recibir *= -1;
                                 $monto_recibir = number_format($monto_recibir, 2);
+                            } else {
+                                $monto_recibir = number_format($monto_recibir, 2);
                             }
+
 
 
                         ?>
