@@ -107,15 +107,11 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
 
 
 <?php
-$sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$tienda' and valor";
-$valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
-$valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
-$valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
+$billetera_sql = "SELECT * FROM billeteras WHERE tienda = '$tienda'";
+$billetera_query = mysqli_query($conexion, $billetera_sql);
+$billetera = mysqli_fetch_array($billetera_query);
+$valor_billetera = $billetera['saldo'];
 
-if ($valor_total_pagos > $valor_total_monto_recibir) {
-    $valor_total_pagos = $valor_total_pagos - $valor_total_monto_recibir;
-    $valor_total_pendiente = $valor_total_pagos * -1;
-}
 ?>
 
 <div class="col-lg-12 col-md-6">
@@ -123,8 +119,8 @@ if ($valor_total_pagos > $valor_total_monto_recibir) {
         <div>
             <i class="mdi mdi-store text-warning "></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
-                <h4 class="m-t-0 m-b-5 counter font-bold text-warning"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente, 2); ?></h4>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO EN WALLET</p>
+                <h4 class="m-t-0 m-b-5 counter font-bold text-warning"><?php echo $simbolo_moneda . '' . number_format($valor_billetera, 2); ?></h4>
             </div>
         </div>
     </div>
