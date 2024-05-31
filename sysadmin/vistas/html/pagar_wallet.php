@@ -27,6 +27,14 @@ include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 $_SESSION['tienda'] = $tienda;
 
+$sql_existe = "SELECT COUNT(*) as existe from billeteras where tienda = '$tienda'";
+$result_existe = mysqli_query($conexion, $sql_existe);
+$rw_existe = mysqli_fetch_array($result_existe);
+if ($rw_existe['existe'] == 0) {
+    $sql = "INSERT INTO billeteras (tienda, saldo) VALUES ('$tienda', 0)";
+    $result = mysqli_query($conexion, $sql);
+}
+
 get_cadena($user_id);
 $modulo = "Wallets";
 permisos($modulo, $cadena_permisos);

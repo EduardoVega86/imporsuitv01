@@ -76,7 +76,7 @@ foreach ($rows as $row) {
                     "fechaNovedad" => "2021-09-01",
                 )
             );
-        } else if ($row['estado_guia'] == 4) {
+        } else if ($row['estado_guia'] == 9) {
             $data["noGuia"] = $row['guia_laar'];
             $data["estadoActualCodigo"] = 9;
 
