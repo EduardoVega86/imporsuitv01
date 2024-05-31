@@ -356,18 +356,11 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
         if ($numrows > 0) { {
             ?>
-                <form id="filter-form">
-                    <label for="fecha">Fecha:</label>
-                    <input type="date" name="fecha" id="fecha">
-                    <label for="estado">Estado de Pedido:</label>
-                    <select name="estado" id="estado">
-                        <option value="0">Todos</option>
-                        <option value="1">Confirmar</option>
-                        <option value="2">Pick y Pack</option>
-                        <!-- Agrega más opciones según tus estados de pedido -->
-                    </select>
-                    <button class="btn btn-outline-primary" type="button" onclick="filterData()">Filtrar</button>
-                </form>
+                <!-- descargar excel -->
+                <div class="container mt-5">
+                    <button id="downloadExcel" class="btn btn-success" onclick="descargar_excel(<?php echo $tienda; ?>)">Descargar Excel</button>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="col-lg-12 col-md-6">
@@ -641,18 +634,11 @@ if ($dominio_actual == 'marketplace.imporsuit') {
             <?php
             }
         } else {
-            ?><form id="filter-form">
-                <label for="fecha">Fecha:</label>
-                <input type="date" name="fecha" id="fecha">
-                <label for="estado">Estado de Pedido:</label>
-                <select name="estado" id="estado">
-                    <option value="0">Todos</option>
-                    <option value="1">Confirmar</option>
-                    <option value="2">Pick y Pack</option>
-                    <!-- Agrega más opciones según tus estados de pedido -->
-                </select>
-                <button class="btn btn-outline-primary" type="button" onclick="filterData()">Filtrar</button>
-            </form>
+            ?>
+            <!-- descargar excel -->
+            <div class="container mt-5">
+                <button id="downloadExcel" class="btn btn-success" onclick="descargar_excel(<?php echo $tienda; ?>)">Descargar Excel</button>
+            </div>
             <div class="row">
 
                 <div class="col-lg-4">
@@ -857,5 +843,31 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     function filtrarFecha() {
         const buscar_numero2 = document.getElementById('buscar_numero2').value;
 
+    }
+
+    function descargarExcel(tienda) {
+        $.ajax({
+            url: '../ajax/descargar_excel.php',
+            type: 'GET',
+            data: {
+                tienda: tienda
+            },
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function(response) {
+                var link = document.createElement('a');
+                var url = window.URL.createObjectURL(response);
+                link.href = url;
+                link.download = 'datos.csv';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error);
+            }
+        });
     }
 </script>
