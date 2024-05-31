@@ -1,23 +1,4 @@
 <style>
-	.left-column {
-		width: 50%;
-		padding: 20px;
-		padding-top: 60px;
-		position: -webkit-sticky;
-		/* Para compatibilidad con Safari */
-		position: sticky;
-		top: 0;
-		/* Ajusta esto a la altura de cualquier cabecera o menú que tengas */
-		height: 100%;
-		/* O la altura que quieras que tenga */
-	}
-
-	.right-column {
-		width: 50%;
-		padding: 20px;
-		padding-top: 60px;
-	}
-
 	/* Seccion Hidden */
 	.list-group-item {
 		display: flex;
