@@ -149,6 +149,13 @@ $tiendaN = strtoupper($tiendaN);
                                                             <div class="col-xs-2">
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#saldar-stock"><i class="fa fa-minus"></i> Deuda</button>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <div class="btn-group pull-center">
+                                                                    <?php if ($permisos_ver == 1) { ?>
                                                                         <button type="button" onclick="reporte();" class="btn btn-default waves-effect waves-light" title="Imprimir"><i class='fa fa-print'></i></button>
                                                                     <?php } ?>
                                                                 </div>
