@@ -4,8 +4,17 @@ ini_set('display_errors', '1');
 
 $tienda = $_SERVER['HTTP_REFERER'];
 //obtener &tienda=nombre_tienda
-$tienda = explode('=', $tienda);
-$tienda = $tienda[2];
+if (!empty($tienda)) {
+
+    $tienda = explode('=', $tienda);
+    if (empty($tienda[2])) {
+        $tienda = $tienda[0];
+        $tienda = explode('/sysadmin', $tienda);
+        $tienda = $tienda[0];
+    } else {
+        $tienda = $tienda[2];
+    }
+}
 
 
 require_once "../db.php";
