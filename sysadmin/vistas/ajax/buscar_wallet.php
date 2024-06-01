@@ -725,7 +725,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             <div>
                                 <i class="mdi mdi-exclamation text-danger "></i>
                                 <div class="wid-icon-info text-right">
-                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Deuda total</p>
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuentos de Devolución</p>
                                     <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente_deuda, 2); ?></h4>
                                 </div>
                             </div>
@@ -740,11 +740,16 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                         &nbsp;
                                     </div>
 
-
+                                    <?php
+                                    $sql_billetera = "SELECT * FROM billetera WHERE tienda = '$dominio_completo'";
+                                    $query_billetera = mysqli_query($conexion_db, $sql_billetera);
+                                    $row_billetera = mysqli_fetch_array($query_billetera);
+                                    $total_billetera = $row_billetera['saldo'];
+                                    ?>
 
                                     <div class="">
                                         <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
-                                        <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_valor_pendiente, 2); ?></h4>
+                                        <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($saldo, 2); ?></h4>
                                     </div>
                                 </div>
                             </div>

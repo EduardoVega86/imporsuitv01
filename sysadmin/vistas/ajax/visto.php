@@ -29,7 +29,7 @@ $result_billetera = mysqli_query($conexion, $select_billetera);
 $rw_billetera = mysqli_fetch_array($result_billetera);
 $id_billetera = $rw_billetera['id_billetera'];
 $fecha = date('Y-m-d H:i:s');
-$insert_historial_billetera = "INSERT INTO historial_billetera (id_billetera, monto, tipo, motivo,fecha) VALUES ('$id_billetera', '$monto_recibir', 'Ingreso', 'Se acredito el monto de la guia: $guia_laar', '$fecha')";
+$insert_historial_billetera = "INSERT INTO historial_billetera (id_billetera, monto, tipo, motivo,fecha) VALUES ('$id_billetera', '$monto_recibir', 'Entrada', 'Se acredito el monto de la guia: $guia_laar', '$fecha')";
 $resultado_historial_billetera = mysqli_query($conexion, $insert_historial_billetera);
 
 echo mysqli_error($conexion);

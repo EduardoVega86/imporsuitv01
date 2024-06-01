@@ -18,39 +18,29 @@ $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' 
 $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
 
 
-$query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda, SUM(monto_recibir) as monto_recibir FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' and visto='1'";
-$total_venta = mysqli_query($marketplace_conexion_2, $query_total_ventas);
+$sql_billetera = "SELECT saldo FROM billeteras WHERE tienda = '$dominio_completo'";
+$datos = mysqli_query($marketplace_conexion_2, $sql_billetera);
+$datos = mysqli_fetch_assoc($datos);
+if ($datos) {
+	$billetera = $datos['saldo'];
+} else {
+	$billetera = 0;
+}
 
 
-
-$sql_total_pagosm = "SELECT SUM(valor) from pagos where tienda = '$dominio_completo'";
-$valor_total_pagos_querym = mysqli_query($marketplace_conexion_2, $sql_total_pagosm);
-$valor_total_pagos_SQLm = mysqli_fetch_array($valor_total_pagos_querym);
-$valor_total_pagosm = $valor_total_pagos_SQLm['SUM(valor)'];
-
-
-
-
-@$total_venta = mysqli_fetch_assoc($total_venta);
-$monto_recibirm = $total_venta['monto_recibir'];
-@$total_venta = $total_venta['total_pendiente_a_la_tienda'];
 $color = '';
 $pais = get_row('perfil', 'pais', 'id_perfil', 1);
-if ($total_venta == null) {
-	$total_venta = 0;
+if ($billetera == null) {
+	$billetera = 0;
 	$color = 'text-white';
-} elseif ($total_venta > 0) {
+} elseif ($billetera > 0) {
 	$color = 'text-success';
 } else {
 
 	$color = 'text-danger';
 }
-if ($valor_total_pagosm > $monto_recibirm) {
-	$valor_total_pagosm -= $monto_recibirm;
-	$valor_total_pagosm *= -1;
-	$total_venta = $valor_total_pagosm;
-}
-$total_venta = number_format($total_venta, 2, '.', ',');
+
+$total_venta = number_format($billetera, 2, '.', ',');
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 ?>
 <div class="topbar" style="background: #171931">
@@ -97,7 +87,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 			</li>
 			<li class="list-inline-item notification-list hide-phone   waves-light waves-effect">
 				<i class="ti-wallet"></i>
-				<span class="<?php echo $color ?>"><?php echo $simbolo_moneda . $total_venta ?></span>
+				<span class="<?php echo $color ?>"><?php echo $simbolo_moneda . $billetera ?></span>
 			</li>
 
 			<li class="list-inline-item notification-list hide-phone">
