@@ -17,6 +17,11 @@ date_default_timezone_set('America/Guayaquil');
 $monto_recibir = $rw['monto_recibir'];
 $tienda = $rw['tienda'];
 $guia_laar = $rw['guia_laar'];
+if (isset($rw['proveedor'])) {
+    $proveedor = $rw['proveedor'];
+} else {
+    $proveedor = NULL;
+}
 
 $update = "UPDATE cabecera_cuenta_pagar SET visto = 1, valor_pendiente=0 WHERE id_cabecera = '$id_cabecera'";
 $resultado = mysqli_query($conexion, $update);
@@ -32,6 +37,27 @@ $fecha = date('Y-m-d H:i:s');
 $insert_historial_billetera = "INSERT INTO historial_billetera (id_billetera, monto, tipo, motivo,fecha) VALUES ('$id_billetera', '$monto_recibir', 'Entrada', 'Se acredito el monto de la guia: $guia_laar', '$fecha')";
 $resultado_historial_billetera = mysqli_query($conexion, $insert_historial_billetera);
 
+echo mysqli_error($conexion);
+
+if ($proveedor != NULL && $rw["estado_guia"] == 7) {
+    $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-P','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $rw['proveedor'] . "','7','" . 0 . "','" . 0 . "','" . 0 . "','" . $monto_recibir . "','" . 0 . "','" . $monto_recibir . "','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
+    $resultado_cuenta_pagar = mysqli_query($conexion, $insert_cuenta_pagar);
+}
+
+/// es referido de alguien 
+$sql_referido = "SELECT * FROM plataformas where url_imporsuit = '$tienda'";
+$resultado_referido = mysqli_query($conexion, $sql_referido);
+$rw_referido = mysqli_fetch_array($resultado_referido);
+if (isset($rw_referido['refiere'])) {
+    $referido = $rw_referido['refiere'];
+} else {
+    $referido = NULL;
+}
+
+if ($referido != NULL) {
+    $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-R','" . $rw['fecha'] . "','" . $referido . "','" . $tienda . "','7','" . 0 . "','" . 0 . "','" . 0 . "',0.50,'" . 0 . "','0.50','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
+    $resultado_cuenta_pagar = mysqli_query($conexion, $insert_cuenta_pagar);
+}
 echo mysqli_error($conexion);
 /* 
 if ($cod == 0 || $cod == 2 || $cod == 3 || $cod == 1) {
