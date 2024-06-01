@@ -46,6 +46,8 @@ if (empty($_POST['abono'])) {
     $sql_historial = "INSERT INTO `historial_pagos`(`fecha`, `motivo`, `monto`,`tipo`, `id_billetera`) VALUES ('$fecha', 'Retiro de dinero de la tienda', '$total_abonado','Salida', '$id_billetera');";
     $resultado_historial = mysqli_query($conexion, $sql_historial);
 
+    echo mysqli_error($conexion);
+
     $sql_billetera = "UPDATE billeteras SET saldo = ROUND(saldo - '$total_abonado', 2) WHERE tienda = '$tienda'";
     $resultado_billetera = mysqli_query($conexion, $sql_billetera);
 }
