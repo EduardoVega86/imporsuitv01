@@ -374,7 +374,7 @@ function visto(id_cabecera) {
     },
     success: function (datos) {
       $("#loader").html("");
-      $(".outer_div").load("../ajax/ver_pagos.php");
+      $(".outer_div").load("../ajax/ver_pagos.php?action=ajax");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
       $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
     },
