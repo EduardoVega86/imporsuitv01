@@ -40,7 +40,7 @@ $resultado_historial_billetera = mysqli_query($conexion, $insert_historial_bille
 echo mysqli_error($conexion);
 
 if ($proveedor != NULL && $rw["estado_guia"] == 7) {
-    $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-P','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $rw['proveedor'] . "','7','" . 0 . "','" . 0 . "','" . 0 . "','" . $monto_recibir . "','" . 0 . "','" . $monto_recibir . "','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
+    $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-P','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $rw['proveedor'] . "','7','" . 0 . "','" . 0 . "','" . 0 . "','" . $rw['costo'] . "','" . 0 . "','" . $rw['costo'] . "','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
     $resultado_cuenta_pagar = mysqli_query($conexion, $insert_cuenta_pagar);
 }
 
@@ -55,7 +55,14 @@ if (isset($rw_referido['refiere'])) {
 }
 
 if ($referido != NULL) {
-    $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-R','" . $rw['fecha'] . "','" . $referido . "','" . $tienda . "','7','" . 0 . "','" . 0 . "','" . 0 . "',0.50,'" . 0 . "','0.50','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
+    //buscar la tienda del referido
+    $sql_tienda = "SELECT * FROM plataformas where token_referido = '$referido'";
+    $resultado_tienda = mysqli_query($conexion, $sql_tienda);
+    $rw_tienda = mysqli_fetch_array($resultado_tienda);
+    $tienda = $rw_tienda['url_imporsuit'];
+
+
+    $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-R','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $tienda . "','7','" . 0 . "','" . 0 . "','" . 0 . "',0.50,'" . 0 . "','0.50','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
     $resultado_cuenta_pagar = mysqli_query($conexion, $insert_cuenta_pagar);
 }
 echo mysqli_error($conexion);
