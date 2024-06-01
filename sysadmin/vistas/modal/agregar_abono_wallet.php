@@ -10,13 +10,13 @@ if (isset($conexion)) {
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title"> <i class="fa fa-edit"></i> Agregar Abono</h4>
+                        <h4 class="modal-title"> <i class="fa fa-edit"></i> Pagar a Billetera</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="abono" class="control-label">Abono:</label>
+                                    <label for="abono" class="control-label">Monto:</label>
                                     <input type="text" class="form-control" id="abono" name="abono" autocomplete="off" pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8" required autofocus>
                                 </div>
                             </div>
