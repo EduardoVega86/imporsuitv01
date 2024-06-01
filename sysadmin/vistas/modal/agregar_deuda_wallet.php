@@ -10,7 +10,7 @@ if (isset($conexion)) {
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4 class="modal-title"> <i class="fa fa-edit"></i> Reducir Deuda</h4>
+                        <h4 class="modal-title"> <i class="fa fa-edit"></i> Abonar Walle</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -34,6 +34,8 @@ if (isset($conexion)) {
                                         <option value="Otro">Otro</option>
                                     </select>
 
+                                    <label for="img">Número Comprobante:</label>
+                                    <input type="text" class="form-control" id="comprobante" name="comprobante" autocomplete="off" required>
 
                                     <label for="img">Imagen de la factura:</label>
                                     <input type="file" class="form-control" id="img" name="img" accept="image/*" required>

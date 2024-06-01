@@ -27,7 +27,10 @@ if ($cantidad > $total_pendiente_a_la_tienda) {
     echo "mayor";
     exit();
 }
-
+date_default_timezone_set('America/Guayaquil');
+$fecha = date('Y-m-d H:i:s');
+$monto = number_format($cantidad, 2);
+$sql_historial = "INSERT INTO `historial_billetera`(`fecha`, `motivo`, `monto`,`tipo`, `id_billetera`) VALUES ('$fecha', 'Realizo una solicitud de pago', '$monto','Solicitud', (SELECT id_billetera FROM billeteras where tienda ='$tienda') );";
 
 // Gestionar mensaje con phpmailer
 require_once '../../PHPMailer/PHPMailer.php';
