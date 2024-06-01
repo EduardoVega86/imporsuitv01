@@ -192,14 +192,17 @@ if ($action == 'ajax' && $dominio_actual == 'marketplace.imporsuit') {
         echo "No hay pagos registrados";
     }
 } else {
-    $conexion_tienda = mysqli_connect("localhost", "imporsuit_marketplace", "imporsuit_marketplace", "imporsuit_marketplace");
-    $tienda = $_SERVER['HTTP_HOST'];
-    $daterange = mysqli_real_escape_string($conexion_tienda, (strip_tags($_REQUEST['range'], ENT_QUOTES)));
-    $tables = "pagos";
-    $campos = "*";
-    $sWhere = "tienda like '%" . $tienda . "%'";
+    $conexion_db = new mysqli('localhost', 'imporsuit_marketplace', 'imporsuit_marketplace', 'imporsuit_marketplace');
+    $sql = "SELECT * FROM billeteras WHERE tienda = '$tienda'";
+    $query = mysqli_query($conexion_db, $sql);
+    $rw = mysqli_fetch_array($query);
+    $id_billetera = $rw['id_billetera'];
 
-    $sWhere .= " order by id_pago DESC";
+    $tables = "historial_billetera";
+    $campos = "*";
+    $sWhere = "id_billetera = '$id_billetera'";
+
+    $sWhere .= " order by id_historial DESC";
 
     include 'pagination.php'; //include pagination file
     //pagination variables
@@ -208,16 +211,91 @@ if ($action == 'ajax' && $dominio_actual == 'marketplace.imporsuit') {
     $adjacents  = 4; //gap between pages after number of adjacents
     $offset = ($page - 1) * $per_page;
     //Count the total number of row in your table*/
-    $count_query = mysqli_query($conexion_tienda, "SELECT count(*) AS numrows FROM $tables where $sWhere ");
+    $count_query = mysqli_query($conexion_db, "SELECT count(*) AS numrows FROM $tables where $sWhere ");
     if ($row = mysqli_fetch_array($count_query)) {
         $numrows = $row['numrows'];
     } else {
-        echo mysqli_error($conexion_tienda);
+        echo mysqli_error($conexion_db);
     }
     $total_pages = ceil($numrows / $per_page);
     $reload = '../ver_cxc.php';
     //main query to fetch the data
-    $query = mysqli_query($conexion_tienda, "SELECT $campos FROM  $tables where $sWhere LIMIT $offset,$per_page");
+    $query = mysqli_query($conexion_db, "SELECT $campos FROM  $tables where $sWhere LIMIT $offset,$per_page");
+    if ($numrows > 0) {
+    ?>
+        <div class="table-responsive">
+            <table class="table-sm table table-condensed table-hover table-striped ">
+                <tr class="text-center">
+                    <th>#</th>
+                    <th>Tipo</th>
+                    <th>Motivo</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+
+                </tr>
+                <?php
+                $finales = 0;
+                while ($row = mysqli_fetch_array($query)) {
+                    $id_historial
+                        = $row['id_historial'];
+                    $tipo = $row['tipo'];
+                    $motivo = $row['motivo'];
+                    $monto = $row['monto'];
+                    $fecha = $row['fecha'];
+                    $finales++;
+                ?>
+                    <tr>
+                        <td><?php echo $id_historial; ?></td>
+                        <td><?php echo $tipo; ?></td>
+                        <td><?php echo $motivo; ?></td>
+                        <td><?php echo $simbolo_moneda . ' ' . number_format($monto, 2); ?></td>
+                        <td><?php echo $fecha; ?></td>
+
+                    </tr>
+                <?php
+                }
+                ?>
+                <tr>
+                    <td colspan='5'>
+                        <?php
+                        $inicios = $offset + 1;
+                        $finales += $inicios - 1;
+                        echo "Mostrando $inicios al $finales de $numrows registros";
+                        echo paginate($reload, $page, $total_pages, $adjacents);
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+    <?php
+    } else {
+        echo "No hay historial de billetera registrados <br>";
+    }
+    ///pagos de la tienda
+    $tables = "pagos";
+    $campos = "*";
+    $sWhere = "tienda like '%" . $tienda . "%'";
+
+    $sWhere .= " order by id_pago DESC";
+
+    //pagination variables
+    $page2 = (isset($_REQUEST['page2']) && !empty($_REQUEST['page2'])) ? $_REQUEST['page2'] : 1;
+    $per_page2 = 10; //how much records you want to show
+    $adjacents  = 4; //gap between page2s after number of adjacents
+    $offset = ($page2 - 1) * $per_page2;
+    //Count the total number of row in your table*/
+    $count_query = mysqli_query($conexion_db, "SELECT count(*) AS numrows FROM $tables where $sWhere ");
+    if ($row = mysqli_fetch_array($count_query)) {
+        $numrows = $row['numrows'];
+    } else {
+        echo mysqli_error($conexion_db);
+    }
+    $total_page2s = ceil($numrows / $per_page2);
+    $reload = '../ver_cxc.php';
+    //main query to fetch the data
+    $query = mysqli_query($conexion_db, "SELECT $campos FROM  $tables where $sWhere LIMIT $offset,$per_page2");
     //loop through fetched data
 
     if ($numrows > 0) {
@@ -269,7 +347,7 @@ if ($action == 'ajax' && $dominio_actual == 'marketplace.imporsuit') {
                         $inicios = $offset + 1;
                         $finales += $inicios - 1;
                         echo "Mostrando $inicios al $finales de $numrows registros";
-                        echo paginate($reload, $page, $total_pages, $adjacents);
+                        echo paginate($reload, $page2, $total_page2s, $adjacents);
                         ?>
                     </td>
                 </tr>
