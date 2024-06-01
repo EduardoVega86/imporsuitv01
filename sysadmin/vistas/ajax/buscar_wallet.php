@@ -741,7 +741,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     </div>
 
                                     <?php
-                                    $sql_billetera = "SELECT * FROM billetera WHERE tienda = '$dominio_completo'";
+                                    $sql_billetera = "SELECT * FROM billeteras WHERE tienda = '$dominio_completo'";
                                     $query_billetera = mysqli_query($conexion_db, $sql_billetera);
                                     $row_billetera = mysqli_fetch_array($query_billetera);
                                     $total_billetera = $row_billetera['saldo'];
