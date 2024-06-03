@@ -310,8 +310,7 @@ if ($response) {
         $sql_update = "UPDATE `facturas_cot` SET `guia_enviada` = '1', `transporte`='LAAR', `estado_guia_sistema`='2'  WHERE `id_factura` = $id_pedido_cot";
         //echo $sql_update;
         $query_update = mysqli_query($conexion, $sql_update);
-        echo $query_update;
-
+        echo mysqli_error($conexion);
         $date_added = date("Y-m-d H:i:s");
         $sql_insertar_guia = "INSERT INTO `guia_laar` ( `tienda_venta`, `guia_sistema`, `guia_laar`, `fecha`, `zpl`, `tienda_proveedor`, `url_guia`,`id_pedido`, 
             `identificacionO`,`ciudadO`, `nombreO`,
@@ -336,7 +335,7 @@ if ($response) {
             . "'0','$observacion','$costo_total',2)";
         //echo $sql_insertar_guia;
         $query_insertar = mysqli_query($conexion, $sql_insertar_guia);
-
+        echo mysqli_error($conexion);
         /*
         // Grabar cabecera_cuenta_cobrar
         $id_factura = get_row('facturas_cot', 'id_factura', 'id_factura', $id_pedido_cot);
@@ -395,6 +394,7 @@ if ($response) {
                                 WHERE id_factura='" . $id_fact_destino . "'";
             // echo $sql;
             $query_update_destino = mysqli_query($conexion_destino, $sql);
+            echo mysqli_error($conexion_destino);
 
 
             //ingresar guia marketplace
@@ -419,6 +419,7 @@ if ($response) {
             $sql = "UPDATE facturas_cot SET  estado_factura=2,  `transporte`='LAAR', `estado_guia_sistema`='2', `guia_enviada`=1
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
             $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+            echo mysqli_error($conexion_marketplace);
         } else {
 
             // echo 'asd';
@@ -464,6 +465,7 @@ if ($response) {
             $sql = "UPDATE facturas_cot SET  estado_factura=2,  `transporte`='LAAR', `estado_guia_sistema`='2', `guia_enviada`=1
                                 WHERE id_factura='" . $id_fact_marketplace . "'";
             $query_update_destino = mysqli_query($conexion_marketplace, $sql);
+            echo mysqli_error($conexion_marketplace);
         }
 
         $query = "SELECT * FROM detalle_fact_cot WHERE id_factura = $id_pedido_cot";
