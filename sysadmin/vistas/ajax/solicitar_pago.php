@@ -58,7 +58,8 @@ $telefono = $datos_correo['telefono'];
 
 include '../../PHPMailer/Mail_pago.php';
 
-
+$sql_insertar = "INSERT INTO `solicitudes_pago`(`cantidad`, `id_cuenta`) VALUES ('$cantidad', (SELECT id_cuenta FROM datos_banco_usuarios where tienda ='$tienda') );";
+$resultado_insertar = mysqli_query($marketplace_conexionquery, $sql_insertar);
 $mail = new PHPMailer(true);
 try {
     //Server settings
@@ -81,8 +82,7 @@ try {
     $mail->Body = $message_body;
 
 
-    $sql_insertar = "INSERT INTO `solicitudes_pago`(`cantidad`, `id_cuenta`) VALUES ('$cantidad', (SELECT id_cuenta FROM datos_banco_usuarios where tienda ='$tienda') );";
-    $resultado_insertar = mysqli_query($marketplace_conexionquery, $sql_insertar);
+
     if ($mail->send()) {
     } else {
         echo $mail->ErrorInfo;
