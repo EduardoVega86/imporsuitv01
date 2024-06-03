@@ -117,7 +117,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         }
     }
 
-    $sWhere .= " AND transporte IS NOT NULL AND transporte <> '' AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
+    $sWhere .= " AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
 
     $sWhere .= " order by facturas_cot.id_factura desc";
 
