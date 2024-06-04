@@ -151,12 +151,12 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             $sql_billetera = "SELECT saldo FROM billeteras WHERE tienda = '$tienda'";
                             $query_billetera = mysqli_query($conexion, $sql_billetera);
                             $row_billetera = mysqli_fetch_array($query_billetera);
-                            if(empty($row_billetera['saldo'])){
+                            if (empty($row_billetera['saldo'])) {
                                 $saldo_billetera = 0;
-                            }else{
+                            } else {
                                 $saldo_billetera = $row_billetera['saldo'];
                             }
-                            
+
 
 
                         ?>
@@ -318,10 +318,10 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $billeteras = "SELECT saldo FROM billeteras WHERE tienda = '$dominio_completo'";
         $query_billeteras = mysqli_query($conexion_db, $billeteras);
         $row_billeteras = mysqli_fetch_array($query_billeteras);
-       
-        if(empty($row_billeteras['saldo'])){
+
+        if (empty($row_billeteras['saldo'])) {
             $saldo_billetera = 0;
-        }else{
+        } else {
             $saldo_billetera = $row_billeteras['saldo'];
         }
         if ($numrows > 0) { {
@@ -652,7 +652,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <i class="mdi mdi-cash-multiple text-success"></i>
                                 <div class="wid-icon-info text-right">
                                     <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
-                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($row_billeteras, 2); ?></h4>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($saldo_billetera, 2); ?></h4>
                                 </div>
                             </div>
                         </div>
