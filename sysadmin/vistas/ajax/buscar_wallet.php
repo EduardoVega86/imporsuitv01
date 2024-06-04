@@ -131,7 +131,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
 
                             $total_venta = $row_total_venta['total_ventas'];
-                            $total_pendiente = $row_total_venta['total_pendiente'];
+                            $total_pendiente = $row_total_venta['monto_recibir'];
 
                             $total_venta = number_format($total_venta, 2);
                             $total_pendiente = number_format($total_pendiente, 2);
@@ -148,15 +148,15 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                             $valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
                             $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
 
-                            $monto_recibir = $row_total_venta['monto_recibir'];
-                            if ($valor_total_pagos > $monto_recibir) {
-                                $monto_recibir = $valor_total_pagos - $monto_recibir;
-                                $monto_recibir *= -1;
-                                $monto_recibir = number_format($monto_recibir, 2);
-                            } else {
-                                $monto_recibir = number_format($monto_recibir, 2);
+                            $sql_billetera = "SELECT saldo FROM billeteras WHERE tienda = '$tienda'";
+                            $query_billetera = mysqli_query($conexion, $sql_billetera);
+                            $row_billetera = mysqli_fetch_array($query_billetera);
+                            if(empty($row_billetera['saldo'])){
+                                $saldo_billetera = 0;
+                            }else{
+                                $saldo_billetera = $row_billetera['saldo'];
                             }
-
+                            
 
 
                         ?>
@@ -165,7 +165,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <td class="text-center"> <a href="pagar_wallet.php?id_factura=&tienda=<?php echo $tienda ?>"> <?php echo $tienda; ?></a></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                                 <td class="text-center"><?php echo $simbolo_moneda . $total_pendiente; ?></td>
-                                <td class="text-center"><?php echo $simbolo_moneda . $monto_recibir; ?></td>
+                                <td class="text-center"><?php echo $simbolo_moneda . $saldo_billetera; ?></td>
                                 <td class="text-center"><?php echo $guias_faltantes; ?></td>
                                 <td class="text-center">
                                     <!-- descargar excel -->
