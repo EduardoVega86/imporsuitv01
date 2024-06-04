@@ -379,7 +379,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                         </div>
                         <?php
                         $url_ubicacion = $_SERVER["HTTP_HOST"];
-                        $sql_deuda = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                        $sql_deuda = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` < 0 and estado_guia = 9 AND visto = '1' ORDER by monto_recibir ASC;";
                         $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
                         $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
                         $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(monto_recibir)'];
