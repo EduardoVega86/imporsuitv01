@@ -1077,7 +1077,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
     /*     $sWhere .= " and estado_guia_sistema IS NOT NULL";
  */
-$sWhere .= " AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
+    $sWhere .= " AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
 
     $sWhere .= " order by facturas_cot.id_factura desc";
 
