@@ -660,7 +660,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
                     <?php
                     $url_ubicacion = $_SERVER["HTTP_HOST"];
-                    $sql_deuda = "  ;";
+                    $sql_deuda = "SELECT SUM(precio_envio) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `precio_envio` > 0 AND visto = '1' and estado_guia = 9 ORDER by precio_envio ASC;";
                     $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
                     $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
                     $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(precio_envio)'];
