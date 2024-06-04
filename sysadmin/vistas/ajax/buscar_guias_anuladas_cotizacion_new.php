@@ -1469,7 +1469,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 break;
                                                                                                                             case '3':
                                                                                                                                 $span_estado = 'badge-success';
-                                                                                                                                $estado_guia = 'Entragado';
+                                                                                                                                $estado_guia = 'Entregado';
                                                                                                                                 break;
                                                                                                                             case '4':
                                                                                                                                 $span_estado = 'badge-danger';
@@ -1748,7 +1748,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 break;
                                                                                                                             case '3':
                                                                                                                                 $span_estado = 'badge-success';
-                                                                                                                                $estado_guia = 'Entragado';
+                                                                                                                                $estado_guia = 'Entregado';
                                                                                                                                 break;
                                                                                                                             case '4':
                                                                                                                                 $span_estado = 'badge-danger';
