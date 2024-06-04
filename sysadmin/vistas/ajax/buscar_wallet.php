@@ -674,7 +674,12 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                     }
                     $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
                     $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
-                    $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(precio_envio)'];
+                    if ($valor_total_fullfillment == 0) {
+                        $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(monto_recibir)'];
+                    } else {
+
+                        $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(precio_envio)'];
+                    }
 
                     $sql_Ganancia = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' and estado_guia = 7 ORDER by monto_recibir ASC;";
                     $valor_total_Ganancia_query = mysqli_query($conexion_db, $sql_Ganancia);
