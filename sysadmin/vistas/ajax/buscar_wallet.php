@@ -314,6 +314,16 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         } else {
             $ganancias_proveedor = $ganancias_proveedor_SQL['SUM(monto_recibir)'];
         }
+
+        $billeteras = "SELECT saldo FROM billeteras WHERE tienda = '$dominio_completo'";
+        $query_billeteras = mysqli_query($conexion_db, $billeteras);
+        $row_billeteras = mysqli_fetch_array($query_billeteras);
+       
+        if(empty($row_billeteras['saldo'])){
+            $saldo_billetera = 0;
+        }else{
+            $saldo_billetera = $row_billeteras['saldo'];
+        }
         if ($numrows > 0) { {
             ?>
                 <!-- descargar excel -->
@@ -642,7 +652,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <i class="mdi mdi-cash-multiple text-success"></i>
                                 <div class="wid-icon-info text-right">
                                     <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
-                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($total_valor_cobrado, 2); ?></h4>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($row_billeteras, 2); ?></h4>
                                 </div>
                             </div>
                         </div>
@@ -650,15 +660,21 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
                     <?php
                     $url_ubicacion = $_SERVER["HTTP_HOST"];
-                    $sql_deuda = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `valor_pendiente` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                    $sql_deuda = "SELECT SUM(precio_envio) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `precio_envio` < 0 AND visto = '1' ORDER by precio_envio ASC;";
                     $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
                     $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
-                    $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(valor_pendiente)'];
+                    $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(precio_envio)'];
 
-                    $sql_Ganancia = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                    $fullfillment = "SELECT SUM(full) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `full` > 0 AND visto = '1' ORDER by full ASC;";
+                    $valor_total_fullfillment_query = mysqli_query($conexion_db, $fullfillment);
+                    $valor_total_fullfillment_SQL = mysqli_fetch_array($valor_total_fullfillment_query);
+                    $valor_total_fullfillment = $valor_total_fullfillment_SQL['SUM(full)'];
+
+
+                    $sql_Ganancia = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' ORDER by monto_recibir ASC;";
                     $valor_total_Ganancia_query = mysqli_query($conexion_db, $sql_Ganancia);
                     $valor_total_Ganancia_SQL = mysqli_fetch_array($valor_total_Ganancia_query);
-                    $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(valor_pendiente)'];
+                    $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(monto_recibir)'];
 
                     ?>
 
@@ -681,6 +697,17 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <div class="wid-icon-info text-right">
                                     <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuentos de Devolución</p>
                                     <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente_deuda, 2); ?></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-6">
+                        <div class="card-box widget-icon">
+                            <div>
+                                <i class="mdi mdi-exclamation text-danger "></i>
+                                <div class="wid-icon-info text-right">
+                                    <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuentos de Full Fillment</p>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_fullfillment, 2); ?></h4>
                                 </div>
                             </div>
                         </div>
