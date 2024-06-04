@@ -660,16 +660,21 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
                     <?php
                     $url_ubicacion = $_SERVER["HTTP_HOST"];
-                    $sql_deuda = "SELECT SUM(precio_envio) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `precio_envio` > 0 AND visto = '1' and estado_guia = 9 ORDER by precio_envio ASC;";
-                    $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
-                    $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
-                    $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(precio_envio)'];
+
 
                     $fullfillment = "SELECT SUM(full) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `full` > 0 AND visto = '1' ORDER by full ASC;";
                     $valor_total_fullfillment_query = mysqli_query($conexion_db, $fullfillment);
                     $valor_total_fullfillment_SQL = mysqli_fetch_array($valor_total_fullfillment_query);
                     $valor_total_fullfillment = $valor_total_fullfillment_SQL['SUM(full)'];
 
+                    if ($valor_total_fullfillment == 0) {
+                        $sql_deuda  = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' and estado_guia = 9 ORDER by monto_recibir ASC;";
+                    } else {
+                        $sql_deuda = "SELECT SUM(precio_envio) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `precio_envio` > 0 AND visto = '1' and estado_guia = 9 ORDER by precio_envio ASC;";
+                    }
+                    $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
+                    $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
+                    $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(precio_envio)'];
 
                     $sql_Ganancia = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' and estado_guia = 7 ORDER by monto_recibir ASC;";
                     $valor_total_Ganancia_query = mysqli_query($conexion_db, $sql_Ganancia);
