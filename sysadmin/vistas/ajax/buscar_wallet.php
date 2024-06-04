@@ -668,9 +668,9 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                     $valor_total_fullfillment = $valor_total_fullfillment_SQL['SUM(full)'];
 
                     if ($valor_total_fullfillment == 0) {
-                        $sql_deuda  = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` < 0 AND visto = '1' and estado_guia = 9 ORDER by monto_recibir ASC;";
-                    } else {
                         $sql_deuda = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo'  and estado_guia = 9 ORDER by monto_recibir ASC;";
+                    } else {
+                        $sql_deuda  = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` < 0 AND visto = '1' and estado_guia = 9 ORDER by monto_recibir ASC;";
                     }
                     $valor_total_pendiente_query = mysqli_query($conexion_db, $sql_deuda);
                     $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
