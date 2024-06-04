@@ -671,7 +671,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                     $valor_total_fullfillment = $valor_total_fullfillment_SQL['SUM(full)'];
 
 
-                    $sql_Ganancia = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' ORDER by monto_recibir ASC;";
+                    $sql_Ganancia = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$dominio_completo' AND `monto_recibir` > 0 AND visto = '1' and estado_guia = 7 ORDER by monto_recibir ASC;";
                     $valor_total_Ganancia_query = mysqli_query($conexion_db, $sql_Ganancia);
                     $valor_total_Ganancia_SQL = mysqli_fetch_array($valor_total_Ganancia_query);
                     $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(monto_recibir)'];
