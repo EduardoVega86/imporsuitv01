@@ -18,6 +18,8 @@ $precio_envio = $rw['precio_envio'];
 
 $tienda = $rw['tienda'];
 
+$full = $rw['full'];
+
 $archivo_tienda =  $tienda . '/sysadmin/vistas/db1.php';
 $archivo_destino_tienda = "../../vistas/db_destino_guia.php";
 $contenido_tienda = file_get_contents($archivo_tienda);
@@ -44,9 +46,9 @@ $rw_perfil = mysqli_fetch_array($resultado_perfil);
 $nodevolucion = $rw_perfil['nodevolucion'];
 
 if ($nodevolucion == 1) {
-    $nuevo = 0 - $precio_envio;
+    $nuevo = 0 - $precio_envio - $full;
 } else {
-    $nuevo = 0 - $precio_envio - ($precio_envio * 0.25);
+    $nuevo = 0 - $precio_envio - $full;
 }
 
 $nuevo = number_format($nuevo, 2, '.', '');
