@@ -1526,7 +1526,7 @@ $sWhere .= " AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema
                                                                                                                                 break;
                                                                                                                             case '3':
                                                                                                                                 $span_estado = 'badge-success';
-                                                                                                                                $estado_guia = 'Entragado';
+                                                                                                                                $estado_guia = 'Entregado';
                                                                                                                                 break;
                                                                                                                             case '4':
                                                                                                                                 $span_estado = 'badge-danger';
@@ -1805,7 +1805,7 @@ $sWhere .= " AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema
                                                                                                                                 break;
                                                                                                                             case '3':
                                                                                                                                 $span_estado = 'badge-success';
-                                                                                                                                $estado_guia = 'Entragado';
+                                                                                                                                $estado_guia = 'Entregado';
                                                                                                                                 break;
                                                                                                                             case '4':
                                                                                                                                 $span_estado = 'badge-danger';
