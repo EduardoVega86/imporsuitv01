@@ -61,8 +61,13 @@ if ($referido != NULL) {
     $rw_tienda = mysqli_fetch_array($resultado_tienda);
     $tienda = $rw_tienda['url_imporsuit'];
 
+    if($tienda === "https://ecuaofertashop.imporsuit.com" ){
 
-    $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-R','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $tienda . "','7','" . 0 . "','" . 0 . "','" . 0 . "',0.50,'" . 0 . "','0.50','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
+        $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-R','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $tienda . "','7','" . 0 . "','" . 0 . "','" . 0 . "',0.50,'" . 0 . "','0.50','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
+    }
+    else{
+        $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-R','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $tienda . "','7','" . 0 . "','" . 0 . "','" . 0 . "',0.25,'" . 0 . "','0.25','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
+    }
     $resultado_cuenta_pagar = mysqli_query($conexion, $insert_cuenta_pagar);
 }
 echo mysqli_error($conexion);
