@@ -39,10 +39,10 @@ $valor_total_monto_recibir = $valor_total_tienda_SQL['monto_recibir'];
 
 <?php
 $url_ubicacion = $_SERVER["HTTP_HOST"];
-$sql_deuda = "SELECT ROUND(SUM(precio_envio),2), sum(full) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `precio_envio`  > 0 AND visto = '1' and estado_guia = 9 ORDER by precio_envio ASC;";
+$sql_deuda = "SELECT ROUND(SUM(precio_envio),2) as envio, sum(full) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `precio_envio`  > 0 AND visto = '1' and estado_guia = 9 ORDER by precio_envio ASC;";
 $valor_total_pendiente_query = mysqli_query($conexion, $sql_deuda);
 $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
-$valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(precio_envio)'];
+$valor_total_pendiente_deuda = $valor_total_pendiente_SQL['envio'];
 $valor_total_deuda_full = $valor_total_pendiente_SQL['sum(full)'];
 
 
@@ -82,7 +82,7 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
         <div>
             <i class="mdi mdi-exclamation text-danger "></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Deuda Full fillment</p>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full fillment en Devolución</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_deuda_full, 2); ?></h4>
             </div>
 
@@ -99,7 +99,7 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
         <div>
             <i class="mdi mdi-exclamation text-danger "></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full fillment</p>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full Fillment en Entregas</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_full, 2); ?></h4>
             </div>
         </div>
