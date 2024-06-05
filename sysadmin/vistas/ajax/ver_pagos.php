@@ -147,6 +147,7 @@ if ($action == 'ajax' && $dominio_actual == 'marketplace.imporsuit') {
                 <tr class="text-center">
                     <th>Numero documento</th>
                     <th>Fecha</th>
+                    <th>Tipo</th>
                     <th>Valor</th>
                     <th>Forma de Pago</th>
                     <th>Recibo</th>
@@ -160,11 +161,21 @@ if ($action == 'ajax' && $dominio_actual == 'marketplace.imporsuit') {
                     $valor = $row['valor'];
                     $forma_pago = $row['forma_pago'];
                     $url_factura = $row['imagen'];
+                    $recargo = $row['recargo'];
                     $finales++;
                 ?>
                     <tr>
                         <td><?php echo $numero_documento; ?></td>
                         <td><?php echo $fecha; ?></td>
+                        <td>
+                            <?php
+                            if ($recargo == 1) {
+                                echo 'Recargo de Billetera';
+                            } else {
+                                echo 'Pago de Billetera';
+                            }
+                            ?>
+                        </td>
                         <td><?php echo $simbolo_moneda . ' ' . number_format($valor, 2); ?></td>
                         <td><?php echo $forma_pago; ?></td>
                         <?php if ($url_factura == '') {
@@ -235,6 +246,7 @@ if ($action == 'ajax' && $dominio_actual == 'marketplace.imporsuit') {
                 <tr class="text-center">
                     <th>Numero documento</th>
                     <th>Fecha</th>
+                    <th>Tipo</th>
                     <th>Valor</th>
                     <th>Forma de Pago</th>
                     <th>Recibo</th>
@@ -248,11 +260,21 @@ if ($action == 'ajax' && $dominio_actual == 'marketplace.imporsuit') {
                     $valor = $row['valor'];
                     $forma_pago = $row['forma_pago'];
                     $url_factura = $row['imagen'];
+                    $recargo = $row['recargo'];
                     $finales++;
                 ?>
                     <tr>
                         <td><?php echo $numero_documento; ?></td>
                         <td><?php echo $fecha; ?></td>
+                        <td>
+                            <?php
+                            if ($recargo == 1) {
+                                echo 'Recargo de Billetera';
+                            } else {
+                                echo 'Pago de Billetera';
+                            }
+                            ?>
+                        </td>
                         <td><?php echo $simbolo_moneda . ' ' . number_format($valor, 2); ?></td>
                         <td><?php echo $forma_pago; ?></td>
                         <?php if ($url_factura == '') {
