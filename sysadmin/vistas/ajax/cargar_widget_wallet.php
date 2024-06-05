@@ -82,7 +82,7 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
         <div>
             <i class="mdi mdi-exclamation text-danger "></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Deuda Full fillment</p>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full fillment en Devolución</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_deuda_full, 2); ?></h4>
             </div>
 
@@ -99,7 +99,7 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
         <div>
             <i class="mdi mdi-exclamation text-danger "></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full fillment</p>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full Fillment en Entregas</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_full, 2); ?></h4>
             </div>
         </div>
