@@ -11,6 +11,7 @@ require_once "../funciones.php";
 include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 $session_id = session_id();
+
 $pais = get_row('perfil', 'pais', 'id_perfil', 1);
 $tienda = $_GET['id'];
 if ($tienda == "local") {
@@ -380,6 +381,8 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 <?php require 'includes/footer_start.php'
 ?>
 
+<script>var session_id_j= "<?php echo $session_id; ?>";</script>
+
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/cotizacion_nueva_1.js"></script>
 
@@ -431,6 +434,7 @@ $destino_marketplace = mysqli_connect("localhost", "imporsuit_marketplace", "imp
 </script>
 <!-- FIN -->
 <script>
+    
     var sleepSetTimeout_ctrl;
 
     function verify() {
