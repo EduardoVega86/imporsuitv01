@@ -16,7 +16,7 @@ if ($conexion_marketplace->connect_error) {
 if (isset($_GET['tienda'])) {
     $tienda = $conexion_marketplace->real_escape_string($_GET['tienda']);
 
-    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE tienda = '$tienda' AND visto = 1";
+    $sql = "SELECT * FROM cabecera_cuenta_pagar WHERE tienda = '$tienda'";
     $query = mysqli_query($conexion_marketplace, $sql);
 
     if ($query && mysqli_num_rows($query) > 0) {
