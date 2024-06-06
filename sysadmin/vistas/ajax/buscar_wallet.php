@@ -853,7 +853,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
     }
 
-    function descargarExcel(tienda) {
+    function descargarExcel_general(tienda) {
             fetch(`../ajax/descargar_excel.php?tienda=${encodeURIComponent(tienda)}`)
                 .then(response => {
                     if (!response.ok) {
