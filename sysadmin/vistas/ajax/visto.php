@@ -17,6 +17,13 @@ date_default_timezone_set('America/Guayaquil');
 $monto_recibir = $rw['monto_recibir'];
 $tienda = $rw['tienda'];
 $guia_laar = $rw['guia_laar'];
+$estado_guia = $rw['estado_guia'];
+
+if ($estado_guia == 9 && $monto_recibir > 0) {
+    return;
+}
+
+
 if (isset($rw['proveedor'])) {
     $proveedor = $rw['proveedor'];
 } else {
@@ -61,11 +68,10 @@ if ($referido != NULL) {
     $rw_tienda = mysqli_fetch_array($resultado_tienda);
     $tienda = $rw_tienda['url_imporsuit'];
 
-    if($tienda === "https://ecuaofertashop.imporsuit.com" ){
+    if ($tienda === "https://ecuaofertashop.imporsuit.com") {
 
         $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-R','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $tienda . "','7','" . 0 . "','" . 0 . "','" . 0 . "',0.25,'" . 0 . "','0.25','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
-    }
-    else{
+    } else {
         $insert_cuenta_pagar = "INSERT INTO cabecera_cuenta_pagar (numero_factura, fecha, cliente, tienda, estado_guia, total_venta, costo, precio_envio, monto_recibir, valor_cobrado, valor_pendiente, guia_laar, visto, cod, proveedor) VALUES ('" . $rw['numero_factura'] . "-R','" . $rw['fecha'] . "','" . $rw['cliente'] . "','" . $tienda . "','7','" . 0 . "','" . 0 . "','" . 0 . "',0.50,'" . 0 . "','0.50','" . $guia_laar . "','" . 0 . "','" . $rw['cod'] . "','" . 0 . "')";
     }
     $resultado_cuenta_pagar = mysqli_query($conexion, $insert_cuenta_pagar);

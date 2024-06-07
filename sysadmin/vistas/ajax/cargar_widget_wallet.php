@@ -39,14 +39,14 @@ $valor_total_monto_recibir = $valor_total_tienda_SQL['monto_recibir'];
 
 <?php
 $url_ubicacion = $_SERVER["HTTP_HOST"];
-$sql_deuda = "SELECT ROUND(SUM(precio_envio),2) as envio, sum(full) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `precio_envio`  > 0 AND visto = '1' and estado_guia = 9 ORDER by precio_envio ASC;";
+$sql_deuda = "SELECT ROUND(SUM(CASE WHEN fecha < '2024-02-01' THEN monto_recibir ELSE precio_envio END), 2) as envio, SUM(full) as total_full FROM `cabecera_cuenta_pagar` WHERE tienda '$tienda' AND ( (fecha < '2024-02-01' AND monto_recibir > 0) OR (fecha >= '2024-02-01' AND precio_envio > 0) ) AND visto = '1' AND estado_guia = 9 ORDER BY precio_envio ASC;";
 $valor_total_pendiente_query = mysqli_query($conexion, $sql_deuda);
 $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
 $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['envio'];
 $valor_total_deuda_full = $valor_total_pendiente_SQL['sum(full)'];
 
 
-$sql_full = "SELECT SUM(full) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `full` > 0 AND visto = '1' ORDER by full ASC;";
+$sql_full = "SELECT SUM(full) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `full` > 0 AND visto = '1' and estado_guia =7 ORDER by full ASC;";
 $valor_total_full_query = mysqli_query($conexion, $sql_full);
 $valor_total_full_SQL = mysqli_fetch_array($valor_total_full_query);
 $valor_total_full = $valor_total_full_SQL['SUM(full)'];
@@ -82,10 +82,10 @@ $valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
         <div>
             <i class="mdi mdi-exclamation text-danger "></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full fillment en Devolución</p>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full Fillment en Devolución</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_deuda_full, 2); ?></h4>
             </div>
-
+            <br>
             <div class="wid-icon-info text-right">
                 <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento devoluciones</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente_deuda, 2); ?></h4>
