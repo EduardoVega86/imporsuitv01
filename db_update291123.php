@@ -2420,7 +2420,7 @@ mysqli_query($conexion, "CREATE TABLE novedades (
 	novedad text null,
 	solucion_novedad text null,
 	tracking text not null,
-	fecha_novedad date not null default current_timestamp
+	fecha_novedad datetime not null default current_timestamp
 );");
 
 mysqli_query($conexion, "DELETE FROM novedades
