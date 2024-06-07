@@ -15,7 +15,6 @@ $(document).ready(function () {
 });
 
 function load(page) {
-  if (response.success) {
     parametro = $("#parametro").val();
     //  alert(parametro)
     var q = $("#q").val();
@@ -39,9 +38,7 @@ function load(page) {
         $("#loader").html("");
       },
     });
-  } else {
-    console.error("Error al eliminar tmp_ventas:", response.error);
-  }
+
   /* $.ajax({
     url: "ajax/limpiar_tmp.php",
     type: "POST",
