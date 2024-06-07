@@ -15,7 +15,34 @@ $(document).ready(function () {
 });
 
 function load(page) {
-  $.ajax({
+  if (response.success) {
+    parametro = $("#parametro").val();
+    //  alert(parametro)
+    var q = $("#q").val();
+    $("#loader").fadeIn("slow");
+    $.ajax({
+      url:
+        "../ajax/productos_modal_ventas_n.php?action=ajax&page=" +
+        page +
+        "&q=" +
+        q +
+        "&parametro=" +
+        parametro,
+      beforeSend: function (objeto) {
+        $("#loader").html(
+          '<img src="../../img/ajax-loader.gif"> Cargando...'
+        );
+      },
+      success: function (data) {
+        //  alert(data);
+        $(".outer_div").html(data).fadeIn("slow");
+        $("#loader").html("");
+      },
+    });
+  } else {
+    console.error("Error al eliminar tmp_ventas:", response.error);
+  }
+  /* $.ajax({
     url: "ajax/limpiar_tmp.php",
     type: "POST",
     dataType: "json",
@@ -52,7 +79,7 @@ function load(page) {
     error: function (jqXHR, textStatus, errorThrown) {
       console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
     },
-  });
+  }); */
 }
 
 function agregar(id) {
