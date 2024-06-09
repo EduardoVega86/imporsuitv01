@@ -39,7 +39,7 @@ $valor_total_monto_recibir = $valor_total_tienda_SQL['monto_recibir'];
 
 <?php
 $url_ubicacion = $_SERVER["HTTP_HOST"];
-$sql_deuda = "SELECT ROUND(SUM(CASE WHEN fecha < '2024-02-01' THEN monto_recibir ELSE precio_envio END), 2) as envio, SUM(full) as total_full FROM `cabecera_cuenta_pagar` WHERE tienda '$tienda' AND ( (fecha < '2024-02-01' AND monto_recibir > 0) OR (fecha >= '2024-02-01' AND precio_envio > 0) ) AND visto = '1' AND estado_guia = 9 ORDER BY precio_envio ASC;";
+$sql_deuda = "SELECT ROUND(SUM(CASE WHEN fecha < '2024-02-01' THEN monto_recibir ELSE precio_envio END), 2) as envio, SUM(full) as total_full FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND ( (fecha < '2024-02-01' AND monto_recibir > 0) OR (fecha >= '2024-02-01' AND precio_envio > 0) ) AND visto = '1' AND estado_guia = 9 ORDER BY precio_envio ASC;";
 $valor_total_pendiente_query = mysqli_query($conexion, $sql_deuda);
 $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
 $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['envio'];
