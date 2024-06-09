@@ -43,7 +43,7 @@ $sql_deuda = "SELECT ROUND(SUM(CASE WHEN fecha < '2024-02-01' THEN monto_recibir
 $valor_total_pendiente_query = mysqli_query($conexion, $sql_deuda);
 $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
 $valor_total_pendiente_deuda = $valor_total_pendiente_SQL['envio'];
-$valor_total_deuda_full = $valor_total_pendiente_SQL['sum(full)'];
+$valor_total_deuda_full = $valor_total_pendiente_SQL['total_full'];
 
 
 $sql_full = "SELECT SUM(full) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `full` > 0 AND visto = '1' and estado_guia =7 ORDER by full ASC;";
