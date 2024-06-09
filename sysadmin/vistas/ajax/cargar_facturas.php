@@ -14,7 +14,7 @@ $filtro = $_GET['filtro'];
 if ($filtro == 'mayor_menor') {
     $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente != 0 ORDER BY visto asc;");
 } else if ($filtro == 'cero') {
-    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente = 0 ORDER BY visto asc;");
+    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente = 0 ORDER BY fecha desc;");
 } else {
     $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' ORDER BY visto asc;");
 }
