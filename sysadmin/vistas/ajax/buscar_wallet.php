@@ -171,7 +171,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     <!-- descargar excel -->
                                     <div class="d-flex flex-row gap-1">
                                         <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel_general('<?php echo $tienda; ?>')">Descargar Excel general</button>
-                                    
+
                                         <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel('<?php echo $tienda; ?>')">Descargar Excel</button>
                                     </div>
                                 </td>
@@ -226,7 +226,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $q = mysqli_real_escape_string($conexion_db, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
         $sTable = "cabecera_cuenta_pagar, facturas_cot";
         $sWhere = "";
-        $sWhere .= " WHERE  cabecera_cuenta_pagar.tienda = '$dominio_completo' and cabecera_cuenta_pagar.numero_factura=facturas_cot.numero_factura and visto ='1' ";
+        $sWhere .= " WHERE  cabecera_cuenta_pagar.tienda = '$dominio_completo' and cabecera_cuenta_pagar.numero_factura=facturas_cot.numero_factura";
         $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : 'todos';
         //obtiene ?tienda=tienda
         if ($filtro == 'mayor_menor') {
@@ -331,7 +331,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                 <!-- descargar excel -->
                 <div class="d-flex flex-row gap-1">
                     <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel_general('<?php echo $dominio_completo; ?>')">Descargar Excel general</button>
-                
+
                     <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel('<?php echo $dominio_completo; ?>')">Descargar Excel de guias pagadas</button>
                 </div>
 
@@ -463,8 +463,8 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                 </div>
                 <!-- Botones para filtrar registros -->
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Pendientes</button>
-                    <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Pagados</button>
+                    <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Sin Acreditar</button>
+                    <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Acreditadas</button>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -612,7 +612,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
             <!-- descargar excel -->
             <div class="d-flex flex-row gap-1">
                 <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel_general('<?php echo $dominio_completo; ?>')">Descargar Excel general</button>
-        
+
                 <button id="downloadExcel" class="btn btn-success" onclick="descargarExcel('<?php echo $dominio_completo; ?>')">Descargar Excel de guias pagadas</button>
             </div>
             <div class="row">
@@ -773,8 +773,8 @@ if ($dominio_actual == 'marketplace.imporsuit') {
 
 
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Pendientes</button>
-                <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Pagados</button>
+                <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Sin Acreditar</button>
+                <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Acreditadas</button>
             </div>
             <div class="alert alert-warning alert-dismissible" role="alert" align="center">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -854,124 +854,206 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     }
 
     function descargarExcel_general(tienda) {
-            fetch(`../ajax/descargar_excel.php?tienda=${encodeURIComponent(tienda)}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        alert('Error: ' + data.error);
-                        console.error(data.error);
-                        return;
-                    }
-                    if (data.length === 0) {
-                        alert('No se encontraron datos');
-                        return;
-                    }
+        fetch(`../ajax/descargar_excel.php?tienda=${encodeURIComponent(tienda)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                    console.error(data.error);
+                    return;
+                }
+                if (data.length === 0) {
+                    alert('No se encontraron datos');
+                    return;
+                }
 
-                    // Convertir los datos JSON a una hoja de cálculo
-                    const ws = XLSX.utils.json_to_sheet(data);
+                // Convertir los datos JSON a una hoja de cálculo
+                const ws = XLSX.utils.json_to_sheet(data);
 
-                    // Ajustar el ancho de las columnas
-                    const columnWidths = [
-                        { wch: 10 }, // id_cabecera
-                        { wch: 12 }, // numero
-                        { wch: 12 }, // fecha
-                        { wch: 15 }, // cliente
-                        { wch: 30 }, // tienda
-                        { wch: 10 }, // estado_g
-                        { wch: 10 }, // estado_p
-                        { wch: 10 }, // total_ven
-                        { wch: 10 }, // costo
-                        { wch: 10 }, // precio_er
-                        { wch: 10 }, // monto_rc
-                        { wch: 10 }, // valor_col
-                        { wch: 10 }, // valor_per
-                        { wch: 15 }, // guia_laar
-                        { wch: 10 }, // visto
-                        { wch: 10 }, // recibo
-                        { wch: 10 }, // novedad
-                        { wch: 10 }, // cod
-                        { wch: 10 }, // proveedor
-                        { wch: 10 }, // peso
-                        { wch: 10 }, // full
-                    ];
-                    ws['!cols'] = columnWidths;
+                // Ajustar el ancho de las columnas
+                const columnWidths = [{
+                        wch: 10
+                    }, // id_cabecera
+                    {
+                        wch: 12
+                    }, // numero
+                    {
+                        wch: 12
+                    }, // fecha
+                    {
+                        wch: 15
+                    }, // cliente
+                    {
+                        wch: 30
+                    }, // tienda
+                    {
+                        wch: 10
+                    }, // estado_g
+                    {
+                        wch: 10
+                    }, // estado_p
+                    {
+                        wch: 10
+                    }, // total_ven
+                    {
+                        wch: 10
+                    }, // costo
+                    {
+                        wch: 10
+                    }, // precio_er
+                    {
+                        wch: 10
+                    }, // monto_rc
+                    {
+                        wch: 10
+                    }, // valor_col
+                    {
+                        wch: 10
+                    }, // valor_per
+                    {
+                        wch: 15
+                    }, // guia_laar
+                    {
+                        wch: 10
+                    }, // visto
+                    {
+                        wch: 10
+                    }, // recibo
+                    {
+                        wch: 10
+                    }, // novedad
+                    {
+                        wch: 10
+                    }, // cod
+                    {
+                        wch: 10
+                    }, // proveedor
+                    {
+                        wch: 10
+                    }, // peso
+                    {
+                        wch: 10
+                    }, // full
+                ];
+                ws['!cols'] = columnWidths;
 
-                    // Crear un nuevo libro de trabajo
-                    const wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                // Crear un nuevo libro de trabajo
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-                    // Escribir el archivo y desencadenar la descarga
-                    XLSX.writeFile(wb, 'datos.xlsx');
-                })
-                .catch(error => {
-                    alert('Error: ' + error);
-                    console.error(error);
-                });
-        }
+                // Escribir el archivo y desencadenar la descarga
+                XLSX.writeFile(wb, 'datos.xlsx');
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+                console.error(error);
+            });
+    }
 
-        function descargarExcel(tienda) {
-            fetch(`../ajax/descargar_excel_general.php?tienda=${encodeURIComponent(tienda)}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error) {
-                        alert('Error: ' + data.error);
-                        console.error(data.error);
-                        return;
-                    }
-                    if (data.length === 0) {
-                        alert('No se encontraron datos');
-                        return;
-                    }
+    function descargarExcel(tienda) {
+        fetch(`../ajax/descargar_excel_general.php?tienda=${encodeURIComponent(tienda)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                    console.error(data.error);
+                    return;
+                }
+                if (data.length === 0) {
+                    alert('No se encontraron datos');
+                    return;
+                }
 
-                    // Convertir los datos JSON a una hoja de cálculo
-                    const ws = XLSX.utils.json_to_sheet(data);
+                // Convertir los datos JSON a una hoja de cálculo
+                const ws = XLSX.utils.json_to_sheet(data);
 
-                    // Ajustar el ancho de las columnas
-                    const columnWidths = [
-                        { wch: 10 }, // id_cabecera
-                        { wch: 12 }, // numero
-                        { wch: 12 }, // fecha
-                        { wch: 15 }, // cliente
-                        { wch: 30 }, // tienda
-                        { wch: 10 }, // estado_g
-                        { wch: 10 }, // estado_p
-                        { wch: 10 }, // total_ven
-                        { wch: 10 }, // costo
-                        { wch: 10 }, // precio_er
-                        { wch: 10 }, // monto_rc
-                        { wch: 10 }, // valor_col
-                        { wch: 10 }, // valor_per
-                        { wch: 15 }, // guia_laar
-                        { wch: 10 }, // visto
-                        { wch: 10 }, // recibo
-                        { wch: 10 }, // novedad
-                        { wch: 10 }, // cod
-                        { wch: 10 }, // proveedor
-                        { wch: 10 }, // peso
-                        { wch: 10 }, // full
-                    ];
-                    ws['!cols'] = columnWidths;
+                // Ajustar el ancho de las columnas
+                const columnWidths = [{
+                        wch: 10
+                    }, // id_cabecera
+                    {
+                        wch: 12
+                    }, // numero
+                    {
+                        wch: 12
+                    }, // fecha
+                    {
+                        wch: 15
+                    }, // cliente
+                    {
+                        wch: 30
+                    }, // tienda
+                    {
+                        wch: 10
+                    }, // estado_g
+                    {
+                        wch: 10
+                    }, // estado_p
+                    {
+                        wch: 10
+                    }, // total_ven
+                    {
+                        wch: 10
+                    }, // costo
+                    {
+                        wch: 10
+                    }, // precio_er
+                    {
+                        wch: 10
+                    }, // monto_rc
+                    {
+                        wch: 10
+                    }, // valor_col
+                    {
+                        wch: 10
+                    }, // valor_per
+                    {
+                        wch: 15
+                    }, // guia_laar
+                    {
+                        wch: 10
+                    }, // visto
+                    {
+                        wch: 10
+                    }, // recibo
+                    {
+                        wch: 10
+                    }, // novedad
+                    {
+                        wch: 10
+                    }, // cod
+                    {
+                        wch: 10
+                    }, // proveedor
+                    {
+                        wch: 10
+                    }, // peso
+                    {
+                        wch: 10
+                    }, // full
+                ];
+                ws['!cols'] = columnWidths;
 
-                    // Crear un nuevo libro de trabajo
-                    const wb = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                // Crear un nuevo libro de trabajo
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-                    // Escribir el archivo y desencadenar la descarga
-                    XLSX.writeFile(wb, 'datos.xlsx');
-                })
-                .catch(error => {
-                    alert('Error: ' + error);
-                    console.error(error);
-                });
-        }
+                // Escribir el archivo y desencadenar la descarga
+                XLSX.writeFile(wb, 'datos.xlsx');
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+                console.error(error);
+            });
+    }
 </script>
