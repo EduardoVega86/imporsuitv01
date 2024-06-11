@@ -36,8 +36,8 @@ if ($filtro == 'mayor_menor') {
 
 <!-- Botones para filtrar registros -->
 <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Pendientes</button>
-    <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Pagados</button>
+    <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Sin Acreditar</button>
+    <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Acreditados</button>
 </div>
 <div class="table-responsive">
     <table class="table-sm table table-condensed table-hover table-striped ">
