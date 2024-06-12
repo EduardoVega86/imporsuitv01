@@ -108,7 +108,7 @@ $respuesta = mysqli_fetch_row($respuesta);
                                         <!-- <a href="#" class="btn btn-outline-danger">Ver Video</a> -->
                                     </div>
                                 </div>
-                                <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
+                                <!-- <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
                                     <div class="d-flex flex-row">
                                         <div class="grid items-center">
                                             <img src="https://marketplace.imporsuit.com/sysadmin/img/dropi.jpeg" width="30px" alt="img">
@@ -155,7 +155,7 @@ $respuesta = mysqli_fetch_row($respuesta);
                                         <?php
                                         } ?>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row">
                                 <div class="col bg-white rounded-5 shadow-xl m-3 py-3 px-4">
