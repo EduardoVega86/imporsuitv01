@@ -253,9 +253,30 @@ if (isset($conexion)) {
 
 
 							</div>
-<div class="tab-pane fade show active" id="variable">
+<div class="tab-pane fade" id="variable">
 
 								<div class="row ">
+                                                                    <div id='atributos' class ="col-md-6 ">
+                                                                      
+                                                                    </div>
+                                                                    <div class="col-md-6 ">
+                                                                        <table id="tabla-dinamica">
+    <thead>
+        <tr style="align-content: center">
+           
+            <th style="text-align: center;">Variedad</th>
+            <th style="text-align: center;">Stock</th>
+            <th style="text-align: center;">Percio</th>
+            <th style="text-align: center;">PVP</th>
+            <th style="text-align: center;">Bodega</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table> 
+                                                                    </div>
+                                                                  
                                                                     </div>
     </div>
 							<div class="tab-pane fade" id="img">
@@ -305,7 +326,9 @@ if (isset($conexion)) {
     //alert(selectElement.value);
     if (valor === '0') {
         tabInventarioVariable.style.display = 'block'; // o 'flex' si tu diseño lo requiere
+        atributos_producto()
     } else if (valor === '1') {
+        $("#atributos").html('');
         tabInventarioVariable.style.display = 'none';
     }
 }

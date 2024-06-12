@@ -64,6 +64,9 @@ while ($r = $query->fetch_object()) {
 	.modal .modal-dialog .modal-content .modal-header {
 		background-color: #171931 !important;
 	}
+        .formulario {
+        border-radius: 25px;
+    }
 </style>
 <!-- Begin page -->
 <div id="wrapper" class="forced enlarged"> <!-- DESACTIVA EL MENU -->
@@ -626,6 +629,27 @@ while ($r = $query->fetch_object()) {
 			}
 		})
 	}
+        
+        function atributos_producto() {
+		//alert(id)
+                id=1;
+		$('#id_producto').val(id);
+		$.ajax({
+			url: '../ajax/buscar_atributo_producto_modal.php?action=ajax&id_producto=' + id,
+			beforeSend: function(objeto) {
+				$('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+			},
+			success: function(data) {
+                          //  alert(data)
+				$("#atributos").html(data);
+				$('#loader').html('');
+			}
+		})
+	}
+        
+        
+         
+        
 
 	function agrega_atributo() {
 
@@ -666,6 +690,7 @@ while ($r = $query->fetch_object()) {
 	}
 
 	function variables(id) {
+       
 		// alert();
 		fila = '#solicitud' + id
 		page = 1;
