@@ -117,8 +117,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         }
     }
 
-    $sWhere .= " AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
-
+    $sWhere .= " AND facturas_cot.guia_enviada = 0 AND facturas_cot.estado_guia_sistema is null";
     $sWhere .= " order by facturas_cot.id_factura desc";
 
     include 'pagination.php'; //include pagination file
@@ -493,10 +492,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                         echo "Estado no reconocido";
                                                                                                                 }
                                                                                                                 if ($guia_numero != '0') {
-                                                                                                                    if (strpos($guia_numero, "IMP") == 0) {
+                                                                                                                    if (strpos($guia_numero, "IMP") === 0) {
+                                                                                                                        echo "<script> console.log ('Numero guia: $guia_numero )</script>";
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-                                                                                                                    } else if (is_numeric($guia_numero)) {
+                                                                                                                        
+                                                                                                                    } elseif (ctype_digit($guia_numero)) {
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
                                                                                                                     }
 
@@ -899,65 +900,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             <?php
                             $tienda2   = $row['telefono'];
                             $telefono_tienda    = $tienda2;
+                            
 
-
-                            $telefonoFormateado = formatPhoneNumber($telefono_tienda);
+                                $telefonoFormateado = formatPhoneNumber($telefono_tienda);
                             ?>
-                            <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
-
-                        </td>
-                        <td class="text-center align-middle">
-                            <?php if ($drogshipin == 3 || $drogshipin == 4) {
-                                if (strpos($guia_numero, "IMP") === 0 && $server_url == "https://marketplace.imporsuit.com") {
-                            ?>
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 8) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=8
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                <?php
-                                } else {
-
-
-                                ?>
-
-                                    <select style="width: 100px" onchange="obtener_datos('<?php echo $id_factura; ?>')" id="estado_sistema<?php echo $id_factura; ?>" class='form-control <?php echo $label_class; ?>' name='mod_estado' id='mod_estado_local'>
-                                        <option value="">-- Selecciona --</option>
-                                        <?php
-                                        if ($data['estadoActualCodigo'] == 4) {
-                                            $sql_anular = "UPDATE facturas_cot SET  estado_factura=4
-                                                                            WHERE id_factura='" . $id_factura . "'";
-                                            $query_anular = mysqli_query($conexion, $sql_anular);
-                                        }
-                                        //echo "select * from estado_guia";
-                                        $query_categoria = mysqli_query($conexion, "select * from estado_guia_sistema_local");
-                                        while ($rw = mysqli_fetch_array($query_categoria)) {
-                                            $selected = ($rw['id_estado_local'] == $estado_factura) ? 'selected' : '';
-                                        ?>
-                                            <option value="<?php echo $rw['id_estado_local']; ?>" <?php echo $selected; ?>><?php echo $rw['estado']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                            <?php
-
-                                }
-                            }
-                            ?>
-
+                                <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
+                            
                         </td>
 
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
@@ -1029,23 +977,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
         $tienda    = $_REQUEST['tienda'];
         $sWhere .= " and  tienda='$tienda'";
     }
-    if (@$_GET['estado'] != "") {
-        $estado = $_REQUEST['estado'];
-
-        if ($estado == 100) {
-            $sWhere .= " AND (estado_guia_sistema='100' OR estado_guia_sistema='102' OR estado_guia_sistema='103')";
-        } else if ($estado == 200) {
-            $sWhere .= " AND (estado_guia_sistema='200' OR estado_guia_sistema='201' OR estado_guia_sistema='202')";
-        } else if ($estado == 300) {
-            $sWhere .= " AND estado_guia_sistema BETWEEN 300 AND 351";
-        } else if ($estado == 400) {
-            $sWhere .= " AND estado_guia_sistema BETWEEN 400 AND 403";
-        } else if ($estado == 500) {
-            $sWhere .= " AND estado_guia_sistema BETWEEN 500 AND 502";
-        } else {
-            $sWhere .= " AND estado_guia_sistema='$estado'";
-        }
-    }
+    
     if (@$_GET['transportadora'] != "") {
         $transportadora = $_REQUEST['transportadora'];
         $sWhere .= " and  transporte='$transportadora'";
@@ -1077,8 +1009,8 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
 
     /*     $sWhere .= " and estado_guia_sistema IS NOT NULL";
  */
-    $sWhere .= " AND (estado_guia_sistema NOT IN ('8', '101') OR estado_guia_sistema IS NULL)";
 
+    $sWhere .= " AND facturas_cot.guia_enviada = 0 AND facturas_cot.estado_guia_sistema is null";
     $sWhere .= " order by facturas_cot.id_factura desc";
 
 
@@ -1420,15 +1352,15 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                     default:
                                                                                                                         echo "Estado no reconocido";
                                                                                                                 }
-                                                                                                                if (is_numeric($guia_numero)) {
-                                                                                                                    echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-                                                                                                                }
                                                                                                                 if ($guia_numero != '0') {
 
-                                                                                                                    if (strpos($guia_numero, "IMP") == 0) {
+
+                                                                                                                    if (strpos($guia_numero, "IMP") === 0) {
+                                                                                                                        echo "<script> console.log ('Numero guia: $guia_numero )</script>";
                                                                                                                         echo "<script> validar_laar('" . $guia_numero . "', '" . $numero_factura . "')</script>";
-                                                                                                                    }
-                                                                                                                    if (is_numeric($guia_numero)) {
+                                                                                                                        echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
+                                                                                                                        
+                                                                                                                    } elseif (ctype_digit($guia_numero)) {
                                                                                                                         echo "<script> validar_servientrega('" . $guia_numero . "', '" . $numero_factura . "')</script>";
                                                                                                                     }
                                                                                                                     if ($drogshipin == 3 || $drogshipin == 4) {
@@ -1890,12 +1822,12 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                             <?php
                             $tienda2   = $row['telefono'];
                             $telefono_tienda    = $tienda2;
+                            
 
-
-                            $telefonoFormateado = formatPhoneNumber($telefono_tienda);
+                                $telefonoFormateado = formatPhoneNumber($telefono_tienda);
                             ?>
-                            <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
-
+                                <a href="https://wa.me/<?php echo $telefonoFormateado ?>" style="font-size: 40px;" target="_blank"><i class="bx bxl-whatsapp-square" style="color: green"></i></a>
+                            
                         </td>
 
                         <td class='text-center text-primary align-middle'> <?php if ($impreso != null && $impreso != 0) echo '<i class="ti-file"></i>'; ?> </td>
@@ -1917,9 +1849,7 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                         <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#dataDelete" data-id="<?php echo $row['id_factura']; ?>"><i class='fa fa-trash'></i> Eliminar</a>-->
                                     <?php } ?>
 
-                                    <!-- <a class="dropdown-item" href="#" onclick="boton_anular(<?php echo $id_factura_origen; ?>, <?php echo $numero_factura; ?>, <?php echo $transportadora; ?>)"><i class='fa fa-edit'></i> Anular</a> -->
-                                    <a class="dropdown-item" href="#" onclick="anular_guia('<?php echo get_row('guia_laar', 'guia_laar', 'id_pedido', $id_factura); ?>','<?php echo get_row('guia_laar', 'id_pedido', 'id_pedido', $id_factura); ?>')"><i class='fa fa-edit'></i> Anular</a>
-
+                                    <a class="dropdown-item" href="#" onclick="anular_guia_pedidos('<?php echo $numero_factura; ?>')"><i class='fa fa-edit'></i> Anular</a>
                                 </div>
                             </div>
 

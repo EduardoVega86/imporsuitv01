@@ -141,7 +141,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
             </div>
             <div class="_rsi-modal-line-item-info">
-                <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721"><?php echo $nombre_producto; ?></a>
+                <a class="_rsi-modal-line-item-title" href="producto_1.php?id=<?php echo $id_producto; ?>"><?php echo $nombre_producto; ?></a>
             </div>
             <div class="_rsi-modal-line-item-final-price"><?php echo $simbolo_moneda . number_format($final_items, 2); ?></div>
             &nbsp;&nbsp;&nbsp;<a href="#" class=' btn btn-danger btn-sm waves-effect waves-light' onclick="eliminar('<?php echo $id_tmp ?>')">x</a>

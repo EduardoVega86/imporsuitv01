@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 include "is_logged.php"; //Acrhivo comprueba si el usuario esta logueado
 
 $tienda = $_SESSION['tienda'];
@@ -35,42 +37,31 @@ $valor_total_monto_recibir = $valor_total_tienda_SQL['monto_recibir'];
     </div>
 </div>
 
-<div class="col-lg-12 col-md-6">
-    <div class="card-box widget-icon">
-        <div>
-            <i class="mdi mdi-briefcase-check text-primary"></i>
-            <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
-                <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($valor_total_monto_recibir, 2); ?></h4>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-lg-12 col-md-6">
-    <div class="card-box widget-icon">
-        <div>
-            <i class="mdi mdi-cash-multiple text-success"></i>
-            <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
-                <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_cobrado, 2); ?></h4>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <?php
 $url_ubicacion = $_SERVER["HTTP_HOST"];
-$sql_deuda = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `valor_pendiente` < 0 AND visto = '1' ORDER by monto_recibir ASC;";
+$sql_deuda = "SELECT ROUND(SUM(CASE WHEN fecha < '2024-02-01' THEN monto_recibir ELSE precio_envio END), 2) as envio, SUM(full) as total_full FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND ( (fecha < '2024-02-01' AND monto_recibir > 0) OR (fecha >= '2024-02-01' AND precio_envio > 0) ) AND visto = '1' AND estado_guia = 9 ORDER BY precio_envio ASC;";
 $valor_total_pendiente_query = mysqli_query($conexion, $sql_deuda);
 $valor_total_pendiente_SQL = mysqli_fetch_array($valor_total_pendiente_query);
-$valor_total_pendiente_deuda = $valor_total_pendiente_SQL['SUM(valor_pendiente)'];
+$valor_total_pendiente_deuda = $valor_total_pendiente_SQL['envio'];
+$valor_total_deuda_full = $valor_total_pendiente_SQL['total_full'];
 
-$sql_Ganancia = "SELECT SUM(valor_pendiente) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `monto_recibir` > 0 AND visto = '1' ORDER by monto_recibir ASC;";
+
+$sql_full = "SELECT SUM(full) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `full` > 0 AND visto = '1' and estado_guia =7 ORDER by full ASC;";
+$valor_total_full_query = mysqli_query($conexion, $sql_full);
+$valor_total_full_SQL = mysqli_fetch_array($valor_total_full_query);
+$valor_total_full = $valor_total_full_SQL['SUM(full)'];
+
+
+$sql_Ganancia = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `monto_recibir` > 0 AND visto = '1' ORDER by monto_recibir ASC;";
 $valor_total_Ganancia_query = mysqli_query($conexion, $sql_Ganancia);
 $valor_total_Ganancia_SQL = mysqli_fetch_array($valor_total_Ganancia_query);
-$valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(valor_pendiente)'];
+$valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(monto_recibir)'];
+
+$sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$tienda' and valor >0 and recargo = 0";
+$valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
+$valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
+$valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
+
 
 ?>
 
@@ -91,19 +82,70 @@ $valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(valor_pendiente)'];
         <div>
             <i class="mdi mdi-exclamation text-danger "></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Deuda total</p>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full Fillment en Devolución</p>
+                <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_deuda_full, 2); ?></h4>
+            </div>
+            <br>
+            <div class="wid-icon-info text-right">
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento devoluciones</p>
                 <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente_deuda, 2); ?></h4>
             </div>
         </div>
     </div>
 </div>
+
+<div class="col-lg-12 col-md-6">
+    <div class="card-box widget-icon">
+        <div>
+            <i class="mdi mdi-exclamation text-danger "></i>
+            <div class="wid-icon-info text-right">
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Descuento Full Fillment en Entregas</p>
+                <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($valor_total_full, 2); ?></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 col-md-6">
+    <div class="card-box widget-icon">
+        <div>
+            <i class="mdi mdi-briefcase-check text-primary"></i>
+            <div class="wid-icon-info text-right">
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Utilidad Generada</p>
+                <h4 class="m-t-0 m-b-5 counter font-bold text-primary"><?php echo $simbolo_moneda . '' . number_format($valor_total_monto_recibir, 2); ?></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 col-md-6">
+    <div class="card-box widget-icon">
+        <div>
+            <i class="mdi mdi-cash-multiple text-success"></i>
+            <div class="wid-icon-info text-right">
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL RETIROS</p>
+                <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_pagos, 2); ?></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php
+$billetera_sql = "SELECT * FROM billeteras WHERE tienda = '$tienda'";
+$billetera_query = mysqli_query($conexion, $billetera_sql);
+$billetera = mysqli_fetch_array($billetera_query);
+$valor_billetera = $billetera['saldo'];
+
+?>
+
 <div class="col-lg-12 col-md-6">
     <div class="card-box widget-icon">
         <div>
             <i class="mdi mdi-store text-warning "></i>
             <div class="wid-icon-info text-right">
-                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO PENDIENTE A TIENDA</p>
-                <h4 class="m-t-0 m-b-5 counter font-bold text-warning"><?php echo $simbolo_moneda . '' . number_format($valor_total_pendiente, 2); ?></h4>
+                <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO EN WALLET</p>
+                <h4 class="m-t-0 m-b-5 counter font-bold text-warning"><?php echo $simbolo_moneda . '' . number_format($valor_billetera, 2); ?></h4>
             </div>
         </div>
     </div>

@@ -53,7 +53,7 @@ if (isset($_GET['id_factura'])) {
         $precio_envio = $rw_factura['precio_envio'];
         $monto_recibir = $rw_factura['monto_recibir'];
         $fecha = $rw_factura['fecha'];
-
+        $full = $rw_factura['full'];
 
 
         if ($estado_factura == 1) {
@@ -241,6 +241,12 @@ if (isset($_GET['id_factura'])) {
                                                             <input type="text" name="costoa" id="costoa" class="form-control" value="<?php echo $costo; ?>">
                                                         </div>
                                                         <div class="mb-3">
+                                                            <label for="costoa">
+                                                                Full Fillment
+                                                            </label>
+                                                            <input type="text" name="full" id="full" class="form-control" value="<?php echo $full; ?>">
+                                                        </div>
+                                                        <div class="mb-3">
 
                                                             <label for="precio">
                                                                 Precio de Envio
@@ -376,7 +382,8 @@ if (isset($_GET['id_factura'])) {
                 venta: total_ventas,
                 precio: precio,
                 costo: costo,
-                id_factura: id_factura
+                id_factura: id_factura,
+                full: $("#full").val()
             },
             dataType: 'text',
             success: function(response) {

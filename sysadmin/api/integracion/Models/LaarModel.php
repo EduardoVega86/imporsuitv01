@@ -228,6 +228,9 @@ class LaarModel extends Query
                 $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
                 $valor_base = $valor_base[0]['precio'];
                 echo $valor_base;
+            } elseif (strpos($ciudad_cot, "MKP") === 0) {
+                $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
+                $valor_base = 5.99;
             }
         } else {
             if (strpos($no_guia, "IMP") === 0) {
@@ -247,6 +250,9 @@ class LaarModel extends Query
                 $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
                 $valor_base = $valor_base[0]['precio'];
                 echo $valor_base;
+            } elseif (strpos($ciudad_cot, "MKP") === 0) {
+                $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
+                $valor_base = 5.99;
             }
         }
         if ($tienda_venta === "https://yapando.imporsuit.com" || $tienda_venta === "https://onlytap.imporsuit.com" || $tienda_venta === "https://ecuashop.imporsuit.com" || $tienda_venta === "https://merkatodo.imporsuit.com") {
@@ -279,6 +285,9 @@ class LaarModel extends Query
         $drogshipin = $this->select("SELECT drogshipin FROM facturas_cot WHERE tienda ='$tienda_venta' AND id_factura_origen = '$id_pedido_origen'");
         $cod = $this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
         $cod = $cod[0]['cod'];
+        if (strpos($no_guia, 'MKP') === 0) {
+            $valor_base = 5.99;
+        }
         if ($cod == 1) {
             if ($drogshipin[0]['drogshipin'] == 4 || $drogshipin[0]['drogshipin'] == 0) {
                 $monto_recibir = $total_guia - $valor_base;
@@ -300,6 +309,9 @@ class LaarModel extends Query
         $tienda_venta = $this->buscarTiendaVentaUrl($no_guia);
         $tienda_proveedor = $this->buscarProveedorUrl($no_guia);
 
+        echo $tienda_venta . "<br>";
+        echo $tienda_proveedor . "<br>";
+
         if ($tienda_venta == $tienda_proveedor) {
             $url_proveedor = " ";
         } else {
@@ -318,85 +330,97 @@ class LaarModel extends Query
 
     public function pedidoDevolucion($no_guia, $estado_actual_codigo)
     {
-        $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' AND estado_guia = '$estado_actual_codigo'");
-        $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
-        $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
-        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
-        $numero_factura_verificar = $numero_factura[0]['numero_factura'];
-        $verificar = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura_verificar'");
-        $verificar = count($verificar);
-        if ($verificar > 0) {
-            echo json_encode('ya_existe');
+
+        $datos_guia = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia'");
+        if (empty($datos_guia)) {
+            echo json_encode('error: no existe la guia en market');
             exit;
         }
-        $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
-        $query = $this->select($query);
-        $id_pedido = $query[0]['id_pedido'];
-        $tienda_venta = $query[0]['tienda_venta'];
-        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'";
-        $query = $this->select($query);
-        $numero_factura = $query[0]['numero_factura'];
-        $fecha = $query[0]['fecha_factura'];
-        $nombre_cliente = $query[0]['nombre'];
-        $tienda = $query[0]['tienda'];
-        $estado_pedido = $query[0]['estado_factura'];
-        $guia_enviada = $query[0]['guia_enviada'];
-        $ciudad_cot = $query[0]['ciudad_cot'];
-        $id_factura = $query[0]['id_factura'];
-        $id_pedido_origen = $query[0]['id_factura_origen'];
-        $cod = $query[0]['cod'];
-        $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'";
-        $tieneGuias_query = $this->select($tieneGuias_sql);
-        $tieneGuias = count($tieneGuias_query);
-        if (empty($tieneGuias)) {
-            echo json_encode('no_guias');
+        $tienda_venta = $datos_guia[0]['tienda_venta'];
+        $id_pedido = $datos_guia[0]['id_pedido'];
+        $cod = $datos_guia[0]['cod'];
+        $total_guia = $datos_guia[0]['costoproducto'];
+        $valor_declarado = $datos_guia[0]['valorDeclarado'];
+        $costo_guia = $datos_guia[0]['valor_costo'];
+        $datos_factura = $this->select("SELECT * FROM facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'");
+        if (empty($datos_factura)) {
+            echo json_encode('error: no existe la factura en market');
             exit;
         }
+        $numero_factura = $datos_factura[0]['numero_factura'];
+        $fecha = $datos_factura[0]['fecha_factura'];
+        $nombre_cliente = $datos_factura[0]['nombre'];
+        $tienda = $datos_factura[0]['tienda'];
+        $estado_pedido = $datos_factura[0]['estado_factura'];
+        $guia_enviada = $datos_factura[0]['guia_enviada'];
+        $ciudad_cot = $datos_factura[0]['ciudad_cot'];
+        $id_factura = $datos_factura[0]['id_factura'];
+        $id_pedido_origen = $datos_factura[0]['id_factura_origen'];
+
+        $datos_cabecera = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura'");
+        if (!empty($datos_cabecera)) {
+            echo json_encode('error: ya existe la cabecera en wallet');
+            exit;
+        }
+
         $producto_id = $this->select("SELECT id_producto FROM detalle_fact_cot WHERE id_factura = '$id_factura'");
         $producto_id = $producto_id[0]['id_producto'];
-        $costo_total = $this->select("SELECT costo_producto FROM productos WHERE id_producto = '$producto_id'");
-        $costo_total = $costo_total[0]['costo_producto'];
-        $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
-        $valor_base = $valor_base[0]['precio'];
-        $total_guia = $this->select("SELECT costoproducto FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-        $total_guia = $total_guia[0]['costoproducto'];
-        $auxiliar = $this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-        $auxiliar = $auxiliar[0]['cod'];
-        if ($auxiliar == 1) {
+
+        /* $datos_productos = $this->select("SELECT * FROM productos WHERE id_producto = '$producto_id'");
+        echo $tienda_venta;
+        if (empty($datos_productos)) {
+            echo json_encode('error: no existe el producto en market');
+            exit;
+        }
+        $costo_total = $datos_productos[0]['costo_producto'];
+        $valor_total = $datos_productos[0]['valor1_producto']; */
+
+        if (strlen($ciudad_cot) > 4) {
+            if (strpos($ciudad_cot, "IMP") === 0 || strpos($ciudad_cot, "MKP") === 0) {
+                $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['precio'];
+            } else if (is_numeric($no_guia)) {
+                $valor_base = $this->select("SELECT trayecto_servientrega from ciudad_cotizacion where codigo_ciudad_laar = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_servientrega'];
+                $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+            }
+        } else {
+            if (strpos($no_guia, "IMP") === 0 || strpos($no_guia, "MKP") === 0) {
+                $valor_base = $this->select("SELECT trayecto_laar from ciudad_cotizacion where id_cotizacion = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_laar'];
+                $valor_base = $this->select("SELECT precio FROM cobertura_laar WHERE tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+            } else if (is_numeric($no_guia)) {
+                $valor_base = $this->select("SELECT trayecto_servientrega from ciudad_cotizacion where id_cotizacion = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_servientrega'];
+                $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+            }
+        }
+        if ($cod == 1) {
             $valor_base = $valor_base + ($total_guia * 0.03);
         }
-        $valor_declarado = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-        $valor_declarado = $valor_declarado[0]['valorDeclarado'];
         if ($valor_declarado > 1) {
-            $valor = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-            $valor_base = $valor_base + ($valor[0]['valorDeclarado'] * 0.01);
+            $valor_base = $valor_base + ($valor_declarado * 0.01);
         }
-        $costo_guia = $this->select("SELECT valor_costo FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-        $costo_guia = $costo_guia[0]['valor_costo'];
-        $valor_total = $this->select("SELECT valor1_producto FROM productos WHERE id_producto = '$producto_id'");
-        $valor_total = $valor_total[0]['valor1_producto'];
-        if ($tienda == "https://yapando.imporsuit.com" || $tienda == "https://onlytap.imporsuit.com" || $tienda == "https://ecuashop.imporsuit.com" || $tienda == "https://universalmarkethub.imporsuit.com") {
-            $conexion_tiend  = $this->obtener_conexion($tienda);
+
+        if ($tienda_venta == "https://yapando.imporsuit.com" || $tienda_venta == "https://onlytap.imporsuit.com" || $tienda_venta == "https://ecuashop.imporsuit.com") {
+            $conexion_tiend  = $this->obtener_conexion($tienda_venta);
             $sql_tipo = "SELECT precio from ciudad_laar where codigo = '$ciudad_cot'";
             $sql_tipo = mysqli_query($conexion_tiend, $sql_tipo);
             $sql_tipo = mysqli_fetch_array($sql_tipo);
             $valor_base = $sql_tipo['precio'];
             $costo_envio = $valor_base;
         } else {
-            $costo_envio = $valor_base + ($valor_base * 0.25);
+            $costo_envio = $valor_base;
         }
+
         $costo_envio = number_format($costo_envio, 2);
-        $conexion_proveedor = $this->obtener_conexion($tienda_venta);
-        $sql_nodevolucion = "SELECT nodevolucion FROM `perfil`; ";
-        $sql_nodevolucion_ = mysqli_query($conexion_proveedor, $sql_nodevolucion);
-        $sql_nodevolucion_ = mysqli_fetch_array($sql_nodevolucion_);
-        $sql_nodevolucion_ = $sql_nodevolucion_['nodevolucion'];
-        if ($sql_nodevolucion_ == 1) {
-            $monto_recibir = 0;
-        } else {
-            $monto_recibir = 0 - $costo_envio;
-        }
+        $monto_recibir = 0 - $costo_envio;
         $monto_recibir = number_format($monto_recibir, 2);
+        ///
+
         $tienda_venta = $this->buscarTiendaVentaUrl($no_guia);
         $tienda_proveedor = $this->buscarProveedorUrl($no_guia);
 
@@ -405,6 +429,8 @@ class LaarModel extends Query
         } else {
             $url_proveedor = $tienda_proveedor;
         }
+
+        $conexion_proveedor = $this->obtener_conexion($tienda_venta);
 
         $sql_cc = "INSERT INTO `cabecera_cuenta_pagar`(`numero_factura`, `fecha`, `cliente`, `tienda`, `estado_guia`, `estado_pedido`, `total_venta`, `costo`, `precio_envio`, `monto_recibir`,`valor_pendiente`,`guia_laar`, `cod`, `proveedor`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
         $datos = array($numero_factura, $fecha, $nombre_cliente, $tienda, $estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $no_guia, $cod, $url_proveedor);
@@ -486,68 +512,81 @@ class LaarModel extends Query
 
     public function devolucion($no_guia, $estado_actual_codigo)
     {
-        $numero_factura_verificar = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia' ");
-        $tienda_venta_verificar = $numero_factura_verificar[0]['tienda_venta'];
-        $id_pedidoverificar = $numero_factura_verificar[0]['id_pedido'];
-        $numero_factura = $this->select("SELECT numero_factura FROM facturas_cot WHERE tienda = '$tienda_venta_verificar' AND id_factura_origen = '$id_pedidoverificar'");
-        $numero_factura_verificar = $numero_factura[0]['numero_factura'];
-        $query = "SELECT id_pedido, tienda_venta FROM guia_laar WHERE guia_laar = '$no_guia'";
-        $query = $this->select($query);
-        $id_pedido = $query[0]['id_pedido'];
-        $tienda_venta = $query[0]['tienda_venta'];
-        $query = "SELECT * from facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'";
-        $query = $this->select($query);
-        $numero_factura = $query[0]['numero_factura'];
-        $fecha = $query[0]['fecha_factura'];
-        $nombre_cliente = $query[0]['nombre'];
-        $tienda = $query[0]['tienda'];
-        $estado_pedido = $query[0]['estado_factura'];
-        $guia_enviada = $query[0]['guia_enviada'];
-        $ciudad_cot = $query[0]['ciudad_cot'];
-        $id_factura = $query[0]['id_factura'];
-        $id_pedido_origen = $query[0]['id_factura_origen'];
-        $tieneGuias_sql = "SELECT * FROM `guia_laar` WHERE tienda_venta='$tienda_venta' AND id_pedido = '$id_pedido_origen'";
-        $tieneGuias_query = $this->select($tieneGuias_sql);
-        $tieneGuias = count($tieneGuias_query);
-        if (empty($tieneGuias)) {
-            echo json_encode('no_guias');
+        $datos_guia = $this->select("SELECT * FROM guia_laar WHERE guia_laar = '$no_guia'");
+        $tienda_venta = $datos_guia[0]['tienda_venta'];
+        $id_pedido = $datos_guia[0]['id_pedido'];
+        $cod = $datos_guia[0]['cod'];
+        $total_guia = $datos_guia[0]['costoproducto'];
+        $valor_declarado = $datos_guia[0]['valorDeclarado'];
+        $costo_guia = $datos_guia[0]['valor_costo'];
+        $datos_factura = $this->select("SELECT * FROM facturas_cot WHERE tienda = '$tienda_venta' AND id_factura_origen = '$id_pedido'");
+        if (empty($datos_factura)) {
+            echo json_encode('no_existe');
             exit;
         }
-        $producto_id = $this->select("SELECT id_producto FROM detalle_fact_cot WHERE id_factura = '$id_factura'");
-        $producto_id = $producto_id[0]['id_producto'];
-        $costo_total = $this->select("SELECT costo_producto FROM productos WHERE id_producto = '$producto_id'");
-        $costo_total = $costo_total[0]['costo_producto'];
-        $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
-        $valor_base = $valor_base[0]['precio'];
-        $total_guia = $this->select("SELECT costoproducto FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-        $total_guia = $total_guia[0]['costoproducto'];
-        $auxiliar = $this->select("SELECT cod FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-        $auxiliar = $auxiliar[0]['cod'];
-        if ($auxiliar == 1) {
+        $numero_factura = $datos_factura[0]['numero_factura'];
+        $fecha = $datos_factura[0]['fecha_factura'];
+        $nombre_cliente = $datos_factura[0]['nombre'];
+        $tienda = $datos_factura[0]['tienda'];
+        $estado_pedido = $datos_factura[0]['estado_factura'];
+        $guia_enviada = $datos_factura[0]['guia_enviada'];
+        $ciudad_cot = $datos_factura[0]['ciudad_cot'];
+        $id_factura = $datos_factura[0]['id_factura'];
+        $id_pedido_origen = $datos_factura[0]['id_factura_origen'];
+
+        $id_producto = $this->select("SELECT id_producto FROM detalle_fact_cot WHERE id_factura = '$id_factura'");
+        $id_producto = $id_producto[0]['id_producto'];
+        $datos_productos = $this->select("SELECT * FROM productos WHERE id_producto = '$id_producto'");
+        $costo_total = $datos_productos[0]['costo_producto'];
+        $valor_total = $datos_productos[0]['valor1_producto'];
+        if (strlen($ciudad_cot) > 4) {
+            if (strpos($ciudad_cot, "IMP") === 0 || strpos($ciudad_cot, "MKP") === 0) {
+                $valor_base = $this->select("SELECT precio FROM ciudad_laar WHERE codigo = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['precio'];
+            } else if (is_numeric($no_guia)) {
+                $valor_base = $this->select("SELECT trayecto_servientrega from ciudad_cotizacion where codigo_ciudad_laar = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_servientrega'];
+                $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+            }
+        } else {
+            if (strpos($no_guia, "IMP") === 0 || strpos($no_guia, "MKP") === 0) {
+                $valor_base = $this->select("SELECT trayecto_laar from ciudad_cotizacion where id_cotizacion = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_laar'];
+                $valor_base = $this->select("SELECT precio FROM cobertura_laar WHERE tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+            } else if (is_numeric($no_guia)) {
+                $valor_base = $this->select("SELECT trayecto_servientrega from ciudad_cotizacion where id_cotizacion = '$ciudad_cot'");
+                $valor_base = $valor_base[0]['trayecto_servientrega'];
+                $valor_base = $this->select("SELECT precio FROM cobertura_servientrega WHERE tipo_cobertura = '$valor_base'");
+                $valor_base = $valor_base[0]['precio'];
+            }
+        }
+        if (strpos($no_guia, 'MKP') === 0) {
+            $valor_base = 5.99;
+        }
+
+        if ($cod == 1) {
             $valor_base = $valor_base + ($total_guia * 0.03);
         }
-        $valor_declarado = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-        $valor_declarado = $valor_declarado[0]['valorDeclarado'];
         if ($valor_declarado > 1) {
-            $valor = $this->select("SELECT valorDeclarado FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-            $valor_base = $valor_base + ($valor[0]['valorDeclarado'] * 0.01);
+            $valor_base = $valor_base + ($valor_declarado * 0.01);
         }
-        $costo_guia = $this->select("SELECT valor_costo FROM guia_laar WHERE tienda_venta ='$tienda_venta' AND id_pedido = '$id_pedido_origen'");
-        $costo_guia = $costo_guia[0]['valor_costo'];
-        $valor_total = $this->select("SELECT valor1_producto FROM productos WHERE id_producto = '$producto_id'");
-        $valor_total = $valor_total[0]['valor1_producto'];
+
         $costo_envio = $valor_base + ($valor_base * 0.25);
         $costo_envio = number_format($costo_envio, 2);
         $monto_recibir = 0 - $costo_envio;
         $monto_recibir = number_format($monto_recibir, 2);
-        $verificar = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura_verificar'");
+
+        $verificar = $this->select("SELECT * FROM cabecera_cuenta_pagar WHERE numero_factura = '$numero_factura'");
+
         $verificar = count($verificar);
         if ($verificar > 0) {
             $sql_edit = "UPDATE `cabecera_cuenta_pagar` SET `estado_guia` = ?, `estado_pedido` = ?, `total_venta` = ?, `costo` = ?, `precio_envio` = ?, `monto_recibir` = ?, `valor_pendiente` = ? WHERE `numero_factura` = ?";
-            $datos_edit = array($estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $numero_factura_verificar);
+            $datos_edit = array($estado_actual_codigo, $estado_pedido, $total_guia, $costo_guia, $valor_base, $monto_recibir, $monto_recibir, $numero_factura);
             $query_edit = $this->update($sql_edit, $datos_edit);
             $sql_edit_facturas_cot = "UPDATE `facturas_cot` SET `estado_guia_sistema` = ? WHERE `numero_factura` = ?";
-            $datos_edit_facturas_cot = array($estado_actual_codigo, $numero_factura_verificar);
+            $datos_edit_facturas_cot = array($estado_actual_codigo, $numero_factura);
             $query_edit_facturas_cot = $this->update($sql_edit_facturas_cot, $datos_edit_facturas_cot);
             $sql_edit_guia_laar = "UPDATE `guia_laar` SET `estado_guia` = ? WHERE `guia_laar` = ?";
             $datos_edit_guia_laar = array($estado_actual_codigo, $no_guia);
@@ -572,6 +611,7 @@ class LaarModel extends Query
     {
         $send = "testing";
         $protocolo = 'https://';
+        echo $tienda;
         $archivo_tienda =  $tienda . '/sysadmin/vistas/db1.php';
         $archivo_destino_tienda = "../../vistas/db_destino_guia.php";
         $contenido_tienda = file_get_contents($archivo_tienda);
@@ -636,7 +676,7 @@ class LaarModel extends Query
         if ($existe) {
             $sql = "UPDATE novedades SET estado_novedad = ?, novedad = ?, tracking = ? WHERE guia_novedad = ?";
             $stmt = $conexion_proveedor->prepare($sql);
-            $stmt->bind_param("ssss", $cod_novedad, $detalle, $tracking, $no_guia);
+            $stmt->bind_param("isss", $cod_novedad, $detalle, $tracking, $no_guia);
             if ($stmt->execute()) {
                 echo json_encode('ok');
                 echo "se actualizo la novedad";
@@ -652,7 +692,7 @@ class LaarModel extends Query
             if (empty($sql2)) {
                 $sql = "INSERT INTO `detalle_novedad` (`codigo_novedad`, `guia_novedad`, `nombre_novedad`, `detalle_novedad`, `observacion`) VALUES ( ?, ?, ?, ?, ?)";
                 $stmt = $conexion_proveedor->prepare($sql);
-                $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                 if ($stmt->execute()) {
                     echo json_encode('ok');
                     echo "se inserto la novedad";
@@ -662,7 +702,7 @@ class LaarModel extends Query
             } else {
                 $sql = "UPDATE detalle_novedad SET codigo_novedad = ?, nombre_novedad = ?, detalle_novedad = ?, observacion = ? WHERE guia_novedad = ? and codigo_novedad = ?";
                 $stmt = $conexion_proveedor->prepare($sql);
-                $stmt->bind_param("ssssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
+                $stmt->bind_param("isssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                 if ($stmt->execute()) {
                     echo json_encode('ok');
                     echo "se actualizo la novedad";
@@ -695,7 +735,7 @@ class LaarModel extends Query
 
                     //bind
                     $stmt = $conexion_proveedor->prepare($sql);
-                    $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                    $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                     if ($stmt->execute()) {
                         echo json_encode('ok');
                         echo "se inserto la novedad";
@@ -710,7 +750,7 @@ class LaarModel extends Query
 
                     //bind
                     $stmt = $conexion_proveedor->prepare($sql);
-                    $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                    $stmt->bind_param("issssi", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                     if ($stmt->execute()) {
                         echo json_encode('ok');
                         echo "se inserto la novedad";
@@ -737,7 +777,7 @@ class LaarModel extends Query
 
                     //bind
                     $stmt = $conexion_proveedor->prepare($sql);
-                    $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                    $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                     if ($stmt->execute()) {
                         echo json_encode('ok');
                         echo "se inserto la novedad";
@@ -754,7 +794,7 @@ class LaarModel extends Query
 
                     //bind
                     $stmt = $conexion_proveedor->prepare($sql);
-                    $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                    $stmt->bind_param("issssi", $cod_novedad, $detalle, $detalles, $observacion, $no_gui, $cod_novedad);
                     if ($stmt->execute()) {
                         echo json_encode('ok');
                         echo "se inserto la novedad";
@@ -795,7 +835,7 @@ class LaarModel extends Query
                         echo "se inserto la novedad";
                         //bind 
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                        $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";
@@ -809,7 +849,7 @@ class LaarModel extends Query
                         echo "se actualizo la novedad";
                         //bind
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                        $stmt->bind_param("issssi", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";
@@ -836,7 +876,7 @@ class LaarModel extends Query
                         echo "se inserto la novedad";
                         //
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("sssss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
+                        $stmt->bind_param("issss", $cod_novedad, $no_guia, $detalle, $detalles, $observacion);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";
@@ -850,7 +890,7 @@ class LaarModel extends Query
                         echo "se actualizo la novedad";
                         //bind
                         $stmt = $conexion_proveedor->prepare($sql);
-                        $stmt->bind_param("sssss", $cod_novedad, $detalle, $detalles, $observacion, $no_guia);
+                        $stmt->bind_param("issssi", $cod_novedad, $detalle, $detalles, $observacion, $no_guia, $cod_novedad);
                         if ($stmt->execute()) {
                             echo json_encode('ok');
                             echo "se inserto la novedad";

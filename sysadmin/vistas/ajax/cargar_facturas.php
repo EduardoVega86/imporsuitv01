@@ -14,7 +14,7 @@ $filtro = $_GET['filtro'];
 if ($filtro == 'mayor_menor') {
     $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente != 0 ORDER BY visto asc;");
 } else if ($filtro == 'cero') {
-    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente = 0 ORDER BY visto asc;");
+    $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' and valor_pendiente = 0 ORDER BY fecha desc;");
 } else {
     $consultar = mysqli_query($conexion, "SELECT * FROM `cabecera_cuenta_pagar` where tienda ='$tienda' ORDER BY visto asc;");
 }
@@ -36,8 +36,8 @@ if ($filtro == 'mayor_menor') {
 
 <!-- Botones para filtrar registros -->
 <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Pendientes</button>
-    <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Pagados</button>
+    <button type="button" class="btn <?php echo $band ?>" onclick="filtrarRegistros('mayor_menor')">Sin Acreditar</button>
+    <button type="button" class="btn <?php echo $bandd ?>" onclick="filtrarRegistros('cero')">Acreditados</button>
 </div>
 <div class="table-responsive">
     <table class="table-sm table table-condensed table-hover table-striped ">
@@ -50,6 +50,7 @@ if ($filtro == 'mayor_menor') {
             <th>Venta total</th>
             <th>Costo</th>
             <th>Precio Envio</th>
+            <th>Full Fillment</th>
             <th>Monto a Recibir</th>
             <th>Monto Cobrado</th>
             <th>Monto Pendiente</th>
@@ -157,6 +158,7 @@ if ($filtro == 'mayor_menor') {
                 <td><?php echo $rws['total_venta']; ?></td>
                 <td><?php echo $rws['costo']; ?></td>
                 <td><?php echo $rws['precio_envio']; ?></td>
+                <td><?php echo $rws['full']; ?></td>
                 <td><?php echo $rws['monto_recibir']; ?></td>
                 <td><?php echo $rws['valor_cobrado']; ?></td>
 
@@ -232,4 +234,6 @@ if ($filtro == 'mayor_menor') {
             </tr>
         <?php } ?>
     </table>
+
+
 </div>

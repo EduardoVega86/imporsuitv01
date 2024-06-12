@@ -97,7 +97,7 @@ while ($r = $query->fetch_object()) {
 								</div>
 								<div class="clearfix"></div>
 							</div>
-							<div id="bg-primary" class="panel-collapse collapse show">
+							<div id="bg-primary" class="panel-collapse collapse show" style="overflow: auto;">
 								<div class="portlet-body">
 
 									<?php

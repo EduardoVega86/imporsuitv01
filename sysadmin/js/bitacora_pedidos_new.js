@@ -99,7 +99,7 @@ function load(page) {
     filtroImpresas = $("#envioGratis_checkout").is(":checked") ? 1 : 0;
   }
 
-  var url = "../ajax/buscar_guias_cotizacion_new.php?action=ajax&page=" + page;
+  var url = "../ajax/buscar_pedidos_new.php?action=ajax&page=" + page;
   url += "&q=" + encodeURIComponent(q);
   if (tienda != 0) url += "&tienda=" + encodeURIComponent(tienda);
   if (estado != 0) url += "&estado=" + encodeURIComponent(estado);
@@ -151,7 +151,7 @@ function buscar(tienda) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_guias_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_pedidos_new.php?action=ajax&page=" +
       page +
       "&tienda=" +
       tienda +
@@ -200,7 +200,7 @@ function buscar_estado(estado) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_guias_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_pedidos_new.php?action=ajax&page=" +
       page +
       "&estado=" +
       estado +
@@ -374,7 +374,7 @@ function buscar_numero(numero) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_guias_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_pedidos_new.php?action=ajax&page=" +
       page +
       "&numero=" +
       numero +
@@ -443,7 +443,7 @@ const cerrarModal = () => {
 const filtrarRegistros = (filtro) => {
   filtroG = filtro;
   var q = $("#q").val();
-  var url = "../ajax/buscar_guias_cotizacion_new.php?action=ajax&page=1&q=" + q;
+  var url = "../ajax/buscar_pedidos_new.php?action=ajax&page=1&q=" + q;
   var tienda = $("#tienda_q").val();
   var estado = $("#estado_q").val();
   var numero = $("#numero_q").val();
@@ -544,7 +544,7 @@ function buscar_transporte(transporte) {
   $("#loader").fadeIn("slow");
   $.ajax({
     url:
-      "../ajax/buscar_guias_cotizacion_new.php?action=ajax&page=" +
+      "../ajax/buscar_pedidos_new.php?action=ajax&page=" +
       page +
       "&transportadora=" +
       transporte +
@@ -570,17 +570,15 @@ function buscar_transporte(transporte) {
     },
   });
 }
-function anular_guia(guia, id) {
+function anular_guia_pedidos(numero_factura) {
 
   id_factura = 1;
   if (id_factura = 1) {
       $.ajax({
-          url: '../ajax/eliminar_guia_filtro.php',
+          url: '../ajax/eliminar_guia_filtro_pedidos.php',
           type: 'post',
           data: {
-              guia: guia,
-              id: id,
-
+            numero_factura: numero_factura
           },
           dataType: 'text',
           success: function(response) {

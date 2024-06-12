@@ -18,23 +18,29 @@ $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' 
 $dominio_completo =     $protocol . $_SERVER['HTTP_HOST'];
 
 
-$query_total_ventas = "SELECT SUM(valor_pendiente) AS total_pendiente_a_la_tienda FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' and visto='1'";
-$total_venta = mysqli_query($marketplace_conexion_2, $query_total_ventas);
+$sql_billetera = "SELECT saldo FROM billeteras WHERE tienda = '$dominio_completo'";
+$datos = mysqli_query($marketplace_conexion_2, $sql_billetera);
+$datos = mysqli_fetch_assoc($datos);
+if ($datos) {
+	$billetera = $datos['saldo'];
+} else {
+	$billetera = 0;
+}
 
-@$total_venta = mysqli_fetch_assoc($total_venta);
-@$total_venta = $total_venta['total_pendiente_a_la_tienda'];
+
 $color = '';
 $pais = get_row('perfil', 'pais', 'id_perfil', 1);
-if ($total_venta == null) {
-	$total_venta = 0;
+if ($billetera == null) {
+	$billetera = 0;
 	$color = 'text-white';
-} elseif ($total_venta > 0) {
+} elseif ($billetera > 0) {
 	$color = 'text-success';
 } else {
 
 	$color = 'text-danger';
 }
-$total_venta = number_format($total_venta, 2, '.', ',');
+
+$total_venta = number_format($billetera, 2, '.', ',');
 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 ?>
 <div class="topbar" style="background: #171931">
@@ -81,7 +87,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 			</li>
 			<li class="list-inline-item notification-list hide-phone   waves-light waves-effect">
 				<i class="ti-wallet"></i>
-				<span class="<?php echo $color ?>"><?php echo $simbolo_moneda . $total_venta ?></span>
+				<span class="<?php echo $color ?>"><?php echo $simbolo_moneda . $billetera ?></span>
 			</li>
 
 			<li class="list-inline-item notification-list hide-phone">
@@ -236,7 +242,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 						<?php if ($pais == 1) {
 
 						?>
-							<li><a href="../html/bitacora_cotizacion_new.php">Pedidos Ingresados</a></li>
+							<li><a href="../html/bitacora_pedidos_new.php">Pedidos Ingresados</a></li>
 						<?php  } else {
 						?>
 							<li><a href="../html/bitacora_cotizacion_p.php">Pedidos Ingresados</a></li>
@@ -247,8 +253,10 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 							<li><a href="../html/bitacora_externa.php">Pedidos Externos</a></li>
 
 						<?php } ?>
-						
-						<!-- <li><a href="../html/new_cotizacion.php">Guias</a></li> -->
+
+						<li><a href="../html/guias_bitacora_cotizacion_new.php">Guias</a></li>
+
+						<li><a href="../html/guias_anuladas_bitacora_cotizacion_new.php">Guias anuladas</a></li>
 
 						<li>
 							<a href="../html/novedades.php">Novedades</a>
@@ -311,6 +319,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 
 						<li><a href="../html/info_web_1.php">Tienda On Line</a></li>
 						<a href="../html/checkout.php">Editar Checkout de Compra</a>
+						<a href="../html/combos.php">Combos</a>
 						<li><a href="../html/politicas.php">Politicas de Privacidad</a></li>
 						<li><a href="../html/pixel.php">Pixele Seg</a></li>
 						<li><a href="../html/gracias.php">Pagina de Gracias</a></li>
@@ -352,9 +361,9 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
 				</li>
 
 				<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>
-				<li>
-					<a href="administrar_marketplace.php" class="waves-effect waves-primary"><i class="ti-home"></i><span> Adminmistrar tiendas </span></a>
-				</li>
+					<li>
+						<a href="administrar_marketplace.php" class="waves-effect waves-primary"><i class="ti-home"></i><span> Adminmistrar tiendas </span></a>
+					</li>
 				<?php } ?>
 
 				<?php if ($dominio_completo == 'https://marketplace.imporsuit.com') { ?>

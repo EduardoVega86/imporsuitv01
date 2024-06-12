@@ -136,6 +136,7 @@ function load(page) {
 $("#add_abono").submit(function (event) {
   $("#guardar_datos").attr("disabled", true);
   var abono = $("#abono").val();
+  let comprobante = $("#comprobante").val();
   //Inicia validacion
   if (isNaN(abono)) {
     $.Notification.notify(
@@ -170,7 +171,65 @@ $("#add_abono").submit(function (event) {
       //cierra la Modal
       $("#outer_div").load("../ajax/ver_pagos.php");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
-      $("#facturas").load("../ajax/cargar_facturas.php");
+      $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
+      $("#add-stock").modal("hide");
+      //desaparecer la alerta
+      window.setTimeout(function () {
+        $(".alert")
+          .fadeTo(500, 0)
+          .slideUp(500, function () {
+            $(this).remove();
+          });
+      }, 5000);
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(
+        "Error en la solicitud AJAX: " + textStatus + " - " + errorThrown
+      );
+      // Puedes mostrar un mensaje de error al usuario aquí
+    },
+  });
+  event.preventDefault();
+});
+
+$("#saldar_abono").submit(function (event) {
+  $("#guardar_datos").attr("disabled", true);
+  var abono = $("#abono").val();
+  //Inicia validacion
+  if (isNaN(abono)) {
+    $.Notification.notify(
+      "error",
+      "bottom center",
+      "NOTIFICACIÓN",
+      "El ABONO NO ES UN DATO VALIDO, INTENTAR DE NUEVO"
+    );
+    $("#abono").focus();
+    $("#guardar_datos").attr("disabled", false);
+    return false;
+  }
+  //Fin validacion
+  var formData = new FormData(this);
+  $.ajax({
+    type: "POST",
+    url: "../ajax/agregar_saldo_wallet.php",
+    data: formData,
+    processData: false,
+    contentType: false,
+    beforeSend: function (objeto) {
+      $("#resultados_ajax").html(
+        '<img src="../../img/ajax-loader.gif"> Cargando...'
+      );
+    },
+    success: function (datos) {
+      $("#resultados_ajax").html(datos);
+      $("#guardar_datos").attr("disabled", false);
+      load(1);
+      //resetea el formulario
+      $("#add_abono")[0].reset();
+      //cierra la Modal
+      $("#outer_div").load("../ajax/ver_pagos.php");
+      $("#widgets").load("../ajax/cargar_widget_wallet.php");
+      $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
       $("#add-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {
@@ -228,7 +287,7 @@ $("#remove_abono").submit(function (event) {
       //cierra la Modal
       $("#outer_div").load("../ajax/ver_pagos.php");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
-      $("#facturas").load("../ajax/cargar_facturas.php");
+      $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
       $("#remove-stock").modal("hide");
       //desaparecer la alerta
       window.setTimeout(function () {
@@ -294,7 +353,7 @@ function devolucion(guia_laar) {
           $("#loader").html("");
           $("#outer_div").load("../ajax/ver_pagos.php");
           $("#widgets").load("../ajax/cargar_widget_wallet.php");
-          $("#facturas").load("../ajax/cargar_facturas.php");
+          $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
         },
       });
       Swal.fire("¡Eliminado!", "Su archivo ha sido devuelto.", "success");
@@ -314,10 +373,10 @@ function visto(id_cabecera) {
       $("#loader").html("<img src='../../img/ajax-loader.gif'>");
     },
     success: function (datos) {
-      $("#loader").html("");
-      $("#outer_div").load("../ajax/ver_pagos.php");
+      /*   $("#loader").html("");
+      $(".outer_div").load("../ajax/ver_pagos.php?action=ajax");
       $("#widgets").load("../ajax/cargar_widget_wallet.php");
-      $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
+      $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor"); */
     },
   });
 }
@@ -348,7 +407,7 @@ function eliminar(id_cabecera) {
           $("#loader").html("");
           $("#outer_div").load("../ajax/ver_pagos.php");
           $("#widgets").load("../ajax/cargar_widget_wallet.php");
-          $("#facturas").load("../ajax/cargar_facturas.php");
+          $("#facturas").load("../ajax/cargar_facturas.php?filtro=mayor_menor");
         },
       });
       Swal.fire("¡Eliminado!", "Su archivo ha sido eliminado.", "success");

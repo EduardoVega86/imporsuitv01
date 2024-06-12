@@ -4,7 +4,7 @@ const paginasAMostrar = 5;
 let q = '';
 let id_producto_dropi = null;
 $(document).ready(function () {
-  load();
+  /* load(); */
 });
 $("#editar_linea").submit(function (event) {
   // alert();

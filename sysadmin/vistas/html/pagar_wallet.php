@@ -27,6 +27,14 @@ include "../permisos.php";
 $user_id = $_SESSION['id_users'];
 $_SESSION['tienda'] = $tienda;
 
+$sql_existe = "SELECT COUNT(*) as existe from billeteras where tienda = '$tienda'";
+$result_existe = mysqli_query($conexion, $sql_existe);
+$rw_existe = mysqli_fetch_array($result_existe);
+if ($rw_existe['existe'] == 0) {
+    $sql = "INSERT INTO billeteras (tienda, saldo) VALUES ('$tienda', 0)";
+    $result = mysqli_query($conexion, $sql);
+}
+
 get_cadena($user_id);
 $modulo = "Wallets";
 permisos($modulo, $cadena_permisos);
@@ -103,6 +111,7 @@ $tiendaN = strtoupper($tiendaN);
                                             <?php
                                             include "../modal/agregar_abono_wallet.php";
                                             include "../modal/agregar_deuda_wallet.php";
+                                            include "../modal/agregar_saldo_deuda.php";
                                             ?>
                                             <div class="col-lg-12 col-md-6">
                                                 <div class="widget-bg-color-icon card-box">
@@ -134,21 +143,21 @@ $tiendaN = strtoupper($tiendaN);
                                                             <div class="col-xs-2">
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
-                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#add-stock"><i class="fa fa-plus"></i> Abono</button>
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#add-stock"><i class="fa fa-minus"></i> Abonos</button>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-2">
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
-                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#remove-stock"><i class="fa fa-minus"></i> Deuda</button>
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light" data-toggle="modal" data-target="#remove-stock"><i class="fa fa-plus"></i> Recargas</button>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-2">
                                                                 <div class="btn-group pull-center">
                                                                     <?php if ($permisos_ver == 1) { ?>
-                                                                        <button type="button" onclick="reporte();" class="btn btn-default waves-effect waves-light" title="Imprimir"><i class='fa fa-print'></i></button>
+                                                                        <button type="button" class="btn btn-warning waves-effect waves-light" onclick="resetar()"><i class="fa fa-minus"></i>Resetear Wallet</button>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -214,10 +223,47 @@ $tiendaN = strtoupper($tiendaN);
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
 
+<script>
+    function resetar() {
+        var tienda = '<?php echo $tienda; ?>';
+        $.ajax({
+            url: "../ajax/reiniciar_wallet.php",
+            type: "POST",
+            data: {
+                "tienda": tienda
+            },
+            beforeSend: function(objeto) {
+                $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            },
+            success: function(data) {
+                $("#loader").html('');
+                $("#resultados_ajax").html(data);
+            }
+        });
+    }
+</script>
 
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script src="../../js/ver_pagar_wallet.js"></script>
 <script>
+    function resetar() {
+        var tienda = '<?php echo $tienda; ?>';
+        $.ajax({
+            url: "../ajax/reiniciar_wallet.php",
+            type: "POST",
+            data: {
+                "tienda": tienda
+            },
+            beforeSend: function(objeto) {
+                $("#loader").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+            },
+            success: function(data) {
+                $("#loader").html('');
+                $("#resultados_ajax").html(data);
+            }
+        });
+    }
+
     function reporte() {
         var id_factura = '<?php echo $id_factura; ?>';
         var tienda = '<?php echo $tienda; ?>';

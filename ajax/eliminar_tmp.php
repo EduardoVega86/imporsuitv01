@@ -366,7 +366,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                             </td>
                             <td style="width: 50%">
                                 <div class="_rsi-modal-line-item-info">
-                                    <a class="_rsi-modal-line-item-title" href="/products/aquapure?variant=45622098493721" style="font-size: 15px;"><?php echo $nombre_producto; ?></a>
+                                    <a class="_rsi-modal-line-item-title" href="producto_1.php?id=<?php echo $id_producto; ?>" style="font-size: 15px;"><?php echo $nombre_producto; ?></a>
                                 </div>
                             </td>
                             <td style="width: 10%">
