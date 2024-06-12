@@ -257,10 +257,10 @@ if (empty($_POST['session'])) {
 FROM productos, tmp_ventas 
 WHERE drogshipin_tmp=1 
     AND productos.id_producto=tmp_ventas.id_producto 
-    AND tmp_ventas.session_id='$session_id' AND productos.lineas = 1000
+    AND tmp_ventas.session_id='$session_id'
 GROUP BY tienda;";
 
-    // echo $sql_productos;
+ //   echo $sql_productos;
 
 
     $sql_producto_tienda = mysqli_query($conexion, $sql_productos);
