@@ -19,6 +19,16 @@ permisos($modulo, $cadena_permisos);
 $count      = mysqli_query($conexion, "select MAX(codigo_producto) as codigo from productos");
 $rw         = mysqli_fetch_array($count);
 $product_id = $rw['codigo'];
+
+$marketplace_url = $_SERVER['HTTP_HOST'];
+$marketplace_url = str_replace(["www.", ".com"], "", $marketplace_url);
+
+// Compara en minúsculas para evitar problemas de sensibilidad a mayúsculas y minúsculas
+if (strtolower($marketplace_url) !== "marketplace.imporsuit" && strtolower($marketplace_url) !== 'localhost') {
+    header("location: ../../login.php");
+    exit;
+}
+
 if (preg_match('/[A-Za-z]/', $product_id)) {
 
 	$letra = preg_replace('/[^A-Za-z]+/', '', $product_id);
