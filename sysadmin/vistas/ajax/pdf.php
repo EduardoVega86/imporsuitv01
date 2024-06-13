@@ -71,6 +71,8 @@ if (is_array($pdfs)) {
             $pdfContent = file_get_contents("https://fast.imporsuit.com/GenerarGuia/descargar/" . $pdfUrl);
         } else if (is_numeric($pdfUrl)) {
             $pdfContent = file_get_contents("https://guias.imporsuit.com/Servientrega/Guia/" . $pdfUrl);
+        } else if (strpos($pdfUrl, "I00") === 0) {
+            $pdfContent = file_get_contents("https://guias.imporsuit.com/Gintracom/label/" . $pdfUrl);
         }
         if ($pdfContent === false) {
             exit("No se pudo obtener el PDF de la guía: $pdfUrl");
