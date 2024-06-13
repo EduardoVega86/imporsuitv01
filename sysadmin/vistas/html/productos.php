@@ -117,6 +117,9 @@ while ($r = $query->fetch_object()) {
 											<div class="col-md-3">
 												<div class="input-group">
 													<input type="text" class="form-control" id="q" placeholder="Código o Nombre" onkeyup='load(1);'>
+                                                                                                        
+                                                                                                        <input type="hidden" class="form-control" id="pagina">
+                                                                                                        
 												</div>
 											</div>
 											<div class="col-md-3">
@@ -144,6 +147,7 @@ while ($r = $query->fetch_object()) {
 												<div class="">
 													<input class="input-change" type="checkbox" role="switch" id="activar_destacados" <?php if (get_row('perfil', 'activar_destacados', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
 													<label class="form-check-label" for="flexSwitchCheckChecked">Habilitar Destacados</label>
+                                                                                                        
 												</div>
 											</div>
 
