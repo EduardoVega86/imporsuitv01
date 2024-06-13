@@ -131,13 +131,13 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 $transporte = $id_transporte;
                 if ($transporte == 1) {
                     $transporte = 'Laar Courier';
-                } else if ($transporte == 2){
+                } else if ($transporte == 2) {
                     $transporte = 'Speed';
-                } else if ($transporte == 3){
+                } else if ($transporte == 3) {
                     $transporte = 'Servientrega';
-                } else if ($transporte == 4){
+                } else if ($transporte == 4) {
                     $transporte = 'Gintracom';
-                } else{
+                } else {
                     $transporte = 'Motorizado';
                 }
                 $id_producto = $row['id_producto'];
@@ -293,7 +293,7 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                 $get_data =  json_decode($contenido_tienda, true);
 
                 $id_factura_origen = $row['id_factura_origen'];
-                if ($tienda == "https://imporshop.imporsuit.com" || $tienda == $server_url) {
+                if ($tienda == "https://imporshop.imporsuit.com" || $tienda == $server_url || empty($id_factura_origen)) {
                     $id_factura_origen = $row['id_factura'];
                 }
                 if ($drogshipin == 4) {
@@ -359,11 +359,11 @@ if (isset($_POST['factura']) && isset($_POST['tipo'])) {
                         $transporte = $id_transporte;
                         if ($transporte == 1) {
                             $transporte = 'Laar Courier';
-                        } else if ($transporte == 2){
+                        } else if ($transporte == 2) {
                             $transporte = 'Speed';
-                        } else if ($transporte == 3){
+                        } else if ($transporte == 3) {
                             $transporte = 'Servientrega';
-                        } else if ($transporte == 4){
+                        } else if ($transporte == 4) {
                             $transporte = 'Gintracom';
                         } else {
                             $transporte = 'Motorizado';
