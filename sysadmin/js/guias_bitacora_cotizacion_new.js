@@ -570,7 +570,7 @@ function buscar_transporte(transporte) {
     },
   });
 }
-function anular_guia(guia, id) {
+function anular_guia(guia, id, numero_factura) {
 
   id_factura = 1;
   if (id_factura = 1) {
@@ -580,6 +580,7 @@ function anular_guia(guia, id) {
           data: {
               guia: guia,
               id: id,
+              numero_factura: numero_factura,
 
           },
           dataType: 'text',
