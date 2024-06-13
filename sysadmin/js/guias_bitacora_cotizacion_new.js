@@ -571,29 +571,44 @@ function buscar_transporte(transporte) {
   });
 }
 function anular_guia(guia, id, numero_factura) {
-
   id_factura = 1;
-  if (id_factura = 1) {
-      $.ajax({
-          url: '../ajax/eliminar_guia_filtro.php',
-          type: 'post',
-          data: {
-              guia: guia,
-              id: id,
-              numero_factura: numero_factura,
-
-          },
-          dataType: 'text',
-          success: function(response) {
-
-              if (response == 'ok') {
-                  location.reload();
-              } else {
-                  alert(response)
-              }
-
-          } // /success function
-
-      }); // /ajax function to fetch the printable order
+  if ((id_factura = 1)) {
+    $.ajax({
+      url: "../ajax/eliminar_guia_filtro.php",
+      type: "post",
+      data: {
+        guia: guia,
+        id: id,
+        numero_factura: numero_factura,
+      },
+      dataType: "text",
+      success: function (response) {
+        if (response == "ok") {
+          location.reload();
+        } else {
+          if (response == "Guia no valida") {
+            $.ajax({
+              url: "../ajax/actualizar_anularEstado.php",
+              type: "post",
+              data: {
+                numero_factura: numero_factura,
+              },
+              dataType: "text",
+              success: function (updateResponse) {
+                alert(updateResponse);
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                console.error(
+                  "Error en la actualización: " + textStatus,
+                  errorThrown
+                );
+              },
+            });
+          } else {
+            alert(response);
+          }
+        }
+      }, // /success function
+    }); // /ajax function to fetch the printable order
   } // /if orderId
 }

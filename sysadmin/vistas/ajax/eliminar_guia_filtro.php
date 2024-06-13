@@ -9,8 +9,6 @@ $authData = array(
 
 $guia = $_POST['guia'];
 
-$numero_factura = $_POST['numero_factura'];
-
 if (strpos($guia, "IMP") !== 0 && !is_numeric($guia)) {
     $authUrl = "https://fast.imporsuit.com/GenerarGuia/anular/" . $guia;
     $authHeaders = array(
@@ -69,13 +67,7 @@ if (strpos($guia, "IMP") !== 0 && !is_numeric($guia)) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
     $response = curl_exec($ch);
-
-    if ($response == "Guia no valida") {
-        $sql_servientrega_update = "UPDATE facturas_cot SET estado_guia_sistema = 101 WHERE numero_factura = '$numero_factura'";
-        $result_servientrega_update = mysqli_query($conexion, $sql_servientrega_update);
-        echo "anulada";
-    }
-
+    echo $response;
     curl_close($ch);
     return;
 } else if (strpos($guia, "I00")) {
