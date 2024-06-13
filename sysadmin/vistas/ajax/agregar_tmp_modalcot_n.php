@@ -126,8 +126,9 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 //$total_impuesto += rebajas($subtotal, $desc_tmp) * $cantidad;
                 $total_impuesto = $total_impuesto + $impuesto_unitario;
                 $cantidad_total = $cantidad_total + $cantidad;
+                $costo_producto_temp = $row['costo_producto'];
 
-                $costo_total = $costo_total + ($costo_producto * $cantidad);
+                $costo_total = $costo_total + ($costo_producto_temp * $cantidad);
                 //echo ($costo_total);
 
 
