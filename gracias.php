@@ -158,7 +158,20 @@ if (empty($_POST['session'])) {
     //echo $server_url;
 
     $contenido_productos = "";
-    if ($resultado > 0) {
+    $sql_productos = "SELECT tienda, COUNT(*) as cantidad_productos
+FROM productos, tmp_ventas 
+WHERE drogshipin_tmp=0
+    AND productos.id_producto=tmp_ventas.id_producto 
+    AND tmp_ventas.session_id='$session_id'
+GROUP BY tienda;";
+
+   echo $sql_productos;
+
+
+    $sql_producto_tienda_local = mysqli_query($conexion, $sql_productos);
+
+    if (mysqli_num_rows($sql_producto_tienda_local)>0) {
+   //echo 'entra';
         while ($row = mysqli_fetch_array($sql)) {
             $id_tmp          = $row["id_tmp"];
             $id_producto     = $row['id_producto'];
@@ -265,7 +278,7 @@ GROUP BY tienda;";
 
     $sql_producto_tienda = mysqli_query($conexion, $sql_productos);
 
-    if ($sql_producto_tienda) {
+ if (mysqli_num_rows($sql_producto_tienda)>0) {
 
         while ($row_tienda = mysqli_fetch_assoc($sql_producto_tienda)) {
             $tienda         = $row_tienda["tienda"];

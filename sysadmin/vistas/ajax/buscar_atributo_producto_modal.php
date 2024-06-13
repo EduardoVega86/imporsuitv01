@@ -155,8 +155,10 @@ echo "<span onclick='agregarFila(" . $id_variedad . ", \"" . addslashes($nombre_
             var newRow = `<tr>
                
                 <td><input class="form-control" type="hidden" value='${attribute}' name="id_${attribute}" />${nombre}</td>
+                    <td><input class="form-control" type="hidden" value='${nombre}' name="atributo_${attribute}" /></td>
                 <td><input class="form-control formulario" type="text" name="stock_${attribute}" /></td>
                 <td><input class="form-control formulario" type="text" name="precio_${attribute}" /></td>
+                    <td><input class="form-control formulario" type="text" name="precio_venta_${attribute}" /></td>
                     <td><select class="form-control" name="select_${attribute}">${options}</select></td>
                 <td><button type="button" class="remove-row">x</button></td>
             </tr>`;

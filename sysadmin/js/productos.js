@@ -4,6 +4,7 @@ $(document).ready(function () {
 });
 
 function load(page) {
+    $("#pagina").val(page);
   var q = $("#q").val();
   var categoria = $("#categoria").val();
   $("#loader").fadeIn("slow");
@@ -25,36 +26,50 @@ function load(page) {
   });
 }
 $("#guardar_producto").submit(function (event) {
-  $("#guardar_datos").attr("disabled", true);
-  var parametros = $(this).serialize();
-  $.ajax({
-    type: "POST",
-    url: "../ajax/nuevo_producto.php",
-    data: parametros,
-    beforeSend: function (objeto) {
-      $("#resultados_ajax").html(
-        '<img src="../../img/ajax-loader.gif"> Cargando...'
-      );
-    },
-    success: function (datos) {
-      $("#resultados_ajax").html(datos);
-      $("#guardar_datos").attr("disabled", false);
-      $("#cod_resultado").load("../ajax/incrementa_cod_prod.php");
-      load(1);
-      //resetea el formulario
-      $("#guardar_producto")[0].reset();
-      //desaparecer la alerta
-      window.setTimeout(function () {
-        $(".alert")
-          .fadeTo(500, 0)
-          .slideUp(500, function () {
-            $(this).remove();
-          });
-      }, 5000);
-    },
-  });
-  event.preventDefault();
+    event.preventDefault();
+    $("#guardar_datos").attr("disabled", true);
+
+    // Recopilar datos del formulario principal
+    var formData = $(this).serializeArray();
+
+    // Recopilar datos de la tabla dinámica
+    $('#tabla-dinamica tbody tr').each(function(index, row) {
+        var $row = $(row);
+        formData.push({ name: `table_data[${index}][id]`, value: $row.find('input[name^="id_"]').val() });
+        formData.push({ name: `table_data[${index}][stock]`, value: $row.find('input[name^="stock_"]').val() });
+        formData.push({ name: `table_data[${index}][precio]`, value: $row.find('input[name^="precio_"]').val() });
+        formData.push({ name: `table_data[${index}][precio_venta]`, value: $row.find('input[name^="precio_venta_"]').val() });
+        formData.push({ name: `table_data[${index}][select]`, value: $row.find('select[name^="select_"]').val() });
+         formData.push({ name: `table_data[${index}][atributo]`, value: $row.find('input[name^="atributo_"]').val() });
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "../ajax/nuevo_producto.php",
+        data: $.param(formData),
+        beforeSend: function () {
+            $("#resultados_ajax").html('<img src="../../img/ajax-loader.gif"> Cargando...');
+        },
+        success: function (datos) {
+            $("#resultados_ajax").html(datos);
+            $("#guardar_datos").attr("disabled", false);
+            $("#cod_resultado").load("../ajax/incrementa_cod_prod.php");
+            load(1);
+            // Resetea el formulario
+            $("#guardar_producto")[0].reset();
+            // Desaparecer la alerta
+            window.setTimeout(function () {
+                $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                    $(this).remove();
+                });
+            }, 5000);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al guardar los datos:', error);
+        }
+    });
 });
+
 $("#editar_producto1").submit(function (event) {
   //alert()
   $("#actualizar_datos").attr("disabled", true);

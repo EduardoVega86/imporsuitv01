@@ -74,7 +74,9 @@ if (empty($_POST['codigo'])) {
         $query_update = mysqli_query($conexion, $sql);
     } else {
         $sql              = "INSERT INTO productos (codigo_producto, nombre_producto, descripcion_producto, id_linea_producto, id_proveedor, inv_producto, iva_producto, estado_producto, costo_producto, utilidad_producto, valor1_producto,valor2_producto,valor3_producto, stock_producto,stock_min_producto, date_added,id_imp_producto, pagina_web, formato, valor4_producto) VALUES ('$codigo','$nombre','$descripcion','$linea','$proveedor','$inv','$impuesto','$estado','$costo','$utilidad','$precio_venta','$precio_mayoreo','$precio_especial','$stock','$stock_minimo','$date_added','0','$online','$formato', '$precio_normal')";
-        //echo $sql;
+        
+
+//echo $sql;
         //echo $formato;
         if ($formato == 3) {
 
@@ -94,6 +96,27 @@ if (empty($_POST['codigo'])) {
             echo mysqli_error($drag_db);
         }
         $query_new_insert = mysqli_query($conexion, $sql);
+        
+          // Guardar los datos de la tabla dinámica
+        echo 'asd;';
+        if (!empty($_POST['table_data'])) {
+            
+        foreach ($_POST['table_data'] as $row) {
+            $attribute_d = mysqli_real_escape_string($conexion, $row['id']);
+            $stock_d = floatval($row['stock']);
+            $precio_d = floatval($row['precio']);
+            $precio_venta_d = floatval($row['precio_venta']);
+            $select_d = intval($row['select']);
+            $atributo_d = $row['atributo'];
+
+            $sql_dynamic = "INSERT INTO `producto_variable` (`id`, `sku`, `id_producto`, `id_atributo`, `atributo`, `stock`, `precio`, `pvp`, `bodega`) VALUES (NULL,  'sku', '1', '$attribute_d', '$atributo_d', '$stock_d','$precio_d','$precio_venta_d', '$select_d')";
+            echo $sql_dynamic;
+            mysqli_query($conexion, $sql_dynamic);
+        }
+    }
+
+    
+    
     }
     //Seleccionamos el ultimo compo numero_fatura y aumentamos una
     $sql         = mysqli_query($conexion, "select LAST_INSERT_ID(id_producto) as last from productos order by id_producto desc limit 0,1 ");

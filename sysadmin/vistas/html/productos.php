@@ -64,6 +64,9 @@ while ($r = $query->fetch_object()) {
 	.modal .modal-dialog .modal-content .modal-header {
 		background-color: #171931 !important;
 	}
+        .formulario {
+        border-radius: 25px;
+    }
 </style>
 <!-- Begin page -->
 <div id="wrapper" class="forced enlarged"> <!-- DESACTIVA EL MENU -->
@@ -114,6 +117,9 @@ while ($r = $query->fetch_object()) {
 											<div class="col-md-3">
 												<div class="input-group">
 													<input type="text" class="form-control" id="q" placeholder="Código o Nombre" onkeyup='load(1);'>
+                                                                                                        
+                                                                                                        <input type="hidden" class="form-control" id="pagina">
+                                                                                                        
 												</div>
 											</div>
 											<div class="col-md-3">
@@ -141,6 +147,7 @@ while ($r = $query->fetch_object()) {
 												<div class="">
 													<input class="input-change" type="checkbox" role="switch" id="activar_destacados" <?php if (get_row('perfil', 'activar_destacados', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
 													<label class="form-check-label" for="flexSwitchCheckChecked">Habilitar Destacados</label>
+                                                                                                        
 												</div>
 											</div>
 
@@ -581,7 +588,8 @@ while ($r = $query->fetch_object()) {
 						icon: "success",
 						confirmButtonText: "¡Aceptar!",
 					}).then(() => {
-						window.location.reload();
+                                            load($("#pagina").val())
+						//window.location.reload();
 					});
 				} else {
 					//  let objetoJSON = JSON.parse(response);
@@ -591,7 +599,7 @@ while ($r = $query->fetch_object()) {
 						icon: "error",
 						confirmButtonText: "¡Aceptar!",
 					}).then(() => {
-						window.location.reload();
+						load($("#pagina").val())
 					});
 
 				}
@@ -626,6 +634,27 @@ while ($r = $query->fetch_object()) {
 			}
 		})
 	}
+        
+        function atributos_producto() {
+		//alert(id)
+                id=1;
+		$('#id_producto').val(id);
+		$.ajax({
+			url: '../ajax/buscar_atributo_producto_modal.php?action=ajax&id_producto=' + id,
+			beforeSend: function(objeto) {
+				$('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
+			},
+			success: function(data) {
+                          //  alert(data)
+				$("#atributos").html(data);
+				$('#loader').html('');
+			}
+		})
+	}
+        
+        
+         
+        
 
 	function agrega_atributo() {
 
@@ -666,6 +695,7 @@ while ($r = $query->fetch_object()) {
 	}
 
 	function variables(id) {
+       
 		// alert();
 		fila = '#solicitud' + id
 		page = 1;
