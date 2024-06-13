@@ -588,6 +588,7 @@ while ($r = $query->fetch_object()) {
 						icon: "success",
 						confirmButtonText: "¡Aceptar!",
 					}).then(() => {
+                                            load($("#pagina").val())
 						//window.location.reload();
 					});
 				} else {
@@ -598,7 +599,7 @@ while ($r = $query->fetch_object()) {
 						icon: "error",
 						confirmButtonText: "¡Aceptar!",
 					}).then(() => {
-						//window.location.reload();
+						load($("#pagina").val())
 					});
 
 				}
