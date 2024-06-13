@@ -584,7 +584,7 @@ while ($r = $query->fetch_object()) {
 						icon: "success",
 						confirmButtonText: "¡Aceptar!",
 					}).then(() => {
-						window.location.reload();
+						//window.location.reload();
 					});
 				} else {
 					//  let objetoJSON = JSON.parse(response);
@@ -594,7 +594,7 @@ while ($r = $query->fetch_object()) {
 						icon: "error",
 						confirmButtonText: "¡Aceptar!",
 					}).then(() => {
-						window.location.reload();
+						//window.location.reload();
 					});
 
 				}
