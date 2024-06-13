@@ -4,6 +4,7 @@ $(document).ready(function () {
 });
 
 function load(page) {
+    $("#pagina").val(page);
   var q = $("#q").val();
   var categoria = $("#categoria").val();
   $("#loader").fadeIn("slow");
