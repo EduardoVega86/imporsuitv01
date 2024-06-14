@@ -14,10 +14,14 @@ $select = "SELECT * FROM cabecera_cuenta_pagar WHERE id_cabecera = '$id_cabecera
 $result = mysqli_query($conexion, $select);
 $rw = mysqli_fetch_array($result);
 date_default_timezone_set('America/Guayaquil');
-$monto_recibir = $rw['monto_recibir'];
+$monto_recibir = $rw['valor_pendiente'];
 $tienda = $rw['tienda'];
 $guia_laar = $rw['guia_laar'];
 $estado_guia = $rw['estado_guia'];
+
+if ($monto_recibir == 0) {
+    return;
+}
 
 if ($estado_guia == 9 && $monto_recibir > 0) {
     return;
