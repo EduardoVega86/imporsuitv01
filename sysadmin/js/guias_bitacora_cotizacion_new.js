@@ -595,7 +595,7 @@ function anular_guia(guia, id, numero_factura) {
               },
               dataType: "text",
               success: function (updateResponse) {
-                alert(updateResponse);
+                location.reload();
               },
               error: function (jqXHR, textStatus, errorThrown) {
                 console.error(

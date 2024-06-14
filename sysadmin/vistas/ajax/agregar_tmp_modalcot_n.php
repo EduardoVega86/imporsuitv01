@@ -24,7 +24,7 @@ $costo_total = 0;
 $id_pedido_cot = 0;
 
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta)) {
-    
+
     // consulta para comparar el stock con la cantidad resibida
     $query = mysqli_query($conexion, "select stock_producto, inv_producto , drogshipin, costo_producto from productos where id_producto = '$id'");
     $rw    = mysqli_fetch_array($query);
@@ -83,6 +83,7 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
             $sql            = mysqli_query($conexion, "select * from productos, tmp_cotizacion where productos.id_producto=tmp_cotizacion.id_producto and tmp_cotizacion.session_id='" . $session_id . "'");
             $cantidad_total = 0;
             $productos_guia = '';
+
             while ($row = mysqli_fetch_array($sql)) {
 
                 $id_tmp          = $row["id_tmp"];
@@ -125,8 +126,9 @@ $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                 //$total_impuesto += rebajas($subtotal, $desc_tmp) * $cantidad;
                 $total_impuesto = $total_impuesto + $impuesto_unitario;
                 $cantidad_total = $cantidad_total + $cantidad;
+                $costo_producto_temp = $row['costo_producto'];
 
-                $costo_total = $costo_total + $costo_producto * ($cantidad);
+                $costo_total = $costo_total + ($costo_producto_temp * $cantidad);
                 //echo ($costo_total);
 
 
