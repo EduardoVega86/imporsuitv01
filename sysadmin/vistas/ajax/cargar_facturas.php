@@ -134,6 +134,8 @@ if ($filtro == 'mayor_menor') {
 
             $url_servi_guia = "https://servientrega-ecuador.appsiscore.com/app/app-cliente/cons_publica.php?guia=" . $rws['guia_laar'];
 
+            $url_gintra = "https://ec.gintracom.site/web/site/tracking";
+
 
 
             $ganancias_imporsuit = $rws['precio_envio'] - (($tarifa * 1.12) * 1.03);
@@ -194,6 +196,10 @@ if ($filtro == 'mayor_menor') {
                     <?php
                     if (is_numeric($rws['guia_laar'])) {
                         echo '<a href="' . $url_servi_guia . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>';
+                    } else if (strpos($rws['guia_laar'], "I000") === 0) {
+                        echo '<a href="' . $url_gintra . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>';
+                    } else if (strpos($rws['guia_laar'], "FAST") === 0) {
+                        echo '<a href="' . $url_guia . $rws['guia_laar'] . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>';
                     } else {
                         echo '<a href="' . $url_guia . $rws['guia_laar'] . '" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-truck"></i></a>';
                     }

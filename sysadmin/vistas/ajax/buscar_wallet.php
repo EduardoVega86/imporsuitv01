@@ -745,7 +745,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     ?>
 
                                     <div class="">
-                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO EN BILLETERA</p>
+                                        <p class="text-muted m-b-5 font-13 font-bold text-uppercase">SALDO EN BILLETERA´</p>
                                         <h4 class="m-t-0 m-b-5 counter font-bold text-danger"><?php echo $simbolo_moneda . '' . number_format($total_billetera, 2); ?></h4>
                                     </div>
                                 </div>
