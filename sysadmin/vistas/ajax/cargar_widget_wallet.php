@@ -46,7 +46,7 @@ $valor_total_Ganancia = $total_pendiente_a_la_tienda['venta'];
 $valor_total_pendiente_deuda = $total_pendiente_a_la_tienda['devoluciones'];
 $valor_total_monto_recibir = $total_pendiente_a_la_tienda['utilidad'];
 
-$valor_total_pagos_sql = "SELECT ROUND(SUM(valor),2) as monto FROM `pagos` where tienda like '%$tienda%';";
+$valor_total_pagos_sql = "SELECT ROUND(SUM(valor),2) as monto FROM `pagos` where tienda like '%$tienda%' and recargo=0;";
 $query_valor_total_pagos = mysqli_query($conexion, $valor_total_pagos_sql);
 $valor_total_pagos = mysqli_fetch_array($query_valor_total_pagos);
 $valor_total_pagos = $valor_total_pagos['monto'];
