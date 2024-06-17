@@ -263,11 +263,36 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
         //loop through fetched data
 
+        $total_pendiente_a_la_tienda_sql = "SELECT 
+        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_venta ELSE 0 END) AS total_ventas,
+        SUM(subquery.total_pendiente) AS total_pendiente, -- Se incluyen todas las facturas
+        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.total_cobrado ELSE 0 END) AS total_cobrado,
+        SUM(CASE WHEN subquery.numero_factura NOT LIKE 'proveedor%' AND subquery.numero_factura NOT LIKE 'referido%' THEN subquery.monto_recibir ELSE 0 END) AS monto_recibir
+    FROM (
+        SELECT 
+            numero_factura, 
+            MAX(total_venta) AS total_venta, 
+            MAX(valor_pendiente) AS total_pendiente, 
+            MAX(valor_cobrado) AS total_cobrado, 
+            MAX(monto_recibir) AS monto_recibir 
+        FROM cabecera_cuenta_pagar 
+        WHERE tienda = '$dominio_completo' 
+            AND visto = '1'
+        GROUP BY numero_factura
+    ) AS subquery;";
+        $query_total_pendiente_a_la_tienda = mysqli_query($conexion_db, $total_pendiente_a_la_tienda_sql);
+        $row_total_pendiente_a_la_tienda = mysqli_fetch_array($query_total_pendiente_a_la_tienda);
+
+        $valor_total_tienda = $row_total_pendiente_a_la_tienda['total_ventas'];
+        $total_valor_cobrado = $row_total_pendiente_a_la_tienda['total_cobrado'];
+        $total_valor_pendiente = $row_total_pendiente_a_la_tienda['total_pendiente'];
+        $total_monto_recibir = $row_total_pendiente_a_la_tienda['monto_recibir'];
+
         $total_pendiente_a_la_tienda_sql = "SELECT ROUND((SELECT SUM(monto_recibir) from cabecera_cuenta_pagar where tienda like '%$dominio_completo%' and visto= 1 and estado_guia = 7 and monto_recibir) ,2)as venta , ROUND(SUM(monto_recibir),2) as utilidad, (SELECT ROUND(SUM(monto_recibir),2) from cabecera_cuenta_pagar where tienda like '%$dominio_completo%' and estado_guia =9 and visto= 1)as devoluciones FROM `cabecera_cuenta_pagar` where tienda like '%$dominio_completo%' and visto = 1;";
         $query_total_pendiente_a_la_tienda = mysqli_query($conexion_db, $total_pendiente_a_la_tienda_sql);
         $row_total_pendiente_a_la_tienda = mysqli_fetch_array($query_total_pendiente_a_la_tienda);
 
-        $valor_total_tienda = $row_total_pendiente_a_la_tienda['venta'];
+        $valor_total_tienda2 = $row_total_pendiente_a_la_tienda['venta'];
         $total_monto_recibir = $row_total_pendiente_a_la_tienda['utilidad'];
 
         $guias_faltantes = "SELECT COUNT(*) FROM cabecera_cuenta_pagar WHERE tienda = '$dominio_completo' AND (visto = 0 OR visto IS NULL)";
@@ -383,7 +408,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     <i class="mdi mdi-cash-100 text-success "></i>
                                     <div class="wid-icon-info text-right">
                                         <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Ganacia de Ventas</p>
-                                        <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_Ganancia, 2); ?></h4>
+                                        <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_tienda2, 2); ?></h4>
                                     </div>
                                 </div>
                             </div>
@@ -682,7 +707,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <i class="mdi mdi-cash-100 text-success "></i>
                                 <div class="wid-icon-info text-right">
                                     <p class="text-muted m-b-5 font-13 font-bold text-uppercase">Ganacia de Ventas</p>
-                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_Ganancia, 2); ?></h4>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_tienda2, 2); ?></h4>
                                 </div>
                             </div>
                         </div>
