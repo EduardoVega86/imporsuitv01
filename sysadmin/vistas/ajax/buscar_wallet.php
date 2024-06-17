@@ -665,7 +665,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 <i class="mdi mdi-cash-multiple text-success"></i>
                                 <div class="wid-icon-info text-right">
                                     <p class="text-muted m-b-5 font-13 font-bold text-uppercase">TOTAL ABONADO</p>
-                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($saldo_billetera, 2); ?></h4>
+                                    <h4 class="m-t-0 m-b-5 counter font-bold text-success"><?php echo $simbolo_moneda . '' . number_format($valor_total_pagos, 2); ?></h4>
                                 </div>
                             </div>
                         </div>
