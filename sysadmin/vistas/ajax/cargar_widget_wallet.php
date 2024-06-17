@@ -38,22 +38,18 @@ $valor_total_monto_recibir = $valor_total_tienda_SQL['monto_recibir'];
 </div>
 
 <?php
-$sql_pendiente_deuda = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND `monto_recibir` and estado_guia = 9 and visto = '1' ORDER by monto_recibir ASC;";
-$valor_total_pendiente_deuda_query = mysqli_query($conexion, $sql_pendiente_deuda);
-$valor_total_pendiente_deuda_SQL = mysqli_fetch_array($valor_total_pendiente_deuda_query);
-$valor_total_pendiente_deuda = $valor_total_pendiente_deuda_SQL['SUM(monto_recibir)'];
 
+$total_pendiente_a_la_tienda_sql = "SELECT ROUND((SELECT SUM(monto_recibir) from cabecera_cuenta_pagar where tienda like '%$dominio_completo%' and visto= 1 and estado_guia = 7 and monto_recibir) ,2)as venta , ROUND(SUM(monto_recibir),2) as utilidad, (SELECT ROUND(SUM(monto_recibir),2) from cabecera_cuenta_pagar where tienda like '%$dominio_completo%' and estado_guia =9 and visto= 1)as devoluciones FROM `cabecera_cuenta_pagar` where tienda like '%$dominio_completo%' and visto = 1;";
+$query_total_pendiente_a_la_tienda = mysqli_query($conexion_db, $total_pendiente_a_la_tienda_sql);
+$total_pendiente_a_la_tienda = mysqli_fetch_array($query_total_pendiente_a_la_tienda);
+$valor_total_Ganancia = $total_pendiente_a_la_tienda['venta'];
+$valor_total_pendiente_deuda = $total_pendiente_a_la_tienda['devoluciones'];
+$valor_total_monto_recibir = $total_pendiente_a_la_tienda['utilidad'];
 
-$sql_Ganancia = "SELECT SUM(monto_recibir) FROM `cabecera_cuenta_pagar` WHERE tienda = '$tienda' AND visto = '1' and monto_recibir >0 ORDER by monto_recibir ASC;";
-$valor_total_Ganancia_query = mysqli_query($conexion, $sql_Ganancia);
-$valor_total_Ganancia_SQL = mysqli_fetch_array($valor_total_Ganancia_query);
-$valor_total_Ganancia = $valor_total_Ganancia_SQL['SUM(monto_recibir)'];
-
-$sql_total_pagos = "SELECT SUM(valor) from pagos where tienda = '$tienda' and valor >0 and recargo = 0";
-$valor_total_pagos_query = mysqli_query($conexion, $sql_total_pagos);
-$valor_total_pagos_SQL = mysqli_fetch_array($valor_total_pagos_query);
-$valor_total_pagos = $valor_total_pagos_SQL['SUM(valor)'];
-
+$valor_total_pagos_sql = "SELECT ROUND(SUM(monto),2) as monto FROM `pagos` where tienda like '%$dominio_completo%';";
+$query_valor_total_pagos = mysqli_query($conexion_db, $valor_total_pagos_sql);
+$valor_total_pagos = mysqli_fetch_array($query_valor_total_pagos);
+$valor_total_pagos = $valor_total_pagos['monto'];
 
 ?>
 
