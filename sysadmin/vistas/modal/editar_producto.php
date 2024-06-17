@@ -54,7 +54,7 @@ if (isset($conexion)) {
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="mod_descripcion" class="control-label">Descripción</label>
-											<textarea class="form-control UpperCase" id="mod_descripcion" name="mod_descripcion" maxlength="255" autocomplete="off"></textarea>
+											<textarea class="form-control UpperCase" id="mod_descripcion" name="mod_descripcion" maxlength="1255" autocomplete="off"></textarea>
 										</div>
 									</div>
 								</div>
