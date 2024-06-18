@@ -55,6 +55,9 @@ if ($transportadora == 1) {
 } else if ($transportadora == 3) {
     if ($cod == "1") {
         $cod = $valor_total * 0.03;
+        if ($cod < 1.25) {
+            $cod = 1.25;
+        }
     } else {
         $cod = 0;
     }
