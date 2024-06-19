@@ -64,9 +64,10 @@ while ($r = $query->fetch_object()) {
 	.modal .modal-dialog .modal-content .modal-header {
 		background-color: #171931 !important;
 	}
-        .formulario {
-        border-radius: 25px;
-    }
+
+	.formulario {
+		border-radius: 25px;
+	}
 </style>
 <!-- Begin page -->
 <div id="wrapper" class="forced enlarged"> <!-- DESACTIVA EL MENU -->
@@ -117,9 +118,9 @@ while ($r = $query->fetch_object()) {
 											<div class="col-md-3">
 												<div class="input-group">
 													<input type="text" class="form-control" id="q" placeholder="Código o Nombre" onkeyup='load(1);'>
-                                                                                                        
-                                                                                                        <input type="hidden" class="form-control" id="pagina">
-                                                                                                        
+
+													<input type="hidden" class="form-control" id="pagina">
+
 												</div>
 											</div>
 											<div class="col-md-3">
@@ -147,7 +148,7 @@ while ($r = $query->fetch_object()) {
 												<div class="">
 													<input class="input-change" type="checkbox" role="switch" id="activar_destacados" <?php if (get_row('perfil', 'activar_destacados', 'id_perfil', 1) == 1) { ?> checked<?php } ?>>
 													<label class="form-check-label" for="flexSwitchCheckChecked">Habilitar Destacados</label>
-                                                                                                        
+
 												</div>
 											</div>
 
@@ -160,12 +161,12 @@ while ($r = $query->fetch_object()) {
 												<div class="btn-group pull-right">
 													<button type="button" class="btn btn-primary btn-rounded waves-effect waves-light" onclick="producto_id()" data-toggle="modal" data-target="#stock_ad"><i class="fa fa-archive"></i> Atributos</button>
 
-													
+
 												</div>
 												<div class="col-md-2">
 													<div class="btn-group pull-right">
 														<?php if ($permisos_editar == 1) { ?>
-															<div class="btn-group dropup">
+															<div class="btn-group">
 																<button aria-expanded="false" class="btn btn-outline-default btn-rounded waves-effect waves-light" data-toggle="dropdown" type="button">
 																	<i class='fa fa-file-text'></i> Reporte
 																	<span class="caret">
@@ -235,6 +236,7 @@ while ($r = $query->fetch_object()) {
 <!-- ============================================================== -->
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/productos.js"></script>
 <script>
@@ -588,7 +590,7 @@ while ($r = $query->fetch_object()) {
 						icon: "success",
 						confirmButtonText: "¡Aceptar!",
 					}).then(() => {
-                                            load($("#pagina").val())
+						load($("#pagina").val())
 						//window.location.reload();
 					});
 				} else {
@@ -634,10 +636,10 @@ while ($r = $query->fetch_object()) {
 			}
 		})
 	}
-        
-        function atributos_producto() {
+
+	function atributos_producto() {
 		//alert(id)
-                id=1;
+		id = 1;
 		$('#id_producto').val(id);
 		$.ajax({
 			url: '../ajax/buscar_atributo_producto_modal.php?action=ajax&id_producto=' + id,
@@ -645,16 +647,16 @@ while ($r = $query->fetch_object()) {
 				$('#loader').html('<img src="../../img/ajax-loader.gif"> Cargando...');
 			},
 			success: function(data) {
-                          //  alert(data)
+				//  alert(data)
 				$("#atributos").html(data);
 				$('#loader').html('');
 			}
 		})
 	}
-        
-        
-         
-        
+
+
+
+
 
 	function agrega_atributo() {
 
@@ -695,7 +697,7 @@ while ($r = $query->fetch_object()) {
 	}
 
 	function variables(id) {
-       
+
 		// alert();
 		fila = '#solicitud' + id
 		page = 1;
@@ -742,107 +744,146 @@ while ($r = $query->fetch_object()) {
 		});
 	});
 
-	function descargar_exel(tienda) {
-        fetch(`../ajax/descargar_excel_productos.php`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.error) {
-                    alert('Error: ' + data.error);
-                    console.error(data.error);
-                    return;
-                }
-                if (data.length === 0) {
-                    alert('No se encontraron datos');
-                    return;
-                }
+	function descargar_exel() {
+		fetch(`../ajax/descargar_excel_productos.php`)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data.error) {
+					alert('Error: ' + data.error);
+					console.error(data.error);
+					return;
+				}
+				if (data.length === 0) {
+					alert('No se encontraron datos');
+					return;
+				}
 
-                // Convertir los datos JSON a una hoja de cálculo
-                const ws = XLSX.utils.json_to_sheet(data);
+				// Convertir los datos JSON a una hoja de cálculo
+				const ws = XLSX.utils.json_to_sheet(data);
 
-                // Ajustar el ancho de las columnas
-                const columnWidths = [{
-                        wch: 10
-                    }, // id_cabecera
-                    {
-                        wch: 12
-                    }, // numero
-                    {
-                        wch: 12
-                    }, // fecha
-                    {
-                        wch: 15
-                    }, // cliente
-                    {
-                        wch: 30
-                    }, // tienda
-                    {
-                        wch: 10
-                    }, // estado_g
-                    {
-                        wch: 10
-                    }, // estado_p
-                    {
-                        wch: 10
-                    }, // total_ven
-                    {
-                        wch: 10
-                    }, // costo
-                    {
-                        wch: 10
-                    }, // precio_er
-                    {
-                        wch: 10
-                    }, // monto_rc
-                    {
-                        wch: 10
-                    }, // valor_col
-                    {
-                        wch: 10
-                    }, // valor_per
-                    {
-                        wch: 15
-                    }, // guia_laar
-                    {
-                        wch: 10
-                    }, // visto
-                    {
-                        wch: 10
-                    }, // recibo
-                    {
-                        wch: 10
-                    }, // novedad
-                    {
-                        wch: 10
-                    }, // cod
-                    {
-                        wch: 10
-                    }, // proveedor
-                    {
-                        wch: 10
-                    }, // peso
-                    {
-                        wch: 10
-                    }, // full
-                ];
-                ws['!cols'] = columnWidths;
+				// Ajustar el ancho de las columnas
+				const columnWidths = [{
+						wch: 10
+					}, // id_producto
+					{
+						wch: 12
+					}, // codigo_producto
+					{
+						wch: 40
+					}, // nombre_producto
+					{
+						wch: 60
+					}, // descripcion_producto
+					{
+						wch: 20
+					}, // id_linea_producto
+					{
+						wch: 20
+					}, // id_med_producto
+					{
+						wch: 20
+					}, // id_proveedor
+					{
+						wch: 15
+					}, // inv_producto
+					{
+						wch: 12
+					}, // iva_producto
+					{
+						wch: 15
+					}, // estado_producto
+					{
+						wch: 15
+					}, // precio_producto
+					{
+						wch: 15
+					}, // descuento_producto
+					{
+						wch: 15
+					}, // costo_producto
+					{
+						wch: 15
+					}, // margen_producto
+					{
+						wch: 15
+					}, // precio_min_producto
+					{
+						wch: 15
+					}, // precio_max_producto
+					{
+						wch: 20
+					}, // fecha_creacion_producto
+					{
+						wch: 20
+					}, // fecha_modificacion_producto
+					{
+						wch: 20
+					}, // usuario_creacion_producto
+					{
+						wch: 20
+					}, // usuario_modificacion_producto
+					{
+						wch: 15
+					}, // stock_producto
+					{
+						wch: 20
+					}, // url_producto
+					{
+						wch: 20
+					}, // url_a1
+					{
+						wch: 20
+					}, // url_a2
+					{
+						wch: 20
+					}, // url_a3
+					{
+						wch: 20
+					}, // url_a4
+					{
+						wch: 20
+					}, // url_a5
+					{
+						wch: 15
+					}, // valor4_producto
+					{
+						wch: 40
+					}, // tienda
+					{
+						wch: 15
+					}, // drogshipin
+					{
+						wch: 20
+					}, // id_producto_origen
+					{
+						wch: 20
+					}, // id_marketplace
+					{
+						wch: 15
+					}, // aplica_iva
+					{
+						wch: 15
+					} // destacado
+				];
+				ws['!cols'] = columnWidths;
 
-                // Crear un nuevo libro de trabajo
-                const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+				// Crear un nuevo libro de trabajo
+				const wb = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-                // Escribir el archivo y desencadenar la descarga
-                XLSX.writeFile(wb, 'datos.xlsx');
-            })
-            .catch(error => {
-                alert('Error: ' + error);
-                console.error(error);
-            });
-    }
+				// Escribir el archivo y desencadenar la descarga
+				XLSX.writeFile(wb, 'datos.xlsx');
+			})
+			.catch(error => {
+				alert('Error: ' + error);
+				console.error(error);
+			});
+	}
 </script>
 <?php require 'includes/footer_end.php'
 ?>
