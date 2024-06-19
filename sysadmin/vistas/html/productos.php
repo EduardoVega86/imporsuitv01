@@ -175,7 +175,7 @@ while ($r = $query->fetch_object()) {
 																	<a class="dropdown-item" href="#" onclick="reporte();">
 																		<i class='fa fa-file-pdf-o'></i> PDF
 																	</a>
-																	<a class="dropdown-item" href="#" onclick="reporte_excel();">
+																	<a class="dropdown-item" href="#" onclick="descargar_exel();">
 																		<i class='fa fa-file-excel-o'></i> Excel
 																	</a>
 																</div>
@@ -741,6 +741,108 @@ while ($r = $query->fetch_object()) {
 			});
 		});
 	});
+
+	function descargar_exel(tienda) {
+        fetch(`../ajax/descargar_excel_productos.php`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                    console.error(data.error);
+                    return;
+                }
+                if (data.length === 0) {
+                    alert('No se encontraron datos');
+                    return;
+                }
+
+                // Convertir los datos JSON a una hoja de cálculo
+                const ws = XLSX.utils.json_to_sheet(data);
+
+                // Ajustar el ancho de las columnas
+                const columnWidths = [{
+                        wch: 10
+                    }, // id_cabecera
+                    {
+                        wch: 12
+                    }, // numero
+                    {
+                        wch: 12
+                    }, // fecha
+                    {
+                        wch: 15
+                    }, // cliente
+                    {
+                        wch: 30
+                    }, // tienda
+                    {
+                        wch: 10
+                    }, // estado_g
+                    {
+                        wch: 10
+                    }, // estado_p
+                    {
+                        wch: 10
+                    }, // total_ven
+                    {
+                        wch: 10
+                    }, // costo
+                    {
+                        wch: 10
+                    }, // precio_er
+                    {
+                        wch: 10
+                    }, // monto_rc
+                    {
+                        wch: 10
+                    }, // valor_col
+                    {
+                        wch: 10
+                    }, // valor_per
+                    {
+                        wch: 15
+                    }, // guia_laar
+                    {
+                        wch: 10
+                    }, // visto
+                    {
+                        wch: 10
+                    }, // recibo
+                    {
+                        wch: 10
+                    }, // novedad
+                    {
+                        wch: 10
+                    }, // cod
+                    {
+                        wch: 10
+                    }, // proveedor
+                    {
+                        wch: 10
+                    }, // peso
+                    {
+                        wch: 10
+                    }, // full
+                ];
+                ws['!cols'] = columnWidths;
+
+                // Crear un nuevo libro de trabajo
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+                // Escribir el archivo y desencadenar la descarga
+                XLSX.writeFile(wb, 'datos.xlsx');
+            })
+            .catch(error => {
+                alert('Error: ' + error);
+                console.error(error);
+            });
+    }
 </script>
 <?php require 'includes/footer_end.php'
 ?>
