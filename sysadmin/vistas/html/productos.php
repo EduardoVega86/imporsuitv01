@@ -235,6 +235,7 @@ while ($r = $query->fetch_object()) {
 <!-- ============================================================== -->
 <!-- Todo el codigo js aqui-->
 <!-- ============================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 <script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 <script type="text/javascript" src="../../js/productos.js"></script>
 <script>
