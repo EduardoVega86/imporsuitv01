@@ -742,7 +742,7 @@ while ($r = $query->fetch_object()) {
 		});
 	});
 
-	function descargar_exel(tienda) {
+	function descargar_exel() {
         fetch(`../ajax/descargar_excel_productos.php`)
             .then(response => {
                 if (!response.ok) {
