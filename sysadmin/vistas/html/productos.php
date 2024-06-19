@@ -166,7 +166,7 @@ while ($r = $query->fetch_object()) {
 												<div class="col-md-2">
 													<div class="btn-group pull-right">
 														<?php if ($permisos_editar == 1) { ?>
-															<div class="btn-group dropup">
+															<div class="btn-group">
 																<button aria-expanded="false" class="btn btn-outline-default btn-rounded waves-effect waves-light" data-toggle="dropdown" type="button">
 																	<i class='fa fa-file-text'></i> Reporte
 																	<span class="caret">
