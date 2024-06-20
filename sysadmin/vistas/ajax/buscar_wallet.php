@@ -841,7 +841,6 @@ if ($dominio_actual == 'marketplace.imporsuit') {
     });
 
     verProveedor();
-
     $("#update").submit(function(e) {
         e.preventDefault();
         var url = "../ajax/cargar_wallet.php";
@@ -850,10 +849,112 @@ if ($dominio_actual == 'marketplace.imporsuit') {
             url: url,
             data: $("#update").serialize(),
             success: function(data) {
-                $("#result").html(data);
+                try {
+                    // Parsear el JSON recibido
+                    const jsonData = JSON.parse(data);
+
+                    // Verificar si jsonData es un array
+                    if (!Array.isArray(jsonData)) {
+                        throw new Error("El JSON parseado no es un array");
+                    }
+
+                    const numeros = [];
+                    const impCodes = [];
+                    const otros = [];
+
+                    jsonData.forEach(item => {
+                        if (/^\d+$/.test(item)) {
+                            numeros.push(item);
+                        } else if (item.startsWith("IMP")) {
+                            impCodes.push(item);
+                        } else {
+                            otros.push(item);
+                        }
+                    });
+
+                    console.log("Números:", numeros);
+                    console.log("IMP Codes:", impCodes);
+                    console.log("Otros:", otros);
+
+                    // Realizar peticiones asincrónicas para los números
+                    numeros.forEach(guia => {
+                        realizarPeticionNumeros(guia);
+                    });
+
+                    // Realizar peticiones asincrónicas para los IMP
+                    impCodes.forEach(guia => {
+                        realizarPeticionIMP(guia);
+                    });
+
+                } catch (error) {
+                    console.error("Error al parsear JSON o al procesar los datos:", error);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud AJAX:", status, error);
             }
         });
     });
+
+    function realizarPeticionNumeros(guia) {
+        const url = "https://guias.imporsuit.com/Servientrega/";
+        const data = {
+            guia: guia,
+            ciudad: "",
+            estado: "1",
+            movimiento: "400",
+            observacion1: "ENTREGADA",
+            observacion2: "",
+            observacion3: "",
+            fecha_movimiento_novedad: "2024-05-09 09:32:35"
+        };
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function(response) {
+                console.log(`Respuesta para la guía ${guia}:`, response);
+            },
+            error: function(xhr, status, error) {
+                console.error(`Error en la solicitud para la guía ${guia}:`, status, error);
+            }
+        });
+    }
+
+    function realizarPeticionIMP(guia) {
+        const urlLaar = `https://api.laarcourier.com:9727/guias/${guia}`;
+        const urlMarket = "https://marketplace.imporsuit.com/sysadmin/api/integracion/Laar/";
+
+        // Realizar la primera petición a Laar Courier
+        $.ajax({
+            type: "GET",
+            url: urlLaar,
+            success: function(response) {
+                console.log(`Respuesta de Laar Courier para ${guia}:`, response);
+
+                // Realizar la segunda petición a Marketplace de Imporsuit con los datos recibidos
+                $.ajax({
+                    type: "POST",
+                    url: urlMarket,
+                    data: JSON.stringify(response),
+                    contentType: "application/json",
+                    success: function(marketResponse) {
+                        console.log(`Respuesta de Marketplace para ${guia}:`, marketResponse);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(`Error en la solicitud a Marketplace para la guía ${guia}:`, status, error);
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(`Error en la solicitud a Laar Courier para la guía ${guia}:`, status, error);
+            }
+        });
+    }
+
+
 
     function filtrarFecha() {
         const buscar_numero2 = document.getElementById('buscar_numero2').value;
