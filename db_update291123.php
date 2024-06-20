@@ -2103,7 +2103,7 @@ mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,
 	 (596,'PICHINCHA','PUERTO QUITO',1,1,0,'TE','TE','0','0','201001001','201001001013','0','0','452'),
 	 (597,'PICHINCHA','PUSUQUI',1,1,1,'TL','TS','TN','0','201001001','201001001041','1040','57968','463'),
 	 (598,'PICHINCHA','QUINCHE',1,0,0,'TE','0','0','0','0','0','0','0','450'),
-	 (599,'PICHINCHA','QUITO',1,1,1,'TL','TL','TN','0','201001001','201001001001','1040','56431','2'),
+	 (599,'PICHINCHA','QUITO',1,1,1,'TL','TP','TN','0','201001001','201001001001','1040','56431','2'),
 	 (600,'PICHINCHA','RUMIÑAHUI',0,1,1,'0','TE','TN','0','201001001','201001001066','1040','56432','0');");
 mysqli_query($conexion, "INSERT INTO ciudad_cotizacion (id_cotizacion,provincia,ciudad,cobertura_servientrega,cobertura_laar,cobertura_gintracom,trayecto_servientrega,trayecto_laar,trayecto_gintracom,codigo_provincia_servientrega,codigo_provincia_laar,codigo_ciudad_laar,codigo_provincia_gintracom,codigo_ciudad_gintracom,codigo_ciudad_servientrega) VALUES
 	 (601,'PICHINCHA','RUMIPAMBA/PICHINCHA',0,1,0,'0','TE','0','0','201001001','201001001065','0','0','0'),
