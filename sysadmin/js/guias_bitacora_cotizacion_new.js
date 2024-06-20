@@ -9,30 +9,33 @@ $(document).ready(function () {
   });
 
   // filtro por fechas
-  // Inicializa el datepicker de fecha de inicio
-  $("#datepickerInicio input")
-    .datepicker({
-      format: "yyyy-mm-dd",
-      language: "es",
-      autoclose: true,
-      todayHighlight: true,
-    })
-    .on("changeDate", function (selected) {
-      var minDate = new Date(selected.date.valueOf());
-      $("#datepickerFin input").datepicker("setStartDate", minDate);
-    });
+  // Inicializa el flatpickr de fecha de inicio
+  flatpickr("#datepickerInicio input", {
+    enableTime: true,
+    dateFormat: "Y-m-d H:i:S",
+    locale: "es",
+    onChange: function (selectedDates, dateStr, instance) {
+      let minDate = selectedDates[0];
+      let endDatePicker = document.querySelector(
+        "#datepickerFin input"
+      )._flatpickr;
+      endDatePicker.set("minDate", minDate);
+    },
+  });
 
-  // Inicializa el datepicker de fecha de fin
-  $("#datepickerFin input").datepicker({
-    format: "yyyy-mm-dd",
-    language: "es",
-    autoclose: true,
-    todayHighlight: true,
+  // Inicializa el flatpickr de fecha de fin
+  flatpickr("#datepickerFin input", {
+    enableTime: true,
+    dateFormat: "Y-m-d H:i:S",
+    locale: "es",
   });
 
   // Manejador para abrir el calendario al hacer clic en el ícono
-  $(".input-group-text").click(function () {
-    $(this).parent().prev("input").datepicker("show");
+  document.querySelectorAll(".input-group-text").forEach(function (element) {
+    element.addEventListener("click", function () {
+      let input = this.parentNode.previousElementSibling;
+      input._flatpickr.open();
+    });
   });
 
   // Añadir event listener para cambios en el checkbox
