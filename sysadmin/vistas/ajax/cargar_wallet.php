@@ -105,7 +105,7 @@ foreach ($rows as $row) {
     } else if (is_numeric($row["guia_laar"])) {
         $proveedor = "SERVI";
 
-        if ($row['estado_guia'] >= 400 && $row["estado_guia"] <= 404) {
+        if ($row['estado_guia'] >= 300 && $row["estado_guia"] <= 404) {
             $data["guia"] = $row['guia_laar'];
             $data["ciudad"] = "";
             $data["estado"] = "1";
