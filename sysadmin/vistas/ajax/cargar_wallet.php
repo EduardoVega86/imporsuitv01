@@ -16,7 +16,10 @@ $resultado = mysqli_query($conexion, $consulta) or die(mysqli_error($conexion));
 $rows = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 //Recorremos el array y mostramos los datos
 
+
+
 foreach ($rows as $row) {
+    echo $row['guia_laar'] . "------------------------------<br>";
     $data = array();
     $proveedor = "";
     if (strpos($row['guia_laar'], "IMP") === 0) {
