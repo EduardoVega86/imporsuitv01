@@ -21,6 +21,7 @@ $ventas = 1;
 ?>
 
 <?php require 'includes/header_start.php'; ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <style>
     .flex-fill {
         flex: 1;
@@ -72,7 +73,7 @@ $ventas = 1;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="flex-fill" style="padding-left: 15px; ">
+                                            <div class="flex-fill" style="padding-left: 15px;">
                                                 <h6>Seleccione fecha de fin:</h6>
                                                 <div class="input-group date" id="datepickerFin">
                                                     <input type="text" class="form-control" name="fechaFin">
@@ -81,10 +82,11 @@ $ventas = 1;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div style=" padding-top: 10px;">
+                                            <div style="padding-top: 10px;">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-info waves-effect waves-light" onclick='load(1);'>
-                                                        Buscar <span class="fa fa-search"></span></button>
+                                                        Buscar <span class="fa fa-search"></span>
+                                                    </button>
                                                 </span>
                                             </div>
                                         </div>
@@ -364,7 +366,7 @@ $ventas = 1;
     }
 
     async function validar_servientrega(guia, cot) {
-        
+
         $.ajax({
             url: "../ajax/guardar_guia_new_servientrega.php",
             type: "POST",
@@ -373,13 +375,15 @@ $ventas = 1;
                 "cot": cot
             },
             success: function(data) {
-                
+
 
             }
         });
 
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
