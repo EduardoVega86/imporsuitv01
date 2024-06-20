@@ -10,7 +10,7 @@ $fecha_desde = $_POST['fecha_desde'];
 
 //buscamos los datos de la tabla wallet
 
-$consulta = "SELECT * FROM guia_laar WHERE fecha BETWEEN '$fecha_desde' AND '$fecha' ORDER BY fecha DESC";
+$consulta = "SELECT * FROM guia_laar WHERE fecha BETWEEN '$fecha_desde 00:00:00' AND '$fecha 23:59:59' ORDER BY fecha DESC";
 $resultado = mysqli_query($conexion, $consulta) or die(mysqli_error($conexion));
 //Guardamos los datos en un array
 $rows = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
@@ -23,45 +23,43 @@ foreach ($rows as $row) {
     $data = array();
     $proveedor = "";
     if (strpos($row['guia_laar'], "IMP") === 0) {
-        $proveedor = "LAAR";
-        if ($row['estado_guia'] == 7) {
-            $data["noGuia"] = $row['guia_laar'];
-            $data["estadoActualCodigo"] = 7;
-            $data["novedades"] = array(
-                array(
-                    "codigoTipoNovedad" => 43,
-                    "nombreTipoNovedad" => "Guía entrega",
-                    "codigoDetalleNovedad" => 17,
-                    "nombreDetalleNovedad" => "Guía entregada al cliente",
-                    "numeroMaximo" => 3,
-                    "observacion" => "Guía entregada al cliente",
-                    "fechaNovedad" => "2021-09-01",
-                )
-            );
-        } else if ($row['estado_guia'] == 9) {
-            $data["noGuia"] = $row['guia_laar'];
-            $data["estadoActualCodigo"] = 9;
-            $data["novedades"] = array(
-                array(
-                    "codigoTipoNovedad" => 42,
-                    "nombreTipoNovedad" => "Guía devuelta",
-                    "codigoDetalleNovedad" => 18,
-                    "nombreDetalleNovedad" => "Guía devuelta al remitente",
-                    "numeroMaximo" => 3,
-                    "observacion" => "Guía devuelta al remitente",
-                    "fechaNovedad" => "2021-09-01",
-                ),
-                array(
-                    "codigoTipoNovedad" => 96,
-                    "nombreTipoNovedad" => "Guía devuelta",
-                    "codigoDetalleNovedad" => 18,
-                    "nombreDetalleNovedad" => "Guía devuelta al remitente",
-                    "numeroMaximo" => 3,
-                    "observacion" => "Guía devuelta al remitente",
-                    "fechaNovedad" => "2021-09-01",
-                )
-            );
+        $proveedor = "IMP";
+        $guia = $row['guia_laar'];
+        $link = "https://api.laarcourier.com:9727/guias/";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $link . $guia);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+        $headers = "";
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
         }
+        curl_close($ch);
+
+        $link_market = "https://marketplace.imporsuit.com/sysadmin/api/integracion/Laar/";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $link_market);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $result);
+
+        $headers = "";
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+
+        echo $result;
     } else if (strpos($row["guia_laar"], "FAST") === 0) {
         $proveedor = "LAAR";
 
