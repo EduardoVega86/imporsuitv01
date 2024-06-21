@@ -557,6 +557,10 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                         $guia_enviada = "Facturado  ";
                                         $label_class = 'badge-success';
                                         break;
+                                    case 14:
+                                        $guia_enviada = "Novedad";
+                                        $label_class = 'badge-danger';
+                                        break;
                                 }
                                 $simbolo_moneda = get_row('perfil', 'moneda', 'id_perfil', 1);
                                 if ($valor_pendiente == 0) {
