@@ -364,7 +364,7 @@ while ($r = $query->fetch_object()) {
                                                     <?php
                                                 } else if (strpos($guia_numero, "FAST") === 0) {
                                                     $estadoGuia  = get_row('guia_laar', 'estado_guia', 'id_pedido', $id_factura);
-                                                    if ($estadoGuia == 4) {
+                                                    if ($estadoGuia == 4 || $estado_guia == 8) {
                                                     ?>
                                                         <div class="widget-bg-color-icon card-box">
                                                             <div class="bg-icon bg-icon-danger pull-left">

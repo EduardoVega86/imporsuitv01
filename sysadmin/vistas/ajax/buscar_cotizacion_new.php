@@ -601,6 +601,10 @@ if ($action == 'ajax' && ($server_url == "https://marketplace.imporsuit.com")) {
                                                                                                                                 $span_estado = 'badge-success';
                                                                                                                                 $estado_guia = 'Entregado';
                                                                                                                                 break;
+                                                                                                                            case '8':
+                                                                                                                                $span_estado = 'badge-danger';
+                                                                                                                                $estado_guia = 'Anulado';
+                                                                                                                                break;
                                                                                                                         }
                                                                                                                     } else if ($estado_guia_for != "0" && is_numeric($guia_numero)) {
                                                                                                                         echo $guia_numero;
