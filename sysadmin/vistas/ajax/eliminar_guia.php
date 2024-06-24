@@ -8,6 +8,10 @@ $authData = array(
 );
 
 $guia = $_POST['guia'];
+print_r(
+    $guia
+);
+
 
 if (strpos($guia, "FAST") === 0) {
     $authUrl = "https://fast.imporsuit.com/GenerarGuia/anular/" . $guia;
@@ -70,7 +74,7 @@ if (strpos($guia, "FAST") === 0) {
     echo $response;
     curl_close($ch);
     return;
-} else if (strpos($guia, "I00")) {
+} else if (strpos($guia, "I00") === 0) {
     $url = "https://guias.imporsuit.com/Gintracom/anular/" . $guia;
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
