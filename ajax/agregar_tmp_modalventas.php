@@ -17,6 +17,7 @@ if (isset($_POST['precio_venta'])) {
     $precio_venta = $_POST['precio_venta'];
 }
 if (isset($_POST['descripcion_libre'])) {
+
     $descripcion_libre = $_POST['descripcion_libre'];
 }
 //echo $descripcion_libre;
