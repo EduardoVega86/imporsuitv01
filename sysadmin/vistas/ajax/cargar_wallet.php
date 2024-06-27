@@ -12,7 +12,17 @@ $fecha_desde = $_POST['fecha_desde'];
 
 //buscamos los datos de la tabla wallet
 
-$consulta = "SELECT * FROM guia_laar WHERE fecha BETWEEN '$fecha_desde 00:00:00' AND '$fecha 23:59:59' and guia_laar != '' and estado_guia >6 ORDER BY fecha DESC  ";
+$consulta = "SELECT * 
+    FROM guia_laar 
+    WHERE 
+        fecha BETWEEN '$fecha_desde 00:00:00' AND '$fecha 23:59:59' 
+        AND guia_laar != '' 
+        AND (
+            estado_guia = 7 
+            OR estado_guia = 9 
+            OR estado_guia >= 300 AND estado_guia <= 505
+        )
+    ORDER BY fecha DESC";
 $resultado = mysqli_query($conexion, $consulta);
 $guias = array();
 
