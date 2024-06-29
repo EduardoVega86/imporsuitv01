@@ -515,9 +515,18 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 $valor_pendiente = $row['valor_pendiente'];
                                 $id_factura_origen = $row['id_factura_origen'];
                                 $guia_laar = "select guia_laar from guia_laar where tienda_venta ='$dominio_completo' AND id_pedido = '$id_factura_origen'";
+
                                 $query_guia_laar = mysqli_query($conexion_db, $guia_laar);
-                                $row_guia_laar = mysqli_fetch_array($query_guia_laar);
-                                $guia_laar = $row_guia_laar['guia_laar'];
+                                if ($query_guia_laar->num_rows > 0) {
+                                    $row_guia_laar = mysqli_fetch_array($query_guia_laar);
+                                    $guia_laar = $row_guia_laar['guia_laar'];
+                                } else {
+                                    $guia_laar = "select guia_laar from guia_laar where tienda_proveedor='$dominio_completo' AND id_pedido = '$id_factura_origen'";
+                                    $query_guia_laar = mysqli_query($conexion_db, $guia_laar);
+                                    $row_guia_laar = mysqli_fetch_array($query_guia_laar);
+                                    $guia_laar = $row_guia_laar['guia_laar'];
+                                }
+
                                 switch ($estado_guia) {
                                     case 1:
                                         $guia_enviada = "Pendiente";
