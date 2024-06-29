@@ -224,9 +224,11 @@ if ($dominio_actual == 'marketplace.imporsuit') {
         $sDominio = 'imporsuit_marketplace';
         $conexion_db = mysqli_connect('localhost', $sDominio, $sDominio, $sDominio);
         $q = mysqli_real_escape_string($conexion_db, (strip_tags($_REQUEST['q'], ENT_QUOTES)));
-        $sTable = "cabecera_cuenta_pagar";
+        $sTable = "cabecera_cuenta_pagar, facturas_cot";
         $sWhere = "";
-        $sWhere .= " WHERE  cabecera_cuenta_pagar.tienda = '$dominio_completo'";
+        $sWhere .= " WHERE cabecera_cuenta_pagar.tienda = '$dominio_completo' 
+                     AND REPLACE(REPLACE(cabecera_cuenta_pagar.numero_factura, '-P', ''), '-R', '') = facturas_cot.numero_factura";
+
         $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : 'todos';
         //obtiene ?tienda=tienda
         if ($filtro == 'mayor_menor') {
