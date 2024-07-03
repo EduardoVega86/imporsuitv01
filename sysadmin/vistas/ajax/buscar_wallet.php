@@ -582,6 +582,18 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     $color_row = "table-warning";
                                 }
                                 $url_laar = "https://fenix.laarcourier.com/Tracking/Guiacompleta.aspx?guia=" . $guia_laar;
+                                $url_servientrega = "https://www.servientrega.com.ec/Tracking/?guia=" . $guia_laar  . "&tipo=GUI";
+                                $url_gintracom = "https://ec.gintracom.site/web/site/tracking";
+
+                                if (strpos($guia_laar, 'LAAR') === 0) {
+                                    $url_guia = $url_laar;
+                                } else if (strpos($guia_laar, 'I00') === 0) {
+                                    $url_guia = $url_gintracom;
+                                } else if (is_numeric($guia_laar)) {
+                                    $url_guia = $url_servientrega;
+                                } else {
+                                    $url_guia = "#";
+                                }
                                 $drogshipin_sql = "SELECT * FROM facturas_cot WHERE numero_factura = '$id_factura'";
                                 $query_drogshipin = mysqli_query($conexion_db, $drogshipin_sql);
                                 $row_drogshipin = mysqli_fetch_array($query_drogshipin);
@@ -602,7 +614,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     <td class="text-center"><?php echo $fecha; ?></td>
                                     <td class="text-center"><?php echo $nombre_cliente; ?></td>
                                     <td class="text-center"><?php echo $tienda; ?></td>
-                                    <td class="text-center"><span class="badge <?php echo $label_class; ?>"><?php echo $guia_enviada; ?></span></td>
+                                    <td class="text-center"><a href="<? echo $url_guia; ?>"> <i class="ti-map"></i></a></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>
