@@ -585,7 +585,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                 $url_servientrega = "https://www.servientrega.com.ec/Tracking/?guia=" . $guia_laar  . "&tipo=GUI";
                                 $url_gintracom = "https://ec.gintracom.site/web/site/tracking";
 
-                                if (strpos($guia_laar, 'LAAR') === 0) {
+                                if (strpos($guia_laar, 'IMP') === 0) {
                                     $url_guia = $url_laar;
                                 } else if (strpos($guia_laar, 'I00') === 0) {
                                     $url_guia = $url_gintracom;
