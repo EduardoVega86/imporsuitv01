@@ -614,7 +614,7 @@ if ($dominio_actual == 'marketplace.imporsuit') {
                                     <td class="text-center"><?php echo $fecha; ?></td>
                                     <td class="text-center"><?php echo $nombre_cliente; ?></td>
                                     <td class="text-center"><?php echo $tienda; ?></td>
-                                    <td class="text-center"><a href="<? echo $url_guia; ?>"> <i class="ti-map"></i></a></td>
+                                    <td class="text-center"><a target="_blank" href="<? echo $url_guia; ?>"> <i class="ti-map"></i></a></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $total_venta; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $costo; ?></td>
                                     <td class="text-center"><?php echo $simbolo_moneda . $precio_envio; ?></td>
